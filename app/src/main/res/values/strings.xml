@@ -1,0 +1,55 @@
+<resources>
+    <string name="app_name">DOS</string>
+
+    <string name="permission_dialog_btn_agree">去设置</string>
+    <string name="permission_request">权限申请</string>
+    <string name="permission_dialog_btn_exit">退出</string>
+    <string name="permission_des_head">应用%s请求</string>
+    <string name="permission_des_tail">权限,以保证应用的相应功能可以正常使用</string>
+    <string name="permission_high_light"><![CDATA[ <font color=\'#518ef1\'>%s</font>]]></string>
+    <!-- 请替换成在语音云官网申请的appid -->
+    <string name="app_id">5e97d73d</string>
+
+    <string name="please_install_amap">请先安装高德地图</string>
+    <string name="please_install_baidu_map">请先安装百度地图</string>
+    <string name="please_install_tecent_map">请先安装腾讯地图</string>
+
+    <!--地图Map-->
+    <string name="no_result">没有结果</string>
+    <string name="map_search_title_hint">请输入目的地</string>
+    <string name="map_close">取消</string>
+    <string name="map_search">搜索</string>
+    <string name="map_search_title_content_hint">可直接查找您要去的目的地</string>
+    <string name="custom_bottom_for_map_fragment_navigation">导航</string>
+
+    <string name="loading_text">正在加载中，请稍候...</string>
+
+    <!--  设置公司或家庭地址 -->
+    <string name="string_set_address_title">设置%s</string>
+    <string name="string_set_address_input_hint">请输入%s</string>
+    <string name="string_my_location_title">我的位置</string>
+    <string name="string_map_select_location_btn_text">地图选址</string>
+    <string name="string_map_private_map_text">我们将严格遵守《高德隐私权政策》保护您的个人信息</string>
+
+    <!--意见反馈-->
+    <string name="string_feed_back_title">意见反馈</string>
+
+    <string name="personal_point_ed_message">今天已完成签到，记得明天再来哦~</string>
+
+    <string name="personal_point_sign_success_message">签到成功!\n恭喜您，获得%s积分</string>
+
+    <!-- 关于 -->
+    <string name="string_page_about_title">关于</string>
+    <string name="string_app_version">版本号: v%s.%s</string>
+    <string name="string_app_info">新特汽车app作为车机端系统一部分，服务于用户的勾车，用车，养车，买车全周期每个缓解，核心功能是提供车辆的管理及控制，车辆维修及维修保养，充电电桩查找及预约等一系列便捷用户的服务。</string>
+
+    <!-- 登录 -->
+    <string name="string_page_login_title">登录</string>
+    <string name="string_page_login_get_valid">获取验证码</string>
+    <string name="string_page_login_reget_valid">(%ss)后重新获取</string>
+    <string name="vui_welcome_text">你可以说&#160;&#160;“导航回家”&#160;&#160;“今天天气怎么样”</string>
+    <string name="vui_anr_text">对不起我还没学会这个技能</string>
+
+    <string name="tip_no_net">请求失败，请检查您的网络连接。</string>
+
+</resources>

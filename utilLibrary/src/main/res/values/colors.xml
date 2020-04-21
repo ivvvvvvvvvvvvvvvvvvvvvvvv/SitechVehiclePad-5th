@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#FFFFFF</color>
+    <!--不透明度 21%-->
+    <color name="white_21">#4FFFFFFF</color>
+    <!--不透明度 5%-->
+    <color name="white_5">#0DFFFFFF</color>
+    <color name="colo_D2D2D2">#D2D2D2</color>
+    <color name="colo_FF6E6E80">#FF6E6E80</color>
+    <color name="color_c7c7c7">#c7c7c7</color>
+    <color name="transparent">#00000000</color>
+
+    <color name="track_start">#0d1723</color>
+    <color name="track_end">#182c41</color>
+
+    <color name="title_unselected">#566c7c</color>
+    <color name="title_unchecked">#a4a4a4</color>
+    <color name="title_checked">#ffffff</color>
+
+    <color name="colo_BFBFBF">#BFBFBF</color>
+    <color name="setting_bg_start">#50302F34</color>
+    <color name="setting_bg_end">#507E7E7E</color>
+
+    <color name="main_music_bg">#ff1c2133</color>
+    <color name="main_map_bg_start">#40346EA0</color>
+    <color name="main_map_bg_end">#403FF1D1</color>
+    <color name="main_info_bg">#11111F</color>
+    <color name="main_music_item_bg">#1C2133</color>
+    <color name="main_tv_clo">#86929E</color>
+    <color name="main_info_line">#20ffffff</color>
+
+    <color name="feed_back_bg_start">#132C56</color>
+    <color name="feed_back_bg_end">#0C173E</color>
+    <color name="music_main_tab_normal">#9AA4B6</color>
+    <color name="music_main_tab_indicator_color">#1E9DE3</color>
+
+
+</resources>

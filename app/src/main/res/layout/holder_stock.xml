@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+    <TextView
+        android:id="@+id/stock_holder_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:text="股票名称"/>
+    <TextView
+        android:id="@+id/stock_holder_stockCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/stock_holder_name"
+        android:layout_marginLeft="16dp"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        android:text="0000001"/>
+    <ImageView
+        android:id="@+id/stock_holder_riseImg"
+        android:layout_width="23dp"
+        android:layout_height="30dp"
+        android:layout_toRightOf="@+id/stock_holder_stockCode"
+        android:layout_marginLeft="52dp"/>
+    <TextView
+        android:id="@+id/stock_holder_riseRate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/stock_holder_riseImg"
+        android:layout_marginLeft="8dp"
+        android:textSize="28sp"/>
+</RelativeLayout>

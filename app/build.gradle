@@ -1,0 +1,157 @@
+import java.text.SimpleDateFormat
+
+apply plugin: 'com.android.application'
+
+String getCurrentTime(String formatString) {
+    SimpleDateFormat df = new SimpleDateFormat(formatString)
+    df.format(new Date())
+}
+
+android {
+    compileSdkVersion Config.compileSdkVersion
+    defaultConfig {
+        applicationId Config.applicationId
+        minSdkVersion Config.minSdkVersion
+        targetSdkVersion Config.targetSdkVersion
+        versionCode Config.appVersionCode
+        versionName Config.appVersionName
+        multiDexEnabled true
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [eventBusIndex: "com.sitechdev.vehicle.pad.utils.MyEventBusIndex"]
+            }
+        }
+        ndk {
+            // 设置支持的SO库架构
+            abiFilters 'armeabi', 'armeabi-v7a', 'x86'//, 'x86_64', 'arm64-v8a'
+        }
+    }
+    signingConfigs {
+        release {
+            storeFile file(Config.signInfo.storeKey)
+            storePassword Config.signInfo.storePassword
+            keyAlias Config.signInfo.keyAlias
+            keyPassword Config.signInfo.keyPassword
+        }
+    }
+    repositories {
+        flatDir {
+            dirs 'libs/aiui_5e97d73d'
+        }
+    }
+    /*
+    * 渠道Flavors，配置不同风格的app
+    * */
+    flavorDimensions "aiui"
+    productFlavors {
+        aiui_5e97d73d {
+            buildConfigField("String", "AIUI_APPID", "\"5e97d73d\"")
+        }
+    }
+    //配置资源文件路径，可动态指定不同版本资源文件
+    sourceSets {
+        aiui_5e97d73d.assets.srcDirs = ['src/main/assets/aiui_5e97d73d']
+        aiui_5e97d73d.jniLibs.srcDirs = ['libs/aiui_5e97d73d']
+    }
+    buildTypes {
+        debug {
+            minifyEnabled false
+            shrinkResources false
+            signingConfig signingConfigs.release
+            debuggable true
+            jniDebuggable true
+            zipAlignEnabled true
+            versionNameSuffix "." + getCurrentTime("YYMMddHHmm").toString() + ".debug"
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            minifyEnabled true
+            shrinkResources true
+            signingConfig signingConfigs.release
+            debuggable false
+            jniDebuggable false
+            zipAlignEnabled true
+            versionNameSuffix "." + getCurrentTime("YYMMddHHmm").toString()
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility Config.sourceCompatibilityVersion
+        targetCompatibility Config.targetCompatibilityVersion
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
+}
+
+dependencies {
+    aiui_5e97d73dImplementation fileTree(dir: 'libs/aiui_5e97d73d', include: ['*.jar'])
+    implementation Config.depConfig.android_support.appcompatV7
+    implementation Config.depConfig.android_support.multidex
+    implementation Config.depConfig.android_support.recyclerview
+    implementation Config.depConfig.android_support.constraint
+
+    annotationProcessor Config.depConfig.eventbus.eventbusProcessor
+    implementation(Config.depConfig.tkrefreshlayout){
+        exclude module: 'recyclerview-v7'
+        exclude module: 'support-v4'
+    }
+
+    //============高德地图sdk================
+    //3D地图so及jar
+    implementation Config.depConfig.amap.amap
+    //定位功能
+    implementation Config.depConfig.amap.amapLocation
+    //搜索功能
+    implementation Config.depConfig.amap.amapSearch
+    implementation Config.depConfig.android_support.design
+    //============高德地图================
+
+    //网络组件。
+    implementation project(':netLibrary')
+    //全局工具组件
+    implementation project(':utilLibrary')
+
+    //============图片选择组件================
+    implementation project(':picture_library')
+    implementation project(':ucrop')
+    implementation('jp.wasabeef:glide-transformations:2.0.2'){
+        exclude module: 'glide'
+    }
+    implementation 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
+    //============图片选择组件================
+
+    //============听伴sdk================
+//    implementation(Config.depConfig.tingban) {
+//        changing = true
+//        exclude module: 'gson'
+//    }
+    //引入考拉jar包的依赖包，临时方案
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+    implementation 'org.greenrobot:greendao:3.2.2'
+    implementation 'com.google.dagger:dagger:2.16'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.16'
+    implementation 'com.android.volley:volley:1.1.0'
+    //============听伴sdk================
+    implementation Config.depConfig.tinypinyin
+    //
+    implementation Config.depConfig.utilCode
+    implementation Config.depConfig.FlycoTabLayout
+}
+
+android.applicationVariants.all { variant ->
+    def fileName = PACKAGE_NAME_PRE
+    def apkProvider = variant.getPackageApplicationProvider().get().outputScope.apkDatas
+    apkProvider.forEach { apkData ->
+        def isRelease = "release".equalsIgnoreCase(variant.buildType.name)
+        apkData.outputFileName = fileName + (isRelease ? "_Release_" : "_Test_") + "${variant.productFlavors[0].name}_v" + versionName+".apk"
+    }
+}

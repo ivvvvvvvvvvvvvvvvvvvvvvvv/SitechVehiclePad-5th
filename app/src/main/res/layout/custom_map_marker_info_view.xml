@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/id_main_flow"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="20dp"
+    android:visibility="gone">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:alpha="0.1"
+        android:background="@color/white" />
+
+    <TextView
+        android:id="@+id/id_marker_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:text="颐和园东门"
+        android:textColor="@color/colorMainBg"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/id_marker_distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/id_marker_title"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@id/id_marker_title"
+        android:gravity="bottom"
+        android:text="3.5km"
+        android:textColor="@color/colorMainBg"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/id_marker_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/id_marker_title"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="5dp"
+        android:text="颐和园东门--大东路--75号"
+        android:textColor="@color/colorMainBg"
+        android:textSize="15sp" />
+
+    <!--<android.support.v7.widget.AppCompatImageView-->
+    <!--android:id="@+id/id_iv_navi_bg"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:src="@drawable/ico_map_marker_circle_64" />-->
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/id_iv_navi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/bg_map_navi" />
+
+    <TextView
+        android:id="@+id/id_set_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/id_iv_navi"
+        android:background="@drawable/bg_btn_border"
+        android:layout_alignParentRight="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="61px"
+        android:paddingTop="33px"
+        android:paddingRight="61px"
+        android:paddingBottom="33px"
+        android:text="设置为家"
+        android:textColor="@color/white"
+        android:textSize="42px"
+        android:visibility="gone" />
+</RelativeLayout>
+

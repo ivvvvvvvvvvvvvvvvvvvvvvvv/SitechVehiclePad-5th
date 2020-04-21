@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="false">
+
+    <item
+        android:drawable="@drawable/teddy_top_1"
+        android:duration="150" />
+
+    <item
+        android:drawable="@drawable/teddy_top_2"
+        android:duration="150" />
+
+    <item
+        android:drawable="@drawable/teddy_top_3"
+        android:duration="150" />
+
+    <item
+        android:drawable="@drawable/teddy_top_4"
+        android:duration="150" />
+
+    <item
+        android:drawable="@drawable/teddy_top_5"
+        android:duration="150" />
+    <item
+        android:drawable="@drawable/teddy_top_6"
+        android:duration="150" />
+    <item
+        android:drawable="@drawable/teddy_top_7"
+        android:duration="150" />
+    <item
+        android:drawable="@drawable/teddy_top_8"
+        android:duration="150" />
+    <item
+        android:drawable="@drawable/teddy_top_9"
+        android:duration="150" />
+    <item
+        android:drawable="@drawable/teddy_top_10"
+        android:duration="150" />
+    <item
+        android:drawable="@drawable/teddy_top_11"
+        android:duration="150" />
+
+    <item
+        android:drawable="@drawable/teddy_top_12"
+        android:duration="150" />
+    <item
+        android:drawable="@drawable/teddy_top_13"
+        android:duration="150" />
+    <item
+        android:drawable="@drawable/teddy_top_14"
+        android:duration="150" />
+    <item
+        android:drawable="@drawable/teddy_top_15"
+        android:duration="150" />
+    <item
+        android:drawable="@drawable/teddy_top_16"
+        android:duration="150" />
+    <item
+        android:drawable="@drawable/teddy_top_17"
+        android:duration="150" />
+
+    <item
+        android:drawable="@drawable/teddy_top_18"
+        android:duration="150" />
+    <item
+        android:drawable="@drawable/teddy_top_19"
+        android:duration="150" />
+    <item
+        android:drawable="@drawable/teddy_top_20"
+        android:duration="150" />
+    <item
+        android:drawable="@drawable/teddy_top_21"
+        android:duration="150" />
+
+    <item
+        android:drawable="@drawable/teddy_top_22"
+        android:duration="150" />
+
+    <item
+        android:drawable="@drawable/teddy_top_23"
+        android:duration="150" />
+
+    <item
+        android:drawable="@drawable/teddy_top_24"
+        android:duration="150" />
+
+    <item
+        android:drawable="@drawable/teddy_top_25"
+        android:duration="150" />
+
+    <item
+        android:drawable="@drawable/teddy_top_26"
+        android:duration="150" />
+
+    <item
+        android:drawable="@drawable/teddy_top_27"
+        android:duration="150" />
+
+    <item
+        android:drawable="@drawable/teddy_top_28"
+        android:duration="150" />
+
+    <item
+        android:drawable="@drawable/teddy_top_29"
+        android:duration="150" />
+
+    <item
+        android:drawable="@drawable/teddy_top_30"
+        android:duration="150" />
+
+    <item
+        android:drawable="@drawable/teddy_top_31"
+        android:duration="150" />
+
+    <item
+        android:drawable="@drawable/teddy_top_32"
+        android:duration="150" />
+
+    <item
+        android:drawable="@drawable/teddy_top_33"
+        android:duration="150" />
+
+    <item
+        android:drawable="@drawable/teddy_top_34"
+        android:duration="150" />
+
+    <item
+        android:drawable="@drawable/teddy_top_35"
+        android:duration="150" />
+
+    <item
+        android:drawable="@drawable/teddy_top_36"
+        android:duration="150" />
+
+    <item
+        android:drawable="@drawable/teddy_top_37"
+        android:duration="150" />
+
+    <item
+        android:drawable="@drawable/teddy_top_38"
+        android:duration="150" />
+
+    <item
+        android:drawable="@drawable/teddy_top_39"
+        android:duration="150" />
+
+
+</animation-list>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/id_rl_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#12173D"
+    android:orientation="vertical"
+    android:paddingRight="118px">
+
+    <include layout="@layout/common_toolbar" />
+
+    <ImageView
+        android:id="@+id/id_img_logo"
+        android:layout_width="194px"
+        android:layout_height="194px"
+        android:layout_below="@id/root_toolbar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="62px"
+        android:scaleType="fitXY"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/id_tv_app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/id_img_logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40px"
+        android:singleLine="true"
+        android:text="@string/app_name"
+        android:textColor="@android:color/white"
+        android:textSize="48px" />
+
+    <TextView
+        android:id="@+id/id_tv_app_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/id_tv_app_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="34px"
+        android:singleLine="true"
+        android:text="版本号: v2.0.132356"
+        android:textColor="#7F87A1"
+        android:textSize="32px" />
+
+    <TextView
+        android:id="@+id/id_tv_app_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/id_tv_app_version"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="249px"
+        android:layout_marginTop="41px"
+        android:layout_marginRight="249px"
+        android:gravity="center_horizontal"
+        android:text="@string/string_app_info"
+        android:textColor="#E8E8E8"
+        android:textSize="38px" />
+</RelativeLayout>

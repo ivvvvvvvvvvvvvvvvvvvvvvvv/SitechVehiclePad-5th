@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/id_rl_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#12173D"
+    android:paddingRight="214px"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_toolbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="129px"
+        android:layout_marginLeft="214px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="62px"
+            android:layout_height="62px"
+            android:src="@drawable/ico_query" />
+
+        <EditText
+            android:id="@+id/id_input_set_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="29px"
+            android:textCursorDrawable="@drawable/edit_cursor_color"
+            android:background="@null"
+            android:hint="请输入公司地址"
+            android:textColor="@color/white"
+            android:textColorHint="#9AA4B6"
+            android:textSize="48px" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_marginLeft="214px"
+        android:layout_marginTop="46px"
+        android:alpha="0.1"
+        android:background="@color/white" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="214px"
+        android:layout_marginTop="101px"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/id_select_my_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_btn_border"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="61px"
+            android:paddingTop="33px"
+            android:paddingRight="61px"
+            android:paddingBottom="33px">
+
+            <ImageView
+                android:layout_width="50px"
+                android:layout_height="60px"
+                android:src="@drawable/ico_location" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="23px"
+                android:text="@string/string_my_location_title"
+                android:textColor="@color/white"
+                android:textSize="42px" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/id_select_map_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="49px"
+            android:background="@drawable/bg_btn_border"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="61px"
+            android:paddingTop="33px"
+            android:paddingRight="61px"
+            android:paddingBottom="33px">
+
+            <ImageView
+                android:layout_width="50px"
+                android:layout_height="60px"
+                android:src="@drawable/ico_map_select_addr" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="23px"
+                android:text="@string/string_map_select_location_btn_text"
+                android:textColor="@color/white"
+                android:textSize="42px" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="214px"
+        android:layout_marginTop="58px"
+        android:text="@string/string_map_private_map_text"
+        android:textColor="#4E5766"
+        android:textSize="42px" />
+
+</LinearLayout>

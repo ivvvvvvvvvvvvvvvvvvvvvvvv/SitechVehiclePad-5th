@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="640dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_dialog_bg"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_dialog_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="提示"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/upgrade_text_title" />
+
+    <TextView
+        android:id="@+id/tv_dialog_content"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:lineSpacingExtra="8dp"
+        android:maxLines="3"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="系统有新版本，建议使用wifi更新，更新后需要重启，是否立即更新？"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/upgrade_text_size"
+        android:visibility="visible" />
+
+    <ListView
+        android:id="@+id/lv_upgrade_list"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:divider="@null"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_reset_tip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:gravity="center_horizontal"
+        android:text="注意：升级过程中，可能重启2次，请耐心等待~"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:visibility="gone" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#FF6E6E80" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cl_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!--确定、取消按钮组-->
+        <android.support.constraint.Group
+            android:id="@+id/group_double_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:constraint_referenced_ids="tv_upgrade_negative,view_dialog_line,tv_upgrade_positive" />
+        <!--确定组-->
+        <android.support.constraint.Group
+            android:id="@+id/group_single_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:constraint_referenced_ids="tv_upgrade_single" />
+
+        <TextView
+            android:id="@+id/tv_upgrade_single"
+            android:layout_width="0dp"
+            android:layout_height="73dp"
+            android:gravity="center"
+            android:text="确定"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/upgrade_text_size"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/view_dialog_line"
+            android:layout_width="2dp"
+            android:layout_height="73dp"
+            android:background="#FF6E6E80"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_upgrade_negative"
+            android:layout_width="0dp"
+            android:layout_height="73dp"
+            android:gravity="center"
+            android:text="取消"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/upgrade_text_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/view_dialog_line"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_upgrade_positive"
+            android:layout_width="0dp"
+            android:layout_height="73dp"
+            android:gravity="center"
+            android:text="确定"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/upgrade_text_size"
+            app:layout_constraintLeft_toRightOf="@+id/tv_upgrade_negative"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+</LinearLayout>

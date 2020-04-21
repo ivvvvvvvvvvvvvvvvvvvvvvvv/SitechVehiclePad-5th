@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="upgrade_text_size">28sp</dimen>
+    <dimen name="upgrade_text_title">32sp</dimen>
+
+
+    <dimen name="height_all_toolbar">91dp</dimen>
+    <!--主内容区左边间距-->
+    <dimen name="margin_sub_left">100dp</dimen>
+    <dimen name="margin_sub_im_left">176dp</dimen>
+    <!--标题距离左边返回键间距-->
+    <dimen name="margin_sub_title_left">100dp</dimen>
+    <dimen name="margin_sub_title_right">400dp</dimen>
+    <!--返回键距离左边间距-->
+    <dimen name="margin_back_left">25dp</dimen>
+    <dimen name="margin_dialog_top">37dp</dimen>
+
+    <dimen name="width_dial_num">164dp</dimen>
+    <dimen name="height_dial_num">100dp</dimen>
+    <dimen name="padding_dial_num">12dp</dimen>
+    <dimen name="height_dial_contact">96dp</dimen>
+    <dimen name="height_group_title">91dp</dimen>
+    <dimen name="width_under_line">87dp</dimen>
+    <dimen name="height_under_line">3dp</dimen>
+    <dimen name="kaola_left_margin">165dp</dimen>
+    <dimen name="kaola_half_left_margin">82dp</dimen>
+    <dimen name="controller_width">1151dp</dimen>
+
+    <dimen name="text_dial_num">51sp</dimen>
+    <dimen name="text_dial_phone">32sp</dimen>
+    <dimen name="text_sub_title">34sp</dimen>
+    <dimen name="text_phone_call">34sp</dimen>
+    <dimen name="sub_title_size">17sp</dimen>
+    <dimen name="text_ota_version">32sp</dimen>
+    <dimen name="text_ota_title">36sp</dimen>
+    <dimen name="text_ota_content">24sp</dimen>
+    <dimen name="text_ota_btn">30sp</dimen>
+    <dimen name="text_map_distance">50sp</dimen>
+    <dimen name="text_map_residue">24sp</dimen>
+    <dimen name="text_map_next">20sp</dimen>
+    <dimen name="comm_back_margin_top">25dp</dimen>
+    <dimen name="comm_back_margin_left">45dp</dimen>
+    <dimen name="comm_title_high">91dp</dimen>
+
+    <dimen name="dp_720">720dp</dimen>
+    <dimen name="dp_194">194dp</dimen>
+    <dimen name="dp_174">174dp</dimen>
+    <dimen name="dp_149">149dp</dimen>
+    <dimen name="dp_130">130dp</dimen>
+    <dimen name="dp_90">90dp</dimen>
+    <dimen name="dp_88">88dp</dimen>
+    <dimen name="dp_87">87dp</dimen>
+    <dimen name="dp_77">77dp</dimen>
+    <dimen name="dp_50">50dp</dimen>
+    <dimen name="dp_60">60dp</dimen>
+    <dimen name="dp_45">45dp</dimen>
+    <dimen name="dp_39">39dp</dimen>
+    <dimen name="dp_31">31dp</dimen>
+    <dimen name="dp_30">30dp</dimen>
+    <dimen name="dp_27">27dp</dimen>
+    <dimen name="dp_24">24dp</dimen>
+    <dimen name="dp_15">15dp</dimen>
+    <dimen name="dp_17">17dp</dimen>
+    <dimen name="dp_10">10dp</dimen>
+    <dimen name="dp_3">3dp</dimen>
+    <dimen name="dp_100">100dp</dimen>
+</resources>

@@ -1,0 +1,87 @@
+<resources>
+
+    <style name="sitech_window_anim">
+        <item name="android:windowEnterAnimation">@anim/window_in</item>
+        <item name="android:windowExitAnimation">@anim/window_out</item>
+    </style>
+
+    <!-- Base application theme. -->
+    <style name="SitechBaseTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">?android:windowNoTitle</item>
+    </style>
+
+    <!--返回键样式-->
+    <style name="SubBackStyle">
+        <item name="android:layout_marginLeft">@dimen/margin_back_left</item>
+        <item name="android:clickable">true</item>
+        <item name="android:layout_width">@dimen/dp_60</item>
+        <item name="android:layout_height">@dimen/dp_60</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:src">@drawable/selector_common_back</item>
+    </style>
+
+    <style name="set_dialog" parent="android:Theme.Dialog">
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@style/phoneCallAnimStyle</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">1</item>
+    </style>
+
+    <style name="phoneCallAnimStyle">
+        <item name="android:windowEnterAnimation">@anim/phone_call_show</item>
+        <item name="android:windowExitAnimation">@anim/phone_call_dismiss</item>
+    </style>
+
+    <!--RadioGroup Button 样式-->
+    <style name="RadioButtonStyle">
+        <item name="android:button">@null</item>
+        <item name="android:background">@drawable/common_radio_underline</item>
+        <item name="android:textColor">@drawable/selector_title_text_color</item>
+        <item name="android:textSize">@dimen/text_sub_title</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="SettingRadioButtonStyle" parent="RadioButtonStyle">
+        <item name="android:button">@null</item>
+        <item name="android:background">@drawable/common_radio_underline</item>
+        <item name="android:textColor">@drawable/selector_title_text_color</item>
+        <item name="android:textSize">@dimen/text_sub_title</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:layout_marginEnd">100dp</item>
+    </style>
+
+    <style name="AVLoadingIndicatorView">
+        <item name="minWidth">48dip</item>
+        <item name="maxWidth">48dip</item>
+        <item name="minHeight">48dip</item>
+        <item name="maxHeight">48dip</item>
+        <item name="indicatorName">BallPulseIndicator</item>
+    </style>
+
+    <style name="AVLoadingIndicatorView.Large">
+        <item name="minWidth">96dp</item>
+        <item name="maxWidth">96dp</item>
+        <item name="minHeight">96dp</item>
+        <item name="maxHeight">96dp</item>
+        <item name="indicatorName">BallPulseIndicator</item>
+    </style>
+
+    <declare-styleable name="LoadingViewStyle">
+        <attr name="loadingText" format="string" />
+    </declare-styleable>
+
+    <style name="AVLoadingIndicatorView.Small">
+        <item name="minWidth">24dip</item>
+        <item name="maxWidth">24dip</item>
+        <item name="minHeight">24dip</item>
+        <item name="maxHeight">24dip</item>
+        <item name="indicatorName">BallPulseIndicator</item>
+    </style>
+
+</resources>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="50px">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:alpha="0.1"
+        android:background="@color/white" />
+
+    <TextView
+        android:id="@+id/id_item_point_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="50px"
+        android:includeFontPadding="false"
+        android:singleLine="true"
+        android:textColor="#E8E8E8"
+        android:textSize="48px"
+        tools:text="签到赠送积分" />
+
+    <TextView
+        android:id="@+id/id_item_point_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/id_item_point_title"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="29px"
+        android:includeFontPadding="false"
+        android:singleLine="true"
+        android:textColor="#7F87A1"
+        android:textSize="38px"
+        tools:text="2019-07-03 16:59:14" />
+
+    <TextView
+        android:id="@+id/id_item_point_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:textColor="#E8E8E8"
+        android:textSize="58px" />
+
+</RelativeLayout>

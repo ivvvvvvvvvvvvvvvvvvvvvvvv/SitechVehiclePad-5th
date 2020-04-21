@@ -1,0 +1,40 @@
+apply plugin: 'com.android.library'
+android {
+    compileSdkVersion Config.compileSdkVersion
+    defaultConfig {
+        minSdkVersion Config.minSdkVersion
+        targetSdkVersion Config.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api Config.depConfig.gson
+    api(Config.depConfig.okgo.okgo) {
+        exclude module: 'okhttp'
+        exclude module: 'okio'
+    }
+    api(Config.depConfig.okgo.okserver){
+        exclude module: 'okgo'
+    }
+    implementation Config.depConfig.okhttp.Okhttp_version
+    implementation Config.depConfig.okhttp.Okio_version
+    implementation Config.depConfig.okhttp.logging_interceptor_version
+    implementation Config.depConfig.okhttp.okhttp_urlconnection_version
+//    implementation Config.depConfig.okhttp.Stetho_version
+//    implementation Config.depConfig.okhttp.Stetho3_version
+
+    implementation project(':utilLibrary')
+}
+111
