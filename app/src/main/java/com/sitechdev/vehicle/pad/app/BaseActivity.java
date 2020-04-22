@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.blankj.utilcode.util.AdaptScreenUtils;
+import com.blankj.utilcode.util.ScreenUtils;
 import com.sitechdev.vehicle.lib.event.BindEventBus;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.ActivityManager;
@@ -43,7 +44,14 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     @Override
     public Resources getResources() {
 //        return super.getResources();
-        return AdaptScreenUtils.adaptWidth(super.getResources(), 1080);
+        Log.i("BaseActivity", "getResources=======");
+        if (ScreenUtils.isLandscape()) {
+            Log.i("MainActivity", "横屏");
+            return AdaptScreenUtils.adaptWidth(super.getResources(), 1920);
+        } else {
+            Log.i("MainActivity", "竖屏");
+            return AdaptScreenUtils.adaptWidth(super.getResources(), 1080);
+        }
     }
 
     @Override

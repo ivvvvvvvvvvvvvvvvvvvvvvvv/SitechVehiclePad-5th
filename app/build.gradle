@@ -51,7 +51,6 @@ android {
     //配置资源文件路径，可动态指定不同版本资源文件
     sourceSets {
         aiui_5e97d73d.assets.srcDirs = ['src/main/assets/aiui_5e97d73d/']
-        aiui_5e97d73d.assets.excludes = ['src/main/assets/aiui_5e97d73d/']
         aiui_5e97d73d.jniLibs.srcDirs = ['libs/aiui_5e97d73d/']
     }
     buildTypes {

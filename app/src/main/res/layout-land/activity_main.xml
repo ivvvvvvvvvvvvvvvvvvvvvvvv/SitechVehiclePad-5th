@@ -49,18 +49,18 @@
             android:id="@+id/fl_weather"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="47px"
-            android:paddingTop="40px">
+            android:paddingTop="40px"
+            android:paddingBottom="47px">
 
             <TextView
                 android:id="@+id/tv_temperature"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:includeFontPadding="false"
+                android:text=" - "
                 android:textColor="@color/white"
                 android:textSize="75px"
-                android:textStyle="bold"
-                tools:text="24" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/id_sign_code"
@@ -90,6 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_temperature"
                 android:layout_marginTop="15px"
+                android:text="-/-"
                 android:textColor="@color/main_tv_clo"
                 android:textSize="30px"
                 tools:text="20°/28°" />
@@ -349,22 +350,22 @@
 
                 <ImageView
                     android:id="@+id/iv_music_bef"
-                    android:layout_width="36px"
-                    android:layout_height="36px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:src="@drawable/iv_music_bef" />
 
                 <ImageView
                     android:id="@+id/iv_music_stop"
-                    android:layout_width="36px"
-                    android:layout_height="36px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="80px"
                     android:clickable="true"
                     android:src="@drawable/selector_play_pause" />
 
                 <ImageView
                     android:id="@+id/iv_music_next"
-                    android:layout_width="36px"
-                    android:layout_height="36px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="80px"
                     android:src="@drawable/iv_music_next" />
             </LinearLayout>
@@ -401,8 +402,8 @@
             android:gravity="center">
 
             <ImageView
-                android:layout_width="72px"
-                android:layout_height="72px"
+                android:layout_width="80px"
+                android:layout_height="80px"
                 android:src="@drawable/iv_child_book" />
 
             <TextView
@@ -424,13 +425,14 @@
             android:gravity="center">
 
             <ImageView
-                android:layout_width="72px"
-                android:layout_height="72px"
+                android:layout_width="80px"
+                android:layout_height="80px"
                 android:src="@drawable/iv_car" />
 
             <TextView
                 android:id="@+id/btn_car_fun"
                 style="@style/style_tv_home_music"
+                android:layout_marginLeft="26px"
                 android:text="车嗨娱乐" />
         </LinearLayout>
 
@@ -575,45 +577,45 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/id_main_left_content"
         android:layout_marginLeft="34px"
-        android:layout_marginTop="60px"
+        android:layout_marginTop="62px"
         android:layout_marginRight="16px"
         android:clipChildren="false"
         android:clipToPadding="false">
 
         <ImageView
             android:id="@+id/id_btn_home"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="81px"
+            android:layout_height="156px"
             android:src="@drawable/ico_btn_home" />
 
         <ImageView
             android:id="@+id/id_btn_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="62px"
+            android:layout_height="155px"
             android:layout_marginLeft="121px"
             android:layout_toRightOf="@id/id_btn_home"
             android:src="@drawable/ico_btn_navi" />
 
         <ImageView
             android:id="@+id/id_btn_music"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="74px"
+            android:layout_height="133px"
             android:layout_marginLeft="138px"
             android:layout_toRightOf="@id/id_btn_location"
             android:src="@drawable/ico_btn_music" />
 
         <ImageView
             android:id="@+id/id_btn_driver"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="77px"
+            android:layout_height="154px"
             android:layout_marginLeft="118px"
             android:layout_toRightOf="@id/id_btn_music"
             android:src="@drawable/ico_btn_driver" />
 
         <ImageView
             android:id="@+id/id_btn_apps"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="64px"
+            android:layout_height="137px"
             android:layout_marginLeft="120px"
             android:layout_toRightOf="@id/id_btn_driver"
             android:src="@drawable/ico_btn_apps" />
@@ -622,7 +624,7 @@
             android:id="@+id/id_Teddy_Tip_1"
             android:layout_width="311px"
             android:layout_height="92px"
-            android:layout_marginLeft="129px"
+            android:layout_marginLeft="80px"
             android:layout_toRightOf="@id/id_btn_apps"
             android:background="@drawable/bg_btn_teddy_ask"
             android:gravity="center"
@@ -643,8 +645,8 @@
             android:textSize="32px" />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="167px"
+            android:layout_height="278px"
             android:layout_toRightOf="@id/id_Teddy_Tip_2"
             android:src="@drawable/iv_teddy"
             android:translationY="-100px" />

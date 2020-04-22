@@ -2,11 +2,13 @@ package com.sitechdev.vehicle.pad.module.main;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.MainThread;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
-import android.support.annotation.UiThread;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.AbsoluteSizeSpan;
@@ -17,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ImageUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
@@ -29,6 +32,7 @@ import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.StringUtils;
 import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.R;
+import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.app.AppConst;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.callback.BaseBribery;
@@ -89,6 +93,15 @@ public class MainActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         mContext = this;
         initToolBarView();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (!Settings.canDrawOverlays(AppApplication.getContext())) {
+                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                        Uri.parse("package:" + AppApplication.getContext().getPackageName()));
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        }
     }
 
 
@@ -174,7 +187,6 @@ public class MainActivity extends BaseActivity
         mPowerPercentView.setText(setBottomAlignment("70", "%"));
         mKmView.setText(setBottomAlignment("238", "KM"));
         mRechargeCountView.setText(setBottomAlignment("48", "次"));
-
     }
 
     @Override
@@ -246,6 +258,7 @@ public class MainActivity extends BaseActivity
     @Override
     protected void onResume() {
         super.onResume();
+        ivMusicNext.setImageBitmap(ImageUtils.addReflection(ImageUtils.getBitmap(R.drawable.iv_music_next), 20, true));
     }
 
     @Override
@@ -459,7 +472,9 @@ public class MainActivity extends BaseActivity
         switch (event.getEventKey()) {
             case MapEvent.EVENT_LOCATION_SUCCESS:
                 //定位成功，请求或刷新天气数据
-                refreshCityView();
+                ThreadUtils.runOnUIThread(() -> {
+                    refreshCityView();
+                });
                 break;
             default:
                 break;
@@ -474,7 +489,6 @@ public class MainActivity extends BaseActivity
         GlideUtils.getInstance().loadImage(WeatherUtils.getWeatherIcon(dataBean.getImg()), mWeatherIconView);
     }
 
-    @UiThread
     public void refreshCityView() {
         String locationDataText = WeatherUtils.getCityDataWithLocation();
         if (!locationDataText.equals(tvLocation.getText().toString().trim())) {

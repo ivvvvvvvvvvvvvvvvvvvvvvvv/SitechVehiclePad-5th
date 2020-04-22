@@ -130,7 +130,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
      * 唤醒
      */
     private void onVoiceWakeup() {
-        onVoiceWakeup("今天天气不错，挺风和日丽的。");
+        onVoiceWakeup("");
     }
 
     /**
