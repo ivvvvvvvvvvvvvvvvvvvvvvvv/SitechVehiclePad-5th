@@ -33,9 +33,9 @@ public class VUIDialogFragment extends DialogFragment implements
     private VUIHolder cueertHolder;
     private ChatHolder chatHolder;
 
-    public static VUIDialogFragment newInstance(Bundle bundle){
+    public static VUIDialogFragment newInstance(Bundle bundle) {
         VUIDialogFragment fragment = new VUIDialogFragment();
-        if (null != bundle){
+        if (null != bundle) {
             fragment.setArguments(bundle);
         }
         return fragment;
@@ -52,7 +52,7 @@ public class VUIDialogFragment extends DialogFragment implements
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_diaog_vui, container, false);
         mHolderContainer = view.findViewById(R.id.vui_dialog_holder_container);
-        if (null == chatHolder){
+        if (null == chatHolder) {
             chatHolder = new ChatHolder(inflater);
         }
         cueertHolder = chatHolder.added(mHolderContainer, cueertHolder);
@@ -88,7 +88,7 @@ public class VUIDialogFragment extends DialogFragment implements
         super.onDismiss(dialog);
     }
 
-    public void show(FragmentManager manager){
+    public void show(FragmentManager manager) {
         FragmentTransaction ft = manager.beginTransaction();
         if (this.isAdded()) {
             ft.remove(this).commit();
@@ -102,20 +102,23 @@ public class VUIDialogFragment extends DialogFragment implements
 //        volumeView.setVisibility(View.VISIBLE);
 //        volumeView.start();
 //        volumeView.setVolume(value * 8);
-        if (null != chatHolder){
+        VUI.log("音量大小VAD_VOL============================================" + value * 8);
+        if (null != chatHolder) {
+            VUI.log("音量大小  setVolume=************************************************88" + value * 8);
             chatHolder.getVolumeView().setVolume(value * 8);
         }
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.vui_dialog_close:
                 dismiss();
                 break;
         }
     }
-    public void showWeather(JSONObject weather){
+
+    public void showWeather(JSONObject weather) {
         WeatherHolder holder = new WeatherHolder(getContext());
         cueertHolder = holder.added(mHolderContainer, cueertHolder);
         holder.adapter(weather);

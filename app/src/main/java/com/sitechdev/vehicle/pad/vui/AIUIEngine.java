@@ -30,9 +30,9 @@ public class AIUIEngine {
 
     private AIUIAgent mAIUIAgent = null;
 
-    private String ttsPeopleParams="";
+    private String ttsPeopleParams = "";
 
-    private AIUIEngine(){
+    private AIUIEngine() {
         context = AppApplication.getContext();
         createAgent();
     }
@@ -49,24 +49,24 @@ public class AIUIEngine {
         }
     }
 
-    private void destoryAgent(){
-        if (null != mAIUIAgent){
+    private void destoryAgent() {
+        if (null != mAIUIAgent) {
             mAIUIAgent.destroy();
             mAIUIAgent = null;
         }
     }
 
-    public void startRecord(){
+    public void startRecord() {
         startRecord(null, "sample_rate=16000,data_type=audio," +
                 "pers_param={\"uid\":\"\"},tag=audio-tag");
     }
 
-    public void startRecord(byte[] data){
+    public void startRecord(byte[] data) {
         startRecord(data, "sample_rate=16000,data_type=audio," +
                 "pers_param={\"uid\":\"\"},tag=audio-tag");
     }
 
-    public void startRecord(String text){
+    public void startRecord(String text) {
         try {
             startRecord(text.getBytes("utf-8"),
                     "data_type=text,tag=text-tag");
@@ -75,8 +75,8 @@ public class AIUIEngine {
         }
     }
 
-    public void stopRecord(){
-        if (null == mAIUIAgent){
+    public void stopRecord() {
+        if (null == mAIUIAgent) {
             VUI.log("AIUIAgent -> null");
             return;
         }
@@ -88,14 +88,15 @@ public class AIUIEngine {
         mAIUIAgent.sendMessage(stopRecord);
     }
 
-    public void ttsStart(String ttsStr){
-        if (TextUtils.isEmpty(ttsStr.trim())){
+    public void ttsStart(String ttsStr) {
+        if (TextUtils.isEmpty(ttsStr.trim())) {
             return;
         }
-        VUI.log("AIUIAgent -> 播报内容："+ttsStr);
+        VUI.log("AIUIAgent -> 播报内容：" + ttsStr);
         try {
             tts(AIUIConstant.START, getTtsPeopleParams(), ttsStr.getBytes("utf-8"));
-        } catch (UnsupportedEncodingException e) {
+//            TtsConfig.getInstance().startTts(ttsStr);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -108,26 +109,26 @@ public class AIUIEngine {
         params.append("vcn=xiaoyan");
         params.append(",speed=48");
         params.append(",pitch=50");
-        params.append(",volume=100");
-        params.append(",ent=xtts");
+        params.append(",volume=50");
+        params.append(",ent=tts");
         ttsPeopleParams = params.toString();
         return ttsPeopleParams;
     }
 
-    public void ttsCancel(){
+    public void ttsCancel() {
         tts(AIUIConstant.CANCEL);
     }
 
-    public void ttsPause(){
+    public void ttsPause() {
         tts(AIUIConstant.PAUSE);
     }
 
-    public void ttsResume(){
+    public void ttsResume() {
         tts(AIUIConstant.RESUME);
     }
 
-    public void  resetWakeup(){
-        if (null == mAIUIAgent){
+    public void resetWakeup() {
+        if (null == mAIUIAgent) {
             VUI.log("AIUIAgent -> null");
             return;
         }
@@ -136,12 +137,12 @@ public class AIUIEngine {
         mAIUIAgent.sendMessage(restWakeup);
     }
 
-    private void tts(int cmd){
+    private void tts(int cmd) {
         tts(cmd, null, null);
     }
 
-    public void syncData(String param, byte[] data){
-        if (null == mAIUIAgent){
+    public void syncData(String param, byte[] data) {
+        if (null == mAIUIAgent) {
             VUI.log("AIUIAgent -> null");
             return;
         }
@@ -187,8 +188,8 @@ public class AIUIEngine {
         }
     }
 
-    public void start(){
-        if (null == mAIUIAgent){
+    public void start() {
+        if (null == mAIUIAgent) {
             VUI.log("AIUIAgent -> null");
         }
         AIUIMessage startCmd = new AIUIMessage(AIUIConstant.CMD_START,
@@ -196,8 +197,8 @@ public class AIUIEngine {
         mAIUIAgent.sendMessage(startCmd);
     }
 
-    public void stop(){
-        if (null == mAIUIAgent){
+    public void stop() {
+        if (null == mAIUIAgent) {
             VUI.log("AIUIAgent -> null");
         }
         AIUIMessage stopCmd = new AIUIMessage(AIUIConstant.CMD_STOP,
@@ -205,11 +206,11 @@ public class AIUIEngine {
         mAIUIAgent.sendMessage(stopCmd);
     }
 
-    private void tts(int cmd, String params, byte[] data){
-        if (null == mAIUIAgent){
+    private void tts(int cmd, String params, byte[] data) {
+        if (null == mAIUIAgent) {
             VUI.log("AIUIAgent -> null");
         }
-        if (cmd < 0 || cmd > 4){
+        if (cmd < 0 || cmd > 4) {
             return;
         }
         AIUIMessage ttsCmd = new AIUIMessage(AIUIConstant.CMD_TTS,
@@ -218,13 +219,12 @@ public class AIUIEngine {
     }
 
 
-
-    public void destory(){
+    public void destory() {
         destoryAgent();
     }
 
-    private void startRecord(byte[] data, String params){
-        if (null == mAIUIAgent){
+    private void startRecord(byte[] data, String params) {
+        if (null == mAIUIAgent) {
             VUI.log("AIUIAgent -> null");
             return;
         }

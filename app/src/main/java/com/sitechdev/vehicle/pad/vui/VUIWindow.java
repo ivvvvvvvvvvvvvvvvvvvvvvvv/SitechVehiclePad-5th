@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
+import com.sitechdev.vehicle.pad.view.VolumeView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -49,12 +50,12 @@ public class VUIWindow implements View.OnClickListener {
 
     private AnimationDrawable teddy;
 
-    private VUIWindow(){
+    private VUIWindow() {
         context = AppApplication.getContext();
-        if (null != context){
+        if (null != context) {
             windowManager = (WindowManager) context.getSystemService(
                     Context.WINDOW_SERVICE);
-            if (null != windowManager){
+            if (null != windowManager) {
                 params = createParams();
                 rootView = createView();
             }
@@ -80,9 +81,9 @@ public class VUIWindow implements View.OnClickListener {
         int screenHeight = point.y;
         params.width = WindowManager.LayoutParams.MATCH_PARENT;
         params.height = WindowManager.LayoutParams.MATCH_PARENT;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             params.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
-        }else {
+        } else {
             params.type = WindowManager.LayoutParams.TYPE_PHONE;
         }
 //        params.type = WindowManager.LayoutParams.TYPE_APPLICATION_PANEL;
@@ -93,10 +94,10 @@ public class VUIWindow implements View.OnClickListener {
         return params;
     }
 
-    public void show(){
-        if (null != windowManager && null != rootView && !rootView.isShown()){
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-                if (!Settings.canDrawOverlays(context)){
+    public void show() {
+        if (null != windowManager && null != rootView && !rootView.isShown()) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                if (!Settings.canDrawOverlays(context)) {
                     Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
                             Uri.parse("package:" + context.getPackageName()));
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -106,60 +107,60 @@ public class VUIWindow implements View.OnClickListener {
             }
             windowManager.addView(rootView, params);
         }
-        if (null == chatHolder){
+        if (null == chatHolder) {
             chatHolder = new ChatHolder(context);
         }
-        if (null != mHolderContainer && currentHolder != chatHolder){
+        if (null != mHolderContainer && currentHolder != chatHolder) {
             currentHolder = chatHolder.added(mHolderContainer, currentHolder);
         }
-        if (null != teddy && !teddy.isRunning()){
+        if (null != teddy && !teddy.isRunning()) {
             teddy.start();
         }
     }
 
-    public void hide(){
-        if (null != windowManager && null != rootView && rootView.isShown()){
-            if (null != teddy && teddy.isRunning()){
+    public void hide() {
+        if (null != windowManager && null != rootView && rootView.isShown()) {
+            if (null != teddy && teddy.isRunning()) {
                 teddy.stop();
             }
             windowManager.removeViewImmediate(rootView);
             showText(context.getResources().getString(R.string.vui_welcome_text));
-            if (null != onWindowHideListener){
+            if (null != onWindowHideListener) {
                 onWindowHideListener.onWindowHide();
             }
         }
     }
 
-    public void showWeather(JSONObject weather){
+    public void showWeather(JSONObject weather) {
         WeatherHolder holder = new WeatherHolder(context);
         currentHolder = holder.added(mHolderContainer, currentHolder);
         holder.adapter(weather);
     }
 
-    public void showStock(JSONObject stock){
+    public void showStock(JSONObject stock) {
         StockHolder holder = new StockHolder(context);
         currentHolder = holder.added(mHolderContainer, currentHolder);
         holder.adapter(stock);
     }
 
-    public void showText(String text){
-        if (null != chatHolder){
-            if (chatHolder.isadded()){
+    public void showText(String text) {
+        if (null != chatHolder) {
+            if (chatHolder.isadded()) {
                 chatHolder.getTextView().setText(text);
             }
         }
     }
 
-    public void appendText(int percent, String text){
-        if (null != chatHolder){
-            if (chatHolder.isadded()){
+    public void appendText(int percent, String text) {
+        if (null != chatHolder) {
+            if (chatHolder.isadded()) {
                 TextView textView = chatHolder.getTextView();
                 int iTag = -1;
                 Object tag = textView.getTag();
-                if (null != tag){
+                if (null != tag) {
                     iTag = (int) tag;
                 }
-                if (percent > iTag){
+                if (percent > iTag) {
                     textView.setText(text);
                     textView.setTag(percent);
                 }
@@ -167,9 +168,9 @@ public class VUIWindow implements View.OnClickListener {
         }
     }
 
-    public void clearText(){
-        if (null != chatHolder){
-            if (chatHolder.isadded()){
+    public void clearText() {
+        if (null != chatHolder) {
+            if (chatHolder.isadded()) {
                 TextView textView = chatHolder.getTextView();
                 textView.setText("");
                 textView.setTag(null);
@@ -177,10 +178,19 @@ public class VUIWindow implements View.OnClickListener {
         }
     }
 
-    public void showContacts(JSONArray array){
+    public void showContacts(JSONArray array) {
         ContactsHolder holder = new ContactsHolder(context);
         currentHolder = holder.added(mHolderContainer, currentHolder);
         holder.adapter(array);
+    }
+
+    public void onVolumeChanged(int volumeValue) {
+        if (null != chatHolder) {
+            VolumeView volumeView = chatHolder.getVolumeView();
+            if (volumeView != null) {
+                volumeView.setVolume(volumeValue * 8);
+            }
+        }
     }
 
     public <T extends VUIHolder> T getCurrentHolder() {
@@ -191,13 +201,13 @@ public class VUIWindow implements View.OnClickListener {
         this.onWindowHideListener = onWindowHideListener;
     }
 
-    public boolean isShowing(){
+    public boolean isShowing() {
         return null != windowManager && null != rootView && rootView.isShown();
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.root_view_vui:
                 VUI.log("click root_view_vui");
                 hide();
@@ -205,11 +215,11 @@ public class VUIWindow implements View.OnClickListener {
         }
     }
 
-    private static class VUIWindowHolder{
+    private static class VUIWindowHolder {
         private static final VUIWindow INSTANCE = new VUIWindow();
     }
 
-    public interface OnWindowHideListener{
+    public interface OnWindowHideListener {
         void onWindowHide();
     }
 
