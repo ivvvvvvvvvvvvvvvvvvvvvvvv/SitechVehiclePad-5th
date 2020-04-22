@@ -43,7 +43,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     @Override
     public Resources getResources() {
 //        return super.getResources();
-        return AdaptScreenUtils.adaptHeight(super.getResources(), 1920);
+        return AdaptScreenUtils.adaptWidth(super.getResources(), 1080);
     }
 
     @Override

@@ -6,217 +6,198 @@
     android:background="@color/colorMainBg"
     android:clipChildren="false"
     android:clipToPadding="false"
-    android:paddingLeft="33px"
-    android:paddingTop="93px"
-    android:paddingRight="32px">
+    android:paddingLeft="52px"
+    android:paddingTop="91px"
+    android:paddingRight="52px">
 
-    <!-- 一、头像、天气信息界面 -->
+    <!--左侧信息界面-->
     <LinearLayout
-        android:id="@+id/id_main_first_content"
-        android:layout_width="match_parent"
-        android:layout_height="490px"
+        android:id="@+id/id_main_left_content"
+        android:layout_width="639px"
+        android:layout_height="771px"
+        android:layout_alignParentStart="true"
         android:background="@drawable/main_info_bg"
-        android:orientation="horizontal"
-        android:paddingLeft="47px"
-        android:paddingRight="47px">
+        android:orientation="vertical"
+        android:paddingLeft="70px"
+        android:paddingRight="70px">
 
-        <LinearLayout
-            android:id="@+id/id_first_left_content"
-            android:layout_width="0px"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:paddingRight="83px">
+        <RelativeLayout
+            android:id="@+id/id_rela_login"
+            android:layout_width="match_parent"
+            android:layout_height="134px">
 
-            <RelativeLayout
-                android:id="@+id/id_rela_login"
+            <ImageView
+                android:id="@+id/iv_login"
+                android:layout_width="76px"
+                android:layout_height="77px"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ico_user_default" />
+
+            <TextView
+                android:id="@+id/tv_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="45px">
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="28px"
+                android:layout_toRightOf="@id/iv_login"
+                android:text="点击登录"
+                android:textColor="@color/white"
+                android:textSize="32px" />
+        </RelativeLayout>
 
-                <ImageView
-                    android:id="@+id/iv_login"
-                    android:layout_width="76px"
-                    android:layout_height="77px"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/ico_user_default" />
+        <RelativeLayout
+            android:id="@+id/fl_weather"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="47px"
+            android:paddingTop="40px">
 
-                <TextView
-                    android:id="@+id/tv_login"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="28px"
-                    android:layout_toRightOf="@id/iv_login"
-                    android:text="点击登录"
-                    android:textColor="@color/white"
-                    android:textSize="32px" />
-            </RelativeLayout>
+            <TextView
+                android:id="@+id/tv_temperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:textColor="@color/white"
+                android:textSize="75px"
+                android:textStyle="bold"
+                tools:text="24" />
 
-            <RelativeLayout
-                android:id="@+id/fl_weather"
-                android:layout_width="match_parent"
-                android:layout_height="255px"
-                android:paddingTop="40px">
+            <TextView
+                android:id="@+id/id_sign_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10px"
+                android:layout_toRightOf="@id/tv_temperature"
+                android:text="℃"
+                android:textColor="@color/white"
+                android:textSize="30px"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tv_temperature"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:includeFontPadding="false"
-                    android:textColor="@color/white"
-                    android:textSize="75px"
-                    android:textStyle="bold"
-                    tools:text="24" />
+            <TextView
+                android:id="@+id/tv_weather"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/tv_temperature"
+                android:layout_marginLeft="22px"
+                android:layout_toRightOf="@id/id_sign_code"
+                android:textColor="@color/white"
+                android:textSize="34px"
+                tools:text="有雨" />
 
-                <TextView
-                    android:id="@+id/id_sign_code"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10px"
-                    android:layout_toRightOf="@id/tv_temperature"
-                    android:text="℃"
-                    android:textColor="@color/white"
-                    android:textSize="30px"
-                    android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tv_temperature_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_temperature"
+                android:layout_marginTop="15px"
+                android:textColor="@color/main_tv_clo"
+                android:textSize="30px"
+                tools:text="20°/28°" />
 
-                <TextView
-                    android:id="@+id/tv_weather"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@id/tv_temperature"
-                    android:layout_marginLeft="22px"
-                    android:layout_toRightOf="@id/id_sign_code"
-                    android:textColor="@color/white"
-                    android:textSize="34px"
-                    tools:text="有雨" />
+            <TextView
+                android:id="@+id/tv_window"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_temperature_day"
+                android:layout_marginTop="15px"
+                android:textColor="@color/main_tv_clo"
+                android:textSize="30px"
+                tools:text="西南风3-4级" />
 
-                <TextView
-                    android:id="@+id/tv_temperature_day"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_temperature"
-                    android:layout_marginTop="15px"
-                    android:textColor="@color/main_tv_clo"
-                    android:textSize="30px"
-                    tools:text="20°/28°" />
+            <ImageView
+                android:id="@+id/iv_weather_icon"
+                android:layout_width="118px"
+                android:layout_height="128px"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/weather_rain" />
 
-                <TextView
-                    android:id="@+id/tv_window"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_temperature_day"
-                    android:layout_marginTop="15px"
-                    android:textColor="@color/main_tv_clo"
-                    android:textSize="30px"
-                    tools:text="西南风3-4级" />
+            <TextView
+                android:id="@+id/tv_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_weather_icon"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="15px"
+                android:layout_marginRight="23px"
+                android:drawableLeft="@drawable/ico_main_location"
+                android:drawablePadding="14px"
+                android:maxLines="1"
+                android:text="--，--"
+                android:textColor="@color/white"
+                android:textSize="28px" />
 
-                <ImageView
-                    android:id="@+id/iv_weather_icon"
-                    android:layout_width="118px"
-                    android:layout_height="128px"
-                    android:layout_alignParentEnd="true"
-                    android:src="@drawable/weather_rain" />
+        </RelativeLayout>
 
-                <TextView
-                    android:id="@+id/tv_location"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_window"
-                    android:layout_marginTop="68px"
-                    android:drawableLeft="@drawable/ico_main_location"
-                    android:drawablePadding="14px"
-                    android:maxLines="1"
-                    android:text="--，--"
-                    android:textColor="@color/white"
-                    android:textSize="28px" />
-
-            </RelativeLayout>
-        </LinearLayout>
-
-        <View
-            android:layout_width='1px'
-            android:layout_height="match_parent"
-            android:background="@color/main_info_line"
-            android:paddingTop="45px"
-            android:paddingBottom="45px" />
+        <View style="@style/style_white_line" />
 
         <LinearLayout
-            android:id="@+id/id_first_right_content"
-            android:layout_width="0px"
-            android:layout_height="match_parent"
-            android:layout_marginTop="45px"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="229px"
             android:orientation="vertical"
-            android:paddingLeft="79px">
+            android:paddingTop="50px"
+            android:paddingBottom="20px">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="229px"
-                android:orientation="vertical"
-                android:paddingTop="50px"
-                android:paddingBottom="14px">
+            <TextClock
+                android:id="@+id/tc_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:format12Hour="yyyy年MM月dd日"
+                android:format24Hour="yyyy年MM月dd日"
+                android:includeFontPadding="false"
+                android:textColor="@color/main_tv_clo"
+                android:textSize="30px" />
 
-                <TextClock
-                    android:id="@+id/tc_data"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:format12Hour="yyyy年MM月dd日"
-                    android:format24Hour="yyyy年MM月dd日"
-                    android:includeFontPadding="false"
-                    android:textColor="@color/main_tv_clo"
-                    android:textSize="30px" />
-
-                <com.sitechdev.vehicle.pad.view.ReflectTextClock
-                    android:id="@+id/btn_hp_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="23px"
-                    android:format12Hour="hh:mm"
-                    android:format24Hour="HH:mm"
-                    android:includeFontPadding="false"
-                    android:textColor="@color/white"
-                    android:textSize="75px"
-                    android:textStyle="bold"
-                    android:typeface="serif" />
-            </LinearLayout>
-
-            <View style="@style/style_white_line" />
-
-            <RelativeLayout
-                android:id="@+id/id_bluetooth_content"
-                android:layout_width="match_parent"
-                android:layout_height="153px">
-
-                <ImageView
-                    android:id="@+id/iv_bluetooth_icon"
-                    android:layout_width="44px"
-                    android:layout_height="60px"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/icon_bluetooth" />
-
-                <TextView
-                    android:id="@+id/iv_bluetooth_phone_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="26px"
-                    android:layout_toRightOf="@id/iv_bluetooth_icon"
-                    android:text="张三的IPHONE"
-                    android:textColor="@color/white"
-                    android:textSize="30px" />
-            </RelativeLayout>
+            <com.sitechdev.vehicle.pad.view.ReflectTextClock
+                android:id="@+id/btn_hp_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="23px"
+                android:format12Hour="hh:mm"
+                android:format24Hour="HH:mm"
+                android:includeFontPadding="false"
+                android:textColor="@color/white"
+                android:textSize="75px"
+                android:textStyle="bold"
+                android:typeface="serif" />
         </LinearLayout>
+
+        <View style="@style/style_white_line" />
+
+        <RelativeLayout
+            android:id="@+id/id_bluetooth_content"
+            android:layout_width="match_parent"
+            android:layout_height="153px">
+
+            <ImageView
+                android:id="@+id/iv_bluetooth_icon"
+                android:layout_width="44px"
+                android:layout_height="60px"
+                android:layout_centerVertical="true"
+                android:src="@drawable/icon_bluetooth" />
+
+            <TextView
+                android:id="@+id/iv_bluetooth_phone_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="26px"
+                android:layout_toRightOf="@id/iv_bluetooth_icon"
+                android:text="张三的IPHONE"
+                android:textColor="@color/white"
+                android:textSize="30px" />
+        </RelativeLayout>
+
 
     </LinearLayout>
 
-    <!-- 二、导航左界面、回家、回公司-->
+    <!--右侧多媒体界面-->
+    <!--右上左部分-->
     <LinearLayout
-        android:id="@+id/id_main_second_left_content"
-        android:layout_width="565px"
+        android:id="@+id/id_main_right_top_left_content"
+        android:layout_width="656px"
         android:layout_height="131px"
-        android:layout_below="@id/id_main_first_content"
-        android:layout_marginTop="20px"
+        android:layout_marginLeft="22px"
+        android:layout_toRightOf="@id/id_main_left_content"
         android:background="@drawable/main_map_item_bg"
         android:orientation="horizontal"
         android:paddingTop="36px"
@@ -280,15 +261,13 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!-- 二、导航右界面、你要去哪里-->
+    <!--右上右部分-->
     <LinearLayout
-        android:id="@+id/id_main_second_right_content"
-        android:layout_width="442px"
+        android:id="@+id/id_main_right_top_right_content"
+        android:layout_width="489px"
         android:layout_height="131px"
-        android:layout_below="@id/id_main_first_content"
-        android:layout_marginLeft="8px"
-        android:layout_marginTop="20px"
-        android:layout_toRightOf="@id/id_main_second_left_content"
+        android:layout_marginLeft="10px"
+        android:layout_toRightOf="@id/id_main_right_top_left_content"
         android:background="@drawable/main_map_item_bg_right"
         android:gravity="center"
         android:orientation="horizontal">
@@ -308,13 +287,15 @@
             android:textSize="32px" />
     </LinearLayout>
 
-    <!-- 三、多媒体界面、音乐、听伴-->
+    <!--右中部分-->
     <RelativeLayout
-        android:id="@+id/id_main_third_content"
-        android:layout_width="match_parent"
+        android:id="@+id/id_main_right_middle_content"
+        android:layout_width="1155px"
         android:layout_height="443px"
-        android:layout_below="@id/id_main_second_left_content"
-        android:layout_marginTop="19px">
+        android:layout_below="@id/id_main_right_top_right_content"
+        android:layout_marginLeft="22px"
+        android:layout_marginTop="19px"
+        android:layout_toRightOf="@id/id_main_left_content">
 
         <LinearLayout
             android:id="@+id/ll_music"
@@ -477,13 +458,15 @@
         </LinearLayout>
 
     </RelativeLayout>
-    <!-- 四、车辆状态信息界面-->
+    <!--右下部分 -->
     <LinearLayout
-        android:id="@+id/id_main_forth_content"
-        android:layout_width="match_parent"
+        android:id="@+id/ll_car_power_info"
+        android:layout_width="1155px"
         android:layout_height="156px"
-        android:layout_below="@id/id_main_third_content"
+        android:layout_below="@id/id_main_right_middle_content"
+        android:layout_marginLeft="22px"
         android:layout_marginTop="20px"
+        android:layout_toRightOf="@id/id_main_left_content"
         android:background="@drawable/main_info_right_bottom_bg"
         android:gravity="center"
         android:orientation="horizontal"
@@ -586,89 +569,29 @@
     <!--        android:layout_height="154px"-->
     <!--        android:clipChildren="false">-->
 
-    <!-- 四、Teddy信息界面-->
     <RelativeLayout
         android:id="@+id/fl_teddy"
         android:layout_width="match_parent"
-        android:layout_height="154px"
-        android:layout_below="@id/id_main_forth_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/id_main_left_content"
+        android:layout_marginLeft="34px"
         android:layout_marginTop="60px"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/id_btn_teddy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/iv_teddy" />
-
-        <TextView
-            android:id="@+id/id_btn_teddy_try_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/id_btn_teddy"
-            android:text="试试说："
-            android:textColor="#499AC8"
-            android:textSize="26px" />
-
-        <TextView
-            android:id="@+id/id_btn_teddy_demo1"
-            android:layout_width="249px"
-            android:layout_height="92px"
-            android:layout_below="@id/id_btn_teddy_try_text"
-            android:layout_toRightOf="@id/id_btn_teddy"
-            android:background="@drawable/bg_btn_teddy_ask"
-            android:gravity="center"
-            android:text="导航回家"
-            android:textColor="#499AC8"
-            android:textSize="32px" />
-
-        <TextView
-            android:id="@+id/id_btn_teddy_demo2"
-            android:layout_width="237px"
-            android:layout_height="92px"
-            android:layout_below="@id/id_btn_teddy_try_text"
-            android:layout_marginLeft="25px"
-            android:layout_toRightOf="@id/id_btn_teddy_demo1"
-            android:background="@drawable/bg_btn_teddy_ask"
-            android:gravity="center"
-            android:text="播放音乐"
-            android:textColor="#499AC8"
-            android:textSize="32px" />
-
-        <TextView
-            android:layout_width="296px"
-            android:layout_height="92px"
-            android:layout_below="@id/id_btn_teddy_try_text"
-            android:layout_marginLeft="27px"
-            android:layout_toRightOf="@id/id_btn_teddy_demo2"
-            android:background="@drawable/bg_btn_teddy_ask"
-            android:gravity="center"
-            android:text="今天天气怎么样"
-            android:textColor="#499AC8"
-            android:textSize="32px" />
-
-    </RelativeLayout>
-
-    <!-- 五、底部应用界面-->
-    <LinearLayout
-        android:id="@+id/fl_apps"
-        android:layout_width="match_parent"
-        android:layout_height="154px"
-        android:layout_below="@id/fl_teddy"
-        android:orientation="horizontal">
+        android:layout_marginRight="16px"
+        android:clipChildren="false"
+        android:clipToPadding="false">
 
         <ImageView
             android:id="@+id/id_btn_home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="46px"
             android:src="@drawable/ico_btn_home" />
 
         <ImageView
             android:id="@+id/id_btn_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="151px"
+            android:layout_marginLeft="121px"
+            android:layout_toRightOf="@id/id_btn_home"
             android:src="@drawable/ico_btn_navi" />
 
         <ImageView
@@ -676,6 +599,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="138px"
+            android:layout_toRightOf="@id/id_btn_location"
             android:src="@drawable/ico_btn_music" />
 
         <ImageView
@@ -683,13 +607,50 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="118px"
+            android:layout_toRightOf="@id/id_btn_music"
             android:src="@drawable/ico_btn_driver" />
 
         <ImageView
             android:id="@+id/id_btn_apps"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="140px"
+            android:layout_marginLeft="120px"
+            android:layout_toRightOf="@id/id_btn_driver"
             android:src="@drawable/ico_btn_apps" />
-    </LinearLayout>
+
+        <TextView
+            android:id="@+id/id_Teddy_Tip_1"
+            android:layout_width="311px"
+            android:layout_height="92px"
+            android:layout_marginLeft="129px"
+            android:layout_toRightOf="@id/id_btn_apps"
+            android:background="@drawable/bg_btn_teddy_ask"
+            android:gravity="center"
+            android:text="今天天气怎么样"
+            android:textColor="#499AC8"
+            android:textSize="32px" />
+
+        <TextView
+            android:id="@+id/id_Teddy_Tip_2"
+            android:layout_width="311px"
+            android:layout_height="92px"
+            android:layout_marginLeft="24px"
+            android:layout_toRightOf="@id/id_Teddy_Tip_1"
+            android:background="@drawable/bg_btn_teddy_ask"
+            android:gravity="center"
+            android:text="导航回家"
+            android:textColor="#499AC8"
+            android:textSize="32px" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/id_Teddy_Tip_2"
+            android:src="@drawable/iv_teddy"
+            android:translationY="-100px" />
+
+    </RelativeLayout>
+
+    <!--    </LinearLayout>-->
+    <!--    </LinearLayout>-->
 </RelativeLayout>

@@ -25,6 +25,8 @@ import com.sitechdev.vehicle.pad.net.interception.SitechRequestInterceptor;
 import com.sitechdev.vehicle.pad.net.interception.SitechResponseInterceptor;
 import com.sitechdev.vehicle.pad.util.AppVariants;
 import com.sitechdev.vehicle.pad.util.BuglyHelper;
+import com.sitechdev.vehicle.pad.util.MarsXlogUtil;
+import com.sitechdev.vehicle.pad.util.ParamsUtil;
 import com.sitechdev.vehicle.pad.utils.MyEventBusIndex;
 
 import org.greenrobot.eventbus.EventBus;
@@ -55,6 +57,8 @@ public class AppApplication extends Application {
             e.printStackTrace();
         }
         AppManager.getInstance().init(this);
+        //腾讯相关组件
+        initTecentUtil();
         //网络
         initNet();
         //地图事件注册
@@ -69,6 +73,13 @@ public class AppApplication extends Application {
         initLifecleActivity();
         //考拉SDK
         initKaolaSdk();
+    }
+
+    private void initTecentUtil() {
+        //日志组件
+        MarsXlogUtil.initXlog();
+        //数据存储组件
+        ParamsUtil.init();
     }
 
     /**

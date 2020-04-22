@@ -3,16 +3,15 @@ package com.sitechdev.vehicle.pad.module.main;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.MainThread;
 import android.support.annotation.Nullable;
+import android.support.annotation.UiThread;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
-import android.text.style.StyleSpan;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -73,7 +72,7 @@ public class MainActivity extends BaseActivity
     private TextView btn_child_papers, btn_sitev_news, btn_car_fun, btn_life_all;
     private ImageView mHomeImageView, mWorkImageView;
     private ImageView mWeatherIconView;
-    private LinearLayout flTeddy;
+    private RelativeLayout flTeddy;
     private static final String TEMP_DATA = "一 一";
     private TextView mPowerPercentView = null, mKmView = null, mRechargeCountView = null;
 
@@ -130,7 +129,7 @@ public class MainActivity extends BaseActivity
         btn_car_fun = findViewById(R.id.btn_car_fun);
         btn_life_all = findViewById(R.id.btn_life_all);
 
-        flTeddy = (LinearLayout) findViewById(R.id.fl_teddy);
+        flTeddy = (RelativeLayout) findViewById(R.id.fl_teddy);
 
         tvLocation = (TextView) findViewById(R.id.tv_location);
         tvTemperature = (TextView) findViewById(R.id.tv_temperature);
@@ -475,6 +474,7 @@ public class MainActivity extends BaseActivity
         GlideUtils.getInstance().loadImage(WeatherUtils.getWeatherIcon(dataBean.getImg()), mWeatherIconView);
     }
 
+    @UiThread
     public void refreshCityView() {
         String locationDataText = WeatherUtils.getCityDataWithLocation();
         if (!locationDataText.equals(tvLocation.getText().toString().trim())) {

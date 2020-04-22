@@ -12,6 +12,11 @@ public class EnvironmentConfig {
     public static String BBS_HOST = "https://app-api.sitechdev.com";
     public static String RSA_PUBLIC_KEY = "";
 
+    /**
+     * 是否正式环境
+     *
+     * @param isRelease true=正式环境
+     */
     public static void init(boolean isRelease) {
         if (isRelease) {
             URL_ROOT_HOST = "https://cloud-api.sitechdev.com";

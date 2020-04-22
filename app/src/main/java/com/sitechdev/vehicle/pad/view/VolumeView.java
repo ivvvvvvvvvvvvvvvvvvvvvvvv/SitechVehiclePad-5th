@@ -9,6 +9,7 @@ import android.graphics.Path;
 import android.os.Process;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -27,7 +28,7 @@ public class VolumeView extends View {
     private static final int BIG_WAVE_PERIOD = 6;//大波周期
     private static final float BIG_SINE_UP_AND_DOWN_MOVE = 1.8f;//大波 上移动或者下移动的比值
     private static final float SMALL_SINE_UP_AND_DOWN_MOVE = 1.3f;//小波 上移动或者下移动的比值
-    private static final float MAX_VALUE = 100;// 最大振幅对应的值。对应0到100分贝
+    private static final float MAX_VALUE = 60;// 最大振幅对应的值。对应0到60分贝
     private static final float SMALL_AMPLITUDE_SIZE_SCALE = 8f;
     private static final float BIG_AMPLITUDE_SIZE_SCALE = 6f;
     private static final float MOVE_DISTACE = 5f;
@@ -156,7 +157,7 @@ public class VolumeView extends View {
             scaling = 1 - Math.pow(x / halfDrawWidth, 2);// 对y进行缩放
             y = (float) ((sine(x, period, drawWidth, phase) + upAndDownScale)
                     * amplitude * (-1) * Math.pow(scaling, 3));
-            path.lineTo(x, y * 3);
+            path.lineTo(x, y * 10);
         }
         canvas.drawPath(path, paint);
         canvas.save();
@@ -298,12 +299,12 @@ public class VolumeView extends View {
         }
 //        DL.i(TAG, "setVolume===>" + volume);
         float amplitude = volume / MAX_VALUE;
+        Log.i("VUI", "amplitude===>" + amplitude);
         if (amplitude < mMinAmplitude) {
             amplitude = mMinAmplitude;
         } else if (amplitude > 1.0f) {
             amplitude = 1.0f;
         }
-//        DL.i(TAG, "amplitude===>" + amplitude);
         if (mMoveThread != null) {
             mMoveThread.setAmplitude(amplitude);
         }
