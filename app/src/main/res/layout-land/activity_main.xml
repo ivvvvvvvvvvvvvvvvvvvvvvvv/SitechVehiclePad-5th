@@ -18,8 +18,7 @@
         android:layout_alignParentStart="true"
         android:background="@drawable/main_info_bg"
         android:orientation="vertical"
-        android:paddingLeft="70px"
-        android:paddingRight="70px">
+        android:paddingLeft="70px">
 
         <RelativeLayout
             android:id="@+id/id_rela_login"
@@ -54,85 +53,103 @@
             android:paddingTop="23px"
             android:paddingBottom="23px">
 
-            <TextView
-                android:id="@+id/tv_temperature"
+            <RelativeLayout
+                android:id="@+id/id_weather_left_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:includeFontPadding="false"
-                android:text=" - "
-                android:textColor="@color/white"
-                android:textSize="75px"
-                android:textStyle="bold" />
+                android:layout_alignParentLeft="true">
 
-            <TextView
-                android:id="@+id/id_sign_code"
+                <TextView
+                    android:id="@+id/tv_temperature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
+                    android:text=" - "
+                    android:textColor="@color/white"
+                    android:textSize="75px"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/id_sign_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10px"
+                    android:layout_toRightOf="@id/tv_temperature"
+                    android:text="℃"
+                    android:textColor="@color/white"
+                    android:textSize="30px"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_weather"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@id/tv_temperature"
+                    android:layout_marginLeft="22px"
+                    android:layout_toRightOf="@id/id_sign_code"
+                    android:textColor="@color/white"
+                    android:textSize="34px"
+                    tools:text="有雨" />
+
+                <TextView
+                    android:id="@+id/tv_temperature_day"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_temperature"
+                    android:layout_marginTop="15px"
+                    android:text="-/-"
+                    android:textColor="@color/main_tv_clo"
+                    android:textSize="30px"
+                    tools:text="20°/28°" />
+
+                <TextView
+                    android:id="@+id/tv_window"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_temperature_day"
+                    android:layout_marginTop="15px"
+                    android:textColor="@color/main_tv_clo"
+                    android:textSize="30px"
+                    tools:text="西南风3-4级" />
+            </RelativeLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10px"
-                android:layout_toRightOf="@id/tv_temperature"
-                android:text="℃"
-                android:textColor="@color/white"
-                android:textSize="30px"
-                android:textStyle="bold" />
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@id/id_weather_left_content"
+                android:gravity="center"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_weather"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/tv_temperature"
-                android:layout_marginLeft="22px"
-                android:layout_toRightOf="@id/id_sign_code"
-                android:textColor="@color/white"
-                android:textSize="34px"
-                tools:text="有雨" />
+                <ImageView
+                    android:id="@+id/iv_weather_icon"
+                    android:layout_width="150px"
+                    android:layout_height="150px"
+                    tools:src="@drawable/weather_rain" />
 
-            <TextView
-                android:id="@+id/tv_temperature_day"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_temperature"
-                android:layout_marginTop="15px"
-                android:text="-/-"
-                android:textColor="@color/main_tv_clo"
-                android:textSize="30px"
-                tools:text="20°/28°" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tv_window"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_temperature_day"
-                android:layout_marginTop="15px"
-                android:textColor="@color/main_tv_clo"
-                android:textSize="30px"
-                tools:text="西南风3-4级" />
+                    <ImageView
+                        android:id="@+id/iv_weather_location_icon"
+                        android:layout_width="40px"
+                        android:layout_height="40px"
+                        android:layout_marginRight="10px"
+                        android:src="@drawable/ico_main_location" />
 
-            <ImageView
-                android:id="@+id/iv_weather_icon"
-                android:layout_width="150px"
-                android:layout_height="150px"
-                android:layout_alignParentEnd="true"
-                android:src="@drawable/weather_rain" />
-
-            <TextView
-                android:id="@+id/tv_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/iv_weather_icon"
-                android:layout_alignParentEnd="true"
-                android:maxLines="1"
-                android:text="--，--"
-                android:textColor="@color/white"
-                android:textSize="28px" />
-
-            <ImageView
-                android:id="@+id/iv_weather_location_icon"
-                android:layout_width="40px"
-                android:layout_height="40px"
-                android:layout_below="@id/iv_weather_icon"
-                android:layout_marginRight="10px"
-                android:layout_toLeftOf="@id/tv_location"
-                android:src="@drawable/ico_main_location" />
+                    <TextView
+                        android:id="@+id/tv_location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:text="--，--"
+                        android:textColor="@color/white"
+                        android:textSize="28px" />
+                </LinearLayout>
+            </LinearLayout>
 
         </RelativeLayout>
 

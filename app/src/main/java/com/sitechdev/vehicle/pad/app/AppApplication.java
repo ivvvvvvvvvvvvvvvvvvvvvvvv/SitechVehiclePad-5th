@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.multidex.MultiDex;
 import android.util.Log;
 
+import com.blankj.utilcode.util.BarUtils;
 import com.kaolafm.opensdk.OpenSDK;
 import com.kaolafm.opensdk.http.core.HttpCallback;
 import com.kaolafm.opensdk.http.error.ApiException;
@@ -28,6 +29,7 @@ import com.sitechdev.vehicle.pad.util.BuglyHelper;
 import com.sitechdev.vehicle.pad.util.MarsXlogUtil;
 import com.sitechdev.vehicle.pad.util.ParamsUtil;
 import com.sitechdev.vehicle.pad.utils.MyEventBusIndex;
+import com.sitechdev.vehicle.pad.window.manager.RightTopWindowManager;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -65,14 +67,19 @@ public class AppApplication extends Application {
         MapVoiceEventUtil.getInstance().init();
         //bugly
         BuglyHelper.getInstance().initCrashReport(this);
-        //登录、普通Toast弹窗
-        CommonTopWindowManager.getInstance().init(this);
-        //登录、普通Toast弹窗
-        CommonTipWindowManager.getInstance().init(this);
+        //window窗口
+        initCustomWindow();
         //Activity 页面管理
         initLifecleActivity();
         //考拉SDK
         initKaolaSdk();
+    }
+
+    private void initCustomWindow() {
+        //右上角状态window
+        RightTopWindowManager.getInstance().init(this);
+        //登录、普通Toast弹窗
+        CommonTipWindowManager.getInstance().init(this);
     }
 
     private void initTecentUtil() {

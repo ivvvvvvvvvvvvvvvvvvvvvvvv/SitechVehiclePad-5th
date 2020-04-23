@@ -53,9 +53,12 @@ import com.sitechdev.vehicle.pad.module.main.util.WeatherUtils;
 import com.sitechdev.vehicle.pad.module.member.MemberActivity;
 import com.sitechdev.vehicle.pad.module.music.MusicMainActivity;
 import com.sitechdev.vehicle.pad.util.AppVariants;
+import com.sitechdev.vehicle.pad.util.FontUtil;
 import com.sitechdev.vehicle.pad.view.CommonToast;
+import com.sitechdev.vehicle.pad.view.ReflectTextClock;
 import com.sitechdev.vehicle.pad.view.ScrollTextView;
 import com.sitechdev.vehicle.pad.vui.VoiceConstants;
+import com.sitechdev.vehicle.pad.window.manager.RightTopWindowManager;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -162,6 +165,10 @@ public class MainActivity extends BaseActivity
         mMusicBtnImageView = (ImageView) findViewById(R.id.id_btn_music);
         mDriverBtnImageView = (ImageView) findViewById(R.id.id_btn_driver);
         mAppsBtnImageView = (ImageView) findViewById(R.id.id_btn_apps);
+
+        ReflectTextClock tcTime = (ReflectTextClock) findViewById(R.id.btn_hp_time);
+        tcTime.setTypeface(FontUtil.getInstance().getMainFont());
+//        tcTime.setOnClickListener(this);
     }
 
     @Override
@@ -271,6 +278,12 @@ public class MainActivity extends BaseActivity
         mMusicBtnImageView.setImageBitmap(ImageUtils.addReflection(ImageUtils.getBitmap(R.drawable.ico_btn_music), 20, true));
         mDriverBtnImageView.setImageBitmap(ImageUtils.addReflection(ImageUtils.getBitmap(R.drawable.ico_btn_driver), 20, true));
         mAppsBtnImageView.setImageBitmap(ImageUtils.addReflection(ImageUtils.getBitmap(R.drawable.ico_btn_apps), 20, true));
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (Settings.canDrawOverlays(AppApplication.getContext())) {
+                RightTopWindowManager.getInstance().show();
+            }
+        }
     }
 
     @Override

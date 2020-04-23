@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
+
+    <TextClock
+        android:id="@+id/tc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="23px"
+        android:format12Hour="hh:mm"
+        android:format24Hour="HH:mm"
+        android:textColor="@color/white"
+        android:textSize="24px" />
+
+    <ImageView
+        android:id="@+id/iv_usb_icon"
+        android:layout_width="34dp"
+        android:layout_height="30dp"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="5px"
+        android:layout_toLeftOf="@id/tc"
+        android:visibility="gone"
+        android:scaleType="centerInside"
+        android:src="@drawable/usb_icon" />
+
+    <ImageView
+        android:id="@+id/iv_bluetooth_icon"
+        android:layout_width="34dp"
+        android:layout_height="30dp"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="5px"
+        android:visibility="gone"
+        android:layout_toLeftOf="@id/iv_usb_icon"
+        android:scaleType="centerInside"
+        android:src="@drawable/bluetooth_icon" />
+
+    <ImageView
+        android:id="@+id/iv_top_voice"
+        android:layout_width="34dp"
+        android:layout_height="30dp"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="5px"
+        android:layout_toLeftOf="@id/iv_bluetooth_icon"
+        android:scaleType="centerInside"
+        android:visibility="gone"
+        android:src="@drawable/ic_top_voice" />
+
+    <ImageView
+        android:id="@+id/iv_tbox_icon"
+        android:layout_width="34dp"
+        android:layout_height="30dp"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="5px"
+        android:padding="3dp"
+        android:layout_toLeftOf="@id/iv_top_voice"
+        android:scaleType="centerInside"
+        android:src="@drawable/tbox_zero" />
+
+    <ImageView
+        android:id="@+id/iv_wifi_icon"
+        android:layout_width="34dp"
+        android:layout_height="30dp"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="5px"
+        android:visibility="gone"
+        android:layout_toLeftOf="@id/iv_tbox_icon"
+        android:scaleType="centerInside"
+        android:src="@drawable/wifi_icon" />
+
+    <ImageView
+        android:id="@+id/iv_hot_icon"
+        android:layout_width="34dp"
+        android:layout_height="30dp"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="5px"
+        android:visibility="gone"
+        android:layout_toLeftOf="@id/iv_wifi_icon"
+        android:scaleType="centerInside"
+        android:src="@drawable/rigth_top_hot_icon" />
+</RelativeLayout>
