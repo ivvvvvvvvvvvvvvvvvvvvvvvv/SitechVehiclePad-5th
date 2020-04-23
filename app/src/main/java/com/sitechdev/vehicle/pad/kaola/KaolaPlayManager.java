@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.blankj.utilcode.util.ArrayUtils;
 import com.kaolafm.opensdk.OpenSDK;
 import com.kaolafm.opensdk.api.operation.OperationRequest;
 import com.kaolafm.opensdk.api.operation.model.column.Column;
@@ -63,6 +64,10 @@ public class KaolaPlayManager {
         new OperationRequest().getColumnList("0", true, new HttpCallback<List<ColumnGrp>>() {
             @Override
             public void onSuccess(List<ColumnGrp> columnGrps) {
+                if (columnGrps == null || columnGrps.isEmpty()) {
+                    SitechDevLog.i(this.getClass().getSimpleName(), "听伴数据未获取到 ========== ");
+                    return;
+                }
                 mColumns = (List<Column>) columnGrps.get(0).getChildColumns();
                 SitechDevLog.i(this.getClass().getSimpleName(), "AI 电台分类大小 ========== " + columnGrps.size());
                 if (mColumns != null) {

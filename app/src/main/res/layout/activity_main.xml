@@ -18,7 +18,9 @@
         android:background="@drawable/main_info_bg"
         android:orientation="horizontal"
         android:paddingLeft="47px"
-        android:paddingRight="47px">
+        android:paddingTop="45px"
+        android:paddingRight="47px"
+        android:paddingBottom="51px">
 
         <LinearLayout
             android:id="@+id/id_first_left_content"
@@ -31,8 +33,7 @@
             <RelativeLayout
                 android:id="@+id/id_rela_login"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="45px">
+                android:layout_height="wrap_content">
 
                 <ImageView
                     android:id="@+id/iv_login"
@@ -56,8 +57,8 @@
             <RelativeLayout
                 android:id="@+id/fl_weather"
                 android:layout_width="match_parent"
-                android:layout_height="255px"
-                android:paddingTop="40px">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50px">
 
                 <TextView
                     android:id="@+id/tv_temperature"
@@ -118,14 +119,23 @@
                     android:layout_alignParentEnd="true"
                     android:src="@drawable/weather_rain" />
 
+                <ImageView
+                    android:id="@+id/iv_weather_location_icon"
+                    android:layout_width="40px"
+                    android:layout_height="40px"
+                    android:layout_below="@id/tv_window"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="30px"
+                    android:layout_marginRight="10px"
+                    android:src="@drawable/ico_main_location" />
+
                 <TextView
                     android:id="@+id/tv_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_window"
-                    android:layout_marginTop="68px"
-                    android:drawableLeft="@drawable/ico_main_location"
-                    android:drawablePadding="14px"
+                    android:layout_marginTop="30px"
+                    android:layout_toRightOf="@id/iv_weather_location_icon"
                     android:maxLines="1"
                     android:text="--，--"
                     android:textColor="@color/white"
@@ -145,17 +155,17 @@
             android:id="@+id/id_first_right_content"
             android:layout_width="0px"
             android:layout_height="match_parent"
-            android:layout_marginTop="45px"
+            android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:paddingLeft="79px">
+            android:paddingLeft="83px">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="229px"
-                android:orientation="vertical"
-                android:paddingTop="50px"
-                android:paddingBottom="14px">
+                android:layout_height="0px"
+                android:layout_weight="2"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
 
                 <TextClock
                     android:id="@+id/tc_data"
@@ -164,6 +174,7 @@
                     android:format12Hour="yyyy年MM月dd日"
                     android:format24Hour="yyyy年MM月dd日"
                     android:includeFontPadding="false"
+                    android:layout_marginTop="30px"
                     android:textColor="@color/main_tv_clo"
                     android:textSize="30px" />
 
@@ -186,12 +197,14 @@
             <RelativeLayout
                 android:id="@+id/id_bluetooth_content"
                 android:layout_width="match_parent"
-                android:layout_height="153px">
+                android:layout_height="0px"
+                android:layout_weight="1"
+                android:gravity="center_vertical">
 
                 <ImageView
                     android:id="@+id/iv_bluetooth_icon"
-                    android:layout_width="44px"
-                    android:layout_height="60px"
+                    android:layout_width="90px"
+                    android:layout_height="90px"
                     android:layout_centerVertical="true"
                     android:src="@drawable/icon_bluetooth" />
 
@@ -200,7 +213,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="26px"
+                    android:layout_marginLeft="20px"
                     android:layout_toRightOf="@id/iv_bluetooth_icon"
                     android:text="张三的IPHONE"
                     android:textColor="@color/white"
@@ -216,11 +229,9 @@
         android:layout_width="565px"
         android:layout_height="131px"
         android:layout_below="@id/id_main_first_content"
-        android:layout_marginTop="20px"
+        android:layout_marginTop="24px"
         android:background="@drawable/main_map_item_bg"
-        android:orientation="horizontal"
-        android:paddingTop="36px"
-        android:paddingBottom="36px">
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="0px"
@@ -231,8 +242,8 @@
 
             <ImageView
                 android:id="@+id/id_img_home"
-                android:layout_width="53px"
-                android:layout_height="48px"
+                android:layout_width="60px"
+                android:layout_height="60px"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/iv_map_home" />
 
@@ -262,8 +273,8 @@
 
             <ImageView
                 android:id="@+id/id_img_work"
-                android:layout_width="48px"
-                android:layout_height="44px"
+                android:layout_width="60px"
+                android:layout_height="60px"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/iv_map_work" />
 
@@ -287,15 +298,15 @@
         android:layout_height="131px"
         android:layout_below="@id/id_main_first_content"
         android:layout_marginLeft="8px"
-        android:layout_marginTop="20px"
+        android:layout_marginTop="24px"
         android:layout_toRightOf="@id/id_main_second_left_content"
         android:background="@drawable/main_map_item_bg_right"
         android:gravity="center"
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="38px"
-            android:layout_height="52px"
+            android:layout_width="60px"
+            android:layout_height="60px"
             android:src="@drawable/iv_teddy_ask" />
 
         <TextView
@@ -312,14 +323,14 @@
     <RelativeLayout
         android:id="@+id/id_main_third_content"
         android:layout_width="match_parent"
-        android:layout_height="443px"
+        android:layout_height="wrap_content"
         android:layout_below="@id/id_main_second_left_content"
-        android:layout_marginTop="19px">
+        android:layout_marginTop="21px">
 
         <LinearLayout
             android:id="@+id/ll_music"
-            android:layout_width="392px"
-            android:layout_height="443px"
+            android:layout_width="369px"
+            android:layout_height="480px"
             android:layout_alignParentStart="true"
             android:background="@drawable/main_info_right_middle_bg"
             android:gravity="center"
@@ -330,20 +341,21 @@
             <TextView
                 android:id="@+id/id_r_m_l_music_main_title"
                 style="@style/style_tv_home_music"
+                android:layout_marginTop="55px"
                 android:text="音乐" />
 
             <ImageView
                 android:id="@+id/id_r_m_l_music_icon"
-                android:layout_width="110px"
-                android:layout_height="110px"
-                android:layout_marginTop="43px"
+                android:layout_width="120px"
+                android:layout_height="120px"
+                android:layout_marginTop="54px"
                 android:src="@drawable/iv_music" />
 
             <LinearLayout
                 android:id="@+id/id_r_m_l_music_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30px"
+                android:layout_marginTop="46px"
                 android:orientation="horizontal">
 
                 <com.sitechdev.vehicle.pad.view.ScrollTextView
@@ -352,7 +364,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:text="听妈妈的话 - 周杰伦"
+                    android:text="--  --"
                     android:textColor="@color/white"
                     android:textSize="32px" />
             </LinearLayout>
@@ -362,45 +374,46 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/id_r_m_l_music_title"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="40px"
+                android:layout_marginTop="57px"
                 android:background="@drawable/main_home_music_play"
                 android:gravity="center_horizontal">
 
                 <ImageView
                     android:id="@+id/iv_music_bef"
-                    android:layout_width="36px"
-                    android:layout_height="36px"
+                    android:layout_width="42px"
+                    android:layout_height="42px"
                     android:src="@drawable/iv_music_bef" />
 
                 <ImageView
                     android:id="@+id/iv_music_stop"
-                    android:layout_width="36px"
-                    android:layout_height="36px"
-                    android:layout_marginLeft="80px"
+                    android:layout_width="42px"
+                    android:layout_height="42px"
+                    android:layout_marginLeft="68px"
                     android:clickable="true"
                     android:src="@drawable/selector_play_pause" />
 
                 <ImageView
                     android:id="@+id/iv_music_next"
-                    android:layout_width="36px"
-                    android:layout_height="36px"
-                    android:layout_marginLeft="80px"
+                    android:layout_width="42px"
+                    android:layout_height="42px"
+                    android:layout_marginLeft="68px"
                     android:src="@drawable/iv_music_next" />
             </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/ll_news"
-            android:layout_width="370px"
-            android:layout_height="216px"
-            android:layout_marginLeft="12px"
+            android:layout_width="310px"
+            android:layout_height="233px"
+            android:layout_marginLeft="16px"
             android:layout_toRightOf="@id/ll_music"
             android:background="@drawable/main_info_right_middle_bg"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
 
             <ImageView
-                android:layout_width="80px"
-                android:layout_height="80px"
+                android:layout_width="100px"
+                android:layout_height="100px"
                 android:src="@drawable/iv_news" />
 
             <TextView
@@ -412,16 +425,17 @@
 
         <LinearLayout
             android:id="@+id/ll_book"
-            android:layout_width="370px"
-            android:layout_height="215px"
+            android:layout_width="310px"
+            android:layout_height="233px"
             android:layout_marginLeft="11px"
             android:layout_toRightOf="@id/ll_news"
             android:background="@drawable/main_info_right_middle_bg"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
 
             <ImageView
-                android:layout_width="72px"
-                android:layout_height="72px"
+                android:layout_width="100px"
+                android:layout_height="100px"
                 android:src="@drawable/iv_child_book" />
 
             <TextView
@@ -433,18 +447,19 @@
 
         <LinearLayout
             android:id="@+id/ll_car"
-            android:layout_width="370px"
-            android:layout_height="215px"
+            android:layout_width="310px"
+            android:layout_height="233px"
             android:layout_below="@id/ll_news"
-            android:layout_marginLeft="12px"
-            android:layout_marginTop="11px"
+            android:layout_marginLeft="16px"
+            android:layout_marginTop="14px"
             android:layout_toRightOf="@id/ll_music"
             android:background="@drawable/main_info_right_middle_bg"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
 
             <ImageView
-                android:layout_width="72px"
-                android:layout_height="72px"
+                android:layout_width="100px"
+                android:layout_height="100px"
                 android:src="@drawable/iv_car" />
 
             <TextView
@@ -455,18 +470,19 @@
 
         <LinearLayout
             android:id="@+id/ll_life"
-            android:layout_width="370px"
-            android:layout_height="215px"
+            android:layout_width="310px"
+            android:layout_height="233px"
             android:layout_below="@id/ll_book"
             android:layout_marginLeft="11px"
-            android:layout_marginTop="11px"
+            android:layout_marginTop="14px"
             android:layout_toRightOf="@id/ll_car"
             android:background="@drawable/main_info_right_middle_bg"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
 
             <ImageView
-                android:layout_width="80px"
-                android:layout_height="80px"
+                android:layout_width="100px"
+                android:layout_height="100px"
                 android:src="@drawable/iv_life" />
 
             <TextView
@@ -483,7 +499,7 @@
         android:layout_width="match_parent"
         android:layout_height="156px"
         android:layout_below="@id/id_main_third_content"
-        android:layout_marginTop="20px"
+        android:layout_marginTop="23px"
         android:background="@drawable/main_info_right_bottom_bg"
         android:gravity="center"
         android:orientation="horizontal"
@@ -510,7 +526,7 @@
                 style="@style/style_tv_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="22px"
+                android:layout_marginLeft="15px"
                 android:includeFontPadding="false"
                 android:textSize="48px"
                 tools:text="70 %" />
@@ -541,7 +557,7 @@
                 style="@style/style_tv_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="23px"
+                android:layout_marginLeft="15px"
                 android:includeFontPadding="false"
                 android:textSize="48px"
                 tools:text="230 KM" />
@@ -572,7 +588,7 @@
                 style="@style/style_tv_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="25px"
+                android:layout_marginLeft="15px"
                 android:includeFontPadding="false"
                 android:textSize="48px"
                 tools:text="48 次" />
@@ -590,15 +606,15 @@
     <RelativeLayout
         android:id="@+id/fl_teddy"
         android:layout_width="match_parent"
-        android:layout_height="154px"
+        android:layout_height="wrap_content"
         android:layout_below="@id/id_main_forth_content"
-        android:layout_marginTop="60px"
+        android:layout_marginTop="63px"
         android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/id_btn_teddy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="167px"
+            android:layout_height="243px"
             android:src="@drawable/iv_teddy" />
 
         <TextView
@@ -659,37 +675,36 @@
 
         <ImageView
             android:id="@+id/id_btn_home"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="46px"
+            android:layout_width="90px"
+            android:layout_height="150px"
             android:src="@drawable/ico_btn_home" />
 
         <ImageView
             android:id="@+id/id_btn_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="151px"
+            android:layout_width="90px"
+            android:layout_height="150px"
+            android:layout_marginLeft="110px"
             android:src="@drawable/ico_btn_navi" />
 
         <ImageView
             android:id="@+id/id_btn_music"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="138px"
+            android:layout_width="90px"
+            android:layout_height="150px"
+            android:layout_marginLeft="110px"
             android:src="@drawable/ico_btn_music" />
 
         <ImageView
             android:id="@+id/id_btn_driver"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="118px"
+            android:layout_width="90px"
+            android:layout_height="150px"
+            android:layout_marginLeft="110px"
             android:src="@drawable/ico_btn_driver" />
 
         <ImageView
             android:id="@+id/id_btn_apps"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="140px"
+            android:layout_width="90px"
+            android:layout_height="150px"
+            android:layout_marginLeft="110px"
             android:src="@drawable/ico_btn_apps" />
     </LinearLayout>
 </RelativeLayout>
