@@ -215,7 +215,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20px"
                     android:layout_toRightOf="@id/iv_bluetooth_icon"
-                    android:text="张三的IPHONE"
+                    android:text="请连接手机"
                     android:textColor="@color/white"
                     android:textSize="30px" />
             </RelativeLayout>

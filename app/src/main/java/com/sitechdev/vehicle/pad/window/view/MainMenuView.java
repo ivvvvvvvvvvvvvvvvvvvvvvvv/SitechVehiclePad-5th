@@ -12,6 +12,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.event.VoiceEvent;
+import com.sitechdev.vehicle.pad.window.manager.MainPopUpControlWindowManager;
 
 public class MainMenuView extends RelativeLayout implements View.OnClickListener {
 
@@ -93,7 +94,8 @@ public class MainMenuView extends RelativeLayout implements View.OnClickListener
                 ToastUtils.showShort("应用按钮被点击了。。。");
                 break;
             case R.id.id_btn_teddy:
-                EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_MVW_SUCCESS));
+//                EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_MVW_SUCCESS));
+                MainPopUpControlWindowManager.getInstance().show();
                 break;
             default:
                 break;
