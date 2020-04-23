@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorMainBg"
+    android:background="@drawable/main_bg_land"
     android:clipChildren="false"
     android:clipToPadding="false"
     android:paddingLeft="52px"
@@ -16,7 +16,7 @@
         android:layout_width="639px"
         android:layout_height="771px"
         android:layout_alignParentStart="true"
-        android:background="@drawable/main_info_bg"
+        android:background="@drawable/bg_main_info_land"
         android:orientation="vertical"
         android:paddingLeft="70px">
 
@@ -493,7 +493,7 @@
         android:layout_marginLeft="22px"
         android:layout_marginTop="20px"
         android:layout_toRightOf="@id/id_main_left_content"
-        android:background="@drawable/main_info_right_bottom_bg"
+        android:background="@drawable/bg_car_info_land"
         android:gravity="center"
         android:orientation="horizontal"
         android:paddingTop="50px"
@@ -588,95 +588,4 @@
 
         </LinearLayout>
     </LinearLayout>
-
-    <!--    <LinearLayout-->
-    <!--        android:id="@+id/fl_teddy"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="154px"-->
-    <!--        android:clipChildren="false">-->
-
-    <RelativeLayout
-        android:id="@+id/fl_teddy"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/id_main_left_content"
-        android:layout_marginLeft="34px"
-        android:layout_marginTop="62px"
-        android:layout_marginRight="16px"
-        android:clipChildren="false"
-        android:clipToPadding="false">
-
-        <ImageView
-            android:id="@+id/id_btn_home"
-            android:layout_width="90px"
-            android:layout_height="150px"
-            android:src="@drawable/ico_btn_home" />
-
-        <ImageView
-            android:id="@+id/id_btn_location"
-            android:layout_width="90px"
-            android:layout_height="150px"
-            android:layout_marginLeft="110px"
-            android:layout_toRightOf="@id/id_btn_home"
-            android:src="@drawable/ico_btn_navi" />
-
-        <ImageView
-            android:id="@+id/id_btn_music"
-            android:layout_width="90px"
-            android:layout_height="150px"
-            android:layout_marginLeft="110px"
-            android:layout_toRightOf="@id/id_btn_location"
-            android:src="@drawable/ico_btn_music" />
-
-        <ImageView
-            android:id="@+id/id_btn_driver"
-            android:layout_width="90px"
-            android:layout_height="150px"
-            android:layout_marginLeft="110px"
-            android:layout_toRightOf="@id/id_btn_music"
-            android:src="@drawable/ico_btn_driver" />
-
-        <ImageView
-            android:id="@+id/id_btn_apps"
-            android:layout_width="90px"
-            android:layout_height="150px"
-            android:layout_marginLeft="110px"
-            android:layout_toRightOf="@id/id_btn_driver"
-            android:src="@drawable/ico_btn_apps" />
-
-        <TextView
-            android:id="@+id/id_Teddy_Tip_1"
-            android:layout_width="311px"
-            android:layout_height="92px"
-            android:layout_marginLeft="80px"
-            android:layout_toRightOf="@id/id_btn_apps"
-            android:background="@drawable/bg_btn_teddy_ask"
-            android:gravity="center"
-            android:text="今天天气怎么样"
-            android:textColor="#499AC8"
-            android:textSize="32px" />
-
-        <TextView
-            android:id="@+id/id_Teddy_Tip_2"
-            android:layout_width="311px"
-            android:layout_height="92px"
-            android:layout_marginLeft="24px"
-            android:layout_toRightOf="@id/id_Teddy_Tip_1"
-            android:background="@drawable/bg_btn_teddy_ask"
-            android:gravity="center"
-            android:text="导航回家"
-            android:textColor="#499AC8"
-            android:textSize="32px" />
-
-        <ImageView
-            android:layout_width="167px"
-            android:layout_height="243px"
-            android:layout_toRightOf="@id/id_Teddy_Tip_2"
-            android:src="@drawable/iv_teddy"
-            android:translationY="-120px" />
-
-    </RelativeLayout>
-
-    <!--    </LinearLayout>-->
-    <!--    </LinearLayout>-->
 </RelativeLayout>

@@ -18,8 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.ImageUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
@@ -58,6 +56,7 @@ import com.sitechdev.vehicle.pad.view.CommonToast;
 import com.sitechdev.vehicle.pad.view.ReflectTextClock;
 import com.sitechdev.vehicle.pad.view.ScrollTextView;
 import com.sitechdev.vehicle.pad.vui.VoiceConstants;
+import com.sitechdev.vehicle.pad.window.manager.MainMenuWindowManager;
 import com.sitechdev.vehicle.pad.window.manager.RightTopWindowManager;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -83,7 +82,6 @@ public class MainActivity extends BaseActivity
     private static final String TEMP_DATA = "一 一";
     private TextView mPowerPercentView = null, mKmView = null, mRechargeCountView = null;
 
-    private ImageView mHomeBtnImageView, mNaviBtnImageView, mMusicBtnImageView, mDriverBtnImageView, mAppsBtnImageView;
 
     //    List<Column> mColumns = new ArrayList<>();
 //    Column mCurrentColumn;
@@ -147,7 +145,7 @@ public class MainActivity extends BaseActivity
         btn_car_fun = findViewById(R.id.btn_car_fun);
         btn_life_all = findViewById(R.id.btn_life_all);
 
-        flTeddy = (RelativeLayout) findViewById(R.id.fl_teddy);
+//        flTeddy = (RelativeLayout) findViewById(R.id.fl_teddy);
 
         tvLocation = (TextView) findViewById(R.id.tv_location);
         tvTemperature = (TextView) findViewById(R.id.tv_temperature);
@@ -160,15 +158,8 @@ public class MainActivity extends BaseActivity
         mKmView = (TextView) findViewById(R.id.tv_km);
         mRechargeCountView = (TextView) findViewById(R.id.tv_recharge);
 
-        mHomeBtnImageView = (ImageView) findViewById(R.id.id_btn_home);
-        mNaviBtnImageView = (ImageView) findViewById(R.id.id_btn_location);
-        mMusicBtnImageView = (ImageView) findViewById(R.id.id_btn_music);
-        mDriverBtnImageView = (ImageView) findViewById(R.id.id_btn_driver);
-        mAppsBtnImageView = (ImageView) findViewById(R.id.id_btn_apps);
-
         ReflectTextClock tcTime = (ReflectTextClock) findViewById(R.id.btn_hp_time);
         tcTime.setTypeface(FontUtil.getInstance().getMainFont());
-//        tcTime.setOnClickListener(this);
     }
 
     @Override
@@ -273,15 +264,11 @@ public class MainActivity extends BaseActivity
     @Override
     protected void onResume() {
         super.onResume();
-        mHomeBtnImageView.setImageBitmap(ImageUtils.addReflection(ImageUtils.getBitmap(R.drawable.ico_btn_home), 20, true));
-        mNaviBtnImageView.setImageBitmap(ImageUtils.addReflection(ImageUtils.getBitmap(R.drawable.ico_btn_navi), 20, true));
-        mMusicBtnImageView.setImageBitmap(ImageUtils.addReflection(ImageUtils.getBitmap(R.drawable.ico_btn_music), 20, true));
-        mDriverBtnImageView.setImageBitmap(ImageUtils.addReflection(ImageUtils.getBitmap(R.drawable.ico_btn_driver), 20, true));
-        mAppsBtnImageView.setImageBitmap(ImageUtils.addReflection(ImageUtils.getBitmap(R.drawable.ico_btn_apps), 20, true));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             if (Settings.canDrawOverlays(AppApplication.getContext())) {
                 RightTopWindowManager.getInstance().show();
+                MainMenuWindowManager.getInstance().show();
             }
         }
     }
@@ -304,13 +291,13 @@ public class MainActivity extends BaseActivity
         ivMusicStop.setOnClickListener(this);
         ivMusicNext.setOnClickListener(this);
 //        ivMusicList.setOnClickListener(this);
-        flTeddy.setOnClickListener(this);
+//        flTeddy.setOnClickListener(this);
 
-        mHomeBtnImageView.setOnClickListener(this);
-        mNaviBtnImageView.setOnClickListener(this);
-        mMusicBtnImageView.setOnClickListener(this);
-        mDriverBtnImageView.setOnClickListener(this);
-        mAppsBtnImageView.setOnClickListener(this);
+//        mHomeBtnImageView.setOnClickListener(this);
+//        mNaviBtnImageView.setOnClickListener(this);
+//        mMusicBtnImageView.setOnClickListener(this);
+//        mDriverBtnImageView.setOnClickListener(this);
+//        mAppsBtnImageView.setOnClickListener(this);
     }
 
     @Override
@@ -366,21 +353,6 @@ public class MainActivity extends BaseActivity
             case R.id.ll_life:
                 KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(this, 3);
 
-                break;
-            case R.id.id_btn_home:
-                ToastUtils.showShort("主页按钮被点击了。。。");
-                break;
-            case R.id.id_btn_location:
-                ToastUtils.showShort("导航按钮被点击了。。。");
-                break;
-            case R.id.id_btn_music:
-                ToastUtils.showShort("音乐按钮被点击了。。。");
-                break;
-            case R.id.id_btn_driver:
-                ToastUtils.showShort("驾驶按钮被点击了。。。");
-                break;
-            case R.id.id_btn_apps:
-                ToastUtils.showShort("应用按钮被点击了。。。");
                 break;
             case R.id.iv_music_bef:
 //                switch (musicSource){
@@ -448,10 +420,8 @@ public class MainActivity extends BaseActivity
 //            case R.id.iv_music_list:
 //                VoiceSourceManager.getInstance().toDetailActivity();
 //                break;
-            case R.id.fl_teddy:
-//                CommonToast.makeText(this, "你好，teddy");
-                EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_MVW_SUCCESS));
-                break;
+//            case R.id.fl_teddy:
+//                break;
 
             default:
                 break;

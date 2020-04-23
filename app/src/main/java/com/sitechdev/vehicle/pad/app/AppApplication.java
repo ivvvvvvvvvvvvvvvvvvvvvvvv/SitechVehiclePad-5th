@@ -29,7 +29,9 @@ import com.sitechdev.vehicle.pad.util.BuglyHelper;
 import com.sitechdev.vehicle.pad.util.MarsXlogUtil;
 import com.sitechdev.vehicle.pad.util.ParamsUtil;
 import com.sitechdev.vehicle.pad.utils.MyEventBusIndex;
+import com.sitechdev.vehicle.pad.window.manager.MainMenuWindowManager;
 import com.sitechdev.vehicle.pad.window.manager.RightTopWindowManager;
+import com.sitechdev.vehicle.pad.window.view.MainMenuView;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -78,6 +80,8 @@ public class AppApplication extends Application {
     private void initCustomWindow() {
         //右上角状态window
         RightTopWindowManager.getInstance().init(this);
+        //底部主菜单
+        MainMenuWindowManager.getInstance().init(this);
         //登录、普通Toast弹窗
         CommonTipWindowManager.getInstance().init(this);
     }

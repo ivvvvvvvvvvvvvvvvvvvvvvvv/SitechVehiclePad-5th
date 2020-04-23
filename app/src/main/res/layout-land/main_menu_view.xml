@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/id_main_menu_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="30px"
+    android:paddingLeft="61px"
+    android:paddingRight="61px">
+
+    <ImageView
+        android:id="@+id/id_btn_home"
+        android:layout_width="90px"
+        android:layout_height="150px"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="100px"
+        android:src="@drawable/ico_btn_home" />
+
+    <ImageView
+        android:id="@+id/id_btn_location"
+        android:layout_width="90px"
+        android:layout_height="150px"
+        android:layout_marginLeft="110px"
+        android:layout_marginTop="100px"
+        android:layout_toRightOf="@id/id_btn_home"
+        android:src="@drawable/ico_btn_navi" />
+
+    <ImageView
+        android:id="@+id/id_btn_music"
+        android:layout_width="90px"
+        android:layout_height="150px"
+        android:layout_marginLeft="110px"
+        android:layout_marginTop="100px"
+        android:layout_toRightOf="@id/id_btn_location"
+        android:src="@drawable/ico_btn_music" />
+
+    <ImageView
+        android:id="@+id/id_btn_driver"
+        android:layout_width="90px"
+        android:layout_height="150px"
+        android:layout_marginLeft="110px"
+        android:layout_marginTop="100px"
+        android:layout_toRightOf="@id/id_btn_music"
+        android:src="@drawable/ico_btn_driver" />
+
+    <ImageView
+        android:id="@+id/id_btn_apps"
+        android:layout_width="90px"
+        android:layout_height="150px"
+        android:layout_marginLeft="110px"
+        android:layout_marginTop="100px"
+        android:layout_toRightOf="@id/id_btn_driver"
+        android:src="@drawable/ico_btn_apps" />
+
+    <RelativeLayout
+        android:id="@+id/id_Teddy_Content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10px"
+        android:layout_marginTop="110px"
+        android:layout_marginRight="10px"
+        android:layout_marginBottom="10px"
+        android:layout_toLeftOf="@+id/id_teddy_Icon"
+        android:layout_toRightOf="@+id/id_btn_apps"
+        android:padding="10px">
+
+        <RelativeLayout
+            android:id="@+id/id_teddy_default_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/id_Teddy_Tip_1"
+                android:layout_width="311px"
+                android:layout_height="92px"
+                android:layout_marginLeft="80px"
+                android:background="@drawable/bg_btn_teddy_ask_land"
+                android:gravity="center"
+                android:text="今天天气怎么样"
+                android:textColor="#499AC8"
+                android:textSize="32px" />
+
+            <TextView
+                android:id="@+id/id_Teddy_Tip_2"
+                android:layout_width="311px"
+                android:layout_height="92px"
+                android:layout_marginLeft="24px"
+                android:layout_toRightOf="@id/id_Teddy_Tip_1"
+                android:background="@drawable/bg_btn_teddy_ask_land"
+                android:gravity="center"
+                android:text="导航回家"
+                android:textColor="#499AC8"
+                android:textSize="32px" />
+        </RelativeLayout>
+
+        <!-- 识别的view 识别语句的应答-->
+        <RelativeLayout
+            android:id="@+id/id_teddy_sr_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+
+            <com.sitechdev.vehicle.pad.view.VolumeView
+                android:id="@+id/id_teddy_sr_volume_content"
+                android:layout_width="match_parent"
+                android:layout_height="50px"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/id_teddy_sr_volume_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20px"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="2"
+                android:paddingLeft="50px"
+                android:paddingRight="50px"
+                android:text="打开车窗透气"
+                android:textColor="#499AC8"
+                android:textSize="30px" />
+        </RelativeLayout>
+
+        <!-- tts的view 包含唤醒的应答-->
+        <RelativeLayout
+            android:id="@+id/id_teddy_tts_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_btn_teddy_ask_land"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="2"
+                android:paddingLeft="50px"
+                android:paddingTop="20px"
+                android:paddingRight="50px"
+                android:paddingBottom="20px"
+                android:text="好的，已经为您打开车窗通风好的，已经为您打开车窗通风好的，已经为您打开车窗通风好的，已经为您打开车窗通风好的，已经为您打开车窗通风好的，已经为您打开车窗通风好的，已经为您打开车窗通风好的，已经为您打开车窗通风好的，已经为您打开车窗通风好的，已经为您打开车窗通风好的，已经为您打开车窗通风好的，已经为您打开车窗通风好的，已经为您打开车窗通风"
+                android:textColor="#499AC8"
+                android:textSize="30px" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/id_btn_teddy"
+        android:layout_width="167px"
+        android:layout_height="243px"
+        android:layout_alignParentRight="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/iv_teddy" />
+
+</RelativeLayout>
