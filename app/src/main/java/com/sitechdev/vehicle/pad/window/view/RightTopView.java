@@ -120,6 +120,22 @@ public class RightTopView extends LinearLayout {
         });
     }
 
+    public void refreshTboxIconView(boolean isShow) {
+        ThreadUtils.runOnUIThread(() -> {
+            if (iv_tbox_icon == null) {
+                iv_tbox_icon = findViewById(R.id.iv_tbox_icon);
+            }
+            iv_tbox_icon.setVisibility(isShow ? View.VISIBLE : View.GONE);
+        });
+    }
+
+    public void refreshTboxIconLevel(int level) {
+        ThreadUtils.runOnUIThread(() -> {
+            refreshTboxIconView(true);
+            tBoxIconChangeLevel(level);
+        });
+    }
+
     /**
      * 刷新静音图标
      *
@@ -140,20 +156,46 @@ public class RightTopView extends LinearLayout {
      * @param netRssi 取值范围：[1,31]
      */
     private void tBoxIconChange(int netRssi) {
-        ThreadUtils.runOnUIThread(() -> {
-            if (netRssi <= 0) {
+        if (netRssi <= 0) {
+            tBoxIconChangeLevel(0);
+        } else if (netRssi <= 8) {
+            tBoxIconChangeLevel(1);
+        } else if (netRssi <= 16) {
+            tBoxIconChangeLevel(2);
+        } else if (netRssi <= 24) {
+            tBoxIconChangeLevel(3);
+        } else if (netRssi <= 33) {
+            tBoxIconChangeLevel(4);
+        } else {
+            tBoxIconChangeLevel(0);
+        }
+    }
+
+    /**
+     * 网络强度 取值范围：[1,31]
+     *
+     * @param level 取值范围：[0,4]
+     */
+    private void tBoxIconChangeLevel(int level) {
+        switch (level) {
+            case 0:
                 iv_tbox_icon.setImageResource(R.drawable.tbox_zero);
-            } else if (netRssi <= 8) {
+                break;
+            case 1:
                 iv_tbox_icon.setImageResource(R.drawable.tbox_one);
-            } else if (netRssi <= 16) {
+                break;
+            case 2:
                 iv_tbox_icon.setImageResource(R.drawable.tbox_two);
-            } else if (netRssi <= 24) {
+                break;
+            case 3:
                 iv_tbox_icon.setImageResource(R.drawable.tbox_three);
-            } else if (netRssi <= 33) {
+                break;
+            case 4:
                 iv_tbox_icon.setImageResource(R.drawable.tbox_four);
-            } else {
+                break;
+            default:
                 iv_tbox_icon.setImageResource(R.drawable.tbox_zero);
-            }
-        });
+                break;
+        }
     }
 }
