@@ -82,7 +82,7 @@ public class MainActivity extends BaseActivity
     private RelativeLayout flTeddy;
     private static final String TEMP_DATA = "一 一";
     private TextView mPowerPercentView = null, mKmView = null, mRechargeCountView = null;
-
+    private LinearLayout carPowerInfoView = null;
 
     //    List<Column> mColumns = new ArrayList<>();
 //    Column mCurrentColumn;
@@ -140,6 +140,8 @@ public class MainActivity extends BaseActivity
 
         tvMusicName = findViewById(R.id.tv_music_name);
 //        tvMusicAuthor = (TextView) findViewById(R.id.tv_music_author);
+
+        carPowerInfoView = findViewById(R.id.ll_car_power_info);
 
         btn_child_papers = findViewById(R.id.btn_child_papers);
         btn_sitev_news = findViewById(R.id.btn_sitev_news);
@@ -293,6 +295,7 @@ public class MainActivity extends BaseActivity
         ivMusicNext.setOnClickListener(this);
 //        ivMusicList.setOnClickListener(this);
 //        flTeddy.setOnClickListener(this);
+        carPowerInfoView.setOnClickListener(this);
 
 //        mHomeBtnImageView.setOnClickListener(this);
 //        mNaviBtnImageView.setOnClickListener(this);

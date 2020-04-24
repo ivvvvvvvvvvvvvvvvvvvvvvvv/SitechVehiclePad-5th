@@ -3,7 +3,6 @@
     android:id="@+id/id_main_menu_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_below="@id/id_main_forth_content"
     android:layout_marginBottom="60px"
     android:clipChildren="false"
     android:clipToPadding="false"

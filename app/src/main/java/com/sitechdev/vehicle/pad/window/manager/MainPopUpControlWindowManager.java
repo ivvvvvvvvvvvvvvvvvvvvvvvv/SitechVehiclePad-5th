@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.PixelFormat;
+import android.graphics.Point;
+import android.os.Build;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -119,32 +121,42 @@ public class MainPopUpControlWindowManager {
             mainControlView = new MainPopupControlView(context);
         }
         if (params == null) {
-            params = new WindowManager.LayoutParams();
-            params.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
-            params.format = PixelFormat.RGBA_8888;
-            params.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
-                    | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;//弹出的View收不到Back键的事件
-            params.gravity = Gravity.BOTTOM;
+//            params = new WindowManager.LayoutParams();
+//            params.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+//            params.format = PixelFormat.RGBA_8888;
 //            params.flags = WindowManager.LayoutParams.FLAG_FULLSCREEN;
+//            params.gravity = Gravity.BOTTOM;
 //            params.format = PixelFormat.TRANSPARENT;
-//            Point point = new Point();
-//            winManager.getDefaultDisplay().getSize(point);
-//            int screenWidth = point.x;
-//            int screenHeight = point.y;
-//            params.x = screenWidth;
-//            params.y = screenHeight;
+//
+//            // 须指定宽度高度信息
+//            params.width = mainControlView.mWidth;
+//            params.height = mainControlView.mHeight;
+//            SitechDevLog.i(TAG, "-------------params.width()>" + params.width);
+//            SitechDevLog.i(TAG, "-------------params.height()>" + params.height);
+//            //
+//            params.x = displayHeight - mainControlView.mHeight;
+//            params.y = 0;
+//            SitechDevLog.i(TAG, "-------------params.x()>" + params.x);
+//            SitechDevLog.i(TAG, "--displayHeight==" + displayHeight + "-----------params.y()>" + params.y);
 
-            // 须指定宽度高度信息
-            params.width = mainControlView.mWidth;
-            params.height = mainControlView.mHeight;
-            SitechDevLog.i(TAG, "-------------params.width()>" + params.width);
-            SitechDevLog.i(TAG, "-------------params.height()>" + params.height);
-            //
-            params.x = displayHeight - mainControlView.mHeight;
-            params.y = 0;
-            SitechDevLog.i(TAG, "-------------params.x()>" + params.x);
-            SitechDevLog.i(TAG, "--displayHeight==" + displayHeight + "-----------params.y()>" + params.y);
 
+            params = new WindowManager.LayoutParams();
+            Point point = new Point();
+            winManager.getDefaultDisplay().getSize(point);
+            int screenWidth = point.x;
+            int screenHeight = point.y;
+            params.width = WindowManager.LayoutParams.MATCH_PARENT;
+            params.height = WindowManager.LayoutParams.MATCH_PARENT;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                params.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+            } else {
+                params.type = WindowManager.LayoutParams.TYPE_PHONE;
+            }
+            params.flags = WindowManager.LayoutParams.FLAG_FULLSCREEN | WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+            params.format = PixelFormat.TRANSLUCENT;
+            params.dimAmount=0.5f;
+            params.x = screenWidth;
+            params.y = screenHeight;
         }
     }
 
@@ -164,13 +176,14 @@ public class MainPopUpControlWindowManager {
             if ("android.intent.action.CONFIGURATION_CHANGED".equals(intent.getAction())) {
                 if (ScreenUtils.isLandscape()) {
                     Log.i(TAG, "OrientationReciver============横屏");
-                    hide();
-                    show();
                 } else {
                     Log.i(TAG, "OrientationReciver============竖屏");
-                    hide();
-                    show();
                 }
+                if (!isViewShow()) {
+                    return;
+                }
+                hide();
+                show();
             }
         }
     }

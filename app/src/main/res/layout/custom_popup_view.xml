@@ -14,20 +14,28 @@
         android:paddingRight="50px"
         android:paddingBottom="50px">
 
-        <ImageView
-            android:id="@+id/id_top_image"
-            android:layout_width="240px"
-            android:layout_height="10px"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20px"
-            android:src="@drawable/main_control_top_control" />
+        <LinearLayout
+            android:id="@+id/id_top_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="20px"
+            android:paddingBottom="20px">
+
+            <ImageView
+                android:id="@+id/id_top_image"
+                android:layout_width="240px"
+                android:layout_height="10px"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/main_control_top_control" />
+        </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/id_first_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/id_top_image"
-            android:layout_marginTop="34px">
+            android:layout_below="@id/id_top_content"
+            android:layout_marginTop="5px">
 
             <ImageView
                 android:id="@+id/id_bluetooth_Btn"
@@ -60,10 +68,10 @@
             android:id="@+id/id_second_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/id_top_image"
+            android:layout_below="@id/id_top_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="55px"
-            android:layout_marginTop="50px"
+            android:layout_marginTop="10px"
             android:layout_toRightOf="@id/id_first_content">
 
             <FrameLayout
@@ -126,94 +134,21 @@
         </RelativeLayout>
 
         <LinearLayout
-            android:id="@+id/id_third_content"
+            android:id="@+id/id_led_view_content"
             android:layout_width="match_parent"
             android:layout_height="156px"
             android:layout_below="@id/id_first_content"
             android:layout_marginTop="30px"
             android:background="@drawable/bg_popup_btn_view"
             android:orientation="horizontal"
-            android:paddingLeft="10px"
-            android:paddingRight="10px">
-
-            <ImageView
-                android:id="@+id/id_led_1"
-                android:layout_width="100px"
-                android:layout_height="100px"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/ico_control_led1" />
-
-            <ImageView
-                android:id="@+id/id_led_2"
-                android:layout_width="100px"
-                android:layout_height="100px"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="5px"
-                android:src="@drawable/ico_control_led2" />
-
-            <ImageView
-                android:id="@+id/id_led_3"
-                android:layout_width="100px"
-                android:layout_height="100px"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="5px"
-                android:src="@drawable/ico_control_led3" />
-
-            <ImageView
-                android:id="@+id/id_led_4"
-                android:layout_width="100px"
-                android:layout_height="100px"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="5px"
-                android:src="@drawable/ico_control_led4" />
-
-            <ImageView
-                android:id="@+id/id_led_5"
-                android:layout_width="100px"
-                android:layout_height="100px"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="5px"
-                android:src="@drawable/ico_control_led5" />
-
-            <ImageView
-                android:id="@+id/id_led_6"
-                android:layout_width="100px"
-                android:layout_height="100px"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="5px"
-                android:src="@drawable/ico_control_led6" />
-
-            <ImageView
-                android:id="@+id/id_led_7"
-                android:layout_width="100px"
-                android:layout_height="100px"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="5px"
-                android:src="@drawable/ico_control_led7" />
-
-            <ImageView
-                android:id="@+id/id_led_8"
-                android:layout_width="100px"
-                android:layout_height="100px"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="5px"
-                android:src="@drawable/ico_control_led8" />
-
-            <ImageView
-                android:id="@+id/id_led_9"
-                android:layout_width="100px"
-                android:layout_height="100px"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="5px"
-                android:src="@drawable/ico_control_led9" />
-
-        </LinearLayout>
+            android:paddingLeft="40px"
+            android:paddingRight="40px"/>
 
         <LinearLayout
             android:id="@+id/id_forth_content"
             android:layout_width="match_parent"
             android:layout_height="100px"
-            android:layout_below="@id/id_third_content"
+            android:layout_below="@id/id_led_view_content"
             android:layout_marginTop="20px"
             android:orientation="horizontal">
 

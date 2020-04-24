@@ -8,11 +8,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.blankj.utilcode.util.ImageUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.event.VoiceEvent;
-import com.sitechdev.vehicle.pad.window.manager.MainPopUpControlWindowManager;
 
 public class MainMenuView extends RelativeLayout implements View.OnClickListener {
 
@@ -62,8 +60,6 @@ public class MainMenuView extends RelativeLayout implements View.OnClickListener
         mMusicBtnImageView.setImageBitmap(ImageUtils.addReflection(ImageUtils.getBitmap(R.drawable.ico_btn_music), reflectionValue, true));
         mDriverBtnImageView.setImageBitmap(ImageUtils.addReflection(ImageUtils.getBitmap(R.drawable.ico_btn_driver), reflectionValue, true));
         mAppsBtnImageView.setImageBitmap(ImageUtils.addReflection(ImageUtils.getBitmap(R.drawable.ico_btn_apps), reflectionValue, true));
-
-//        mTeddyView.setImageBitmap(ImageUtils.addReflection(ImageUtils.getBitmap(R.drawable.iv_teddy), reflectionValue * 3, true));
     }
 
     private void initListener() {
@@ -79,19 +75,19 @@ public class MainMenuView extends RelativeLayout implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.id_btn_home:
-                ToastUtils.showShort("主页按钮被点击了。。。");
+//                ToastUtils.showShort("主页按钮被点击了。。。");
                 break;
             case R.id.id_btn_location:
-                ToastUtils.showShort("导航按钮被点击了。。。");
+//                ToastUtils.showShort("导航按钮被点击了。。。");
                 break;
             case R.id.id_btn_music:
-                ToastUtils.showShort("音乐按钮被点击了。。。");
+//                ToastUtils.showShort("音乐按钮被点击了。。。");
                 break;
             case R.id.id_btn_driver:
-                ToastUtils.showShort("驾驶按钮被点击了。。。");
+//                ToastUtils.showShort("驾驶按钮被点击了。。。");
                 break;
             case R.id.id_btn_apps:
-                ToastUtils.showShort("应用按钮被点击了。。。");
+//                ToastUtils.showShort("应用按钮被点击了。。。");
                 break;
             case R.id.id_btn_teddy:
                 EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_MVW_SUCCESS));
