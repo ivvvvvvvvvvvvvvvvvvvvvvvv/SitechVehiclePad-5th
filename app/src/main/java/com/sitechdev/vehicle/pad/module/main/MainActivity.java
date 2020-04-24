@@ -37,6 +37,7 @@ import com.sitechdev.vehicle.pad.callback.BaseBribery;
 import com.sitechdev.vehicle.pad.event.AppEvent;
 import com.sitechdev.vehicle.pad.event.MapEvent;
 import com.sitechdev.vehicle.pad.event.VoiceEvent;
+import com.sitechdev.vehicle.pad.event.WindowEvent;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.manager.UserManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
@@ -353,6 +354,9 @@ public class MainActivity extends BaseActivity
             case R.id.ll_life:
                 KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(this, 3);
 
+                break;
+            case R.id.ll_car_power_info:
+                EventBusUtils.postEvent(new WindowEvent(WindowEvent.EVENT_WINDOW_CONTROL_MENU, true));
                 break;
             case R.id.iv_music_bef:
 //                switch (musicSource){

@@ -94,8 +94,7 @@ public class MainMenuView extends RelativeLayout implements View.OnClickListener
                 ToastUtils.showShort("应用按钮被点击了。。。");
                 break;
             case R.id.id_btn_teddy:
-//                EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_MVW_SUCCESS));
-                MainPopUpControlWindowManager.getInstance().show();
+                EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_MVW_SUCCESS));
                 break;
             default:
                 break;

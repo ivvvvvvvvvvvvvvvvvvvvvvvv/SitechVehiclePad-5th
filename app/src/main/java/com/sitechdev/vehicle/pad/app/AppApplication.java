@@ -7,15 +7,19 @@ import android.os.Bundle;
 import android.support.multidex.MultiDex;
 import android.util.Log;
 
+import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.BarUtils;
+import com.blankj.utilcode.util.Utils;
 import com.kaolafm.opensdk.OpenSDK;
 import com.kaolafm.opensdk.http.core.HttpCallback;
 import com.kaolafm.opensdk.http.error.ApiException;
 import com.kaolafm.opensdk.log.Logging;
 import com.sitechdev.net.EnvironmentConfig;
 import com.sitechdev.net.HttpHelper;
+import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.ProcessUtil;
 import com.sitechdev.vehicle.pad.BuildConfig;
+import com.sitechdev.vehicle.pad.event.WindowEvent;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.manager.AppManager;
 import com.sitechdev.vehicle.pad.manager.CommonTipWindowManager;
@@ -87,6 +91,7 @@ public class AppApplication extends Application {
         MainPopUpControlWindowManager.getInstance().init(this);
         //登录、普通Toast弹窗
         CommonTipWindowManager.getInstance().init(this);
+        BaseAppWindowManager.getInstance().init();
     }
 
     private void initTecentUtil() {
@@ -160,6 +165,20 @@ public class AppApplication extends Application {
                 if (AppVariants.currentActivity == activity) {
                     AppVariants.currentActivity = null;
                 }
+            }
+        });
+
+        AppUtils.registerAppStatusChangedListener(new Utils.OnAppStatusChangedListener() {
+            @Override
+            public void onForeground(Activity activity) {
+                //app在前台
+                EventBusUtils.postEvent(new WindowEvent(WindowEvent.EVENT_WINDOW_APP_FRONT));
+            }
+
+            @Override
+            public void onBackground(Activity activity) {
+                //app切到后台
+                EventBusUtils.postEvent(new WindowEvent(WindowEvent.EVENT_WINDOW_APP_BACKGROUD));
             }
         });
     }

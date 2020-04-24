@@ -4,11 +4,16 @@
 
     <style name="MainAppTheme" parent="AppTheme">
         <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowIsTranslucent">true</item>
     </style>
 
     <style name="NoTitleAppTheme" parent="AppTheme">
         <item name="android:windowNoTitle">true</item>
+<!--        <item name="android:windowIsTranslucent">true</item>-->
     </style>
+<!--    <style name="SplashAppTheme" parent="NoTitleAppTheme">-->
+<!--        <item name="android:windowBackground">@drawable/ico_logo</item>-->
+<!--    </style>-->
 
     <style name="style_white_line">
         <item name="android:background">@color/main_info_line</item>
@@ -99,6 +104,16 @@
     <style name="BottomAnimation" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/bottom_enter_anim</item>
         <item name="android:windowExitAnimation">@anim/bottom_exit_anim</item>
+    </style>
+
+    <style name="car_radio_radiobutton">
+        <item name="android:layout_width">84dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:button">@null</item>
+        <item name="android:textSize">32sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/selector_car_radio_selected</item>
     </style>
 
 </resources>

@@ -5,49 +5,54 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
+        android:id="@+id/id_main_popup_view_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#E6246495"
         android:layout_alignParentBottom="true"
+        android:background="#E6246495"
         android:paddingLeft="50px"
         android:paddingRight="50px"
         android:paddingBottom="50px">
 
         <ImageView
             android:id="@+id/id_top_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="240px"
+            android:layout_height="10px"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20px"
-            android:src="@drawable/icon_pull_up" />
+            android:src="@drawable/main_control_top_control" />
 
         <RelativeLayout
             android:id="@+id/id_first_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="70px">
+            android:layout_below="@id/id_top_image"
+            android:layout_marginTop="34px">
 
             <ImageView
                 android:id="@+id/id_bluetooth_Btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ico_back_home" />
+                android:layout_width="99px"
+                android:layout_height="99px"
+                android:clickable="true"
+                android:src="@drawable/selector_control_bluetooth" />
 
             <ImageView
                 android:id="@+id/id_mobile_net_Btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="99px"
+                android:layout_height="99px"
                 android:layout_below="@id/id_bluetooth_Btn"
-                android:layout_marginTop="5px"
-                android:src="@drawable/ico_back_home" />
+                android:layout_marginTop="17px"
+                android:clickable="true"
+                android:src="@drawable/selector_control_mobile_net" />
 
             <ImageView
                 android:id="@+id/id_wifi_Btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="99px"
+                android:layout_height="99px"
                 android:layout_below="@id/id_mobile_net_Btn"
-                android:layout_marginTop="5px"
-                android:src="@drawable/ico_back_home" />
+                android:layout_marginTop="17px"
+                android:clickable="true"
+                android:src="@drawable/selector_control_wifi" />
 
         </RelativeLayout>
 
@@ -58,25 +63,37 @@
             android:layout_below="@id/id_top_image"
             android:layout_centerVertical="true"
             android:layout_marginLeft="55px"
-            android:layout_marginTop="20px"
+            android:layout_marginTop="50px"
             android:layout_toRightOf="@id/id_first_content">
 
-            <RelativeLayout
+            <FrameLayout
                 android:id="@+id/id_volume_change_content"
                 android:layout_width="match_parent"
-                android:layout_height="120px"
-                android:background="@drawable/bg_popup_btn_view">
+                android:layout_height="120px">
+
+                <SeekBar
+                    android:id="@+id/id_control_volume_seek_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="120px"
+                    android:background="@drawable/bg_popup_btn_view"
+                    android:max="30"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp"
+                    android:progress="10"
+                    android:progressDrawable="@drawable/layer_list_sound_bar"
+                    android:thumb="@drawable/bg_popup_btn_thumb"
+                    android:thumbOffset="0dp" />
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/ico_back_home" />
+                    android:layout_width="65px"
+                    android:layout_height="65px"
+                    android:layout_gravity="center|right"
+                    android:layout_marginRight="20px"
+                    android:src="@drawable/ico_control_volume" />
 
-            </RelativeLayout>
+            </FrameLayout>
 
-            <RelativeLayout
+            <FrameLayout
                 android:id="@+id/id_screen_light_change_content"
                 android:layout_width="match_parent"
                 android:layout_height="120px"
@@ -84,14 +101,27 @@
                 android:layout_marginTop="50px"
                 android:background="@drawable/bg_popup_btn_view">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/ico_back_home" />
+                <SeekBar
+                    android:id="@+id/id_control_light_seek_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="120px"
+                    android:background="@drawable/bg_popup_btn_view"
+                    android:max="10"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp"
+                    android:progress="5"
+                    android:progressDrawable="@drawable/layer_list_sound_bar"
+                    android:thumb="@drawable/bg_popup_btn_thumb"
+                    android:thumbOffset="0dp" />
 
-            </RelativeLayout>
+                <ImageView
+                    android:layout_width="65px"
+                    android:layout_height="65px"
+                    android:layout_gravity="center|right"
+                    android:layout_marginRight="20px"
+                    android:src="@drawable/ico_control_light" />
+
+            </FrameLayout>
 
         </RelativeLayout>
 
@@ -100,43 +130,82 @@
             android:layout_width="match_parent"
             android:layout_height="156px"
             android:layout_below="@id/id_first_content"
-            android:layout_marginTop="20px"
+            android:layout_marginTop="30px"
             android:background="@drawable/bg_popup_btn_view"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingLeft="10px"
+            android:paddingRight="10px">
 
             <ImageView
                 android:id="@+id/id_led_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ico_back_home" />
+                android:layout_width="100px"
+                android:layout_height="100px"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ico_control_led1" />
 
             <ImageView
                 android:id="@+id/id_led_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10px"
-                android:src="@drawable/ico_back_home" />
+                android:layout_width="100px"
+                android:layout_height="100px"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5px"
+                android:src="@drawable/ico_control_led2" />
 
             <ImageView
                 android:id="@+id/id_led_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10px"
-                android:src="@drawable/ico_back_home" />
+                android:layout_width="100px"
+                android:layout_height="100px"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5px"
+                android:src="@drawable/ico_control_led3" />
 
             <ImageView
                 android:id="@+id/id_led_4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10px"
-                android:src="@drawable/ico_back_home" />
+                android:layout_width="100px"
+                android:layout_height="100px"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5px"
+                android:src="@drawable/ico_control_led4" />
 
             <ImageView
                 android:id="@+id/id_led_5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10px"
-                android:src="@drawable/ico_back_home" />
+                android:layout_width="100px"
+                android:layout_height="100px"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5px"
+                android:src="@drawable/ico_control_led5" />
+
+            <ImageView
+                android:id="@+id/id_led_6"
+                android:layout_width="100px"
+                android:layout_height="100px"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5px"
+                android:src="@drawable/ico_control_led6" />
+
+            <ImageView
+                android:id="@+id/id_led_7"
+                android:layout_width="100px"
+                android:layout_height="100px"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5px"
+                android:src="@drawable/ico_control_led7" />
+
+            <ImageView
+                android:id="@+id/id_led_8"
+                android:layout_width="100px"
+                android:layout_height="100px"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5px"
+                android:src="@drawable/ico_control_led8" />
+
+            <ImageView
+                android:id="@+id/id_led_9"
+                android:layout_width="100px"
+                android:layout_height="100px"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5px"
+                android:src="@drawable/ico_control_led9" />
 
         </LinearLayout>
 
@@ -148,36 +217,21 @@
             android:layout_marginTop="20px"
             android:orientation="horizontal">
 
-            <LinearLayout
+
+            <ImageView
                 android:id="@+id/id_eco_content"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="0px"
+                android:layout_height="100px"
                 android:layout_weight="1"
-                android:background="@drawable/bg_popup_btn_view"
-                android:gravity="center">
+                android:background="@drawable/selector_control_eco_v" />
 
-                <ImageView
-                    android:id="@+id/id_eco_change_content"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ico_back_home" />
-            </LinearLayout>
-
-            <LinearLayout
+            <ImageView
                 android:id="@+id/id_screen_ori_content"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="0px"
+                android:layout_height="100px"
                 android:layout_marginLeft="30px"
                 android:layout_weight="1"
-                android:background="@drawable/bg_popup_btn_view"
-                android:gravity="center">
-
-                <ImageView
-                    android:id="@+id/id_screen_ori_change_content"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ico_back_home" />
-            </LinearLayout>
+                android:src="@drawable/selector_control_screen_ori_v" />
         </LinearLayout>
 
         <LinearLayout
@@ -190,9 +244,10 @@
 
             <ImageView
                 android:id="@+id/id_car_speed_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ico_back_home" />
+                android:layout_width="65px"
+                android:layout_height="65px"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ico_control_car_speed" />
 
             <TextView
                 android:id="@+id/id_car_speed_title"
@@ -204,13 +259,46 @@
                 android:textColor="#FDFDFD"
                 android:textSize="32px" />
 
-            <Switch
-                android:id="@+id/id_car_speed_switch"
+
+            <RadioGroup
+                android:id="@+id/id_car_speed_switch_group"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="100px"
                 android:layout_marginLeft="40px"
                 android:background="@drawable/bg_popup_btn_view"
-                android:src="@drawable/ico_back_home" />
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/id_car_speed_off"
+                    style="@style/car_radio_radiobutton"
+                    android:layout_width="197px"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="关"
+                    android:textColor="@drawable/selector_car_control_textcolor_selected"
+                    android:textSize="32px" />
+
+                <RadioButton
+                    android:id="@+id/id_car_speed_middle"
+                    style="@style/car_radio_radiobutton"
+                    android:layout_width="197px"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="60km/h"
+                    android:textColor="@drawable/selector_car_control_textcolor_selected"
+                    android:textSize="32px" />
+
+                <RadioButton
+                    android:id="@+id/id_car_speed_max"
+                    style="@style/car_radio_radiobutton"
+                    android:layout_width="197px"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="80km/h"
+                    android:textColor="@drawable/selector_car_control_textcolor_selected"
+                    android:textSize="32px" />
+            </RadioGroup>
         </LinearLayout>
 
         <LinearLayout
@@ -223,28 +311,61 @@
 
             <ImageView
                 android:id="@+id/id_car_power_recycle_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ico_back_home" />
+                android:layout_width="65px"
+                android:layout_height="65px"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ico_control_car_power_recycle" />
 
             <TextView
                 android:id="@+id/id_car_power_recycle_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20px"
                 android:text="动能回收"
                 android:textColor="#FDFDFD"
                 android:textSize="32px" />
 
-            <Switch
-                android:id="@+id/id_car_power_recycle_switch"
+
+            <RadioGroup
+                android:id="@+id/id_car_power_recycle_group"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="100px"
                 android:layout_marginLeft="40px"
                 android:background="@drawable/bg_popup_btn_view"
-                android:src="@drawable/ico_back_home" />
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/id_car_recycle_off"
+                    style="@style/car_radio_radiobutton"
+                    android:layout_width="197px"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="关"
+                    android:textColor="@drawable/selector_car_control_textcolor_selected"
+                    android:textSize="32px" />
+
+                <RadioButton
+                    android:id="@+id/id_car_recycle_middle"
+                    style="@style/car_radio_radiobutton"
+                    android:layout_width="197px"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="中"
+                    android:textColor="@drawable/selector_car_control_textcolor_selected"
+                    android:textSize="32px" />
+
+                <RadioButton
+                    android:id="@+id/id_car_recycle_max"
+                    style="@style/car_radio_radiobutton"
+                    android:layout_width="197px"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="强"
+                    android:textColor="@drawable/selector_car_control_textcolor_selected"
+                    android:textSize="32px" />
+            </RadioGroup>
         </LinearLayout>
-
-
     </RelativeLayout>
 </RelativeLayout>

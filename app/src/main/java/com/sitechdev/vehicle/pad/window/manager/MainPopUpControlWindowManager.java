@@ -33,6 +33,7 @@ public class MainPopUpControlWindowManager {
      * 显示的浮动窗体
      */
     public MainPopupControlView mainControlView;
+    public View mainControlContentView;
 
     // 屏幕的尺寸
     private static int displayWidth;
@@ -122,7 +123,7 @@ public class MainPopUpControlWindowManager {
             params.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
             params.format = PixelFormat.RGBA_8888;
             params.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
-                    | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+                    | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;//弹出的View收不到Back键的事件
             params.gravity = Gravity.BOTTOM;
 //            params.flags = WindowManager.LayoutParams.FLAG_FULLSCREEN;
 //            params.format = PixelFormat.TRANSPARENT;
@@ -184,13 +185,16 @@ public class MainPopUpControlWindowManager {
         Log.i(TAG, "onTeddyVoiceEvent============" + event.getEventKey());
     }
 
-    public void move(View view, int delatX, int deltaY) {
-        if (view == mainControlView) {
-            params.x += delatX;
-            params.y -= deltaY;
-            // 更新floatView
-            winManager.updateViewLayout(view, params);
-        }
+    public void move(int delatX, int deltaY) {
+//        if (view == mainControlContentView) {
+        SitechDevLog.i(TAG, "*********************移动前  move (params.x )==" + params.x + "， (params.Y)==" + params.y);
+        SitechDevLog.i(TAG, "*********************移动前  move (x - preX)==" + mainControlView + "， (delatX)==" + delatX + "， (deltaY)==" + deltaY);
+        params.x -= 10;
+        params.y = 0;
+        SitechDevLog.i(TAG, "*********************移动后  move (params.x )==" + params.x + "， (params.Y)==" + params.y);
+        // 更新window
+        winManager.updateViewLayout(mainControlView, params);
+//        }
     }
 
 }
