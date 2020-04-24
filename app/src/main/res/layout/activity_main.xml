@@ -40,7 +40,7 @@
                     android:layout_width="76px"
                     android:layout_height="77px"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/ico_user_default" />
+                    android:src="@drawable/ico_default_member_logo" />
 
                 <TextView
                     android:id="@+id/tv_login"
@@ -375,7 +375,6 @@
                 android:layout_below="@id/id_r_m_l_music_title"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="57px"
-                android:background="@drawable/main_home_music_play"
                 android:gravity="center_horizontal">
 
                 <ImageView
@@ -419,7 +418,7 @@
             <TextView
                 android:id="@+id/btn_sitev_news"
                 style="@style/style_tv_home_music"
-                android:layout_marginLeft="26px"
+                android:layout_marginTop="31px"
                 android:text="新特速报" />
         </LinearLayout>
 
@@ -441,7 +440,7 @@
             <TextView
                 android:id="@+id/btn_child_papers"
                 style="@style/style_tv_home_music"
-                android:layout_marginLeft="31px"
+                android:layout_marginTop="31px"
                 android:text="少儿读物" />
         </LinearLayout>
 
@@ -465,6 +464,7 @@
             <TextView
                 android:id="@+id/btn_car_fun"
                 style="@style/style_tv_home_music"
+                android:layout_marginTop="31px"
                 android:text="车嗨娱乐" />
         </LinearLayout>
 
@@ -488,7 +488,7 @@
             <TextView
                 android:id="@+id/btn_life_all"
                 style="@style/style_tv_home_music"
-                android:layout_marginLeft="23px"
+                android:layout_marginTop="31px"
                 android:text="生活一点通" />
         </LinearLayout>
 

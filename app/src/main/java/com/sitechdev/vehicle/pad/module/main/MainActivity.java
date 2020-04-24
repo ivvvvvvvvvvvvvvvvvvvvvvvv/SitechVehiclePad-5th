@@ -482,7 +482,7 @@ public class MainActivity extends BaseActivity
                     .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                     .into(ivLogin);
         } else {
-            Glide.with(MainActivity.this).load(R.drawable.ico_user_default)
+            Glide.with(MainActivity.this).load(R.drawable.ico_default_member_logo)
                     .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                     .into(ivLogin);
         }

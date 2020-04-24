@@ -30,7 +30,7 @@
                 android:layout_width="76px"
                 android:layout_height="77px"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ico_user_default" />
+                android:src="@drawable/ico_default_member_logo" />
 
             <TextView
                 android:id="@+id/tv_login"
@@ -44,7 +44,8 @@
                 android:textSize="32px" />
         </RelativeLayout>
 
-        <View style="@style/style_white_line" />
+        <View style="@style/style_white_line"
+            android:layout_marginRight="70px"/>
 
         <RelativeLayout
             android:id="@+id/fl_weather"
@@ -153,7 +154,8 @@
 
         </RelativeLayout>
 
-        <View style="@style/style_white_line" />
+        <View style="@style/style_white_line"
+            android:layout_marginRight="70px"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -170,13 +172,14 @@
                 android:format24Hour="yyyy年MM月dd日"
                 android:includeFontPadding="false"
                 android:textColor="@color/main_tv_clo"
+                android:layout_marginTop="10px"
                 android:textSize="30px" />
 
             <com.sitechdev.vehicle.pad.view.ReflectTextClock
                 android:id="@+id/btn_hp_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15px"
+                android:layout_marginTop="25px"
                 android:format12Hour="hh:mm"
                 android:format24Hour="HH:mm"
                 android:includeFontPadding="false"
@@ -186,7 +189,8 @@
                 android:typeface="serif" />
         </LinearLayout>
 
-        <View style="@style/style_white_line" />
+        <View style="@style/style_white_line"
+            android:layout_marginRight="70px"/>
 
         <RelativeLayout
             android:id="@+id/id_bluetooth_content"
@@ -369,7 +373,6 @@
                 android:layout_below="@id/id_r_m_l_music_title"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="36px"
-                android:background="@drawable/main_home_music_play"
                 android:gravity="center_horizontal">
 
                 <ImageView

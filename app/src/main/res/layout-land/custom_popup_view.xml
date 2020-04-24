@@ -84,7 +84,7 @@
                     android:layout_height="395px"
                     android:background="@drawable/bg_popup_btn_view"
                     android:max="30"
-                    android:progress="10"
+                    android:progress="20"
                     android:progressDrawable="@drawable/layer_list_sound_bar_land"
                     android:thumb="@drawable/bg_popup_btn_thumb_land" />
 
@@ -110,7 +110,7 @@
                     android:layout_height="395px"
                     android:background="@drawable/bg_popup_btn_view"
                     android:max="10"
-                    android:progress="5"
+                    android:progress="7"
                     android:progressDrawable="@drawable/layer_list_sound_bar_land"
                     android:thumb="@drawable/bg_popup_btn_thumb_land" />
 
