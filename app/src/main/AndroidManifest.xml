@@ -13,17 +13,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup">
-        <activity android:name=".module.music.MusicMainActivity"
-            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".module.music.MusicMainActivity"
+            android:screenOrientation="landscape" />
 
         <activity
             android:name=".kaola.NewsDetailsActivity"
-            android:screenOrientation="landscape"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".module.weather.WeatherActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".kaola.KaolaListActivity"
-            android:screenOrientation="landscape"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".module.splash.SplashActivity"
             android:theme="@style/NoTitleAppTheme">
@@ -70,6 +75,7 @@
             android:name=".module.member.MyPointActivity"
             android:screenOrientation="landscape"
             android:theme="@style/NoTitleAppTheme" />
+
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="d022b05db57b4566ea7507d12cf5c1d2" />
@@ -116,6 +122,7 @@
             android:required="false" />
     </application>
     <uses-feature android:name="android.hardware.camera" />
+
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission

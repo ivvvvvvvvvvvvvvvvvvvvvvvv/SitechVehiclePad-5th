@@ -44,4 +44,5 @@
     <dimen name="px_290">290px</dimen>
     <dimen name="px_500">500px</dimen>
     <dimen name="px_190">190px</dimen>
+    <dimen name="common_bg_width">390dp</dimen>
 </resources>

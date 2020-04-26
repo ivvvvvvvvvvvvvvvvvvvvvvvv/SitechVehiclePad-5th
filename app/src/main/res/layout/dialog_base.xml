@@ -37,6 +37,7 @@
         android:id="@+id/lv_upgrade_list"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
+        android:layout_below="@+id/tv_dialog_title"
         android:layout_marginTop="10dp"
         android:layout_weight="1"
         android:divider="@null"
@@ -51,11 +52,15 @@
         android:text="注意：升级过程中，可能重启2次，请耐心等待~"
         android:textColor="@android:color/white"
         android:textSize="20sp"
-        android:visibility="gone" />
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
+        android:layout_above="@id/cl_btn"
         android:background="#FF6E6E80" />
 
     <android.support.constraint.ConstraintLayout
@@ -65,7 +70,6 @@
 
         <!--确定、取消按钮组-->
         <android.support.constraint.Group
-            android:id="@+id/group_double_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="visible"
@@ -90,16 +94,6 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <View
-            android:id="@+id/view_dialog_line"
-            android:layout_width="2dp"
-            android:layout_height="73dp"
-            android:background="#FF6E6E80"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <TextView
             android:id="@+id/tv_upgrade_negative"
             android:layout_width="0dp"
@@ -111,6 +105,16 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/view_dialog_line"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/view_dialog_line"
+            android:layout_width="2dp"
+            android:layout_height="73dp"
+            android:background="#FF6E6E80"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView

@@ -47,10 +47,10 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 //        return super.getResources();
         Log.i("BaseActivity", "getResources=======");
         if (ScreenUtils.isLandscape()) {
-            Log.i("MainActivity", "横屏");
+            Log.i(this.getClass().getSimpleName(), "横屏");
             return AdaptScreenUtils.adaptWidth(super.getResources(), 1920);
         } else {
-            Log.i("MainActivity", "竖屏");
+            Log.i(this.getClass().getSimpleName(), "竖屏");
             return AdaptScreenUtils.adaptWidth(super.getResources(), 1080);
         }
     }

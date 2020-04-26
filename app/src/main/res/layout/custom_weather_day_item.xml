@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/id_weather_tomorrow_content"
+    android:layout_width="590px"
+    android:layout_height="130px"
+    android:background="@drawable/weather_info_day_bg"
+    android:paddingLeft="54px"
+    android:paddingRight="54px">
+
+    <TextView
+        android:id="@+id/id_weather_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:textColor="#B3FFFFFF"
+        android:textSize="28px"
+        tools:text="12日" />
+
+    <TextView
+        android:id="@+id/id_weather_date_week"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="30px"
+        android:layout_toRightOf="@id/id_weather_date"
+        android:textColor="#B3FFFFFF"
+        android:textSize="28px"
+        tools:text="周三" />
+
+    <TextView
+        android:id="@+id/id_weather_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="30px"
+        android:layout_toRightOf="@id/id_weather_date_week"
+        android:background="@drawable/weather_info_tip_wuran_bg"
+        android:gravity="center"
+        android:paddingLeft="20px"
+        android:paddingTop="10px"
+        android:paddingRight="20px"
+        android:paddingBottom="10px"
+        android:textColor="#B3FFFFFF"
+        android:textSize="28px"
+        tools:text="污染" />
+
+    <TextView
+        android:id="@+id/id_weather_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="34px"
+        android:layout_toRightOf="@id/id_weather_tip"
+        android:textColor="#B3FFFFFF"
+        android:textSize="28px"
+        tools:text="晴" />
+
+    <TextView
+        android:id="@+id/id_weather_temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="34px"
+        android:layout_toRightOf="@id/id_weather_status"
+        android:textColor="#B3FFFFFF"
+        android:textSize="28px"
+        tools:text="16/0" />
+
+    <!--                <TextView-->
+    <!--                    android:id="@+id/id_weather_temp_flag"-->
+    <!--                    android:layout_width="wrap_content"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:layout_centerVertical="true"-->
+    <!--                    android:layout_marginLeft="10px"-->
+    <!--                    android:layout_toRightOf="@id/id_weather_tomorrow_temp"-->
+    <!--                    android:text="℃"-->
+    <!--                    android:textColor="#B3FFFFFF"-->
+    <!--                    android:textSize="28px" />-->
+
+</RelativeLayout>

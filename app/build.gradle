@@ -131,6 +131,8 @@ dependencies {
     implementation 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
     //============图片选择组件================
 
+    implementation Config.depConfig.dataStatistics
+
     //============听伴sdk================
 //    implementation(Config.depConfig.tingban) {
 //        changing = true

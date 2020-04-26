@@ -110,4 +110,12 @@ public interface AppUrlConst {
      * 天气接口
      */
     String GET_WEATHER_DATA = "/applications/v1/weather/coordinate";
+    /**
+     * 通过城市名字获取天气
+     */
+    String WEATHER_INFO_BY_NAME = "/applications/v1/weather/name";
+    /**
+     * 通过经纬度获取天气
+     */
+    String WEATHER_INFO_BY_COORDINATE = "/applications/v1/weather/coordinate";
 }

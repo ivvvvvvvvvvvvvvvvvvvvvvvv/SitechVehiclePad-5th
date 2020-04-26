@@ -43,4 +43,15 @@
     <color name="stock_holder_down">#52C41A</color>
     <color name="item_local_music_checked_color">#239CE2</color>
     <color name="color_mask">#B3000000</color>
+
+    <color name="colo_939393">#939393</color>
+    <color name="colo_A8A8A8">#A8A8A8</color>
+    <color name="colo_A5A5A5">#A5A5A5</color>
+    <color name="colo_D8D8D8">#D8D8D8</color>
+    <color name="colo_6E6E80">#6E6E80</color>
+    <color name="colo_50ffffff">#50ffffff</color>
+    <color name="colo_50000000">#50000000</color>
+    <color name="colo_E3E3E3">#E3E3E3</color>
+    <color name="colo_D2D2D2">#D2D2D2</color>
+    <color name="colo_FF6E6E80">#FF6E6E80</color>
 </resources>

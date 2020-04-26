@@ -51,6 +51,7 @@ import com.sitechdev.vehicle.pad.module.main.util.MainHttpUtils;
 import com.sitechdev.vehicle.pad.module.main.util.WeatherUtils;
 import com.sitechdev.vehicle.pad.module.member.MemberActivity;
 import com.sitechdev.vehicle.pad.module.music.MusicMainActivity;
+import com.sitechdev.vehicle.pad.module.weather.WeatherActivity;
 import com.sitechdev.vehicle.pad.util.AppVariants;
 import com.sitechdev.vehicle.pad.util.FontUtil;
 import com.sitechdev.vehicle.pad.view.CommonToast;
@@ -60,6 +61,7 @@ import com.sitechdev.vehicle.pad.vui.VoiceConstants;
 import com.sitechdev.vehicle.pad.window.manager.MainMenuWindowManager;
 import com.sitechdev.vehicle.pad.window.manager.RightTopWindowManager;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -72,7 +74,7 @@ public class MainActivity extends BaseActivity
     private TextView tvLogin;
     private TextView tvHome, tvWork, tvWhat;
     private TextView tvLocation, tvTemperatureDay, tvTemperature, tvWeather, tvWindow;
-    private RelativeLayout mLoginRelativeView = null;
+    private RelativeLayout mLoginRelativeView = null, rlWeather = null;
     private LinearLayout llMusic, llNews, llBook, llCar, llLife;
     private ImageView ivMusicBef, ivMusicStop, ivMusicNext;
     private ScrollTextView tvMusicName;
@@ -120,7 +122,7 @@ public class MainActivity extends BaseActivity
         mLoginRelativeView = findViewById(R.id.id_rela_login);
         ivLogin = (ImageView) findViewById(R.id.iv_login);
         tvLogin = (TextView) findViewById(R.id.tv_login);
-//        flWeather = (FrameLayout) findViewById(R.id.fl_weather);
+        rlWeather = (RelativeLayout) findViewById(R.id.fl_weather);
         mHomeImageView = findViewById(R.id.id_img_home);
         tvHome = (TextView) findViewById(R.id.tv_home);
         mWorkImageView = findViewById(R.id.id_img_work);
@@ -267,6 +269,7 @@ public class MainActivity extends BaseActivity
     @Override
     protected void onResume() {
         super.onResume();
+        EventBusUtils.register(this);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             if (Settings.canDrawOverlays(AppApplication.getContext())) {
@@ -296,6 +299,7 @@ public class MainActivity extends BaseActivity
 //        ivMusicList.setOnClickListener(this);
 //        flTeddy.setOnClickListener(this);
         carPowerInfoView.setOnClickListener(this);
+        rlWeather.setOnClickListener(this);
 
 //        mHomeBtnImageView.setOnClickListener(this);
 //        mNaviBtnImageView.setOnClickListener(this);
@@ -320,6 +324,10 @@ public class MainActivity extends BaseActivity
                     Intent mIntent1 = new Intent(MainActivity.this, LoginActivity.class);
                     startActivity(mIntent1);
                 }
+                break;
+            case R.id.fl_weather:
+                Intent mIntent1 = new Intent(MainActivity.this, WeatherActivity.class);
+                startActivity(mIntent1);
                 break;
             case R.id.id_img_home:
             case R.id.tv_home:
@@ -509,7 +517,7 @@ public class MainActivity extends BaseActivity
         tvTemperatureDay.setText(dataBean.getTemplow() + "°/" + dataBean.getTemphigh() + "°");
         tvWindow.setText(dataBean.getWinddirect() + dataBean.getWindpower());
         tvWeather.setText(dataBean.getWeather());
-        GlideUtils.getInstance().loadImage(WeatherUtils.getWeatherIcon(dataBean.getImg()), mWeatherIconView);
+        GlideUtils.getInstance().loadImage(WeatherUtils.getInstance().getWeatherIcon(dataBean.getImg()), mWeatherIconView);
     }
 
     public void refreshCityView() {
@@ -547,6 +555,12 @@ public class MainActivity extends BaseActivity
         if (null != ivMusicStop) {
             ivMusicStop.setActivated(true);
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        EventBusUtils.unregister(this);
     }
 
     private SpannableStringBuilder setBottomAlignment(String value, String unitStr) {

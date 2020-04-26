@@ -31,7 +31,7 @@ class Config {
                     annotations : 'com.android.support:support-annotations:28.0.0',
                     constraint  : 'com.android.support.constraint:constraint-layout:1.1.3',
                     multidex    : 'com.android.support:multidex:1.0.3',
-                    design      : 'com.android.support:design:27.1.1',
+                    design      : 'com.android.support:design:28.0.0',
             ],
             okgo           : [
                     okgo    : 'com.lzy.net:okgo:3.0.4',
