@@ -117,7 +117,7 @@
                     android:layout_width="118px"
                     android:layout_height="128px"
                     android:layout_alignParentEnd="true"
-                    android:src="@drawable/weather_rain" />
+                    android:src="@drawable/icon_weather_rain" />
 
                 <ImageView
                     android:id="@+id/iv_weather_location_icon"

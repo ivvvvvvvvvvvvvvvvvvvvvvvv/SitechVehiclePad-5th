@@ -75,77 +75,77 @@ public class WeatherUtils {
         }
         switch (iconType) {
             case 1:
-                return R.drawable.duoyun_1;
+                return R.drawable.icon_weather_duoyun_1;
             case 2:
-                return R.drawable.yin_2;
+                return R.drawable.icon_weather_yin_2;
             case 3:
-                return R.drawable.zhenyu_3;
+                return R.drawable.icon_weather_zhenyu_3;
             case 4:
-                return R.drawable.small_leizhenyu_4;
+                return R.drawable.icon_weather_small_leizhenyu_4;
             case 5:
-                return R.drawable.leizhenyu_bingbao_5;
+                return R.drawable.icon_weather_leizhenyu_bingbao_5;
             case 6:
-                return R.drawable.yujiaxue_6;
+                return R.drawable.icon_weather_yujiaxue_6;
             case 7:
-                return R.drawable.xiaoyu_7;
+                return R.drawable.icon_weather_xiaoyu_7;
             case 8:
             case 21:
             case 301:
-                return R.drawable.zhongyu_8;
+                return R.drawable.icon_weather_zhongyu_8;
             case 9:
             case 22:
-                return R.drawable.dayu_9;
+                return R.drawable.icon_weather_dayu_9;
             case 10:
             case 23:
-                return R.drawable.baoyu_10;
+                return R.drawable.icon_weather_baoyu_10;
             case 11:
             case 24:
-                return R.drawable.dabaoyu_11;
+                return R.drawable.icon_weather_dabaoyu_11;
             case 12:
             case 25:
-                return R.drawable.tedabaoyu_12;
+                return R.drawable.icon_weather_tedabaoyu_12;
             case 13:
-                return R.drawable.zhenxue_13;
+                return R.drawable.icon_weather_zhenxue_13;
             case 14:
-                return R.drawable.xiaoxue_14;
+                return R.drawable.icon_weather_xiaoxue_14;
             case 15:
             case 26:
             case 302:
-                return R.drawable.zhongxue_15;
+                return R.drawable.icon_weather_zhongxue_15;
             case 16:
             case 27:
-                return R.drawable.daxue_16;
+                return R.drawable.icon_weather_daxue_16;
             case 17:
             case 28:
-                return R.drawable.baoxue_17;
+                return R.drawable.icon_weather_baoxue_17;
             case 18:
             case 32:
             case 49:
             case 57:
             case 59:
-                return R.drawable.wu_18;
+                return R.drawable.icon_weather_wu_18;
             case 19:
-                return R.drawable.dongyu_19;
+                return R.drawable.icon_weather_dongyu_19;
             case 20:
-                return R.drawable.shachenbao_20;
+                return R.drawable.icon_weather_shachenbao_20;
             case 31:
-                return R.drawable.shachenbao_31;
+                return R.drawable.icon_weather_shachenbao_31;
             case 29:
-                return R.drawable.fuchen_29;
+                return R.drawable.icon_weather_fuchen_29;
             case 30:
-                return R.drawable.yangsha_30;
+                return R.drawable.icon_weather_yangsha_30;
             case 53:
-                return R.drawable.mai_53;
+                return R.drawable.icon_weather_mai_53;
             case 54:
             case 55:
-                return R.drawable.zhongdumai_54;
+                return R.drawable.icon_weather_zhongdumai_54;
             case 56:
-                return R.drawable.yanzhongmai_56;
+                return R.drawable.icon_weather_yanzhongmai_56;
 
             case 0:
             case 99:
             default:
-                return R.drawable.qing_0;
+                return R.drawable.icon_weather_qing_0;
         }
     }
 
