@@ -43,9 +43,9 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="#6E6E80"
-        android:layout_marginLeft="25px"
-        android:layout_marginRight="25px"
+        android:background="@color/main_info_line"
+        android:layout_marginLeft="50px"
+        android:layout_marginRight="50px"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_sub_title_underline" />
