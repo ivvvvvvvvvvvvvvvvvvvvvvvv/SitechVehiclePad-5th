@@ -121,15 +121,16 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/id_teddy_sr_volume_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="20px"
+                android:layout_marginTop="10px"
                 android:ellipsize="end"
                 android:gravity="center"
                 android:maxLines="1"
                 android:paddingLeft="50px"
                 android:paddingRight="50px"
-                tools:text="打开车窗透气"
                 android:textColor="#499AC8"
-                android:textSize="30px" />
+                android:textSize="30px"
+                android:visibility="gone"
+                tools:text="打开车窗透气" />
         </RelativeLayout>
 
         <!-- tts的view 包含唤醒的应答-->
@@ -152,9 +153,9 @@
                 android:paddingTop="20px"
                 android:paddingRight="50px"
                 android:paddingBottom="20px"
-                tools:text="好的"
                 android:textColor="#499AC8"
-                android:textSize="30px" />
+                android:textSize="30px"
+                tools:text="好的" />
         </RelativeLayout>
     </RelativeLayout>
 

@@ -10,6 +10,7 @@ package com.sitechdev.vehicle.pad.vui;
  * 备注：
  */
 public interface VoiceConstants {
+    String TEDDY_TAG = "TeddyVoice";
     /**
      * TTS默认应答语
      */
@@ -22,21 +23,21 @@ public interface VoiceConstants {
     /**
      * 导航相关的语音service定义
      */
-    String VOICE_CUSTOM_SERVICE_NAVI="SITECHAI.sitechMapNavi";
+    String VOICE_CUSTOM_SERVICE_NAVI = "SITECHAI.sitechMapNavi";
     /**
      * 导航相关的语音intent--设置为家庭
      */
-    String VOICE_CUSTOM_INTENT_NAVI_SETHOME="setHomeAddr";
+    String VOICE_CUSTOM_INTENT_NAVI_SETHOME = "setHomeAddr";
     /**
      * 导航相关的语音intent--设置为公司
      */
-    String VOICE_CUSTOM_INTENT_NAVI_SETWORK="setWorkAddr";
+    String VOICE_CUSTOM_INTENT_NAVI_SETWORK = "setWorkAddr";
     /**
      * 导航相关的语音intent--开始导航
      */
-    String VOICE_CUSTOM_INTENT_START_NAVI="sitechMap_Navi";
+    String VOICE_CUSTOM_INTENT_START_NAVI = "sitechMap_Navi";
     /**
      * 导航相关的语音intent--关闭导航
      */
-    String VOICE_CUSTOM_INTENT_CLOSE_NAVI="closeNavi";
+    String VOICE_CUSTOM_INTENT_CLOSE_NAVI = "closeNavi";
 }

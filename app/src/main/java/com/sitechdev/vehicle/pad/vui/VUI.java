@@ -63,7 +63,7 @@ import java.util.Random;
 public class VUI implements VUIWindow.OnWindowHideListener {
 
     private Context context;
-    private static final String TAG = "VUI";
+    private static final String TAG = VoiceConstants.TEDDY_TAG;
     private WakeupEngine mWakeupEngine;
     private AIUIEngine mAIUIEngine;
     private TTS mTTS;
@@ -159,7 +159,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
             vuiWindow.setOnWindowHideListener(VUI.this::onWindowHide);
         }
         VoiceSourceManager.getInstance().pause(VoiceSourceManager.CONTENT);
-        vuiWindow.show();
+//        vuiWindow.show();
         mWakeupEngine.stop();
         mAIUIEngine.ttsStart(StringUtils.isEmpty(ttsText) ? VoiceConstants.TTS_RESPONSE_DEFAULT_TEXT : ttsText);
         isWakeupTTS = true;
@@ -184,10 +184,8 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                     break;
                 case AIUIConstant.EVENT_WAKEUP:
                     log("进入识别状态");
-                    EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_START_SR));
                     break;
                 case AIUIConstant.EVENT_RESULT:
-                    EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_SR_SUCCESS));
                     handleEventResult(event);
                     break;
                 case AIUIConstant.EVENT_ERROR:
@@ -203,13 +201,14 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                 case AIUIConstant.EVENT_START_RECORD: {
                     log("已开始录音");
                     vadBos = false;
-                    if (null != vuiWindow.getCurrentHolder()) {
-                        if (vuiWindow.getCurrentHolder() instanceof ContactsHolder) {
-                            break;
-                        }
-                    }
+//                    if (null != vuiWindow.getCurrentHolder()) {
+//                        if (vuiWindow.getCurrentHolder() instanceof ContactsHolder) {
+//                            break;
+//                        }
+//                    }
 //                    vuiWindow.show();
-                    vuiWindow.showText(context.getResources().getString(R.string.vui_welcome_text));
+//                    vuiWindow.showText(context.getResources().getString(R.string.vui_welcome_text));
+                    EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_START_SR));
                 }
                 break;
                 case AIUIConstant.EVENT_STOP_RECORD: {
@@ -328,6 +327,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
     }
 
     private void handleEventResult(AIUIEvent event) {
+        SitechDevLog.i(VoiceConstants.TEDDY_TAG, "event.info===" + event.info);
         try {
             JSONObject bizParamJson = new JSONObject(event.info);
             JSONObject data = bizParamJson.getJSONArray("data").getJSONObject(0);
@@ -378,17 +378,11 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                 isInTTS = false;
                 log("播放完成");
                 if (shutdown) {
-                    vuiWindow.hide();
+                    EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_SR_OVER));
                     shutdown = false;
                     return;
                 }
-                if (AIUIConstant.STATE_READY == mAIUIState && vuiWindow.isShowing()) {
-                    if (vuiWindow.getCurrentHolder() instanceof ChatHolder ||
-                            vuiWindow.getCurrentHolder() instanceof ContactsHolder) {
-
-                    } else {
-                        vuiWindow.show();
-                    }
+                if (AIUIConstant.STATE_READY == mAIUIState) {
                     isWakeupTTS = false;
                     mAIUIEngine.startRecord();
                 }

@@ -137,12 +137,14 @@ public class MainMenuView extends RelativeLayout implements View.OnClickListener
         switch (event.getEventKey()) {
             //唤醒成功
             case VoiceEvent.EVENT_VOICE_MVW_SUCCESS:
+                SitechDevLog.i(VoiceConstants.TEDDY_TAG, "VoiceEvent.EVENT_VOICE_MVW_SUCCESS===");
                 refreshTeddyViewMvwSuccess();
                 //
                 mTtsTextView.setText(StringUtils.isEmpty((String) event.getEventValue()) ? VoiceConstants.TTS_RESPONSE_DEFAULT_TEXT : (String) event.getEventValue());
                 break;
             //开始识别
             case VoiceEvent.EVENT_VOICE_START_SR:
+                SitechDevLog.i(VoiceConstants.TEDDY_TAG, "VoiceEvent.EVENT_VOICE_START_SR===");
                 refreshTeddyViewSr();
                 if (mSrVolumeView != null) {
                     mSrVolumeView.start();
@@ -151,6 +153,7 @@ public class MainMenuView extends RelativeLayout implements View.OnClickListener
             //识别过程中的音量变化
             case VoiceEvent.EVENT_VOICE_SR_ING_VOLUME:
                 refreshTeddyViewSr();
+                SitechDevLog.i(VoiceConstants.TEDDY_TAG, "VoiceEvent.EVENT_VOICE_SR_ING_VOLUME===" + event.getEventValue());
                 try {
                     int volumeValue = (int) event.getEventValue();
                     mSrVolumeView.setVolume((float) volumeValue);
@@ -160,18 +163,25 @@ public class MainMenuView extends RelativeLayout implements View.OnClickListener
                 break;
             //结束识别，返回结果
             case VoiceEvent.EVENT_VOICE_SR_SUCCESS:
+                SitechDevLog.i(VoiceConstants.TEDDY_TAG, "VoiceEvent.EVENT_VOICE_SR_SUCCESS===");
                 refreshTeddyViewSr();
+                if (mSrTextView != null && !mSrTextView.isShown()) {
+                    mSrTextView.setVisibility(View.VISIBLE);
+                }
                 mSrTextView.setText((String) event.getEventValue());
                 break;
             //结束识别
             case VoiceEvent.EVENT_VOICE_SR_OVER:
+                SitechDevLog.i(VoiceConstants.TEDDY_TAG, "VoiceEvent.EVENT_VOICE_SR_OVER===");
                 resetTeddyViewDefault();
                 break;
             //停止语音
             case VoiceEvent.EVENT_VOICE_STOP_VOICE:
+                SitechDevLog.i(VoiceConstants.TEDDY_TAG, "VoiceEvent.EVENT_VOICE_STOP_VOICE===");
                 break;
             //启用语音
             case VoiceEvent.EVENT_VOICE_RESUME_VOICE:
+                SitechDevLog.i(VoiceConstants.TEDDY_TAG, "VoiceEvent.EVENT_VOICE_RESUME_VOICE===");
                 break;
             default:
                 break;
@@ -248,6 +258,5 @@ public class MainMenuView extends RelativeLayout implements View.OnClickListener
         if (mTeddyTtsContentView.getVisibility() != View.GONE) {
             mTeddyTtsContentView.setVisibility(View.GONE);
         }
-
     }
 }
