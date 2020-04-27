@@ -7,11 +7,13 @@ import android.content.IntentFilter;
 import android.graphics.PixelFormat;
 import android.graphics.Point;
 import android.os.Build;
+import android.support.design.bottomappbar.BottomAppBar;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 
 import com.blankj.utilcode.util.ScreenUtils;
+import com.blankj.utilcode.util.Utils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.app.BaseWindow;
 import com.sitechdev.vehicle.pad.event.VoiceEvent;
@@ -146,7 +148,7 @@ public class MainPopUpControlWindowManager {
             int screenWidth = point.x;
             int screenHeight = point.y;
             params.width = WindowManager.LayoutParams.MATCH_PARENT;
-            params.height = WindowManager.LayoutParams.MATCH_PARENT;
+            params.height = WindowManager.LayoutParams.WRAP_CONTENT;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 params.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
             } else {
@@ -154,9 +156,15 @@ public class MainPopUpControlWindowManager {
             }
             params.flags = WindowManager.LayoutParams.FLAG_FULLSCREEN | WindowManager.LayoutParams.FLAG_DIM_BEHIND;
             params.format = PixelFormat.TRANSLUCENT;
-            params.dimAmount=0.5f;
-            params.x = screenWidth;
+            params.dimAmount = 0.5f;
+//            params.gravity = Gravity.BOTTOM;
+            params.screenOrientation = Utils.getApp().getResources().getConfiguration().orientation;
+            params.x = 0;
             params.y = screenHeight;
+            SitechDevLog.i("popUpWindowInfo", "params==[params.width=" + params.width +
+                    ", params.height=" + params.height +
+                    ", params.x=" + params.x +
+                    ", params.y=" + params.y);
         }
     }
 

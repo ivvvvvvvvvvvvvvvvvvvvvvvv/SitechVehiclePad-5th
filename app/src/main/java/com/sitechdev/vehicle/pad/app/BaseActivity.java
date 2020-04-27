@@ -61,6 +61,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         //
         BarUtils.setStatusBarVisibility(this, false);
+        BarUtils.setNavBarVisibility(this, false);
 
         super.onCreate(savedInstanceState);
         setFullScreen();

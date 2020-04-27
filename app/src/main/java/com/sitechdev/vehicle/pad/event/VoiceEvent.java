@@ -18,9 +18,33 @@ public class VoiceEvent extends BaseEvent {
      */
     public static final String EVENT_VOICE_MVW_SUCCESS = "EVENT_VOICE_MVW_SUCCESS";
     /**
+     * 开始识别
+     */
+    public static final String EVENT_VOICE_START_SR = "EVENT_VOICE_START_SR";
+    /**
+     * 识别过程中的音量变化
+     */
+    public static final String EVENT_VOICE_SR_ING_VOLUME = "EVENT_VOICE_SR_ING_VOLUME";
+    /**
+     * 识别成功，展示结果
+     */
+    public static final String EVENT_VOICE_SR_SUCCESS = "EVENT_VOICE_SR_SUCCESS";
+    /**
      * 合成TTS音频播报
      */
     public static final String EVENT_VOICE_TTS_PLAY_TEXT = "EVENT_VOICE_TTS_PLAY_TEXT";
+    /**
+     * 结束识别
+     */
+    public static final String EVENT_VOICE_SR_OVER = "EVENT_VOICE_SR_OVER";
+    /**
+     * 停止/暂停语音
+     */
+    public static final String EVENT_VOICE_STOP_VOICE = "EVENT_VOICE_STOP_VOICE";
+    /**
+     * 启用语音
+     */
+    public static final String EVENT_VOICE_RESUME_VOICE = "EVENT_VOICE_RESUME_VOICE";
     /**
      * 上传词典事件
      */

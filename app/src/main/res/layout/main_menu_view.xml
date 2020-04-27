@@ -99,13 +99,14 @@
                 android:layout_height="wrap_content"
                 android:visibility="gone">
 
-                <com.sitechdev.vehicle.pad.view.VolumeView
+                <com.sitechdev.vehicle.pad.view.VolumeView2
                     android:id="@+id/id_teddy_sr_volume_content"
                     android:layout_width="match_parent"
-                    android:layout_height="50px"
+                    android:layout_height="80px"
                     android:layout_centerHorizontal="true" />
 
                 <TextView
+                    android:id="@+id/id_teddy_sr_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/id_teddy_sr_volume_content"
@@ -113,7 +114,7 @@
                     android:layout_marginTop="20px"
                     android:ellipsize="end"
                     android:gravity="center"
-                    android:maxLines="2"
+                    android:maxLines="1"
                     android:paddingLeft="50px"
                     android:paddingRight="50px"
                     android:text="打开车窗透气"

@@ -184,8 +184,10 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                     break;
                 case AIUIConstant.EVENT_WAKEUP:
                     log("进入识别状态");
+                    EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_START_SR));
                     break;
                 case AIUIConstant.EVENT_RESULT:
+                    EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_SR_SUCCESS));
                     handleEventResult(event);
                     break;
                 case AIUIConstant.EVENT_ERROR:
@@ -207,8 +209,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                         }
                     }
 //                    vuiWindow.show();
-                    vuiWindow.showText(context.getResources().getString(
-                            R.string.vui_welcome_text));
+                    vuiWindow.showText(context.getResources().getString(R.string.vui_welcome_text));
                 }
                 break;
                 case AIUIConstant.EVENT_STOP_RECORD: {
@@ -321,6 +322,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
             if (null != vuiWindow) {
                 vuiWindow.onVolumeChanged(event.arg2);
             }
+            EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_SR_ING_VOLUME, event.arg2));
         } else {
         }
     }

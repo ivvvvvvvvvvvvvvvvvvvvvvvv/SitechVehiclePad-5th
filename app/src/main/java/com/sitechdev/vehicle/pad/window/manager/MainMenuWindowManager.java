@@ -9,6 +9,7 @@ import android.view.Gravity;
 import android.view.WindowManager;
 
 import com.blankj.utilcode.util.ScreenUtils;
+import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.app.BaseWindow;
 import com.sitechdev.vehicle.pad.event.VoiceEvent;
@@ -54,6 +55,7 @@ public class MainMenuWindowManager {
     }
 
     private MainMenuWindowManager() {
+        EventBusUtils.register(this);
     }
 
     public void init(Context context) {
@@ -178,8 +180,37 @@ public class MainMenuWindowManager {
      *
      * @param event
      */
-    @Subscribe(threadMode = ThreadMode.ASYNC)
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onTeddyVoiceEvent(VoiceEvent event) {
         Log.i(TAG, "onTeddyVoiceEvent============" + event.getEventKey());
+        mainMenuView.refreshTeddyView(event);
+//        switch (event.getEventKey()) {
+//            //唤醒成功
+//            case VoiceEvent.EVENT_VOICE_MVW_SUCCESS:
+//                mainMenuView.refreshTeddyView(event);
+//                break;
+//            //开始识别
+//            case VoiceEvent.EVENT_VOICE_START_SR:
+//                mainMenuView.refreshTeddyView(event);
+//                break;
+//            //结束识别，返回结果
+//            case VoiceEvent.EVENT_VOICE_SR_SUCCESS:
+//                mainMenuView.refreshTeddyView(event);
+//                break;
+//            //结束识别
+//            case VoiceEvent.EVENT_VOICE_SR_OVER:
+//                mainMenuView.refreshTeddyView(event);
+//                break;
+//            //停止语音
+//            case VoiceEvent.EVENT_VOICE_STOP_VOICE:
+//                mainMenuView.refreshTeddyView(event);
+//                break;
+//            //启用语音
+//            case VoiceEvent.EVENT_VOICE_RESUME_VOICE:
+//                mainMenuView.refreshTeddyView(event);
+//                break;
+//            default:
+//                break;
+//        }
     }
 }
