@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.widget.ImageView;
 
+import com.sitechdev.vehicle.lib.imageloader.GlideApp;
 import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
@@ -43,6 +45,8 @@ public class SplashActivity extends BaseActivity {
 
     private List<String> rPermissionsList = null;
 
+    private ImageView mLogoImageView = null, mLogoUnderImageView = null;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_splash;
@@ -51,6 +55,12 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
+
+        mLogoImageView = findViewById(R.id.id_iv_logo);
+        mLogoUnderImageView = findViewById(R.id.id_iv_logo_under);
+
+        GlideApp.with(this).load(R.drawable.ico_logo).into(mLogoImageView);
+        GlideApp.with(this).load(R.drawable.ico_logo_under).into(mLogoUnderImageView);
     }
 
     @Override
