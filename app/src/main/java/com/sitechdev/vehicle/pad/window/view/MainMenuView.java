@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -32,7 +33,7 @@ public class MainMenuView extends RelativeLayout implements View.OnClickListener
     //默认的Teddy展示样式
     private RelativeLayout mTeddyDefaultContentView = null;
     //识别过程中的Teddy展示样式
-    private RelativeLayout mTeddySringContentView = null;
+    private FrameLayout mTeddySringContentView = null;
     //tts中的Teddy展示样式
     private RelativeLayout mTeddyTtsContentView = null;
 
@@ -193,12 +194,12 @@ public class MainMenuView extends RelativeLayout implements View.OnClickListener
      */
     private void refreshTeddyViewMvwSuccess() {
         //默认状态
-        if (mTeddyDefaultContentView.getVisibility() != View.GONE) {
-            mTeddyDefaultContentView.setVisibility(View.GONE);
+        if (mTeddyDefaultContentView.getVisibility() != View.INVISIBLE) {
+            mTeddyDefaultContentView.setVisibility(View.INVISIBLE);
         }
         //识别过程中的Teddy展示样式
-        if (mTeddySringContentView.getVisibility() != View.GONE) {
-            mTeddySringContentView.setVisibility(View.GONE);
+        if (mTeddySringContentView.getVisibility() != View.INVISIBLE) {
+            mTeddySringContentView.setVisibility(View.INVISIBLE);
         }
         //tts中的Teddy展示样式
         if (mTeddyTtsContentView.getVisibility() != View.VISIBLE) {
@@ -211,16 +212,16 @@ public class MainMenuView extends RelativeLayout implements View.OnClickListener
      */
     private void refreshTeddyViewSr() {
         //默认状态
-        if (mTeddyDefaultContentView.getVisibility() != View.GONE) {
-            mTeddyDefaultContentView.setVisibility(View.GONE);
+        if (mTeddyDefaultContentView.getVisibility() != View.INVISIBLE) {
+            mTeddyDefaultContentView.setVisibility(View.INVISIBLE);
         }
         //识别过程中的Teddy展示样式
         if (mTeddySringContentView.getVisibility() != View.VISIBLE) {
             mTeddySringContentView.setVisibility(View.VISIBLE);
         }
         //tts中的Teddy展示样式
-        if (mTeddyTtsContentView.getVisibility() != View.GONE) {
-            mTeddyTtsContentView.setVisibility(View.GONE);
+        if (mTeddyTtsContentView.getVisibility() != View.INVISIBLE) {
+            mTeddyTtsContentView.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -229,12 +230,12 @@ public class MainMenuView extends RelativeLayout implements View.OnClickListener
      */
     private void refreshTeddyViewTtsSuccess() {
         //默认状态
-        if (mTeddyDefaultContentView.getVisibility() != View.GONE) {
-            mTeddyDefaultContentView.setVisibility(View.GONE);
+        if (mTeddyDefaultContentView.getVisibility() != View.INVISIBLE) {
+            mTeddyDefaultContentView.setVisibility(View.INVISIBLE);
         }
         //识别过程中的Teddy展示样式
-        if (mTeddySringContentView.getVisibility() != View.GONE) {
-            mTeddySringContentView.setVisibility(View.GONE);
+        if (mTeddySringContentView.getVisibility() != View.INVISIBLE) {
+            mTeddySringContentView.setVisibility(View.INVISIBLE);
         }
         //tts中的Teddy展示样式
         if (mTeddyTtsContentView.getVisibility() != View.VISIBLE) {

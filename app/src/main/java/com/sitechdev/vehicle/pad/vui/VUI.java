@@ -321,7 +321,8 @@ public class VUI implements VUIWindow.OnWindowHideListener {
             if (null != vuiWindow) {
                 vuiWindow.onVolumeChanged(event.arg2);
             }
-            EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_SR_ING_VOLUME, event.arg2));
+            int volumeInt = (int) (Math.random() * 30);
+            EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_SR_ING_VOLUME, volumeInt));
         } else {
         }
     }
@@ -382,6 +383,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                     shutdown = false;
                     return;
                 }
+                EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_SR_SUCCESS, ""));
                 if (AIUIConstant.STATE_READY == mAIUIState) {
                     isWakeupTTS = false;
                     mAIUIEngine.startRecord();
@@ -417,6 +419,9 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                             }
                             if (res.length() > 0) {
                                 vuiWindow.showText(res.toString());
+                                EventBusUtils.postEvent(new VoiceEvent(
+                                        VoiceEvent.EVENT_VOICE_SR_SUCCESS,
+                                        res.toString()));
                             }
                         }
                     }
@@ -505,6 +510,9 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                     } else {
                                         shutdown = true;
                                         mAIUIEngine.ttsStart("找不到您要的联系人");
+                                        EventBusUtils.postEvent(new VoiceEvent(
+                                                VoiceEvent.EVENT_VOICE_SR_SUCCESS,
+                                                "找不到您要的联系人"));
                                     }
                                     return;
                                 }
@@ -637,6 +645,9 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                                                 }
                                                                 shutdown = true;
                                                                 mAIUIEngine.ttsStart("请先设置家的地址");
+                                                                EventBusUtils.postEvent(new VoiceEvent(
+                                                                        VoiceEvent.EVENT_VOICE_SR_SUCCESS,
+                                                                        "请先设置家的地址"));
                                                                 return;
                                                             } else {
                                                                 //导航回家
@@ -653,6 +664,9 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                                                 }
                                                                 shutdown = true;
                                                                 mAIUIEngine.ttsStart("请先设置公司的地址");
+                                                                EventBusUtils.postEvent(new VoiceEvent(
+                                                                        VoiceEvent.EVENT_VOICE_SR_SUCCESS,
+                                                                        "请先设置公司的地址"));
                                                                 return;
                                                             } else {
                                                                 //导航回公司
@@ -803,11 +817,17 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                                         } else {
                                                             shutdown = true;
                                                             mAIUIEngine.ttsStart("找不到您要的联系人");
+                                                            EventBusUtils.postEvent(new VoiceEvent(
+                                                                    VoiceEvent.EVENT_VOICE_SR_SUCCESS,
+                                                                    "找不到您要的联系人"));
                                                         }
                                                         break;
                                                     case "QUIT":
                                                         shutdown = true;
                                                         mAIUIEngine.ttsStart("好的");
+                                                        EventBusUtils.postEvent(new VoiceEvent(
+                                                                VoiceEvent.EVENT_VOICE_SR_SUCCESS,
+                                                                "好的"));
                                                         break;
                                                     case "CONTACTS":
                                                         vuiWindow.hide();
@@ -1243,6 +1263,9 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                         String text = answer.optString("text");
                         if (!TextUtils.isEmpty(text)) {
                             mAIUIEngine.ttsStart(text);
+                            EventBusUtils.postEvent(new VoiceEvent(
+                                    VoiceEvent.EVENT_VOICE_SR_SUCCESS,
+                                    text));
                         }
                     }
                 }
@@ -1257,11 +1280,18 @@ public class VUI implements VUIWindow.OnWindowHideListener {
     private void vuiAnr() {
         mAIUIEngine.ttsStart(context.getResources().getString(
                 R.string.vui_anr_text));
+        EventBusUtils.postEvent(new VoiceEvent(
+                VoiceEvent.EVENT_VOICE_SR_SUCCESS,
+                context.getResources().getString(
+                        R.string.vui_anr_text)));
     }
 
     public void shutAndTTS(String tts) {
         shutdown = true;
         mAIUIEngine.ttsStart(tts);
+        EventBusUtils.postEvent(new VoiceEvent(
+                VoiceEvent.EVENT_VOICE_SR_SUCCESS,
+                tts));
     }
 
     public void shutAndTTS(boolean shutdown, String tts) {

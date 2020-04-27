@@ -103,17 +103,18 @@
         </RelativeLayout>
 
         <!-- 识别的view 识别语句的应答-->
-        <RelativeLayout
+        <FrameLayout
             android:id="@+id/id_teddy_sr_content"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone">
+            android:layout_height="150px"
+            android:layout_centerHorizontal="true"
+            android:visibility="invisible">
 
             <com.sitechdev.vehicle.pad.view.VolumeView2
                 android:id="@+id/id_teddy_sr_volume_content"
-                android:layout_width="match_parent"
-                android:layout_height="80px"
-                android:layout_centerHorizontal="true" />
+                android:layout_width="wrap_content"
+                android:layout_height="100px"
+                android:layout_gravity="center|top" />
 
             <TextView
                 android:id="@+id/id_teddy_sr_text"
@@ -121,17 +122,17 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/id_teddy_sr_volume_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="10px"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="80px"
                 android:ellipsize="end"
                 android:gravity="center"
                 android:maxLines="1"
                 android:paddingLeft="50px"
                 android:paddingRight="50px"
+                tools:text="打开车窗透气"
                 android:textColor="#499AC8"
-                android:textSize="30px"
-                android:visibility="gone"
-                tools:text="打开车窗透气" />
-        </RelativeLayout>
+                android:textSize="30px" />
+        </FrameLayout>
 
         <!-- tts的view 包含唤醒的应答-->
         <RelativeLayout
@@ -139,7 +140,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:visibility="gone">
+            android:visibility="invisible">
 
             <TextView
                 android:id="@+id/id_teddy_tts_text"

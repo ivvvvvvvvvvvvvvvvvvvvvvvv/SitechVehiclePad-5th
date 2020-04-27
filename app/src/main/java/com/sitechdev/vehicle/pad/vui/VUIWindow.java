@@ -20,8 +20,10 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
+import com.sitechdev.vehicle.pad.event.VoiceEvent;
 import com.sitechdev.vehicle.pad.view.VolumeView;
 
 import org.json.JSONArray;
@@ -129,6 +131,8 @@ public class VUIWindow implements View.OnClickListener {
                 onWindowHideListener.onWindowHide();
             }
         }
+
+        EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_SR_OVER));
     }
 
     public void showWeather(JSONObject weather) {

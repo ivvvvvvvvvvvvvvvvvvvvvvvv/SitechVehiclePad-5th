@@ -93,7 +93,7 @@
             </RelativeLayout>
 
             <!-- 识别的view 识别语句的应答-->
-            <RelativeLayout
+            <FrameLayout
                 android:id="@+id/id_teddy_sr_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -121,7 +121,7 @@
                     android:textColor="#499AC8"
                     android:textSize="30px"
                     android:visibility="gone" />
-            </RelativeLayout>
+            </FrameLayout>
 
             <!-- tts的view 包含唤醒的应答-->
             <RelativeLayout

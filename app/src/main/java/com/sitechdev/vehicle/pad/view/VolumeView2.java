@@ -25,9 +25,9 @@ public class VolumeView2 extends View {
     private static final float SMALL_WAVE_SPEED = 0.6f;//小波速度
     private static final float MIDDLE_WAVE_SPEED = 1.0f;//大波速度
     private static final float BIG_WAVE_SPEED = 1.2f;//大波速度
-    private static final int SMALL_WAVE_PERIOD = 4;//小波周期
-    private static final int MIDDLE_WAVE_PERIOD = 5;//大波周期
-    private static final int BIG_WAVE_PERIOD = 6;//大波周期
+    private static final int SMALL_WAVE_PERIOD = 3;//小波周期
+    private static final int MIDDLE_WAVE_PERIOD = 4;//大波周期
+    private static final int BIG_WAVE_PERIOD = 5;//大波周期
     private static final float BIG_SINE_UP_AND_DOWN_MOVE = 1.8f;//大波 上移动或者下移动的比值
     private static final float MIDDLE_SINE_UP_AND_DOWN_MOVE = 1.5f;//大波 上移动或者下移动的比值
     private static final float SMALL_SINE_UP_AND_DOWN_MOVE = 1.3f;//小波 上移动或者下移动的比值
@@ -94,16 +94,16 @@ public class VolumeView2 extends View {
         if (mViewWidth == viewWidth && mViewHeight == viewHeight) {
             return;
         }
-        mViewWidth = viewWidth;
-        mViewHeight = viewHeight;
+        mViewWidth = viewWidth / 3 * 2;
+        mViewHeight = viewHeight / 3 * 2;
         int paddingLeft = getPaddingLeft();
         int paddingRight = getPaddingRight();
         int paddingTop = getPaddingTop();
         int paddingBottom = getPaddingBottom();
         mDrawWidth = mViewWidth - paddingLeft - paddingRight;
         mDrawHeight = mViewHeight - paddingTop - paddingBottom;
-        mCenterPointX = paddingLeft + mDrawWidth / 2f;
-        mCenterPointY = paddingTop + mDrawHeight / 2f;
+        mCenterPointX = paddingLeft + mDrawWidth / 5 * 4;
+        mCenterPointY = paddingTop + mDrawHeight * 2;
         mMaxSmallWaveAmplitude = mDrawHeight / SMALL_AMPLITUDE_SIZE_SCALE;
         mMaxBigWaveAmplitude = mDrawHeight / BIG_AMPLITUDE_SIZE_SCALE;
         mMaxMiddleWaveAmplitude = mDrawHeight / MIDDLE_AMPLITUDE_SIZE_SCALE;
@@ -163,14 +163,14 @@ public class VolumeView2 extends View {
             scaling = 1 - Math.pow(x / halfDrawWidth, 2);// 对y进行缩放
             y = (float) ((sine(x, period, drawWidth, phase) + upAndDownScale)
                     * amplitude * (-1) * Math.pow(scaling, 3));
-            path.lineTo(x, y * 5);
+            path.lineTo(x, y * 3);
         }
 
         for (float x = halfDrawWidth; x >= -halfDrawWidth; x--) {
             scaling = 1 - Math.pow(x / halfDrawWidth, 2);// 对y进行缩放
             y = (float) ((sine(x, period, drawWidth, phase) + upAndDownScale)
                     * amplitude * Math.pow(scaling, 3));
-            path.lineTo(x, y * 5);
+            path.lineTo(x, y * 3);
         }
         canvas.drawPath(path, paint);
         canvas.save();
