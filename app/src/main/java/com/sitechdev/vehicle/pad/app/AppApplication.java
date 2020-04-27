@@ -8,7 +8,6 @@ import android.support.multidex.MultiDex;
 import android.util.Log;
 
 import com.blankj.utilcode.util.AppUtils;
-import com.blankj.utilcode.util.BarUtils;
 import com.blankj.utilcode.util.Utils;
 import com.kaolafm.opensdk.OpenSDK;
 import com.kaolafm.opensdk.http.core.HttpCallback;
@@ -23,20 +22,17 @@ import com.sitechdev.vehicle.pad.event.WindowEvent;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.manager.AppManager;
 import com.sitechdev.vehicle.pad.manager.CommonTipWindowManager;
-import com.sitechdev.vehicle.pad.manager.CommonTopWindowManager;
-import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.module.map.util.MapVoiceEventUtil;
 import com.sitechdev.vehicle.pad.net.interception.SitechRequestInterceptor;
 import com.sitechdev.vehicle.pad.net.interception.SitechResponseInterceptor;
 import com.sitechdev.vehicle.pad.util.AppVariants;
 import com.sitechdev.vehicle.pad.util.BuglyHelper;
-import com.sitechdev.vehicle.pad.util.MarsXlogUtil;
-import com.sitechdev.vehicle.pad.util.ParamsUtil;
+import com.sitechdev.vehicle.lib.util.MarsXlogUtil;
+import com.sitechdev.vehicle.lib.util.ParamsUtil;
 import com.sitechdev.vehicle.pad.utils.MyEventBusIndex;
 import com.sitechdev.vehicle.pad.window.manager.MainMenuWindowManager;
 import com.sitechdev.vehicle.pad.window.manager.MainPopUpControlWindowManager;
 import com.sitechdev.vehicle.pad.window.manager.RightTopWindowManager;
-import com.sitechdev.vehicle.pad.window.view.MainMenuView;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -96,9 +92,9 @@ public class AppApplication extends Application {
 
     private void initTecentUtil() {
         //日志组件
-        MarsXlogUtil.initXlog();
+        MarsXlogUtil.initXlog(this, BuildConfig.DEBUG);
         //数据存储组件
-        ParamsUtil.init();
+        ParamsUtil.init(this);
     }
 
     /**

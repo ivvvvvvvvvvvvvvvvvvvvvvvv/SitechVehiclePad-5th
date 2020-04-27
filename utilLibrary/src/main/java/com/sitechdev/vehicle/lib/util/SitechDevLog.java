@@ -2,7 +2,8 @@
 package com.sitechdev.vehicle.lib.util;
 
 import android.os.RemoteException;
-import android.util.Log;
+
+import com.tencent.mars.xlog.Log;
 
 /**
  * 日志打印类

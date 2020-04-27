@@ -151,10 +151,6 @@ dependencies {
     //
     implementation Config.depConfig.utilCode
     implementation Config.depConfig.FlycoTabLayout
-
-    //
-    implementation 'com.tencent.mars:mars-xlog:1.2.3'
-    implementation 'com.tencent:mmkv:1.1.1'
 }
 
 android.applicationVariants.all { variant ->

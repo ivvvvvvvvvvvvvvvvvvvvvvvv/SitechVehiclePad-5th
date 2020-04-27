@@ -1,6 +1,6 @@
 package com.sitechdev.vehicle.pad.bean;
 
-import com.sitechdev.vehicle.pad.util.ParamsUtil;
+import com.sitechdev.vehicle.lib.util.ParamsUtil;
 
 /**
  * 用于天气数据的缓存

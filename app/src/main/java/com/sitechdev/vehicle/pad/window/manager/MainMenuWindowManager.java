@@ -14,7 +14,6 @@ import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.app.BaseWindow;
 import com.sitechdev.vehicle.pad.event.VoiceEvent;
 import com.sitechdev.vehicle.pad.window.view.MainMenuView;
-import com.tencent.mars.xlog.Log;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -59,7 +58,7 @@ public class MainMenuWindowManager {
     }
 
     public void init(Context context) {
-        Log.e(TAG, "-->init");
+        SitechDevLog.e(TAG, "-->init");
         this.context = context;
         winManager = BaseWindow.getInstance().getWinManager();
         displayWidth = BaseWindow.getInstance().getDisplayWidth();
@@ -76,7 +75,7 @@ public class MainMenuWindowManager {
      * 显示悬浮框
      */
     public void show() {
-        Log.e(TAG, "-------------show()>");
+        SitechDevLog.e(TAG, "-------------show()>");
         if (isViewShow()) {
             return;
         }
@@ -95,7 +94,7 @@ public class MainMenuWindowManager {
      * 隐藏悬浮框
      */
     public void hide() {
-        Log.e(TAG, "-------------hide()>");
+        SitechDevLog.e(TAG, "-------------hide()>");
         if (mainMenuView != null && mainMenuView.isShown()) {
             winManager.removeViewImmediate(mainMenuView);
             mainMenuView = null;
@@ -114,7 +113,7 @@ public class MainMenuWindowManager {
      * @return
      */
     public void getView() {
-        Log.i(TAG, "-------------getView()>");
+        SitechDevLog.i(TAG, "-------------getView()>");
         if (mainMenuView == null) {
             mainMenuView = new MainMenuView(context);
         }
@@ -163,11 +162,11 @@ public class MainMenuWindowManager {
         public void onReceive(Context context, Intent intent) {
             if ("android.intent.action.CONFIGURATION_CHANGED".equals(intent.getAction())) {
                 if (ScreenUtils.isLandscape()) {
-                    Log.i(TAG, "OrientationReciver============横屏");
+                    SitechDevLog.i(TAG, "OrientationReciver============横屏");
                     hide();
                     show();
                 } else {
-                    Log.i(TAG, "OrientationReciver============竖屏");
+                    SitechDevLog.i(TAG, "OrientationReciver============竖屏");
                     hide();
                     show();
                 }
@@ -182,7 +181,7 @@ public class MainMenuWindowManager {
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onTeddyVoiceEvent(VoiceEvent event) {
-        Log.i(TAG, "onTeddyVoiceEvent============" + event.getEventKey());
+        SitechDevLog.i(TAG, "onTeddyVoiceEvent============" + event.getEventKey());
         mainMenuView.refreshTeddyView(event);
 //        switch (event.getEventKey()) {
 //            //唤醒成功

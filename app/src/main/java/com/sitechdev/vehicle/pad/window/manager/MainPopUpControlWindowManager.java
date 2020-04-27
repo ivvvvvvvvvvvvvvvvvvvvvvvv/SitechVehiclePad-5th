@@ -7,8 +7,6 @@ import android.content.IntentFilter;
 import android.graphics.PixelFormat;
 import android.graphics.Point;
 import android.os.Build;
-import android.support.design.bottomappbar.BottomAppBar;
-import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -18,7 +16,6 @@ import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.app.BaseWindow;
 import com.sitechdev.vehicle.pad.event.VoiceEvent;
 import com.sitechdev.vehicle.pad.window.view.MainPopupControlView;
-import com.tencent.mars.xlog.Log;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -63,7 +60,7 @@ public class MainPopUpControlWindowManager {
     }
 
     public void init(Context context) {
-        Log.e(TAG, "-->init");
+        SitechDevLog.e(TAG, "-->init");
         this.context = context;
         winManager = BaseWindow.getInstance().getWinManager();
         displayWidth = BaseWindow.getInstance().getDisplayWidth();
@@ -80,7 +77,7 @@ public class MainPopUpControlWindowManager {
      * 显示悬浮框
      */
     public void show() {
-        Log.e(TAG, "-------------show()>");
+        SitechDevLog.e(TAG, "-------------show()>");
         if (isViewShow()) {
             return;
         }
@@ -99,7 +96,7 @@ public class MainPopUpControlWindowManager {
      * 隐藏悬浮框
      */
     public void hide() {
-        Log.e(TAG, "-------------hide()>");
+        SitechDevLog.e(TAG, "-------------hide()>");
         if (mainControlView != null && mainControlView.isShown()) {
             winManager.removeViewImmediate(mainControlView);
             mainControlView = null;
@@ -118,7 +115,7 @@ public class MainPopUpControlWindowManager {
      * @return
      */
     public void getView() {
-        Log.i(TAG, "-------------getView()>");
+        SitechDevLog.i(TAG, "-------------getView()>");
         if (mainControlView == null) {
             mainControlView = new MainPopupControlView(context);
         }
@@ -183,9 +180,9 @@ public class MainPopUpControlWindowManager {
         public void onReceive(Context context, Intent intent) {
             if ("android.intent.action.CONFIGURATION_CHANGED".equals(intent.getAction())) {
                 if (ScreenUtils.isLandscape()) {
-                    Log.i(TAG, "OrientationReciver============横屏");
+                    SitechDevLog.i(TAG, "OrientationReciver============横屏");
                 } else {
-                    Log.i(TAG, "OrientationReciver============竖屏");
+                    SitechDevLog.i(TAG, "OrientationReciver============竖屏");
                 }
                 if (!isViewShow()) {
                     return;
@@ -203,7 +200,7 @@ public class MainPopUpControlWindowManager {
      */
     @Subscribe(threadMode = ThreadMode.ASYNC)
     public void onTeddyVoiceEvent(VoiceEvent event) {
-        Log.i(TAG, "onTeddyVoiceEvent============" + event.getEventKey());
+        SitechDevLog.i(TAG, "onTeddyVoiceEvent============" + event.getEventKey());
     }
 
     public void move(int delatX, int deltaY) {

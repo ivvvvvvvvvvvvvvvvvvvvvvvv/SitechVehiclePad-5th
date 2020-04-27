@@ -13,7 +13,6 @@ import com.sitechdev.vehicle.pad.app.AppConst;
 import com.sitechdev.vehicle.pad.app.BaseWindow;
 import com.sitechdev.vehicle.pad.event.RightTopEvent;
 import com.sitechdev.vehicle.pad.window.view.RightTopView;
-import com.tencent.mars.xlog.Log;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -55,8 +54,7 @@ public class RightTopWindowManager {
     }
 
     public void init(Context context) {
-        Log.e("RightTop", "-------------init()>");
-        Log.e(TAG, "-->init");
+        SitechDevLog.e(TAG, "-->init");
         this.context = context;
 //        winManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
 //        displayWidth = winManager.getDefaultDisplay().getWidth();
@@ -73,7 +71,7 @@ public class RightTopWindowManager {
      * 显示悬浮框
      */
     public void show() {
-        Log.e("RightTop", "-------------show()>");
+        SitechDevLog.e("RightTop", "-------------show()>");
         if (isRightTopViewShow()) {
             return;
         }
@@ -92,7 +90,7 @@ public class RightTopWindowManager {
      * 隐藏悬浮框
      */
     public void hide() {
-        Log.e("RightTop", "-------------hide()>");
+        SitechDevLog.e("RightTop", "-------------hide()>");
         if (rightTopView != null && rightTopView.isShown()) {
             winManager.removeViewImmediate(rightTopView);
         }

@@ -14,7 +14,7 @@ import com.sitechdev.vehicle.pad.app.AppUrlConst;
 import com.sitechdev.vehicle.pad.bean.WeatherBeanCatch;
 import com.sitechdev.vehicle.pad.bean.WeatherInfoBeanTwo;
 import com.sitechdev.vehicle.pad.module.map.util.LocationData;
-import com.sitechdev.vehicle.pad.util.ParamsUtil;
+import com.sitechdev.vehicle.lib.util.ParamsUtil;
 
 /**
  * 天气工具类
