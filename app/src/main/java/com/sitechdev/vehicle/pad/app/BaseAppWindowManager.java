@@ -2,8 +2,8 @@ package com.sitechdev.vehicle.pad.app;
 
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.pad.event.WindowEvent;
+import com.sitechdev.vehicle.pad.window.manager.MainControlPanelWindowManager;
 import com.sitechdev.vehicle.pad.window.manager.MainMenuWindowManager;
-import com.sitechdev.vehicle.pad.window.manager.MainPopUpControlWindowManager;
 import com.sitechdev.vehicle.pad.window.manager.RightTopWindowManager;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -51,9 +51,9 @@ public class BaseAppWindowManager {
                     if (object instanceof Boolean) {
                         boolean isParams = (boolean) object;
                         if (isParams) {
-                            MainPopUpControlWindowManager.getInstance().show();
+                            MainControlPanelWindowManager.getInstance().show();
                         } else {
-                            MainPopUpControlWindowManager.getInstance().hide();
+                            MainControlPanelWindowManager.getInstance().hide();
                         }
                     }
                 }
@@ -65,7 +65,7 @@ public class BaseAppWindowManager {
             case WindowEvent.EVENT_WINDOW_APP_BACKGROUD:
                 RightTopWindowManager.getInstance().hide();
                 MainMenuWindowManager.getInstance().hide();
-                MainPopUpControlWindowManager.getInstance().hide();
+                MainControlPanelWindowManager.getInstance().hide();
                 break;
             default:
                 break;

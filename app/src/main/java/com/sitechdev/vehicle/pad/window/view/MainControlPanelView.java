@@ -2,10 +2,13 @@ package com.sitechdev.vehicle.pad.window.view;
 
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,12 +22,12 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.view.VerticalSeekBarForSkin;
-import com.sitechdev.vehicle.pad.window.manager.MainPopUpControlWindowManager;
+import com.sitechdev.vehicle.pad.window.manager.MainControlPanelWindowManager;
 
-public class MainPopupControlView extends RelativeLayout implements View.OnClickListener {
+public class MainControlPanelView extends RelativeLayout implements View.OnClickListener {
 
-    private final String TAG = "MainPopUpControl";
-    private MainPopUpControlWindowManager manager = null;
+    private final String TAG = "MainControlPanel";
+    private MainControlPanelWindowManager manager = null;
 
     public int mWidth;
     public int mHeight;
@@ -40,7 +43,7 @@ public class MainPopupControlView extends RelativeLayout implements View.OnClick
     private long lastClickTime = 0L;
     private static final int FAST_CLICK_DELAY_TIME = 1000;  // 快速点击间隔
 
-    private ImageView popControlView = null;
+    private LinearLayout popControlView = null;
 
     private boolean isPullDownView = false, isPullUp = false, isPushDown = false;
 
@@ -66,34 +69,31 @@ public class MainPopupControlView extends RelativeLayout implements View.OnClick
             R.drawable.ico_control_led8,
             R.drawable.ico_control_led9};
 
-    public MainPopupControlView(Context context) {
+    public MainControlPanelView(Context context) {
         this(context, null);
     }
 
-    public MainPopupControlView(Context context, AttributeSet attrs) {
+    public MainControlPanelView(Context context, AttributeSet attrs) {
         super(context, attrs);
         // 填充布局，并添加至
-        LayoutInflater.from(context).inflate(R.layout.custom_popup_view, this);
+        LayoutInflater.from(context).inflate(R.layout.custom_control_panel_view, this);
         contentView = findViewById(R.id.id_main_popup_view_content);
 
         mWidth = contentView.getLayoutParams().width;
         mHeight = contentView.getLayoutParams().height;
         SitechDevLog.i(TAG, "MainPopupControlView==mWidth==" + mWidth + "，mHeight==" + mHeight);
 
-        popControlView = findViewById(R.id.id_top_image);
-        findViewById(R.id.id_top_content).setOnClickListener(this);
-        findViewById(R.id.id_main_popup_view).setOnClickListener(this);
-        findViewById(R.id.id_main_popup_view_content).setOnClickListener(this);
+        popControlView = findViewById(R.id.id_top_content);
 
-        manager = MainPopUpControlWindowManager.getInstance();
+        manager = MainControlPanelWindowManager.getInstance();
 
         initView();
 
-        initListener();
+//        initListener();
 
         initData();
 
-        requestFocus();
+        contentView.requestFocus();
     }
 
     public View getContentView() {
@@ -127,7 +127,7 @@ public class MainPopupControlView extends RelativeLayout implements View.OnClick
     }
 
     private void initListener() {
-        findViewById(R.id.id_main_popup_view).setOnClickListener(this);
+        contentView.setOnClickListener(this);
         popControlView.setOnClickListener(this);
         bluetoothControlView.setOnClickListener(this);
         wifiControlView.setOnClickListener(this);
@@ -304,10 +304,8 @@ public class MainPopupControlView extends RelativeLayout implements View.OnClick
         switch (v.getId()) {
             case R.id.id_top_image:
             case R.id.id_top_content:
-            case R.id.id_main_popup_view:
-                manager.hide();
-                break;
             case R.id.id_main_popup_view_content:
+                manager.hide();
                 break;
             case R.id.id_bluetooth_Btn:
                 isActivated = bluetoothControlView.isActivated();
@@ -365,55 +363,68 @@ public class MainPopupControlView extends RelativeLayout implements View.OnClick
         }
     }
 
-//    @Override
-//    public boolean onTouchEvent(MotionEvent event) {
-//        switch (event.getAction()) {
-//            case MotionEvent.ACTION_DOWN:
-//                preX = (int) event.getRawX();
-//                preY = (int) event.getRawY();
-//                lastX = (int) event.getRawX();
-//                lastY = (int) event.getRawY();
-//                SitechDevLog.i(TAG, "点击坐标prex==" + preX + "，点击坐标prey==" + preY + "，点击坐标lastX==" + lastX + "点击坐标lastY==" + lastY);
-//                if (isInClickView(popControlView, event)) {
-//                    //点击区域
-//                    isPullDownView = true;
-//                }
-//                break;
-//
-//            case MotionEvent.ACTION_MOVE:
-//                x = (int) event.getRawX();
-//                y = (int) event.getRawY();
-//                if (isPullDownView) {
-//                    SitechDevLog.i(TAG, "ACTION_MOVE (x - preX)==" + (x - preX) + "，点击坐标 (y - preY)==" + (y - preY));
-//                    manager.move(x - preX, y - preY);
-//                }
-//                preX = x;
-//                preY = y;
-//                break;
-//            case MotionEvent.ACTION_UP:
-//                isPullDownView = false;
-//                break;
-//            default:
-//                break;
-//        }
-//        return super.onTouchEvent(event);
-//    }
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                preX = (int) event.getRawX();
+                preY = (int) event.getRawY();
+                lastX = (int) event.getRawX();
+                lastY = (int) event.getRawY();
+                SitechDevLog.i(TAG, "点击坐标prex==" + preX + "，点击坐标prey==" + preY + "，点击坐标lastX==" + lastX + "点击坐标lastY==" + lastY);
+                if (isInClickView(popControlView, event)) {
+                    //点击区域
+                    isPullDownView = true;
+                }
+                break;
 
-//    /**
-//     * 判断触摸的点是否在view范围内
-//     */
-//    private boolean isInClickView(View v, MotionEvent event) {
-//        SitechDevLog.i(TAG, "isInClickView22==========================================");
-//        int[] l = {0, 0};
-//        v.getLocationInWindow(l);
-//        int left = l[0], top = l[1], bottom = top + v.getHeight(), right = left + v.getWidth();
-//        float eventX = event.getX();
-//        float eventY = event.getY();
-//        Rect rect = new Rect(left, top, right, bottom);
-//        SitechDevLog.i(TAG, "isInClickView22=eventX=" + eventX + "，isInClickView  eventY==" + eventY);
-//        SitechDevLog.i(TAG, "isInClickView22=getRawX=" + event.getRawX() + "，isInClickView   getRawY==" + event.getRawY());
-//        SitechDevLog.i(TAG, "isInClickView22=frame.contains((int) getRawX, (int) getRawY)=" + (rect.contains((int) (event.getRawX()), (int) (event.getRawY()))));
-//        SitechDevLog.i(TAG, "isInClickView22=frame.contains((int) eventX, (int) eventY)=" + (rect.contains((int) eventX, (int) eventY)));
-//        return rect.contains((int) eventX, (int) eventY);
-//    }
+            case MotionEvent.ACTION_MOVE:
+                x = (int) event.getRawX();
+                y = (int) event.getRawY();
+                if (isPullDownView) {
+//                    SitechDevLog.i(TAG, "ACTION_MOVE (x - preX)==" + (x - preX) + "，点击坐标 (y - preY)==" + (y - preY));
+                    manager.move(x - preX, y - preY);
+                }
+                preX = x;
+                preY = y;
+                break;
+            case MotionEvent.ACTION_UP:
+                SitechDevLog.i(TAG, "ACTION_UP ==============");
+                if (isPullDownView) {
+                    manager.resetView();
+                }
+                isPullDownView = false;
+                break;
+            default:
+                break;
+        }
+        return super.onTouchEvent(event);
+    }
+
+    /**
+     * 判断触摸的点是否在view范围内
+     */
+    private boolean isInClickView(View v, MotionEvent event) {
+        SitechDevLog.i(TAG, "isInClickView22==========================================");
+        int[] l = {0, 0};
+        v.getLocationInWindow(l);
+        int left = l[0], top = l[1], bottom = top + v.getHeight(), right = left + v.getWidth();
+        float eventX = event.getX();
+        float eventY = event.getY();
+        Rect rect = new Rect(left, top, right, bottom);
+        SitechDevLog.i(TAG, "isInClickView22=eventX=" + eventX + "，isInClickView  eventY==" + eventY);
+        SitechDevLog.i(TAG, "isInClickView22=frame.contains((int) eventX, (int) eventY)=" + (rect.contains((int) eventX, (int) eventY)));
+        return rect.contains((int) eventX, (int) eventY);
+    }
+
+    public void resetViewAlpha(int alphaValue) {
+        SitechDevLog.i(TAG, "*********************重设透明值==" + alphaValue);
+        if (alphaValue < 0 || alphaValue > 255) {
+            return;
+        }
+        int alphaValue2 = alphaValue * 9 / 10;
+//        contentView.getBackground().setAlpha(alphaValue);
+        SitechDevLog.i(TAG, "*********************重设透明值2222===============" + alphaValue2);
+        contentView.setBackgroundColor(Color.argb(alphaValue2, 36, 100, 149));
+    }
 }

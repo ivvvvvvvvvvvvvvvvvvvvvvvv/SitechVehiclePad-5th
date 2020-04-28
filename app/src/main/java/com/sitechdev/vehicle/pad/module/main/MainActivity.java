@@ -58,12 +58,14 @@ import com.sitechdev.vehicle.pad.view.CommonToast;
 import com.sitechdev.vehicle.pad.view.ReflectTextClock;
 import com.sitechdev.vehicle.pad.view.ScrollTextView;
 import com.sitechdev.vehicle.pad.vui.VoiceConstants;
+import com.sitechdev.vehicle.pad.window.manager.MainControlPanelWindowManager;
 import com.sitechdev.vehicle.pad.window.manager.MainMenuWindowManager;
 import com.sitechdev.vehicle.pad.window.manager.RightTopWindowManager;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+//import com.sitechdev.vehicle.pad.window.manager.MainPopUpControlWindowManager;
 
 @BindEventBus
 @VoiceSourceType(VoiceSourceManager.SUPPORT_TYPE_ALL)
@@ -275,6 +277,8 @@ public class MainActivity extends BaseActivity
             if (Settings.canDrawOverlays(AppApplication.getContext())) {
                 RightTopWindowManager.getInstance().show();
                 MainMenuWindowManager.getInstance().show();
+//                MainPopUpControlWindowManager.getInstance().show();
+                MainControlPanelWindowManager.getInstance().show();
             }
         }
     }

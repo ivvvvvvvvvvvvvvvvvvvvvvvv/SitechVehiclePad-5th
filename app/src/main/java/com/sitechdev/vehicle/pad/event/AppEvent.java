@@ -1,5 +1,7 @@
 package com.sitechdev.vehicle.pad.event;
 
+import android.os.IBinder;
+
 import com.sitechdev.vehicle.lib.event.BaseEvent;
 
 /**
@@ -29,11 +31,21 @@ public class AppEvent extends BaseEvent {
      * 登出、退出登录
      */
     public static final String EVENT_APP_LOGIN_LOGOUT = "EVENT_APP_LOGIN_LOGOUT";
+    /**
+     * 滑动事件
+     */
+    public static final String EVENT_APP_WINDOW_MOVE = "EVENT_APP_WINDOW_MOVE";
 
     private String eventKey = "";
+    private Object eventValue = null;
 
     public AppEvent(String key) {
         eventKey = key;
+    }
+
+    public AppEvent(String key, Object obj) {
+        eventKey = key;
+        eventValue = obj;
     }
 
     public String getEventKey() {
@@ -42,5 +54,13 @@ public class AppEvent extends BaseEvent {
 
     public void setEventKey(String eventKey) {
         this.eventKey = eventKey;
+    }
+
+    public Object getEventValue() {
+        return eventValue;
+    }
+
+    public void setEventValue(Object eventValue) {
+        this.eventValue = eventValue;
     }
 }

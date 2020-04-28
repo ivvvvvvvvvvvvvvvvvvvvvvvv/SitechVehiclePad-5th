@@ -31,7 +31,7 @@ import com.sitechdev.vehicle.lib.util.MarsXlogUtil;
 import com.sitechdev.vehicle.lib.util.ParamsUtil;
 import com.sitechdev.vehicle.pad.utils.MyEventBusIndex;
 import com.sitechdev.vehicle.pad.window.manager.MainMenuWindowManager;
-import com.sitechdev.vehicle.pad.window.manager.MainPopUpControlWindowManager;
+import com.sitechdev.vehicle.pad.window.manager.MainControlPanelWindowManager;
 import com.sitechdev.vehicle.pad.window.manager.RightTopWindowManager;
 
 import org.greenrobot.eventbus.EventBus;
@@ -84,7 +84,7 @@ public class AppApplication extends Application {
         //底部主菜单
         MainMenuWindowManager.getInstance().init(this);
         //底部控制菜单
-        MainPopUpControlWindowManager.getInstance().init(this);
+        MainControlPanelWindowManager.getInstance().init(this);
         //登录、普通Toast弹窗
         CommonTipWindowManager.getInstance().init(this);
         BaseAppWindowManager.getInstance().init();
