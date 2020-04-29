@@ -166,11 +166,11 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="229px"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingLeft="70px"
-            android:paddingTop="30px"
-            android:paddingBottom="14px">
+            android:paddingTop="20px"
+            android:paddingBottom="5px">
 
             <TextClock
                 android:id="@+id/tc_data"
@@ -188,6 +188,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10px"
+                android:layout_marginBottom="10px"
                 android:format12Hour="hh:mm"
                 android:format24Hour="HH:mm"
                 android:includeFontPadding="false"
@@ -204,7 +205,7 @@
         <RelativeLayout
             android:id="@+id/id_bluetooth_content"
             android:layout_width="match_parent"
-            android:layout_height="153px"
+            android:layout_height="130px"
             android:paddingLeft="70px">
 
             <ImageView

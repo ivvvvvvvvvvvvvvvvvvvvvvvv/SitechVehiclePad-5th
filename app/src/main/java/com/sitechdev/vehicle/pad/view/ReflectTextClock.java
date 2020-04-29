@@ -64,7 +64,7 @@ public class ReflectTextClock extends TextClock {
         canvas.drawBitmap(reflectionImage, 0, 0, paint);
         if (mPaint == null) {
             mPaint = new Paint();            //阴影的效果可以自己根据需要设定
-            LinearGradient shader = new LinearGradient(0, 0, 0, height, 0x90ffffff, 0x00ffffff, Shader.TileMode.MIRROR);
+            LinearGradient shader = new LinearGradient(0, 0, 0, height, 0x50ffffff, 0x00ffffff, Shader.TileMode.MIRROR);
             mPaint.setShader(shader);
             mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
         }
