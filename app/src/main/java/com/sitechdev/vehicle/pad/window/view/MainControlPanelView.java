@@ -95,6 +95,9 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
         SitechDevLog.i(TAG, "MainPopupControlView==mWidth==" + mWidth + "，mHeight==" + mHeight);
         //音量控制,初始化定义
         mAudioManager = (AudioManager) AppApplication.getContext().getSystemService(Context.AUDIO_SERVICE);
+        //最大音量
+        maxVolumeValue = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        SitechDevLog.i(TAG, "最大音量===" + maxVolumeValue);
 
         popControlView = findViewById(R.id.id_top_content);
 
@@ -160,11 +163,11 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
     }
 
     public void initVolumeData() {
-        //最大音量
-        maxVolumeValue = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-        SitechDevLog.i(TAG, "最大音量===" + maxVolumeValue);
         //当前音量
         currentVolumeValue = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+        if (currentVolumeValue == 0) {
+            currentVolumeValue = maxVolumeValue / 2;
+        }
         SitechDevLog.i(TAG, "当前音量===" + currentVolumeValue);
     }
 
@@ -194,13 +197,13 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
 
                 @Override
                 public void onStartTrackingTouch(SeekBar seekBar) {
-                    SitechDevLog.i(TAG, "volumeVerticalSeekBar onStartTrackingTouch==========================================" );
+                    SitechDevLog.i(TAG, "volumeVerticalSeekBar onStartTrackingTouch==========================================");
 
                 }
 
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar) {
-                    SitechDevLog.i(TAG, "volumeVerticalSeekBar onStopTrackingTouch==========================================" );
+                    SitechDevLog.i(TAG, "volumeVerticalSeekBar onStopTrackingTouch==========================================");
 
                 }
             });
@@ -219,13 +222,13 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
 
                 @Override
                 public void onStartTrackingTouch(SeekBar seekBar) {
-                    SitechDevLog.i(TAG, "lightVerticalSeekBar onStartTrackingTouch==========================================" );
+                    SitechDevLog.i(TAG, "lightVerticalSeekBar onStartTrackingTouch==========================================");
 
                 }
 
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar) {
-                    SitechDevLog.i(TAG, "lightVerticalSeekBar onStopTrackingTouch==========================================" );
+                    SitechDevLog.i(TAG, "lightVerticalSeekBar onStopTrackingTouch==========================================");
 
                 }
             });
@@ -245,13 +248,13 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
 
                 @Override
                 public void onStartTrackingTouch(SeekBar seekBar) {
-                    SitechDevLog.i(TAG, "volumeSeekBar onStartTrackingTouch==========================================" );
+                    SitechDevLog.i(TAG, "volumeSeekBar onStartTrackingTouch==========================================");
 
                 }
 
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar) {
-                    SitechDevLog.i(TAG, "volumeSeekBar onStopTrackingTouch==========================================" );
+                    SitechDevLog.i(TAG, "volumeSeekBar onStopTrackingTouch==========================================");
 
                 }
             });
@@ -270,13 +273,13 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
 
                 @Override
                 public void onStartTrackingTouch(SeekBar seekBar) {
-                    SitechDevLog.i(TAG, "lightSeekBar onStartTrackingTouch==========================================" );
+                    SitechDevLog.i(TAG, "lightSeekBar onStartTrackingTouch==========================================");
 
                 }
 
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar) {
-                    SitechDevLog.i(TAG, "lightSeekBar onStopTrackingTouch==========================================" );
+                    SitechDevLog.i(TAG, "lightSeekBar onStopTrackingTouch==========================================");
 
                 }
             });
@@ -380,10 +383,12 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
 
         if (ScreenUtils.isLandscape()) {
             volumeVerticalSeekBar.setMax(maxVolumeValue);
+            Log.i(TAG, "volumeVerticalSeekBar setMax=======" +maxVolumeValue);
 
             lightVerticalSeekBar.setMax(maxScreenLightValue);
         } else {
             volumeSeekBar.setMax(maxVolumeValue);
+            Log.i(TAG, "volumeSeekBar setMax=======" +maxVolumeValue);
 
             lightSeekBar.setMax(maxScreenLightValue);
         }
