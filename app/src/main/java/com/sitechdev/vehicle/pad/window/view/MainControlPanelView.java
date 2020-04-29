@@ -11,7 +11,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
@@ -77,7 +76,7 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
             R.drawable.ico_control_led9};
 
     private int maxVolumeValue = 10, currentVolumeValue = 0;
-    private int maxScreenLightValue = 10, currentScreenLightValue = 0;
+    private int maxScreenLightValue = 255, currentScreenLightValue = 0;
 
     private AudioManager mAudioManager = null;
 
@@ -94,6 +93,8 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
         mWidth = contentView.getLayoutParams().width;
         mHeight = contentView.getLayoutParams().height;
         SitechDevLog.i(TAG, "MainPopupControlView==mWidth==" + mWidth + "，mHeight==" + mHeight);
+        //音量控制,初始化定义
+        mAudioManager = (AudioManager) AppApplication.getContext().getSystemService(Context.AUDIO_SERVICE);
 
         popControlView = findViewById(R.id.id_top_content);
 
@@ -144,28 +145,27 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
 
     public void initVolumeAndLightData() {
         initVolumeData();
+        currentScreenLightValue = maxScreenLightValue / 5 * 4;
+        SitechDevLog.i(TAG, "当前亮度===>" + BrightnessUtils.getWindowBrightness(ActivityUtils.getTopActivity().getWindow()));
         if (ScreenUtils.isLandscape()) {
-            volumeVerticalSeekBar.setMax(maxVolumeValue);
             volumeVerticalSeekBar.setProgress(currentVolumeValue);
 
-            lightVerticalSeekBar.setMax(255);
-            lightVerticalSeekBar.setProgress(BrightnessUtils.getWindowBrightness(ActivityUtils.getTopActivity().getWindow()));
+//            lightVerticalSeekBar.setProgress(BrightnessUtils.getWindowBrightness(ActivityUtils.getTopActivity().getWindow()));
+            lightVerticalSeekBar.setProgress(currentScreenLightValue);
         } else {
-            volumeSeekBar.setMax(maxVolumeValue);
             volumeSeekBar.setProgress(currentVolumeValue);
 
-            lightSeekBar.setMax(255);
-            lightSeekBar.setProgress(BrightnessUtils.getWindowBrightness(ActivityUtils.getTopActivity().getWindow()));
+            lightSeekBar.setProgress(currentScreenLightValue);
         }
     }
 
     public void initVolumeData() {
-        //音量控制,初始化定义
-        mAudioManager = (AudioManager) AppApplication.getContext().getSystemService(Context.AUDIO_SERVICE);
         //最大音量
         maxVolumeValue = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        SitechDevLog.i(TAG, "最大音量===" + maxVolumeValue);
         //当前音量
-        currentScreenLightValue = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+        currentVolumeValue = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+        SitechDevLog.i(TAG, "当前音量===" + currentVolumeValue);
     }
 
     private void initListener() {
@@ -194,11 +194,13 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
 
                 @Override
                 public void onStartTrackingTouch(SeekBar seekBar) {
+                    SitechDevLog.i(TAG, "volumeVerticalSeekBar onStartTrackingTouch==========================================" );
 
                 }
 
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar) {
+                    SitechDevLog.i(TAG, "volumeVerticalSeekBar onStopTrackingTouch==========================================" );
 
                 }
             });
@@ -217,11 +219,13 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
 
                 @Override
                 public void onStartTrackingTouch(SeekBar seekBar) {
+                    SitechDevLog.i(TAG, "lightVerticalSeekBar onStartTrackingTouch==========================================" );
 
                 }
 
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar) {
+                    SitechDevLog.i(TAG, "lightVerticalSeekBar onStopTrackingTouch==========================================" );
 
                 }
             });
@@ -241,11 +245,13 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
 
                 @Override
                 public void onStartTrackingTouch(SeekBar seekBar) {
+                    SitechDevLog.i(TAG, "volumeSeekBar onStartTrackingTouch==========================================" );
 
                 }
 
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar) {
+                    SitechDevLog.i(TAG, "volumeSeekBar onStopTrackingTouch==========================================" );
 
                 }
             });
@@ -264,11 +270,13 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
 
                 @Override
                 public void onStartTrackingTouch(SeekBar seekBar) {
+                    SitechDevLog.i(TAG, "lightSeekBar onStartTrackingTouch==========================================" );
 
                 }
 
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar) {
+                    SitechDevLog.i(TAG, "lightSeekBar onStopTrackingTouch==========================================" );
 
                 }
             });
@@ -369,6 +377,16 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
         mobileNetControlView.setActivated(NetworkUtils.getMobileDataEnabled());
         //蓝牙是否开启
         bluetoothControlView.setActivated(BluetoothAdapter.getDefaultAdapter().isEnabled());
+
+        if (ScreenUtils.isLandscape()) {
+            volumeVerticalSeekBar.setMax(maxVolumeValue);
+
+            lightVerticalSeekBar.setMax(maxScreenLightValue);
+        } else {
+            volumeSeekBar.setMax(maxVolumeValue);
+
+            lightSeekBar.setMax(maxScreenLightValue);
+        }
 
         if (mLedViewLiearLayoutView != null) {
             mLedViewLiearLayoutView.removeAllViews();
@@ -531,10 +549,16 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
     }
 
     private void setVolumeValue(int value) {
+        SitechDevLog.i(TAG, "setVolumeValue===" + value);
         mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, value, 0); //tempVolume:音量绝对值
     }
 
     private void setLightValue(int value) {
-        BrightnessUtils.setWindowBrightness(ActivityUtils.getTopActivity().getWindow(), value);
+        SitechDevLog.i(TAG, "setLightValue===" + value);
+        try {
+            BrightnessUtils.setWindowBrightness(ActivityUtils.getTopActivity().getWindow(), value);
+        } catch (Exception e) {
+            SitechDevLog.exception(e);
+        }
     }
 }

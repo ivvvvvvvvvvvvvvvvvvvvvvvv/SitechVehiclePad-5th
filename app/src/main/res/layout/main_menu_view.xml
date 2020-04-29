@@ -4,7 +4,7 @@
     android:id="@+id/id_main_menu_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="60px"
+    android:layout_marginBottom="30px"
     android:clipChildren="false"
     android:clipToPadding="false"
     android:paddingLeft="61px"
