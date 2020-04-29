@@ -13,7 +13,7 @@
     android:paddingLeft="50px"
     android:paddingRight="50px"
     android:paddingBottom="47px">
-<!--    android:background="#E6246495"-->
+    <!--    android:background="#E6246495"-->
 
     <LinearLayout
         android:id="@+id/id_top_content"
@@ -86,8 +86,8 @@
                 android:background="@drawable/bg_popup_btn_view"
                 android:max="30"
                 android:progress="20"
-                android:progressDrawable="@drawable/layer_list_sound_bar_land"
-                android:thumb="@drawable/bg_popup_btn_thumb_land" />
+                android:progressDrawable="@drawable/layer_list_sound_bar_land" />
+            <!--                android:thumb="@drawable/bg_popup_btn_thumb_land" />-->
 
             <ImageView
                 android:layout_width="65px"
@@ -112,8 +112,8 @@
                 android:background="@drawable/bg_popup_btn_view"
                 android:max="10"
                 android:progress="7"
-                android:progressDrawable="@drawable/layer_list_sound_bar_land"
-                android:thumb="@drawable/bg_popup_btn_thumb_land" />
+                android:progressDrawable="@drawable/layer_list_sound_bar_land" />
+            <!--                android:thumb="@drawable/bg_popup_btn_thumb_land" />-->
 
             <ImageView
                 android:layout_width="65px"

@@ -80,6 +80,12 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        BarUtils.setNavBarVisibility(this, false);
+    }
+
     @SuppressLint("NewApi")
     public void setFullScreen() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

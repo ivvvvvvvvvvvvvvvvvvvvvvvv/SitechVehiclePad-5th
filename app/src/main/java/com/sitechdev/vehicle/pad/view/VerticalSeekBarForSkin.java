@@ -8,6 +8,8 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ViewParent;
 
+import com.sitechdev.vehicle.lib.util.SitechDevLog;
+
 
 public class VerticalSeekBarForSkin extends AppCompatSeekBar {// SkinCompatSeekBar {
 
@@ -118,6 +120,7 @@ public class VerticalSeekBarForSkin extends AppCompatSeekBar {// SkinCompatSeekB
         }
         final int max = getMax();
         progress += scale * max;
+        SitechDevLog.i("VerticalSeekBarForSkin", "progress===" + progress + "，scale===" + scale);
         setProgress((int) progress);
         if (event.getAction() == MotionEvent.ACTION_UP) {
             if (mSeekChange != null) {

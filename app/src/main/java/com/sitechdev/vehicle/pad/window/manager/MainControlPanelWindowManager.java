@@ -96,6 +96,7 @@ public class MainControlPanelWindowManager {
 //            winManager.removeViewImmediate(mainControlPanelView);
 //        }
         if (mainControlPanelView != null && mainControlPanelView.getParent() == null && !mainControlPanelView.isShown()) {
+            mainControlPanelView.initVolumeAndLightData();
             winManager.addView(mainControlPanelView, params);
         }
     }
@@ -235,7 +236,7 @@ public class MainControlPanelWindowManager {
 //        if (view == mainControlContentView) {
         params.x = 0;
         params.y += deltaY;
-        SitechDevLog.i(TAG, "*********************移动后  move (params.x )==" + params.x + "， (params.Y)==" + params.y + "， (displayHeight - params.height / 2)==" + (displayHeight - params.height / 2));
+//        SitechDevLog.i(TAG, "*********************移动后  move (params.x )==" + params.x + "， (params.Y)==" + params.y + "， (displayHeight - params.height / 2)==" + (displayHeight - params.height / 2));
         if (params.y <= displayHeight - params.height) {
             params.flags = getNewParams(true);
             params.y = displayHeight - params.height;
@@ -263,9 +264,9 @@ public class MainControlPanelWindowManager {
             mainControlPanelView.resetViewAlpha(alphaValue);
 
         }
-        SitechDevLog.i(TAG, "*********************移动后  move (deltaY > 0 )==" + (deltaY > 0)
-                + "params.y >= (displayHeight - params.height / 2)===" + (params.y >= (displayHeight - params.height / 2))
-                + "(isHiddenView) == " + isHiddenView);
+//        SitechDevLog.i(TAG, "*********************移动后  move (deltaY > 0 )==" + (deltaY > 0)
+//                + "params.y >= (displayHeight - params.height / 2)===" + (params.y >= (displayHeight - params.height / 2))
+//                + "(isHiddenView) == " + isHiddenView);
         updateWindow();
     }
 
@@ -284,6 +285,7 @@ public class MainControlPanelWindowManager {
         params.y = displayHeight - maxWindowY;
 //        params.flags = getNewParams(true);
         mainControlPanelView.resetViewAlpha(255);
+        mainControlPanelView.setFullScreen(true);
         updateWindow();
     }
 
@@ -296,6 +298,7 @@ public class MainControlPanelWindowManager {
         params.y = displayHeight - minWindowY;
         params.flags = getNewParams(false);
         mainControlPanelView.resetViewAlpha(0);
+        mainControlPanelView.setFullScreen(false);
         updateWindow();
     }
 

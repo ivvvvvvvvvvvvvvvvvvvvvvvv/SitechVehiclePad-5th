@@ -10,4 +10,9 @@
     <size
         android:width="30px"
         android:height="130px" />
+    <padding
+        android:left="0px"
+        android:top="10px"
+        android:right="0px"
+        android:bottom="10px" />
 </shape>
