@@ -153,6 +153,7 @@ public class WeatherActivity extends MvpActivity<WeatherPresenter> implements We
 
     @Override
     protected void initData() {
+        tvWeatherTemp.setTypeface(FontUtil.getInstance().getMainFont());
         tv_city.setText(String.format(" %s", mPresenter.loadCityDataWithLocation()));
         mPresenter.loadWeatherData(false);
     }
@@ -319,7 +320,7 @@ public class WeatherActivity extends MvpActivity<WeatherPresenter> implements We
             dayStatus.setText(dayBean.getWeather());
             TextView dayTemp = watherDayLayout.findViewById(R.id.id_weather_temp);
             // 温度
-            dayTemp.setText(String.format("%s/%s°C", nightBean.getTemplow(), dayBean.getTemphigh()));
+            dayTemp.setText(String.format("%s/%s°", nightBean.getTemplow(), dayBean.getTemphigh()));
         }
     }
 

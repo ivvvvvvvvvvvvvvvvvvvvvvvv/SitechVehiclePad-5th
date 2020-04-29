@@ -37,7 +37,7 @@ public class MainMenuWindowManager {
     private static int displayWidth;
     private static int displayHeight;
 
-    private OrientationReciver reciver = null;
+    private OrientationReceiver receiver = null;
 
     /**
      * @return
@@ -65,8 +65,8 @@ public class MainMenuWindowManager {
         displayHeight = BaseWindow.getInstance().getDisplayHeight();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("android.intent.action.CONFIGURATION_CHANGED");
-        reciver = new OrientationReciver();
-        context.registerReceiver(reciver, intentFilter);
+        receiver = new OrientationReceiver();
+        context.registerReceiver(receiver, intentFilter);
         getView();
         initData();
     }
@@ -157,16 +157,16 @@ public class MainMenuWindowManager {
         }
     }
 
-    private class OrientationReciver extends BroadcastReceiver {
+    private class OrientationReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             if ("android.intent.action.CONFIGURATION_CHANGED".equals(intent.getAction())) {
                 if (ScreenUtils.isLandscape()) {
-                    SitechDevLog.i(TAG, "OrientationReciver============横屏");
+                    SitechDevLog.i(TAG, "OrientationReceiver============横屏");
                     hide();
                     show();
                 } else {
-                    SitechDevLog.i(TAG, "OrientationReciver============竖屏");
+                    SitechDevLog.i(TAG, "OrientationReceiver============竖屏");
                     hide();
                     show();
                 }
@@ -211,5 +211,11 @@ public class MainMenuWindowManager {
 //            default:
 //                break;
 //        }
+    }
+
+    public void changeViewByOri() {
+        SitechDevLog.i(TAG, this + "============changeViewByOri");
+        hide();
+        show();
     }
 }

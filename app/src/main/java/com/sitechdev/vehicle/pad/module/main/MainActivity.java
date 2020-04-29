@@ -92,6 +92,7 @@ public class MainActivity extends BaseActivity
 //    Column mCurrentColumn;
 //    private String KEY_COLUMN = "KEY_COLUMN";
     private Context mContext;
+    private TextView btn_music_title;
 //    private int musicSource  = -1;
 //    private static final int KAOLA = 0;
 //    private static final int LOCAL_MUSIC = 1;
@@ -147,6 +148,7 @@ public class MainActivity extends BaseActivity
 
         carPowerInfoView = findViewById(R.id.ll_car_power_info);
 
+        btn_music_title = findViewById(R.id.id_r_m_l_music_main_title);
         btn_child_papers = findViewById(R.id.btn_child_papers);
         btn_sitev_news = findViewById(R.id.btn_sitev_news);
         btn_car_fun = findViewById(R.id.btn_car_fun);
@@ -167,6 +169,7 @@ public class MainActivity extends BaseActivity
 
         ReflectTextClock tcTime = (ReflectTextClock) findViewById(R.id.btn_hp_time);
         tcTime.setTypeface(FontUtil.getInstance().getMainFont());
+        tvTemperature.setTypeface(FontUtil.getInstance().getMainFont_i());
     }
 
     @Override
@@ -196,6 +199,13 @@ public class MainActivity extends BaseActivity
         PlayerManager.getInstance(this).addPlayerStateListener(KaolaPlayManager.SingletonHolder.INSTANCE.mIPlayerStateListener);
 //        MusicManager.getInstance().addMusicChangeListener(musicChangeListener);
         VoiceSourceManager.getInstance().addMusicChangeListener(this);
+
+        btn_music_title.setTypeface(FontUtil.getInstance().getMainFont_Min_i());
+
+        btn_child_papers.setTypeface(FontUtil.getInstance().getMainFont_Min_i());
+        btn_sitev_news.setTypeface(FontUtil.getInstance().getMainFont_Min_i());
+        btn_car_fun.setTypeface(FontUtil.getInstance().getMainFont_Min_i());
+        btn_life_all.setTypeface(FontUtil.getInstance().getMainFont_Min_i());
 
         mPowerPercentView.setText(setBottomAlignment("70", "%"));
         mKmView.setText(setBottomAlignment("238", "KM"));
@@ -271,13 +281,13 @@ public class MainActivity extends BaseActivity
     @Override
     protected void onResume() {
         super.onResume();
+        SitechDevLog.i(AppConst.TAG, "===MainActivity======================onResume=============================");
         EventBusUtils.register(this);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             if (Settings.canDrawOverlays(AppApplication.getContext())) {
                 RightTopWindowManager.getInstance().show();
                 MainMenuWindowManager.getInstance().show();
-//                MainPopUpControlWindowManager.getInstance().show();
                 MainControlPanelWindowManager.getInstance().show();
             }
         }
@@ -533,7 +543,9 @@ public class MainActivity extends BaseActivity
                 public void onSuccess(Object successObj) {
                     WeatherInfoBean weatherInfoBean = (WeatherInfoBean) successObj;
                     if (weatherInfoBean.getData() != null) {
-                        refreshWeatherView(weatherInfoBean.getData());
+                        ThreadUtils.runOnUIThread(() -> {
+                            refreshWeatherView(weatherInfoBean.getData());
+                        });
                     }
                 }
             });

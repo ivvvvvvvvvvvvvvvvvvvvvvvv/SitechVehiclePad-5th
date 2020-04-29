@@ -547,10 +547,10 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
         if (alphaValue < 0 || alphaValue > 255) {
             return;
         }
-        int alphaValue2 = alphaValue * 9 / 10;
+        int alphaValue2 = alphaValue * 95 / 100;
 //        contentView.getBackground().setAlpha(alphaValue);
 //        SitechDevLog.i(TAG, "*********************重设透明值2222===============" + alphaValue2);
-        contentView.setBackgroundColor(Color.argb(alphaValue2, 36, 100, 149));
+        contentView.setBackgroundColor(Color.argb(alphaValue2, 24, 50, 63));
     }
 
     private void setVolumeValue(int value) {

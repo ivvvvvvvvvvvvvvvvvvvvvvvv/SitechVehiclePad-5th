@@ -17,6 +17,7 @@ import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.event.VoiceEvent;
 import com.sitechdev.vehicle.pad.view.VolumeView;
 import com.sitechdev.vehicle.pad.view.VolumeView2;
+import com.sitechdev.vehicle.pad.vui.VUI;
 import com.sitechdev.vehicle.pad.vui.VoiceConstants;
 
 public class MainMenuView extends RelativeLayout implements View.OnClickListener {
@@ -122,7 +123,11 @@ public class MainMenuView extends RelativeLayout implements View.OnClickListener
 //                ToastUtils.showShort("应用按钮被点击了。。。");
                 break;
             case R.id.id_btn_teddy:
-                EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_MVW_SUCCESS));
+                if (VUI.getInstance().isTeddyWorking()) {
+                    EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_SR_OVER));
+                } else {
+                    EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_MVW_SUCCESS));
+                }
                 break;
             default:
                 break;

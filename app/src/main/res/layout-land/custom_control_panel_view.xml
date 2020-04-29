@@ -132,6 +132,7 @@
         android:layout_marginTop="10px"
         android:layout_toRightOf="@id/id_second_content"
         android:background="@drawable/bg_popup_btn_view"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingLeft="40px"
         android:paddingRight="40px">

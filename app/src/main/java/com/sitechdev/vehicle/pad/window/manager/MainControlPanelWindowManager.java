@@ -11,11 +11,11 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.blankj.utilcode.util.ActivityUtils;
-import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.BarUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
+import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.app.BaseWindow;
 import com.sitechdev.vehicle.pad.event.VoiceEvent;
 import com.sitechdev.vehicle.pad.window.view.MainControlPanelView;
@@ -47,7 +47,7 @@ public class MainControlPanelWindowManager {
 
     private boolean isHiddenView = false;
 
-    private OrientationReciver reciver = null;
+    private OrientationReceiver receiver = null;
 
     /**
      * @return
@@ -75,8 +75,8 @@ public class MainControlPanelWindowManager {
         displayHeight = BaseWindow.getInstance().getDisplayHeight();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("android.intent.action.CONFIGURATION_CHANGED");
-        reciver = new OrientationReciver();
-        context.registerReceiver(reciver, intentFilter);
+        receiver = new OrientationReceiver();
+        context.registerReceiver(receiver, intentFilter);
         getView();
         initData();
     }
@@ -85,16 +85,17 @@ public class MainControlPanelWindowManager {
      * 显示悬浮框
      */
     public void show() {
-        SitechDevLog.e(TAG, "-------------show()>");
+        SitechDevLog.e(TAG, "-------------show()=====" + mainControlPanelView);
         if (isViewShow()) {
             return;
         }
         if (mainControlPanelView == null) {
+            SitechDevLog.e(TAG, "-------------show()  new view ");
             getView();
         }
-//        if (mainControlPanelView.getParent() != null) {
-//            winManager.removeViewImmediate(mainControlPanelView);
-//        }
+        if (mainControlPanelView.getParent() != null) {
+            winManager.removeViewImmediate(mainControlPanelView);
+        }
         if (mainControlPanelView != null && mainControlPanelView.getParent() == null && !mainControlPanelView.isShown()) {
             mainControlPanelView.initVolumeAndLightData();
             winManager.addView(mainControlPanelView, params);
@@ -105,8 +106,9 @@ public class MainControlPanelWindowManager {
      * 隐藏悬浮框
      */
     public void hide() {
-        SitechDevLog.e(TAG, "-------------hide()>");
+        SitechDevLog.e(TAG, "-------------hide()=====" + mainControlPanelView);
         if (mainControlPanelView != null && mainControlPanelView.isShown()) {
+            SitechDevLog.e(TAG, "-------------hide()  remove=====" + mainControlPanelView);
             winManager.removeViewImmediate(mainControlPanelView);
             mainControlPanelView = null;
             params = null;
@@ -123,9 +125,10 @@ public class MainControlPanelWindowManager {
      * @return
      */
     public void getView() {
-        SitechDevLog.i(TAG, "-------------getView()>");
+        SitechDevLog.i(TAG, "-------------getView()===========" + (ScreenUtils.isLandscape() ? "横屏" : "竖屏"));
         if (mainControlPanelView == null) {
             mainControlPanelView = new MainControlPanelView(context);
+            SitechDevLog.i(TAG, "-------------getView()===mainControlPanelView==" + mainControlPanelView);
         }
         if (params == null) {
 //            params = new WindowManager.LayoutParams();
@@ -147,7 +150,6 @@ public class MainControlPanelWindowManager {
 //            SitechDevLog.i(TAG, "-------------params.x()>" + params.x);
 //            SitechDevLog.i(TAG, "--displayHeight==" + displayHeight + "-----------params.y()>" + params.y);
 
-
             params = new WindowManager.LayoutParams();
             params.width = WindowManager.LayoutParams.MATCH_PARENT;
             if (ScreenUtils.isLandscape()) {
@@ -157,8 +159,8 @@ public class MainControlPanelWindowManager {
             } else {
                 maxWindowY = 1043;
                 params.height = 1043;
-//                minWindowY = 0;
             }
+            displayHeight = BaseWindow.getInstance().getDisplayHeight();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 params.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
             } else {
@@ -166,14 +168,16 @@ public class MainControlPanelWindowManager {
             }
             params.flags = getNewParams(false);
             params.format = PixelFormat.RGBA_8888;
-            params.dimAmount = 0.5f;
+            params.dimAmount = 0.8f;
             params.gravity = Gravity.TOP;
             params.x = 0;
             params.y = displayHeight - minWindowY;
-            SitechDevLog.i("popUpWindowInfo", "params==[params.width=" + params.width +
+            SitechDevLog.i(TAG, "params==[params.width=" + params.width +
                     ", params.height=" + params.height +
                     ", params.x=" + params.x +
-                    ", params.y=" + params.y);
+                    ", params.y=" + params.y +
+                    ", displayHeight=" + displayHeight +
+                    ", displayWidth=" + displayWidth);
         }
     }
 
@@ -198,20 +202,19 @@ public class MainControlPanelWindowManager {
         }
     }
 
-    private class OrientationReciver extends BroadcastReceiver {
+    private class OrientationReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             if ("android.intent.action.CONFIGURATION_CHANGED".equals(intent.getAction())) {
                 if (ScreenUtils.isLandscape()) {
-                    SitechDevLog.i(TAG, "OrientationReciver============横屏");
+                    SitechDevLog.i(TAG, "OrientationReceiver============横屏");
                 } else {
-                    SitechDevLog.i(TAG, "OrientationReciver============竖屏");
+                    SitechDevLog.i(TAG, "OrientationReceiver============竖屏");
                 }
-                if (!isViewShow()) {
-                    return;
-                }
-                hide();
-                show();
+                ThreadUtils.runOnUIThreadDelay(() -> {
+                    hide();
+                    show();
+                }, 500);
             }
         }
     }
@@ -283,7 +286,7 @@ public class MainControlPanelWindowManager {
         SitechDevLog.i(TAG, "*********************   mustShownView==========");
         // 更新window
         params.y = displayHeight - maxWindowY;
-//        params.flags = getNewParams(true);
+        params.flags = getNewParams(true);
         mainControlPanelView.resetViewAlpha(255);
         mainControlPanelView.setFullScreen(true);
         updateWindow();
@@ -313,6 +316,12 @@ public class MainControlPanelWindowManager {
         } else {
             mustShownView();
         }
+    }
+
+    public void changeViewByOri() {
+        SitechDevLog.i(TAG, this + "============changeViewByOri");
+        hide();
+        show();
     }
 
 }

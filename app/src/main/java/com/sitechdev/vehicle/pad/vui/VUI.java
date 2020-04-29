@@ -1416,6 +1416,10 @@ public class VUI implements VUIWindow.OnWindowHideListener {
         VoiceSourceManager.getInstance().resume(VoiceSourceManager.CONTENT);
     }
 
+    public boolean isTeddyWorking() {
+        return AIUIConstant.STATE_WORKING == mAIUIState;
+    }
+
     private void syncContacts() {
         Cursor cursor = null;
         cursor = context.getContentResolver().query(
@@ -1527,6 +1531,9 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                         }
                     }
                 }
+                break;
+            case VoiceEvent.EVENT_VOICE_SR_OVER:
+                onWindowHide();
                 break;
             default:
                 break;

@@ -55,14 +55,17 @@ public class BaseWindow {
     }
 
     public int getDisplayWidth() {
+        displayWidth = winManager.getDefaultDisplay().getWidth();
         return displayWidth;
     }
 
     public int getDisplayHeight() {
+        displayHeight = winManager.getDefaultDisplay().getHeight();
         return displayHeight;
     }
 
     public Handler getUiHandler() {
         return uiHandler;
     }
+
 }

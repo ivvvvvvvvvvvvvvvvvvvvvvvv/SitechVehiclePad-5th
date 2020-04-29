@@ -15,7 +15,7 @@ import com.sitechdev.vehicle.pad.app.AppApplication;
  */
 public class FontUtil {
 
-    private Typeface mainFontFace = null;
+    private Typeface mainFontFace = null, mainFontFace_i = null, getMainFont_Min_i = null;
 
     private FontUtil() {
     }
@@ -30,8 +30,22 @@ public class FontUtil {
 
     public Typeface getMainFont() {
         if (mainFontFace == null) {
-            mainFontFace = Typeface.createFromAsset(AppApplication.getContext().getAssets(), "fonts/tv_time.otf");
+            mainFontFace = Typeface.createFromAsset(AppApplication.getContext().getAssets(), "fonts/main_font.otf");
         }
         return mainFontFace;
+    }
+
+    public Typeface getMainFont_i() {
+        if (mainFontFace_i == null) {
+            mainFontFace_i = Typeface.createFromAsset(AppApplication.getContext().getAssets(), "fonts/main_font_i.otf");
+        }
+        return mainFontFace_i;
+    }
+
+    public Typeface getMainFont_Min_i() {
+        if (getMainFont_Min_i == null) {
+            getMainFont_Min_i = Typeface.createFromAsset(AppApplication.getContext().getAssets(), "fonts/main_font_min_i.otf");
+        }
+        return getMainFont_Min_i;
     }
 }
