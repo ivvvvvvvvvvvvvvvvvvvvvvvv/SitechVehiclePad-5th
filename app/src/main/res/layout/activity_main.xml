@@ -28,7 +28,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:paddingRight="83px">
+            android:paddingRight="40px">
 
             <RelativeLayout
                 android:id="@+id/id_rela_login"
@@ -301,7 +301,7 @@
         android:layout_width="442px"
         android:layout_height="131px"
         android:layout_below="@id/id_main_first_content"
-        android:layout_marginLeft="8px"
+        android:layout_marginLeft="16px"
         android:layout_marginTop="24px"
         android:layout_toRightOf="@id/id_main_second_left_content"
         android:background="@drawable/shape_main_map_item_bg"

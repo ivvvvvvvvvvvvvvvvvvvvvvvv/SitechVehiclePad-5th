@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="20px"
-        android:paddingBottom="20px">
+        android:paddingBottom="30px">
 
         <ImageView
             android:id="@+id/id_top_image"

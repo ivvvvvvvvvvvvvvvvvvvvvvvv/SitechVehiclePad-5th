@@ -157,8 +157,8 @@ public class MainControlPanelWindowManager {
                 maxWindowY = 519;
                 params.height = 519;
             } else {
-                maxWindowY = 1043;
-                params.height = 1043;
+                maxWindowY = 1000;
+                params.height = 1000;
             }
             displayHeight = BaseWindow.getInstance().getDisplayHeight();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
