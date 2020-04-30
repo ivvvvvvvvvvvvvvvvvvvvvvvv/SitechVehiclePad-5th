@@ -172,7 +172,7 @@ public class MainMenuView extends RelativeLayout implements View.OnClickListener
                 break;
             //识别成功，TTS播报结果中
             case VoiceEvent.EVENT_VOICE_TTS_PLAYIING:
-                SitechDevLog.i(VoiceConstants.TEDDY_TAG, "VoiceEvent.EVENT_VOICE_TTS_PLAYIING===");
+                SitechDevLog.i(VoiceConstants.TEDDY_TAG, "VoiceEvent.EVENT_VOICE_TTS_PLAYIING===" + (String) event.getEventValue());
                 refreshTeddyViewTtsSuccess();
                 if (!StringUtils.isEmpty((String) event.getEventValue())) {
                     mTtsTextView.setText((String) event.getEventValue());

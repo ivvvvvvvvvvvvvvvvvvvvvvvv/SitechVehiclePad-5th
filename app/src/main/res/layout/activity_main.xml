@@ -18,9 +18,7 @@
         android:background="@drawable/bg_main_info"
         android:orientation="horizontal"
         android:paddingLeft="47px"
-        android:paddingTop="45px"
-        android:paddingRight="47px"
-        android:paddingBottom="10px">
+        android:paddingRight="47px">
 
         <LinearLayout
             android:id="@+id/id_first_left_content"
@@ -28,7 +26,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:paddingRight="40px">
+            android:paddingTop="45px"
+            android:paddingRight="40px"
+            android:paddingBottom="10px">
 
             <RelativeLayout
                 android:id="@+id/id_rela_login"
@@ -66,10 +66,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10px"
                     android:includeFontPadding="false"
+                    android:text="24"
                     android:textColor="@color/white"
                     android:textSize="75px"
-                    android:textStyle="bold"
-                    android:text="24" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/id_sign_code"
@@ -91,9 +91,9 @@
                     android:layout_marginLeft="22px"
                     android:layout_marginTop="10px"
                     android:layout_toRightOf="@id/id_sign_code"
+                    android:text="有雨"
                     android:textColor="@color/white"
-                    android:textSize="34px"
-                    android:text="有雨" />
+                    android:textSize="34px" />
 
                 <TextView
                     android:id="@+id/tv_temperature_day"
@@ -101,9 +101,9 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_temperature"
                     android:layout_marginTop="15px"
+                    android:text="20°/28°"
                     android:textColor="@color/main_tv_clo"
-                    android:textSize="30px"
-                    android:text="20°/28°" />
+                    android:textSize="30px" />
 
                 <TextView
                     android:id="@+id/tv_window"
@@ -111,9 +111,9 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_temperature_day"
                     android:layout_marginTop="8px"
+                    android:text="西南风3-4级"
                     android:textColor="@color/main_tv_clo"
-                    android:textSize="30px"
-                    android:text="西南风3-4级" />
+                    android:textSize="30px" />
 
                 <ImageView
                     android:id="@+id/iv_weather_icon"
@@ -151,9 +151,7 @@
         <View
             android:layout_width='1px'
             android:layout_height="match_parent"
-            android:background="@color/main_info_line"
-            android:paddingTop="45px"
-            android:paddingBottom="45px" />
+            android:background="@drawable/ico_split_line" />
 
         <LinearLayout
             android:id="@+id/id_first_right_content"
@@ -161,7 +159,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:paddingLeft="83px">
+            android:paddingLeft="83px"
+            android:paddingTop="45px"
+            android:paddingBottom="10px">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -193,7 +193,10 @@
                     android:typeface="serif" />
             </LinearLayout>
 
-            <View style="@style/style_white_line" />
+            <View
+                android:layout_width='match_parent'
+                android:layout_height="1px"
+                android:background="@drawable/ico_split_line_land" />
 
             <RelativeLayout
                 android:id="@+id/id_bluetooth_content"
