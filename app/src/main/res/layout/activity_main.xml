@@ -20,7 +20,7 @@
         android:paddingLeft="47px"
         android:paddingTop="45px"
         android:paddingRight="47px"
-        android:paddingBottom="51px">
+        android:paddingBottom="31px">
 
         <LinearLayout
             android:id="@+id/id_first_left_content"
@@ -58,12 +58,13 @@
                 android:id="@+id/fl_weather"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50px">
+                android:layout_marginTop="30px">
 
                 <TextView
                     android:id="@+id/tv_temperature"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10px"
                     android:includeFontPadding="false"
                     android:textColor="@color/white"
                     android:textSize="75px"
@@ -75,6 +76,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10px"
+                    android:layout_marginTop="10px"
                     android:layout_toRightOf="@id/tv_temperature"
                     android:text="℃"
                     android:textColor="@color/white"
@@ -87,6 +89,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@id/tv_temperature"
                     android:layout_marginLeft="22px"
+                    android:layout_marginTop="10px"
                     android:layout_toRightOf="@id/id_sign_code"
                     android:textColor="@color/white"
                     android:textSize="34px"
@@ -107,7 +110,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_temperature_day"
-                    android:layout_marginTop="15px"
+                    android:layout_marginTop="8px"
                     android:textColor="@color/main_tv_clo"
                     android:textSize="30px"
                     tools:text="西南风3-4级" />
@@ -116,7 +119,8 @@
                     android:id="@+id/iv_weather_icon"
                     android:layout_width="118px"
                     android:layout_height="128px"
-                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="-10px"
                     android:src="@drawable/icon_weather_rain" />
 
                 <ImageView
@@ -125,7 +129,7 @@
                     android:layout_height="40px"
                     android:layout_below="@id/tv_window"
                     android:layout_alignParentStart="true"
-                    android:layout_marginTop="30px"
+                    android:layout_marginTop="35px"
                     android:layout_marginRight="10px"
                     android:src="@drawable/ico_main_location" />
 
@@ -134,7 +138,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_window"
-                    android:layout_marginTop="30px"
+                    android:layout_marginTop="35px"
                     android:layout_toRightOf="@id/iv_weather_location_icon"
                     android:maxLines="1"
                     android:text="--，--"
@@ -162,16 +166,14 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0px"
-                android:layout_weight="2"
-                android:gravity="center_vertical"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="100px">
 
                 <TextClock
                     android:id="@+id/tc_data"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30px"
                     android:format12Hour="yyyy年MM月dd日"
                     android:format24Hour="yyyy年MM月dd日"
                     android:includeFontPadding="false"
@@ -182,12 +184,12 @@
                     android:id="@+id/btn_hp_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="23px"
+                    android:layout_marginTop="13px"
                     android:format12Hour="hh:mm"
                     android:format24Hour="HH:mm"
                     android:includeFontPadding="false"
                     android:textColor="@color/white"
-                    android:textSize="75px"
+                    android:textSize="84px"
                     android:textStyle="bold"
                     android:typeface="serif" />
             </LinearLayout>
@@ -197,14 +199,12 @@
             <RelativeLayout
                 android:id="@+id/id_bluetooth_content"
                 android:layout_width="match_parent"
-                android:layout_height="0px"
-                android:layout_weight="1"
-                android:gravity="center_vertical">
+                android:layout_height="90px">
 
                 <ImageView
                     android:id="@+id/iv_bluetooth_icon"
-                    android:layout_width="90px"
-                    android:layout_height="90px"
+                    android:layout_width="44px"
+                    android:layout_height="60px"
                     android:layout_centerVertical="true"
                     android:src="@drawable/icon_bluetooth" />
 
@@ -216,7 +216,7 @@
                     android:layout_marginLeft="20px"
                     android:layout_toRightOf="@id/iv_bluetooth_icon"
                     android:text="请连接手机"
-                    android:textColor="@color/white"
+                    android:textColor="@color/main_tv_clo"
                     android:textSize="30px" />
             </RelativeLayout>
         </LinearLayout>
@@ -231,7 +231,9 @@
         android:layout_below="@id/id_main_first_content"
         android:layout_marginTop="24px"
         android:background="@drawable/shape_main_map_item_bg"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingTop="36px"
+        android:paddingBottom="36px">
 
         <LinearLayout
             android:layout_width="0px"
@@ -341,21 +343,21 @@
             <TextView
                 android:id="@+id/id_r_m_l_music_main_title"
                 style="@style/style_tv_home_music"
-                android:layout_marginTop="55px"
+                android:layout_marginTop="25px"
                 android:text="音乐" />
 
             <ImageView
                 android:id="@+id/id_r_m_l_music_icon"
                 android:layout_width="120px"
                 android:layout_height="120px"
-                android:layout_marginTop="54px"
+                android:layout_marginTop="44px"
                 android:src="@drawable/iv_music" />
 
             <LinearLayout
                 android:id="@+id/id_r_m_l_music_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="46px"
+                android:layout_marginTop="26px"
                 android:orientation="horizontal">
 
                 <com.sitechdev.vehicle.pad.view.ScrollTextView
@@ -374,7 +376,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/id_r_m_l_music_title"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="57px"
+                android:layout_marginTop="37px"
                 android:gravity="center_horizontal">
 
                 <ImageView
@@ -418,7 +420,7 @@
             <TextView
                 android:id="@+id/btn_sitev_news"
                 style="@style/style_tv_home_music"
-                android:layout_marginTop="31px"
+                android:layout_marginTop="5px"
                 android:text="新特速报" />
         </LinearLayout>
 
@@ -440,7 +442,7 @@
             <TextView
                 android:id="@+id/btn_child_papers"
                 style="@style/style_tv_home_music"
-                android:layout_marginTop="31px"
+                android:layout_marginTop="5px"
                 android:text="少儿读物" />
         </LinearLayout>
 
@@ -464,7 +466,7 @@
             <TextView
                 android:id="@+id/btn_car_fun"
                 style="@style/style_tv_home_music"
-                android:layout_marginTop="31px"
+                android:layout_marginTop="5px"
                 android:text="车嗨娱乐" />
         </LinearLayout>
 
@@ -488,7 +490,7 @@
             <TextView
                 android:id="@+id/btn_life_all"
                 style="@style/style_tv_home_music"
-                android:layout_marginTop="31px"
+                android:layout_marginTop="5px"
                 android:text="生活一点通" />
         </LinearLayout>
 

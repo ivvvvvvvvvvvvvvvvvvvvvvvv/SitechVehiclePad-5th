@@ -211,10 +211,8 @@ public class MainControlPanelWindowManager {
                 } else {
                     SitechDevLog.i(TAG, "OrientationReceiver============竖屏");
                 }
-                ThreadUtils.runOnUIThreadDelay(() -> {
-                    hide();
-                    show();
-                }, 500);
+                hide();
+                ThreadUtils.runOnUIThreadDelay(MainControlPanelWindowManager.this::show, 500);
             }
         }
     }

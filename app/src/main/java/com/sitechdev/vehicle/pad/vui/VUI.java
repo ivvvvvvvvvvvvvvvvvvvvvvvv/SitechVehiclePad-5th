@@ -383,7 +383,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                     shutdown = false;
                     return;
                 }
-                EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_SR_SUCCESS, ""));
+                EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_TTS_PLAYIING, ""));
                 if (AIUIConstant.STATE_READY == mAIUIState) {
                     isWakeupTTS = false;
                     mAIUIEngine.startRecord();
@@ -511,7 +511,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                         shutdown = true;
                                         mAIUIEngine.ttsStart("找不到您要的联系人");
                                         EventBusUtils.postEvent(new VoiceEvent(
-                                                VoiceEvent.EVENT_VOICE_SR_SUCCESS,
+                                                VoiceEvent.EVENT_VOICE_TTS_PLAYIING,
                                                 "找不到您要的联系人"));
                                     }
                                     return;
@@ -646,7 +646,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                                                 shutdown = true;
                                                                 mAIUIEngine.ttsStart("请先设置家的地址");
                                                                 EventBusUtils.postEvent(new VoiceEvent(
-                                                                        VoiceEvent.EVENT_VOICE_SR_SUCCESS,
+                                                                        VoiceEvent.EVENT_VOICE_TTS_PLAYIING,
                                                                         "请先设置家的地址"));
                                                                 return;
                                                             } else {
@@ -665,7 +665,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                                                 shutdown = true;
                                                                 mAIUIEngine.ttsStart("请先设置公司的地址");
                                                                 EventBusUtils.postEvent(new VoiceEvent(
-                                                                        VoiceEvent.EVENT_VOICE_SR_SUCCESS,
+                                                                        VoiceEvent.EVENT_VOICE_TTS_PLAYIING,
                                                                         "请先设置公司的地址"));
                                                                 return;
                                                             } else {
@@ -818,7 +818,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                                             shutdown = true;
                                                             mAIUIEngine.ttsStart("找不到您要的联系人");
                                                             EventBusUtils.postEvent(new VoiceEvent(
-                                                                    VoiceEvent.EVENT_VOICE_SR_SUCCESS,
+                                                                    VoiceEvent.EVENT_VOICE_TTS_PLAYIING,
                                                                     "找不到您要的联系人"));
                                                         }
                                                         break;
@@ -826,7 +826,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                                         shutdown = true;
                                                         mAIUIEngine.ttsStart("好的");
                                                         EventBusUtils.postEvent(new VoiceEvent(
-                                                                VoiceEvent.EVENT_VOICE_SR_SUCCESS,
+                                                                VoiceEvent.EVENT_VOICE_TTS_PLAYIING,
                                                                 "好的"));
                                                         break;
                                                     case "CONTACTS":
@@ -1264,7 +1264,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                         if (!TextUtils.isEmpty(text)) {
                             mAIUIEngine.ttsStart(text);
                             EventBusUtils.postEvent(new VoiceEvent(
-                                    VoiceEvent.EVENT_VOICE_SR_SUCCESS,
+                                    VoiceEvent.EVENT_VOICE_TTS_PLAYIING,
                                     text));
                         }
                     }
@@ -1281,7 +1281,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
         mAIUIEngine.ttsStart(context.getResources().getString(
                 R.string.vui_anr_text));
         EventBusUtils.postEvent(new VoiceEvent(
-                VoiceEvent.EVENT_VOICE_SR_SUCCESS,
+                VoiceEvent.EVENT_VOICE_TTS_PLAYIING,
                 context.getResources().getString(
                         R.string.vui_anr_text)));
     }
@@ -1290,7 +1290,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
         shutdown = true;
         mAIUIEngine.ttsStart(tts);
         EventBusUtils.postEvent(new VoiceEvent(
-                VoiceEvent.EVENT_VOICE_SR_SUCCESS,
+                VoiceEvent.EVENT_VOICE_TTS_PLAYIING,
                 tts));
     }
 

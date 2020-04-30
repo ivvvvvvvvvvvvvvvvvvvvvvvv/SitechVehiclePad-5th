@@ -26,6 +26,10 @@ public class VoiceEvent extends BaseEvent {
      */
     public static final String EVENT_VOICE_SR_ING_VOLUME = "EVENT_VOICE_SR_ING_VOLUME";
     /**
+     * 识别成功，TTS播报结果中
+     */
+    public static final String EVENT_VOICE_TTS_PLAYIING = "EVENT_VOICE_TTS_PLAYIING";
+    /**
      * 识别成功，展示结果
      */
     public static final String EVENT_VOICE_SR_SUCCESS = "EVENT_VOICE_SR_SUCCESS";

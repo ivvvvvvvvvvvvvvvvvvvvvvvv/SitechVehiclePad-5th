@@ -167,18 +167,27 @@ public class MainMenuView extends RelativeLayout implements View.OnClickListener
                     SitechDevLog.exception(e);
                 }
                 break;
+            //识别成功，TTS播报结果中
+            case VoiceEvent.EVENT_VOICE_TTS_PLAYIING:
+                SitechDevLog.i(VoiceConstants.TEDDY_TAG, "VoiceEvent.EVENT_VOICE_TTS_PLAYIING===");
+                refreshTeddyViewTtsSuccess();
+                mTtsTextView.setText((String) event.getEventValue());
+                break;
             //结束识别，返回结果
             case VoiceEvent.EVENT_VOICE_SR_SUCCESS:
                 SitechDevLog.i(VoiceConstants.TEDDY_TAG, "VoiceEvent.EVENT_VOICE_SR_SUCCESS===");
                 refreshTeddyViewSr();
+                mSrTextView.setText((String) event.getEventValue());
                 if (mSrTextView != null && !mSrTextView.isShown()) {
                     mSrTextView.setVisibility(View.VISIBLE);
                 }
-                mSrTextView.setText((String) event.getEventValue());
                 break;
             //结束识别
             case VoiceEvent.EVENT_VOICE_SR_OVER:
                 SitechDevLog.i(VoiceConstants.TEDDY_TAG, "VoiceEvent.EVENT_VOICE_SR_OVER===");
+                if (mSrTextView != null && !mSrTextView.isShown()) {
+                    mSrTextView.setVisibility(View.INVISIBLE);
+                }
                 resetTeddyViewDefault();
                 break;
             //停止语音

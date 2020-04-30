@@ -147,6 +147,7 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
     }
 
     public void initVolumeAndLightData() {
+        contentView.setOnClickListener(this);
         initVolumeData();
         currentScreenLightValue = maxScreenLightValue / 5 * 4;
         SitechDevLog.i(TAG, "当前亮度===>" + BrightnessUtils.getWindowBrightness(ActivityUtils.getTopActivity().getWindow()));
@@ -172,7 +173,6 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
     }
 
     private void initListener() {
-//        contentView.setOnClickListener(this);
         popControlView.setOnClickListener(this);
         bluetoothControlView.setOnClickListener(this);
         wifiControlView.setOnClickListener(this);
@@ -383,12 +383,12 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
 
         if (ScreenUtils.isLandscape()) {
             volumeVerticalSeekBar.setMax(maxVolumeValue);
-            Log.i(TAG, "volumeVerticalSeekBar setMax=======" +maxVolumeValue);
+            Log.i(TAG, "volumeVerticalSeekBar setMax=======" + maxVolumeValue);
 
             lightVerticalSeekBar.setMax(maxScreenLightValue);
         } else {
             volumeSeekBar.setMax(maxVolumeValue);
-            Log.i(TAG, "volumeSeekBar setMax=======" +maxVolumeValue);
+            Log.i(TAG, "volumeSeekBar setMax=======" + maxVolumeValue);
 
             lightSeekBar.setMax(maxScreenLightValue);
         }
@@ -399,13 +399,14 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
                 ImageView ledImgView = (ImageView) View.inflate(getContext(), R.layout.custom_led_view, null);
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 params.weight = 1.0f;
+                params.gravity = Gravity.CENTER_VERTICAL;
                 ledImgView.setImageResource(LED_VIEW_RESOURCE_ARRAY[i]);
                 ledImgView.setTag("led索引id：" + i);
                 ledImgView.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Log.i(TAG, "被点击的是+=======" + v.getTag());
-                        ToastUtils.setGravity(Gravity.CENTER, 0, 0);
+                        ToastUtils.setGravity(Gravity.TOP, 0, 0);
                         ToastUtils.showShort("点击了" + v.getTag());
                     }
                 });
@@ -434,6 +435,11 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
 //                    manager.mustShownView();
 //                }
 //                break;
+            case R.id.id_main_popup_view_content:
+                if (isFullScreen) {
+                    manager.mustHiddenView();
+                }
+                break;
             case R.id.id_bluetooth_Btn:
                 isActivated = bluetoothControlView.isActivated();
                 if (isActivated) {
