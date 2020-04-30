@@ -444,19 +444,19 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
                 break;
             case R.id.id_bluetooth_Btn:
                 isActivated = bluetoothControlView.isActivated();
-                if (isActivated) {
-                    //蓝牙是否开启
-                    BluetoothAdapter.getDefaultAdapter().disable();
-                } else {
-                    //蓝牙是否开启
-                    BluetoothAdapter.getDefaultAdapter().enable();
-                }
+//                if (isActivated) {
+//                    //蓝牙是否开启
+//                    BluetoothAdapter.getDefaultAdapter().disable();
+//                } else {
+//                    //蓝牙是否开启
+//                    BluetoothAdapter.getDefaultAdapter().enable();
+//                }
                 bluetoothControlView.setActivated(!isActivated);
                 break;
             case R.id.id_wifi_Btn:
                 isActivated = wifiControlView.isActivated();
                 //wifi网络
-                NetworkUtils.setWifiEnabled(!isActivated);
+//                NetworkUtils.setWifiEnabled(!isActivated);
 
                 wifiControlView.setActivated(!isActivated);
                 break;
