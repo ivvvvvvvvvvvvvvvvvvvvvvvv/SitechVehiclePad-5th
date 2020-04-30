@@ -8,6 +8,8 @@ import com.sitechdev.net.EnvironmentConfig;
 import com.sitechdev.net.HttpCode;
 import com.sitechdev.net.JsonCallback;
 import com.sitechdev.vehicle.lib.util.NetworkUtils;
+import com.sitechdev.vehicle.lib.util.SitechDevLog;
+import com.sitechdev.vehicle.lib.util.StringUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.app.AppUrlConst;
@@ -304,6 +306,25 @@ public class WeatherUtils {
             return sb.toString();
         } else {
             return ParamsUtil.getKvInstance().decodeString("Location_city", "一 一，一 一");
+        }
+    }
+
+    /**
+     * 返回生活指数描述的前几个字内容
+     *
+     * @param desc     源字符串
+     * @param subIndex 截取位数
+     * @return
+     */
+    public static String getFormatLivingIndexDesc(String desc, int subIndex) {
+        if (StringUtils.isEmpty(desc) || desc.length() <= subIndex) {
+            return desc;
+        }
+        try {
+            return desc.substring(0, subIndex);
+        } catch (Exception e) {
+            SitechDevLog.exception(e);
+            return desc;
         }
     }
 }

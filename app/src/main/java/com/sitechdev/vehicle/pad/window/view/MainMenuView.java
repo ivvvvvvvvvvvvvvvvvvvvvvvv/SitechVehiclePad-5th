@@ -34,7 +34,7 @@ public class MainMenuView extends RelativeLayout implements View.OnClickListener
     //默认的Teddy展示样式
     private RelativeLayout mTeddyDefaultContentView = null;
     //识别过程中的Teddy展示样式
-    private FrameLayout mTeddySringContentView = null;
+    private RelativeLayout mTeddySringContentView = null;
     //tts中的Teddy展示样式
     private RelativeLayout mTeddyTtsContentView = null;
 
@@ -155,6 +155,9 @@ public class MainMenuView extends RelativeLayout implements View.OnClickListener
                 if (mSrVolumeView != null) {
                     mSrVolumeView.start();
                 }
+                if (mSrTextView != null && mSrTextView.isShown()) {
+                    mSrTextView.setVisibility(View.GONE);
+                }
                 break;
             //识别过程中的音量变化
             case VoiceEvent.EVENT_VOICE_SR_ING_VOLUME:
@@ -171,13 +174,19 @@ public class MainMenuView extends RelativeLayout implements View.OnClickListener
             case VoiceEvent.EVENT_VOICE_TTS_PLAYIING:
                 SitechDevLog.i(VoiceConstants.TEDDY_TAG, "VoiceEvent.EVENT_VOICE_TTS_PLAYIING===");
                 refreshTeddyViewTtsSuccess();
-                mTtsTextView.setText((String) event.getEventValue());
+                if (!StringUtils.isEmpty((String) event.getEventValue())) {
+                    mTtsTextView.setText((String) event.getEventValue());
+                }
                 break;
             //结束识别，返回结果
             case VoiceEvent.EVENT_VOICE_SR_SUCCESS:
                 SitechDevLog.i(VoiceConstants.TEDDY_TAG, "VoiceEvent.EVENT_VOICE_SR_SUCCESS===");
                 refreshTeddyViewSr();
-                mSrTextView.setText((String) event.getEventValue());
+                try {
+                    mSrTextView.setText((String) event.getEventValue());
+                } catch (Exception e) {
+                    mSrTextView.setText("");
+                }
                 if (mSrTextView != null && !mSrTextView.isShown()) {
                     mSrTextView.setVisibility(View.VISIBLE);
                 }
@@ -208,12 +217,12 @@ public class MainMenuView extends RelativeLayout implements View.OnClickListener
      */
     private void refreshTeddyViewMvwSuccess() {
         //默认状态
-        if (mTeddyDefaultContentView.getVisibility() != View.INVISIBLE) {
-            mTeddyDefaultContentView.setVisibility(View.INVISIBLE);
+        if (mTeddyDefaultContentView.getVisibility() != View.GONE) {
+            mTeddyDefaultContentView.setVisibility(View.GONE);
         }
         //识别过程中的Teddy展示样式
-        if (mTeddySringContentView.getVisibility() != View.INVISIBLE) {
-            mTeddySringContentView.setVisibility(View.INVISIBLE);
+        if (mTeddySringContentView.getVisibility() != View.GONE) {
+            mTeddySringContentView.setVisibility(View.GONE);
         }
         //tts中的Teddy展示样式
         if (mTeddyTtsContentView.getVisibility() != View.VISIBLE) {
@@ -226,16 +235,16 @@ public class MainMenuView extends RelativeLayout implements View.OnClickListener
      */
     private void refreshTeddyViewSr() {
         //默认状态
-        if (mTeddyDefaultContentView.getVisibility() != View.INVISIBLE) {
-            mTeddyDefaultContentView.setVisibility(View.INVISIBLE);
+        if (mTeddyDefaultContentView.getVisibility() != View.GONE) {
+            mTeddyDefaultContentView.setVisibility(View.GONE);
         }
         //识别过程中的Teddy展示样式
         if (mTeddySringContentView.getVisibility() != View.VISIBLE) {
             mTeddySringContentView.setVisibility(View.VISIBLE);
         }
         //tts中的Teddy展示样式
-        if (mTeddyTtsContentView.getVisibility() != View.INVISIBLE) {
-            mTeddyTtsContentView.setVisibility(View.INVISIBLE);
+        if (mTeddyTtsContentView.getVisibility() != View.GONE) {
+            mTeddyTtsContentView.setVisibility(View.GONE);
         }
     }
 
@@ -244,12 +253,12 @@ public class MainMenuView extends RelativeLayout implements View.OnClickListener
      */
     private void refreshTeddyViewTtsSuccess() {
         //默认状态
-        if (mTeddyDefaultContentView.getVisibility() != View.INVISIBLE) {
-            mTeddyDefaultContentView.setVisibility(View.INVISIBLE);
+        if (mTeddyDefaultContentView.getVisibility() != View.GONE) {
+            mTeddyDefaultContentView.setVisibility(View.GONE);
         }
         //识别过程中的Teddy展示样式
-        if (mTeddySringContentView.getVisibility() != View.INVISIBLE) {
-            mTeddySringContentView.setVisibility(View.INVISIBLE);
+        if (mTeddySringContentView.getVisibility() != View.GONE) {
+            mTeddySringContentView.setVisibility(View.GONE);
         }
         //tts中的Teddy展示样式
         if (mTeddyTtsContentView.getVisibility() != View.VISIBLE) {

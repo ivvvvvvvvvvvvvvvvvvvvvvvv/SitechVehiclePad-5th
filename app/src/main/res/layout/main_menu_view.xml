@@ -95,17 +95,17 @@
             </RelativeLayout>
 
             <!-- 识别的view 识别语句的应答-->
-            <FrameLayout
+            <RelativeLayout
                 android:id="@+id/id_teddy_sr_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:visibility="invisible">
+                android:visibility="gone">
 
                 <com.sitechdev.vehicle.pad.view.VolumeView2
                     android:id="@+id/id_teddy_sr_volume_content"
                     android:layout_width="wrap_content"
-                    android:layout_height="100px"
+                    android:layout_height="46dp"
+                    android:layout_centerInParent="true"
                     android:layout_gravity="center|top" />
 
                 <TextView
@@ -113,8 +113,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/id_teddy_sr_volume_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="110px"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="50px"
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:paddingLeft="50px"
@@ -122,14 +122,14 @@
                     android:textColor="#499AC8"
                     android:textSize="30px"
                     tools:text="打开车窗透气" />
-            </FrameLayout>
+            </RelativeLayout>
 
             <!-- tts的view 包含唤醒的应答-->
             <RelativeLayout
                 android:id="@+id/id_teddy_tts_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="invisible">
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/id_teddy_tts_text"
@@ -137,11 +137,11 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_btn_teddy_ask"
                     android:ellipsize="end"
-                    android:gravity="center"
+                    android:gravity="left"
                     android:maxLines="2"
-                    android:paddingLeft="50px"
+                    android:paddingLeft="20px"
                     android:paddingTop="40px"
-                    android:paddingRight="50px"
+                    android:paddingRight="20px"
                     android:paddingBottom="40px"
                     android:textColor="#499AC8"
                     android:textSize="30px"

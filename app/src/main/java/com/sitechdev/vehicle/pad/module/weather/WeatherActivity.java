@@ -253,7 +253,7 @@ public class WeatherActivity extends MvpActivity<WeatherPresenter> implements We
         if ("".equals(dataBean.getAqi().getAqi())) {
             llAQI.setVisibility(View.GONE);
         }
-        tvAqi.setText(String.format("  %s %s", dataBean.getAqi().getAqi(), dataBean.getAqi().getQuality()));
+        tvAqi.setText(String.format("%s %s", dataBean.getAqi().getAqi(), dataBean.getAqi().getQuality()));
         ivAqi.setImageDrawable(getResources().getDrawable(WeatherUtils.getInstance().getAqiIcon(dataBean.getAqi().getAqi())));
         // Alarm
         if (dataBean.getAlarm().size() == 0) {
@@ -268,12 +268,12 @@ public class WeatherActivity extends MvpActivity<WeatherPresenter> implements We
         updateTime();
 
         //生活指数
-        tvCarState.setText(getIndexValue(0));
-        tvGanmao.setText(getIndexValue(1));
-        tvYunDong.setText(getIndexValue(2));
-        tvUv.setText(getIndexValue(3));
-        tvKongtiao.setText(getIndexValue(4));
-        tvChuanyifu.setText(getIndexValue(5));
+        tvCarState.setText(WeatherUtils.getFormatLivingIndexDesc(getIndexValue(0), 4));
+        tvGanmao.setText(WeatherUtils.getFormatLivingIndexDesc(getIndexValue(1), 4));
+        tvYunDong.setText(WeatherUtils.getFormatLivingIndexDesc(getIndexValue(2), 4));
+        tvUv.setText(WeatherUtils.getFormatLivingIndexDesc(getIndexValue(3), 4));
+        tvKongtiao.setText(WeatherUtils.getFormatLivingIndexDesc(getIndexValue(4), 4));
+        tvChuanyifu.setText(WeatherUtils.getFormatLivingIndexDesc(getIndexValue(5), 4));
 
         // 大后天
         List<WeatherInfoBeanTwo.DataBean.DailyBean> dailyBeans = dataBean.getDaily();

@@ -19,7 +19,7 @@ public class VolumeView2 extends View {
 
     private static final String TAG = VolumeView2.class.getSimpleName();
     // small wave 是外面的小波，big wave 是里面的大波
-    private static final int SMALL_WAVE_COLOR = 0xCC32B883;//小波颜色
+    private static final int SMALL_WAVE_COLOR = 0xE632B883;//小波颜色
     private static final int MIDDLE_WAVE_COLOR = 0xE6FFDF1C;//大波颜色
     private static final int BIG_WAVE_COLOR = 0xCC84213B;//大波颜色
     private static final float SMALL_WAVE_SPEED = 0.6f;//小波速度
@@ -28,8 +28,8 @@ public class VolumeView2 extends View {
     private static final int SMALL_WAVE_PERIOD = 3;//小波周期
     private static final int MIDDLE_WAVE_PERIOD = 4;//大波周期
     private static final int BIG_WAVE_PERIOD = 5;//大波周期
-    private static final float BIG_SINE_UP_AND_DOWN_MOVE = 1.8f;//大波 上移动或者下移动的比值
-    private static final float MIDDLE_SINE_UP_AND_DOWN_MOVE = 1.5f;//大波 上移动或者下移动的比值
+    private static final float BIG_SINE_UP_AND_DOWN_MOVE = 1.5f;//大波 上移动或者下移动的比值
+    private static final float MIDDLE_SINE_UP_AND_DOWN_MOVE = 1.4f;//大波 上移动或者下移动的比值
     private static final float SMALL_SINE_UP_AND_DOWN_MOVE = 1.3f;//小波 上移动或者下移动的比值
     private static final float MAX_VALUE = 60;// 最大振幅对应的值。对应0到60分贝
     private static final float SMALL_AMPLITUDE_SIZE_SCALE = 8f;
@@ -185,7 +185,7 @@ public class VolumeView2 extends View {
                         * BIG_WAVE_SPEED, BIG_SINE_UP_AND_DOWN_MOVE);
         paint.setColor(MIDDLE_WAVE_COLOR);
         drawSine(canvas, mPath, mPaint, MIDDLE_WAVE_PERIOD, mDrawWidth,
-                mVolumeAmplitude * mMaxBigWaveAmplitude, mPhase
+                mVolumeAmplitude * mMaxMiddleWaveAmplitude, mPhase
                         * MIDDLE_WAVE_SPEED, MIDDLE_SINE_UP_AND_DOWN_MOVE);
         paint.setColor(SMALL_WAVE_COLOR);
         drawSine(canvas, mPath, mPaint, SMALL_WAVE_PERIOD, mDrawWidth,
