@@ -9,6 +9,7 @@
     android:layout_width="match_parent"
     android:layout_height="1043px"
     android:layout_alignParentBottom="true"
+    android:background="@drawable/bg_control_panel_v"
     android:paddingLeft="50px"
     android:paddingRight="50px"
     android:paddingBottom="50px">
@@ -88,8 +89,7 @@
                 android:paddingEnd="0dp"
                 android:progress="10"
                 android:progressDrawable="@drawable/layer_list_sound_bar"
-                android:thumb="@drawable/bg_popup_btn_thumb"
-                android:thumbOffset="0dp" />
+                android:thumb="@null"/>
 
             <ImageView
                 android:layout_width="65px"
@@ -118,8 +118,7 @@
                 android:paddingEnd="0dp"
                 android:progress="5"
                 android:progressDrawable="@drawable/layer_list_sound_bar"
-                android:thumb="@drawable/bg_popup_btn_thumb"
-                android:thumbOffset="0dp" />
+                android:thumb="@null" />
 
             <ImageView
                 android:layout_width="65px"

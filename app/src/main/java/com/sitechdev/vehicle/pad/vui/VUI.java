@@ -1417,7 +1417,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
     }
 
     public boolean isTeddyWorking() {
-        return AIUIConstant.STATE_WORKING == mAIUIState;
+        return AIUIConstant.STATE_WORKING == mAIUIState || isInTTS;
     }
 
     private void syncContacts() {

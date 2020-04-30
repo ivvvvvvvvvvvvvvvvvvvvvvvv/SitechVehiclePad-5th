@@ -10,6 +10,7 @@
     android:layout_width="match_parent"
     android:layout_height="519px"
     android:layout_alignParentBottom="true"
+    android:background="@drawable/bg_control_panel"
     android:paddingLeft="50px"
     android:paddingRight="50px"
     android:paddingBottom="47px">

@@ -93,7 +93,7 @@
                     android:layout_toRightOf="@id/id_sign_code"
                     android:textColor="@color/white"
                     android:textSize="34px"
-                    tools:text="有雨" />
+                    android:text="有雨" />
 
                 <TextView
                     android:id="@+id/tv_temperature_day"
@@ -101,10 +101,9 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_temperature"
                     android:layout_marginTop="5px"
-                    android:text="-/-"
                     android:textColor="@color/main_tv_clo"
                     android:textSize="30px"
-                    tools:text="20°/28°" />
+                    android:text="20°/28°" />
 
                 <TextView
                     android:id="@+id/tv_window"
@@ -114,7 +113,7 @@
                     android:layout_marginTop="5px"
                     android:textColor="@color/main_tv_clo"
                     android:textSize="30px"
-                    tools:text="西南风3-4级" />
+                    android:text="西南风3-4级" />
             </RelativeLayout>
 
             <LinearLayout
@@ -131,7 +130,7 @@
                     android:layout_height="150px"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginLeft="10px"
-                    tools:src="@drawable/icon_weather_rain" />
+                    android:src="@drawable/icon_weather_rain" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -222,7 +221,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="26px"
                 android:layout_toRightOf="@id/iv_bluetooth_icon"
-                android:text="请连接手机"
+                android:text="请连接蓝牙设备"
                 android:textColor="@color/main_tv_clo"
                 android:textSize="30px" />
         </RelativeLayout>

@@ -381,7 +381,7 @@ public class MainActivity extends BaseActivity
 
                 break;
             case R.id.ll_car_power_info:
-                EventBusUtils.postEvent(new WindowEvent(WindowEvent.EVENT_WINDOW_CONTROL_MENU, true));
+//                EventBusUtils.postEvent(new WindowEvent(WindowEvent.EVENT_WINDOW_CONTROL_MENU, true));
                 break;
             case R.id.iv_music_bef:
 //                switch (musicSource){

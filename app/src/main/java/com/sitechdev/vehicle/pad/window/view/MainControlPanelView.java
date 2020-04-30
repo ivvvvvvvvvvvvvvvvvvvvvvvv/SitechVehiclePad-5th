@@ -413,6 +413,8 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
                 mLedViewLiearLayoutView.addView(ledImgView, params);
             }
         }
+
+        contentView.getBackground().setAlpha(0);
     }
 
     public void setFullScreen(boolean fullScreen) {
@@ -554,9 +556,13 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
             return;
         }
         int alphaValue2 = alphaValue * 95 / 100;
-//        contentView.getBackground().setAlpha(alphaValue);
+        alphaValue2 = alphaValue2 * 2;
+        if (alphaValue2 > 255) {
+            alphaValue2 = 255 * 95 / 100;
+        }
+        contentView.getBackground().setAlpha(alphaValue2);
 //        SitechDevLog.i(TAG, "*********************重设透明值2222===============" + alphaValue2);
-        contentView.setBackgroundColor(Color.argb(alphaValue2, 24, 50, 63));
+//        contentView.setBackgroundColor(Color.argb(alphaValue2, 24, 50, 63));
     }
 
     private void setVolumeValue(int value) {

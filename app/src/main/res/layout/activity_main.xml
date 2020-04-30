@@ -69,7 +69,7 @@
                     android:textColor="@color/white"
                     android:textSize="75px"
                     android:textStyle="bold"
-                    tools:text="24" />
+                    android:text="24" />
 
                 <TextView
                     android:id="@+id/id_sign_code"
@@ -93,7 +93,7 @@
                     android:layout_toRightOf="@id/id_sign_code"
                     android:textColor="@color/white"
                     android:textSize="34px"
-                    tools:text="有雨" />
+                    android:text="有雨" />
 
                 <TextView
                     android:id="@+id/tv_temperature_day"
@@ -103,7 +103,7 @@
                     android:layout_marginTop="15px"
                     android:textColor="@color/main_tv_clo"
                     android:textSize="30px"
-                    tools:text="20°/28°" />
+                    android:text="20°/28°" />
 
                 <TextView
                     android:id="@+id/tv_window"
@@ -113,7 +113,7 @@
                     android:layout_marginTop="8px"
                     android:textColor="@color/main_tv_clo"
                     android:textSize="30px"
-                    tools:text="西南风3-4级" />
+                    android:text="西南风3-4级" />
 
                 <ImageView
                     android:id="@+id/iv_weather_icon"
@@ -215,7 +215,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20px"
                     android:layout_toRightOf="@id/iv_bluetooth_icon"
-                    android:text="请连接手机"
+                    android:text="请连接蓝牙设备"
                     android:textColor="@color/main_tv_clo"
                     android:textSize="30px" />
             </RelativeLayout>
@@ -247,6 +247,7 @@
                 android:layout_width="60px"
                 android:layout_height="60px"
                 android:layout_gravity="center_vertical"
+                android:layout_marginTop="-3px"
                 android:src="@drawable/iv_map_home" />
 
             <TextView
@@ -278,6 +279,7 @@
                 android:layout_width="60px"
                 android:layout_height="60px"
                 android:layout_gravity="center_vertical"
+                android:layout_marginTop="-3px"
                 android:src="@drawable/iv_map_work" />
 
             <TextView
@@ -309,13 +311,14 @@
         <ImageView
             android:layout_width="60px"
             android:layout_height="60px"
+            android:layout_marginTop="-3px"
             android:src="@drawable/iv_teddy_ask" />
 
         <TextView
             android:id="@+id/tv_what"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="23px"
+            android:layout_marginLeft="22px"
             android:text="你要去哪里"
             android:textColor="#6EFFFFFF"
             android:textSize="32px" />
@@ -518,8 +521,8 @@
 
             <ImageView
                 android:id="@+id/id_img_power"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="60px"
+                android:layout_height="60px"
                 android:scaleType="centerCrop"
                 android:src="@drawable/icon_power" />
 
@@ -550,8 +553,8 @@
 
             <ImageView
                 android:id="@+id/id_img_km"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="60px"
+                android:layout_height="60px"
                 android:src="@drawable/icon_km" />
 
             <TextView
@@ -581,8 +584,8 @@
 
             <ImageView
                 android:id="@+id/id_img_recharge_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="60px"
+                android:layout_height="60px"
                 android:src="@drawable/icon_recharge_count" />
 
             <TextView
