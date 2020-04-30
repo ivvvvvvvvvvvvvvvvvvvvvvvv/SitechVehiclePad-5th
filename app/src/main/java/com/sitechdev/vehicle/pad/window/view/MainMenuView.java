@@ -159,7 +159,7 @@ public class MainMenuView extends RelativeLayout implements View.OnClickListener
             //识别过程中的音量变化
             case VoiceEvent.EVENT_VOICE_SR_ING_VOLUME:
                 refreshTeddyViewSr();
-                SitechDevLog.i(VoiceConstants.TEDDY_TAG, "VoiceEvent.EVENT_VOICE_SR_ING_VOLUME===" + event.getEventValue());
+//                SitechDevLog.i(VoiceConstants.TEDDY_TAG, "VoiceEvent.EVENT_VOICE_SR_ING_VOLUME===" + event.getEventValue());
                 try {
                     int volumeValue = (int) event.getEventValue();
                     mSrVolumeView.setVolume((float) volumeValue);

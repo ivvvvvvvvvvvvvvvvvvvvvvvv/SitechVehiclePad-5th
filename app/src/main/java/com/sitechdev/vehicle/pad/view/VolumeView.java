@@ -292,14 +292,14 @@ public class VolumeView extends View {
 
     // set volume value; 将音量转化成不同的振幅，其中有最大振幅和最小振幅.将音量对应成1到100
     public void setVolume(float volume) {
-        VUI.log("------------>" + volume);
+//        VUI.log("------------>" + volume);
         if (Float.compare(volume, 0) < 0
                 || Float.compare(volume, MAX_VALUE) > 0) {
             return;
         }
 //        DL.i(TAG, "setVolume===>" + volume);
         float amplitude = volume / MAX_VALUE;
-        Log.i("VUI", "amplitude===>" + amplitude);
+//        Log.i(TAG, "amplitude===>" + amplitude);
         if (amplitude < mMinAmplitude) {
             amplitude = mMinAmplitude;
         } else if (amplitude > 1.0f) {

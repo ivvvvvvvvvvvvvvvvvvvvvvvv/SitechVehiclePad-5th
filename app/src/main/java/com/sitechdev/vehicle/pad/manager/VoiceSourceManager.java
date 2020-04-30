@@ -16,6 +16,8 @@ import com.sitechdev.vehicle.pad.module.main.MainActivity;
 import com.sitechdev.vehicle.pad.module.music.MusicMainActivity;
 import com.sitechdev.vehicle.pad.module.music.MusicManager;
 import com.sitechdev.vehicle.pad.module.music.service.MusicInfo;
+import com.sitechdev.vehicle.pad.util.AppUtil;
+import com.sitechdev.vehicle.pad.util.AppVariants;
 import com.sitechdev.vehicle.pad.view.CommonToast;
 import com.sitechdev.vehicle.pad.vui.VUI;
 import com.sitechdev.vehicle.pad.vui.VUIWindow;
@@ -23,6 +25,7 @@ import com.sitechdev.vehicle.pad.vui.VUIWindow;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @author zhubaoqiang
@@ -324,6 +327,54 @@ public class VoiceSourceManager {
                         }
                     }
                 });
+                break;
+            default:
+                if (type == VOICE) {
+                    VUI.getInstance().shutAndTTS("当前无可用音源");
+                } else if (type == SCREEN) {
+                    CommonToast.showToast("当前无可用音源");
+                }
+                break;
+        }
+    }
+
+    public void changeAnother(int type) {
+        switch (musicSource) {
+            case KAOLA:
+                boolean result = KaolaPlayManager.SingletonHolder.INSTANCE.playAnother();
+                VUIWindow.getInstance().hide();
+                if (!result) {
+                    if (type == VOICE) {
+                        VUI.getInstance().shutAndTTS("当前无可用音源");
+                    } else if (type == SCREEN) {
+                        CommonToast.showToast("当前无可用音源");
+                    }
+                }
+                break;
+            case LOCAL_MUSIC:
+                List<MusicInfo> list = MusicManager.getInstance().getPlayList();
+                if (null != list && list.size() > 0) {
+                    Random random = new Random();
+                    int index = random.nextInt(list.size());
+                    MusicManager.getInstance().play(list.get(index).songId, new MusicManager.CallBack<String>() {
+                        @Override
+                        public void onCallBack(int code, String s) {
+                            if (0 != code) {
+                                AppUtil.goOtherActivity(context, "QQ音乐", "com.tencent.qqmusiccar",
+                                        "com.tencent.qqmusiccar.app.activity.AppStarterActivity");
+                            }
+                            if (type == VOICE) {
+                                VUIWindow.getInstance().hide();
+                            }
+                        }
+                    });
+                } else {
+                    AppUtil.goOtherActivity(context, "QQ音乐", "com.tencent.qqmusiccar",
+                            "com.tencent.qqmusiccar.app.activity.AppStarterActivity");
+                    if (type == VOICE) {
+                        VUIWindow.getInstance().hide();
+                    }
+                }
                 break;
             default:
                 if (type == VOICE) {

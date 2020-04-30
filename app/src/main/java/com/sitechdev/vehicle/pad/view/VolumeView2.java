@@ -316,7 +316,7 @@ public class VolumeView2 extends View {
         }
 //        DL.i(TAG, "setVolume===>" + volume);
         float amplitude = volume / MAX_VALUE;
-        Log.i("VUI", "amplitude===>" + amplitude);
+        Log.i(TAG, "amplitude===>" + amplitude);
         if (amplitude < mMinAmplitude) {
             amplitude = mMinAmplitude;
         } else if (amplitude > 1.0f) {

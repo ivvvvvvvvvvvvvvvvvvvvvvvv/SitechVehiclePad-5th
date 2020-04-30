@@ -14,6 +14,7 @@ import com.kaolafm.opensdk.http.core.HttpCallback;
 import com.kaolafm.opensdk.http.error.ApiException;
 import com.kaolafm.sdk.core.mediaplayer.IPlayerStateListener;
 import com.kaolafm.sdk.core.mediaplayer.PlayItem;
+import com.kaolafm.sdk.core.mediaplayer.PlayerListManager;
 import com.kaolafm.sdk.core.mediaplayer.PlayerManager;
 import com.sitechdev.vehicle.lib.util.AppUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
@@ -26,6 +27,7 @@ import com.sitechdev.vehicle.pad.view.CommonToast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static com.sitechdev.vehicle.lib.util.BuildConfig.DEBUG;
 import static com.sitechdev.vehicle.pad.kaola.KaolaPlayManager.PlayType.CAR_FUN;
@@ -141,20 +143,41 @@ public class KaolaPlayManager {
         mCurrentColumn = mColumns.get(index);
         Intent intent = new Intent(context, KaolaListActivity.class);
         intent.putExtra(KEY_COLUMN, deepIndex);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
         if (context instanceof NewsDetailsActivity) {
             ((Activity) context).finish();
         }
     }
 
+    public boolean playAnother() {
+        SitechDevLog.e(this.getClass().getSimpleName(), "========  playAnother  was called");
+        if (PlayerManager.getInstance(AppApplication.getContext()).canSwitchNextOrPre()) {
+            int size = PlayerListManager.getInstance().getPlayListSize();
+            PlayItem curPlayItem = PlayerListManager.getInstance().getCurPlayItem();
+            PlayItem nextPlayItem = null;
+            while (true) {
+                nextPlayItem = PlayerListManager.getInstance().getPlayList().get(new Random().nextInt(size));
+                if (curPlayItem != nextPlayItem) {
+                    break;
+                }
+            }
+            PlayerManager.getInstance(AppApplication.getContext()).play(nextPlayItem);
+            SitechDevLog.e(KaolaPlayManager.class.getSimpleName(), " ============== change another song =============");
+            return true;
+        } else {
+            SitechDevLog.e(KaolaPlayManager.class.getSimpleName(), " ============== can't change another song =============");
+            return false;
+        }
+    }
 
     public void playNext() {
         SitechDevLog.e(this.getClass().getSimpleName(), "========  playNext  was called");
         if (PlayerManager.getInstance(AppApplication.getContext()).hasNext()) {
             PlayerManager.getInstance(AppApplication.getContext()).playNext();
-            CommonToast.makeText(AppApplication.getContext(), "下一曲");
+//            CommonToast.makeText(AppApplication.getContext(), "下一曲");
         } else {
-            CommonToast.makeText(AppApplication.getContext(), "已经是最后一首啦~~~");
+            CommonToast.makeText(AppApplication.getContext(), "已经是最后一首啦");
         }
     }
 
@@ -162,9 +185,9 @@ public class KaolaPlayManager {
         SitechDevLog.e(this.getClass().getSimpleName(), "========  playPre  was called");
         if (PlayerManager.getInstance(AppApplication.getContext()).hasPre()) {
             PlayerManager.getInstance(AppApplication.getContext()).playPre();
-            CommonToast.makeText(AppApplication.getContext(), "上一曲");
+//            CommonToast.makeText(AppApplication.getContext(), "上一曲");
         } else {
-            CommonToast.makeText(AppApplication.getContext(), "已经是第一首啦~~~");
+            CommonToast.makeText(AppApplication.getContext(), "已经是第一首啦");
         }
     }
 
