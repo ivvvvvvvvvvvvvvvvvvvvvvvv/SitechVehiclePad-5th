@@ -51,9 +51,9 @@ public class BaseAppWindowManager {
                     if (object instanceof Boolean) {
                         boolean isParams = (boolean) object;
                         if (isParams) {
-                            MainControlPanelWindowManager.getInstance().show();
+                            MainControlPanelWindowManager.getInstance().mustShownView();
                         } else {
-                            MainControlPanelWindowManager.getInstance().hide();
+                            MainControlPanelWindowManager.getInstance().mustHiddenView();
                         }
                     }
                 }
