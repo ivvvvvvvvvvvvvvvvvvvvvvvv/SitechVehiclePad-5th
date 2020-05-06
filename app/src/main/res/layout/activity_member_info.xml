@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_bg_land">
+
+    <include layout="@layout/common_title_toolbar" />
+
+    <RelativeLayout
+        android:id="@+id/id_top_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200px"
+        android:paddingLeft="72px"
+        android:paddingRight="72px">
+
+        <ImageView
+            android:id="@+id/id_img_member_logo"
+            android:layout_width="125px"
+            android:layout_height="125px"
+            android:scaleType="centerInside"
+            android:src="@drawable/ico_default_member_logo" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/id_img_member_logo">
+
+            <TextView
+                android:id="@+id/id_tv_member_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30px"
+                android:text="Hi,A欢欢"
+                android:textColor="@color/white"
+                android:textSize="42px" />
+
+            <TextView
+                android:id="@+id/id_tv_member_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/id_tv_member_name"
+                android:layout_marginLeft="30px"
+                android:layout_marginTop="10px"
+                android:text="车友会会员"
+                android:textColor="#99FFFFFF"
+                android:textSize="32px" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/id_sign_btn"
+            android:layout_width="338px"
+            android:layout_height="100px"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/shape_main_map_item_bg"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/id_tv_sign"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20px"
+                android:text="点击签到"
+                android:textColor="@color/white"
+                android:textSize="30px" />
+
+            <ImageView
+                android:id="@+id/id_img_sign"
+                android:layout_width="43px"
+                android:layout_height="43px"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/id_tv_sign"
+                android:scaleType="fitXY"
+                android:src="@drawable/ico_sign" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/id_second_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/id_top_content"
+        android:layout_marginTop="36px"
+        android:paddingLeft="72px"
+        android:paddingRight="72px">
+
+        <RelativeLayout
+            android:id="@+id/id_sign_count_content"
+            android:layout_width="563px"
+            android:layout_height="494px"
+            android:background="@drawable/bg_member_info_border"
+            android:paddingLeft="102px"
+            android:paddingTop="78px"
+            android:paddingRight="102px">
+
+            <RelativeLayout
+                android:id="@+id/id_sign_count_top_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_member_info_border">
+
+                <ImageView
+                    android:id="@+id/id_sign_tag"
+                    android:layout_width="41px"
+                    android:layout_height="41px"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ico_my_sign" />
+
+                <TextView
+                    android:id="@+id/id_sign_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20px"
+                    android:layout_toRightOf="@id/id_sign_tag"
+                    android:text="可用积分（个）"
+                    android:textColor="#99FFFFFF"
+                    android:textSize="32px" />
+
+                <ImageView
+                    android:layout_width="13px"
+                    android:layout_height="27px"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ico_mem_to" />
+            </RelativeLayout>
+
+            <com.sitechdev.vehicle.pad.view.ReflectTextView
+                android:id="@+id/id_tv_sign_count_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/id_sign_count_top_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="70px"
+                android:text="1122"
+                android:textColor="#ffffff"
+                android:textSize="68px" />
+
+            <TextView
+                android:id="@+id/id_tv_sign_change"
+                android:layout_width="364px"
+                android:layout_height="100px"
+                android:layout_below="@id/id_tv_sign_count_number"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="10px"
+                android:background="@drawable/shape_main_map_item_bg"
+                android:gravity="center"
+                android:text="积分兑换"
+                android:textColor="@color/white"
+                android:textSize="30px" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/id_feedback"
+            android:layout_width="581px"
+            android:layout_height="230px"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="30px"
+            android:background="@drawable/bg_feedback"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/id_feedback_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20px"
+                android:text="意见反馈"
+                android:textColor="#99FFFFFF"
+                android:textSize="36px" />
+
+            <ImageView
+                android:id="@+id/id_feedback_img"
+                android:layout_width="43px"
+                android:layout_height="43px"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/id_feedback_tv"
+                android:scaleType="fitXY"
+                android:src="@drawable/ico_feedback_icon" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/id_best_orders"
+            android:layout_width="581px"
+            android:layout_height="230px"
+            android:layout_marginLeft="24px"
+            android:layout_toLeftOf="@id/id_feedback"
+            android:layout_toRightOf="@id/id_second_content"
+            android:background="@drawable/bg_best_orders"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/id_best_orders_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20px"
+                android:text="精品订单"
+                android:textColor="#99FFFFFF"
+                android:textSize="36px" />
+
+            <ImageView
+                android:id="@+id/id_best_orders_img"
+                android:layout_width="43px"
+                android:layout_height="43px"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/id_best_orders_tv"
+                android:scaleType="fitXY"
+                android:src="@drawable/ico_best_order_icon" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/id_car_error"
+            android:layout_width="581px"
+            android:layout_height="230px"
+            android:layout_below="@id/id_best_orders"
+            android:layout_marginLeft="24px"
+            android:layout_marginTop="24px"
+            android:layout_toLeftOf="@id/id_logout"
+            android:layout_toRightOf="@id/id_second_content"
+            android:background="@drawable/bg_car_error"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/id_car_error_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20px"
+                android:text="违章查询"
+                android:textColor="#99FFFFFF"
+                android:textSize="36px" />
+
+            <ImageView
+                android:id="@+id/id_car_error_img"
+                android:layout_width="43px"
+                android:layout_height="43px"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/id_car_error_tv"
+                android:scaleType="fitXY"
+                android:src="@drawable/ico_car_error_icon" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/id_logout"
+            android:layout_width="581px"
+            android:layout_height="230px"
+            android:layout_below="@id/id_feedback"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="30px"
+            android:layout_marginTop="24px"
+            android:background="@drawable/bg_logout"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/id_logout_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20px"
+                android:text="退出登录"
+                android:textColor="#99FFFFFF"
+                android:textSize="36px" />
+
+            <ImageView
+                android:id="@+id/id_logout_img"
+                android:layout_width="43px"
+                android:layout_height="43px"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/id_logout_tv"
+                android:scaleType="fitXY"
+                android:src="@drawable/ico_logout_icon" />
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

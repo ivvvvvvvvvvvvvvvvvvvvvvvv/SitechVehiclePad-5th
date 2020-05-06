@@ -19,15 +19,18 @@
 
         <activity
             android:name=".kaola.NewsDetailsActivity"
-            android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity
             android:name=".module.weather.WeatherActivity"
-            android:launchMode="singleTask"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".module.member.MemberPreActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".module.carstatus.CarStatusPreActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".kaola.KaolaListActivity"
-            android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity
             android:name=".module.splash.SplashActivity"

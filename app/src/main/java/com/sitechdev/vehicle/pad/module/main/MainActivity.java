@@ -42,6 +42,7 @@ import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.manager.UserManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceType;
+import com.sitechdev.vehicle.pad.module.carstatus.CarStatusPreActivity;
 import com.sitechdev.vehicle.pad.module.login.LoginActivity;
 import com.sitechdev.vehicle.pad.module.login.bean.LoginResponseBean;
 import com.sitechdev.vehicle.pad.module.login.bean.LoginUserBean;
@@ -50,6 +51,7 @@ import com.sitechdev.vehicle.pad.module.main.bean.WeatherInfoBean;
 import com.sitechdev.vehicle.pad.module.main.util.MainHttpUtils;
 import com.sitechdev.vehicle.pad.module.main.util.WeatherUtils;
 import com.sitechdev.vehicle.pad.module.member.MemberActivity;
+import com.sitechdev.vehicle.pad.module.member.MemberPreActivity;
 import com.sitechdev.vehicle.pad.module.music.MusicMainActivity;
 import com.sitechdev.vehicle.pad.module.weather.WeatherActivity;
 import com.sitechdev.vehicle.pad.util.AppVariants;
@@ -329,15 +331,15 @@ public class MainActivity extends BaseActivity
             case R.id.tv_login:
                 CommonToast.makeText(this, "请登录..");
             case R.id.id_rela_login:
-                if (UserManager.getInstance().isExistUserToken()) {
+//                if (UserManager.getInstance().isExistUserToken()) {
                     //已经登录，去往会员中心
-                    Intent mIntent1 = new Intent(MainActivity.this, MemberActivity.class);
-                    startActivity(mIntent1);
-                } else {
-                    //未登录，去往登录
-                    Intent mIntent1 = new Intent(MainActivity.this, LoginActivity.class);
-                    startActivity(mIntent1);
-                }
+                    Intent mIntent = new Intent(MainActivity.this, MemberPreActivity.class);
+                    startActivity(mIntent);
+//                } else {
+//                    //未登录，去往登录
+//                    Intent mIntent1 = new Intent(MainActivity.this, LoginActivity.class);
+//                    startActivity(mIntent1);
+//                }
                 break;
             case R.id.fl_weather:
                 Intent mIntent1 = new Intent(MainActivity.this, WeatherActivity.class);
@@ -382,6 +384,8 @@ public class MainActivity extends BaseActivity
                 break;
             case R.id.ll_car_power_info:
 //                EventBusUtils.postEvent(new WindowEvent(WindowEvent.EVENT_WINDOW_CONTROL_MENU, true));
+                Intent tempIntent = new Intent(MainActivity.this, CarStatusPreActivity.class);
+                startActivity(tempIntent);
                 break;
             case R.id.iv_music_bef:
 //                switch (musicSource){
