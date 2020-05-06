@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_bg_land"
+    android:paddingBottom="200px"
+    tools:ignore="PxUsage">
+
+    <include
+        layout="@layout/common_title_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/music_main_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/play_detail_status"
+        android:layout_below="@+id/toolbar_sub"
+        android:layout_marginTop="10dp" />
+
+    <include
+        android:id="@+id/play_detail_status"
+        layout="@layout/play_detail_status"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_151"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone" />
+</RelativeLayout>

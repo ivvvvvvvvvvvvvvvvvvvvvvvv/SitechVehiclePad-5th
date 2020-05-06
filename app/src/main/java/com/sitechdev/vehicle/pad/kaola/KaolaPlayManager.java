@@ -20,6 +20,7 @@ import com.sitechdev.vehicle.lib.util.AppUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.ToastUtils;
 import com.sitechdev.vehicle.pad.app.AppApplication;
+import com.sitechdev.vehicle.pad.module.forshow.AudioListForShowActivity;
 import com.sitechdev.vehicle.pad.module.main.MainActivity;
 import com.sitechdev.vehicle.pad.util.AppUtil;
 import com.sitechdev.vehicle.pad.util.AppVariants;
@@ -112,7 +113,11 @@ public class KaolaPlayManager {
      * @param index   0, 新特速报 1,少儿读物 2,车海娱乐 3,生活一点通
      */
     public void toPlayListActivity(Context context, int index) {
-        toPlayListActivity(context, index, -1);
+        Intent intent = new Intent(context, AudioListForShowActivity.class);
+        intent.putExtra("type", index);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+//        toPlayListActivity(context, index, -1);
     }
 
     public void toPlayListActivity(Context context, int index, int deepIndex) {

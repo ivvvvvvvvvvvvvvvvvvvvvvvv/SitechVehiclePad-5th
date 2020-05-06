@@ -75,6 +75,14 @@
             android:name=".module.member.MyPointActivity"
             android:screenOrientation="landscape"
             android:theme="@style/NoTitleAppTheme" />
+        <activity
+            android:name=".module.forshow.MusicMainForShowActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/NoTitleAppTheme" />
+        <activity
+            android:name=".module.forshow.AudioListForShowActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/NoTitleAppTheme" />
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
