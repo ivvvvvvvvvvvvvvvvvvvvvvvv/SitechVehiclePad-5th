@@ -79,10 +79,10 @@
 
             <View
                 android:id="@+id/id_tv_car_status_split_line1"
-                android:layout_width="1px"
+                android:layout_width='1px'
                 android:layout_height="match_parent"
                 android:layout_toRightOf="@id/id_car_status_power_km_content"
-                android:background="#99ffffff" />
+                android:background="@drawable/ico_split_line" />
 
             <RelativeLayout
                 android:id="@+id/id_car_status_recharge_count_content"
@@ -142,10 +142,10 @@
 
             <View
                 android:id="@+id/id_tv_car_status_split_line2"
-                android:layout_width="1px"
+                android:layout_width='1px'
                 android:layout_height="match_parent"
                 android:layout_toRightOf="@id/id_car_status_recharge_count_content"
-                android:background="#99ffffff" />
+                android:background="@drawable/ico_split_line" />
 
             <RelativeLayout
                 android:id="@+id/id_car_status_full_km_content"
@@ -205,10 +205,9 @@
 
             <View
                 android:id="@+id/id_tv_car_status_split_line_middle"
-                android:layout_width="wrap_content"
-                android:layout_height="1px"
+                style="@style/style_white_line"
                 android:layout_below="@id/id_car_status_power_km_content"
-                android:background="#99ffffff" />
+                android:background="@drawable/ico_split_line_land" />
 
             <RelativeLayout
                 android:id="@+id/id_car_status_has_power_content"
@@ -217,8 +216,8 @@
                 android:layout_below="@id/id_tv_car_status_split_line_middle"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="50px"
-                android:layout_marginRight="50px"
-                android:layout_marginTop="30px">
+                android:layout_marginTop="30px"
+                android:layout_marginRight="50px">
 
                 <ImageView
                     android:id="@+id/id_img_car_status_has_power"
@@ -273,8 +272,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/id_tv_car_status_split_line_middle"
                 android:layout_marginLeft="50px"
-                android:layout_marginRight="50px"
                 android:layout_marginTop="30px"
+                android:layout_marginRight="50px"
                 android:layout_toRightOf="@id/id_tv_car_status_split_line1">
 
                 <ImageView
@@ -329,8 +328,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/id_tv_car_status_split_line_middle"
                 android:layout_marginLeft="50px"
-                android:layout_marginRight="50px"
                 android:layout_marginTop="30px"
+                android:layout_marginRight="50px"
                 android:layout_toRightOf="@id/id_tv_car_status_split_line2">
 
                 <ImageView
