@@ -13,6 +13,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
@@ -59,6 +60,8 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
     private SeekBar volumeSeekBar = null, lightSeekBar = null;
 
     private RadioGroup carSpeedGroupView = null, carRecycleGroupView = null;
+    private RadioButton carSpeedGroup_Off = null, carSpeedGroup_Middle = null, carSpeedGroup_Max = null;
+    private RadioButton carRecycleGroup_Off = null, carRecycleGroup_Middle = null, carRecycleGroup_Max = null;
 
     private LinearLayout mLedViewLiearLayoutView = null;
 
@@ -144,6 +147,13 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
 
         carSpeedGroupView = findViewById(R.id.id_car_speed_switch_group);
         carRecycleGroupView = findViewById(R.id.id_car_power_recycle_group);
+
+        carSpeedGroup_Off = findViewById(R.id.id_car_speed_off);
+        carSpeedGroup_Middle = findViewById(R.id.id_car_speed_middle);
+        carSpeedGroup_Max = findViewById(R.id.id_car_speed_max);
+        carRecycleGroup_Off = findViewById(R.id.id_car_recycle_off);
+        carRecycleGroup_Middle = findViewById(R.id.id_car_recycle_middle);
+        carRecycleGroup_Max = findViewById(R.id.id_car_recycle_max);
     }
 
     public void initVolumeAndLightData() {
@@ -285,6 +295,7 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
             });
         }
         carSpeedGroupView.setOnCheckedChangeListener((group, checkedId) -> {
+            SitechDevLog.i(TAG, "carSpeedGroupView setOnCheckedChangeListener ==========checkedId==== " + checkedId);
             int currentCarSpeed = 0;
             switch (checkedId) {
                 case R.id.id_car_speed_off:
@@ -301,6 +312,7 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
             }
         });
         carRecycleGroupView.setOnCheckedChangeListener((group, checkedId) -> {
+            SitechDevLog.i(TAG, "carRecycleGroupView setOnCheckedChangeListener ==========checkedId==== " + checkedId);
             int currentCarRecycle = 0;
             switch (checkedId) {
                 case R.id.id_car_recycle_off:
@@ -316,6 +328,14 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
                     break;
             }
         });
+
+        carSpeedGroup_Off.setOnClickListener(this);
+        carSpeedGroup_Middle.setOnClickListener(this);
+        carSpeedGroup_Max.setOnClickListener(this);
+        carRecycleGroup_Off.setOnClickListener(this);
+        carRecycleGroup_Middle.setOnClickListener(this);
+        carRecycleGroup_Max.setOnClickListener(this);
+
         popControlView.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
