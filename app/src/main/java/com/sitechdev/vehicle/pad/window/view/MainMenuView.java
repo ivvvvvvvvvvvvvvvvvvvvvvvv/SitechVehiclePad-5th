@@ -4,10 +4,8 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.blankj.utilcode.util.ImageUtils;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
@@ -15,7 +13,7 @@ import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.StringUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.event.VoiceEvent;
-import com.sitechdev.vehicle.pad.view.VolumeView;
+import com.sitechdev.vehicle.pad.view.SkinTextView;
 import com.sitechdev.vehicle.pad.view.VolumeView2;
 import com.sitechdev.vehicle.pad.vui.VUI;
 import com.sitechdev.vehicle.pad.vui.VoiceConstants;
@@ -38,7 +36,7 @@ public class MainMenuView extends RelativeLayout implements View.OnClickListener
     //tts中的Teddy展示样式
     private RelativeLayout mTeddyTtsContentView = null;
 
-    private TextView mSrTextView = null, mTtsTextView = null;
+    private SkinTextView mSrTextView = null, mTtsTextView = null;
     private VolumeView2 mSrVolumeView = null;
 
     private int reflectionValue = 30;

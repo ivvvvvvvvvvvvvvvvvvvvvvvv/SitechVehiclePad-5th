@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:visibility="visible">
 
-            <TextView
+            <com.sitechdev.vehicle.pad.view.SkinTextView
                 android:id="@+id/id_Teddy_Tip_1"
                 android:layout_width="311px"
                 android:layout_height="92px"
@@ -91,7 +91,7 @@
                 android:textColor="#499AC8"
                 android:textSize="32px" />
 
-            <TextView
+            <com.sitechdev.vehicle.pad.view.SkinTextView
                 android:id="@+id/id_Teddy_Tip_2"
                 android:layout_width="311px"
                 android:layout_height="92px"
@@ -118,7 +118,7 @@
                 android:layout_centerInParent="true"
                 android:layout_gravity="center|top" />
 
-            <TextView
+            <com.sitechdev.vehicle.pad.view.SkinTextView
                 android:id="@+id/id_teddy_sr_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -145,7 +145,7 @@
             android:layout_alignParentRight="true"
             android:visibility="gone">
 
-            <TextView
+            <com.sitechdev.vehicle.pad.view.SkinTextView
                 android:id="@+id/id_teddy_tts_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -75,14 +75,14 @@ public class AppApplication extends Application {
         MapVoiceEventUtil.getInstance().init();
         //bugly
         BuglyHelper.getInstance().initCrashReport(this);
+        //换肤组件
+        initSkinManager();
         //window窗口
         initCustomWindow();
         //Activity 页面管理
         initLifecleActivity();
         //考拉SDK
         initKaolaSdk();
-        //换肤组件
-        initSkinManager();
     }
 
     private void initCustomWindow() {
