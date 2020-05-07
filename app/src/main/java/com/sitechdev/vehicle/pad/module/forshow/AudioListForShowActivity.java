@@ -34,7 +34,7 @@ public class AudioListForShowActivity extends BaseActivity {
     ScrollTextView tv_bottom_title;
     TextView tv_title;
     LinearLayout play_bar_root;
-    int[] imgs = {R.drawable.teddy_top_1, R.drawable.teddy_top_2, R.drawable.teddy_top_3, R.drawable.teddy_top_4, R.drawable.teddy_top_5, R.drawable.teddy_top_6, R.drawable.teddy_top_7};
+    int[] imgs = {R.drawable.card1, R.drawable.card2, R.drawable.card3, R.drawable.card4, R.drawable.card5, R.drawable.card6, R.drawable.card7};
     String[] titles = {"百变布鲁克","儿童英语儿歌早教歌曲","金色童谣","格林童话","中国寓言故事","小红帽与大灰狼","儿童故事广播剧"};
     String[] subTitles = {"","","精选中国著名童诗","演绎经典格林通话","朗朗上口，旋律优美","宝贝听故事，每天给孩子一个睡前故事","必读经典名著"};
     @Override

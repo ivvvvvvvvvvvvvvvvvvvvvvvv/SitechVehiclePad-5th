@@ -8,7 +8,6 @@
         android:layout_width="320px"
         android:layout_height="200px"
         android:layout_alignParentTop="true"
-        android:background="@color/color_f0"
         android:scaleType="centerCrop" />
 
     <TextView
