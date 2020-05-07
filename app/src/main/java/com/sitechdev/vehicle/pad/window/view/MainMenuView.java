@@ -193,7 +193,7 @@ public class MainMenuView extends RelativeLayout implements View.OnClickListener
             case VoiceEvent.EVENT_VOICE_SR_OVER:
                 SitechDevLog.i(VoiceConstants.TEDDY_TAG, "VoiceEvent.EVENT_VOICE_SR_OVER===");
                 if (mSrTextView != null && !mSrTextView.isShown()) {
-                    mSrTextView.setVisibility(View.INVISIBLE);
+                    mSrTextView.setVisibility(View.GONE);
                 }
                 resetTeddyViewDefault();
                 break;
