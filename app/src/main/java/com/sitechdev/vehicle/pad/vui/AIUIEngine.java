@@ -105,14 +105,28 @@ public class AIUIEngine {
         if (!TextUtils.isEmpty(ttsPeopleParams)) {
             return ttsPeopleParams;
         }
+        ttsPeopleParams = getXiaoyanVoice();
+        return ttsPeopleParams;
+    }
+
+    private String getXiaofengVoice() {
+        StringBuilder params = new StringBuilder();
+        params.append("vcn=xiaofeng");
+        params.append(",speed=48");
+        params.append(",pitch=50");
+        params.append(",volume=50");
+        params.append(",ent=tts");
+        return params.toString();
+    }
+
+    private String getXiaoyanVoice() {
         StringBuilder params = new StringBuilder();
         params.append("vcn=xiaoyan");
         params.append(",speed=48");
         params.append(",pitch=50");
         params.append(",volume=50");
         params.append(",ent=tts");
-        ttsPeopleParams = params.toString();
-        return ttsPeopleParams;
+        return params.toString();
     }
 
     public void ttsCancel() {
