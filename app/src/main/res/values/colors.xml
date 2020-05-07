@@ -54,4 +54,37 @@
     <color name="colo_E3E3E3">#E3E3E3</color>
     <color name="colo_D2D2D2">#D2D2D2</color>
     <color name="colo_FF6E6E80">#FF6E6E80</color>
+
+    <!--  首页部分颜色值  -->
+
+    <color name="color_main_login_text">#FFFFFF</color>
+
+    <color name="color_main_weather_temp_text">#FFFFFF</color>
+    <color name="color_main_weather_temp_unit">#FFFFFF</color>
+    <color name="color_main_weather_status_desc">#FFFFFF</color>
+    <color name="color_main_weather_temp_range">#86929E</color>
+    <color name="color_main_weather_status_desc_range">#86929E</color>
+
+    <color name="color_main_weather_location_text">#FFFFFF</color>
+    <!--  首页-日期时间  -->
+    <color name="color_main_date_text">#86929E</color>
+    <color name="color_main_time_text">#FFFFFF</color>
+    <!--  蓝牙描述文字  -->
+    <color name="color_main_bluetooth_text">#86929E</color>
+    <!--  右上回家回公司文字  -->
+    <color name="color_main_come_home_company_text">#FFFFFF</color>
+    <!--  右上去哪里文字  -->
+    <color name="color_main_where_text">#CC535353</color>
+    <!--  右中音乐文字  -->
+    <color name="color_main_music_text">#FFFFFF</color>
+    <!--  右中播放歌曲名称  -->
+    <color name="color_main_music_playing_name_text">#FFFFFF</color>
+    <!--  右中娱乐分类  -->
+    <color name="color_main_music_type_text">#FFFFFF</color>
+    <!--  右底车辆状态分类  -->
+    <color name="color_main_car_info_text">#FFFFFF</color>
+    <!--  右底车辆状态分类  -->
+    <color name="color_main_car_info_split_line">#4DFFFFFF</color>
+
+
 </resources>

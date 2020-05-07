@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--  首页部分颜色值  -->
+    <color name="color_main_login_text_whiteorange">#1F1F1F</color>
+
+    <color name="color_main_weather_temp_text_whiteorange">#2F2F2F</color>
+    <color name="color_main_weather_temp_unit_whiteorange">#2F2F2F</color>
+    <color name="color_main_weather_status_desc_whiteorange">#1F1F1F</color>
+    <color name="color_main_weather_temp_range_whiteorange">#86929E</color>
+    <color name="color_main_weather_status_desc_range_whiteorange">#86929E</color>
+
+    <color name="color_main_weather_location_text_whiteorange">#86929E</color>
+    <!--  首页-日期时间  -->
+    <color name="color_main_date_text_whiteorange">#535353</color>
+    <color name="color_main_time_text_whiteorange">#2F2F2F</color>
+    <!--  蓝牙描述文字  -->
+    <color name="color_main_bluetooth_text_whiteorange">#535353</color>
+    <!--  右上回家回公司文字  -->
+    <color name="color_main_come_home_company_text_whiteorange">#353535</color>
+    <!--  右上去哪里文字  -->
+    <color name="color_main_where_text_whiteorange">#CC535353</color>
+    <!--  右中音乐文字  -->
+    <color name="color_main_music_text_whiteorange">#353535</color>
+    <!--  右中播放歌曲名称  -->
+    <color name="color_main_music_playing_name_text_whiteorange">#FFFFFF</color>
+    <!--  右中娱乐分类  -->
+    <color name="color_main_music_type_text_whiteorange">#353535</color>
+    <!--  右底车辆状态分类  -->
+    <color name="color_main_car_info_text_whiteorange">#353535</color>
+    <!--  右底车辆状态分类  -->
+    <color name="color_main_car_info_split_line_whiteorange">#4D959595</color>
+</resources>

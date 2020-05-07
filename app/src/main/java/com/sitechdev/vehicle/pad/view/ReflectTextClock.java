@@ -9,19 +9,31 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Shader;
+import android.support.annotation.DrawableRes;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextClock;
+
+import com.sitechdev.vehicle.pad.model.SkinModel;
+
+import skin.support.utils.SkinPreference;
+import skin.support.widget.SkinCompatBackgroundHelper;
+import skin.support.widget.SkinCompatSupportable;
+import skin.support.widget.SkinCompatTextHelper;
 
 /***
  * 日期： 2019/4/1 14:23
  * 姓名： sitechdev_bjs
  * 说明： 含有倒影的textview
  */
-public class ReflectTextClock extends TextClock {
+public class ReflectTextClock extends TextClock implements SkinCompatSupportable {
 
     private Matrix mMatrix;
     private Paint mPaint;
+    private SkinCompatBackgroundHelper mBackgroundTintHelper;
+    private int textColor = 0xFFFFFF,
+            startGradientColor = 0x50FFFFFF, endGradientColor = 0x00FFFFFF;
+    private SkinCompatTextHelper mTextHelper;
 
     public ReflectTextClock(Context context) {
         this(context, null);
@@ -33,6 +45,12 @@ public class ReflectTextClock extends TextClock {
 
     public ReflectTextClock(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
+        mBackgroundTintHelper = new SkinCompatBackgroundHelper(this);
+        mBackgroundTintHelper.loadFromAttributes(attrs, defStyleAttr);
+        mTextHelper = SkinCompatTextHelper.create(this);
+        mTextHelper.loadFromAttributes(attrs, defStyleAttr);
+
         init();
     }
 
@@ -64,7 +82,7 @@ public class ReflectTextClock extends TextClock {
         canvas.drawBitmap(reflectionImage, 0, 0, paint);
         if (mPaint == null) {
             mPaint = new Paint();            //阴影的效果可以自己根据需要设定
-            LinearGradient shader = new LinearGradient(0, 0, 0, height, 0x50ffffff, 0x00ffffff, Shader.TileMode.MIRROR);
+            LinearGradient shader = new LinearGradient(0, 0, 0, height, startGradientColor, endGradientColor, Shader.TileMode.MIRROR);
             mPaint.setShader(shader);
             mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
         }
@@ -81,5 +99,51 @@ public class ReflectTextClock extends TextClock {
         //每次更新TextView后遗留上次的残影，所以在这里每次刷新TextView后清楚DrawingCache
 
         destroyDrawingCache();
+    }
+
+    @Override
+    public void setBackgroundResource(@DrawableRes int resId) {
+        super.setBackgroundResource(resId);
+        if (mBackgroundTintHelper != null) {
+            mBackgroundTintHelper.onSetBackgroundResource(resId);
+        }
+    }
+
+    @Override
+    public void setTextAppearance(int resId) {
+        setTextAppearance(getContext(), resId);
+    }
+
+    @Override
+    public void setTextAppearance(Context context, int resId) {
+        super.setTextAppearance(context, resId);
+        if (mTextHelper != null) {
+            mTextHelper.onSetTextAppearance(context, resId);
+        }
+    }
+
+    @Override
+    public void applySkin() {
+//        initSkinColor();
+        if (mBackgroundTintHelper != null) {
+            mBackgroundTintHelper.applySkin();
+        }
+        if (mTextHelper != null) {
+            mTextHelper.applySkin();
+        }
+    }
+
+    private void initSkinColor() {
+        switch (SkinModel.getByName(SkinPreference.getInstance().getSkinName())) {
+            case SKIN_WHITE_ORANGE:
+                startGradientColor = 0x502F2F2F;
+                endGradientColor = 0x002F2F2F;
+                break;
+            case SKIN_DEFAULT:
+            default:
+                startGradientColor = 0x50FFFFFF;
+                endGradientColor = 0x00FFFFFF;
+                break;
+        }
     }
 }

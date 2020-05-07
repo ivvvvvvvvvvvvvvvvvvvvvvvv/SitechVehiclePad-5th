@@ -9,8 +9,11 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.app.SkinAppCompatDelegateImpl;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -53,6 +56,12 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
             Log.i(this.getClass().getSimpleName(), "竖屏");
             return AdaptScreenUtils.adaptWidth(super.getResources(), 1080);
         }
+    }
+
+    @NonNull
+    @Override
+    public AppCompatDelegate getDelegate() {
+        return SkinAppCompatDelegateImpl.get(this, this);
     }
 
     @Override

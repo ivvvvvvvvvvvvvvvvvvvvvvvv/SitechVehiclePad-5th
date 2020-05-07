@@ -52,6 +52,9 @@ android {
     sourceSets {
         aiui_5e97d73d.assets.srcDirs = ['src/main/assets/aiui_5e97d73d/']
         aiui_5e97d73d.jniLibs.srcDirs = ['libs/aiui_5e97d73d/']
+        main {
+            res.srcDirs = ['src/main/res', 'src/main/res-whiteorange', 'src/main/res-blueorange']
+        }
     }
     buildTypes {
         debug {
@@ -151,6 +154,10 @@ dependencies {
     //
     implementation Config.depConfig.utilCode
     implementation Config.depConfig.FlycoTabLayout
+    //换肤控件
+    implementation Config.depConfig.skin_support.skin_support
+    implementation Config.depConfig.skin_support.skin_support_design
+    implementation Config.depConfig.skin_support.skin_support_constraint_layout
 }
 
 android.applicationVariants.all { variant ->

@@ -245,3 +245,7 @@
 -keep class com.tencent.mars.** {
   public protected private *;
 }
+
+#----------SKIN-SUPPORTS-------------
+-dontwarn skin.support.**
+-keep class skin.support.** { *; }

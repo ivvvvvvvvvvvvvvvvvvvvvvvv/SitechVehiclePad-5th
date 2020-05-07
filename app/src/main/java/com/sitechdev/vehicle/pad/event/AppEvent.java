@@ -35,6 +35,10 @@ public class AppEvent extends BaseEvent {
      * 滑动事件
      */
     public static final String EVENT_APP_WINDOW_MOVE = "EVENT_APP_WINDOW_MOVE";
+    /**
+     * 换肤事件
+     */
+    public static final String EVENT_APP_CHANGE_SKIN = "EVENT_APP_CHANGE_SKIN";
 
     private String eventKey = "";
     private Object eventValue = null;

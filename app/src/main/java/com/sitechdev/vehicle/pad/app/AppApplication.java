@@ -24,6 +24,7 @@ import com.sitechdev.vehicle.pad.event.WindowEvent;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.manager.AppManager;
 import com.sitechdev.vehicle.pad.manager.CommonTipWindowManager;
+import com.sitechdev.vehicle.pad.manager.SkinManager;
 import com.sitechdev.vehicle.pad.module.map.util.MapVoiceEventUtil;
 import com.sitechdev.vehicle.pad.net.interception.SitechRequestInterceptor;
 import com.sitechdev.vehicle.pad.net.interception.SitechResponseInterceptor;
@@ -35,6 +36,10 @@ import com.sitechdev.vehicle.pad.window.manager.MainMenuWindowManager;
 import com.sitechdev.vehicle.pad.window.manager.RightTopWindowManager;
 
 import org.greenrobot.eventbus.EventBus;
+
+import skin.support.SkinCompatManager;
+import skin.support.constraint.app.SkinConstraintViewInflater;
+import skin.support.design.app.SkinMaterialViewInflater;
 
 /**
  * 项目名称：SitechVehiclePad
@@ -76,6 +81,8 @@ public class AppApplication extends Application {
         initLifecleActivity();
         //考拉SDK
         initKaolaSdk();
+        //换肤组件
+        initSkinManager();
     }
 
     private void initCustomWindow() {
@@ -199,6 +206,13 @@ public class AppApplication extends Application {
                 Log.w("考拉APPDemo", "初始化SDK失败，错误码=" + exception.getCode() + ",错误信息=" + exception.getMessage());
             }
         });
+    }
+
+    /**
+     * 换肤组件初始化
+     */
+    private void initSkinManager() {
+        SkinManager.getInstance().initSkinManager(this);
     }
 
 

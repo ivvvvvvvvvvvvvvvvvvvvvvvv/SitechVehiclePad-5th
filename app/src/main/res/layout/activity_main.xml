@@ -50,7 +50,7 @@
                     android:layout_marginLeft="28px"
                     android:layout_toRightOf="@id/iv_login"
                     android:text="点击登录"
-                    android:textColor="@color/white"
+                    android:textColor="@color/color_main_login_text"
                     android:textSize="32px" />
             </RelativeLayout>
 
@@ -66,8 +66,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10px"
                     android:includeFontPadding="false"
-                    android:text="24"
-                    android:textColor="@color/white"
+                    android:text="28"
+                    android:textColor="@color/color_main_weather_temp_text"
                     android:textSize="75px"
                     android:textStyle="bold" />
 
@@ -79,7 +79,7 @@
                     android:layout_marginTop="10px"
                     android:layout_toRightOf="@id/tv_temperature"
                     android:text="℃"
-                    android:textColor="@color/white"
+                    android:textColor="@color/color_main_weather_temp_unit"
                     android:textSize="30px"
                     android:textStyle="bold" />
 
@@ -92,7 +92,7 @@
                     android:layout_marginTop="10px"
                     android:layout_toRightOf="@id/id_sign_code"
                     android:text="有雨"
-                    android:textColor="@color/white"
+                    android:textColor="@color/color_main_weather_status_desc"
                     android:textSize="34px" />
 
                 <TextView
@@ -102,7 +102,7 @@
                     android:layout_below="@id/tv_temperature"
                     android:layout_marginTop="15px"
                     android:text="20°/28°"
-                    android:textColor="@color/main_tv_clo"
+                    android:textColor="@color/color_main_weather_temp_range"
                     android:textSize="30px" />
 
                 <TextView
@@ -112,7 +112,7 @@
                     android:layout_below="@id/tv_temperature_day"
                     android:layout_marginTop="8px"
                     android:text="西南风3-4级"
-                    android:textColor="@color/main_tv_clo"
+                    android:textColor="@color/color_main_weather_status_desc_range"
                     android:textSize="30px" />
 
                 <ImageView
@@ -142,7 +142,7 @@
                     android:layout_toRightOf="@id/iv_weather_location_icon"
                     android:maxLines="1"
                     android:text="--，--"
-                    android:textColor="@color/white"
+                    android:textColor="@color/color_main_weather_status_desc_range"
                     android:textSize="28px" />
 
             </RelativeLayout>
@@ -176,7 +176,7 @@
                     android:format12Hour="yyyy年MM月dd日"
                     android:format24Hour="yyyy年MM月dd日"
                     android:includeFontPadding="false"
-                    android:textColor="@color/main_tv_clo"
+                    android:textColor="@color/color_main_date_text"
                     android:textSize="30px" />
 
                 <com.sitechdev.vehicle.pad.view.ReflectTextClock
@@ -187,7 +187,7 @@
                     android:format12Hour="hh:mm"
                     android:format24Hour="HH:mm"
                     android:includeFontPadding="false"
-                    android:textColor="@color/white"
+                    android:textColor="@color/color_main_time_text"
                     android:textSize="84px"
                     android:textStyle="bold"
                     android:typeface="serif" />
@@ -219,7 +219,7 @@
                     android:layout_marginLeft="20px"
                     android:layout_toRightOf="@id/iv_bluetooth_icon"
                     android:text="请连接蓝牙设备"
-                    android:textColor="@color/main_tv_clo"
+                    android:textColor="@color/color_main_bluetooth_text"
                     android:textSize="30px" />
             </RelativeLayout>
         </LinearLayout>
@@ -261,6 +261,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="22px"
                 android:text="回家"
+                android:textColor="@color/color_main_come_home_company_text"
                 android:textSize="32px" />
 
         </LinearLayout>
@@ -268,7 +269,7 @@
         <View
             android:layout_width="1px"
             android:layout_height="match_parent"
-            android:background="#4DFFFFFF" />
+            android:background="@color/color_main_car_info_split_line" />
 
         <LinearLayout
             android:layout_width="0px"
@@ -293,6 +294,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="22px"
                 android:text="公司"
+                android:textColor="@color/color_main_come_home_company_text"
                 android:textSize="32px" />
 
         </LinearLayout>
@@ -323,7 +325,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="22px"
             android:text="你要去哪里"
-            android:textColor="#6EFFFFFF"
+            android:textColor="@color/color_main_where_text"
             android:textSize="32px" />
     </LinearLayout>
 
@@ -350,7 +352,8 @@
                 android:id="@+id/id_r_m_l_music_main_title"
                 style="@style/style_tv_home_music"
                 android:layout_marginTop="25px"
-                android:text="音乐" />
+                android:text="音乐"
+                android:textColor="@color/color_main_music_text" />
 
             <ImageView
                 android:id="@+id/id_r_m_l_music_icon"
@@ -373,7 +376,7 @@
                     android:gravity="center"
                     android:maxLines="1"
                     android:text="--  --"
-                    android:textColor="@color/white"
+                    android:textColor="@color/color_main_music_playing_name_text"
                     android:textSize="32px" />
             </LinearLayout>
 
@@ -427,7 +430,8 @@
                 android:id="@+id/btn_sitev_news"
                 style="@style/style_tv_home_music"
                 android:layout_marginTop="5px"
-                android:text="新特速报" />
+                android:text="新特速报"
+                android:textColor="@color/color_main_music_type_text" />
         </LinearLayout>
 
         <LinearLayout
@@ -449,7 +453,8 @@
                 android:id="@+id/btn_child_papers"
                 style="@style/style_tv_home_music"
                 android:layout_marginTop="5px"
-                android:text="少儿读物" />
+                android:text="少儿读物"
+                android:textColor="@color/color_main_music_type_text" />
         </LinearLayout>
 
         <LinearLayout
@@ -473,7 +478,8 @@
                 android:id="@+id/btn_car_fun"
                 style="@style/style_tv_home_music"
                 android:layout_marginTop="5px"
-                android:text="车嗨娱乐" />
+                android:text="车嗨娱乐"
+                android:textColor="@color/color_main_music_type_text" />
         </LinearLayout>
 
         <LinearLayout
@@ -497,7 +503,8 @@
                 android:id="@+id/btn_life_all"
                 style="@style/style_tv_home_music"
                 android:layout_marginTop="5px"
-                android:text="生活一点通" />
+                android:text="生活一点通"
+                android:textColor="@color/color_main_music_type_text" />
         </LinearLayout>
 
     </RelativeLayout>
@@ -544,7 +551,7 @@
         <View
             android:layout_width="1px"
             android:layout_height="match_parent"
-            android:background="#4DFFFFFF" />
+            android:background="@color/color_main_car_info_split_line" />
 
         <LinearLayout
             android:layout_width="0px"
@@ -575,7 +582,7 @@
         <View
             android:layout_width="1px"
             android:layout_height="match_parent"
-            android:background="#4DFFFFFF" />
+            android:background="@color/color_main_car_info_split_line" />
 
         <LinearLayout
             android:layout_width="0px"
