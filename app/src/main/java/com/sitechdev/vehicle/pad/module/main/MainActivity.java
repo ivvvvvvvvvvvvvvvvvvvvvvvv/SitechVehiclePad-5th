@@ -36,30 +36,24 @@ import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.callback.BaseBribery;
 import com.sitechdev.vehicle.pad.event.AppEvent;
 import com.sitechdev.vehicle.pad.event.MapEvent;
-import com.sitechdev.vehicle.pad.event.VoiceEvent;
-import com.sitechdev.vehicle.pad.event.WindowEvent;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.manager.UserManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceType;
-import com.sitechdev.vehicle.pad.module.carstatus.CarStatusPreActivity;
-import com.sitechdev.vehicle.pad.module.login.LoginActivity;
 import com.sitechdev.vehicle.pad.module.login.bean.LoginResponseBean;
 import com.sitechdev.vehicle.pad.module.login.bean.LoginUserBean;
 import com.sitechdev.vehicle.pad.module.login.util.LoginHttpUtil;
 import com.sitechdev.vehicle.pad.module.main.bean.WeatherInfoBean;
 import com.sitechdev.vehicle.pad.module.main.util.MainHttpUtils;
 import com.sitechdev.vehicle.pad.module.main.util.WeatherUtils;
-import com.sitechdev.vehicle.pad.module.member.MemberActivity;
 import com.sitechdev.vehicle.pad.module.member.MemberPreActivity;
-import com.sitechdev.vehicle.pad.module.music.MusicMainActivity;
 import com.sitechdev.vehicle.pad.module.weather.WeatherActivity;
 import com.sitechdev.vehicle.pad.util.AppVariants;
 import com.sitechdev.vehicle.pad.util.FontUtil;
+import com.sitechdev.vehicle.pad.util.JumpUtils;
 import com.sitechdev.vehicle.pad.view.CommonToast;
 import com.sitechdev.vehicle.pad.view.ReflectTextClock;
 import com.sitechdev.vehicle.pad.view.ScrollTextView;
-import com.sitechdev.vehicle.pad.vui.VoiceConstants;
 import com.sitechdev.vehicle.pad.window.manager.MainControlPanelWindowManager;
 import com.sitechdev.vehicle.pad.window.manager.MainMenuWindowManager;
 import com.sitechdev.vehicle.pad.window.manager.RightTopWindowManager;
@@ -333,8 +327,7 @@ public class MainActivity extends BaseActivity
             case R.id.id_rela_login:
 //                if (UserManager.getInstance().isExistUserToken()) {
                     //已经登录，去往会员中心
-                    Intent mIntent = new Intent(MainActivity.this, MemberPreActivity.class);
-                    startActivity(mIntent);
+                JumpUtils.jumpActivity(MemberPreActivity.class);
 //                } else {
 //                    //未登录，去往登录
 //                    Intent mIntent1 = new Intent(MainActivity.this, LoginActivity.class);
@@ -342,50 +335,42 @@ public class MainActivity extends BaseActivity
 //                }
                 break;
             case R.id.fl_weather:
-                Intent mIntent1 = new Intent(MainActivity.this, WeatherActivity.class);
-                startActivity(mIntent1);
+                JumpUtils.jumpActivity(WeatherActivity.class);
                 break;
             case R.id.id_img_home:
             case R.id.tv_home:
                 //回家
-                EventBusUtils.postEvent(new MapEvent(MapEvent.EVENT_MAP_START_NAVI_HOME));
+//                EventBusUtils.postEvent(new MapEvent(MapEvent.EVENT_MAP_START_NAVI_HOME));
                 break;
             case R.id.id_img_work:
             case R.id.tv_work:
                 //回公司
-                EventBusUtils.postEvent(new MapEvent(MapEvent.EVENT_MAP_START_NAVI_COMPONY));
+//                EventBusUtils.postEvent(new MapEvent(MapEvent.EVENT_MAP_START_NAVI_COMPONY));
                 break;
             case R.id.tv_what:
-                EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_MVW_SUCCESS, VoiceConstants.TTS_RESPONSE_NAVI_TEXT));
+//                EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_MVW_SUCCESS, VoiceConstants.TTS_RESPONSE_NAVI_TEXT));
                 break;
             case R.id.ll_music:
-                Intent goMusic = new Intent();
-                goMusic.setClass(this, MusicMainActivity.class);
-                startActivity(goMusic);
+//                Intent goMusic = new Intent();
+//                goMusic.setClass(this, MusicMainActivity.class);
+//                startActivity(goMusic);
                 break;
             case R.id.ll_news:
-                KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(mContext, 0);
-/*                Intent mIntent3 = new Intent(MainActivity.this, MapActivity.class);
-                //展示poi类型
-                mIntent3.putExtra(AppConst.JUMP_MAP_TYPE, AppConst.MAP_POI_SHOW_TYPE);
-                //poi点内容--天安门
-                mIntent3.putExtra(AppConst.JUMP_MAP_DATA, "颐和园");
-                startActivity(mIntent3);*/
+//                KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(mContext, 0);
                 break;
             case R.id.ll_book:
-                KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(this, 1);
+//                KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(this, 1);
                 break;
             case R.id.ll_car:
-                KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(this, 2);
+//                KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(this, 2);
                 break;
             case R.id.ll_life:
-                KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(this, 3);
+//                KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(this, 3);
 
                 break;
             case R.id.ll_car_power_info:
-//                EventBusUtils.postEvent(new WindowEvent(WindowEvent.EVENT_WINDOW_CONTROL_MENU, true));
-                Intent tempIntent = new Intent(MainActivity.this, CarStatusPreActivity.class);
-                startActivity(tempIntent);
+//                Intent tempIntent = new Intent(MainActivity.this, CarStatusPreActivity.class);
+//                startActivity(tempIntent);
                 break;
             case R.id.iv_music_bef:
 //                switch (musicSource){
@@ -406,7 +391,7 @@ public class MainActivity extends BaseActivity
 //                        CommonToast.showToast("当前无可用音源");
 //                        break;
 //                }
-                VoiceSourceManager.getInstance().pre(VoiceSourceManager.SCREEN);
+//                VoiceSourceManager.getInstance().pre(VoiceSourceManager.SCREEN);
                 break;
             case R.id.iv_music_stop:
 //                switch (musicSource){
@@ -426,7 +411,7 @@ public class MainActivity extends BaseActivity
 //                        CommonToast.showToast("当前无可用音源");
 //                        break;
 //                }
-                VoiceSourceManager.getInstance().toggle(VoiceSourceManager.SCREEN);
+//                VoiceSourceManager.getInstance().toggle(VoiceSourceManager.SCREEN);
                 break;
             case R.id.iv_music_next:
 //                switch (musicSource){
@@ -446,7 +431,7 @@ public class MainActivity extends BaseActivity
 //                        CommonToast.showToast("当前无可用音源");
 //                        break;
 //                }
-                VoiceSourceManager.getInstance().next(VoiceSourceManager.SCREEN);
+//                VoiceSourceManager.getInstance().next(VoiceSourceManager.SCREEN);
                /* Intent mIntent2 = new Intent(MainActivity.this, MapActivity.class);
                 startActivity(mIntent2);*/
                 break;

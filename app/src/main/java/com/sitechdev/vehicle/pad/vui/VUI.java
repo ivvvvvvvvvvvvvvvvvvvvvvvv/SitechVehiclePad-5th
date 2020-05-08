@@ -1329,12 +1329,8 @@ public class VUI implements VUIWindow.OnWindowHideListener {
     }
 
     private void vuiAnr() {
-        mAIUIEngine.ttsStart(context.getResources().getString(
+        shutAndTTS(context.getResources().getString(
                 R.string.vui_anr_text));
-        EventBusUtils.postEvent(new VoiceEvent(
-                VoiceEvent.EVENT_VOICE_TTS_PLAYIING,
-                context.getResources().getString(
-                        R.string.vui_anr_text)));
     }
 
     public void shutAndTTS(String tts) {
