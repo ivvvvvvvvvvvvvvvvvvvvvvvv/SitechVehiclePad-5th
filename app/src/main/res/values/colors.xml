@@ -56,7 +56,6 @@
     <color name="colo_FF6E6E80">#FF6E6E80</color>
 
     <!--  首页部分颜色值  -->
-
     <color name="color_main_login_text">#FFFFFF</color>
 
     <color name="color_main_weather_temp_text">#FFFFFF</color>
@@ -86,5 +85,11 @@
     <!--  右底车辆状态分类  -->
     <color name="color_main_car_info_split_line">#4DFFFFFF</color>
 
+    <!--  出行计价器页面颜色值  -->
+    <color name="color_taxi_main_text">#FFFFFF</color>
+    <color name="color_taxi_second_text">#80FFFFFF</color>
 
+    <!--  皮肤模式设置计价器页面颜色值  -->
+    <color name="color_setting_skin_main_text">#FFFFFF</color>
+    <color name="color_setting_skin_second_text">#838BA6</color>
 </resources>

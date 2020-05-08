@@ -3,6 +3,7 @@ buildscript {
     repositories {
         maven { url "http://maven.xtev.cn:8081/repository/maven-releases/" }
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+        maven { url 'https://jitpack.io' }
         google()
     }
     dependencies {
@@ -16,6 +17,7 @@ allprojects {
     repositories {
         maven { url "http://maven.xtev.cn:8081/repository/maven-releases/" }
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+        maven { url 'https://jitpack.io' }
         maven {
             url "https://raw.githubusercontent.com/tingban/maven-repository/release"
         }

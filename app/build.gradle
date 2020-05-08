@@ -158,6 +158,8 @@ dependencies {
     implementation Config.depConfig.skin_support.skin_support
     implementation Config.depConfig.skin_support.skin_support_design
     implementation Config.depConfig.skin_support.skin_support_constraint_layout
+    //
+    implementation Config.depConfig.rollingText
 }
 
 android.applicationVariants.all { variant ->

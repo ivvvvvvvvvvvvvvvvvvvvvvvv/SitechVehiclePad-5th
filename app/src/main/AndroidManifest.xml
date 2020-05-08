@@ -24,6 +24,12 @@
             android:name=".module.weather.WeatherActivity"
             android:screenOrientation="landscape" />
         <activity
+            android:name=".module.taxi.TaximeterActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".module.setting.SettingSkinActivity"
+            android:screenOrientation="landscape" />
+        <activity
             android:name=".module.member.MemberPreActivity"
             android:screenOrientation="landscape" />
         <activity
