@@ -87,8 +87,10 @@ class Config {
             skin_support       : [
                     skin_support                  : 'skin.support:skin-support:3.1.4',                   // skin-support 基础控件支持
                     skin_support_design           : 'skin.support:skin-support-design:3.1.4',            // skin-support-design material design 控件支持[可选]
-                    skin_support_cardview : 'skin.support:skin-support-cardview:3.1.4',                 // skin-support-cardview CardView 控件支持[可选]
+                    skin_support_cardview         : 'skin.support:skin-support-cardview:3.1.4',                 // skin-support-cardview CardView 控件支持[可选]
                     skin_support_constraint_layout: 'skin.support:skin-support-constraint-layout:3.1.4', // skin-support-constraint-layout ConstraintLayout 控件支持[可选]
-            ]
+            ],
+            //滚动动画的文字效果
+            rollingText        : 'com.github.YvesCheung:RollingText:1.2.6'
     ]
 }

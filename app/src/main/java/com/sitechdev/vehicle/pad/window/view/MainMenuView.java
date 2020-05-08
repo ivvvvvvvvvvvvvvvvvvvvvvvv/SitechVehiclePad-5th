@@ -13,6 +13,8 @@ import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.StringUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.event.VoiceEvent;
+import com.sitechdev.vehicle.pad.module.setting.SettingSkinActivity;
+import com.sitechdev.vehicle.pad.util.JumpUtils;
 import com.sitechdev.vehicle.pad.view.SkinTextView;
 import com.sitechdev.vehicle.pad.view.VolumeView2;
 import com.sitechdev.vehicle.pad.vui.VUI;
@@ -119,6 +121,7 @@ public class MainMenuView extends RelativeLayout implements View.OnClickListener
                 break;
             case R.id.id_btn_apps:
 //                ToastUtils.showShort("应用按钮被点击了。。。");
+                JumpUtils.jumpActivity(SettingSkinActivity.class);
                 break;
             case R.id.id_btn_teddy:
                 if (VUI.getInstance().isTeddyWorking()) {
