@@ -36,6 +36,7 @@ import com.sitechdev.vehicle.pad.event.WindowEvent;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.kaola.NewsDetailsActivity;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
+import com.sitechdev.vehicle.pad.module.forshow.AudioListForShowActivity;
 import com.sitechdev.vehicle.pad.module.main.MainActivity;
 import com.sitechdev.vehicle.pad.module.map.SetAddressActivity;
 import com.sitechdev.vehicle.pad.module.map.util.LocationData;
@@ -533,32 +534,36 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                         switch (semantic.optString("intent")) {
                             //新特速报
                             case "AIradio_news":
-                                KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(
-                                        context, 0, new Random().nextInt(6));
+//                                KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(
+//                                        context, 0, new Random().nextInt(6));
                                 vuiWindow.hide();
                                 shutAndTTS("正在为您打开新特速报");
                                 shut();
                                 break;
                             //少儿读物
                             case "AIradio_kid":
-                                KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(
-                                        context, 1, new Random().nextInt(6));
+//                                KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(
+//                                        context, 1, new Random().nextInt(6));
                                 vuiWindow.hide();
+                                Intent intent1 = new Intent(context, AudioListForShowActivity.class);
+                                intent1.putExtra("type", 1);
+                                intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                context.startActivity(intent1);
                                 shutAndTTS("正在为您打开少儿读物");
                                 shut();
                                 break;
                             //车嗨娱乐
                             case "AIradio_joke":
-                                KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(
-                                        context, 2, new Random().nextInt(6));
+//                                KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(
+//                                        context, 2, new Random().nextInt(6));
                                 vuiWindow.hide();
                                 shutAndTTS("正在为您打开车嗨娱乐");
                                 shut();
                                 break;
                             //生活一点通
                             case "AIradio_life":
-                                KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(
-                                        context, 3, new Random().nextInt(6));
+//                                KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(
+//                                        context, 3, new Random().nextInt(6));
                                 vuiWindow.hide();
                                 shutAndTTS("正在为您打开生活一点通");
                                 shut();
