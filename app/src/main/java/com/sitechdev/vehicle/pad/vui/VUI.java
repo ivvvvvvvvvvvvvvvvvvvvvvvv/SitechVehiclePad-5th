@@ -28,9 +28,11 @@ import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.app.AppConst;
+import com.sitechdev.vehicle.pad.event.AppEvent;
 import com.sitechdev.vehicle.pad.event.MapEvent;
 import com.sitechdev.vehicle.pad.event.PoiEvent;
 import com.sitechdev.vehicle.pad.event.VoiceEvent;
+import com.sitechdev.vehicle.pad.event.WindowEvent;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.kaola.NewsDetailsActivity;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
@@ -592,8 +594,8 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                                 shutAndTTS("已为您增加音量");
                                                 return;
                                             default:
-                                shutdown = true;
-                                vuiAnr();
+                                                shutdown = true;
+                                                vuiAnr();
                                                 break;
                                         }
                                     }
@@ -824,25 +826,26 @@ public class VUI implements VUIWindow.OnWindowHideListener {
 //                            }
 //                        }
                     } else if (TextUtils.equals("SITECHAI.SitechControl", service)) {
-//                        JSONArray semantics = intent.optJSONArray("semantic");
-//                        if (null != semantics && semantics.length() > 0) {
-//                            JSONObject semantic = semantics.optJSONObject(0);
-//                            if (null != semantic) {
-//                                switch (semantic.optString("intent")) {
-//                                    case "cmdAction":
-//                                        String template = semantic.optString("template");
-//                                        if ("{sitechaction}{appname}".equals(template)) {
-//                                            doSitechactionWithAppName(semantic);
-//                                        } else {
-//                                            vuiAnr();
-//                                        }
-//                                        break;
-//                                    default:
-//                                        vuiAnr();
-//                                        break;
-//                                }
-//                            }
-//                        }
+                        JSONArray semantics = intent.optJSONArray("semantic");
+                        if (null != semantics && semantics.length() > 0) {
+                            JSONObject semantic = semantics.optJSONObject(0);
+                            if (null != semantic) {
+                                switch (semantic.optString("intent")) {
+                                    case "cmdAction":
+                                        String template = semantic.optString("template");
+                                        if ("{sitechaction}{appname}".equals(template)
+                                                || "{sitechaction}{pricecounter}".equals(template)) {
+                                            doSitechactionWithAppName(semantic);
+                                        } else {
+                                            vuiAnr();
+                                        }
+                                        break;
+                                    default:
+                                        vuiAnr();
+                                        break;
+                                }
+                            }
+                        }
                     } else {
                         //未处理的技能
 //                        vuiAnr();
@@ -898,6 +901,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                             log("action start");
                             if (priceCounter.equals("action_count")) {
                                 log("action 开始计价");
+                                EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_TAXI_START_PRICE));
                                 shutAndTTS("好的，已开始计价，请按照交通规则行驶保障司乘安全");
                                 shut();
                             }
@@ -906,6 +910,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                             log("action stop");
                             if (priceCounter.equals("action_count")) {
                                 log("action 停止计价");
+                                EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_TAXI_STOP_PRICE));
                                 shutAndTTS("好的，已停止计价，请乘客确认订单并付款");
                                 shut();
                             }
@@ -913,46 +918,35 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                         case "open":
                             if (appnameTag.equals("priceCounter")) {
                                 log("打开出行计价器");
+                                EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_OPEN_TAXI_PAGE));
                                 shutAndTTS("好的，已为您打开出行计价器");
                                 shut();
                                 break;
                             }
                             switch (appname) {
-                                case "新特速报":
-                                    log("正在打开新特速报");
-                                    shut();
-                                    break;
-                                case "少儿读物":
-                                    log("正在少儿读物");
-                                    shut();
-                                    break;
-                                case "车嗨娱乐":
-                                    log("正在打开车嗨娱乐");
-                                    shut();
-                                    break;
-                                case "生活一点通":
-                                    log("正在打开生活一点通");
-                                    shut();
-                                    break;
                                 case "皮肤设置":
                                 case "主题设置":
                                     log("正在打开皮肤设置");
+                                    EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_OPEN_SETTING_SKIN_PAGE));
                                     shutAndTTS("好的，已为您打开皮肤设置");
                                     shut();
                                     break;
                                 case "控制面板":
                                 case "控制中心":
                                     log("正在打开控制中心");
+                                    EventBusUtils.postEvent(new WindowEvent(WindowEvent.EVENT_WINDOW_CONTROL_MENU, true));
                                     shut();
                                     break;
                                 case "车辆状态":
                                 case "车辆信息":
                                     log("正在打开车辆状态");
+                                    EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_OPEN_CAR_STATUS_PAGE));
                                     shutAndTTS("好的，已为您打开车辆状态");
                                     shut();
                                     break;
                                 case "个人中心":
                                     log("正在打开个人中心");
+                                    EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_OPEN_MEMBER_INFO_PAGE));
                                     shutAndTTS("好的，已为您打开个人中心");
                                     shut();
                                     break;
@@ -1312,6 +1306,12 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                         AppVariants.currentActivity.finish();
                                     }
                                     shut();
+                                    break;
+                                case "控制中心":
+                                case "控制面板":
+                                    log("正在关闭控制中心");
+                                    shut();
+                                    EventBusUtils.postEvent(new WindowEvent(WindowEvent.EVENT_WINDOW_CONTROL_MENU, false));
                                     break;
                                 default:
                                     vuiAnr();

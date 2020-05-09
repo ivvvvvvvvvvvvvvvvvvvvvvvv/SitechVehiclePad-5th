@@ -37,6 +37,7 @@
         android:id="@+id/image"
         android:layout_width="350px"
         android:layout_height="350px"
+        android:background="#aaa"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="34px" />
 
@@ -83,8 +84,8 @@
 
         <ImageView
             android:id="@+id/btn_pre"
-            android:layout_width="@dimen/px_50"
-            android:layout_height="@dimen/px_50"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/px_254"
             android:layout_marginRight="@dimen/px_135"
@@ -94,8 +95,8 @@
 
         <ImageView
             android:id="@+id/btn_pause_play"
-            android:layout_width="@dimen/px_50"
-            android:layout_height="@dimen/px_50"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_gravity="center"
             android:clickable="true"
@@ -103,8 +104,8 @@
 
         <ImageView
             android:id="@+id/btn_next"
-            android:layout_width="@dimen/px_50"
-            android:layout_height="@dimen/px_50"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/px_135"
             android:layout_toRightOf="@+id/btn_pause_play"
