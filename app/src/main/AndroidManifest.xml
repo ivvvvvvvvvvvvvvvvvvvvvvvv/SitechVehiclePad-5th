@@ -49,8 +49,14 @@
         </activity> <!-- 高德key -->
         <activity
             android:name=".module.main.MainActivity"
+            android:exported="true"
             android:launchMode="singleTask"
-            android:theme="@style/NoTitleAppTheme" />
+            android:theme="@style/NoTitleAppTheme">
+            <intent-filter>
+                <!-- 兼容高德地图无网络跳转-->
+                <action android:name="com.sitechdev.vehicle" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".module.login.LoginActivity"
             android:screenOrientation="landscape"

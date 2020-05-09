@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.blankj.utilcode.util.ActivityUtils;
-import com.blankj.utilcode.util.AppUtils;
+import com.sitechdev.vehicle.pad.bean.AllModuleBean;
 
 /**
  * 项目名称：SitechVehiclePad-5th
@@ -35,41 +35,41 @@ public class JumpUtils {
         }
     }
 
-//    public static void jump(Context context, AllModuleBean.ModuleBean bean) {
+    public static void jump(Context context, AllModuleBean.ModuleBean bean) {
 //        try {
 //            int jumpType = bean.jumpType;
-//
-//            //对酷我单独做处理，逻辑如下：判断是否登录，若登录直接进入酷我；若未登录，走正常的下面的逻辑。
+
+            //对酷我单独做处理，逻辑如下：判断是否登录，若登录直接进入酷我；若未登录，走正常的下面的逻辑。
 //            if (RouterConstants.THIRD_APP_KUWO.equals(bean.appRoute) && LoginUtils.isLogin()) {
 //                KuwoUtil.startKuwoApp(true);
 //                EventBusUtils.postEvent(new TeddyEvent(TeddyEvent.EB_TEDDY_SCENE_EVENT_CHANGE, TeddyEvent.TEDDY_SCENE_KU_WO));
 //                return;
 //            }
-//
-//            //判断是否需要网络
+
+            //判断是否需要网络
 //            if (checkNetGroup(bean.appRoute) && !(NetworkUtils.isNetworkAvailable(context))) {
 //                Bundle bundle = new Bundle();
 //                bundle.putString(TITLE_NAME, bean.appName);
 //                SubActivity.start(context, RouterConstants.NO_NET, bundle);
 //                return;
 //            }
-//
+
 //            // 判断是否需要登录
-////            if (checkLoginGroup(bean.appRoute)) {
-////                PersonLoginWindow.getInstance().showWnd(() -> toJump(context, jumpType, bean));
-////                return;
-////            }
-//
+//            if (checkLoginGroup(bean.appRoute)) {
+//                PersonLoginWindow.getInstance().showWnd(() -> toJump(context, jumpType, bean));
+//                return;
+//            }
+
 //            toJump(context, jumpType, bean);
 //        } catch (Exception e) {
 //            ToastUtils.showShort(e.getMessage());
 //        }
-//    }
-//
-//    /**
-//     * 页面跳转
-//     */
-//    private static void toJump(Context context, int jumpType, AllModuleBean.ModuleBean bean) {
+    }
+
+    /**
+     * 页面跳转
+     */
+    private static void toJump(Context context, int jumpType, AllModuleBean.ModuleBean bean) {
 //        if (jumpType == 0) {
 //            GA10App.fromSetting = StringUtils.isEquals(RouterConstants.FRAGMENT_SETTING, bean.appRoute);
 //            if (StringUtils.isEquals(RouterConstants.FRAGMENT_PERSONAL, bean.appRoute)) {
@@ -112,17 +112,18 @@ public class JumpUtils {
 //                }
 //            }
 //        }
-//    }
-//
-//    private static boolean checkNetGroup(String appRoute) {
-//        return appRoute.contains("needNet");
-//    }
-//
-//    /**
-//     * 判断登录组是否登录
-//     */
-//    public static boolean checkLoginGroup(String appRoute) {
+    }
+
+    private static boolean checkNetGroup(String appRoute) {
+        return true;//appRoute.contains("needNet");
+    }
+
+    /**
+     * 判断登录组是否登录
+     */
+    public static boolean checkLoginGroup(String appRoute) {
 //        boolean shouldLogin = appRoute.startsWith("/needLogin");
 //        return shouldLogin && !LoginUtils.isLogin();
-//    }
+            return true;
+    }
 }

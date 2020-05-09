@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -27,6 +28,7 @@ import com.sitechdev.vehicle.pad.model.contract.WeatherContract;
 import com.sitechdev.vehicle.pad.module.main.util.WeatherUtils;
 import com.sitechdev.vehicle.pad.module.map.util.LocationData;
 import com.sitechdev.vehicle.pad.module.weather.presenter.WeatherPresenter;
+import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.util.FontUtil;
 import com.sitechdev.vehicle.pad.view.loading.LoadingView;
 
@@ -49,6 +51,7 @@ import static com.sitechdev.vehicle.pad.view.ReflectImageView.createReflectionIm
  * 修改时间：
  * 备注：
  */
+@Route(path = RouterConstants.SUB_APP_WEATHER)
 public class WeatherActivity extends MvpActivity<WeatherPresenter> implements WeatherContract.View, View.OnClickListener {
     private final String TAG = WeatherActivity.class.getSimpleName();
 

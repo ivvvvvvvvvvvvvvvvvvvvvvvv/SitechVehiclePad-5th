@@ -33,6 +33,10 @@ class Config {
                     multidex    : 'com.android.support:multidex:1.0.3',
                     design      : 'com.android.support:design:28.0.0',
             ],
+            google             : [
+                    gson : 'com.google.code.gson:gson:2.8.6',
+                    zxing: 'com.google.zxing:core:3.4.0',
+            ],
             okgo               : [
                     okgo    : 'com.lzy.net:okgo:3.0.4',
                     okserver: 'com.lzy.net:okserver:2.0.5',
@@ -60,15 +64,10 @@ class Config {
                     butterknife        : 'com.jakewharton:butterknife:8.8.1',
                     butterknifeCompiler: 'com.jakewharton:butterknife-compiler:8.8.1',
             ],
-            bugly              : [
-                    bugly_version          : 'com.tencent.bugly:crashreport:latest.release',
-                    bugly_nativecrashreport: 'com.tencent.bugly:nativecrashreport:latest.release',
-            ],
             eventbus           : [
                     eventbus         : 'org.greenrobot:eventbus:3.2.0',
                     eventbusProcessor: 'org.greenrobot:eventbus-annotation-processor:3.2.0',
             ],
-            gson               : 'com.google.code.gson:gson:2.8.6',
             //kaola-tingban
             tingban            : 'com.kaolafm:open-sdk:1.5.0',
             //下拉刷新组件
@@ -84,6 +83,30 @@ class Config {
             //pingyin
             tinypinyin         : 'com.github.promeg:tinypinyin:2.0.3',
             tinypinyin_compiler: 'com.github.promeg:tinypinyin-lexicons-android-cncity:2.0.3',
+            //腾讯相关组件================
+            tencent            : [
+                    //腾讯-bugly
+                    bugly_version          : 'com.tencent.bugly:crashreport:latest.release',
+                    bugly_nativecrashreport: 'com.tencent.bugly:nativecrashreport:latest.release',
+                    //腾讯-MMKV
+                    mmkv                   : 'com.tencent:mmkv:1.1.1',
+                    //腾讯-xlog
+                    xlog                   : 'com.tencent.mars:mars-xlog:1.2.3',
+            ],
+            //阿里相关组件================
+            ali                : [
+                    //arouter
+                    arouter_api     : 'com.alibaba:arouter-api:1.5.0',
+                    arouter_compiler: 'com.alibaba:arouter-compiler:1.2.2',
+                    arouter_register: 'com.alibaba:arouter-register:1.0.2',
+            ],
+            //AOP相关组件================
+            aop                : [
+                    //aop
+                    aspectjx : 'com.hujiang.aspectjx:gradle-android-plugin-aspectjx:2.0.10',
+                    aspectjrt: 'org.aspectj:aspectjrt:1.9.5',
+            ],
+            //换肤组件
             skin_support       : [
                     skin_support                  : 'skin.support:skin-support:3.1.4',                   // skin-support 基础控件支持
                     skin_support_design           : 'skin.support:skin-support-design:3.1.4',            // skin-support-design material design 控件支持[可选]

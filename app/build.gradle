@@ -1,6 +1,8 @@
 import java.text.SimpleDateFormat
 
 apply plugin: 'com.android.application'
+apply plugin: 'android-aspectjx'
+apply plugin: 'com.alibaba.arouter'
 
 String getCurrentTime(String formatString) {
     SimpleDateFormat df = new SimpleDateFormat(formatString)
@@ -18,13 +20,15 @@ android {
         multiDexEnabled true
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [eventBusIndex: "com.sitechdev.vehicle.pad.utils.MyEventBusIndex"]
+                arguments = [eventBusIndex      : "com.sitechdev.vehicle.pad.utils.MyEventBusIndex",
+                             AROUTER_MODULE_NAME: project.getName()]
             }
         }
         ndk {
             // 设置支持的SO库架构
             abiFilters 'armeabi-v7a'//,'armeabi',  'x86'//, 'x86_64', 'arm64-v8a'
         }
+        resConfigs "zh"
     }
     signingConfigs {
         release {
@@ -38,6 +42,11 @@ android {
         flatDir {
             dirs 'libs/aiui_5e97d73d/'
         }
+    }
+
+    aspectjx {
+        //排除所有package路径中包含`android.support`的class文件及库（jar文件）
+        exclude 'android.support'
     }
     /*
     * 渠道Flavors，配置不同风格的app
@@ -109,6 +118,9 @@ dependencies {
         exclude module: 'recyclerview-v7'
         exclude module: 'support-v4'
     }
+    //ali-arouter
+    implementation Config.depConfig.ali.arouter_api
+    annotationProcessor Config.depConfig.ali.arouter_compiler
 
     //============高德地图sdk================
     //3D地图so及jar
@@ -160,6 +172,8 @@ dependencies {
     implementation Config.depConfig.skin_support.skin_support_constraint_layout
     //
     implementation Config.depConfig.rollingText
+    //通用组件
+    implementation project(':library:CommonLibrary')
 }
 
 android.applicationVariants.all { variant ->

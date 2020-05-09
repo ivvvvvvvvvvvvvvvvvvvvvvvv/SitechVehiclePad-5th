@@ -4,8 +4,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
+import com.sitechdev.vehicle.pad.router.RouterConstants;
 
 /**
  * 项目名称：SitechVehiclePad
@@ -16,6 +18,7 @@ import com.sitechdev.vehicle.pad.app.BaseActivity;
  * 修改时间：
  * 备注：
  */
+@Route(path = RouterConstants.SUB_APP_CAR_STATUS)
 public class CarStatusPreActivity extends BaseActivity {
 
 

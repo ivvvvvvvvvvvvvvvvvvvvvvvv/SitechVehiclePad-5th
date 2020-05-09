@@ -18,6 +18,8 @@ import com.sitechdev.vehicle.pad.module.location.LocationUtil;
 import com.sitechdev.vehicle.pad.module.main.MainActivity;
 import com.sitechdev.vehicle.pad.module.map.util.MapUtil;
 import com.sitechdev.vehicle.pad.module.music.MusicManager;
+import com.sitechdev.vehicle.pad.router.RouterConstants;
+import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.PermissionHelper;
 import com.sitechdev.vehicle.pad.vui.VUI;
 
@@ -108,10 +110,11 @@ public class SplashActivity extends BaseActivity {
             //发送地图广播，获取一些初始化参数
             MapUtil.sendAMapInitBroadcast();
             //页面跳转
-            Intent mIntent = new Intent(SplashActivity.this, MainActivity.class);
-            startActivity(mIntent);
+//            Intent mIntent = new Intent(SplashActivity.this, MainActivity.class);
+//            startActivity(mIntent);
+            RouterUtils.getInstance().navigation(RouterConstants.HOME_MAIN);
             finish();
-        }, 0);
+        }, 1500);
     }
 
     private void initlogic() {

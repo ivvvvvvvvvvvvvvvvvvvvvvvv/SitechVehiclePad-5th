@@ -10,6 +10,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.imageloader.GlideApp;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
@@ -18,6 +19,7 @@ import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.event.AppEvent;
 import com.sitechdev.vehicle.pad.model.SkinModel;
+import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.util.FontUtil;
 import com.sitechdev.vehicle.pad.view.SkinRollingTextView;
 import com.sitechdev.vehicle.pad.view.SkinTextView;
@@ -39,6 +41,7 @@ import java.util.Random;
  * 修改时间：
  * 备注：
  */
+@Route(path = RouterConstants.SUB_APP_TAXI)
 public class TaximeterActivity extends BaseActivity {
 
 
@@ -223,5 +226,17 @@ public class TaximeterActivity extends BaseActivity {
         BigDecimal fullKmDecimal = new BigDecimal(fullKm);
 
         return String.valueOf(fullKmDecimal.setScale(2, RoundingMode.UP).doubleValue());
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        try {
+            if (fullPriceTextView != null) {
+                fullPriceTextView.getAnimation().cancel();
+            }
+        } catch (Exception e) {
+            SitechDevLog.exception(e);
+        }
     }
 }

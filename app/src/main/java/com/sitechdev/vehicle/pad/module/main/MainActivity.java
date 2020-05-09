@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
@@ -47,11 +48,10 @@ import com.sitechdev.vehicle.pad.module.login.util.LoginHttpUtil;
 import com.sitechdev.vehicle.pad.module.main.bean.WeatherInfoBean;
 import com.sitechdev.vehicle.pad.module.main.util.MainHttpUtils;
 import com.sitechdev.vehicle.pad.module.main.util.WeatherUtils;
-import com.sitechdev.vehicle.pad.module.member.MemberPreActivity;
-import com.sitechdev.vehicle.pad.module.weather.WeatherActivity;
+import com.sitechdev.vehicle.pad.router.RouterConstants;
+import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppVariants;
 import com.sitechdev.vehicle.pad.util.FontUtil;
-import com.sitechdev.vehicle.pad.util.JumpUtils;
 import com.sitechdev.vehicle.pad.view.CommonToast;
 import com.sitechdev.vehicle.pad.view.ReflectTextClock;
 import com.sitechdev.vehicle.pad.view.ScrollTextView;
@@ -62,9 +62,8 @@ import com.sitechdev.vehicle.pad.window.manager.RightTopWindowManager;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-//import com.sitechdev.vehicle.pad.window.manager.MainPopUpControlWindowManager;
-
 @BindEventBus
+@Route(path = RouterConstants.HOME_MAIN)
 @VoiceSourceType(VoiceSourceManager.SUPPORT_TYPE_ALL)
 public class MainActivity extends BaseActivity
         implements VoiceSourceManager.MusicChangeListener {
@@ -324,11 +323,11 @@ public class MainActivity extends BaseActivity
         super.onClick(v);
         switch (v.getId()) {
             case R.id.tv_login:
-                CommonToast.makeText(this, "请登录..");
+//                CommonToast.makeText(this, "请登录..");
             case R.id.id_rela_login:
 //                if (UserManager.getInstance().isExistUserToken()) {
                     //已经登录，去往会员中心
-                JumpUtils.jumpActivity(MemberPreActivity.class);
+                RouterUtils.getInstance().navigation(RouterConstants.SUB_APP_MEMBER);
 //                } else {
 //                    //未登录，去往登录
 //                    Intent mIntent1 = new Intent(MainActivity.this, LoginActivity.class);
@@ -336,7 +335,7 @@ public class MainActivity extends BaseActivity
 //                }
                 break;
             case R.id.fl_weather:
-                JumpUtils.jumpActivity(WeatherActivity.class);
+                RouterUtils.getInstance().navigation(RouterConstants.SUB_APP_WEATHER);
                 break;
             case R.id.id_img_home:
             case R.id.tv_home:

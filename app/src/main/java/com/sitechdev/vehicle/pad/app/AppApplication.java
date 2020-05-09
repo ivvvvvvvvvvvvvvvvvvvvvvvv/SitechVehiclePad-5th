@@ -13,12 +13,14 @@ import com.kaolafm.opensdk.OpenSDK;
 import com.kaolafm.opensdk.http.core.HttpCallback;
 import com.kaolafm.opensdk.http.error.ApiException;
 import com.kaolafm.opensdk.log.Logging;
+import com.lzy.okgo.utils.IOUtils;
 import com.sitechdev.net.EnvironmentConfig;
 import com.sitechdev.net.HttpHelper;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.MarsXlogUtil;
 import com.sitechdev.vehicle.lib.util.ParamsUtil;
 import com.sitechdev.vehicle.lib.util.ProcessUtil;
+import com.sitechdev.vehicle.lib.util.ThreadManager;
 import com.sitechdev.vehicle.pad.BuildConfig;
 import com.sitechdev.vehicle.pad.event.WindowEvent;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
@@ -28,6 +30,7 @@ import com.sitechdev.vehicle.pad.manager.SkinManager;
 import com.sitechdev.vehicle.pad.module.map.util.MapVoiceEventUtil;
 import com.sitechdev.vehicle.pad.net.interception.SitechRequestInterceptor;
 import com.sitechdev.vehicle.pad.net.interception.SitechResponseInterceptor;
+import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppVariants;
 import com.sitechdev.vehicle.pad.util.BuglyHelper;
 import com.sitechdev.vehicle.pad.utils.MyEventBusIndex;
@@ -61,6 +64,8 @@ public class AppApplication extends Application {
             return;
         }
         mApplication = this;
+        // 启动多任务线程池
+        ThreadManager.getInstance().start();
         try {
             EventBus.builder().addIndex(new MyEventBusIndex()).installDefaultEventBus();
         } catch (Exception e) {
@@ -69,20 +74,30 @@ public class AppApplication extends Application {
         AppManager.getInstance().init(this);
         //腾讯相关组件
         initTecentUtil();
-        //网络
-        initNet();
-        //地图事件注册
-        MapVoiceEventUtil.getInstance().init();
-        //bugly
-        BuglyHelper.getInstance().initCrashReport(this);
+        //工具初始化
+        initUtils();
         //换肤组件
         initSkinManager();
         //window窗口
         initCustomWindow();
-        //Activity 页面管理
-        initLifecleActivity();
         //考拉SDK
         initKaolaSdk();
+    }
+
+    //    @DebugTrace
+    private void initUtils() {
+        ThreadManager.getInstance().addTask(() -> {
+            //Activity 页面管理
+            initLifecleActivity();
+            //路由组件
+            RouterUtils.getInstance().init(BuildConfig.DEBUG, this);
+            //网络
+            initNet();
+            //地图事件注册
+            MapVoiceEventUtil.getInstance().init();
+            //bugly
+            BuglyHelper.getInstance().initCrashReport(this);
+        });
     }
 
     private void initCustomWindow() {

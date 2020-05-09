@@ -13,8 +13,8 @@ import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.StringUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.event.VoiceEvent;
-import com.sitechdev.vehicle.pad.module.setting.SettingSkinActivity;
-import com.sitechdev.vehicle.pad.util.JumpUtils;
+import com.sitechdev.vehicle.pad.router.RouterConstants;
+import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.view.SkinTextView;
 import com.sitechdev.vehicle.pad.view.VolumeView2;
 import com.sitechdev.vehicle.pad.vui.VUI;
@@ -112,16 +112,18 @@ public class MainMenuView extends RelativeLayout implements View.OnClickListener
                 break;
             case R.id.id_btn_location:
 //                ToastUtils.showShort("导航按钮被点击了。。。");
+                RouterUtils.getInstance().navigation(RouterConstants.SUB_APP_TAXI);
                 break;
             case R.id.id_btn_music:
 //                ToastUtils.showShort("音乐按钮被点击了。。。");
                 break;
             case R.id.id_btn_driver:
 //                ToastUtils.showShort("驾驶按钮被点击了。。。");
+                RouterUtils.getInstance().navigation(RouterConstants.SUB_APP_CAR_STATUS);
                 break;
             case R.id.id_btn_apps:
 //                ToastUtils.showShort("应用按钮被点击了。。。");
-                JumpUtils.jumpActivity(SettingSkinActivity.class);
+                RouterUtils.getInstance().navigation(RouterConstants.SETTING_SKIN_PAGE);
                 break;
             case R.id.id_btn_teddy:
                 if (VUI.getInstance().isTeddyWorking()) {

@@ -41,13 +41,14 @@ dependencies {
     annotationProcessor Config.depConfig.eventbus.eventbusProcessor
 
     //bugly
-    api Config.depConfig.bugly.bugly_version
+    api Config.depConfig.tencent.bugly_version
     //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
-    api Config.depConfig.bugly.bugly_nativecrashreport
+    api Config.depConfig.tencent.bugly_nativecrashreport
 //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
     //腾讯mars-xlog组件
-    implementation 'com.tencent.mars:mars-xlog:1.2.3'
+    implementation Config.depConfig.tencent.xlog
     //微信mmkv组件
-    api 'com.tencent:mmkv:1.1.1'
-
+    api Config.depConfig.tencent.mmkv
+    //zxing组件
+    api Config.depConfig.google.zxing
 }

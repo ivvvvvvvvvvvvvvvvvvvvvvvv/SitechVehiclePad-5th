@@ -4,8 +4,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
+import com.sitechdev.vehicle.pad.router.RouterConstants;
+import com.sitechdev.vehicle.pad.router.RouterUtils;
 
 /**
  * 项目名称：SitechVehiclePad
@@ -16,6 +19,7 @@ import com.sitechdev.vehicle.pad.app.BaseActivity;
  * 修改时间：
  * 备注：
  */
+@Route(path = RouterConstants.SUB_APP_MEMBER)
 public class MemberPreActivity extends BaseActivity {
 
 
@@ -36,6 +40,7 @@ public class MemberPreActivity extends BaseActivity {
     protected void initListener() {
         super.initListener();
         findViewById(R.id.iv_sub_back).setOnClickListener(this);
+        findViewById(R.id.id_tv_sign_change).setOnClickListener(this);
     }
 
     @Override
@@ -49,6 +54,10 @@ public class MemberPreActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.iv_sub_back:
                 finish();
+                break;
+            case R.id.id_tv_sign_change:
+//                EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_CHANGE_SKIN, SkinModel.SKIN_WHITE_ORANGE));
+//                RouterUtils.getInstance().navigation(RouterConstants.SUB_APP_TAXI);
                 break;
             default:
                 break;

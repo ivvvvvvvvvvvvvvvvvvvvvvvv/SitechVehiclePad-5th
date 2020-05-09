@@ -20,7 +20,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    api Config.depConfig.gson
+    api Config.depConfig.google.gson
     api(Config.depConfig.okgo.okgo) {
         exclude module: 'okhttp'
         exclude module: 'okio'
