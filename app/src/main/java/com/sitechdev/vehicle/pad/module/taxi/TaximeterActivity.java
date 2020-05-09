@@ -11,14 +11,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.sitechdev.vehicle.lib.event.EventBusUtils;
+import com.sitechdev.vehicle.lib.event.BindEventBus;
 import com.sitechdev.vehicle.lib.imageloader.GlideApp;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
-import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.R;
+import com.sitechdev.vehicle.pad.app.AppConst;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.event.AppEvent;
-import com.sitechdev.vehicle.pad.model.SkinModel;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.util.FontUtil;
 import com.sitechdev.vehicle.pad.view.SkinRollingTextView;
@@ -27,10 +26,12 @@ import com.yy.mobile.rollingtextview.CharOrder;
 import com.yy.mobile.rollingtextview.strategy.Direction;
 import com.yy.mobile.rollingtextview.strategy.Strategy;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
-import java.util.Random;
 
 /**
  * 项目名称：SitechVehiclePad
@@ -42,6 +43,7 @@ import java.util.Random;
  * 备注：
  */
 @Route(path = RouterConstants.SUB_APP_TAXI)
+@BindEventBus
 public class TaximeterActivity extends BaseActivity {
 
 
@@ -232,11 +234,32 @@ public class TaximeterActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         try {
-            if (fullPriceTextView != null) {
-                fullPriceTextView.getAnimation().cancel();
+            if (mHandler != null) {
+                mHandler.removeMessages(0);
             }
         } catch (Exception e) {
             SitechDevLog.exception(e);
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onAppEvent(AppEvent event) {
+        SitechDevLog.i(AppConst.TAG, this + "  onEventUtil====" + event.getEventKey());
+        switch (event.getEventKey()) {
+            case AppEvent.EVENT_APP_TAXI_START_PRICE:
+                if (!isCalcPriceIng) {
+                    isCalcPriceIng = true;
+                    startChangePriceTextView();
+                }
+                break;
+            case AppEvent.EVENT_APP_TAXI_STOP_PRICE:
+                if (isCalcPriceIng) {
+                    isCalcPriceIng = false;
+                    stopChangePriceTextView();
+                }
+                break;
+            default:
+                break;
         }
     }
 }

@@ -236,6 +236,7 @@
                     android:layout_width="49px"
                     android:layout_height="match_parent"
                     android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="32px"
                     android:layout_marginTop="55px"
                     android:scaleType="fitStart"
                     android:src="@drawable/ico_taxi_all_km" />
