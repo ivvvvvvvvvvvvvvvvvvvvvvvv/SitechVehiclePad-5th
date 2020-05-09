@@ -40,6 +40,32 @@ public class AppEvent extends BaseEvent {
      */
     public static final String EVENT_APP_CHANGE_SKIN = "EVENT_APP_CHANGE_SKIN";
 
+    //=================OPEN APP================================
+    /**
+     * 跳转个人中心页面
+     */
+    public static final String EVENT_APP_OPEN_MEMBER_INFO_PAGE = "EVENT_APP_OPEN_MEMBER_INFO_PAGE";
+    /**
+     * 跳转车辆状态页面
+     */
+    public static final String EVENT_APP_OPEN_CAR_STATUS_PAGE = "EVENT_APP_OPEN_CAR_STATUS_PAGE";
+    /**
+     * 跳转皮肤页面
+     */
+    public static final String EVENT_APP_OPEN_SETTING_SKIN_PAGE = "EVENT_APP_OPEN_SETTING_SKIN_PAGE";
+    /**
+     * 跳转出行计价器页面事件
+     */
+    public static final String EVENT_APP_OPEN_TAXI_PAGE = "EVENT_APP_OPEN_TAXI_PAGE";
+    /**
+     * 跳转出行计价器--开始计价事件
+     */
+    public static final String EVENT_APP_TAXI_START_PRICE = "EVENT_APP_TAXI_START_PRICE";
+    /**
+     * 出行计价器--停止计价事件
+     */
+    public static final String EVENT_APP_TAXI_STOP_PRICE = "EVENT_APP_TAXI_STOP_PRICE";
+
     private String eventKey = "";
     private Object eventValue = null;
 
