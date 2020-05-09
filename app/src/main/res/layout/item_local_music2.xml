@@ -25,7 +25,7 @@
         android:layout_toEndOf="@+id/item_locl_music_index"
         android:ellipsize="end"
         android:maxLines="1"
-        android:textSize="32px" />
+        android:textSize="30px" />
 
     <TextView
         android:id="@+id/item_locl_music_art"
@@ -35,5 +35,5 @@
         android:layout_centerVertical="true"
         android:layout_marginStart="20px"
         android:alpha="0.5"
-        android:textSize="32px" />
+        android:textSize="30px" />
 </RelativeLayout>
