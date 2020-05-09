@@ -8,6 +8,8 @@ import com.sitechdev.vehicle.lib.util.XTIDUtil;
 import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.app.AppConst;
 import com.sitechdev.vehicle.pad.event.AppEvent;
+import com.sitechdev.vehicle.pad.router.RouterConstants;
+import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -56,6 +58,22 @@ public class AppManager {
                 break;
             //刷新token
             case AppEvent.EVENT_APP_REFRESH_TOKEN:
+                break;
+            //个人中心
+            case AppEvent.EVENT_APP_OPEN_MEMBER_INFO_PAGE:
+                RouterUtils.getInstance().navigation(RouterConstants.SUB_APP_MEMBER);
+                break;
+            //车辆状态
+            case AppEvent.EVENT_APP_OPEN_CAR_STATUS_PAGE:
+                RouterUtils.getInstance().navigation(RouterConstants.SUB_APP_CAR_STATUS);
+                break;
+            //模式皮肤
+            case AppEvent.EVENT_APP_OPEN_SETTING_SKIN_PAGE:
+                RouterUtils.getInstance().navigation(RouterConstants.SETTING_SKIN_PAGE);
+                break;
+            //出行计价器
+            case AppEvent.EVENT_APP_OPEN_TAXI_PAGE:
+                RouterUtils.getInstance().navigation(RouterConstants.SUB_APP_TAXI);
                 break;
             default:
                 break;
