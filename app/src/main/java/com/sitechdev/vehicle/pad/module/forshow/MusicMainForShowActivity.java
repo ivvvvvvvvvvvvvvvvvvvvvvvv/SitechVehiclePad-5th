@@ -136,6 +136,7 @@ public class MusicMainForShowActivity extends BaseActivity {
         private ImageView btn_pre;
         private ImageView btn_next;
         private ImageView btn_pause_play;
+        private TextView subtitle;
         private ScrollTextView tv_bottom_title;
 
         public PlayHolder(View view) {
@@ -147,8 +148,8 @@ public class MusicMainForShowActivity extends BaseActivity {
             btn_pre = holderView.findViewById(R.id.btn_pre);
             btn_next = holderView.findViewById(R.id.btn_next);
             btn_pause_play = holderView.findViewById(R.id.btn_pause_play);
-            holderView.findViewById(R.id.btn_pop_list).setVisibility(View.GONE);
             tv_bottom_title = holderView.findViewById(R.id.tv_bottom_title);
+            subtitle = holderView.findViewById(R.id.subtitle);
             btn_pre.setOnClickListener(this);
             btn_next.setOnClickListener(this);
             btn_pause_play.setOnClickListener(this);
@@ -206,21 +207,19 @@ public class MusicMainForShowActivity extends BaseActivity {
         @Override
         public void onMusciChange(MusicInfo current, int status) {
             if (null != current){
-                tv_bottom_title.setText("");
-                tv_bottom_title.append(current.musicName);
-                tv_bottom_title.append(" - ");
-                tv_bottom_title.append(current.artist);
+                tv_bottom_title.setText(current.musicName);
+                subtitle.setText(current.artist);
                 switch (status){
                     case MusicManager.OnMusicChangeListener.PAUSE:
-                        btn_pause_play.setActivated(false);
+                        btn_pause_play.setImageResource(R.drawable.pc_play);
                         break;
                     case MusicManager.OnMusicChangeListener.RESUME:
-                        btn_pause_play.setActivated(true);
+                        btn_pause_play.setImageResource(R.drawable.pc_pause);
                         break;
                 }
             }else {
                 tv_bottom_title.setText("");
-                btn_pause_play.setActivated(false);
+                btn_pause_play.setImageResource(R.drawable.pc_play);
             }
         }
 

@@ -562,42 +562,42 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                 shut();
                                 break;
                             case "INSTRUCTION":
-//                                JSONArray slots = semantic.optJSONArray("slots");
-//                                int len = slots.length();
-//                                if (null != slots && len > 0) {
-//                                    JSONObject slot = slots.optJSONObject(0);
-//                                    if (null != slot) {
-//                                        switch (slot.optString("value")) {
-//                                            case "past":
-//                                                VoiceSourceManager.getInstance().pre(VoiceSourceManager.VOICE);
-//                                                break;
-//                                            case "next":
-//                                                VoiceSourceManager.getInstance().next(VoiceSourceManager.VOICE);
-//                                                break;
-//                                            case "replay":
-//                                            case "play":
-//                                                VoiceSourceManager.getInstance().resume(VoiceSourceManager.VOICE);
-//                                                break;
-//                                            case "pause":
-//                                                VoiceSourceManager.getInstance().pause(VoiceSourceManager.VOICE);
-//                                                break;
-//                                            case "volume_minus":
-//                                                //声音减小
-//                                                AudioUtil.onKeyDownVolume(AudioManager.STREAM_MUSIC);
-//                                                shutAndTTS("已为您减小音量");
-//                                                return;
-//                                            case "volume_plus":
-//                                                //声音增大
-//                                                AudioUtil.onKeyUpVolume(AudioManager.STREAM_MUSIC);
-//                                                shutAndTTS("已为您增加音量");
-//                                                return;
-//                                            default:
+                                JSONArray slots = semantic.optJSONArray("slots");
+                                int len = slots.length();
+                                if (null != slots && len > 0) {
+                                    JSONObject slot = slots.optJSONObject(0);
+                                    if (null != slot) {
+                                        switch (slot.optString("value")) {
+                                            case "past":
+                                                VoiceSourceManager.getInstance().pre(VoiceSourceManager.VOICE);
+                                                break;
+                                            case "next":
+                                                VoiceSourceManager.getInstance().next(VoiceSourceManager.VOICE);
+                                                break;
+                                            case "replay":
+                                            case "play":
+                                                VoiceSourceManager.getInstance().resume(VoiceSourceManager.VOICE);
+                                                break;
+                                            case "pause":
+                                                VoiceSourceManager.getInstance().pause(VoiceSourceManager.VOICE);
+                                                break;
+                                            case "volume_minus":
+                                                //声音减小
+                                                AudioUtil.onKeyDownVolume(AudioManager.STREAM_MUSIC);
+                                                shutAndTTS("已为您减小音量");
+                                                return;
+                                            case "volume_plus":
+                                                //声音增大
+                                                AudioUtil.onKeyUpVolume(AudioManager.STREAM_MUSIC);
+                                                shutAndTTS("已为您增加音量");
+                                                return;
+                                            default:
                                 shutdown = true;
                                 vuiAnr();
-//                                                break;
-//                                        }
-//                                    }
-//                                }
+                                                break;
+                                        }
+                                    }
+                                }
                                 break;
                             case "RANDOM_SEARCH":
                                 VoiceSourceManager.getInstance().changeAnother(VoiceSourceManager.VOICE);

@@ -40,6 +40,7 @@ import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.manager.UserManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceType;
+import com.sitechdev.vehicle.pad.module.forshow.AudioListForShowActivity;
 import com.sitechdev.vehicle.pad.module.login.bean.LoginResponseBean;
 import com.sitechdev.vehicle.pad.module.login.bean.LoginUserBean;
 import com.sitechdev.vehicle.pad.module.login.util.LoginHttpUtil;
@@ -357,16 +358,16 @@ public class MainActivity extends BaseActivity
                 break;
             case R.id.ll_news:
 //                KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(mContext, 0);
-                break;
             case R.id.ll_book:
 //                KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(this, 1);
-                break;
+                Intent intent = new Intent(this, AudioListForShowActivity.class);
+                intent.putExtra("type", 1);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             case R.id.ll_car:
 //                KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(this, 2);
-                break;
             case R.id.ll_life:
 //                KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(this, 3);
-
                 break;
             case R.id.ll_car_power_info:
 //                Intent tempIntent = new Intent(MainActivity.this, CarStatusPreActivity.class);

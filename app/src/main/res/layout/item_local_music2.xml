@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:ignore="PxUsage">
+
+    <ImageView
+        android:id="@+id/item_locl_music_index"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:src="@drawable/list_icon_play" />
+
+    <TextView
+        android:id="@+id/item_locl_music_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="32px"
+        android:layout_marginTop="20px"
+        android:layout_marginBottom="20px"
+        android:layout_toStartOf="@+id/item_locl_music_art"
+        android:layout_toEndOf="@+id/item_locl_music_index"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textSize="32px" />
+
+    <TextView
+        android:id="@+id/item_locl_music_art"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="16dp"
+        android:alpha="0.5"
+        android:textSize="32px" />
+</RelativeLayout>

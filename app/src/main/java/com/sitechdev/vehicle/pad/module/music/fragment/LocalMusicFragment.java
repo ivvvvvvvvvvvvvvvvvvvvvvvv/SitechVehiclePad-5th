@@ -13,18 +13,17 @@ import android.view.ViewGroup;
 
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
-import com.sitechdev.vehicle.lib.util.DensityUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.module.music.MusicManager;
 import com.sitechdev.vehicle.pad.module.music.adapter.LocalMusicAdapter;
+import com.sitechdev.vehicle.pad.module.music.adapter.LocalMusicAdapter2;
 import com.sitechdev.vehicle.pad.util.MediaScanister;
-import com.sitechdev.vehicle.pad.view.RecycleViewDivider;
 
 /**
  * 本地音乐
  */
 public class LocalMusicFragment extends Fragment implements
-        LocalMusicAdapter.OnCheckEmptyListener, View.OnClickListener {
+        LocalMusicAdapter2.OnCheckEmptyListener, View.OnClickListener {
 
     private Context context;
 
@@ -34,7 +33,8 @@ public class LocalMusicFragment extends Fragment implements
 
     private View emptyView;
 
-    private LocalMusicAdapter adapter;
+//    private LocalMusicAdapter adapter;
+    private LocalMusicAdapter2 adapter;
 
     public LocalMusicFragment() {
 
@@ -82,15 +82,15 @@ public class LocalMusicFragment extends Fragment implements
         root.findViewById(R.id.local_music_scan).setOnClickListener(this);
         vLocalMusicList.setLayoutManager(new LinearLayoutManager(context));
         vLocalMusicList.setItemAnimator(new DefaultItemAnimator());
-        adapter = new LocalMusicAdapter(context);
+        adapter = new LocalMusicAdapter2(context);
         adapter.setOnCheckEmptyListener(this);
         vLocalMusicList.setAdapter(adapter);
         MusicManager.getInstance().addMusicListUpdateListener(adapter);
         MusicManager.getInstance().addMusicChangeListener(adapter);
-        vLocalMusicList.addItemDecoration(new RecycleViewDivider(context,
-                adapter, DensityUtils.dp2px(1),
-                context.getResources().getColor(R.color.white_5),
-                context.getResources().getColor(R.color.white_21)));
+//        vLocalMusicList.addItemDecoration(new RecycleViewDivider(context,
+//                adapter, DensityUtils.dp2px(1),
+//                context.getResources().getColor(R.color.white_5),
+//                context.getResources().getColor(R.color.white_21)));
     }
 
     @Override
