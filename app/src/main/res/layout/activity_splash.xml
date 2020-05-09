@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/id_rl_root"
-    android:background="@drawable/main_bg"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/main_bg">
 
     <RelativeLayout
         android:id="@+id/id_rl_logo_under"
@@ -24,7 +24,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="40px"
             android:layout_toLeftOf="@id/id_iv_logo_under"
-            android:background="@android:color/darker_gray" />
+            android:background="#33FFFFFF" />
 
         <View
             android:layout_width="200px"
@@ -32,7 +32,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="40px"
             android:layout_toRightOf="@id/id_iv_logo_under"
-            android:background="@android:color/darker_gray" />
+            android:background="#33FFFFFF" />
 
     </RelativeLayout>
 
