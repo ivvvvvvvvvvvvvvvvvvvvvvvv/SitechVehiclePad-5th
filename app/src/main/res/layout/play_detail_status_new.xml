@@ -14,11 +14,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50px"
         android:maxLines="1"
         android:text="无内容"
         android:textColor="@color/white"
-        android:textSize="@dimen/px_48"
+        android:textSize="@dimen/px_40"
         android:textStyle="bold"
         tools:text="专辑名称" />
 
@@ -49,7 +48,7 @@
         android:layout_marginTop="35px"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:visibility="invisible">
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/start_time"
