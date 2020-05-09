@@ -28,9 +28,7 @@ import org.greenrobot.eventbus.ThreadMode;
 public class AppManager {
 
     private AppManager() {
-        if (EventBus.getDefault().isRegistered(this)) {
-            EventBusUtils.register(this);
-        }
+        EventBusUtils.register(this);
     }
 
     private static class Single {
