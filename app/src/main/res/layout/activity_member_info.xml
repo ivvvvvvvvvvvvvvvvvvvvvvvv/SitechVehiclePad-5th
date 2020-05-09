@@ -44,8 +44,8 @@
                 android:layout_marginLeft="30px"
                 android:layout_marginTop="10px"
                 android:text="车友会会员"
-                android:textColor="#99FFFFFF"
-                android:textSize="32px" />
+                android:textColor="@color/color_setting_skin_second_text"
+                android:textSize="28px" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -54,7 +54,7 @@
             android:layout_height="100px"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/shape_main_map_item_bg"
+            android:background="@drawable/ico_taxi_price_btn_bg"
             android:gravity="center_horizontal">
 
             <TextView
@@ -100,8 +100,7 @@
             <RelativeLayout
                 android:id="@+id/id_sign_count_top_content"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_member_info_border">
+                android:layout_height="wrap_content">
 
                 <ImageView
                     android:id="@+id/id_sign_tag"
@@ -150,7 +149,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:layout_marginTop="10px"
-                android:background="@drawable/shape_main_map_item_bg"
+                android:background="@drawable/ico_taxi_price_btn_bg"
                 android:gravity="center"
                 android:text="积分兑换"
                 android:textColor="@color/white"

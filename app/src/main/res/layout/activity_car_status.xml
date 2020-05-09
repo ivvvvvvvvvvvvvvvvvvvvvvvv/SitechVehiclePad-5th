@@ -19,6 +19,7 @@
             android:id="@+id/id_car_status_left_top_content"
             android:layout_width="750px"
             android:layout_height="500px"
+            android:layout_centerVertical="true"
             android:paddingLeft="50px">
 
             <RelativeLayout
@@ -27,15 +28,15 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="50px"
+                android:layout_marginTop="15px"
                 android:layout_marginRight="50px"
                 android:layout_marginBottom="30px">
 
                 <ImageView
                     android:id="@+id/id_img_car_status_power_km"
-                    android:layout_width="50px"
-                    android:layout_height="50px"
+                    android:layout_width="41px"
+                    android:layout_height="22px"
                     android:layout_centerHorizontal="true"
-                    android:scaleType="centerInside"
                     android:src="@drawable/ico_carstatus_xuhang" />
 
                 <LinearLayout
@@ -73,8 +74,8 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="20px"
                     android:text="当前续航"
-                    android:textColor="#99FFFFFF"
-                    android:textSize="30px" />
+                    android:textColor="@color/color_setting_skin_second_text"
+                    android:textSize="28px" />
             </RelativeLayout>
 
             <View
@@ -95,10 +96,9 @@
 
                 <ImageView
                     android:id="@+id/id_img_car_status_recharge_count"
-                    android:layout_width="50px"
-                    android:layout_height="50px"
+                    android:layout_width="30px"
+                    android:layout_height="35px"
                     android:layout_centerHorizontal="true"
-                    android:scaleType="centerInside"
                     android:src="@drawable/ico_carstatus_recharge_count" />
 
                 <LinearLayout
@@ -136,8 +136,8 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="20px"
                     android:text="充电次数"
-                    android:textColor="#99FFFFFF"
-                    android:textSize="30px" />
+                    android:textColor="@color/color_setting_skin_second_text"
+                    android:textSize="28px" />
             </RelativeLayout>
 
             <View
@@ -158,10 +158,9 @@
 
                 <ImageView
                     android:id="@+id/id_img_car_status_full_km"
-                    android:layout_width="50px"
-                    android:layout_height="50px"
+                    android:layout_width="31px"
+                    android:layout_height="31px"
                     android:layout_centerHorizontal="true"
-                    android:scaleType="centerInside"
                     android:src="@drawable/ico_carstatus_fullkm" />
 
                 <LinearLayout
@@ -199,8 +198,8 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="20px"
                     android:text="总里程"
-                    android:textColor="#99FFFFFF"
-                    android:textSize="30px" />
+                    android:textColor="@color/color_setting_skin_second_text"
+                    android:textSize="28px" />
             </RelativeLayout>
 
             <View
@@ -216,15 +215,14 @@
                 android:layout_below="@id/id_tv_car_status_split_line_middle"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="50px"
-                android:layout_marginTop="30px"
+                android:layout_marginTop="45px"
                 android:layout_marginRight="50px">
 
                 <ImageView
                     android:id="@+id/id_img_car_status_has_power"
-                    android:layout_width="50px"
-                    android:layout_height="50px"
+                    android:layout_width="39px"
+                    android:layout_height="21px"
                     android:layout_centerHorizontal="true"
-                    android:scaleType="centerInside"
                     android:src="@drawable/ico_carstatus_has_power" />
 
                 <LinearLayout
@@ -262,8 +260,8 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="20px"
                     android:text="剩余电量"
-                    android:textColor="#99FFFFFF"
-                    android:textSize="30px" />
+                    android:textColor="@color/color_setting_skin_second_text"
+                    android:textSize="28px" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -278,10 +276,9 @@
 
                 <ImageView
                     android:id="@+id/id_img_car_status_temp"
-                    android:layout_width="50px"
-                    android:layout_height="50px"
+                    android:layout_width="18px"
+                    android:layout_height="38px"
                     android:layout_centerHorizontal="true"
-                    android:scaleType="centerInside"
                     android:src="@drawable/ico_carstatus_temp" />
 
                 <LinearLayout
@@ -318,8 +315,8 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="20px"
                     android:text="电池温度"
-                    android:textColor="#99FFFFFF"
-                    android:textSize="30px" />
+                    android:textColor="@color/color_setting_skin_second_text"
+                    android:textSize="28px" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -334,10 +331,9 @@
 
                 <ImageView
                     android:id="@+id/id_img_car_status_points"
-                    android:layout_width="50px"
-                    android:layout_height="50px"
+                    android:layout_width="34px"
+                    android:layout_height="34px"
                     android:layout_centerHorizontal="true"
-                    android:scaleType="centerInside"
                     android:src="@drawable/ico_carstatus_point_count" />
 
                 <LinearLayout
@@ -375,8 +371,8 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="20px"
                     android:text="电池评分"
-                    android:textColor="#99FFFFFF"
-                    android:textSize="30px" />
+                    android:textColor="@color/color_setting_skin_second_text"
+                    android:textSize="28px" />
             </RelativeLayout>
         </RelativeLayout>
 
@@ -398,6 +394,7 @@
                 android:layout_height="50px"
                 android:layout_centerVertical="true"
                 android:scaleType="centerInside"
+                android:alpha="0.8"
                 android:src="@drawable/ico_carstatus_error_log" />
 
             <TextView
@@ -409,16 +406,16 @@
                 android:layout_toRightOf="@id/id_img_car_status_error_log"
                 android:text="故障日志"
                 android:textColor="#FFFFFF"
-                android:textSize="30px" />
+                android:textSize="28px" />
 
             <View
                 android:id="@+id/id_tv_car_status_bottom_split_line1"
                 android:layout_width="1px"
-                android:layout_height="50px"
+                android:layout_height="40px"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="17px"
                 android:layout_toRightOf="@id/id_tv_car_status_error_title"
-                android:background="#99ffffff" />
+                android:background="#4DFFFFFF" />
 
             <TextView
                 android:id="@+id/id_tv_car_status_error_content"
@@ -428,8 +425,8 @@
                 android:layout_marginLeft="17px"
                 android:layout_toRightOf="@id/id_tv_car_status_bottom_split_line1"
                 android:text="车辆健康，无故障"
-                android:textColor="#99FFFFFF"
-                android:textSize="30px" />
+                android:textColor="@color/color_setting_skin_second_text"
+                android:textSize="28px" />
 
             <ImageView
                 android:layout_width="13px"
