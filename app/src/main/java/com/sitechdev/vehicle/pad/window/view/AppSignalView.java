@@ -133,22 +133,22 @@ public class AppSignalView extends LinearLayout {
      * @param isShow true=展示，否则隐藏
      */
     public void refreshTboxIconView(boolean isShow, int netRssi) {
-        ThreadUtils.runOnUIThread(() -> {
-            if (iv_tbox_icon == null) {
-                iv_tbox_icon = findViewById(R.id.iv_tbox_icon);
-            }
-            iv_tbox_icon.setVisibility(isShow ? View.VISIBLE : View.GONE);
-            tBoxIconChange(netRssi);
-        });
+//        ThreadUtils.runOnUIThread(() -> {
+//            if (iv_tbox_icon == null) {
+//                iv_tbox_icon = findViewById(R.id.iv_tbox_icon);
+//            }
+//            iv_tbox_icon.setVisibility(isShow ? View.VISIBLE : View.GONE);
+//            tBoxIconChange(netRssi);
+//        });
     }
 
     public void refreshTboxIconView(boolean isShow) {
-        ThreadUtils.runOnUIThread(() -> {
-            if (iv_tbox_icon == null) {
-                iv_tbox_icon = findViewById(R.id.iv_tbox_icon);
-            }
-            iv_tbox_icon.setVisibility(isShow ? View.VISIBLE : View.GONE);
-        });
+//        ThreadUtils.runOnUIThread(() -> {
+//            if (iv_tbox_icon == null) {
+//                iv_tbox_icon = findViewById(R.id.iv_tbox_icon);
+//            }
+//            iv_tbox_icon.setVisibility(isShow ? View.VISIBLE : View.GONE);
+//        });
     }
 
     public void refreshTboxIconLevel(int level) {

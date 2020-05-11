@@ -80,6 +80,7 @@
         android:layout_centerVertical="true"
         android:layout_marginEnd="5px"
         android:padding="3dp"
+        android:visibility="gone"
         android:layout_toLeftOf="@id/iv_hot_icon"
         android:scaleType="centerInside"
         android:src="@drawable/tbox_zero" />
