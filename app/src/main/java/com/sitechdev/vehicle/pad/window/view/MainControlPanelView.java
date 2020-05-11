@@ -626,7 +626,7 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
          *
          * FLAG_VIBRATE（是否进入振动振铃模式时是否振动）
          */
-        mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, value, AudioManager.FLAG_PLAY_SOUND | AudioManager.FLAG_SHOW_UI);
+        mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, value, AudioManager.FLAG_PLAY_SOUND);// | AudioManager.FLAG_SHOW_UI);
     }
 
     /**
