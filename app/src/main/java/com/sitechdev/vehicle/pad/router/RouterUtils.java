@@ -9,7 +9,6 @@ import com.alibaba.android.arouter.facade.Postcard;
 import com.alibaba.android.arouter.facade.template.IProvider;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.blankj.utilcode.util.ActivityUtils;
-import com.sitechdev.vehicle.lib.util.ActivityManager;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.StringUtils;
 
@@ -81,6 +80,25 @@ public class RouterUtils {
         return null;
     }
 
+    public void navigationWithFlags(String path, int... flags) {
+        navigationWithFlags(path, null, flags);
+    }
+
+    public void navigationWithFlags(String path, Bundle bundle, int... flags) {
+        if (path == null) {
+            return;
+        }
+        if (flags == null || flags.length == 0) {
+            navigation(path, bundle);
+            return;
+        }
+        Postcard postcard = ARouter.getInstance().build(path);
+        for (int i = 0; i < flags.length; i++) {
+            postcard.withFlags(flags[i]);
+        }
+        postcard.navigation();
+    }
+
     /**
      * 携带参数跳转页面
      *
@@ -88,7 +106,7 @@ public class RouterUtils {
      * @param bundle bundle参数
      */
     public void navigation(String path, Bundle bundle) {
-        if (path == null || bundle == null) {
+        if (path == null && bundle == null) {
             return;
         }
         ARouter.getInstance()

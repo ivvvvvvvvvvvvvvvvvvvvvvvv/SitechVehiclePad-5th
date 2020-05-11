@@ -1,6 +1,7 @@
 package com.sitechdev.vehicle.pad.window.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -109,6 +110,9 @@ public class MainMenuView extends RelativeLayout implements View.OnClickListener
         switch (v.getId()) {
             case R.id.id_btn_home:
 //                ToastUtils.showShort("主页按钮被点击了。。。");
+                RouterUtils.getInstance().navigationWithFlags(RouterConstants.HOME_MAIN,
+                        Intent.FLAG_ACTIVITY_CLEAR_TASK, Intent.FLAG_ACTIVITY_CLEAR_TOP
+                );
                 break;
             case R.id.id_btn_location:
 //                ToastUtils.showShort("导航按钮被点击了。。。");
