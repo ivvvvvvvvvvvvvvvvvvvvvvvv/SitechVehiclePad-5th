@@ -2,7 +2,9 @@ package com.sitechdev.vehicle.pad.module.main;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -41,13 +43,13 @@ import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.manager.UserManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceType;
-import com.sitechdev.vehicle.pad.module.forshow.AudioListForShowActivity;
 import com.sitechdev.vehicle.pad.module.login.bean.LoginResponseBean;
 import com.sitechdev.vehicle.pad.module.login.bean.LoginUserBean;
 import com.sitechdev.vehicle.pad.module.login.util.LoginHttpUtil;
 import com.sitechdev.vehicle.pad.module.main.bean.WeatherInfoBean;
 import com.sitechdev.vehicle.pad.module.main.util.MainHttpUtils;
 import com.sitechdev.vehicle.pad.module.main.util.WeatherUtils;
+import com.sitechdev.vehicle.pad.receiver.NetReceiver;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppVariants;
@@ -55,9 +57,9 @@ import com.sitechdev.vehicle.pad.util.FontUtil;
 import com.sitechdev.vehicle.pad.view.CommonToast;
 import com.sitechdev.vehicle.pad.view.ReflectTextClock;
 import com.sitechdev.vehicle.pad.view.ScrollTextView;
+import com.sitechdev.vehicle.pad.window.manager.AppSignalWindowManager;
 import com.sitechdev.vehicle.pad.window.manager.MainControlPanelWindowManager;
 import com.sitechdev.vehicle.pad.window.manager.MainMenuWindowManager;
-import com.sitechdev.vehicle.pad.window.manager.RightTopWindowManager;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -107,6 +109,9 @@ public class MainActivity extends BaseActivity
                 startActivity(intent);
             }
         }
+
+//        NetManagerImpl.getInstance().initNetCallback();
+        registerReceiver(new NetReceiver(), new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
 
 
@@ -282,7 +287,7 @@ public class MainActivity extends BaseActivity
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             if (Settings.canDrawOverlays(AppApplication.getContext())) {
-                RightTopWindowManager.getInstance().show();
+                AppSignalWindowManager.getInstance().show();
                 MainMenuWindowManager.getInstance().show();
                 MainControlPanelWindowManager.getInstance().show();
             }

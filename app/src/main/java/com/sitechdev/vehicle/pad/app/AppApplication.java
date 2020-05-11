@@ -13,7 +13,6 @@ import com.kaolafm.opensdk.OpenSDK;
 import com.kaolafm.opensdk.http.core.HttpCallback;
 import com.kaolafm.opensdk.http.error.ApiException;
 import com.kaolafm.opensdk.log.Logging;
-import com.lzy.okgo.utils.IOUtils;
 import com.sitechdev.net.EnvironmentConfig;
 import com.sitechdev.net.HttpHelper;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
@@ -34,15 +33,11 @@ import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppVariants;
 import com.sitechdev.vehicle.pad.util.BuglyHelper;
 import com.sitechdev.vehicle.pad.utils.MyEventBusIndex;
+import com.sitechdev.vehicle.pad.window.manager.AppSignalWindowManager;
 import com.sitechdev.vehicle.pad.window.manager.MainControlPanelWindowManager;
 import com.sitechdev.vehicle.pad.window.manager.MainMenuWindowManager;
-import com.sitechdev.vehicle.pad.window.manager.RightTopWindowManager;
 
 import org.greenrobot.eventbus.EventBus;
-
-import skin.support.SkinCompatManager;
-import skin.support.constraint.app.SkinConstraintViewInflater;
-import skin.support.design.app.SkinMaterialViewInflater;
 
 /**
  * 项目名称：SitechVehiclePad
@@ -102,7 +97,7 @@ public class AppApplication extends Application {
 
     private void initCustomWindow() {
         //右上角状态window
-        RightTopWindowManager.getInstance().init(this);
+        AppSignalWindowManager.getInstance().init(this);
         //底部主菜单
         MainMenuWindowManager.getInstance().init(this);
         //底部控制菜单

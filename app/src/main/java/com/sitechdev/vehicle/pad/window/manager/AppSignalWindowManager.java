@@ -11,17 +11,25 @@ import android.view.WindowManager;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.app.AppConst;
 import com.sitechdev.vehicle.pad.app.BaseWindow;
-import com.sitechdev.vehicle.pad.event.RightTopEvent;
-import com.sitechdev.vehicle.pad.window.view.RightTopView;
+import com.sitechdev.vehicle.pad.event.AppSignalEvent;
+import com.sitechdev.vehicle.pad.window.view.AppSignalView;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+/**
+ * 项目名称：SitechVehiclePad-5th
+ * 类名称：AppSignalWindowManager
+ * 类描述： 右上角信号windowManager
+ * 创建人：Administrator
+ * 创建时间：2020/05/11 0011 15:04
+ * 修改时间：
+ * 备注：
+ */
+public class AppSignalWindowManager {
 
-public class RightTopWindowManager {
-
-    private static volatile RightTopWindowManager manager;
-    private static final String TAG = RightTopWindowManager.class.getSimpleName();
+    private static volatile AppSignalWindowManager manager;
+    private static final String TAG = AppSignalWindowManager.class.getSimpleName();
 
     private WindowManager winManager;
     private Context context;
@@ -30,7 +38,7 @@ public class RightTopWindowManager {
     /**
      * 显示的浮动窗体
      */
-    public RightTopView rightTopView;
+    public AppSignalView appSignalView;
 
     // 屏幕的尺寸
     private static int displayWidth;
@@ -39,18 +47,18 @@ public class RightTopWindowManager {
     /**
      * @return
      */
-    public static RightTopWindowManager getInstance() {
+    public static AppSignalWindowManager getInstance() {
         if (manager == null) {
-            synchronized (RightTopWindowManager.class) {
+            synchronized (AppSignalWindowManager.class) {
                 if (manager == null) {
-                    manager = new RightTopWindowManager();
+                    manager = new AppSignalWindowManager();
                 }
             }
         }
         return manager;
     }
 
-    private RightTopWindowManager() {
+    private AppSignalWindowManager() {
     }
 
     public void init(Context context) {
@@ -62,7 +70,7 @@ public class RightTopWindowManager {
         winManager = BaseWindow.getInstance().getWinManager();
         displayWidth = BaseWindow.getInstance().getDisplayWidth();
         displayHeight = BaseWindow.getInstance().getDisplayHeight();
-        rightTopView = getView();
+        appSignalView = getView();
         //        DL.i(TeddyConstants.TAG_TEDDY, "宽度====>" + displayWidth + "，高度======>" + displayHeight);
         initData();
     }
@@ -71,18 +79,18 @@ public class RightTopWindowManager {
      * 显示悬浮框
      */
     public void show() {
-        SitechDevLog.e("RightTop", "-------------show()>");
-        if (isRightTopViewShow()) {
+        SitechDevLog.e(TAG, "-------------show()>");
+        if (isAppSignalViewShow()) {
             return;
         }
-        if (rightTopView == null) {
-            rightTopView = getView();
+        if (appSignalView == null) {
+            appSignalView = getView();
         }
-        if (rightTopView.getParent() != null) {
-            winManager.removeViewImmediate(rightTopView);
+        if (appSignalView.getParent() != null) {
+            winManager.removeViewImmediate(appSignalView);
         }
-        if (rightTopView != null && rightTopView.getParent() == null && !rightTopView.isShown()) {
-            winManager.addView(rightTopView, params);
+        if (appSignalView != null && appSignalView.getParent() == null && !appSignalView.isShown()) {
+            winManager.addView(appSignalView, params);
         }
     }
 
@@ -90,14 +98,14 @@ public class RightTopWindowManager {
      * 隐藏悬浮框
      */
     public void hide() {
-        SitechDevLog.e("RightTop", "-------------hide()>");
-        if (rightTopView != null && rightTopView.isShown()) {
-            winManager.removeViewImmediate(rightTopView);
+        SitechDevLog.e(TAG, "-------------hide()>");
+        if (appSignalView != null && appSignalView.isShown()) {
+            winManager.removeViewImmediate(appSignalView);
         }
     }
 
-    public boolean isRightTopViewShow() {
-        return rightTopView != null && rightTopView.isShown();
+    public boolean isAppSignalViewShow() {
+        return appSignalView != null && appSignalView.isShown();
     }
 
     /**
@@ -105,10 +113,10 @@ public class RightTopWindowManager {
      *
      * @return
      */
-    public RightTopView getView() {
-        SitechDevLog.i("RightTop", "-------------getView()>");
-        if (rightTopView == null) {
-            rightTopView = new RightTopView(context);
+    public AppSignalView getView() {
+        SitechDevLog.i(TAG, "-------------getView()>");
+        if (appSignalView == null) {
+            appSignalView = new AppSignalView(context);
         }
         if (params == null) {
             params = new WindowManager.LayoutParams();
@@ -119,57 +127,70 @@ public class RightTopWindowManager {
             params.gravity = Gravity.LEFT | Gravity.TOP;
 
             // 须指定宽度高度信息
-            params.width = rightTopView.mWidth;
-            params.height = rightTopView.mHeight;
+            params.width = appSignalView.mWidth;
+            params.height = appSignalView.mHeight;
             //
-            params.x = displayWidth - rightTopView.mWidth;
+            params.x = displayWidth - appSignalView.mWidth;
             params.y = 0;
 
         }
-        return rightTopView;
+        return appSignalView;
     }
 
     public void usbIconShowOrHide(boolean flag) {
-        rightTopView.refreshUsbIconView(flag);
+        appSignalView.refreshUsbIconView(flag);
     }
 
     public void wifiIconShowOrHide(boolean flag) {
-        rightTopView.refreshWifiIconView(flag);
+        appSignalView.refreshWifiIconView(flag);
     }
 
     public void bluetoothIconShowOrHide(boolean flag) {
-        rightTopView.refreshBtIconView(flag);
+        appSignalView.refreshBtIconView(flag);
     }
 
     public void tBoxIconChange(int netRssi) {
-        rightTopView.refreshTboxIconView(true, netRssi);
+        appSignalView.refreshTboxIconView(true, netRssi);
     }
 
     public void tBoxIconLevelChange(int level) {
-        rightTopView.refreshTboxIconLevel(level);
+        appSignalView.refreshTboxIconLevel(level);
     }
 
     public void showMuteView(boolean isMute) {
-        rightTopView.refreshVoiceIconView(isMute);
+        appSignalView.refreshVoiceIconView(isMute);
     }
 
     public void showHotView(boolean isShow) {
-        rightTopView.refreshHotIconView(isShow);
+        appSignalView.refreshHotIconView(isShow);
     }
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
-    public void onEventChange(RightTopEvent event) {
-        SitechDevLog.i(AppConst.TAG, this + "==消息==" + event.getEventKey());
+    public void onEventChange(AppSignalEvent event) {
+        SitechDevLog.i(TAG, this + "==消息==" + event.getEventKey());
+        Object object = event.getEventObject();
         switch (event.getEventKey()) {
-            case RightTopEvent.EVENT_RIGHT_TOP_CHANGE_PHONE_STATE:
+            case AppSignalEvent.EVENT_SIGNAL_CHANGE_PHONE_STATE:
                 break;
-            case RightTopEvent.EVENT_RIGHT_TOP_CHANGE_WIFI_STATE:
+            case AppSignalEvent.EVENT_SIGNAL_CHANGE_WIFI_STATE:
+                if (object != null) {
+                    if (object instanceof Boolean) {
+                        boolean isParams = (boolean) object;
+                        wifiIconShowOrHide(isParams);
+                    }
+                }
                 break;
-            case RightTopEvent.EVENT_RIGHT_TOP_CHANGE_BLUETOOTH_STATE:
+            case AppSignalEvent.EVENT_SIGNAL_CHANGE_BLUETOOTH_STATE:
                 break;
-            case RightTopEvent.EVENT_RIGHT_TOP_CHANGE_VOLUME_STATE:
+            case AppSignalEvent.EVENT_SIGNAL_CHANGE_VOLUME_STATE:
                 break;
-            case RightTopEvent.EVENT_RIGHT_TOP_CHANGE_USB_STATE:
+            case AppSignalEvent.EVENT_SIGNAL_CHANGE_USB_STATE:
+                if (object != null) {
+                    if (object instanceof Boolean) {
+                        boolean isParams = (boolean) object;
+                        usbIconShowOrHide(isParams);
+                    }
+                }
                 break;
             default:
                 break;
@@ -190,7 +211,7 @@ public class RightTopWindowManager {
                     //获取0-4的5种信号级别，越大信号越好,但是api23开始才能用
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
                         int level = signalStrength.getLevel();
-                        SitechDevLog.i("PhoneStateChange", "signalStrength level====" + level);
+                        SitechDevLog.i(TAG, "signalStrength level====" + level);
                         tBoxIconChange(level);
                     }
                 }

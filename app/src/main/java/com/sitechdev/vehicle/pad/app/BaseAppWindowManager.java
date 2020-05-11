@@ -2,9 +2,9 @@ package com.sitechdev.vehicle.pad.app;
 
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.pad.event.WindowEvent;
+import com.sitechdev.vehicle.pad.window.manager.AppSignalWindowManager;
 import com.sitechdev.vehicle.pad.window.manager.MainControlPanelWindowManager;
 import com.sitechdev.vehicle.pad.window.manager.MainMenuWindowManager;
-import com.sitechdev.vehicle.pad.window.manager.RightTopWindowManager;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -44,7 +44,7 @@ public class BaseAppWindowManager {
                 MainMenuWindowManager.getInstance().show();
                 break;
             case WindowEvent.EVENT_WINDOW_STATUS_BAR_MENU:
-                RightTopWindowManager.getInstance().show();
+                AppSignalWindowManager.getInstance().show();
                 break;
             case WindowEvent.EVENT_WINDOW_CONTROL_MENU:
                 if (object != null) {
@@ -59,11 +59,11 @@ public class BaseAppWindowManager {
                 }
                 break;
             case WindowEvent.EVENT_WINDOW_APP_FRONT:
-                RightTopWindowManager.getInstance().show();
+                AppSignalWindowManager.getInstance().show();
                 MainMenuWindowManager.getInstance().show();
                 break;
             case WindowEvent.EVENT_WINDOW_APP_BACKGROUD:
-                RightTopWindowManager.getInstance().hide();
+                AppSignalWindowManager.getInstance().hide();
                 MainMenuWindowManager.getInstance().hide();
                 MainControlPanelWindowManager.getInstance().hide();
                 break;

@@ -537,7 +537,7 @@ public class NetworkUtils {
         return Formatter.formatIpAddress(wm.getDhcpInfo().serverAddress);
     }
 
-    private static WifiManager getWifiService() {
+    public static WifiManager getWifiService() {
         if (null == sWifiManager) {
             sWifiManager = (WifiManager) AppUtils.getApp().getApplicationContext().getSystemService(WIFI_SERVICE);
         }

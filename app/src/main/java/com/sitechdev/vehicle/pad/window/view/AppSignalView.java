@@ -1,5 +1,6 @@
 package com.sitechdev.vehicle.pad.window.view;
 
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -9,13 +10,23 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextClock;
 
+import com.blankj.utilcode.util.NetworkUtils;
 import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.util.FontUtil;
 
-public class RightTopView extends LinearLayout {
+/**
+ * 项目名称：SitechVehiclePad-5th
+ * 类名称：AppSignalView
+ * 类描述： 右上角信号window
+ * 创建人：Administrator
+ * 创建时间：2020/05/11 0011 15:04
+ * 修改时间：
+ * 备注：
+ */
+public class AppSignalView extends LinearLayout {
 
-    private final String TAG = RightTopView.class.getSimpleName();
+    private final String TAG = AppSignalView.class.getSimpleName();
 
     private ImageView iv_usb_icon, iv_wifi_icon, iv_bluetooth_icon, iv_tbox_icon, iv_hot_icon;
     private ImageView mMuteView;
@@ -25,14 +36,14 @@ public class RightTopView extends LinearLayout {
     private RelativeLayout rl;
 
 
-    public RightTopView(Context context) {
+    public AppSignalView(Context context) {
         this(context, null);
     }
 
-    public RightTopView(Context context, AttributeSet attrs) {
+    public AppSignalView(Context context, AttributeSet attrs) {
         super(context, attrs);
         // 填充布局，并添加至
-        LayoutInflater.from(context).inflate(R.layout.right_top_view, this);
+        LayoutInflater.from(context).inflate(R.layout.app_signal_view, this);
         rl = findViewById(R.id.rl);
 
         TextClock tc = findViewById(R.id.tc);
@@ -47,6 +58,17 @@ public class RightTopView extends LinearLayout {
 
         mWidth = rl.getLayoutParams().width;
         mHeight = rl.getLayoutParams().height;
+
+        initData();
+    }
+
+    private void initData() {
+        //USB
+//        refreshUsbIconView(false);
+        //WIFI
+        refreshWifiIconView(NetworkUtils.getWifiEnabled());
+        //蓝牙
+        refreshBtIconView(BluetoothAdapter.getDefaultAdapter().isEnabled());
     }
 
     /**
