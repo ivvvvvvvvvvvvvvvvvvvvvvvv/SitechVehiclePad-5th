@@ -2,7 +2,6 @@ package com.sitechdev.vehicle.pad.window.view;
 
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Rect;
 import android.media.AudioManager;
 import android.util.AttributeSet;
@@ -190,6 +189,19 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
 
         ecoView.setOnClickListener(this);
         screenOriView.setOnClickListener(this);
+
+        setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                SitechDevLog.i(TAG, "setOnTouchListener onTouch===" + event.getAction() + "，v=" + (v.getId() == R.id.id_main_popup_view_content));
+                if (v.getId() != R.id.id_main_popup_view_content) {
+                    if (isFullScreen) {
+                        manager.mustHiddenView();
+                    }
+                }
+                return false;
+            }
+        });
 
         if (ScreenUtils.isLandscape()) {
             //横屏的view
@@ -457,11 +469,11 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
 //                    manager.mustShownView();
 //                }
 //                break;
-            case R.id.id_main_popup_view_content:
-                if (isFullScreen) {
-                    manager.mustHiddenView();
-                }
-                break;
+//            case R.id.id_main_popup_view_content:
+//                if (isFullScreen) {
+//                    manager.mustHiddenView();
+//                }
+//                break;
             case R.id.id_bluetooth_Btn:
                 isActivated = bluetoothControlView.isActivated();
 //                if (isActivated) {
@@ -556,6 +568,10 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
 
     /**
      * 判断触摸的点是否在view范围内
+     *
+     * @param v     点击到的view
+     * @param event 点击事件
+     * @return true= 点击到了v，false=未点击到
      */
     private boolean isInClickView(View v, MotionEvent event) {
 //        SitechDevLog.i(TAG, "isInClickView22==========================================");
@@ -570,6 +586,11 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
         return rect.contains((int) eventX, (int) eventY);
     }
 
+    /**
+     * 重设主背景的透明值
+     *
+     * @param alphaValue alphaValue透明值。0-255之间
+     */
     public void resetViewAlpha(int alphaValue) {
 //        SitechDevLog.i(TAG, "*********************重设透明值==" + alphaValue);
         if (alphaValue < 0 || alphaValue > 255) {
@@ -585,11 +606,34 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
 //        contentView.setBackgroundColor(Color.argb(alphaValue2, 24, 50, 63));
     }
 
+    /**
+     * 设置音量大小
+     *
+     * @param value 音量大小，seekbar的progress值
+     */
     private void setVolumeValue(int value) {
         SitechDevLog.i(TAG, "setVolumeValue===" + value);
-        mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, value, 0); //tempVolume:音量绝对值
+        /**
+         * flags ：一个或多个标志。可能这里的标志不是很好理解，是这样，AudioManager提供了一些常量，我们可以将这些系统已经准备好的常量设置为这里的flags，比如：
+         *
+         * FLAG_ALLOW_RINGER_MODES（更改音量时是否包括振铃模式作为可能的选项），
+         *
+         * FLAG_PLAY_SOUND（是否在改变音量时播放声音），
+         *
+         * FLAG_REMOVE_SOUND_AND_VIBRATE（删除可能在队列中或正在播放的任何声音/振动（与更改音量有关）），
+         *
+         * FLAG_SHOW_UI（显示包含当前音量的吐司），
+         *
+         * FLAG_VIBRATE（是否进入振动振铃模式时是否振动）
+         */
+        mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, value, AudioManager.FLAG_PLAY_SOUND | AudioManager.FLAG_SHOW_UI);
     }
 
+    /**
+     * 设置屏幕亮度
+     *
+     * @param value 亮度大小，seekbar的progress值
+     */
     private void setLightValue(int value) {
         SitechDevLog.i(TAG, "setLightValue===" + value);
         try {
