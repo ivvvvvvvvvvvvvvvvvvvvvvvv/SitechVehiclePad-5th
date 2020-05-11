@@ -326,7 +326,7 @@ public class MainActivity extends BaseActivity
 //                CommonToast.makeText(this, "请登录..");
             case R.id.id_rela_login:
 //                if (UserManager.getInstance().isExistUserToken()) {
-                    //已经登录，去往会员中心
+                //已经登录，去往会员中心
                 RouterUtils.getInstance().navigation(RouterConstants.SUB_APP_MEMBER);
 //                } else {
 //                    //未登录，去往登录
@@ -391,7 +391,7 @@ public class MainActivity extends BaseActivity
 //                        CommonToast.showToast("当前无可用音源");
 //                        break;
 //                }
-//                VoiceSourceManager.getInstance().pre(VoiceSourceManager.SCREEN);
+                VoiceSourceManager.getInstance().pre(VoiceSourceManager.SCREEN);
                 break;
             case R.id.iv_music_stop:
 //                switch (musicSource){
@@ -411,7 +411,7 @@ public class MainActivity extends BaseActivity
 //                        CommonToast.showToast("当前无可用音源");
 //                        break;
 //                }
-//                VoiceSourceManager.getInstance().toggle(VoiceSourceManager.SCREEN);
+                VoiceSourceManager.getInstance().toggle(VoiceSourceManager.SCREEN);
                 break;
             case R.id.iv_music_next:
 //                switch (musicSource){
@@ -431,9 +431,7 @@ public class MainActivity extends BaseActivity
 //                        CommonToast.showToast("当前无可用音源");
 //                        break;
 //                }
-//                VoiceSourceManager.getInstance().next(VoiceSourceManager.SCREEN);
-               /* Intent mIntent2 = new Intent(MainActivity.this, MapActivity.class);
-                startActivity(mIntent2);*/
+                VoiceSourceManager.getInstance().next(VoiceSourceManager.SCREEN);
                 break;
 //            case R.id.iv_music_list:
 //                VoiceSourceManager.getInstance().toDetailActivity();
