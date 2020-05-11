@@ -19,7 +19,7 @@ public interface RouterConstants {
     /**
      * 车辆状态页面
      */
-    String SUB_APP_CAR_STATUS= "/subApp/carstatus";
+    String SUB_APP_CAR_STATUS = "/subApp/carstatus";
     /**
      * 出行计价器页面
      */
@@ -28,6 +28,10 @@ public interface RouterConstants {
      * 模式设置页面
      */
     String SETTING_SKIN_PAGE = "/setting/skin";
+    /**
+     * 应用列表页面
+     */
+    String SETTING_APP_LIST = "/subApp/appList";
 
     /**
      * 设置

@@ -39,6 +39,9 @@
             android:name=".kaola.KaolaListActivity"
             android:screenOrientation="landscape" />
         <activity
+            android:name=".module.apps.AppsListActivity"
+            android:screenOrientation="landscape" />
+        <activity
             android:name=".module.splash.SplashActivity"
             android:theme="@style/NoTitleAppTheme">
             <intent-filter>
