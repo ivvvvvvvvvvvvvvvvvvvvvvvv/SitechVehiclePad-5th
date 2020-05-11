@@ -439,7 +439,7 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
                     public void onClick(View v) {
                         Log.i(TAG, "被点击的是+=======" + v.getTag());
                         ToastUtils.setGravity(Gravity.TOP, 0, 0);
-                        ToastUtils.showShort("点击了" + v.getTag());
+//                        ToastUtils.showShort("点击了" + v.getTag());
                     }
                 });
                 mLedViewLiearLayoutView.addView(ledImgView, params);
