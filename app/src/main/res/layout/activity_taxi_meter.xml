@@ -62,9 +62,9 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:textColor="@color/color_taxi_main_text"
-                    android:textSize="220px"
+                    android:textSize="200px"
                     android:textStyle="bold"
-                    tools:text="00.00" />
+                    tools:text="0.00" />
 
                 <com.sitechdev.vehicle.pad.view.SkinTextView
                     android:id="@+id/id_tv_sign_count_number"
@@ -76,7 +76,7 @@
                     android:layout_toRightOf="@id/id_taxi_full_price"
                     android:text="元"
                     android:textColor="@color/color_taxi_main_text"
-                    android:textSize="60px"
+                    android:textSize="50px"
                     android:textStyle="bold" />
             </LinearLayout>
 

@@ -216,7 +216,7 @@ public class TaximeterActivity extends BaseActivity {
         //计算公司==起步价+（总里程-3）*单价
         resultDecimal = startPriceDecimal.add(unitPriceDecimal.multiply(fullKmDecimal.subtract(new BigDecimal(3))));
         if (resultDecimal.equals(BigDecimal.ZERO)) {
-            return "00.00";
+            return "0.00";
         } else {
             return String.valueOf(resultDecimal.setScale(2, RoundingMode.UP).doubleValue());
         }
@@ -231,14 +231,19 @@ public class TaximeterActivity extends BaseActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onStop() {
+        super.onStop();
         try {
-            if (mHandler != null) {
-                mHandler.removeMessages(0);
-            }
+            resetCalcView();
         } catch (Exception e) {
             SitechDevLog.exception(e);
+        }
+    }
+
+    private void resetCalcView() {
+        if (isCalcPriceIng) {
+            isCalcPriceIng = false;
+            stopChangePriceTextView();
         }
     }
 
