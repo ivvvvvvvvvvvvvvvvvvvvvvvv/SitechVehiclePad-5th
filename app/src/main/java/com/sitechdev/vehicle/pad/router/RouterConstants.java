@@ -32,6 +32,10 @@ public interface RouterConstants {
      * 应用列表页面
      */
     String SETTING_APP_LIST = "/subApp/appList";
+    /**
+     * 在线音乐播放列表页面
+     */
+    String MUSIC_PLAY_SHOW = "/subApp/musicPlay";
 
     /**
      * 设置

@@ -12,11 +12,11 @@
     <TextView
         android:id="@+id/title"
         android:layout_width="870px"
-        android:layout_height="wrap_content"
+        android:layout_height="70px"
         android:layout_gravity="bottom"
+        android:gravity="center_vertical"
         android:ellipsize="end"
-        android:paddingLeft="21dp"
-        android:paddingBottom="7dp"
+        android:paddingLeft="33px"
         android:singleLine="true"
         android:textColor="@color/white"
         android:textSize="36px" />

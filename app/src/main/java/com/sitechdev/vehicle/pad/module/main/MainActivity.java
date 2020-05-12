@@ -361,17 +361,20 @@ public class MainActivity extends BaseActivity
 //                startActivity(goMusic);
                 break;
             case R.id.ll_news:
-//                KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(mContext, 0);
+                KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(mContext, 0);
+                break;
             case R.id.ll_book:
-//                KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(this, 1);
-                Intent intent = new Intent(this, AudioListForShowActivity.class);
-                intent.putExtra("type", 1);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
+                KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(this, 1);
+//                Intent intent = new Intent(this, AudioListForShowActivity.class);
+//                intent.putExtra("type", 1);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(intent);
+                break;
             case R.id.ll_car:
-//                KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(this, 2);
+                KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(this, 2);
+                break;
             case R.id.ll_life:
-//                KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(this, 3);
+                KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(this, 3);
                 break;
             case R.id.ll_car_power_info:
 //                Intent tempIntent = new Intent(MainActivity.this, CarStatusPreActivity.class);

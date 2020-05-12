@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bumptech.glide.Glide;
 import com.kaolafm.opensdk.api.operation.model.ImageFile;
 import com.kaolafm.opensdk.api.operation.model.column.ColumnMember;
@@ -35,6 +36,7 @@ import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceType;
+import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.view.CommonToast;
 import com.sitechdev.vehicle.pad.view.RecycleViewDivider;
 import com.sitechdev.vehicle.pad.view.RecycleViewKLDivider;
@@ -47,6 +49,7 @@ import java.util.Map;
 import static com.kaolafm.opensdk.api.operation.model.ImageFile.KEY_COVER;
 import static com.sitechdev.vehicle.pad.BuildConfig.DEBUG;
 
+@Route(path = RouterConstants.MUSIC_PLAY_SHOW)
 @VoiceSourceType(VoiceSourceManager.SUPPORT_TYPE_KAOLA)
 public class NewsDetailsActivity extends BaseActivity implements
         VoiceSourceManager.MusicChangeListener{

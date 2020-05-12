@@ -47,6 +47,7 @@ public class KaolaPlayManager {
     public List<Column> mColumns = new ArrayList<>();
     public Column mCurrentColumn;
     private String KEY_COLUMN = "KEY_COLUMN";
+    private String KEY_TYPE_INDEX = "KEY_TYPE_INDEX";
 
     private KaolaPlayManager() {
     }
@@ -144,6 +145,7 @@ public class KaolaPlayManager {
         mCurrentColumn = mColumns.get(index);
         Intent intent = new Intent(context, KaolaListActivity.class);
         intent.putExtra(KEY_COLUMN, deepIndex);
+        intent.putExtra(KEY_TYPE_INDEX, index);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
         if (context instanceof NewsDetailsActivity) {

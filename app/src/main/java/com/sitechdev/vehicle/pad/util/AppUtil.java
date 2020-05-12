@@ -17,6 +17,11 @@ import com.sitechdev.vehicle.pad.manager.UserManager;
 import com.sitechdev.vehicle.pad.module.login.LoginActivity;
 import com.sitechdev.vehicle.pad.view.CommonToast;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.List;
 
 /**
@@ -122,5 +127,27 @@ public class AppUtil {
         }else {
             CommonToast.showToast("您还未安装" + appName + ",请先安装");
         }
+    }
+
+    /**
+     * 复制
+     * @param old
+     * @return
+     */
+    public static Object copyObject(Object old) {
+        Object clazz = null;
+        try {
+            // 写入字节流
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ObjectOutputStream oos = new ObjectOutputStream(baos);
+            oos.writeObject(old);
+            // 读取字节流
+            ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+            ObjectInputStream ois = new ObjectInputStream(bais);
+            clazz = (Object) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return clazz;
     }
 }
