@@ -18,6 +18,7 @@ import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppConst;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.event.AppEvent;
+import com.sitechdev.vehicle.pad.module.taxi.enums.TaxiDataModel;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.util.FontUtil;
 import com.sitechdev.vehicle.pad.view.SkinRollingTextView;
@@ -32,6 +33,8 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
  * 项目名称：SitechVehiclePad
@@ -82,6 +85,14 @@ public class TaximeterActivity extends BaseActivity {
     private static double defaultFullPrice = 0.00d, defaultFullKm = 0.0d, currentFullPrice = 0.00d, currentFullKm = 0.0d;
 
     private static Handler mHandler = new MyHandler();
+
+    private static int index = 0;
+    private static float currentPriceTextSize = TaxiDataModel.Digit_Ten.getPriceSize(), currentKmTextSize = TaxiDataModel.Digit_Ten.getPriceSize();
+
+    private static double[] priceFinalValue = {25.87d, 86.24d, 308.75d, 798.75d, 2974.88d, 8345.88d};
+    private static double[] kmFinalValue = {25.8d, 86.2d, 308.75d, 988.7d, 2674.8d, 2965.8d};
+
+    private static ReadWriteLock lockObject = new ReentrantReadWriteLock();
 
     @Override
     protected int getLayoutId() {
@@ -138,7 +149,6 @@ public class TaximeterActivity extends BaseActivity {
                 SitechDevLog.i("Taxi", "onAnimationEnd===========");
             }
         });
-
     }
 
     private void startChangePriceTextView() {
@@ -158,18 +168,66 @@ public class TaximeterActivity extends BaseActivity {
     }
 
     private static class MyHandler extends Handler {
+
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            double randomValue = Math.random();
-            currentFullPrice += randomValue;
-            currentFullKm += randomValue;
-
-            fullPriceTextView.setText(new DecimalFormat("0.00").format(currentFullPrice));
-            fullKMTextView.setText(new DecimalFormat("0.00").format(currentFullKm / 5));
-
+            refreshPriceCalcView();
             sendEmptyMessageDelayed(0, 1000);
         }
+    }
+
+    /**
+     * 刷新计价View显示
+     */
+    private static synchronized void refreshPriceCalcView() {
+        lockObject.writeLock().lock();
+
+        double randomValue = Math.random();
+        currentFullPrice += randomValue;
+        currentFullKm += randomValue;
+
+//        currentFullPrice = priceFinalValue[index];
+//        currentFullKm = kmFinalValue[index];
+
+//        if (currentFullPrice >= TaxiDataModel.Digit_Thousand.getMinValue()) {
+//            if (currentPriceTextSize != TaxiDataModel.Digit_Thousand.getPriceSize()) {
+//                currentPriceTextSize = TaxiDataModel.Digit_Thousand.getPriceSize();
+//            }
+//        } else if (currentFullPrice >= TaxiDataModel.Digit_Hundred.getMinValue()) {
+//            if (currentPriceTextSize != TaxiDataModel.Digit_Hundred.getPriceSize()) {
+//                currentPriceTextSize = TaxiDataModel.Digit_Hundred.getPriceSize();
+//            }
+//        } else if (currentFullPrice < TaxiDataModel.Digit_Hundred.getMinValue()) {
+//            if (currentPriceTextSize != TaxiDataModel.Digit_Ten.getPriceSize()) {
+//                currentPriceTextSize = TaxiDataModel.Digit_Ten.getPriceSize();
+//            }
+//        }
+//
+//        if (currentFullKm >= TaxiDataModel.Digit_Thousand.getMinValue()) {
+//            if (currentKmTextSize != TaxiDataModel.Digit_Thousand.getKmSize()) {
+//                currentKmTextSize = TaxiDataModel.Digit_Thousand.getKmSize();
+//            }
+//        } else if (currentFullKm >= TaxiDataModel.Digit_Hundred.getMinValue()) {
+//            if (currentKmTextSize != TaxiDataModel.Digit_Hundred.getKmSize()) {
+//                currentKmTextSize = TaxiDataModel.Digit_Hundred.getKmSize();
+//            }
+//        } else if (currentFullKm < TaxiDataModel.Digit_Hundred.getMinValue()) {
+//            if (currentKmTextSize != TaxiDataModel.Digit_Ten.getKmSize()) {
+//                currentKmTextSize = TaxiDataModel.Digit_Ten.getKmSize();
+//            }
+//        }
+//
+//        fullPriceTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, currentPriceTextSize);
+//        fullKMTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, currentKmTextSize);
+
+        fullPriceTextView.setText(new DecimalFormat("0.00").format(currentFullPrice));
+        fullKMTextView.setText(new DecimalFormat("0.00").format(currentFullKm / 5));
+        index++;
+        if (index > priceFinalValue.length - 1) {
+            index = 0;
+        }
+        lockObject.writeLock().unlock();
     }
 
     @Override
@@ -245,6 +303,9 @@ public class TaximeterActivity extends BaseActivity {
             isCalcPriceIng = false;
             stopChangePriceTextView();
         }
+        index = 0;
+//        fullPriceTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, TaxiDataModel.Digit_Ten.getPriceSize());
+//        fullKMTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, TaxiDataModel.Digit_Ten.getKmSize());
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

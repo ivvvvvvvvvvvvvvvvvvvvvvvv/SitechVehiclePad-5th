@@ -36,7 +36,7 @@
     <LinearLayout
         android:id="@+id/id_second_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="565px"
         android:layout_below="@id/id_top_content"
         android:layout_marginTop="28px"
         android:orientation="horizontal"
@@ -54,6 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
+                android:layout_marginTop="40px"
                 android:orientation="horizontal">
 
                 <com.sitechdev.vehicle.pad.view.SkinRollingTextView
@@ -62,7 +63,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:textColor="@color/color_taxi_main_text"
-                    android:textSize="200px"
+                    android:includeFontPadding="false"
+                    android:textSize="180px"
                     android:textStyle="bold"
                     tools:text="0.00" />
 
@@ -86,7 +88,7 @@
                 android:layout_height="126px"
                 android:layout_below="@id/id_taxi_price_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="110px"
+                android:layout_marginTop="100px"
                 android:background="@drawable/ico_taxi_price_btn_bg"
                 android:gravity="center">
 
