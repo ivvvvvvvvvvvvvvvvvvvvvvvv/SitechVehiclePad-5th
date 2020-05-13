@@ -29,5 +29,6 @@
         layout="@layout/play_status_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/px_151"
+        android:visibility="gone"
         android:layout_alignParentBottom="true" />
 </RelativeLayout>

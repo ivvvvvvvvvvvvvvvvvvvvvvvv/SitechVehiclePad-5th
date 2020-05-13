@@ -22,6 +22,7 @@ import com.kaolafm.sdk.core.mediaplayer.PlayerManager;
 import com.kaolafm.sdk.core.mediaplayer.PlayerRadioListManager;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
+import com.sitechdev.vehicle.lib.imageloader.GlideApp;
 import com.sitechdev.vehicle.lib.util.Constant;
 import com.sitechdev.vehicle.lib.util.DensityUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
@@ -66,9 +67,7 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
 
     private MusicKaolaForShowAdapter playListAdapter;
 
-    private ImageView btn_pre;
-    private ImageView btn_next;
-    private ImageView btn_pause_play;
+    private ImageView musicImageView, btn_pre, btn_next, btn_pause_play;
     private TextView subtitle;
     private ScrollTextView tv_bottom_title;
 
@@ -101,6 +100,8 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
 
         //主标题
         tv_bottom_title = findViewById(R.id.tv_bottom_title);
+        //专辑图片
+        musicImageView = findViewById(R.id.image);
         //上一首
         btn_pre = findViewById(R.id.btn_pre);
         //下一首
@@ -383,6 +384,8 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
         if (tv_bottom_title != null && item != null) {
             tv_bottom_title.setText(item.getTitle());
             btn_pause_play.setActivated(true);
+            GlideApp.with(this).load(item.getAlbumPic()).placeholder(R.drawable.img_song_card).into(musicImageView);
+//            musicImageView.setImageResource();
         }
         setListData();
         if (flag_FIRST_PLAY) {
