@@ -15,7 +15,6 @@ import com.kaolafm.opensdk.api.operation.model.column.ColumnMember;
 import com.kaolafm.opensdk.api.operation.model.column.RadioDetailColumnMember;
 import com.kaolafm.opensdk.utils.ListUtil;
 import com.kaolafm.sdk.core.mediaplayer.IPlayerListChangedListener;
-import com.kaolafm.sdk.core.mediaplayer.IPlayerStateListener;
 import com.kaolafm.sdk.core.mediaplayer.OnPlayItemInfoListener;
 import com.kaolafm.sdk.core.mediaplayer.PlayItem;
 import com.kaolafm.sdk.core.mediaplayer.PlayerListManager;
@@ -26,11 +25,11 @@ import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.sitechdev.vehicle.lib.util.Constant;
 import com.sitechdev.vehicle.lib.util.DensityUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
+import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.kaola.ColumnMemberMamager;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
-import com.sitechdev.vehicle.pad.kaola.NewsDetailsActivity;
 import com.sitechdev.vehicle.pad.kaola.PlayItemAdapter;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceType;
@@ -45,7 +44,8 @@ import java.util.List;
 @Route(path = RouterConstants.MUSIC_PLAY_SHOW)
 @VoiceSourceType(VoiceSourceManager.SUPPORT_TYPE_KAOLA)
 public class MusicKaolaForShowActivity extends BaseActivity implements
-        VoiceSourceManager.MusicChangeListener {
+        VoiceSourceManager.MusicChangeListener, VoiceSourceManager.onPlaySourceMusicChangeListener {
+    private static final String TAG = "MusicKaolaForShowActivity";
 
     private Context mContext;
     //new
@@ -56,7 +56,6 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
 
     private boolean flag_FIRST_PLAY;
     private static KaolaPlayManager.PlayType mCurrentType = null;
-    //    private MusicKaolaForShowFragment kaolaPlayFragment = null;
     private List<PlayItemAdapter.Item> playDataItemList = new ArrayList<>();
 
     private RecyclerView vLocalMusicList;
@@ -80,6 +79,7 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
         mContext = this;
         mCurrentType = KaolaPlayManager.SingletonHolder.INSTANCE.mPlayType;
         VoiceSourceManager.getInstance().addMusicChangeListener(this);
+        KaolaPlayManager.SingletonHolder.INSTANCE.setPlayVoiceSourceManagerListener(this);
     }
 
     @Override
@@ -111,11 +111,13 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
         //数据传入
         initPlayListView();
 
+        showProgressDialog();
+
         //NEW CODE========================
         Intent intent = getIntent();
         TYPE_CODE = (Constant.TYPE) intent.getSerializableExtra(Constant.KEY_TYPE_KEY);
         if (TYPE_CODE == Constant.TYPE.FIRST_ENTERED) {
-            SitechDevLog.e(NewsDetailsActivity.class.getSimpleName(), "======== FIRST_ENTERED ");
+            SitechDevLog.e(TAG, "======== FIRST_ENTERED ");
             mColumnMember = (ColumnMember) intent.getSerializableExtra(Constant.KEY_MEMBER_CODE);
             ColumnMemberMamager.SingltonHolder.INSTANCE.mColumnMember = mColumnMember;
             mRadioDetailColumnMember = (RadioDetailColumnMember) mColumnMember;
@@ -124,19 +126,15 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
             mColumnMember = ColumnMemberMamager.SingltonHolder.INSTANCE.mColumnMember;
             PlayItem curPlayItem = PlayerListManager.getInstance().getCurPlayItem();
             mCurPosition = PlayerListManager.getInstance().getCurPosition();
-            SitechDevLog.e(NewsDetailsActivity.class.getSimpleName(), "========== PLAYING   mCurPosition " + mCurPosition);
-//            if (tv_bottom_title != null && curPlayItem != null) {
-//                tv_bottom_title.setText(curPlayItem.getTitle());
-//            }
+            SitechDevLog.e(TAG, "========== PLAYING   mCurPosition " + mCurPosition);
+            if (tv_bottom_title != null && curPlayItem != null) {
+                tv_bottom_title.setText(curPlayItem.getTitle());
+            }
             setListData();
         }
 
         String title = ColumnMemberMamager.SingltonHolder.INSTANCE.mColumnMember.getTitle();
         tv_title.setText(title);
-
-        //考拉播放的回调接口
-        PlayerManager.getInstance(this).addPlayerStateListener(mPlayerStateListener);
-        showProgressDialog();
     }
 
     private void initPlayListView() {
@@ -147,12 +145,13 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
             @Override
             public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
                 super.onLoadMore(refreshLayout);
-                SitechDevLog.e(NewsDetailsActivity.class.getSimpleName(), "refreshLayout ============");
+                SitechDevLog.e(TAG, "refreshLayout ============");
                 fetchMore(true);
             }
         });
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         vLocalMusicList = findViewById(R.id.music_kaola_list);
-        vLocalMusicList.setLayoutManager(new LinearLayoutManager(this));
+        vLocalMusicList.setLayoutManager(linearLayoutManager);
         vLocalMusicList.setItemAnimator(new DefaultItemAnimator());
         vLocalMusicList.addItemDecoration(new RecycleViewDivider(this,
                 playListAdapter, DensityUtils.dp2px(1),
@@ -163,7 +162,7 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
     private void setListData() {
 
         ArrayList<PlayItem> playList = PlayerListManager.getInstance().getPlayList();
-        SitechDevLog.d(NewsDetailsActivity.class.getSimpleName(), "-----------setListData------------");
+        SitechDevLog.e(TAG, "-----------setListData------------");
         if (playDataItemList == null) {
             playDataItemList = new ArrayList<>();
         } else {
@@ -175,27 +174,28 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
         if (playListAdapter == null) {
             playListAdapter = new MusicKaolaForShowAdapter(this);
             if (playDataItemList != null) {
-                playListAdapter.refreshData(playDataItemList, 0);
+                playListAdapter.refreshData(playDataItemList, mCurPosition);
             }
             vLocalMusicList.setAdapter(playListAdapter);
-            VoiceSourceManager.getInstance().addMusicChangeListener(this);
         }
 
         playListAdapter.setOnItemClickListener(new MusicKaolaForShowAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(long playItemID, int position) {
-                SitechDevLog.e(NewsDetailsActivity.class.getSimpleName(), "position ====" + position);
+                SitechDevLog.e(TAG, "position ====" + position);
                 mCurPosition = position;
                 playListAdapter.setSelected(position);
                 PlayerManager.getInstance(mContext).playAudioFromPlayList(playItemID);
             }
         });
+        vLocalMusicList.smoothScrollToPosition(mCurPosition);
         cancelProgressDialog();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        KaolaPlayManager.SingletonHolder.INSTANCE.clearPlayVoiceSourceManagerListener();
     }
 
     @Override
@@ -234,28 +234,20 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
     }
 
     private void playPre() {
-        SitechDevLog.e(this.getClass().getSimpleName(), "========  playPre  was called");
-        if (PlayerManager.getInstance(this).hasPre()) {
-            PlayerManager.getInstance(this).playPre();
-            if (playListAdapter != null) {
-                mCurPosition--;
-                playListAdapter.setSelected(mCurPosition);
-            }
-        } else {
-            CommonToast.makeText(mContext, "已经是第一首啦~~~");
+        SitechDevLog.e(TAG, "========  playPre  was called");
+        boolean hasPre = KaolaPlayManager.SingletonHolder.INSTANCE.playPre();
+        if (hasPre && playListAdapter != null) {
+            mCurPosition--;
+            playListAdapter.setSelected(mCurPosition);
         }
     }
 
     private void playNext() {
-        SitechDevLog.e(this.getClass().getSimpleName(), "========  playNext  was called");
-        if (PlayerManager.getInstance(this).hasNext()) {
-            PlayerManager.getInstance(this).playNext();
-            if (playListAdapter != null) {
-                mCurPosition++;
-                playListAdapter.setSelected(mCurPosition);
-            }
-        } else {
-            CommonToast.makeText(mContext, "已经是最后一首啦~~~");
+        SitechDevLog.e(TAG, "========  playNext  was called");
+        boolean hasNext = KaolaPlayManager.SingletonHolder.INSTANCE.playNext();
+        if (hasNext && playListAdapter != null) {
+            mCurPosition++;
+            playListAdapter.setSelected(mCurPosition);
         }
     }
 
@@ -263,7 +255,7 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
     private void fetchMore(boolean isLoadMore) {
         //播单数据变化监听
         mPlayerListChangedListener = dataList -> {
-            SitechDevLog.e(NewsDetailsActivity.class.getSimpleName(), "ai data changed ");
+            SitechDevLog.e(TAG, "ai data changed ");
             List<PlayItemAdapter.Item> datas = new ArrayList<>();
             transformDataToItem(dataList, datas);
 
@@ -310,8 +302,11 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
         }
     }
 
+    /**
+     * 切换暂停与继续播放
+     */
     private void switchPlayPause() {
-        SitechDevLog.e(this.getClass().getSimpleName(), "========  switchPlayPause  was called");
+        SitechDevLog.e(TAG, "========  switchPlayPause  was called");
         if (PlayerManager.getInstance(this).isPlaying()) {
             PlayerManager.getInstance(this).pause();
         } else {
@@ -320,16 +315,21 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
         refreshPlayStatusView();
     }
 
+    /**
+     * 刷新view
+     */
     private void refreshPlayStatusView() {
-        if (PlayerManager.getInstance(this).isPlaying()) {
-            if (btn_pause_play != null) {
-                btn_pause_play.setImageResource(R.drawable.pc_pause);
+        ThreadUtils.runOnUIThread(() -> {
+            if (PlayerManager.getInstance(this).isPlaying()) {
+                if (btn_pause_play != null) {
+                    btn_pause_play.setImageResource(R.drawable.pc_pause);
+                }
+            } else {
+                if (btn_pause_play != null) {
+                    btn_pause_play.setImageResource(R.drawable.pc_play);
+                }
             }
-        } else {
-            if (btn_pause_play != null) {
-                btn_pause_play.setImageResource(R.drawable.pc_play);
-            }
-        }
+        });
     }
 
     /**
@@ -337,93 +337,11 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
      */
     private void requestKaoLaInfo() {
         if (mColumnMember != null) {
-            SitechDevLog.e(NewsDetailsActivity.class.getSimpleName(), mColumnMember.toString());
+            SitechDevLog.e(TAG, mColumnMember.toString());
         }
 
         PlayerManager.getInstance(this).playPgc(mRadioDetailColumnMember.getRadioId());
     }
-
-    /**
-     * 播放状态回调
-     */
-    IPlayerStateListener mPlayerStateListener = new IPlayerStateListener() {
-        @Override
-        public void onIdle(PlayItem playItem) {
-            SitechDevLog.e(NewsDetailsActivity.class.getSimpleName(), "======= onIdle ======");
-        }
-
-        @Override
-        public void onPlayerPreparing(PlayItem playItem) {
-            SitechDevLog.e(NewsDetailsActivity.class.getSimpleName(), "======= onPlayerPreparing ======");
-        }
-
-        @Override
-        public void onPlayerPlaying(PlayItem playItem) {
-            if (tv_bottom_title != null && playItem != null) {
-                tv_bottom_title.setText(playItem.getTitle());
-                btn_pause_play.setActivated(true);
-            }
-            setListData();
-            if (flag_FIRST_PLAY) {
-                SitechDevLog.e(NewsDetailsActivity.class.getSimpleName(), "onPlayerPlaying  flag_FIRST_PLAY = " + flag_FIRST_PLAY);
-                flag_FIRST_PLAY = false;
-            }
-
-            SitechDevLog.e(NewsDetailsActivity.class.getSimpleName(), "====== onPlayerPlaying ======= mCurPosition = " + mCurPosition);
-        }
-
-        @Override
-        public void onPlayerPaused(PlayItem playItem) {
-            SitechDevLog.e(NewsDetailsActivity.class.getSimpleName(), "======= onPlayerPaused ======");
-            /**
-             *
-             btn_pause_play.setImageResource(R.drawable.pc_play);
-             break;
-             case MusicManager.OnMusicChangeListener.RESUME:
-             btn_pause_play.setImageResource(R.drawable.pc_pause);
-             */
-        }
-
-        @Override
-        public void onProgress(String s, int i, int i1, boolean b) {
-//            SitechDevLog.e(NewsDetailsActivity.class.getSimpleName(), "======= onProgress ======");
-        }
-
-        @Override
-        public void onPlayerFailed(PlayItem playItem, int i, int i1) {
-            SitechDevLog.e(NewsDetailsActivity.class.getSimpleName(), "====== onPlayerFailed =======");
-        }
-
-        @Override
-        public void onPlayerEnd(PlayItem playItem) {
-            int curPosition = PlayerListManager.getInstance().getCurPosition();
-            if (mCurPosition != curPosition) {
-                mCurPosition = curPosition;
-                playListAdapter.setSelected(mCurPosition);
-            }
-            SitechDevLog.e(NewsDetailsActivity.class.getSimpleName(), "===== onPlayerEnd ======== curPosition  ---- " + curPosition + " mCurPosition ----" + mCurPosition);
-        }
-
-        @Override
-        public void onSeekStart(String s) {
-            SitechDevLog.e(NewsDetailsActivity.class.getSimpleName(), "======= onSeekStart ======");
-        }
-
-        @Override
-        public void onSeekComplete(String s) {
-            SitechDevLog.e(NewsDetailsActivity.class.getSimpleName(), "======= onSeekComplete ======");
-        }
-
-        @Override
-        public void onBufferingStart(PlayItem playItem) {
-            SitechDevLog.e(NewsDetailsActivity.class.getSimpleName(), "======= onBufferingStart ======");
-        }
-
-        @Override
-        public void onBufferingEnd(PlayItem playItem) {
-            SitechDevLog.e(NewsDetailsActivity.class.getSimpleName(), "======= onBufferingEnd ======");
-        }
-    };
 
     @Override
     public void onMusicChange(String name) {
@@ -440,5 +358,53 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
     @Override
     public void resume() {
         refreshPlayStatusView();
+    }
+
+    @Override
+    public void onMusicPause() {
+
+    }
+
+    @Override
+    public void onMusicResume() {
+
+    }
+
+    @Override
+    public void onPlayerFailed(PlayItem item) {
+        if (tv_bottom_title != null) {
+            tv_bottom_title.setText(item != null ? item.getTitle() : "");
+        }
+
+    }
+
+    @Override
+    public void onMusicPlaying(PlayItem item) {
+        if (tv_bottom_title != null && item != null) {
+            tv_bottom_title.setText(item.getTitle());
+            btn_pause_play.setActivated(true);
+        }
+        setListData();
+        if (flag_FIRST_PLAY) {
+            SitechDevLog.e(TAG, "onPlayerPlaying  flag_FIRST_PLAY = " + flag_FIRST_PLAY);
+            flag_FIRST_PLAY = false;
+        }
+
+        SitechDevLog.e(TAG, "====== onPlayerPlaying ======= mCurPosition = " + mCurPosition);
+    }
+
+    @Override
+    public void onMusicPlayEnd(PlayItem item) {
+        int curPosition = PlayerListManager.getInstance().getCurPosition();
+        if (mCurPosition != curPosition) {
+            mCurPosition = curPosition;
+            playListAdapter.setSelected(mCurPosition);
+        }
+        SitechDevLog.e(TAG, "===== onPlayerEnd ======== curPosition  ---- " + curPosition + " mCurPosition ----" + mCurPosition);
+    }
+
+    @Override
+    public void onMusicPlayProgress(String s, int i, int i1, boolean b) {
+
     }
 }

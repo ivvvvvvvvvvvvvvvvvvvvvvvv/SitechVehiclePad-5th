@@ -2,7 +2,6 @@ package com.sitechdev.vehicle.pad.manager;
 
 import android.content.Context;
 import android.content.Intent;
-import android.text.TextUtils;
 
 import com.kaolafm.sdk.core.mediaplayer.PlayItem;
 import com.kaolafm.sdk.core.mediaplayer.PlayerListManager;
@@ -12,12 +11,10 @@ import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.kaola.ColumnMemberMamager;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.kaola.NewsDetailsActivity;
-import com.sitechdev.vehicle.pad.module.main.MainActivity;
 import com.sitechdev.vehicle.pad.module.music.MusicMainActivity;
 import com.sitechdev.vehicle.pad.module.music.MusicManager;
 import com.sitechdev.vehicle.pad.module.music.service.MusicInfo;
 import com.sitechdev.vehicle.pad.util.AppUtil;
-import com.sitechdev.vehicle.pad.util.AppVariants;
 import com.sitechdev.vehicle.pad.view.CommonToast;
 import com.sitechdev.vehicle.pad.vui.VUI;
 import com.sitechdev.vehicle.pad.vui.VUIWindow;
@@ -98,7 +95,7 @@ public class VoiceSourceManager {
                     MusicChangeListener listener = ref.get();
                     String value = listener.getClass().getAnnotation(
                             VoiceSourceType.class).value();
-                    switch (value){
+                    switch (value) {
                         case SUPPORT_TYPE_ALL:
                             listener.onMusicChange(title);
                             listener.resume();
@@ -138,10 +135,10 @@ public class VoiceSourceManager {
                     continue;
                 }
                 MusicChangeListener listener = ref.get();
-                String title =PlayerListManager.getInstance().getCurPlayItem().getTitle();
+                String title = PlayerListManager.getInstance().getCurPlayItem().getTitle();
                 String value = listener.getClass().getAnnotation(
                         VoiceSourceType.class).value();
-                switch (value){
+                switch (value) {
                     case SUPPORT_TYPE_ALL:
                         listener.onMusicChange(title);
                         listener.pause();
@@ -167,14 +164,14 @@ public class VoiceSourceManager {
             new MusicManager.OnMusicChangeListener() {
                 @Override
                 public void onMusciChange(MusicInfo current, int status) {
-                    if (null == current){
+                    if (null == current) {
                         musicSource = -1;
-                    }else {
+                    } else {
                         if (1 == status) {
                             musicSource = LOCAL_MUSIC;
                         }
                     }
-                    if (null != listeners){
+                    if (null != listeners) {
                         int len = listeners.size();
                         boolean[] removes = null;
                         for (int i = 0; i < len; i++) {
@@ -189,13 +186,13 @@ public class VoiceSourceManager {
                             MusicChangeListener listener = ref.get();
                             String value = listener.getClass().getAnnotation(
                                     VoiceSourceType.class).value();
-                            switch (value){
+                            switch (value) {
                                 case SUPPORT_TYPE_ALL:
                                 case SUPPORT_TYPE_LOCAL:
-                                    if (null == current){
+                                    if (null == current) {
                                         listener.onMusicChange("");
                                         listener.pause();
-                                    }else {
+                                    } else {
                                         StringBuilder content = new StringBuilder();
                                         content.append(current.musicName).append(" - ").append(current.artist);
                                         listener.onMusicChange(content.toString());
@@ -387,7 +384,7 @@ public class VoiceSourceManager {
     }
 
     public void pause(int type) {
-        if (beContent){
+        if (beContent) {
             beContent = false;
             VUI.getInstance().shut();
             return;
@@ -462,7 +459,7 @@ public class VoiceSourceManager {
                 } else {
                     if (type == VOICE) {
                         VUI.getInstance().shutAndTTS("正在播放");
-                    }else if (type == SCREEN){
+                    } else if (type == SCREEN) {
                         CommonToast.showToast("正在播放");
                     }
                 }
@@ -527,7 +524,7 @@ public class VoiceSourceManager {
             }
             String value = listener.getClass().getAnnotation(
                     VoiceSourceType.class).value();
-            switch (value){
+            switch (value) {
                 case SUPPORT_TYPE_ALL:
                     break;
                 case SUPPORT_TYPE_KAOLA:
@@ -540,7 +537,7 @@ public class VoiceSourceManager {
             addListener(listener, listeners);
             switch (musicSource) {
                 case KAOLA:
-                    switch (value){
+                    switch (value) {
                         case SUPPORT_TYPE_ALL:
                         case SUPPORT_TYPE_KAOLA:
                             notifyKaola(listener);
@@ -550,7 +547,7 @@ public class VoiceSourceManager {
                     }
                     break;
                 case LOCAL_MUSIC:
-                    switch (value){
+                    switch (value) {
                         case SUPPORT_TYPE_ALL:
                         case SUPPORT_TYPE_LOCAL:
                             if (null != MusicManager.getInstance().getPlayInfo()) {
@@ -591,7 +588,7 @@ public class VoiceSourceManager {
         }
     }
 
-    public void toDetailActivity(){
+    public void toDetailActivity() {
         switch (musicSource) {
             case KAOLA:
                 toKaoLa();
@@ -700,8 +697,47 @@ public class VoiceSourceManager {
 
         void onMusicChange(String name);
 
+        /**
+         * 暂停
+         */
         void pause();
 
+        /**
+         * 继续
+         */
         void resume();
+    }
+
+    public interface onPlaySourceMusicChangeListener {
+
+        /**
+         * 暂停
+         */
+        void onMusicPause();
+
+        /**
+         * 继续
+         */
+        void onMusicResume();
+
+        /**
+         * 歌曲信息
+         */
+        void onPlayerFailed(PlayItem item);
+
+        /**
+         * 继续
+         */
+        void onMusicPlaying(PlayItem item);
+
+        /**
+         * 播放完毕
+         */
+        void onMusicPlayEnd(PlayItem item);
+
+        /**
+         * 播放进度
+         */
+        void onMusicPlayProgress(String s, int i, int i1, boolean b);
     }
 }

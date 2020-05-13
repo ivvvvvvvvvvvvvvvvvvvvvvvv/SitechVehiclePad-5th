@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.blankj.utilcode.util.ArrayUtils;
 import com.kaolafm.opensdk.OpenSDK;
 import com.kaolafm.opensdk.api.operation.OperationRequest;
 import com.kaolafm.opensdk.api.operation.model.column.Column;
@@ -16,13 +15,10 @@ import com.kaolafm.sdk.core.mediaplayer.IPlayerStateListener;
 import com.kaolafm.sdk.core.mediaplayer.PlayItem;
 import com.kaolafm.sdk.core.mediaplayer.PlayerListManager;
 import com.kaolafm.sdk.core.mediaplayer.PlayerManager;
-import com.sitechdev.vehicle.lib.util.AppUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
-import com.sitechdev.vehicle.lib.util.ToastUtils;
 import com.sitechdev.vehicle.pad.app.AppApplication;
-import com.sitechdev.vehicle.pad.module.forshow.AudioListForShowActivity;
+import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.module.main.MainActivity;
-import com.sitechdev.vehicle.pad.util.AppUtil;
 import com.sitechdev.vehicle.pad.util.AppVariants;
 import com.sitechdev.vehicle.pad.view.CommonToast;
 
@@ -174,24 +170,28 @@ public class KaolaPlayManager {
         }
     }
 
-    public void playNext() {
+    public boolean playNext() {
         SitechDevLog.e(this.getClass().getSimpleName(), "========  playNext  was called");
+        boolean hasNext = PlayerManager.getInstance(AppApplication.getContext()).hasNext();
         if (PlayerManager.getInstance(AppApplication.getContext()).hasNext()) {
             PlayerManager.getInstance(AppApplication.getContext()).playNext();
 //            CommonToast.makeText(AppApplication.getContext(), "下一曲");
         } else {
             CommonToast.makeText(AppApplication.getContext(), "已经是最后一首啦");
         }
+        return hasNext;
     }
 
-    public void playPre() {
+    public boolean playPre() {
         SitechDevLog.e(this.getClass().getSimpleName(), "========  playPre  was called");
+        boolean hasPre = PlayerManager.getInstance(AppApplication.getContext()).hasPre();
         if (PlayerManager.getInstance(AppApplication.getContext()).hasPre()) {
             PlayerManager.getInstance(AppApplication.getContext()).playPre();
 //            CommonToast.makeText(AppApplication.getContext(), "上一曲");
         } else {
             CommonToast.makeText(AppApplication.getContext(), "已经是第一首啦");
         }
+        return hasPre;
     }
 
     public IPlayerStateListener mIPlayerStateListener = new IPlayerStateListener() {
@@ -210,6 +210,9 @@ public class KaolaPlayManager {
         public void onPlayerPlaying(PlayItem playItem) {
             mPlayCallback.onPlay();
             SitechDevLog.e(KaolaPlayManager.class.getSimpleName(), " ============== onPlayerPlaying =============");
+            if (onPlaySourceMusicChangeListener != null) {
+                onPlaySourceMusicChangeListener.onMusicPlaying(playItem);
+            }
         }
 
         @Override
@@ -221,16 +224,25 @@ public class KaolaPlayManager {
         @Override
         public void onProgress(String s, int i, int i1, boolean b) {
             SitechDevLog.e(KaolaPlayManager.class.getSimpleName(), " ============== onProgress =============");
+            if (onPlaySourceMusicChangeListener != null) {
+                onPlaySourceMusicChangeListener.onMusicPlayProgress(s, i, i1, b);
+            }
         }
 
         @Override
         public void onPlayerFailed(PlayItem playItem, int i, int i1) {
             SitechDevLog.e(KaolaPlayManager.class.getSimpleName(), " ============== onPlayerFailed =============");
+            if (onPlaySourceMusicChangeListener != null) {
+                onPlaySourceMusicChangeListener.onPlayerFailed(playItem);
+            }
         }
 
         @Override
         public void onPlayerEnd(PlayItem playItem) {
             SitechDevLog.e(KaolaPlayManager.class.getSimpleName(), " ============== onPlayerEnd =============");
+            if (onPlaySourceMusicChangeListener != null) {
+                onPlaySourceMusicChangeListener.onMusicPlayEnd(playItem);
+            }
         }
 
         @Override
@@ -293,5 +305,15 @@ public class KaolaPlayManager {
 
     public void setPlayCallback(PlayCallback playCallback) {
         mPlayCallback = playCallback;
+    }
+
+    private VoiceSourceManager.onPlaySourceMusicChangeListener onPlaySourceMusicChangeListener = null;
+
+    public void setPlayVoiceSourceManagerListener(VoiceSourceManager.onPlaySourceMusicChangeListener playSourceMusicChangeListener) {
+        onPlaySourceMusicChangeListener = playSourceMusicChangeListener;
+    }
+
+    public void clearPlayVoiceSourceManagerListener() {
+        onPlaySourceMusicChangeListener = null;
     }
 }

@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.GsonUtils;
 import com.kaolafm.opensdk.api.operation.model.column.Column;
 import com.kaolafm.opensdk.api.operation.model.column.ColumnMember;
 import com.kaolafm.sdk.core.mediaplayer.IPlayerStateListener;
@@ -272,11 +271,11 @@ public class KaolaListActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (PlayerManager.getInstance(mContext).isPlaying()) {
-            play_bar_root.setVisibility(View.GONE);
-        } else {
-            play_bar_root.setVisibility(View.GONE);
-        }
+//        if (PlayerManager.getInstance(mContext).isPlaying()) {
+//            play_bar_root.setVisibility(View.GONE);
+//        } else {
+//            play_bar_root.setVisibility(View.GONE);
+//        }
     }
 
     @Override
@@ -316,7 +315,7 @@ public class KaolaListActivity extends BaseActivity {
 //                SitechDevLog.e(KaolaListActivity.class.getSimpleName(), "============ position =" + position + "==========" + "CODE = " + mColumnMembers.get(position).getCode());
 //            }
 //        });
-        PlayerManager.getInstance(mContext).addPlayerStateListener(playerStateListener);
+//        PlayerManager.getInstance(mContext).addPlayerStateListener(playerStateListener);
         if (DEBUG) SitechDevLog.e(this.getClass().getSimpleName(), mCurrentColumn.toString());
 
 /*        if (DEBUG) {
@@ -434,7 +433,7 @@ public class KaolaListActivity extends BaseActivity {
 
         @Override
         public void onProgress(String s, int i, int i1, boolean b) {
-            SitechDevLog.e(KaolaListActivity.class.getSimpleName(), "====== onProgress =======");
+//            SitechDevLog.e(KaolaListActivity.class.getSimpleName(), "====== onProgress =======");
         }
 
         @Override
