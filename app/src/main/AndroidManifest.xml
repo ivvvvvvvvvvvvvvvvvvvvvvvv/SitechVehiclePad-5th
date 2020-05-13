@@ -16,6 +16,9 @@
         <activity
             android:name=".module.music.MusicMainActivity"
             android:screenOrientation="landscape" />
+        <activity
+            android:name=".module.forshow.MusicKaolaForShowActivity"
+            android:screenOrientation="landscape" />
 
         <activity
             android:name=".kaola.NewsDetailsActivity"

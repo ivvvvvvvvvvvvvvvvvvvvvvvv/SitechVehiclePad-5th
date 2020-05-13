@@ -1,22 +1,14 @@
 package com.sitechdev.vehicle.pad.view;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
-import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.PathEffect;
-import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.sitechdev.vehicle.pad.module.music.adapter.LocalMusicAdapter;
-import com.sitechdev.vehicle.pad.vui.VUI;
 
 /**
  * @author zhubaoqiang
@@ -28,7 +20,7 @@ public class RecycleViewDivider extends RecyclerView.ItemDecoration {
     private int mDividerHeight = 2;//分割线高度，默认为1px
     private Path mPath;
 //    private PathEffect mPathEffect;
-    private LocalMusicAdapter adapter;
+    private RecyclerView.Adapter adapter;
     private int checkedClor;
     private int normalClor;
 
@@ -39,7 +31,7 @@ public class RecycleViewDivider extends RecyclerView.ItemDecoration {
      * @param dividerHeight 分割线高度
      * @param dividerColor  分割线颜色
      */
-    public RecycleViewDivider(Context context, LocalMusicAdapter adapter,
+    public RecycleViewDivider(Context context, RecyclerView.Adapter adapter,
                               int dividerHeight, int dividerColor, int checkedColor) {
         this.adapter = adapter;
         mDividerHeight = dividerHeight;

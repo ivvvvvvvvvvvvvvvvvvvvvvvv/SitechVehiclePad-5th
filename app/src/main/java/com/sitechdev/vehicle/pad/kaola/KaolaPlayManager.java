@@ -59,7 +59,7 @@ public class KaolaPlayManager {
 
     public volatile PlayType mPlayType = null;
 
-    enum PlayType {
+    public enum PlayType {
         SITEV_NEWS, CHILD_PAPERS, CAR_FUN, LIFE_ALL
     }
 

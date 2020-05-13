@@ -22,6 +22,7 @@ import com.sitechdev.vehicle.lib.util.Constant;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
+import com.sitechdev.vehicle.pad.module.forshow.MusicKaolaForShowActivity;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppUtil;
@@ -346,7 +347,7 @@ public class KaolaListActivity extends BaseActivity {
                 PlayerManager.getInstance(mContext).switchPlayerStatus();
                 break;
             case R.id.btn_pop_list:
-                Intent intent = new Intent(KaolaListActivity.this, NewsDetailsActivity.class);
+                Intent intent = new Intent(KaolaListActivity.this, MusicKaolaForShowActivity.class);
                 intent.putExtra(Constant.KEY_TYPE_KEY, Constant.TYPE.PLAYING);
                 startActivity(intent);
                 break;

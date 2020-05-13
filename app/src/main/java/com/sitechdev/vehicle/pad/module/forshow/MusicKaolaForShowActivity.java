@@ -1,21 +1,16 @@
-package com.sitechdev.vehicle.pad.kaola;
+package com.sitechdev.vehicle.pad.module.forshow;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.bumptech.glide.Glide;
-import com.kaolafm.opensdk.api.operation.model.ImageFile;
 import com.kaolafm.opensdk.api.operation.model.column.ColumnMember;
 import com.kaolafm.opensdk.api.operation.model.column.RadioDetailColumnMember;
 import com.kaolafm.opensdk.utils.ListUtil;
@@ -29,55 +24,54 @@ import com.kaolafm.sdk.core.mediaplayer.PlayerRadioListManager;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.sitechdev.vehicle.lib.util.Constant;
-import com.sitechdev.vehicle.lib.util.CustomPopWindow;
 import com.sitechdev.vehicle.lib.util.DensityUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
+import com.sitechdev.vehicle.pad.kaola.ColumnMemberMamager;
+import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
+import com.sitechdev.vehicle.pad.kaola.NewsDetailsActivity;
+import com.sitechdev.vehicle.pad.kaola.PlayItemAdapter;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceType;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.view.CommonToast;
 import com.sitechdev.vehicle.pad.view.RecycleViewDivider;
-import com.sitechdev.vehicle.pad.view.RecycleViewKLDivider;
 import com.sitechdev.vehicle.pad.view.ScrollTextView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import static com.kaolafm.opensdk.api.operation.model.ImageFile.KEY_COVER;
-import static com.sitechdev.vehicle.pad.BuildConfig.DEBUG;
-
-//@Route(path = RouterConstants.MUSIC_PLAY_SHOW)
+@Route(path = RouterConstants.MUSIC_PLAY_SHOW)
 @VoiceSourceType(VoiceSourceManager.SUPPORT_TYPE_KAOLA)
-public class NewsDetailsActivity extends BaseActivity implements
-        VoiceSourceManager.MusicChangeListener{
+public class MusicKaolaForShowActivity extends BaseActivity implements
+        VoiceSourceManager.MusicChangeListener {
 
-    public static KaolaPlayManager.PlayType mCurrentType = null;
-    public static String title = "";
-
+    private Context mContext;
+    //new
     private Constant.TYPE TYPE_CODE;
     private ColumnMember mColumnMember;
-    RadioDetailColumnMember mRadioDetailColumnMember;
-    private ImageView btn_pre;
-    private ImageView btn_pause_play;
-    private ImageView btn_next;
-    private ImageView btn_pop_list;
-    private ScrollTextView tv_bottom_title;
-    private TextView tv_title;
-
-    private ImageView iv_back;
-    private TwinklingRefreshLayout trf_detail_playlist;
-    private RecyclerView rv_item_list;
-
+    private RadioDetailColumnMember mRadioDetailColumnMember;
     private int mCurPosition = 0;
+
+    private boolean flag_FIRST_PLAY;
+    private static KaolaPlayManager.PlayType mCurrentType = null;
+    //    private MusicKaolaForShowFragment kaolaPlayFragment = null;
+    private List<PlayItemAdapter.Item> playDataItemList = new ArrayList<>();
+
+    private RecyclerView vLocalMusicList;
+
+    private TwinklingRefreshLayout refreshLayout;
 
     private IPlayerListChangedListener mPlayerListChangedListener;
 
-    private Context mContext;
+    private MusicKaolaForShowAdapter playListAdapter;
 
-    private boolean flag_FIRST_PLAY;
+    private ImageView btn_pre;
+    private ImageView btn_next;
+    private ImageView btn_pause_play;
+    private TextView subtitle;
+    private ScrollTextView tv_bottom_title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,12 +83,35 @@ public class NewsDetailsActivity extends BaseActivity implements
     }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.activity_news_details;
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
     }
 
     @Override
-    protected void initData() {
+    protected int getLayoutId() {
+        return R.layout.activity_music_kaola_main_for_show;
+    }
+
+    @Override
+    protected void initView(Bundle savedInstanceState) {
+        super.initView(savedInstanceState);
+        TextView tv_title = (TextView) findViewById(R.id.tv_sub_title);
+
+        //左边播放条控制
+
+        //主标题
+        tv_bottom_title = findViewById(R.id.tv_bottom_title);
+        //上一首
+        btn_pre = findViewById(R.id.btn_pre);
+        //下一首
+        btn_next = findViewById(R.id.btn_next);
+        //播放，暂停
+        btn_pause_play = findViewById(R.id.btn_pause_play);
+
+        //数据传入
+        initPlayListView();
+
+        //NEW CODE========================
         Intent intent = getIntent();
         TYPE_CODE = (Constant.TYPE) intent.getSerializableExtra(Constant.KEY_TYPE_KEY);
         if (TYPE_CODE == Constant.TYPE.FIRST_ENTERED) {
@@ -108,72 +125,25 @@ public class NewsDetailsActivity extends BaseActivity implements
             PlayItem curPlayItem = PlayerListManager.getInstance().getCurPlayItem();
             mCurPosition = PlayerListManager.getInstance().getCurPosition();
             SitechDevLog.e(NewsDetailsActivity.class.getSimpleName(), "========== PLAYING   mCurPosition " + mCurPosition);
-            if (tv_bottom_title != null && curPlayItem != null) {
-                tv_bottom_title.setText(curPlayItem.getTitle());
-            }
+//            if (tv_bottom_title != null && curPlayItem != null) {
+//                tv_bottom_title.setText(curPlayItem.getTitle());
+//            }
             setListData();
         }
-        title = ColumnMemberMamager.SingltonHolder.INSTANCE.mColumnMember.getTitle();
+
+        String title = ColumnMemberMamager.SingltonHolder.INSTANCE.mColumnMember.getTitle();
         tv_title.setText(title);
+
+        //考拉播放的回调接口
         PlayerManager.getInstance(this).addPlayerStateListener(mPlayerStateListener);
+        showProgressDialog();
     }
 
-    private void setListData() {
-
-        LinearLayoutManager manager = new LinearLayoutManager(this);
-        manager.setOrientation(LinearLayoutManager.VERTICAL);
-        rv_item_list.setLayoutManager(manager);
-
-        ArrayList<PlayItem> playList = PlayerListManager.getInstance().getPlayList();
-        SitechDevLog.d(NewsDetailsActivity.class.getSimpleName(), "-----------setListData------------");
-        List<PlayItemAdapter.Item> datas = new ArrayList<>();
-        transformDataToItem(playList, datas);
-
-        mAdapter = new PlayItemAdapter(this);
-        mAdapter.setData(datas);
-        mAdapter.setSelectedShow(mCurPosition);
-
-        rv_item_list.setAdapter(mAdapter);
-        rv_item_list.addItemDecoration(new RecycleViewKLDivider(this,
-                mAdapter, DensityUtils.dp2px(1),
-                getResources().getColor(R.color.white_5),
-                getResources().getColor(R.color.white_21)));
-
-        mAdapter.notifyDataSetChanged();
-
-        mAdapter.setOnItemClickListener(new PlayItemAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(long playItemID, int position) {
-                SitechDevLog.e(NewsDetailsActivity.class.getSimpleName(), "position ====" + position);
-                mCurPosition = position;
-                mAdapter.setSelected(position);
-                PlayerManager.getInstance(mContext).playAudioFromPlayList(playItemID);
-            }
-        });
-        cancelProgressDialog();
-    }
-
-
-    @Override
-    protected void initView(Bundle savedInstanceState) {
-        super.initView(savedInstanceState);
-        iv_back = findViewById(R.id.iv_back);
-        btn_pre = findViewById(R.id.btn_pre);
-        btn_pause_play = findViewById(R.id.btn_pause_play);
-        btn_next = findViewById(R.id.btn_next);
-        btn_pop_list = findViewById(R.id.btn_pop_list);
-        btn_pop_list.setVisibility(View.INVISIBLE);
-
-        tv_bottom_title = findViewById(R.id.tv_bottom_title);
-
-        tv_title = findViewById(R.id.tv_title);
-
-        rv_item_list = findViewById(R.id.rv_item_list);
-        trf_detail_playlist = findViewById(R.id.trf_detail_playlist);
-        trf_detail_playlist.setEnableLoadmore(true);
-        trf_detail_playlist.setEnableRefresh(false);
-
-        trf_detail_playlist.setOnRefreshListener(new RefreshListenerAdapter() {
+    private void initPlayListView() {
+        refreshLayout = findViewById(R.id.music_kaola_refresh_layout);
+        refreshLayout.setEnableRefresh(false);
+        refreshLayout.setEnableLoadmore(false);
+        refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
             public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
                 super.onLoadMore(refreshLayout);
@@ -181,48 +151,95 @@ public class NewsDetailsActivity extends BaseActivity implements
                 fetchMore(true);
             }
         });
-        showProgressDialog();
+        vLocalMusicList = findViewById(R.id.music_kaola_list);
+        vLocalMusicList.setLayoutManager(new LinearLayoutManager(this));
+        vLocalMusicList.setItemAnimator(new DefaultItemAnimator());
+        vLocalMusicList.addItemDecoration(new RecycleViewDivider(this,
+                playListAdapter, DensityUtils.dp2px(1),
+                getResources().getColor(R.color.white_5),
+                getResources().getColor(R.color.white_21)));
+    }
+
+    private void setListData() {
+
+        ArrayList<PlayItem> playList = PlayerListManager.getInstance().getPlayList();
+        SitechDevLog.d(NewsDetailsActivity.class.getSimpleName(), "-----------setListData------------");
+        if (playDataItemList == null) {
+            playDataItemList = new ArrayList<>();
+        } else {
+            playDataItemList.clear();
+        }
+        //重组播放列表
+        transformDataToItem(playList, playDataItemList);
+
+        if (playListAdapter == null) {
+            playListAdapter = new MusicKaolaForShowAdapter(this);
+            if (playDataItemList != null) {
+                playListAdapter.refreshData(playDataItemList, 0);
+            }
+            vLocalMusicList.setAdapter(playListAdapter);
+            VoiceSourceManager.getInstance().addMusicChangeListener(this);
+        }
+
+        playListAdapter.setOnItemClickListener(new MusicKaolaForShowAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(long playItemID, int position) {
+                SitechDevLog.e(NewsDetailsActivity.class.getSimpleName(), "position ====" + position);
+                mCurPosition = position;
+                playListAdapter.setSelected(position);
+                PlayerManager.getInstance(mContext).playAudioFromPlayList(playItemID);
+            }
+        });
+        cancelProgressDialog();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     @Override
     protected void initListener() {
         super.initListener();
-        iv_back.setOnClickListener(this);
+        findViewById(R.id.iv_sub_back).setOnClickListener(this);
+
+        btn_pre.setOnClickListener(this);
         btn_next.setOnClickListener(this);
         btn_pause_play.setOnClickListener(this);
-        btn_pre.setOnClickListener(this);
-        btn_pop_list.setOnClickListener(this);
+    }
 
+    @Override
+    protected void initData() {
     }
 
     @Override
     public void onClick(View v) {
+        super.onClick(v);
         switch (v.getId()) {
-            case R.id.iv_back:
+            case R.id.iv_sub_back:
                 finish();
                 break;
             case R.id.btn_pre:
                 playPre();
                 break;
-            case R.id.btn_pause_play:
-                switchPlayPause();
-                break;
             case R.id.btn_next:
                 playNext();
                 break;
-            case R.id.btn_pop_list:
+            case R.id.btn_pause_play:
+                switchPlayPause();
+                break;
+            default:
                 break;
         }
     }
 
     private void playPre() {
-
         SitechDevLog.e(this.getClass().getSimpleName(), "========  playPre  was called");
         if (PlayerManager.getInstance(this).hasPre()) {
             PlayerManager.getInstance(this).playPre();
-            if (mAdapter != null) {
+            if (playListAdapter != null) {
                 mCurPosition--;
-                mAdapter.setSelected(mCurPosition);
+                playListAdapter.setSelected(mCurPosition);
             }
         } else {
             CommonToast.makeText(mContext, "已经是第一首啦~~~");
@@ -233,16 +250,15 @@ public class NewsDetailsActivity extends BaseActivity implements
         SitechDevLog.e(this.getClass().getSimpleName(), "========  playNext  was called");
         if (PlayerManager.getInstance(this).hasNext()) {
             PlayerManager.getInstance(this).playNext();
-            if (mAdapter != null) {
+            if (playListAdapter != null) {
                 mCurPosition++;
-                mAdapter.setSelected(mCurPosition);
+                playListAdapter.setSelected(mCurPosition);
             }
         } else {
             CommonToast.makeText(mContext, "已经是最后一首啦~~~");
         }
     }
 
-    private PlayItemAdapter mAdapter;
 
     private void fetchMore(boolean isLoadMore) {
         //播单数据变化监听
@@ -251,9 +267,8 @@ public class NewsDetailsActivity extends BaseActivity implements
             List<PlayItemAdapter.Item> datas = new ArrayList<>();
             transformDataToItem(dataList, datas);
 
-            mAdapter.setData(datas);
-            mAdapter.setSelectedShow(mCurPosition);
-            trf_detail_playlist.finishLoadmore();
+            playListAdapter.setData(datas);
+            playListAdapter.setSelectedShow(mCurPosition);
         };
         PlayerListManager.getInstance().registerPlayerListChangedListener(mPlayerListChangedListener);
 
@@ -302,16 +317,35 @@ public class NewsDetailsActivity extends BaseActivity implements
         } else {
             PlayerManager.getInstance(this).play();
         }
-
+        refreshPlayStatusView();
     }
 
+    private void refreshPlayStatusView() {
+        if (PlayerManager.getInstance(this).isPlaying()) {
+            if (btn_pause_play != null) {
+                btn_pause_play.setImageResource(R.drawable.pc_pause);
+            }
+        } else {
+            if (btn_pause_play != null) {
+                btn_pause_play.setImageResource(R.drawable.pc_play);
+            }
+        }
+    }
+
+    /**
+     * 请求数据信息
+     */
     private void requestKaoLaInfo() {
-        if (mColumnMember != null)
+        if (mColumnMember != null) {
             SitechDevLog.e(NewsDetailsActivity.class.getSimpleName(), mColumnMember.toString());
+        }
 
         PlayerManager.getInstance(this).playPgc(mRadioDetailColumnMember.getRadioId());
     }
 
+    /**
+     * 播放状态回调
+     */
     IPlayerStateListener mPlayerStateListener = new IPlayerStateListener() {
         @Override
         public void onIdle(PlayItem playItem) {
@@ -341,11 +375,18 @@ public class NewsDetailsActivity extends BaseActivity implements
         @Override
         public void onPlayerPaused(PlayItem playItem) {
             SitechDevLog.e(NewsDetailsActivity.class.getSimpleName(), "======= onPlayerPaused ======");
+            /**
+             *
+             btn_pause_play.setImageResource(R.drawable.pc_play);
+             break;
+             case MusicManager.OnMusicChangeListener.RESUME:
+             btn_pause_play.setImageResource(R.drawable.pc_pause);
+             */
         }
 
         @Override
         public void onProgress(String s, int i, int i1, boolean b) {
-            SitechDevLog.e(NewsDetailsActivity.class.getSimpleName(), "======= onProgress ======");
+//            SitechDevLog.e(NewsDetailsActivity.class.getSimpleName(), "======= onProgress ======");
         }
 
         @Override
@@ -358,7 +399,7 @@ public class NewsDetailsActivity extends BaseActivity implements
             int curPosition = PlayerListManager.getInstance().getCurPosition();
             if (mCurPosition != curPosition) {
                 mCurPosition = curPosition;
-                mAdapter.setSelected(mCurPosition);
+                playListAdapter.setSelected(mCurPosition);
             }
             SitechDevLog.e(NewsDetailsActivity.class.getSimpleName(), "===== onPlayerEnd ======== curPosition  ---- " + curPosition + " mCurPosition ----" + mCurPosition);
         }
@@ -385,24 +426,19 @@ public class NewsDetailsActivity extends BaseActivity implements
     };
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        SitechDevLog.e(NewsDetailsActivity.class.getSimpleName(), "onDestroy  flag_FIRST_PLAY = " + flag_FIRST_PLAY);
-        flag_FIRST_PLAY = true;
-    }
-
-    @Override
     public void onMusicChange(String name) {
-        tv_bottom_title.setText(name);
+        if (tv_bottom_title != null) {
+            tv_bottom_title.setText(name);
+        }
     }
 
     @Override
     public void pause() {
-        btn_pause_play.setActivated(false);
+        refreshPlayStatusView();
     }
 
     @Override
     public void resume() {
-        btn_pause_play.setActivated(true);
+        refreshPlayStatusView();
     }
 }

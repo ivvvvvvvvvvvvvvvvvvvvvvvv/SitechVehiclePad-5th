@@ -368,12 +368,16 @@ public class VUI implements VUIWindow.OnWindowHideListener {
             case AIUIConstant.TTS_SPEAK_BEGIN:
                 log("开始播放");
                 isInTTS = true;
-                vuiWindow.clearText();
-                vuiWindow.appendText(event.arg2, event.info);
+                if (vuiWindow != null) {
+                    vuiWindow.clearText();
+                    vuiWindow.appendText(event.arg2, event.info);
+                }
                 break;
 
             case AIUIConstant.TTS_SPEAK_PROGRESS:
-                vuiWindow.appendText(event.arg2, event.info);
+                if (vuiWindow != null) {
+                    vuiWindow.appendText(event.arg2, event.info);
+                }
                 break;
 
             case AIUIConstant.TTS_SPEAK_PAUSED:
