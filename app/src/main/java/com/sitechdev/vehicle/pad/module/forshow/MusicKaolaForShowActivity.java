@@ -70,6 +70,7 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
     private ImageView musicImageView, btn_pre, btn_next, btn_pause_play;
     private TextView subtitle;
     private ScrollTextView tv_bottom_title;
+    private int defaultImgResId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,6 +134,9 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
             }
             setListData();
         }
+        //默认图片索引
+        defaultImgResId = intent.getIntExtra(Constant.KEY_DEFAULT_IMG_RESID, 0);
+        GlideApp.with(this).load(defaultImgResId).into(musicImageView);
 
         String title = ColumnMemberMamager.SingltonHolder.INSTANCE.mColumnMember.getTitle();
         tv_title.setText(title);
@@ -384,7 +388,7 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
         if (tv_bottom_title != null && item != null) {
             tv_bottom_title.setText(item.getTitle());
             btn_pause_play.setActivated(true);
-            GlideApp.with(this).load(item.getAlbumPic()).placeholder(R.drawable.img_song_card).into(musicImageView);
+//            GlideApp.with(this).load(item.getAlbumPic()).placeholder(R.drawable.img_song_card).into(musicImageView);
 //            musicImageView.setImageResource();
         }
         setListData();

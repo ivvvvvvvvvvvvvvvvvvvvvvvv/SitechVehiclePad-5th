@@ -54,12 +54,12 @@ public class KaolaListActivity extends BaseActivity {
             R.drawable.icon_chyl_bottom2,
             R.drawable.icon_chyl_bottom3,
             R.drawable.icon_chyl_bottom4};
-    private static final int[] IMG_XTSB_ICONS = {R.drawable.icon_stsb_top1,
-            R.drawable.icon_stsb_top2,
-            R.drawable.icon_stsb_bottom1,
-            R.drawable.icon_stsb_bottom2,
-            R.drawable.icon_stsb_bottom3,
-            R.drawable.icon_stsb_bottom4};
+    private static final int[] IMG_XTSB_ICONS = {R.drawable.icon_xtsb_top1,
+            R.drawable.icon_xtsb_top2,
+            R.drawable.icon_xtsb_bottom1,
+            R.drawable.icon_xtsb_bottom2,
+            R.drawable.icon_xtsb_bottom3,
+            R.drawable.icon_xtsb_bottom4};
     private static final int[] IMG_SHYDT_ICONS = {R.drawable.icon_shydt_top1,
             R.drawable.icon_shydt_top2,
             R.drawable.icon_shydt_bottom1,
@@ -73,7 +73,33 @@ public class KaolaListActivity extends BaseActivity {
             R.drawable.icon_etdw_bottom3,
             R.drawable.icon_etdw_bottom4};
 
-    private int[] currentImgArray = null;
+    //default
+    private static final int[] IMG_CHYL_ICONS_DEFAULT = {R.drawable.icon_chyl_top1_default,
+            R.drawable.icon_chyl_top2_default,
+            R.drawable.icon_chyl_bottom1_default,
+            R.drawable.icon_chyl_bottom2_default,
+            R.drawable.icon_chyl_bottom3_default,
+            R.drawable.icon_chyl_bottom4_default};
+    private static final int[] IMG_XTSB_ICONS_DEFAULT = {R.drawable.icon_xtsb_top1_default,
+            R.drawable.icon_xtsb_top2_default,
+            R.drawable.icon_xtsb_bottom1_default,
+            R.drawable.icon_xtsb_bottom2_default,
+            R.drawable.icon_xtsb_bottom3_default,
+            R.drawable.icon_xtsb_bottom4_default};
+    private static final int[] IMG_SHYDT_ICONS_DEFAULT = {R.drawable.icon_shydt_top1_default,
+            R.drawable.icon_shydt_top2_default,
+            R.drawable.icon_shydt_bottom1_default,
+            R.drawable.icon_shydt_bottom2_default,
+            R.drawable.icon_shydt_bottom3_default,
+            R.drawable.icon_shydt_bottom4_default};
+    private static final int[] IMG_ETDW_ICONS_DEFAULT = {R.drawable.icon_etdw_top1_default,
+            R.drawable.icon_etdw_top2_default,
+            R.drawable.icon_etdw_bottom1_default,
+            R.drawable.icon_etdw_bottom2_default,
+            R.drawable.icon_etdw_bottom3_default,
+            R.drawable.icon_etdw_bottom4_default};
+
+    private int[] currentImgArray = null, currentDefaultImgArray = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -127,9 +153,11 @@ public class KaolaListActivity extends BaseActivity {
             switch (pageIndex) {
                 case 1://儿童读物
                     currentImgArray = IMG_ETDW_ICONS;
+                    currentDefaultImgArray = IMG_ETDW_ICONS_DEFAULT;
                     break;
                 case 2://车嗨娱乐
                     currentImgArray = IMG_CHYL_ICONS;
+                    currentDefaultImgArray = IMG_CHYL_ICONS_DEFAULT;
                     if (mColumnMembers.size() < 6) {
                         ColumnMember columnMember = (ColumnMember) AppUtil.copyObject(mColumnMembers.get(0));
                         columnMember.setTitle("情景喜剧");
@@ -138,9 +166,11 @@ public class KaolaListActivity extends BaseActivity {
                     break;
                 case 3://生活一点通
                     currentImgArray = IMG_SHYDT_ICONS;
+                    currentDefaultImgArray = IMG_SHYDT_ICONS_DEFAULT;
                     break;
                 default://新特速报
                     currentImgArray = IMG_XTSB_ICONS;
+                    currentDefaultImgArray = IMG_XTSB_ICONS_DEFAULT;
                     break;
             }
 //            mKaolaListAdapter = new KaolaListAdapter(this, mColumnMembers);
@@ -385,6 +415,7 @@ public class KaolaListActivity extends BaseActivity {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(Constant.KEY_TYPE_KEY, Constant.TYPE.PLAYING);
                 playingColumnMember.setTitle(columnMember.getTitle());
+                bundle.putInt(Constant.KEY_DEFAULT_IMG_RESID, currentDefaultImgArray[position]);
                 RouterUtils.getInstance().navigation(RouterConstants.MUSIC_PLAY_SHOW, bundle);
                 return;
             }
@@ -398,6 +429,7 @@ public class KaolaListActivity extends BaseActivity {
             Bundle bundle = new Bundle();
             bundle.putSerializable(Constant.KEY_TYPE_KEY, Constant.TYPE.FIRST_ENTERED);
             bundle.putSerializable(Constant.KEY_MEMBER_CODE, columnMember);
+            bundle.putInt(Constant.KEY_DEFAULT_IMG_RESID, currentDefaultImgArray[position]);
             RouterUtils.getInstance().navigation(RouterConstants.MUSIC_PLAY_SHOW, bundle);
         }
 
