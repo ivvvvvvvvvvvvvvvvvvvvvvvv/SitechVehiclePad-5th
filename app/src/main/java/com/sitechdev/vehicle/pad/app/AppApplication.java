@@ -15,6 +15,7 @@ import com.kaolafm.opensdk.http.error.ApiException;
 import com.kaolafm.opensdk.log.Logging;
 import com.sitechdev.net.EnvironmentConfig;
 import com.sitechdev.net.HttpHelper;
+import com.sitechdev.pad.lib.aoplibrary.annotation.DebugTrace;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.MarsXlogUtil;
 import com.sitechdev.vehicle.lib.util.ParamsUtil;
@@ -53,6 +54,7 @@ public class AppApplication extends Application {
     private static AppApplication mApplication = null;
 
     @Override
+    @DebugTrace
     public void onCreate() {
         super.onCreate();
         if (!ProcessUtil.isMainProcess(this)) {
@@ -68,7 +70,7 @@ public class AppApplication extends Application {
         }
         AppManager.getInstance().init(this);
         //腾讯相关组件
-        initTecentUtil();
+        initTencentUtil();
         //工具初始化
         initUtils();
         //换肤组件
@@ -79,7 +81,7 @@ public class AppApplication extends Application {
         initKaolaSdk();
     }
 
-    //    @DebugTrace
+    @DebugTrace
     private void initUtils() {
         ThreadManager.getInstance().addTask(() -> {
             //Activity 页面管理
@@ -95,6 +97,7 @@ public class AppApplication extends Application {
         });
     }
 
+    @DebugTrace
     private void initCustomWindow() {
         //右上角状态window
         AppSignalWindowManager.getInstance().init(this);
@@ -107,7 +110,8 @@ public class AppApplication extends Application {
         BaseAppWindowManager.getInstance().init();
     }
 
-    private void initTecentUtil() {
+    @DebugTrace
+    private void initTencentUtil() {
         //日志组件
         MarsXlogUtil.initXlog(this, BuildConfig.DEBUG);
         //数据存储组件
@@ -117,6 +121,7 @@ public class AppApplication extends Application {
     /**
      * 网络模块初始化
      */
+    @DebugTrace
     private void initNet() {
         EnvironmentConfig.init(!BuildConfig.DEBUG);
         //自定义拦截器
@@ -138,6 +143,7 @@ public class AppApplication extends Application {
     /**
      * Activity 页面管理
      */
+    @DebugTrace
     private void initLifecleActivity() {
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override
@@ -199,6 +205,7 @@ public class AppApplication extends Application {
     /**
      * 考拉SDK
      */
+    @DebugTrace
     private void initKaolaSdk() {
         Logging.setDebug(true);
         OpenSDK.getInstance().initSDK(this, new HttpCallback<Boolean>() {
@@ -221,6 +228,7 @@ public class AppApplication extends Application {
     /**
      * 换肤组件初始化
      */
+    @DebugTrace
     private void initSkinManager() {
         SkinManager.getInstance().initSkinManager(this);
     }
