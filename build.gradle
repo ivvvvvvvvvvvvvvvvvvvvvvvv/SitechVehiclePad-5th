@@ -3,6 +3,9 @@ buildscript {
     repositories {
         maven { url "http://maven.xtev.cn:8081/repository/maven-releases/" }
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+        jcenter() {
+            url 'https://jcenter.bintray.com/'
+        }
         maven { url 'https://jitpack.io' }
         google()
     }
@@ -19,6 +22,9 @@ allprojects {
     repositories {
         maven { url "http://maven.xtev.cn:8081/repository/maven-releases/" }
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+        jcenter() {
+            url 'https://jcenter.bintray.com/'
+        }
         maven { url 'https://jitpack.io' }
         maven {
             url "https://raw.githubusercontent.com/tingban/maven-repository/release"
