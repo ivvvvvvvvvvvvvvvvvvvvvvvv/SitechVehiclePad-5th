@@ -35,6 +35,9 @@ public class RouterUtils {
 
     /**
      * ARouter初始化操作
+     *
+     * @param printLogs true=打印log，开启debug模式。false反之
+     * @param app       当前application对象
      */
     public void init(boolean printLogs, Application app) {
         // 这两行必须写在init之前，否则这些配置在init过程中将无效
@@ -80,10 +83,23 @@ public class RouterUtils {
         return null;
     }
 
+    /**
+     * 构建Fragment
+     *
+     * @param path  fragment路径
+     * @param flags 跳转所使用的N个flags
+     */
     public void navigationWithFlags(String path, int... flags) {
         navigationWithFlags(path, null, flags);
     }
 
+    /**
+     * 构建Fragment
+     *
+     * @param path   fragment路径
+     * @param bundle 跳转传递的bundle参数
+     * @param flags  跳转所使用的N个flags
+     */
     public void navigationWithFlags(String path, Bundle bundle, int... flags) {
         if (path == null) {
             return;
