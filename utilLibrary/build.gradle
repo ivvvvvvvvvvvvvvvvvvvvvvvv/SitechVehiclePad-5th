@@ -20,11 +20,16 @@ android {
         sourceCompatibility Config.sourceCompatibilityVersion
         targetCompatibility Config.targetCompatibilityVersion
     }
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
 
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api fileTree(dir: 'libs', include: ['*.jar'])
     api Config.depConfig.android_support.annotations
     api(Config.depConfig.glide.glide_version) {
         exclude group: "com.android.support"
