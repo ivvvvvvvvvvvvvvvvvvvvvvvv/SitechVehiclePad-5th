@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextClock;
 
 import com.blankj.utilcode.util.NetworkUtils;
@@ -33,7 +32,7 @@ public class AppSignalView extends LinearLayout {
 
     public int mWidth;
     public int mHeight;
-    private RelativeLayout rl;
+    private LinearLayout rl;
 
 
     public AppSignalView(Context context) {
@@ -44,9 +43,9 @@ public class AppSignalView extends LinearLayout {
         super(context, attrs);
         // 填充布局，并添加至
         LayoutInflater.from(context).inflate(R.layout.app_signal_view, this);
-        rl = findViewById(R.id.rl);
+        rl = findViewById(R.id.id_linear_app_signal);
 
-        TextClock tc = findViewById(R.id.tc);
+        TextClock tc = findViewById(R.id.id_app_signal_time);
         tc.setTypeface(FontUtil.getInstance().getMainFont());
 
         iv_usb_icon = findViewById(R.id.iv_usb_icon);
