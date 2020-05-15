@@ -2,6 +2,7 @@ package com.sitechdev.vehicle.pad.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.support.annotation.NonNull;
@@ -37,7 +38,7 @@ public class RecycleViewDivider extends RecyclerView.ItemDecoration {
         mDividerHeight = dividerHeight;
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         this.normalClor = dividerColor;
-        mPaint.setColor(normalClor);
+        mPaint.setColor(Color.TRANSPARENT);
         mPaint.setStyle(Paint.Style.STROKE);
         mPath = new Path();
         mPaint.setStrokeWidth(mDividerHeight);

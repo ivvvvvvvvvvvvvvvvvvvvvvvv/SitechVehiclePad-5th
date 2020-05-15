@@ -30,21 +30,21 @@ public class FontUtil {
 
     public Typeface getMainFont() {
         if (mainFontFace == null) {
-            mainFontFace = Typeface.createFromAsset(AppApplication.getContext().getAssets(), "fonts/main_font.otf");
+            mainFontFace = Typeface.createFromAsset(AppApplication.getContext().getAssets(), "fonts/main_font_95w.otf");
         }
         return mainFontFace;
     }
 
     public Typeface getMainFont_i() {
         if (mainFontFace_i == null) {
-            mainFontFace_i = Typeface.createFromAsset(AppApplication.getContext().getAssets(), "fonts/main_font_i.otf");
+            mainFontFace_i = Typeface.createFromAsset(AppApplication.getContext().getAssets(), "fonts/main_font_65w.otf");
         }
         return mainFontFace_i;
     }
 
     public Typeface getMainFont_Min_i() {
         if (getMainFont_Min_i == null) {
-            getMainFont_Min_i = Typeface.createFromAsset(AppApplication.getContext().getAssets(), "fonts/main_font_min_i.otf");
+            getMainFont_Min_i = Typeface.createFromAsset(AppApplication.getContext().getAssets(), "fonts/main_font_55w.otf");
         }
         return getMainFont_Min_i;
     }

@@ -170,7 +170,7 @@ public class MainActivity extends BaseActivity
 
         ReflectTextClock tcTime = (ReflectTextClock) findViewById(R.id.btn_hp_time);
         tcTime.setTypeface(FontUtil.getInstance().getMainFont());
-        tvTemperature.setTypeface(FontUtil.getInstance().getMainFont_i());
+        tvTemperature.setTypeface(FontUtil.getInstance().getMainFont());
     }
 
     @Override

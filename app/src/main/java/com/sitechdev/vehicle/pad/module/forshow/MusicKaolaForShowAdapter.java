@@ -13,6 +13,7 @@ import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.kaola.PlayItemAdapter;
+import com.sitechdev.vehicle.pad.util.FontUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -168,6 +169,7 @@ public class MusicKaolaForShowAdapter extends
             super(itemView);
             vIndex = itemView.findViewById(R.id.item_locl_music_index);
             vName = itemView.findViewById(R.id.item_locl_music_name);
+            vName.setTypeface(FontUtil.getInstance().getMainFont_Min_i());
             art = itemView.findViewById(R.id.item_locl_music_art);
         }
 

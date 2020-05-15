@@ -35,6 +35,7 @@ import com.sitechdev.vehicle.pad.kaola.PlayItemAdapter;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceType;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
+import com.sitechdev.vehicle.pad.util.FontUtil;
 import com.sitechdev.vehicle.pad.view.CommonToast;
 import com.sitechdev.vehicle.pad.view.RecycleViewDivider;
 import com.sitechdev.vehicle.pad.view.ScrollTextView;
@@ -143,6 +144,9 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
     }
 
     private void initPlayListView() {
+        TextView playListTextView=findViewById(R.id.tip_playlist_title);
+        playListTextView.setTypeface(FontUtil.getInstance().getMainFont_i());
+
         refreshLayout = findViewById(R.id.music_kaola_refresh_layout);
         refreshLayout.setEnableRefresh(false);
         refreshLayout.setEnableLoadmore(false);
@@ -159,7 +163,7 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
         vLocalMusicList.setLayoutManager(linearLayoutManager);
         vLocalMusicList.setItemAnimator(new DefaultItemAnimator());
         vLocalMusicList.addItemDecoration(new RecycleViewDivider(this,
-                playListAdapter, DensityUtils.dp2px(1),
+                playListAdapter, DensityUtils.dp2px(20),
                 getResources().getColor(R.color.white_5),
                 getResources().getColor(R.color.white_21)));
     }
