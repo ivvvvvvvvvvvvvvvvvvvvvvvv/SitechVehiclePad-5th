@@ -25,6 +25,7 @@ import com.sitechdev.vehicle.pad.module.forshow.MusicKaolaForShowActivity;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppUtil;
+import com.sitechdev.vehicle.pad.util.FontUtil;
 import com.sitechdev.vehicle.pad.view.ScrollTextView;
 
 import java.util.List;
@@ -130,6 +131,7 @@ public class KaolaListActivity extends BaseActivity {
         btn_next = findViewById(R.id.btn_next);
         btn_pop_list = findViewById(R.id.btn_pop_list);
         tv_bottom_title = findViewById(R.id.tv_bottom_title);
+        tv_bottom_title.setTypeface(FontUtil.getInstance().getMainFont_i());
         tv_title = findViewById(R.id.tv_sub_title);
 
         play_bar_root = findViewById(R.id.play_bar_root);

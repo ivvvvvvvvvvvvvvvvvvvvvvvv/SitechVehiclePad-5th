@@ -20,7 +20,7 @@
         android:layout_marginRight="100px"
         android:text="无内容"
         android:textColor="@color/white"
-        android:textSize="@dimen/px_40"
+        android:textSize="37px"
         android:textStyle="bold"
         tools:text="专辑名称" />
 

@@ -145,7 +145,7 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
 
     private void initPlayListView() {
         TextView playListTextView=findViewById(R.id.tip_playlist_title);
-        playListTextView.setTypeface(FontUtil.getInstance().getMainFont_i());
+        playListTextView.setTypeface(FontUtil.getInstance().getMainFont_Min_i());
 
         refreshLayout = findViewById(R.id.music_kaola_refresh_layout);
         refreshLayout.setEnableRefresh(false);
