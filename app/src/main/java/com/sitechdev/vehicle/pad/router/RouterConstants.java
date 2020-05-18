@@ -121,6 +121,8 @@ public interface RouterConstants {
      * 考拉 FM
      */
     String FRAGMENT_KAOLA_RADIO = "/needLogin/needNet/kaolaRadio";
+    String KAOLA_RADIO_LIST = "/needLogin/needNet/kaolaRadioList";
+    String KAOLA_RADIO_PLAY = "/needLogin/needNet/kaolaRadioPlay";
 
     /**
      * 酷我

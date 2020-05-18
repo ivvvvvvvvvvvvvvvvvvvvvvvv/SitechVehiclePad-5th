@@ -18,6 +18,7 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".module.forshow.MusicKaolaForShowActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="landscape" />
 
         <activity
@@ -40,6 +41,7 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".kaola.KaolaListActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="landscape" />
         <activity
             android:name=".module.apps.AppsListActivity"

@@ -11,6 +11,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.kaolafm.opensdk.api.operation.model.column.Column;
 import com.kaolafm.opensdk.api.operation.model.column.ColumnMember;
 import com.kaolafm.sdk.core.mediaplayer.IPlayerStateListener;
@@ -22,6 +25,7 @@ import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.module.forshow.MusicKaolaForShowActivity;
+import com.sitechdev.vehicle.pad.module.music.fragment.LocalMusicFragment;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppUtil;
@@ -31,11 +35,14 @@ import com.sitechdev.vehicle.pad.view.ScrollTextView;
 import java.util.List;
 
 import static com.sitechdev.vehicle.pad.BuildConfig.DEBUG;
-
+@Route(path = RouterConstants.KAOLA_RADIO_LIST)
 public class KaolaListActivity extends BaseActivity {
     Context mContext;
     Column mCurrentColumn;
-    private int deepIndex, pageIndex;
+//    @Autowired(name = Constant.KEY_COLUMN)
+    private int deepIndex;
+//    @Autowired(name = Constant.KEY_TYPE_INDEX)
+    private int pageIndex;
     List<ColumnMember> mColumnMembers;
 //    RecyclerView rv_kaola_list;
 //    KaolaListAdapter mKaolaListAdapter;
@@ -105,6 +112,7 @@ public class KaolaListActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        ARouter.getInstance().inject(this);
         mContext = this;
     }
 
@@ -116,8 +124,20 @@ public class KaolaListActivity extends BaseActivity {
     @Override
     protected void initViewBefore() {
         super.initViewBefore();
-        deepIndex = getIntent().getIntExtra(Constant.KEY_COLUMN, -1);
-        pageIndex = getIntent().getIntExtra(Constant.KEY_TYPE_INDEX, 0);
+        parseIntent(getIntent());
+    }
+
+    private void parseIntent(Intent intent ){
+        if (intent != null) {
+            Bundle bundle = intent.getExtras();
+            if (bundle != null) {
+                deepIndex = bundle.getInt(Constant.KEY_COLUMN, -1);
+                pageIndex = bundle.getInt(Constant.KEY_TYPE_INDEX, 0);
+            } else {
+                deepIndex = intent.getIntExtra(Constant.KEY_COLUMN, -1);
+                pageIndex = intent.getIntExtra(Constant.KEY_TYPE_INDEX, 0);
+            }
+        }
     }
 
     @Override
@@ -140,8 +160,7 @@ public class KaolaListActivity extends BaseActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        deepIndex = intent.getIntExtra(Constant.KEY_COLUMN, -1);
-        pageIndex = getIntent().getIntExtra(Constant.KEY_TYPE_INDEX, 0);
+        parseIntent(intent);
         initData();
         initListener();
     }
@@ -185,7 +204,7 @@ public class KaolaListActivity extends BaseActivity {
         if (deepIndex >= 0 && null != mColumnMembers && mColumnMembers.size() > deepIndex) {
             ColumnMember columnMember = mColumnMembers.get(deepIndex);
             if (null != columnMember) {
-                Intent intent = new Intent(KaolaListActivity.this, NewsDetailsActivity.class);
+                Intent intent = new Intent(KaolaListActivity.this, MusicKaolaForShowActivity.class);
                 intent.putExtra(Constant.KEY_TYPE_KEY, Constant.TYPE.FIRST_ENTERED);
                 intent.putExtra(Constant.KEY_MEMBER_CODE, columnMember);
                 startActivity(intent);

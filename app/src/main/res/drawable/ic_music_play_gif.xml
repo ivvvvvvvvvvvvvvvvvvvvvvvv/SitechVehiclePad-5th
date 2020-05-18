@@ -7,5 +7,4 @@
     <item
         android:drawable="@drawable/list_icon_played"
         android:duration="150" />
-
 </animation-list>

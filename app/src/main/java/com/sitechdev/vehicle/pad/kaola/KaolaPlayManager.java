@@ -3,6 +3,7 @@ package com.sitechdev.vehicle.pad.kaola;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.kaolafm.opensdk.OpenSDK;
@@ -15,10 +16,13 @@ import com.kaolafm.sdk.core.mediaplayer.IPlayerStateListener;
 import com.kaolafm.sdk.core.mediaplayer.PlayItem;
 import com.kaolafm.sdk.core.mediaplayer.PlayerListManager;
 import com.kaolafm.sdk.core.mediaplayer.PlayerManager;
+import com.sitechdev.vehicle.lib.util.Constant;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.module.main.MainActivity;
+import com.sitechdev.vehicle.pad.router.RouterConstants;
+import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppVariants;
 import com.sitechdev.vehicle.pad.view.CommonToast;
 
@@ -42,8 +46,6 @@ public class KaolaPlayManager {
 
     public List<Column> mColumns = new ArrayList<>();
     public Column mCurrentColumn;
-    private String KEY_COLUMN = "KEY_COLUMN";
-    private String KEY_TYPE_INDEX = "KEY_TYPE_INDEX";
 
     private KaolaPlayManager() {
     }
@@ -139,11 +141,17 @@ public class KaolaPlayManager {
                 break;
         }
         mCurrentColumn = mColumns.get(index);
+        Bundle bundle = new Bundle();
+        bundle.putInt(Constant.KEY_COLUMN, deepIndex);
+        bundle.putInt(Constant.KEY_TYPE_INDEX, index);
+//        RouterUtils.getInstance().navigationWithFlags(RouterConstants.KAOLA_RADIO_LIST, bundle, Intent.FLAG_ACTIVITY_NEW_TASK);
+
         Intent intent = new Intent(context, KaolaListActivity.class);
-        intent.putExtra(KEY_COLUMN, deepIndex);
-        intent.putExtra(KEY_TYPE_INDEX, index);
+        intent.putExtra(Constant.KEY_COLUMN, deepIndex);
+        intent.putExtra(Constant.KEY_TYPE_INDEX, index);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
+
         if (context instanceof NewsDetailsActivity) {
             ((Activity) context).finish();
         }

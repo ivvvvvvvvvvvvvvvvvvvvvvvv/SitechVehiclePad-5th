@@ -365,10 +365,6 @@ public class MainActivity extends BaseActivity
                 break;
             case R.id.ll_book:
                 KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(this, 1);
-//                Intent intent = new Intent(this, AudioListForShowActivity.class);
-//                intent.putExtra("type", 1);
-//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                startActivity(intent);
                 break;
             case R.id.ll_car:
                 KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(this, 2);

@@ -7,7 +7,7 @@
     android:paddingBottom="5px"
     tools:ignore="PxUsage">
 
-    <pl.droidsonroids.gif.GifImageView
+    <ImageView
         android:id="@+id/item_locl_music_index"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
