@@ -3,6 +3,7 @@ package com.sitechdev.vehicle.pad.module.forshow;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.UiThread;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -236,6 +237,12 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
                 break;
             case R.id.btn_pause_play:
                 switchPlayPause();
+                findViewById(R.id.btn_pause_play).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        playListAdapter.notifyDataSetChanged();
+                    }
+                }, 200);
                 break;
             default:
                 break;

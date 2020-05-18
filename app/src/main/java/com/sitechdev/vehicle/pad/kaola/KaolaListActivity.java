@@ -367,7 +367,7 @@ public class KaolaListActivity extends BaseActivity {
 //            }
 //        });
 //        PlayerManager.getInstance(mContext).addPlayerStateListener(playerStateListener);
-        if (DEBUG) SitechDevLog.e(this.getClass().getSimpleName(), mCurrentColumn.toString());
+//        if (DEBUG) SitechDevLog.e(this.getClass().getSimpleName(), mCurrentColumn.toString());
 
 /*        if (DEBUG) {
             Button btn_to_child = findViewById(R.id.btn_to_child);
