@@ -77,7 +77,7 @@
     <!--  右中音乐文字  -->
     <color name="color_main_music_text">#FFFFFF</color>
     <!--  右中播放歌曲名称  -->
-    <color name="color_main_music_playing_name_text">#FFFFFF</color>
+    <color name="color_main_music_playing_name_text">#838BA6</color>
     <!--  右中娱乐分类  -->
     <color name="color_main_music_type_text">#FFFFFF</color>
     <!--  右底车辆状态分类  -->
@@ -92,4 +92,7 @@
     <!--  皮肤模式设置计价器页面颜色值  -->
     <color name="color_setting_skin_main_text">#FFFFFF</color>
     <color name="color_setting_skin_second_text">#838BA6</color>
+
+    <!--  应用列表页面颜色值  -->
+    <color name="color_all_app_title_text">#FFFFFF</color>
 </resources>

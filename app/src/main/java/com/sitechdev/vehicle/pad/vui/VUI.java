@@ -1470,6 +1470,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
         if (null != mWakeupEngine && !mWakeupEngine.isListening() && !isUIHide) {
             mWakeupEngine.startListening();
         }
+        isInTTS = false;
         VoiceSourceManager.getInstance().resume(VoiceSourceManager.CONTENT);
     }
 

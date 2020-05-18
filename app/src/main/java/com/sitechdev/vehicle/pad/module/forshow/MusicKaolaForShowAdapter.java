@@ -6,9 +6,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.kaolafm.sdk.core.mediaplayer.PlayerManager;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
@@ -17,6 +17,9 @@ import com.sitechdev.vehicle.pad.util.FontUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import pl.droidsonroids.gif.GifDrawable;
+import pl.droidsonroids.gif.GifImageView;
 
 /**
  * @author zhubaoqiang
@@ -64,16 +67,30 @@ public class MusicKaolaForShowAdapter extends
         PlayItemAdapter.Item musicInfo = musicInfos.get(position);
         SitechDevLog.d("MusicKaolaAdapter", "-----------musicInfo------------" + musicInfo.title);
         if (mPrePosition == position) {
-            holder.getIndex().setImageResource(R.drawable.list_icon_playing);
+            if (PlayerManager.getInstance(context).isPaused()) {
+                //已暂停
+                holder.getIndex().setImageResource(R.drawable.list_icon_playing);
+            } else {
+                //正在播放
+                // 如果加载的是gif动图，第一步需要先将gif动图资源转化为GifDrawable
+                // 将gif图资源转化为GifDrawable
+                try {
+                    GifDrawable gifDrawable = new GifDrawable(context.getResources(), R.drawable.ic_music_play_gif);
+
+                    // gif1加载一个动态图gif
+                    holder.getIndex().setImageDrawable(gifDrawable);
+                } catch (Exception e) {
+                    SitechDevLog.exception(e);
+                }
+            }
             holder.getName().setTextColor(checkedColor);
             holder.getArt().setTextColor(checkedColor);
         } else {
-            holder.getIndex().setImageResource(R.drawable.list_icon_play);
+//            holder.getIndex().setImageResource(R.drawable.list_icon_play);
             holder.getName().setTextColor(noramlColor);
             holder.getArt().setTextColor(noramlColor);
         }
         holder.getName().setText(musicInfo.title);
-        holder.getArt().setText("kaola");
         holder.getArt().setVisibility(View.GONE);
         holder.itemView.setTag(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -161,7 +178,7 @@ public class MusicKaolaForShowAdapter extends
 
     public static class MusicKaolaItemHolder extends RecyclerView.ViewHolder {
 
-        private ImageView vIndex;
+        private GifImageView vIndex;
         private TextView vName;
         private TextView art;
 
@@ -173,7 +190,7 @@ public class MusicKaolaForShowAdapter extends
             art = itemView.findViewById(R.id.item_locl_music_art);
         }
 
-        public ImageView getIndex() {
+        public GifImageView getIndex() {
             return vIndex;
         }
 
