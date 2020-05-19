@@ -11,7 +11,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.kaolafm.opensdk.api.operation.model.column.Column;
 import com.kaolafm.opensdk.api.operation.model.column.ColumnMember;
 import com.kaolafm.sdk.core.mediaplayer.IPlayerStateListener;
@@ -36,8 +38,10 @@ import java.util.List;
 public class KaolaListActivity extends BaseActivity {
     Context mContext;
     Column mCurrentColumn;
-    private int deepIndex;
-    private int pageIndex;
+    @Autowired
+    public int deepIndex = -1;
+    @Autowired
+    public int pageIndex = -1;
     List<ColumnMember> mColumnMembers;
 //    RecyclerView rv_kaola_list;
 //    KaolaListAdapter mKaolaListAdapter;
@@ -106,8 +110,10 @@ public class KaolaListActivity extends BaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        ARouter.getInstance().inject(this);
         super.onCreate(savedInstanceState);
         mContext = this;
+        SitechDevLog.e("zyf", "onCreate " );
     }
 
     @Override
@@ -118,19 +124,6 @@ public class KaolaListActivity extends BaseActivity {
     @Override
     protected void initViewBefore() {
         super.initViewBefore();
-    }
-
-    private void parseIntent(Intent intent) {
-        if (intent != null) {
-            Bundle bundle = intent.getExtras();
-            if (bundle != null) {
-                deepIndex = bundle.getInt(Constant.KEY_COLUMN, -1);
-                pageIndex = bundle.getInt(Constant.KEY_TYPE_INDEX, 0);
-            } else {
-                deepIndex = intent.getIntExtra(Constant.KEY_COLUMN, -1);
-                pageIndex = intent.getIntExtra(Constant.KEY_TYPE_INDEX, 0);
-            }
-        }
     }
 
     @Override
@@ -148,13 +141,13 @@ public class KaolaListActivity extends BaseActivity {
         tv_title = findViewById(R.id.tv_sub_title);
 
         play_bar_root = findViewById(R.id.play_bar_root);
-        parseIntent(getIntent());
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        parseIntent(intent);
+        SitechDevLog.e("zyf", "onNewIntent " );
+        setIntent(intent);
         initData();
         initListener();
     }

@@ -176,11 +176,11 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
     }
 
     private void setListData() {
-        ThreadUtils.runOnUIThreadDelay(new Runnable() {
+        ThreadUtils.runOnUIThread(new Runnable() {
             @Override
             public void run() {
                 ArrayList<PlayItem> playList = PlayerListManager.getInstance().getPlayList();
-                SitechDevLog.e(TAG, "-----------setListData------------");
+                SitechDevLog.e(TAG, "-----------setListData------------" + playList == null ? "0" : String.valueOf(playList.size()));
                 if (playDataItemList == null) {
                     playDataItemList = new ArrayList<>();
                 } else {
@@ -211,7 +211,7 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
                 vLocalMusicList.smoothScrollToPosition(mCurPosition);
                 cancelProgressDialog();
             }
-        },1000);
+        });
 
     }
 

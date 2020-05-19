@@ -139,9 +139,9 @@ public class KaolaPlayManager {
                 break;
         }
         mCurrentColumn = mColumns.get(index);
-        RouterUtils.getInstance().getPostcardWithFlags(RouterConstants.KAOLA_RADIO_LIST, Intent.FLAG_ACTIVITY_NEW_TASK)
-                .withInt(Constant.KEY_TYPE_INDEX, index)
-                .withInt(Constant.KEY_COLUMN, deepIndex)
+        RouterUtils.getInstance().getPostcardWithFlags(RouterConstants.KAOLA_RADIO_LIST)
+                .withInt("pageIndex", index)
+                .withInt("deepIndex", deepIndex)
                 .navigation();
     }
 
