@@ -1,18 +1,21 @@
 {
-  "tab1": [
+  "apps": [
     {
+      "index": 0,
       "appName": "本地音乐",
       "appIcon": 1,
       "appRoute": "/main/localMusic",
       "eventId": "btn_app_music"
     },
     {
+      "index": 1,
       "appName": "收音机",
       "appIcon": 2,
       "appRoute": "/main/radiogram",
       "eventId": "btn_app_radio"
     },
     {
+      "index": 2,
       "appName": "听伴",
       "appIcon": 3,
       "appRoute": "/needLogin/needNet/kaolaRadio",
@@ -20,12 +23,14 @@
       "eventId": "btn_app_kradio"
     },
     {
+      "index": 3,
       "appName": "电话",
       "appIcon": 4,
       "appRoute": "/bt/phone",
       "eventId": "btn_app_phone"
     },
     {
+      "index": 4,
       "appName": "车辆控制",
       "appIcon": 5,
       "appRoute": "/main/carControl",
@@ -33,6 +38,7 @@
       "eventId": "btn_app_car"
     },
     {
+      "index": 5,
       "appName": "空调控制",
       "appIcon": 7,
       "appRoute": "/main/airControl",
@@ -40,12 +46,14 @@
       "eventId": "btn_app_air_conditioning"
     },
     {
+      "index": 6,
       "appName": "商城",
       "appIcon": 8,
       "appRoute": "/needLogin/needNet/mall",
       "eventId": "btn_app_mall"
     },
     {
+      "index": 7,
       "appName": "个人中心",
       "appIcon": 17,
       "appRoute": "/needLogin/needNet/personal",
@@ -53,33 +61,36 @@
       "eventId": "btn_app_person"
     },
     {
+      "index": 8,
       "appName": "天气",
       "appIcon": 10,
       "appRoute": "/main/weather",
       "eventId": "btn_app_weather"
     },
     {
+      "index": 9,
       "appName": "设置",
       "appIcon": 11,
       "appRoute": "/main/setting",
       "eventId": "btn_app_set"
     },
     {
+      "index": 10,
       "appName": "视频",
       "appIcon": 13,
       "appRoute": "/main/video",
       "eventId": "btn_app_video"
     },
     {
+      "index": 11,
       "appName": "酷我音乐",
       "appIcon": 14,
       "appRoute": "/needLogin/needNet/kuwo",
       "jumpType": 1,
       "eventId": "btn_app_kuwo"
-    }
-  ],
-  "tab2": [
+    },
     {
+      "index": 12,
       "appName": "地图导航",
       "appIcon": 15,
       "appRoute": "/main/map",
@@ -87,6 +98,7 @@
       "eventId": "btn_app_map"
     },
     {
+      "index": 13,
       "appName": "百度CarLife",
       "appIcon": 16,
       "appRoute": "/main/carLife",
@@ -94,6 +106,7 @@
       "eventId": "btn_app_carlife"
     },
     {
+      "index": 14,
       "appName": "饭聊",
       "appIcon": 19,
       "appRoute": "/needLogin/needNet/funchat",

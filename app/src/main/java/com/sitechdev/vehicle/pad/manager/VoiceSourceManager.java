@@ -135,6 +135,9 @@ public class VoiceSourceManager {
                     continue;
                 }
                 MusicChangeListener listener = ref.get();
+                if (PlayerListManager.getInstance().getCurPlayItem() == null) {
+                    continue;
+                }
                 String title = PlayerListManager.getInstance().getCurPlayItem().getTitle();
                 String value = listener.getClass().getAnnotation(
                         VoiceSourceType.class).value();

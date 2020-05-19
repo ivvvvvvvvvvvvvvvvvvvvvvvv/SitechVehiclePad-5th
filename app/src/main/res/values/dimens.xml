@@ -46,4 +46,8 @@
     <dimen name="px_190">190px</dimen>
     <dimen name="px_31">31px</dimen>
     <dimen name="common_bg_width">390dp</dimen>
+    <dimen name="mainmenu_margin_left_right">27dp</dimen>
+    <dimen name="mainmenu_gridview_versplit">21dp</dimen>
+    <dimen name="mainmenu_gridview_horsplit">36dp</dimen>
+    <dimen name="main_menu_size">60dp</dimen>
 </resources>

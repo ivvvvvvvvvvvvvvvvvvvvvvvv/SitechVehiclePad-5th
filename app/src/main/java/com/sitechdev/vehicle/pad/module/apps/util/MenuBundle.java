@@ -1,0 +1,33 @@
+package com.sitechdev.vehicle.pad.module.apps.util;
+
+/**
+ * 项目名称：SitechVehiclePad-5th
+ * 类名称：MenuBundle
+ * 类描述：
+ * 创建人：Administrator
+ * 创建时间：2020/05/18 0018 14:44
+ * 修改时间：
+ * 备注：
+ */
+public class MenuBundle {
+    private MainViewMenuListener mainViewMenuListener = null;
+
+    private MenuBundle() {
+    }
+
+    private static final class SingleMenuBundle {
+        private static final MenuBundle SINGLE = new MenuBundle();
+    }
+
+    public static MenuBundle getInstance() {
+        return SingleMenuBundle.SINGLE;
+    }
+
+    public MainViewMenuListener getMainViewMenuListener() {
+        return mainViewMenuListener;
+    }
+
+    public void setMainViewMenuListener(MainViewMenuListener mainViewMenuListener) {
+        this.mainViewMenuListener = mainViewMenuListener;
+    }
+}

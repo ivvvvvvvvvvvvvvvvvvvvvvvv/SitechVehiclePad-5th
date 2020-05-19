@@ -10,10 +10,17 @@ import java.util.List;
  * @date 2019/4/12
  */
 public class AllModuleBean implements Serializable {
-    public List<ModuleBean> tab1;
-    public List<ModuleBean> tab2;
+    public List<ModuleBean> apps;
 
     public class ModuleBean {
+        /**
+         * 应用名称
+         */
+        public String appId;
+        /**
+         * 应用名称
+         */
+        public int appIndex;
         /**
          * 应用名称
          */

@@ -7,6 +7,7 @@
     <string name="permission_des_head">应用%s请求</string>
     <string name="permission_des_tail">权限,以保证应用的相应功能可以正常使用</string>
     <string name="permission_high_light"><![CDATA[ <font color=\'#518ef1\'>%s</font>]]></string>
+    <string name="anim_click_tag_key_translation_z">translation_z</string>
     <!-- 请替换成在语音云官网申请的appid -->
     <string name="app_id">5e97d73d</string>
 

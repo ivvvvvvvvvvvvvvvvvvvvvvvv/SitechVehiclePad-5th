@@ -1,0 +1,12 @@
+<com.sitechdev.vehicle.pad.module.apps.view.AppPagerMenuGridView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mgridview"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:horizontalSpacing="@dimen/mainmenu_gridview_horsplit"
+    android:listSelector="@android:color/transparent"
+    android:numColumns="3"
+    android:paddingLeft="@dimen/mainmenu_margin_left_right"
+    android:paddingRight="@dimen/mainmenu_margin_left_right"
+    android:verticalSpacing="@dimen/mainmenu_gridview_versplit" />

@@ -12,6 +12,8 @@ package com.sitechdev.vehicle.pad.app;
 public interface AppConst {
     String TAG = "SitechVehicleLog";
 
+    String TAG_APP = "AppListPage";
+
     /**
      * poi检索关键字key
      */
