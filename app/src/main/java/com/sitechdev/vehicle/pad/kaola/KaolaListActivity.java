@@ -19,11 +19,13 @@ import com.kaolafm.opensdk.api.operation.model.column.ColumnMember;
 import com.kaolafm.sdk.core.mediaplayer.IPlayerStateListener;
 import com.kaolafm.sdk.core.mediaplayer.PlayItem;
 import com.kaolafm.sdk.core.mediaplayer.PlayerManager;
+import com.sitechdev.vehicle.lib.event.BindEventBus;
 import com.sitechdev.vehicle.lib.imageloader.GlideApp;
 import com.sitechdev.vehicle.lib.util.Constant;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
+import com.sitechdev.vehicle.pad.event.AppEvent;
 import com.sitechdev.vehicle.pad.module.forshow.MusicKaolaForShowActivity;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
@@ -31,10 +33,14 @@ import com.sitechdev.vehicle.pad.util.AppUtil;
 import com.sitechdev.vehicle.pad.util.FontUtil;
 import com.sitechdev.vehicle.pad.view.ScrollTextView;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.List;
 
 
 @Route(path = RouterConstants.KAOLA_RADIO_LIST)
+@BindEventBus
 public class KaolaListActivity extends BaseActivity {
     Context mContext;
     Column mCurrentColumn;
@@ -550,4 +556,27 @@ public class KaolaListActivity extends BaseActivity {
             SitechDevLog.e(KaolaListActivity.class.getSimpleName(), "====== onBufferingEnd =======");
         }
     };
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(AppEvent event) {
+        if (event.getEventKey().equals(AppEvent.EVENT_APP_KAOLA_UPDATE)) {
+            int page = (int) event.getEventValue();
+            int subIndex = (int) event.getEventValue2();
+            if (page == pageIndex) {
+                pageIndex = page;
+                deepIndex = subIndex;
+                if (deepIndex >= 0 && null != mColumnMembers && mColumnMembers.size() > deepIndex) {
+                    ColumnMember columnMember = mColumnMembers.get(deepIndex);
+                    if (null != columnMember) {
+                        onClickItemView(deepIndex);
+                    }
+                }
+            } else {
+                pageIndex = page;
+                deepIndex = subIndex;
+                initData();
+                initListener();
+            }
+        }
+    }
 }

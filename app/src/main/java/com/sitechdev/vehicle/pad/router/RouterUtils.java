@@ -123,14 +123,11 @@ public class RouterUtils {
      * @param bundle 跳转传递的bundle参数
      * @param flags  跳转所使用的N个flags
      */
-    public Postcard getPostcardWithFlags(String path,  int... flags) {
+    public Postcard getPostcard(String path) {
         if (TextUtils.isEmpty(path)) {
             return null;
         }
         Postcard postcard = ARouter.getInstance().build(path);
-        for (int i = 0; i < flags.length; i++) {
-            postcard.withFlags(flags[i]);
-        }
         return postcard;
     }
 

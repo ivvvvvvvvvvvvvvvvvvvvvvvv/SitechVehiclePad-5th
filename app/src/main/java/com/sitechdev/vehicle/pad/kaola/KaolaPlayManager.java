@@ -1,5 +1,6 @@
 package com.sitechdev.vehicle.pad.kaola;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -14,9 +15,12 @@ import com.kaolafm.sdk.core.mediaplayer.IPlayerStateListener;
 import com.kaolafm.sdk.core.mediaplayer.PlayItem;
 import com.kaolafm.sdk.core.mediaplayer.PlayerListManager;
 import com.kaolafm.sdk.core.mediaplayer.PlayerManager;
+import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.Constant;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.app.AppApplication;
+import com.sitechdev.vehicle.pad.event.AppEvent;
+import com.sitechdev.vehicle.pad.event.MapEvent;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.module.main.MainActivity;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
@@ -139,10 +143,35 @@ public class KaolaPlayManager {
                 break;
         }
         mCurrentColumn = mColumns.get(index);
-        RouterUtils.getInstance().getPostcardWithFlags(RouterConstants.KAOLA_RADIO_LIST)
-                .withInt("pageIndex", index)
-                .withInt("deepIndex", deepIndex)
-                .navigation();
+//        if (deepIndex == 3 && index == 3) {
+//            Intent intent = new Intent(KaolaListActivity.mContext, KaolaListActivity.class);
+//            KaolaListActivity.mContext.startActivity(intent);
+//            return;
+//        }
+        if (isTopAct(context, KaolaListActivity.class)) {
+            EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_KAOLA_UPDATE, index, deepIndex));
+        } else {
+            RouterUtils.getInstance().getPostcard(RouterConstants.KAOLA_RADIO_LIST)
+                    .withInt("pageIndex", index)
+                    .withInt("deepIndex", deepIndex)
+                    .navigation();
+        }
+    }
+
+    private boolean isTopAct(Context mContext, Class act) {
+        String topActivityName = "";
+        ActivityManager am = (ActivityManager) mContext
+                .getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningTaskInfo> runningTasks = am
+                .getRunningTasks(1);
+        if (runningTasks != null && !runningTasks.isEmpty()) {
+            ActivityManager.RunningTaskInfo taskInfo = runningTasks.get(0);
+            topActivityName = taskInfo.topActivity.getClassName();
+        }
+        if (act.getName().equals(topActivityName)) {
+            return true;
+        }
+        return false;
     }
 
     public boolean playAnother() {

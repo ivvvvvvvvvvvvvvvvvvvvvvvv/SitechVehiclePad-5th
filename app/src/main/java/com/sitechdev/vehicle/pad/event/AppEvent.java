@@ -65,17 +65,25 @@ public class AppEvent extends BaseEvent {
      * 出行计价器--停止计价事件
      */
     public static final String EVENT_APP_TAXI_STOP_PRICE = "EVENT_APP_TAXI_STOP_PRICE";
+    public static final String EVENT_APP_KAOLA_UPDATE = "EVENT_APP_KAOLA_UPDATE";
 
     private String eventKey = "";
     private Object eventValue = null;
+
+    public Object getEventValue2() {
+        return eventValue2;
+    }
+
+    private Object eventValue2 = null;
 
     public AppEvent(String key) {
         eventKey = key;
     }
 
-    public AppEvent(String key, Object obj) {
+    public AppEvent(String key, Object obj, Object obj2) {
         eventKey = key;
         eventValue = obj;
+        eventValue2 = obj2;
     }
 
     public String getEventKey() {
