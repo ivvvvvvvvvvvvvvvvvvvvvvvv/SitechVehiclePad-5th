@@ -138,20 +138,23 @@ public class VoiceSourceManager {
                 if (PlayerListManager.getInstance().getCurPlayItem() == null) {
                     continue;
                 }
-                String title = PlayerListManager.getInstance().getCurPlayItem().getTitle();
                 String value = listener.getClass().getAnnotation(
                         VoiceSourceType.class).value();
-                switch (value) {
-                    case SUPPORT_TYPE_ALL:
-                        listener.onMusicChange(title);
-                        listener.pause();
-                        break;
-                    case SUPPORT_TYPE_KAOLA:
-                        listener.onMusicChange(title);
-                        listener.pause();
-                        break;
-                    case SUPPORT_TYPE_LOCAL:
-                        break;
+                if (value.equals(SUPPORT_TYPE_ALL) || value.equals(SUPPORT_TYPE_KAOLA)) {
+                    listener.pause();
+                }
+                if (PlayerListManager.getInstance().getCurPlayItem() != null) {
+                    String title = PlayerListManager.getInstance().getCurPlayItem().getTitle();
+                    switch (value) {
+                        case SUPPORT_TYPE_ALL:
+                            listener.onMusicChange(title);
+                            break;
+                        case SUPPORT_TYPE_KAOLA:
+                            listener.onMusicChange(title);
+                            break;
+                        case SUPPORT_TYPE_LOCAL:
+                            break;
+                    }
                 }
             }
             if (null != removes) {

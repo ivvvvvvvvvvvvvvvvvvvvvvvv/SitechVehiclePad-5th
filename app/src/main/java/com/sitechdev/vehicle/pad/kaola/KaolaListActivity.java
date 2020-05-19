@@ -36,9 +36,7 @@ import java.util.List;
 public class KaolaListActivity extends BaseActivity {
     Context mContext;
     Column mCurrentColumn;
-    //    @Autowired(name = Constant.KEY_COLUMN)
     private int deepIndex;
-    //    @Autowired(name = Constant.KEY_TYPE_INDEX)
     private int pageIndex;
     List<ColumnMember> mColumnMembers;
 //    RecyclerView rv_kaola_list;
@@ -109,7 +107,6 @@ public class KaolaListActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        ARouter.getInstance().inject(this);
         mContext = this;
     }
 
@@ -121,7 +118,6 @@ public class KaolaListActivity extends BaseActivity {
     @Override
     protected void initViewBefore() {
         super.initViewBefore();
-        parseIntent(getIntent());
     }
 
     private void parseIntent(Intent intent) {
@@ -152,6 +148,7 @@ public class KaolaListActivity extends BaseActivity {
         tv_title = findViewById(R.id.tv_sub_title);
 
         play_bar_root = findViewById(R.id.play_bar_root);
+        parseIntent(getIntent());
     }
 
     @Override
@@ -247,10 +244,7 @@ public class KaolaListActivity extends BaseActivity {
         if (deepIndex >= 0 && null != mColumnMembers && mColumnMembers.size() > deepIndex) {
             ColumnMember columnMember = mColumnMembers.get(deepIndex);
             if (null != columnMember) {
-                Intent intent = new Intent(KaolaListActivity.this, MusicKaolaForShowActivity.class);
-                intent.putExtra(Constant.KEY_TYPE_KEY, Constant.TYPE.FIRST_ENTERED);
-                intent.putExtra(Constant.KEY_MEMBER_CODE, columnMember);
-                startActivity(intent);
+                onClickItemView(deepIndex);
             }
         }
 

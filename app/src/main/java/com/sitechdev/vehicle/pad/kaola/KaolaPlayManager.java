@@ -1,9 +1,7 @@
 package com.sitechdev.vehicle.pad.kaola;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
 
 import com.kaolafm.opensdk.OpenSDK;
@@ -141,20 +139,10 @@ public class KaolaPlayManager {
                 break;
         }
         mCurrentColumn = mColumns.get(index);
-        Bundle bundle = new Bundle();
-        bundle.putInt(Constant.KEY_COLUMN, deepIndex);
-        bundle.putInt(Constant.KEY_TYPE_INDEX, index);
-//        RouterUtils.getInstance().navigationWithFlags(RouterConstants.KAOLA_RADIO_LIST, bundle, Intent.FLAG_ACTIVITY_NEW_TASK);
-
-        Intent intent = new Intent(context, KaolaListActivity.class);
-        intent.putExtra(Constant.KEY_COLUMN, deepIndex);
-        intent.putExtra(Constant.KEY_TYPE_INDEX, index);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
-
-        if (context instanceof NewsDetailsActivity) {
-            ((Activity) context).finish();
-        }
+        RouterUtils.getInstance().getPostcardWithFlags(RouterConstants.KAOLA_RADIO_LIST, Intent.FLAG_ACTIVITY_NEW_TASK)
+                .withInt(Constant.KEY_TYPE_INDEX, index)
+                .withInt(Constant.KEY_COLUMN, deepIndex)
+                .navigation();
     }
 
     public boolean playAnother() {
@@ -225,7 +213,9 @@ public class KaolaPlayManager {
 
         @Override
         public void onPlayerPaused(PlayItem playItem) {
-            mPlayCallback.onPause();
+            if (mPlayCallback != null) {
+                mPlayCallback.onPause();
+            }
             SitechDevLog.e(KaolaPlayManager.class.getSimpleName(), " ============== onPlayerPaused =============");
         }
 

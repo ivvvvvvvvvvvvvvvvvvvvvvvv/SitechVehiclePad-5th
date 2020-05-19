@@ -27,23 +27,15 @@ import com.sitechdev.vehicle.lib.util.StringUtils;
 import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
-import com.sitechdev.vehicle.pad.app.AppConst;
 import com.sitechdev.vehicle.pad.event.AppEvent;
-import com.sitechdev.vehicle.pad.event.MapEvent;
-import com.sitechdev.vehicle.pad.event.PoiEvent;
 import com.sitechdev.vehicle.pad.event.VoiceEvent;
 import com.sitechdev.vehicle.pad.event.WindowEvent;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
-import com.sitechdev.vehicle.pad.kaola.NewsDetailsActivity;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
-import com.sitechdev.vehicle.pad.module.forshow.AudioListForShowActivity;
+import com.sitechdev.vehicle.pad.module.forshow.MusicKaolaForShowActivity;
 import com.sitechdev.vehicle.pad.module.main.MainActivity;
-import com.sitechdev.vehicle.pad.module.map.SetAddressActivity;
-import com.sitechdev.vehicle.pad.module.map.util.LocationData;
-import com.sitechdev.vehicle.pad.module.map.util.MapUtil;
 import com.sitechdev.vehicle.pad.module.music.MusicMainActivity;
 import com.sitechdev.vehicle.pad.module.music.MusicManager;
-import com.sitechdev.vehicle.pad.module.music.service.MusicInfo;
 import com.sitechdev.vehicle.pad.util.AppUtil;
 import com.sitechdev.vehicle.pad.util.AppVariants;
 import com.sitechdev.vehicle.pad.util.AudioUtil;
@@ -56,7 +48,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -564,6 +555,9 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                 break;
                             //生活一点通
                             case "AIradio_life":
+                                if (autoPlay) {
+                                    PlayerManager.getInstance(context).pause();
+                                }
                                 KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(
                                         context, 3, autoPlay ? new Random().nextInt(6) : -1);
                                 vuiWindow.hide();
@@ -930,6 +924,112 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                 shut();
                                 break;
                             }
+                            int index = -1;
+                            int deepIndex = -1;
+                            switch (appname) {
+                                case "新闻电台":
+                                    index = 0;
+                                    deepIndex = 0;
+                                    break;
+                                case "热点快讯":
+                                    index = 0;
+                                    deepIndex = 1;
+                                    break;
+                                case "环球时政":
+                                    index = 0;
+                                    deepIndex = 2;
+                                    break;
+                                case "汽车电台":
+                                    index = 0;
+                                    deepIndex = 3;
+                                    break;
+                                case "财经快讯":
+                                    index = 0;
+                                    deepIndex = 4;
+                                    break;
+                                case "娱乐":
+                                    index = 0;
+                                    deepIndex = 5;
+                                    break;
+                                case "搞定熊孩子":
+                                    index = 1;
+                                    deepIndex = 0;
+                                    break;
+                                case "童谣儿歌":
+                                    index = 1;
+                                    deepIndex = 1;
+                                    break;
+                                case "萌娃故事汇":
+                                    index = 1;
+                                    deepIndex = 2;
+                                    break;
+                                case "跟我学英语":
+                                    index = 1;
+                                    deepIndex = 3;
+                                    break;
+                                case "诗词歌赋":
+                                    index = 1;
+                                    deepIndex = 4;
+                                    break;
+                                case "儿童英语儿歌故事":
+                                    index = 1;
+                                    deepIndex = 5;
+                                    break;
+                                case "相声电台":
+                                case "相声频道":
+                                    index = 2;
+                                    deepIndex = 0;
+                                    break;
+                                case "堵车不赌心":
+                                    index = 2;
+                                    deepIndex = 1;
+                                    break;
+                                case "爆笑段子":
+                                    index = 2;
+                                    deepIndex = 2;
+                                    break;
+                                case "闲聊脱口秀":
+                                    index = 2;
+                                    deepIndex = 3;
+                                    break;
+                                case "搞笑电台":
+                                    index = 2;
+                                    deepIndex = 4;
+                                    break;
+                                case "情景喜剧":
+                                    index = 2;
+                                    deepIndex = 5;
+                                    break;
+                                case "生活百科":
+                                    index = 3;
+                                    deepIndex = 0;
+                                    break;
+                                case "健康保鲜剂":
+                                    index = 3;
+                                    deepIndex = 1;
+                                    break;
+                                case "美食家":
+                                    index = 3;
+                                    deepIndex = 2;
+                                    break;
+                                case "旅行家":
+                                    index = 3;
+                                    deepIndex = 3;
+                                    break;
+                                case "运动健身":
+                                    index = 3;
+                                    deepIndex = 4;
+                                    break;
+                                case "情感故事":
+                                    index = 3;
+                                    deepIndex = 5;
+                                    break;
+                            }
+                            if (index > 0) {
+                                //intent to kaola
+                                toKaolaPage(appname, index, deepIndex);
+                                break;
+                            }
                             switch (appname) {
                                 case "皮肤设置":
                                 case "主题设置":
@@ -977,318 +1077,6 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                     } else {
                                         shutAndTTS("您当前已在本地音乐");
                                     }
-                                    break;
-                                case "新闻电台":
-                                    if (null != AppVariants.currentActivity) {
-                                        if (AppVariants.currentActivity instanceof NewsDetailsActivity) {
-                                            if (TextUtils.equals(appname, ((NewsDetailsActivity) AppVariants.currentActivity).title)) {
-                                                shutAndTTS("您当前已在" + appname);
-                                                return;
-                                            }
-                                        }
-                                    }
-                                    KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(
-                                            context, 0, 0);
-                                    shut();
-                                    break;
-                                case "热点快讯":
-                                    if (null != AppVariants.currentActivity) {
-                                        if (AppVariants.currentActivity instanceof NewsDetailsActivity) {
-                                            if (TextUtils.equals(appname, ((NewsDetailsActivity) AppVariants.currentActivity).title)) {
-                                                shutAndTTS("您当前已在" + appname);
-                                                return;
-                                            }
-                                        }
-                                    }
-                                    KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(
-                                            context, 0, 1);
-                                    shut();
-                                    break;
-                                case "环球时政":
-                                    if (null != AppVariants.currentActivity) {
-                                        if (AppVariants.currentActivity instanceof NewsDetailsActivity) {
-                                            if (TextUtils.equals(appname, ((NewsDetailsActivity) AppVariants.currentActivity).title)) {
-                                                shutAndTTS("您当前已在" + appname);
-                                                return;
-                                            }
-                                        }
-                                    }
-                                    KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(
-                                            context, 0, 2);
-                                    shut();
-                                    break;
-                                case "汽车电台":
-                                    if (null != AppVariants.currentActivity) {
-                                        if (AppVariants.currentActivity instanceof NewsDetailsActivity) {
-                                            if (TextUtils.equals(appname, ((NewsDetailsActivity) AppVariants.currentActivity).title)) {
-                                                shutAndTTS("您当前已在" + appname);
-                                                return;
-                                            }
-                                        }
-                                    }
-                                    KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(
-                                            context, 0, 3);
-                                    shut();
-                                    break;
-                                case "财经快讯":
-                                    if (null != AppVariants.currentActivity) {
-                                        if (AppVariants.currentActivity instanceof NewsDetailsActivity) {
-                                            if (TextUtils.equals(appname, ((NewsDetailsActivity) AppVariants.currentActivity).title)) {
-                                                shutAndTTS("您当前已在" + appname);
-                                                return;
-                                            }
-                                        }
-                                    }
-                                    KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(
-                                            context, 0, 4);
-                                    shut();
-                                    break;
-                                case "娱乐":
-                                    if (null != AppVariants.currentActivity) {
-                                        if (AppVariants.currentActivity instanceof NewsDetailsActivity) {
-                                            if (TextUtils.equals(appname, ((NewsDetailsActivity) AppVariants.currentActivity).title)) {
-                                                shutAndTTS("您当前已在" + appname);
-                                                return;
-                                            }
-                                        }
-                                    }
-                                    KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(
-                                            context, 0, 5);
-                                    shut();
-                                    break;
-                                case "搞定熊孩子":
-                                    if (null != AppVariants.currentActivity) {
-                                        if (AppVariants.currentActivity instanceof NewsDetailsActivity) {
-                                            if (TextUtils.equals(appname, ((NewsDetailsActivity) AppVariants.currentActivity).title)) {
-                                                shutAndTTS("您当前已在" + appname);
-                                                return;
-                                            }
-                                        }
-                                    }
-                                    KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(
-                                            context, 1, 0);
-                                    shut();
-                                    break;
-                                case "童谣儿歌":
-                                    if (null != AppVariants.currentActivity) {
-                                        if (AppVariants.currentActivity instanceof NewsDetailsActivity) {
-                                            if (TextUtils.equals(appname, ((NewsDetailsActivity) AppVariants.currentActivity).title)) {
-                                                shutAndTTS("您当前已在" + appname);
-                                                return;
-                                            }
-                                        }
-                                    }
-                                    KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(
-                                            context, 1, 1);
-                                    shut();
-                                    break;
-                                case "萌娃故事汇":
-                                    if (null != AppVariants.currentActivity) {
-                                        if (AppVariants.currentActivity instanceof NewsDetailsActivity) {
-                                            if (TextUtils.equals(appname, ((NewsDetailsActivity) AppVariants.currentActivity).title)) {
-                                                shutAndTTS("您当前已在" + appname);
-                                                return;
-                                            }
-                                        }
-                                    }
-                                    KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(
-                                            context, 1, 2);
-                                    shut();
-                                    break;
-                                case "跟我学英语":
-                                    if (null != AppVariants.currentActivity) {
-                                        if (AppVariants.currentActivity instanceof NewsDetailsActivity) {
-                                            if (TextUtils.equals(appname, ((NewsDetailsActivity) AppVariants.currentActivity).title)) {
-                                                shutAndTTS("您当前已在" + appname);
-                                                return;
-                                            }
-                                        }
-                                    }
-                                    KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(
-                                            context, 1, 3);
-                                    shut();
-                                    break;
-                                case "诗词歌赋":
-                                    if (null != AppVariants.currentActivity) {
-                                        if (AppVariants.currentActivity instanceof NewsDetailsActivity) {
-                                            if (TextUtils.equals(appname, ((NewsDetailsActivity) AppVariants.currentActivity).title)) {
-                                                shutAndTTS("您当前已在" + appname);
-                                                return;
-                                            }
-                                        }
-                                    }
-                                    KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(
-                                            context, 1, 4);
-                                    shut();
-                                    break;
-                                case "儿童英语儿歌故事":
-                                    if (null != AppVariants.currentActivity) {
-                                        if (AppVariants.currentActivity instanceof NewsDetailsActivity) {
-                                            if (TextUtils.equals(appname, ((NewsDetailsActivity) AppVariants.currentActivity).title)) {
-                                                shutAndTTS("您当前已在" + appname);
-                                                return;
-                                            }
-                                        }
-                                    }
-                                    KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(
-                                            context, 1, 5);
-                                    shut();
-                                    break;
-                                case "相声电台":
-                                    if (null != AppVariants.currentActivity) {
-                                        if (AppVariants.currentActivity instanceof NewsDetailsActivity) {
-                                            if (TextUtils.equals(appname, ((NewsDetailsActivity) AppVariants.currentActivity).title)) {
-                                                shutAndTTS("您当前已在" + appname);
-                                                return;
-                                            }
-                                        }
-                                    }
-                                    KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(
-                                            context, 2, 0);
-                                    shut();
-                                    break;
-                                case "爆笑段子":
-                                    if (null != AppVariants.currentActivity) {
-                                        if (AppVariants.currentActivity instanceof NewsDetailsActivity) {
-                                            if (TextUtils.equals(appname, ((NewsDetailsActivity) AppVariants.currentActivity).title)) {
-                                                shutAndTTS("您当前已在" + appname);
-                                                return;
-                                            }
-                                        }
-                                    }
-                                    KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(
-                                            context, 2, 1);
-                                    shut();
-                                    break;
-                                case "闲聊脱口秀":
-                                    if (null != AppVariants.currentActivity) {
-                                        if (AppVariants.currentActivity instanceof NewsDetailsActivity) {
-                                            if (TextUtils.equals(appname, ((NewsDetailsActivity) AppVariants.currentActivity).title)) {
-                                                shutAndTTS("您当前已在" + appname);
-                                                return;
-                                            }
-                                        }
-                                    }
-                                    KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(
-                                            context, 2, 2);
-                                    shut();
-                                    break;
-                                case "搞笑电台":
-                                    if (null != AppVariants.currentActivity) {
-                                        if (AppVariants.currentActivity instanceof NewsDetailsActivity) {
-                                            if (TextUtils.equals(appname, ((NewsDetailsActivity) AppVariants.currentActivity).title)) {
-                                                shutAndTTS("您当前已在" + appname);
-                                                return;
-                                            }
-                                        }
-                                    }
-                                    KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(
-                                            context, 2, 3);
-                                    shut();
-                                    break;
-                                case "堵车不赌心":
-                                    if (null != AppVariants.currentActivity) {
-                                        if (AppVariants.currentActivity instanceof NewsDetailsActivity) {
-                                            if (TextUtils.equals(appname, ((NewsDetailsActivity) AppVariants.currentActivity).title)) {
-                                                shutAndTTS("您当前已在" + appname);
-                                                return;
-                                            }
-                                        }
-                                    }
-                                    KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(
-                                            context, 2, 4);
-                                    shut();
-                                    break;
-                                case "相声频道":
-                                    if (null != AppVariants.currentActivity) {
-                                        if (AppVariants.currentActivity instanceof NewsDetailsActivity) {
-                                            if (TextUtils.equals(appname, ((NewsDetailsActivity) AppVariants.currentActivity).title)) {
-                                                shutAndTTS("您当前已在" + appname);
-                                                return;
-                                            }
-                                        }
-                                    }
-                                    KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(
-                                            context, 2, 5);
-                                    shut();
-                                    break;
-                                case "生活百科":
-                                    if (null != AppVariants.currentActivity) {
-                                        if (AppVariants.currentActivity instanceof NewsDetailsActivity) {
-                                            if (TextUtils.equals(appname, ((NewsDetailsActivity) AppVariants.currentActivity).title)) {
-                                                shutAndTTS("您当前已在" + appname);
-                                                return;
-                                            }
-                                        }
-                                    }
-                                    KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(
-                                            context, 3, 0);
-                                    shut();
-                                    break;
-                                case "健康保鲜剂":
-                                    if (null != AppVariants.currentActivity) {
-                                        if (AppVariants.currentActivity instanceof NewsDetailsActivity) {
-                                            if (TextUtils.equals(appname, ((NewsDetailsActivity) AppVariants.currentActivity).title)) {
-                                                shutAndTTS("您当前已在" + appname);
-                                                return;
-                                            }
-                                        }
-                                    }
-                                    KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(
-                                            context, 3, 1);
-                                    shut();
-                                    break;
-                                case "美食家":
-                                    if (null != AppVariants.currentActivity) {
-                                        if (AppVariants.currentActivity instanceof NewsDetailsActivity) {
-                                            if (TextUtils.equals(appname, ((NewsDetailsActivity) AppVariants.currentActivity).title)) {
-                                                shutAndTTS("您当前已在" + appname);
-                                                return;
-                                            }
-                                        }
-                                    }
-                                    KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(
-                                            context, 3, 2);
-                                    shut();
-                                    break;
-                                case "旅行家":
-                                    if (null != AppVariants.currentActivity) {
-                                        if (AppVariants.currentActivity instanceof NewsDetailsActivity) {
-                                            if (TextUtils.equals(appname, ((NewsDetailsActivity) AppVariants.currentActivity).title)) {
-                                                shutAndTTS("您当前已在" + appname);
-                                                return;
-                                            }
-                                        }
-                                    }
-                                    KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(
-                                            context, 3, 3);
-                                    shut();
-                                    break;
-                                case "运动健身":
-                                    if (null != AppVariants.currentActivity) {
-                                        if (AppVariants.currentActivity instanceof NewsDetailsActivity) {
-                                            if (TextUtils.equals(appname, ((NewsDetailsActivity) AppVariants.currentActivity).title)) {
-                                                shutAndTTS("您当前已在" + appname);
-                                                return;
-                                            }
-                                        }
-                                    }
-                                    KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(
-                                            context, 3, 4);
-                                    shut();
-                                    break;
-                                case "情感故事":
-                                    if (null != AppVariants.currentActivity) {
-                                        if (AppVariants.currentActivity instanceof NewsDetailsActivity) {
-                                            if (TextUtils.equals(appname, ((NewsDetailsActivity) AppVariants.currentActivity).title)) {
-                                                shutAndTTS("您当前已在" + appname);
-                                                return;
-                                            }
-                                        }
-                                    }
-                                    KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(
-                                            context, 3, 5);
-                                    shut();
                                     break;
                                 case "qq音乐":
                                     AppUtil.goOtherActivity(context, "QQ音乐", "com.tencent.qqmusiccar",
@@ -1560,6 +1348,20 @@ public class VUI implements VUIWindow.OnWindowHideListener {
             }
             Log.i(TAG, "-------------------" + log);// 打印剩余日志
         }
+    }
+
+    private void toKaolaPage(String appname, int index, int deepIndex) {
+        if (null != AppVariants.currentActivity) {
+            if (AppVariants.currentActivity instanceof MusicKaolaForShowActivity) {
+                if (TextUtils.equals(appname, ((MusicKaolaForShowActivity) AppVariants.currentActivity).title)) {
+                    shutAndTTS("您当前已在" + appname);
+                    return;
+                }
+            }
+        }
+        KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(
+                context, index, deepIndex);
+        shut();
     }
 
     public interface OnVolumeChangeListener {

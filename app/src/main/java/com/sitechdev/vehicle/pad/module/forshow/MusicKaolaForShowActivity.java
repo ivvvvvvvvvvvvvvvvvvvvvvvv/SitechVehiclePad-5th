@@ -49,6 +49,7 @@ import java.util.List;
 public class MusicKaolaForShowActivity extends BaseActivity implements
         VoiceSourceManager.MusicChangeListener, VoiceSourceManager.onPlaySourceMusicChangeListener {
     private static final String TAG = "MusicKaolaForShowActivity";
+    public static String title = "";
 
     private Context mContext;
     //new
@@ -73,6 +74,7 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
     private TextView subtitle;
     private ScrollTextView tv_bottom_title;
     private int defaultImgResId = 0;
+    private TextView tv_title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +89,7 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        initData(intent);
     }
 
     @Override
@@ -97,7 +100,7 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        TextView tv_title = (TextView) findViewById(R.id.tv_sub_title);
+        tv_title = (TextView) findViewById(R.id.tv_sub_title);
 
         //左边播放条控制
 
@@ -117,11 +120,18 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
 
         showProgressDialog();
 
-        //NEW CODE========================
-        Intent intent = getIntent();
+        initData(getIntent());
+
+    }
+
+    private void initData(Intent intent) {
+        //默认图片索引
+        defaultImgResId = intent.getIntExtra(Constant.KEY_DEFAULT_IMG_RESID, 0);
+        GlideApp.with(this).load(defaultImgResId).into(musicImageView);
+
         TYPE_CODE = (Constant.TYPE) intent.getSerializableExtra(Constant.KEY_TYPE_KEY);
         if (TYPE_CODE == Constant.TYPE.FIRST_ENTERED) {
-            SitechDevLog.e(TAG, "======== FIRST_ENTERED ");
+            SitechDevLog.e(TAG, "======== FIRST_ENT1ERED ");
             mColumnMember = (ColumnMember) intent.getSerializableExtra(Constant.KEY_MEMBER_CODE);
             ColumnMemberMamager.SingltonHolder.INSTANCE.mColumnMember = mColumnMember;
             mRadioDetailColumnMember = (RadioDetailColumnMember) mColumnMember;
@@ -136,11 +146,7 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
             }
             setListData();
         }
-        //默认图片索引
-        defaultImgResId = intent.getIntExtra(Constant.KEY_DEFAULT_IMG_RESID, 0);
-        GlideApp.with(this).load(defaultImgResId).into(musicImageView);
-
-        String title = ColumnMemberMamager.SingltonHolder.INSTANCE.mColumnMember.getTitle();
+        title = ColumnMemberMamager.SingltonHolder.INSTANCE.mColumnMember.getTitle();
         tv_title.setText(title);
     }
 
@@ -170,36 +176,43 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
     }
 
     private void setListData() {
-
-        ArrayList<PlayItem> playList = PlayerListManager.getInstance().getPlayList();
-        SitechDevLog.e(TAG, "-----------setListData------------");
-        if (playDataItemList == null) {
-            playDataItemList = new ArrayList<>();
-        } else {
-            playDataItemList.clear();
-        }
-        //重组播放列表
-        transformDataToItem(playList, playDataItemList);
-
-        if (playListAdapter == null) {
-            playListAdapter = new MusicKaolaForShowAdapter(this);
-            if (playDataItemList != null) {
-                playListAdapter.refreshData(playDataItemList, mCurPosition);
-            }
-            vLocalMusicList.setAdapter(playListAdapter);
-        }
-
-        playListAdapter.setOnItemClickListener(new MusicKaolaForShowAdapter.OnItemClickListener() {
+        ThreadUtils.runOnUIThreadDelay(new Runnable() {
             @Override
-            public void onItemClick(long playItemID, int position) {
-                SitechDevLog.e(TAG, "position ====" + position);
-                mCurPosition = position;
-                playListAdapter.setSelected(position);
-                PlayerManager.getInstance(mContext).playAudioFromPlayList(playItemID);
+            public void run() {
+                ArrayList<PlayItem> playList = PlayerListManager.getInstance().getPlayList();
+                SitechDevLog.e(TAG, "-----------setListData------------");
+                if (playDataItemList == null) {
+                    playDataItemList = new ArrayList<>();
+                } else {
+                    playDataItemList.clear();
+                }
+                //重组播放列表
+                transformDataToItem(playList, playDataItemList);
+
+                if (playListAdapter == null) {
+                    playListAdapter = new MusicKaolaForShowAdapter(MusicKaolaForShowActivity.this);
+                    if (playDataItemList != null) {
+                        playListAdapter.refreshData(playDataItemList, mCurPosition);
+                    }
+                    vLocalMusicList.setAdapter(playListAdapter);
+                } else {
+                    playListAdapter.notifyDataSetChanged();
+                }
+
+                playListAdapter.setOnItemClickListener(new MusicKaolaForShowAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(long playItemID, int position) {
+                        SitechDevLog.e(TAG, "position ====" + position);
+                        mCurPosition = position;
+                        playListAdapter.setSelected(position);
+                        PlayerManager.getInstance(mContext).playAudioFromPlayList(playItemID);
+                    }
+                });
+                vLocalMusicList.smoothScrollToPosition(mCurPosition);
+                cancelProgressDialog();
             }
-        });
-        vLocalMusicList.smoothScrollToPosition(mCurPosition);
-        cancelProgressDialog();
+        },1000);
+
     }
 
     @Override
@@ -369,11 +382,19 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
     @Override
     public void pause() {
         refreshPlayStatusView();
+        if (playListAdapter != null && playListAdapter.getItemCount() > 0) {
+            ThreadUtils.runOnUIThread(() -> {
+                playListAdapter.notifyDataSetChanged();
+            });
+        }
     }
 
     @Override
     public void resume() {
         refreshPlayStatusView();
+        if (playListAdapter != null && playListAdapter.getItemCount() > 0) {
+            playListAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
