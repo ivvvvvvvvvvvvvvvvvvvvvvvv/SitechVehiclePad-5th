@@ -28,10 +28,6 @@ public class AppsMenuConfig {
      **/
     public static final int MAX_GRIDVIEW_SIZE = 12;
     /**
-     * 菜单的回调接口
-     */
-    private MainViewMenuListener listener = null;
-    /**
      * true=进入编辑状态
      */
     public static boolean isAppsEditStatus = false;
@@ -98,14 +94,6 @@ public class AppsMenuConfig {
 
     public static AppsMenuConfig getInstance() {
         return SingleAppViewPagerUtil.SINGLE;
-    }
-
-    public MainViewMenuListener getListener() {
-        return listener;
-    }
-
-    public void setListener(MainViewMenuListener listener) {
-        this.listener = listener;
     }
 
     /**

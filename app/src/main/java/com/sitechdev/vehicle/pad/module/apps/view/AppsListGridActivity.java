@@ -3,6 +3,8 @@ package com.sitechdev.vehicle.pad.module.apps.view;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
@@ -10,14 +12,14 @@ import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppConst;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.bean.AllModuleBean;
-import com.sitechdev.vehicle.pad.module.apps.contract.AllAppsContract;
 import com.sitechdev.vehicle.pad.module.apps.adapter.MainMenuAdapater;
-import com.sitechdev.vehicle.pad.module.apps.util.MainViewMenuListener;
 import com.sitechdev.vehicle.pad.module.apps.adapter.MainViewPagerAdapter;
-import com.sitechdev.vehicle.pad.module.apps.util.MenuBundle;
+import com.sitechdev.vehicle.pad.module.apps.contract.AllAppsContract;
 import com.sitechdev.vehicle.pad.module.apps.model.AllAppsModel;
-import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.module.apps.util.AppsMenuConfig;
+import com.sitechdev.vehicle.pad.module.apps.util.MainViewMenuListener;
+import com.sitechdev.vehicle.pad.module.apps.util.MenuBundle;
+import com.sitechdev.vehicle.pad.router.RouterConstants;
 
 import java.util.List;
 
@@ -35,6 +37,10 @@ public class AppsListGridActivity extends BaseActivity {
 
     private AppViewPager mAppViewPager = null;
     private MainViewPagerAdapter appsViewPagerAdapter = null;
+    /**
+     * 下标
+     */
+    private LinearLayout mainTagView = null;
 
     @Override
     protected int getLayoutId() {
@@ -45,7 +51,7 @@ public class AppsListGridActivity extends BaseActivity {
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         mAppViewPager = findViewById(R.id.id_all_apps_vp);
-
+        mainTagView = findViewById(R.id.id_main_tag);
     }
 
     @Override
@@ -62,7 +68,16 @@ public class AppsListGridActivity extends BaseActivity {
         appsModel.getAllModuleData(new AllAppsContract.AllModuleCallback() {
             @Override
             public void onSuccess(AllModuleBean bean) {
+                if (!AppsMenuConfig.mAllMenuBeanList.isEmpty()){
+                    AppsMenuConfig.mAllMenuBeanList.clear();
+                }
                 AppsMenuConfig.mAllMenuBeanList = bean.apps;
+                if (!AppsMenuConfig.mAllMenuAdapterList.isEmpty()){
+                    AppsMenuConfig.mAllMenuAdapterList.clear();
+                }
+                if (!AppViewPager.mAllMenuGridViewList.isEmpty()){
+                    AppViewPager.mAllMenuGridViewList.clear();
+                }
                 initRecycleData();
             }
 
@@ -159,30 +174,8 @@ public class AppsListGridActivity extends BaseActivity {
      * 退出recycleView的编辑状态
      */
     private void exitRecycleViewEditStatus() {
-        AppsMenuConfig.isAppsEditStatus = false;
+        exitEditStateUtil();
     }
-
-//    /**
-//     * 页面切换事件
-//     *
-//     * @param isNext true=切换到下一页
-//     */
-//    @Override
-//    public void onPageChange(boolean isNext) {
-//        SitechDevLog.w(AppConst.TAG_APP, "onPageChange ==" + (isNext ? "切换到下一页" : "切换到上一页"));
-//        int curPageIndex = mAppViewPager.getCurrentItem();
-//        if (isNext && curPageIndex < appsViewPagerAdapter.getCount() - 1) {
-//            curPageIndex++;
-//            //切换到下一页
-//            mAppViewPager.setCurrentItem(curPageIndex);
-//        } else if (!isNext && curPageIndex > 0) {
-//            curPageIndex--;
-//            //切换到上一页
-//            mAppViewPager.setCurrentItem(curPageIndex);
-//        } else {
-//            SitechDevLog.w(AppConst.TAG_APP, "已到viewpager临界点");
-//        }
-//    }
 
     // 菜单增、删、移
     private MainViewMenuListener mainViewPagerListener = new MainViewMenuListener() {
@@ -302,14 +295,6 @@ public class AppsListGridActivity extends BaseActivity {
                 }
             });
         }
-
-        /**
-         * 推荐页面时跳转
-         */
-        @Override
-        public void gotoRecommendActivity() {
-            SitechDevLog.w(AppConst.TAG_APP, "跳转界面  跳转至应用推荐页面");
-        }
     };
 
     /**
@@ -334,10 +319,10 @@ public class AppsListGridActivity extends BaseActivity {
         if (AppViewPager.mAllMenuGridViewList != null) {
             AppViewPager.mAllMenuGridViewList.clear();
         }
-        // 下标 todo
-//        if (mainTag != null) {
-//            mainTag.removeAllViews();
-//        }
+        // 下标
+        if (mainTagView != null) {
+            mainTagView.removeAllViews();
+        }
     }
 
     /**
@@ -351,21 +336,63 @@ public class AppsListGridActivity extends BaseActivity {
     }
 
     /**
-     * 刷新底部标签
-     * TODO
+     * 退出编辑状态时，刷新整个页面
      */
-    private void refreshBottomTag() {
-//        int count = mainTag.getChildCount();
-//        for (int i = 0; i < count; i++) {
-//            ImageView imgTag = (ImageView) mainTag.getChildAt(i);
-//            if (CyberViewPager.mCurrentPagerIndex == i) {
-//                imgTag.setImageResource(R.drawable.menu_selected);
-//            } else {
-//                imgTag.setImageResource(R.drawable.menu_unselected);
-//            }
-//        }
+    private void refreshViewPagerByExitEditStatus() {
+        //再刷新整个Viewpager
+        if (appsViewPagerAdapter != null) {
+            appsViewPagerAdapter.notifyDataSetChanged();
+        }
     }
 
+    /**
+     * 刷新底部标签
+     */
+    private void refreshBottomTag() {
+        int count = mainTagView.getChildCount();
+        for (int i = 0; i < count; i++) {
+            ImageView imgTag = (ImageView) mainTagView.getChildAt(i);
+            if (AppViewPager.mCurrentPagerIndex == i) {
+                imgTag.setImageResource(R.drawable.icon_menu_selected);
+            } else {
+                imgTag.setImageResource(R.drawable.icon_menu_unselected);
+            }
+        }
+    }
+
+    /**
+     * 增加底部页面标签
+     */
     private void addMainBottomTag() {
+        SitechDevLog.w(AppConst.TAG_APP, "刷新  刷新底部的标签");
+        ImageView imgTag = (ImageView) View.inflate(this, R.layout.single_bottom_tag, null);
+        mainTagView.addView(imgTag);
+        refreshBottomTag();
+    }
+
+    /**
+     * 退出编辑状态的处理
+     */
+    private void exitEditStateUtil() {
+        //变量重置
+        cancelEditState();
+        //停止滚动
+        AppsMenuConfig.onStopMove();
+        //退出编辑刷新页面
+        refreshViewPagerByExitEditStatus();
+        //下标刷新
+        refreshBottomTag();
+    }
+
+    /**
+     * 取消编辑状态
+     */
+    private void cancelEditState() {
+        // 若是在编辑状态，则先取消编辑
+        AppsMenuConfig.isAppsEditStatus = false;
+        AppsMenuConfig.setLongClick(false);
+        AppViewPager.isTouchResponse = true;
+        AppsMenuConfig.mPagerDirection = 0;
+        AppsMenuConfig.mPagerChanged = false;
     }
 }

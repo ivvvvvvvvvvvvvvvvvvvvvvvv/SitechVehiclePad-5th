@@ -8,6 +8,11 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.sitechdev.vehicle.lib.util.SitechDevLog;
+import com.sitechdev.vehicle.pad.app.AppConst;
+import com.sitechdev.vehicle.pad.module.apps.util.AppsMenuConfig;
+import com.sitechdev.vehicle.pad.module.apps.util.MenuBundle;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,7 +85,7 @@ public class AppViewPager extends ViewPager {
         @Override
         public void onPageScrollStateChanged(int state) {
             if (state == ViewPager.SCROLL_STATE_IDLE) {
-                mCurrentPagerIndex = getCurrentItem();
+//                mCurrentPagerIndex = getCurrentItem();
 //                SitechDevLog.w(AppConst.TAG_APP, "onPageScrollStateChanged  mCurrentPagerIndex=" + mCurrentPagerIndex);
             }
         }
@@ -88,7 +93,11 @@ public class AppViewPager extends ViewPager {
         @Override
         public void onPageSelected(int position) {
             super.onPageSelected(position);
-//            SitechDevLog.w(AppConst.TAG_APP, "onPageSelected  position=" + position);
+            SitechDevLog.w(AppConst.TAG_APP, "onPageSelected  position=" + position);
+            mCurrentPagerIndex = position;
+            if (MenuBundle.getInstance().getMainViewMenuListener() != null) {
+                MenuBundle.getInstance().getMainViewMenuListener().refreshMainTagInChangePager();
+            }
         }
     };
 }

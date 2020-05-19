@@ -85,9 +85,4 @@ public interface MainViewMenuListener {
 	 */
 	void dragViewPager();
 
-	/**
-	 * 推荐页面时跳转
-	 * 
-	 */
-	void gotoRecommendActivity();
 }

@@ -10,6 +10,9 @@ package com.sitechdev.vehicle.pad.module.apps.util;
  * 备注：
  */
 public class MenuBundle {
+    /**
+     * 菜单变换事件的回调接口
+     */
     private MainViewMenuListener mainViewMenuListener = null;
 
     private MenuBundle() {
@@ -23,10 +26,16 @@ public class MenuBundle {
         return SingleMenuBundle.SINGLE;
     }
 
+    /**
+     * 菜单变换事件的回调接口
+     */
     public MainViewMenuListener getMainViewMenuListener() {
         return mainViewMenuListener;
     }
 
+    /**
+     * 菜单变换事件的回调接口
+     */
     public void setMainViewMenuListener(MainViewMenuListener mainViewMenuListener) {
         this.mainViewMenuListener = mainViewMenuListener;
     }

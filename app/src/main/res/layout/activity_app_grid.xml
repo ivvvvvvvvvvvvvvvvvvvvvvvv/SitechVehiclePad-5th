@@ -7,16 +7,15 @@
     <com.sitechdev.vehicle.pad.module.apps.view.AppViewPager
         android:id="@+id/id_all_apps_vp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="130px"
-        android:layout_marginBottom="200px" />
+        android:layout_height="700px"
+        android:layout_marginTop="100px"/>
 
     <LinearLayout
         android:id="@+id/id_main_tag"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/id_all_apps_vp"
-        android:layout_gravity="bottom"
+        android:layout_marginTop="50px"
         android:gravity="center_horizontal"
         android:orientation="horizontal" />
 

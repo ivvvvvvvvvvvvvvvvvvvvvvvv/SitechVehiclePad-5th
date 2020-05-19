@@ -96,6 +96,7 @@ public class MainMenuAdapater extends BaseAdapter implements MoveMenuCallback {
             //是编辑状态，出现抖动动画
             startAnmation(imgMenuIcon);
         } else {
+            convertView.setVisibility(View.VISIBLE);
             stopAnmation(imgMenuIcon);
         }
 
@@ -150,6 +151,14 @@ public class MainMenuAdapater extends BaseAdapter implements MoveMenuCallback {
         // return;
         // }
         this.mTempIndex = hidePosition;
+        notifyDataSetChanged();
+    }
+
+    /**
+     * 退出编辑状态
+     */
+    public void exitEditStatus() {
+        this.mTempIndex = AdapterView.INVALID_POSITION;
         notifyDataSetChanged();
     }
 }
