@@ -2,116 +2,106 @@
   "apps": [
     {
       "index": 0,
-      "appName": "本地音乐",
+      "appName": "导航",
       "appIcon": 1,
-      "appRoute": "/main/localMusic",
-      "eventId": "btn_app_music"
+      "appRoute": "/subApp/navi",
+      "eventId": "btn_app_navi"
     },
     {
       "index": 1,
       "appName": "收音机",
       "appIcon": 2,
-      "appRoute": "/main/radiogram",
+      "appRoute": "/subApp/radio",
       "eventId": "btn_app_radio"
     },
     {
       "index": 2,
-      "appName": "听伴",
+      "appName": "本地音乐",
       "appIcon": 3,
-      "appRoute": "/needLogin/needNet/kaolaRadio",
-      "jumpType": 0,
-      "eventId": "btn_app_kradio"
+      "appRoute": "/subApp/localMusic",
+      "eventId": "btn_app_local_music"
     },
     {
       "index": 3,
-      "appName": "电话",
+      "appName": "网络音乐",
       "appIcon": 4,
-      "appRoute": "/bt/phone",
-      "eventId": "btn_app_phone"
+      "appRoute": "/subApp/needLogin/needNet/netMusic",
+      "eventId": "btn_app_net_music"
     },
     {
       "index": 4,
-      "appName": "车辆控制",
+      "appName": "听伴FM",
       "appIcon": 5,
-      "appRoute": "/main/carControl",
-      "jumpType": 1,
-      "eventId": "btn_app_car"
+      "appRoute": "/subApp/kaolaFM",
+      "eventId": "btn_app_kaolaFM"
     },
     {
       "index": 5,
-      "appName": "空调控制",
-      "appIcon": 7,
-      "appRoute": "/main/airControl",
-      "jumpType": 2,
-      "eventId": "btn_app_air_conditioning"
+      "appName": "LED表情管理",
+      "appIcon": 6,
+      "appRoute": "/subApp/led",
+      "jumpType": 1,
+      "eventId": "btn_app_led"
     },
     {
       "index": 6,
-      "appName": "商城",
-      "appIcon": 8,
-      "appRoute": "/needLogin/needNet/mall",
-      "eventId": "btn_app_mall"
-    },
-    {
-      "index": 7,
-      "appName": "个人中心",
-      "appIcon": 17,
-      "appRoute": "/needLogin/needNet/personal",
-      "jumpType": 0,
-      "eventId": "btn_app_person"
-    },
-    {
-      "index": 8,
-      "appName": "天气",
-      "appIcon": 10,
-      "appRoute": "/main/weather",
-      "eventId": "btn_app_weather"
-    },
-    {
-      "index": 9,
-      "appName": "设置",
-      "appIcon": 11,
-      "appRoute": "/main/setting",
-      "eventId": "btn_app_set"
-    },
-    {
-      "index": 10,
       "appName": "视频",
-      "appIcon": 13,
-      "appRoute": "/main/video",
+      "appIcon": 7,
+      "appRoute": "/subApp/video",
+      "jumpType": 2,
       "eventId": "btn_app_video"
     },
     {
+      "index": 7,
+      "appName": "天气",
+      "appIcon": 8,
+      "appRoute": "/needLogin/needNet/weather",
+      "eventId": "btn_app_weather"
+    },
+    {
+      "index": 8,
+      "appName": "电话",
+      "appIcon": 9,
+      "appRoute": "/subApp/phone",
+      "jumpType": 0,
+      "eventId": "btn_app_phone"
+    },
+    {
+      "index": 9,
+      "appName": "个人中心",
+      "appIcon": 10,
+      "appRoute": "/subApp/member",
+      "eventId": "btn_app_member"
+    },
+    {
+      "index": 10,
+      "appName": "饭聊",
+      "appIcon": 11,
+      "appRoute": "/subApp/funChat",
+      "eventId": "btn_app_funChat"
+    },
+    {
       "index": 11,
-      "appName": "酷我音乐",
-      "appIcon": 14,
-      "appRoute": "/needLogin/needNet/kuwo",
-      "jumpType": 1,
-      "eventId": "btn_app_kuwo"
+      "appName": "出行计价器",
+      "appIcon": 12,
+      "appRoute": "/subApp/taxi",
+      "eventId": "btn_app_taxi"
     },
     {
       "index": 12,
-      "appName": "地图导航",
-      "appIcon": 15,
-      "appRoute": "/main/map",
+      "appName": "商城",
+      "appIcon": 13,
+      "appRoute": "/needLogin/needNet/mall",
       "jumpType": 1,
-      "eventId": "btn_app_map"
+      "eventId": "btn_app_mall"
     },
     {
       "index": 13,
-      "appName": "百度CarLife",
-      "appIcon": 16,
-      "appRoute": "/main/carLife",
+      "appName": "设置",
+      "appIcon": 14,
+      "appRoute": "/subApp/setting",
       "jumpType": 1,
-      "eventId": "btn_app_carlife"
-    },
-    {
-      "index": 14,
-      "appName": "饭聊",
-      "appIcon": 19,
-      "appRoute": "/needLogin/needNet/funchat",
-      "jumpType": 0,
-      "eventId": "btn_app_funchat"
+      "eventId": "btn_app_setting"
     }
   ]
 }

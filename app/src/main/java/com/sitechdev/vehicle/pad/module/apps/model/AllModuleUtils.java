@@ -46,65 +46,51 @@ public class AllModuleUtils {
      * @return
      */
     public static int getSrcId(int appIcon) {
-        int resId =  R.drawable.all_tab_info;
+        int resId = R.drawable.all_tab_info;
         switch (appIcon) {
             case 1:             //本地音乐
-                resId = R.drawable.all_tab_usb;
+                resId = R.drawable.icon_app_menu_navi;
                 break;
             case 2:             //收音机
-                resId = R.drawable.all_tab_fm;
+                resId = R.drawable.icon_app_menu_radio;
                 break;
-            case 3:             //听伴
-                resId = R.drawable.all_tab_kaola
-                ;
+            case 3:             //本地音乐
+                resId = R.drawable.icon_app_menu_local_music;
                 break;
-            case 4:             //电话
-                resId = R.drawable.all_tab_phone;
+            case 4:             //网络音乐
+                resId = R.drawable.icon_app_menu_kuwo;
                 break;
-            case 5:             //车辆控制
-                resId = R.drawable.all_tab_car;
+            case 5:             //听伴FM
+                resId = R.drawable.icon_app_menu_kaola;
                 break;
-            case 6:             //车主服务
-                resId = R.drawable.all_tab_car_user;
+            case 6:             //LED表情管理
+                resId = R.drawable.icon_app_menu_led;
                 break;
-            case 7:             //空调控制
-                resId = R.drawable.all_tab_air;
+            case 7:             //视频
+                resId = R.drawable.icon_app_menu_video;
                 break;
-            case 8:             //商城
-                resId = R.drawable.all_tab_shop;
+            case 8:             //天气
+                resId = R.drawable.icon_app_menu_weather;
                 break;
-            case 9:             //消息盒子
-                resId = R.drawable.all_tab_message;
+            case 9:             //电话
+                resId = R.drawable.icon_app_menu_phone;
                 break;
-            case 10:            //天气
-                resId = R.drawable.all_tab_weather;
+            case 10:            //个人中心
+                resId = R.drawable.icon_app_menu_member;
                 break;
-            case 11:            //设置
-                resId = R.drawable.all_tab_setting;
+            case 11:            //饭聊
+                resId = R.drawable.icon_app_menu_funchat;
                 break;
-            case 12:            //个人中心
-                resId = R.drawable.all_tab_info;
+            case 12:            //出行计价器
+                resId = R.drawable.icon_app_menu_taxi;
                 break;
-            case 13:            //视频
-                resId = R.drawable.all_tab_video;
+            case 13:            //商城
+                resId = R.drawable.icon_app_menu_mall;
                 break;
-            case 14:            //酷我音乐
-                resId = R.drawable.all_tab_kuwo;
+            case 14:            //设置
+                resId = R.drawable.icon_app_menu_setting;
                 break;
-            case 15:            //地图导航
-                resId = R.drawable.all_tab_map;
-                break;
-            case 16:            //百度CarLife
-                resId = R.drawable.all_tab_carlife;
-                break;
-            case 17:            //个人中心
-                resId = R.drawable.all_tab_info;
-                break;
-            case 18:            //智能家居
-                resId = R.drawable.all_tab_home;
-                break;
-			case 19:            //饭聊
-                resId = R.drawable.all_tab_funchat;
+            default:
                 break;
         }
         return resId;

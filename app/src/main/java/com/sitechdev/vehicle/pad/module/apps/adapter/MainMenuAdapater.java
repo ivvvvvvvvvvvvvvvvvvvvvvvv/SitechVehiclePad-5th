@@ -1,10 +1,12 @@
 package com.sitechdev.vehicle.pad.module.apps.adapter;
 
 import android.content.Context;
+import android.os.Message;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -33,6 +35,17 @@ public class MainMenuAdapater extends BaseAdapter implements MoveMenuCallback {
     private Context mContext = null;
     private AllModuleBean.ModuleBean menuElement = null;
     private int mTempIndex = -1;
+
+//    private Handler mHandler = new Handler() {
+//        @Override
+//        public void handleMessage(Message msg) {
+//            super.handleMessage(msg);
+//
+//            startAnmation(((View) msg.obj), 2f);
+//
+//            mHandler.sendMessageDelayed(getAnimMessage(((View) msg.obj)), 1000);
+//        }
+//    };
 
     public MainMenuAdapater(Context context, int startIndex, int endIndex) {
         mContext = context;
@@ -95,9 +108,11 @@ public class MainMenuAdapater extends BaseAdapter implements MoveMenuCallback {
             }
             //是编辑状态，出现抖动动画
             startAnmation(imgMenuIcon);
+//            mHandler.sendMessage(getAnimMessage(imgMenuIcon));
         } else {
             convertView.setVisibility(View.VISIBLE);
             stopAnmation(imgMenuIcon);
+//            mHandler.removeCallbacksAndMessages(null);
         }
 
         return convertView;
@@ -110,9 +125,39 @@ public class MainMenuAdapater extends BaseAdapter implements MoveMenuCallback {
      */
     private void startAnmation(View view) {
         Animation anim = AnimationUtils.loadAnimation(mContext, R.anim.snake);
+        anim.setInterpolator(new LinearInterpolator());
         view.startAnimation(anim);
-
     }
+
+//    /**
+//     * 动画开始
+//     *
+//     * @param view
+//     */
+//    private void startAnmation(View view, float offset) {
+////        Animation anim = AnimationUtils.loadAnimation(mContext, R.anim.snake);
+////        view.startAnimation(anim);
+//
+//        //先往左再往右
+//        PropertyValuesHolder rotateValuesHolder = PropertyValuesHolder.ofKeyframe(View.ROTATION,
+//                Keyframe.ofFloat(0f, 0f),
+//                Keyframe.ofFloat(0.1f, -offset),
+//                Keyframe.ofFloat(0.2f, offset),
+//                Keyframe.ofFloat(0.3f, -offset),
+//                Keyframe.ofFloat(0.4f, offset),
+//                Keyframe.ofFloat(0.5f, -offset),
+//                Keyframe.ofFloat(0.6f, offset),
+//                Keyframe.ofFloat(0.7f, -offset),
+//                Keyframe.ofFloat(0.8f, offset),
+//                Keyframe.ofFloat(0.9f, -offset),
+//                Keyframe.ofFloat(1.0f, 0f)
+//        );
+//
+//        ObjectAnimator objectAnimator = ObjectAnimator.ofPropertyValuesHolder(view, rotateValuesHolder);
+//        objectAnimator.setDuration(1000);
+//        objectAnimator.start();
+//
+//    }
 
     /**
      * 动画停止
@@ -160,5 +205,12 @@ public class MainMenuAdapater extends BaseAdapter implements MoveMenuCallback {
     public void exitEditStatus() {
         this.mTempIndex = AdapterView.INVALID_POSITION;
         notifyDataSetChanged();
+    }
+
+    private Message getAnimMessage(View view) {
+        Message message = new Message();
+        message.what = 100;
+        message.obj = view;
+        return message;
     }
 }
