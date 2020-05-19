@@ -6,8 +6,10 @@ import android.content.Intent;
 import com.kaolafm.sdk.core.mediaplayer.PlayItem;
 import com.kaolafm.sdk.core.mediaplayer.PlayerListManager;
 import com.kaolafm.sdk.core.mediaplayer.PlayerManager;
+import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.Constant;
 import com.sitechdev.vehicle.pad.app.AppApplication;
+import com.sitechdev.vehicle.pad.event.TeddyEvent;
 import com.sitechdev.vehicle.pad.kaola.ColumnMemberMamager;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.kaola.NewsDetailsActivity;
@@ -258,6 +260,7 @@ public class VoiceSourceManager {
             case KAOLA:
                 if (PlayerManager.getInstance(context).hasPre()) {
                     PlayerManager.getInstance(context).playPre();
+                    EventBusUtils.postEvent(new TeddyEvent(TeddyEvent.EVENT_TEDDY_KAOLA_PLAY_UPDATElIST));
                     if (type == VOICE) {
                         VUIWindow.getInstance().hide();
                     }
@@ -302,6 +305,7 @@ public class VoiceSourceManager {
             case KAOLA:
                 if (PlayerManager.getInstance(context).hasNext()) {
                     PlayerManager.getInstance(context).playNext();
+                    EventBusUtils.postEvent(new TeddyEvent(TeddyEvent.EVENT_TEDDY_KAOLA_PLAY_UPDATElIST));
                     if (type == VOICE) {
                         VUIWindow.getInstance().hide();
                     }

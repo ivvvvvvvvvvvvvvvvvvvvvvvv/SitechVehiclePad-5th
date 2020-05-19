@@ -7,6 +7,7 @@ import android.support.annotation.UiThread;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,6 +24,7 @@ import com.kaolafm.sdk.core.mediaplayer.PlayerManager;
 import com.kaolafm.sdk.core.mediaplayer.PlayerRadioListManager;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
+import com.sitechdev.vehicle.lib.event.BindEventBus;
 import com.sitechdev.vehicle.lib.imageloader.GlideApp;
 import com.sitechdev.vehicle.lib.util.Constant;
 import com.sitechdev.vehicle.lib.util.DensityUtils;
@@ -30,6 +32,7 @@ import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
+import com.sitechdev.vehicle.pad.event.TeddyEvent;
 import com.sitechdev.vehicle.pad.kaola.ColumnMemberMamager;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.kaola.PlayItemAdapter;
@@ -41,11 +44,15 @@ import com.sitechdev.vehicle.pad.view.CommonToast;
 import com.sitechdev.vehicle.pad.view.RecycleViewDivider;
 import com.sitechdev.vehicle.pad.view.ScrollTextView;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @Route(path = RouterConstants.MUSIC_PLAY_SHOW)
 @VoiceSourceType(VoiceSourceManager.SUPPORT_TYPE_KAOLA)
+@BindEventBus
 public class MusicKaolaForShowActivity extends BaseActivity implements
         VoiceSourceManager.MusicChangeListener, VoiceSourceManager.onPlaySourceMusicChangeListener {
     private static final String TAG = "MusicKaolaForShowActivity";
@@ -265,7 +272,13 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
     private void playPre() {
         SitechDevLog.e(TAG, "========  playPre  was called");
         boolean hasPre = KaolaPlayManager.SingletonHolder.INSTANCE.playPre();
-        if (hasPre && playListAdapter != null) {
+        if (hasPre) {
+            move2Pre();
+        }
+    }
+
+    private void move2Pre() {
+        if (playListAdapter != null) {
             mCurPosition--;
             playListAdapter.setSelected(mCurPosition);
         }
@@ -274,12 +287,17 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
     private void playNext() {
         SitechDevLog.e(TAG, "========  playNext  was called");
         boolean hasNext = KaolaPlayManager.SingletonHolder.INSTANCE.playNext();
-        if (hasNext && playListAdapter != null) {
+        if (hasNext) {
+            move2Next();
+        }
+    }
+
+    private void move2Next() {
+        if (playListAdapter != null) {
             mCurPosition++;
             playListAdapter.setSelected(mCurPosition);
         }
     }
-
 
     private void fetchMore(boolean isLoadMore) {
         //播单数据变化监听
@@ -393,7 +411,9 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
     public void resume() {
         refreshPlayStatusView();
         if (playListAdapter != null && playListAdapter.getItemCount() > 0) {
-            playListAdapter.notifyDataSetChanged();
+            ThreadUtils.runOnUIThread(() -> {
+                playListAdapter.notifyDataSetChanged();
+            });
         }
     }
 
@@ -445,5 +465,16 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
     @Override
     public void onMusicPlayProgress(String s, int i, int i1, boolean b) {
 
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(TeddyEvent event) {
+        if (event.getEventKey().equals(TeddyEvent.EVENT_TEDDY_KAOLA_PLAY_UPDATElIST)) {
+            int curPosition = PlayerListManager.getInstance().getCurPosition();
+            if (mCurPosition != curPosition) {
+                mCurPosition = curPosition;
+                playListAdapter.setSelected(mCurPosition);
+            }
+        }
     }
 }

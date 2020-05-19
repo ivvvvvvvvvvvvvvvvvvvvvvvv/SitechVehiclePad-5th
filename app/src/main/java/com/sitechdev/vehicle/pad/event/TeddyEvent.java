@@ -13,4 +13,33 @@ import com.sitechdev.vehicle.lib.event.BaseEvent;
  */
 public class TeddyEvent extends BaseEvent {
 
+    public static final String EVENT_TEDDY_KAOLA_PLAY_UPDATElIST = "EVENT_TEDDY_KAOLA_PLAY_UPDATElIST";
+
+    private String eventKey = "";
+    private Object eventValue = null;
+
+    public TeddyEvent(String key) {
+        eventKey = key;
+    }
+
+    public TeddyEvent(String tmpKey, Object tmpValue) {
+        eventKey = tmpKey;
+        eventValue = tmpValue;
+    }
+
+    public String getEventKey() {
+        return eventKey;
+    }
+
+    public void setEventKey(String eventKey) {
+        this.eventKey = eventKey;
+    }
+
+    public Object getEventValue() {
+        return eventValue;
+    }
+
+    public void setEventValue(Object eventValue) {
+        this.eventValue = eventValue;
+    }
 }

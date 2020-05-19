@@ -21,6 +21,8 @@ import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.event.AppEvent;
 import com.sitechdev.vehicle.pad.event.MapEvent;
+import com.sitechdev.vehicle.pad.event.TeddyEvent;
+import com.sitechdev.vehicle.pad.event.VoiceEvent;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.module.main.MainActivity;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
@@ -187,6 +189,7 @@ public class KaolaPlayManager {
                 }
             }
             PlayerManager.getInstance(AppApplication.getContext()).play(nextPlayItem);
+            EventBusUtils.postEvent(new TeddyEvent(TeddyEvent.EVENT_TEDDY_KAOLA_PLAY_UPDATElIST));
             SitechDevLog.e(KaolaPlayManager.class.getSimpleName(), " ============== change another song =============");
             return true;
         } else {
@@ -199,7 +202,9 @@ public class KaolaPlayManager {
         SitechDevLog.e(this.getClass().getSimpleName(), "========  playNext  was called");
         boolean hasNext = PlayerManager.getInstance(AppApplication.getContext()).hasNext();
         if (PlayerManager.getInstance(AppApplication.getContext()).hasNext()) {
+            int curPosition = PlayerListManager.getInstance().getCurPosition();
             PlayerManager.getInstance(AppApplication.getContext()).playNext();
+            EventBusUtils.postEvent(new TeddyEvent(TeddyEvent.EVENT_TEDDY_KAOLA_PLAY_UPDATElIST, ++curPosition));
 //            CommonToast.makeText(AppApplication.getContext(), "下一曲");
         } else {
             CommonToast.makeText(AppApplication.getContext(), "已经是最后一首啦");
@@ -211,7 +216,9 @@ public class KaolaPlayManager {
         SitechDevLog.e(this.getClass().getSimpleName(), "========  playPre  was called");
         boolean hasPre = PlayerManager.getInstance(AppApplication.getContext()).hasPre();
         if (PlayerManager.getInstance(AppApplication.getContext()).hasPre()) {
+            int curPosition = PlayerListManager.getInstance().getCurPosition();
             PlayerManager.getInstance(AppApplication.getContext()).playPre();
+            EventBusUtils.postEvent(new TeddyEvent(TeddyEvent.EVENT_TEDDY_KAOLA_PLAY_UPDATElIST, --curPosition));
 //            CommonToast.makeText(AppApplication.getContext(), "上一曲");
         } else {
             CommonToast.makeText(AppApplication.getContext(), "已经是第一首啦");
