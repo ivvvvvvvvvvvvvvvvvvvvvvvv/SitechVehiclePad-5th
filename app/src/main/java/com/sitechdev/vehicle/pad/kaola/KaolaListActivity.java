@@ -11,9 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.kaolafm.opensdk.api.operation.model.column.Column;
 import com.kaolafm.opensdk.api.operation.model.column.ColumnMember;
 import com.kaolafm.sdk.core.mediaplayer.IPlayerStateListener;
@@ -25,7 +23,6 @@ import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.module.forshow.MusicKaolaForShowActivity;
-import com.sitechdev.vehicle.pad.module.music.fragment.LocalMusicFragment;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppUtil;
@@ -34,14 +31,14 @@ import com.sitechdev.vehicle.pad.view.ScrollTextView;
 
 import java.util.List;
 
-import static com.sitechdev.vehicle.pad.BuildConfig.DEBUG;
+
 @Route(path = RouterConstants.KAOLA_RADIO_LIST)
 public class KaolaListActivity extends BaseActivity {
     Context mContext;
     Column mCurrentColumn;
-//    @Autowired(name = Constant.KEY_COLUMN)
+    //    @Autowired(name = Constant.KEY_COLUMN)
     private int deepIndex;
-//    @Autowired(name = Constant.KEY_TYPE_INDEX)
+    //    @Autowired(name = Constant.KEY_TYPE_INDEX)
     private int pageIndex;
     List<ColumnMember> mColumnMembers;
 //    RecyclerView rv_kaola_list;
@@ -127,7 +124,7 @@ public class KaolaListActivity extends BaseActivity {
         parseIntent(getIntent());
     }
 
-    private void parseIntent(Intent intent ){
+    private void parseIntent(Intent intent) {
         if (intent != null) {
             Bundle bundle = intent.getExtras();
             if (bundle != null) {
@@ -184,6 +181,52 @@ public class KaolaListActivity extends BaseActivity {
                         columnMember.setTitle("情景喜剧");
                         mColumnMembers.add(columnMember);
                     }
+
+                    /**  按照产品要求，展车上要对车嗨娱乐的内容按照效果图做出调整。以下为调整逻辑  */
+                    //堵车不堵心
+                    ColumnMember dcbdxColumnMember = null;
+                    //闲聊脱口秀
+                    ColumnMember xltkxColumnMember = null;
+                    //爆笑段子
+                    ColumnMember bxdzColumnMember = null;
+                    //搞笑电台
+                    ColumnMember gxdtColumnMember = null;
+
+                    for (int i = 0; i < mColumnMembers.size(); i++) {
+                        ColumnMember tempColumnMember = mColumnMembers.get(i);
+                        switch (tempColumnMember.getTitle()) {
+                            case "堵车不堵心":
+                                dcbdxColumnMember = tempColumnMember;
+                                break;
+                            case "闲聊脱口秀":
+                                xltkxColumnMember = tempColumnMember;
+                                break;
+                            case "爆笑段子":
+                                bxdzColumnMember = tempColumnMember;
+                                break;
+                            case "搞笑电台":
+                                gxdtColumnMember = tempColumnMember;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+
+                    //堵车不堵心
+                    mColumnMembers.remove(1);
+                    mColumnMembers.add(1, dcbdxColumnMember);
+
+                    //爆笑段子
+                    mColumnMembers.remove(2);
+                    mColumnMembers.add(2, bxdzColumnMember);
+
+                    //闲聊脱口秀
+                    mColumnMembers.remove(3);
+                    mColumnMembers.add(3, xltkxColumnMember);
+
+                    //搞笑电台
+                    mColumnMembers.remove(4);
+                    mColumnMembers.add(4, gxdtColumnMember);
                     break;
                 case 3://生活一点通
                     currentImgArray = IMG_SHYDT_ICONS;
@@ -210,6 +253,7 @@ public class KaolaListActivity extends BaseActivity {
                 startActivity(intent);
             }
         }
+
     }
 
     private void resetCardTextView(TextView textView) {
