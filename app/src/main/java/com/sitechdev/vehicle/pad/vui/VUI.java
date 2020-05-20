@@ -543,6 +543,10 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                             case "AIradio_life":
                                 playKaoLa(semantic, 3);
                                 break;
+                            //随机音频
+                            case "AIradio_random":
+                                gotoPlay(new Random().nextInt(4), new Random().nextInt(6));
+                                break;
                             case "INSTRUCTION":
                                 doMusicControl(semantic);
                                 break;
@@ -1197,9 +1201,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                 }
             }
         }
-        KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(
-                context, index, deepIndex);
-        shut();
+        gotoPlay(index, deepIndex);
     }
 
     public interface OnVolumeChangeListener {
@@ -1282,6 +1284,10 @@ public class VUI implements VUIWindow.OnWindowHideListener {
     }
 
     private void playKaoLa(JSONObject semantic, int index) {
+        playKaoLa(semantic, index, false);
+    }
+
+    private void playKaoLa(JSONObject semantic, int index, boolean autoRandomPlay) {
         boolean doFinally = true;
         String defaultPlayTTS = "";
         if (index == 0) {
@@ -1313,11 +1319,8 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                             boolean result = getAIRadioItem(slot.optString("value"));
                             doFinally = !result;
                         } else if (null != slot && "main_classify".equals(slot.optString("normValue"))) {
-                            KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(
-                                    context, index, autoPlay ? new Random().nextInt(6) : -1);
-                            vuiWindow.hide();
                             shutAndTTS(defaultPlayTTS);
-                            shut();
+                            gotoPlay(index, autoPlay || autoRandomPlay ? new Random().nextInt(6) : -1);
                             doFinally = false;
                         }
                         return;
@@ -1328,13 +1331,17 @@ public class VUI implements VUIWindow.OnWindowHideListener {
             }
         } finally {
             if(doFinally){
-                KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(
-                        context, index, -1);
-                vuiWindow.hide();
                 shutAndTTS(defaultPlayTTS);
-                shut();
+                gotoPlay(index, -1);
             }
         }
+    }
+
+    private void gotoPlay(int index, int subIndex) {
+        KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(
+                context, index, subIndex);
+        vuiWindow.hide();
+        shut();
     }
 
     private boolean getAIRadioItem(String appname) {
