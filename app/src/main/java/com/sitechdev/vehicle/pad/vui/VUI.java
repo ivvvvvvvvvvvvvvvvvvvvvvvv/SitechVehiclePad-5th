@@ -548,7 +548,6 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                 break;
                             case "RANDOM_SEARCH":
                                 VoiceSourceManager.getInstance().changeAnother(VoiceSourceManager.VOICE);
-                                vuiWindow.hide();
                                 shut();
                                 break;
                             default:
@@ -1242,6 +1241,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                 break;
             case VoiceEvent.EVENT_VOICE_SR_OVER:
                 onWindowHide();
+                shutdown = false;
                 break;
             default:
                 break;
