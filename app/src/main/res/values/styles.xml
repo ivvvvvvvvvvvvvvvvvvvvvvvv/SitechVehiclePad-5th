@@ -115,5 +115,11 @@
         <item name="android:gravity">center</item>
         <item name="android:background">@drawable/selector_car_radio_selected</item>
     </style>
-
+    <style name="TabLayoutTextStyle">
+        <item name="android:textSize">36px</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="TabLayoutTextStyle2">
+        <item name="android:textSize">32px</item>
+    </style>
 </resources>

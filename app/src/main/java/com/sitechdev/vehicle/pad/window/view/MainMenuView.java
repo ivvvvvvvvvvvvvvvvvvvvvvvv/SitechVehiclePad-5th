@@ -111,7 +111,7 @@ public class MainMenuView extends RelativeLayout implements View.OnClickListener
             case R.id.id_btn_home:
 //                ToastUtils.showShort("主页按钮被点击了。。。");
                 RouterUtils.getInstance().navigationWithFlags(RouterConstants.HOME_MAIN,
-                        Intent.FLAG_ACTIVITY_CLEAR_TASK, Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        Intent.FLAG_ACTIVITY_NEW_TASK, Intent.FLAG_ACTIVITY_CLEAR_TASK, Intent.FLAG_ACTIVITY_CLEAR_TOP
                 );
                 break;
             case R.id.id_btn_location:
