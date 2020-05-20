@@ -544,7 +544,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                 playKaoLa(semantic, 3);
                                 break;
                             case "INSTRUCTION":
-
+                                doMusicControl(semantic);
                                 break;
                             case "RANDOM_SEARCH":
                                 VoiceSourceManager.getInstance().changeAnother(VoiceSourceManager.VOICE);
@@ -552,7 +552,6 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                 shut();
                                 break;
                             default:
-                                shutdown = true;
                                 vuiAnr();
                                 break;
                         }
