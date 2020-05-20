@@ -12,7 +12,7 @@
         android:layout_width="160px"
         android:layout_height="160px"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/all_tab_air" />
+        android:src="@drawable/icon_app_menu_navi" />
 
     <TextView
         android:id="@+id/menu_name"

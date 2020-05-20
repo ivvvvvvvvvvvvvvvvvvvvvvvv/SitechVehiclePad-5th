@@ -46,7 +46,7 @@ public class AllModuleUtils {
      * @return
      */
     public static int getSrcId(int appIcon) {
-        int resId = R.drawable.all_tab_info;
+        int resId = R.drawable.icon_app_menu_navi;
         switch (appIcon) {
             case 1:             //本地音乐
                 resId = R.drawable.icon_app_menu_navi;

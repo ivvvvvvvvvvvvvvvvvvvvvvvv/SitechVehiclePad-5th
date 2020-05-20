@@ -9,4 +9,4 @@
     android:numColumns="3"
     android:paddingLeft="@dimen/mainmenu_margin_left_right"
     android:paddingRight="@dimen/mainmenu_margin_left_right"
-    android:verticalSpacing="@dimen/mainmenu_gridview_versplit" />
+    android:verticalSpacing="10px" />
