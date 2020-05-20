@@ -1,17 +1,14 @@
 package com.sitechdev.vehicle.pad.window.manager;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.PixelFormat;
 import android.view.Gravity;
 import android.view.WindowManager;
 
-import com.blankj.utilcode.util.ScreenUtils;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.app.BaseWindow;
+import com.sitechdev.vehicle.pad.event.ScreenEvent;
 import com.sitechdev.vehicle.pad.event.VoiceEvent;
 import com.sitechdev.vehicle.pad.window.view.MainMenuView;
 
@@ -37,8 +34,6 @@ public class MainMenuWindowManager {
     private static int displayWidth;
     private static int displayHeight;
 
-    private OrientationReceiver receiver = null;
-
     /**
      * @return
      */
@@ -63,10 +58,6 @@ public class MainMenuWindowManager {
         winManager = BaseWindow.getInstance().getWinManager();
         displayWidth = BaseWindow.getInstance().getDisplayWidth();
         displayHeight = BaseWindow.getInstance().getDisplayHeight();
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("android.intent.action.CONFIGURATION_CHANGED");
-        receiver = new OrientationReceiver();
-        context.registerReceiver(receiver, intentFilter);
         getView();
         initData();
     }
@@ -100,7 +91,6 @@ public class MainMenuWindowManager {
             mainMenuView = null;
             params = null;
         }
-//        context.unregisterReceiver(reciver);
     }
 
     public boolean isViewShow() {
@@ -157,20 +147,15 @@ public class MainMenuWindowManager {
         }
     }
 
-    private class OrientationReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if ("android.intent.action.CONFIGURATION_CHANGED".equals(intent.getAction())) {
-                if (ScreenUtils.isLandscape()) {
-                    SitechDevLog.i(TAG, "OrientationReceiver============横屏");
-                    hide();
-                    show();
-                } else {
-                    SitechDevLog.i(TAG, "OrientationReceiver============竖屏");
-                    hide();
-                    show();
-                }
-            }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onScreenEvent(ScreenEvent event) {
+        switch (event.getEventKey()) {
+            case ScreenEvent.EVENT_SCREEN_ORIENTATION_CHANGE:
+                hide();
+                show();
+                break;
+            default:
+                break;
         }
     }
 

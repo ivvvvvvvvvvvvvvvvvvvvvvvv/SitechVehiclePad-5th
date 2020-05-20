@@ -1,9 +1,6 @@
 package com.sitechdev.vehicle.pad.window.manager;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.view.Gravity;
@@ -17,6 +14,7 @@ import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.app.BaseWindow;
+import com.sitechdev.vehicle.pad.event.ScreenEvent;
 import com.sitechdev.vehicle.pad.event.VoiceEvent;
 import com.sitechdev.vehicle.pad.window.view.MainControlPanelView;
 
@@ -47,8 +45,6 @@ public class MainControlPanelWindowManager {
 
     private boolean isHiddenView = false;
 
-    private OrientationReceiver receiver = null;
-
     /**
      * @return
      */
@@ -73,10 +69,6 @@ public class MainControlPanelWindowManager {
         winManager = BaseWindow.getInstance().getWinManager();
         displayWidth = BaseWindow.getInstance().getDisplayWidth();
         displayHeight = BaseWindow.getInstance().getDisplayHeight();
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("android.intent.action.CONFIGURATION_CHANGED");
-        receiver = new OrientationReceiver();
-        context.registerReceiver(receiver, intentFilter);
         getView();
         initData();
     }
@@ -196,25 +188,6 @@ public class MainControlPanelWindowManager {
      * 初始化逻辑
      */
     private void initData() {
-        try {
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private class OrientationReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if ("android.intent.action.CONFIGURATION_CHANGED".equals(intent.getAction())) {
-                if (ScreenUtils.isLandscape()) {
-                    SitechDevLog.i(TAG, "OrientationReceiver============横屏");
-                } else {
-                    SitechDevLog.i(TAG, "OrientationReceiver============竖屏");
-                }
-                hide();
-                ThreadUtils.runOnUIThreadDelay(MainControlPanelWindowManager.this::show, 500);
-            }
-        }
     }
 
     /**
@@ -225,6 +198,23 @@ public class MainControlPanelWindowManager {
     @Subscribe(threadMode = ThreadMode.ASYNC)
     public void onTeddyVoiceEvent(VoiceEvent event) {
         SitechDevLog.i(TAG, "onTeddyVoiceEvent============" + event.getEventKey());
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onScreenEvent(ScreenEvent event) {
+        switch (event.getEventKey()) {
+            case ScreenEvent.EVENT_SCREEN_ORIENTATION_CHANGE:
+                if (ScreenUtils.isLandscape()) {
+                    SitechDevLog.i(TAG, "OrientationReceiver============横屏");
+                } else {
+                    SitechDevLog.i(TAG, "OrientationReceiver============竖屏");
+                }
+                hide();
+                ThreadUtils.runOnUIThreadDelay(MainControlPanelWindowManager.this::show, 500);
+                break;
+            default:
+                break;
+        }
     }
 
     /**
@@ -314,12 +304,6 @@ public class MainControlPanelWindowManager {
         } else {
             mustShownView();
         }
-    }
-
-    public void changeViewByOri() {
-        SitechDevLog.i(TAG, this + "============changeViewByOri");
-        hide();
-        show();
     }
 
 }

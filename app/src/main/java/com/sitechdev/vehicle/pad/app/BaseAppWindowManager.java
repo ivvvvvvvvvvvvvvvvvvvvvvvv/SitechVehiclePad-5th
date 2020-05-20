@@ -1,7 +1,10 @@
 package com.sitechdev.vehicle.pad.app;
 
+import android.content.IntentFilter;
+
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.pad.event.WindowEvent;
+import com.sitechdev.vehicle.pad.receiver.OrientationReceiver;
 import com.sitechdev.vehicle.pad.window.manager.AppSignalWindowManager;
 import com.sitechdev.vehicle.pad.window.manager.MainControlPanelWindowManager;
 import com.sitechdev.vehicle.pad.window.manager.MainMenuWindowManager;
@@ -33,7 +36,10 @@ public class BaseAppWindowManager {
     }
 
     public void init() {
-
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("android.intent.action.CONFIGURATION_CHANGED");
+        OrientationReceiver receiver = new OrientationReceiver();
+        AppApplication.getContext().registerReceiver(receiver, intentFilter);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

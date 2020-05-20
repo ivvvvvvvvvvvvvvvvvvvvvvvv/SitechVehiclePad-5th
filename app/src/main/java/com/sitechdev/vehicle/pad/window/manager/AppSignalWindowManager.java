@@ -1,6 +1,9 @@
 package com.sitechdev.vehicle.pad.window.manager;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.PixelFormat;
 import android.telephony.PhoneStateListener;
 import android.telephony.SignalStrength;
@@ -8,10 +11,12 @@ import android.telephony.TelephonyManager;
 import android.view.Gravity;
 import android.view.WindowManager;
 
+import com.blankj.utilcode.util.ScreenUtils;
+import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
-import com.sitechdev.vehicle.pad.app.AppConst;
 import com.sitechdev.vehicle.pad.app.BaseWindow;
 import com.sitechdev.vehicle.pad.event.AppSignalEvent;
+import com.sitechdev.vehicle.pad.event.ScreenEvent;
 import com.sitechdev.vehicle.pad.window.view.AppSignalView;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -59,6 +64,7 @@ public class AppSignalWindowManager {
     }
 
     private AppSignalWindowManager() {
+        EventBusUtils.register(this);
     }
 
     public void init(Context context) {
@@ -223,6 +229,18 @@ public class AppSignalWindowManager {
             }, PhoneStateListener.LISTEN_SIGNAL_STRENGTHS);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onScreenEvent(ScreenEvent event) {
+        switch (event.getEventKey()) {
+            case ScreenEvent.EVENT_SCREEN_ORIENTATION_CHANGE:
+                hide();
+                show();
+                break;
+            default:
+                break;
         }
     }
 }
