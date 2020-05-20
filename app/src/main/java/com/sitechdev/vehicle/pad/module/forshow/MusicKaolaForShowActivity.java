@@ -31,6 +31,7 @@ import com.sitechdev.vehicle.lib.util.DensityUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.R;
+import com.sitechdev.vehicle.pad.app.AppConst;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.event.TeddyEvent;
 import com.sitechdev.vehicle.pad.kaola.ColumnMemberMamager;
@@ -221,8 +222,11 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
                     }
                     vLocalMusicList.setAdapter(playListAdapter);
                 } else {
-                    playListAdapter.notifyDataSetChanged();
+                    if (playDataItemList != null) {
+                        playListAdapter.setData(playDataItemList);
+                    }
                 }
+                playListAdapter.notifyDataSetChanged();
                 SitechDevLog.e(TAG, "setListData smoothScrollToPosition mCurPosition ====" + mCurPosition);
                 vLocalMusicList.smoothScrollToPosition(mCurPosition);
                 cancelProgressDialog();
@@ -236,7 +240,11 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
      */
     private IPlayerListChangedListener mPlayerListChangedListener = dataList -> {
         SitechDevLog.e(TAG, "ai data changed ");
-        addPlayListToFullList(dataList);
+        if (dataList == null || dataList.isEmpty()) {
+            return;
+        }
+        addPlayListToFullList(dataList, true);
+        cancelProgressDialog();
     };
 
     @Override
@@ -347,7 +355,7 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
                 @Override
                 public void onPlayItemReady(List<PlayItem> list) {
                     SitechDevLog.i(AppConst.TAG_APP, "onPlayItemReady=== ~~~ list~~~" + list.size());
-                    addPlayListToFullList(list);
+                    addPlayListToFullList(list, false);
                     refreshLayout.finishLoadmore();
 
                 }
@@ -355,14 +363,16 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
         }
     }
 
-    private void addPlayListToFullList(List<PlayItem> list) {
+    private void addPlayListToFullList(List<PlayItem> list, boolean isSmooth) {
         transformDataToItem(list, playDataItemList);
 
         if (playListAdapter != null) {
             playListAdapter.setData(playDataItemList);
             SitechDevLog.e(TAG, "addPlayListToFullList  mCurPosition ====" + mCurPosition);
             playListAdapter.setSelectedShow(mCurPosition);
-            vLocalMusicList.smoothScrollToPosition(mCurPosition);
+            if (isSmooth) {
+                vLocalMusicList.smoothScrollToPosition(mCurPosition);
+            }
         }
     }
 
