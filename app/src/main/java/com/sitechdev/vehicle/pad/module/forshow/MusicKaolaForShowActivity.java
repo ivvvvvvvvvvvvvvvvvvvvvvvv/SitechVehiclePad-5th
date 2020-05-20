@@ -3,11 +3,9 @@ package com.sitechdev.vehicle.pad.module.forshow;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.UiThread;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,7 +29,6 @@ import com.sitechdev.vehicle.lib.util.DensityUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.R;
-import com.sitechdev.vehicle.pad.app.AppConst;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.event.TeddyEvent;
 import com.sitechdev.vehicle.pad.kaola.ColumnMemberMamager;
@@ -180,6 +177,7 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
                 playListAdapter, DensityUtils.dp2px(20),
                 getResources().getColor(R.color.white_5),
                 getResources().getColor(R.color.white_21)));
+        vLocalMusicList.setHasFixedSize(true);
 
         if (playListAdapter == null) {
             playListAdapter = new MusicKaolaForShowAdapter(MusicKaolaForShowActivity.this);
@@ -243,7 +241,7 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
         if (dataList == null || dataList.isEmpty()) {
             return;
         }
-        addPlayListToFullList(dataList, true);
+        addPlayListToFullList(dataList);
         cancelProgressDialog();
     };
 
@@ -343,19 +341,18 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
             PlayerRadioListManager.getInstance().fetchMorePlaylist(new OnPlayItemInfoListener() {
                 @Override
                 public void onPlayItemReady(PlayItem playItem) {
-                    SitechDevLog.i(AppConst.TAG_APP, "onPlayItemReady=== ~~~ playItem~~~" + playItem.getTitle());
+                    SitechDevLog.i(TAG, "onPlayItemReady=== ~~~ playItem~~~" + playItem.getTitle());
                 }
 
                 @Override
                 public void onPlayItemUnavailable() {
                     CommonToast.makeText(mContext, "播放出错 ~~~ ~~~");
-                    SitechDevLog.i(AppConst.TAG_APP, "onPlayItemUnavailable=== ~~~ ~~~");
+                    SitechDevLog.i(TAG, "onPlayItemUnavailable=== ~~~ ~~~");
                 }
 
                 @Override
                 public void onPlayItemReady(List<PlayItem> list) {
-                    SitechDevLog.i(AppConst.TAG_APP, "onPlayItemReady=== ~~~ list~~~" + list.size());
-                    addPlayListToFullList(list, false);
+                    SitechDevLog.i(TAG, "onPlayItemReady=== ~~~ list~~~" + list.size());
                     refreshLayout.finishLoadmore();
 
                 }
@@ -363,16 +360,16 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
         }
     }
 
-    private void addPlayListToFullList(List<PlayItem> list, boolean isSmooth) {
+    private synchronized void addPlayListToFullList(List<PlayItem> list) {
+        if (playDataItemList != null) {
+            playDataItemList.clear();
+        }
         transformDataToItem(list, playDataItemList);
 
         if (playListAdapter != null) {
             playListAdapter.setData(playDataItemList);
             SitechDevLog.e(TAG, "addPlayListToFullList  mCurPosition ====" + mCurPosition);
             playListAdapter.setSelectedShow(mCurPosition);
-            if (isSmooth) {
-                vLocalMusicList.smoothScrollToPosition(mCurPosition);
-            }
         }
     }
 
