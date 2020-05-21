@@ -3,7 +3,13 @@ package com.sitechdev.vehicle.pad.module.apps.model;
 import android.content.Context;
 import android.content.res.AssetManager;
 
+import com.google.gson.Gson;
+import com.sitechdev.vehicle.lib.util.ParamsUtil;
+import com.sitechdev.vehicle.lib.util.SitechDevLog;
+import com.sitechdev.vehicle.lib.util.StringUtils;
 import com.sitechdev.vehicle.pad.R;
+import com.sitechdev.vehicle.pad.app.AppConst;
+import com.sitechdev.vehicle.pad.module.apps.util.AppsMenuConfig;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,6 +24,45 @@ import java.io.InputStreamReader;
 public class AllModuleUtils {
 
     private static final String FILE_NAME = "modulename/main_all_app.json";
+    /**
+     * 移动item动画结束状态
+     */
+    public static final String KEY_SAVE_MENU_DATA = "KEY_SAVE_MENU_DATA";
+
+    /**
+     * 获取保存的菜单数据
+     *
+     * @return 菜单数据
+     */
+    public static String getSavedMenuData() {
+        try {
+            //从持久化保存的数据中获取
+            String localMenuData = ParamsUtil.getStringData(KEY_SAVE_MENU_DATA);
+//            SitechDevLog.w(AppConst.TAG_APP, "读取的最新的菜单数据为=====" + localMenuData);
+            return localMenuData;
+        } catch (Exception e) {
+            SitechDevLog.exception(e);
+        }
+        return "";
+    }
+
+    /**
+     * 保存最新的菜单数据
+     *
+     * @return 菜单数据
+     */
+    public static void saveNewMenuData() {
+        Gson mGson = new Gson();
+        String menuNewJson = mGson.toJson(AppsMenuConfig.mAllMenuBean);
+//        SitechDevLog.w(AppConst.TAG_APP, "最新的菜单数据为：" + menuNewJson);
+        if (StringUtils.isEmpty(menuNewJson)) {
+            SitechDevLog.w(AppConst.TAG_APP, "最新的菜单数据读取为空，无法保存");
+            return;
+        }
+
+        //持久化保存
+        ParamsUtil.setData(KEY_SAVE_MENU_DATA, menuNewJson);
+    }
 
     //将Assets文件夹下的json数据变成字符串
     public static String getAssetsJson2String(Context context) {

@@ -2,6 +2,7 @@ package com.sitechdev.vehicle.pad.module.apps.model;
 
 import com.google.gson.Gson;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
+import com.sitechdev.vehicle.lib.util.StringUtils;
 import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.bean.AllModuleBean;
 import com.sitechdev.vehicle.pad.module.apps.contract.AllAppsContract;
@@ -22,7 +23,11 @@ public class AllAppsModel implements AllAppsContract.Model {
             return;
         }
         try {
-            String allAppJson = AllModuleUtils.getAssetsJson2String(AppApplication.getContext());
+            String allAppJson = AllModuleUtils.getSavedMenuData();
+            if (StringUtils.isEmpty(allAppJson)) {
+                allAppJson = AllModuleUtils.getAssetsJson2String(AppApplication.getContext());
+            }
+//            SitechDevLog.w(AppConst.TAG_APP, "读取的菜单数据为=====" + allAppJson);
             bean = new Gson().fromJson(allAppJson, AllModuleBean.class);
             callback.onSuccess(bean);
         } catch (Exception e) {

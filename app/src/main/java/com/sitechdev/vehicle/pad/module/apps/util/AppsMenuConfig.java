@@ -86,6 +86,10 @@ public class AppsMenuConfig {
     /**
      * 总的菜单数据的list
      */
+    public static AllModuleBean mAllMenuBean = null;
+    /**
+     * 总的菜单数据的list
+     */
     public static List<AllModuleBean.ModuleBean> mAllMenuBeanList = new ArrayList<AllModuleBean.ModuleBean>();
 
 

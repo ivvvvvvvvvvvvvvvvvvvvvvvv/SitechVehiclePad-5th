@@ -16,6 +16,7 @@ import com.sitechdev.vehicle.pad.module.apps.adapter.MainMenuAdapater;
 import com.sitechdev.vehicle.pad.module.apps.adapter.MainViewPagerAdapter;
 import com.sitechdev.vehicle.pad.module.apps.contract.AllAppsContract;
 import com.sitechdev.vehicle.pad.module.apps.model.AllAppsModel;
+import com.sitechdev.vehicle.pad.module.apps.model.AllModuleUtils;
 import com.sitechdev.vehicle.pad.module.apps.util.AppsMenuConfig;
 import com.sitechdev.vehicle.pad.module.apps.util.MainViewMenuListener;
 import com.sitechdev.vehicle.pad.module.apps.util.MenuBundle;
@@ -68,10 +69,14 @@ public class AppsListGridActivity extends BaseActivity {
         appsModel.getAllModuleData(new AllAppsContract.AllModuleCallback() {
             @Override
             public void onSuccess(AllModuleBean bean) {
+                AppsMenuConfig.mAllMenuBean = bean;
+                if (AppsMenuConfig.mAllMenuBean == null) {
+                    AppsMenuConfig.mAllMenuBean = new AllModuleBean();
+                }
                 if (!AppsMenuConfig.mAllMenuBeanList.isEmpty()) {
                     AppsMenuConfig.mAllMenuBeanList.clear();
                 }
-                AppsMenuConfig.mAllMenuBeanList = bean.apps;
+                AppsMenuConfig.mAllMenuBeanList = AppsMenuConfig.mAllMenuBean.apps;
                 if (!AppsMenuConfig.mAllMenuAdapterList.isEmpty()) {
                     AppsMenuConfig.mAllMenuAdapterList.clear();
                 }
@@ -169,6 +174,11 @@ public class AppsListGridActivity extends BaseActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            //退出编辑倒计时取消
+            if (AppsMenuConfig.isAppsEditStatus && MenuBundle.getInstance().getMainViewMenuListener() != null) {
+                SitechDevLog.w(AppConst.TAG_APP, "setCountDownTimeRunnable ====>Activity onStop ==取消 退出编辑倒计时 线程===>");
+                MenuBundle.getInstance().getMainViewMenuListener().setCountDownTimeRunnable(false);
+            }
             exitRecycleViewEditStatus();
             return true;
         }
@@ -410,7 +420,7 @@ public class AppsListGridActivity extends BaseActivity {
      * 退出编辑状态的处理
      */
     private void exitEditStateUtil() {
-        if (AppsMenuConfig.isAppsEditStatus) {
+        if (!AppsMenuConfig.isAppsEditStatus) {
             return;
         }
         //变量重置
@@ -421,6 +431,8 @@ public class AppsListGridActivity extends BaseActivity {
         refreshViewPagerByExitEditStatus();
         //下标刷新
         refreshBottomTag();
+        //保存数据
+        AllModuleUtils.saveNewMenuData();
     }
 
     /**
