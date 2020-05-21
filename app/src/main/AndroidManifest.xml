@@ -44,8 +44,7 @@
             android:launchMode="singleTop"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".module.apps.view.AppsListGridActivity"
-            android:screenOrientation="landscape" />
+            android:name=".module.apps.view.AppsListGridActivity" />
         <activity
             android:name=".module.splash.SplashActivity"
             android:theme="@style/NoTitleAppTheme">

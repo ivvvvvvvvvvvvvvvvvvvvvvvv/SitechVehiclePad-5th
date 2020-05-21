@@ -131,9 +131,12 @@ public class MainMenuView extends RelativeLayout implements View.OnClickListener
                 RouterUtils.getInstance().navigation(RouterConstants.SETTING_APP_LIST);
                 break;
             case R.id.id_btn_teddy:
+                SitechDevLog.i(VoiceConstants.TEDDY_TAG, this.getClass().getSimpleName()+"=====>手动点击Teddy启动图标===");
                 if (VUI.getInstance().isTeddyWorking()) {
+                    SitechDevLog.i(VoiceConstants.TEDDY_TAG, this.getClass().getSimpleName()+"=====>Teddy正在工作中===发出SR_OVER事件");
                     EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_SR_OVER));
                 } else {
+                    SitechDevLog.i(VoiceConstants.TEDDY_TAG, this.getClass().getSimpleName()+"=====>Teddy未在工作，===发出MVW_SUCCESS事件");
                     EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_MVW_SUCCESS));
                 }
                 break;

@@ -20,7 +20,6 @@ import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechEvent;
 import com.iflytek.cloud.WakeuperListener;
 import com.iflytek.cloud.WakeuperResult;
-import com.kaolafm.sdk.core.mediaplayer.PlayerManager;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.StringUtils;
@@ -39,7 +38,6 @@ import com.sitechdev.vehicle.pad.module.music.MusicManager;
 import com.sitechdev.vehicle.pad.util.AppUtil;
 import com.sitechdev.vehicle.pad.util.AppVariants;
 import com.sitechdev.vehicle.pad.util.AudioUtil;
-import com.sitechdev.vehicle.pad.view.CommonToast;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -75,14 +73,6 @@ public class VUI implements VUIWindow.OnWindowHideListener {
     private LinkedList<Activity> activities;
     private JSONArray calls;
     private boolean shutdown = false;
-
-
-//    public Activity getTopActivity() {
-//        if (null != topActivity){
-//            return topActivity.get();
-//        }
-//        return null;
-//    }
 
     private WakeuperListener mWakeuperListener = new WakeuperListener() {
 
@@ -186,10 +176,10 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                     break;
                 case AIUIConstant.EVENT_ERROR:
                     log("错误: " + event.arg1 + "\n" + event.info);
-                    CommonToast.showToast("语音功能暂不可用");
-                    if (null != vuiWindow) {
-                        vuiWindow.hide();
-                    }
+//                    CommonToast.showToast("语音功能暂不可用");
+//                    if (null != vuiWindow) {
+//                        vuiWindow.hide();
+//                    }
                     break;
                 case AIUIConstant.EVENT_VAD:
                     log("EVENT_VAD");
@@ -318,6 +308,9 @@ public class VUI implements VUIWindow.OnWindowHideListener {
             log("找到vad_eos");
         } else if (AIUIConstant.VAD_VOL == event.arg1) {
 //            log("找到VAD_VOL====" + event.arg2);
+            if (!isTeddyWorking()) {
+                return;
+            }
             if (null != vuiWindow) {
                 vuiWindow.onVolumeChanged(event.arg2);
             }
@@ -381,8 +374,9 @@ public class VUI implements VUIWindow.OnWindowHideListener {
 
             case AIUIConstant.TTS_SPEAK_COMPLETED:
                 isInTTS = false;
-                log("播放完成==>" + mAIUIState);
+                log("播放完成==>" + mAIUIState + "====>shutdown==" + shutdown);
                 if (shutdown) {
+                    isWakeupTTS = false;
                     EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_SR_OVER));
                     shutdown = false;
                     return;
@@ -1099,11 +1093,14 @@ public class VUI implements VUIWindow.OnWindowHideListener {
             mWakeupEngine.startListening();
         }
         isInTTS = false;
+        isWakeupTTS = false;
         VoiceSourceManager.getInstance().resume(VoiceSourceManager.CONTENT);
     }
 
     public boolean isTeddyWorking() {
-        return AIUIConstant.STATE_WORKING == mAIUIState || isInTTS;
+        boolean isWorking = isWakeupTTS || AIUIConstant.STATE_WORKING == mAIUIState || isInTTS;
+        SitechDevLog.i(TAG, "isTeddyWorking====" + isWorking);
+        return isWorking;
     }
 
     private void syncContacts() {

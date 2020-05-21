@@ -41,7 +41,7 @@ public class TraceAspect {
     }
 
 //    @Around("execution(* android.widget.RadioGroup.OnCheckedChangeListener.onCheckedChanged(..))|| execution(* android.view.View.OnClickListener.onClick(..))|| execution(* android.widget.CompoundButton.OnCheckedChangeListener.onCheckedChanged(..))|| execution(* com.sitechdev.vehicle.utils.JumpUtils.jump(..))")
-    @Around("execution(* android.view.View.OnClickListener.onClick(..))|| execution(* android.widget.CompoundButton.OnCheckedChangeListener.onCheckedChanged(..))|| execution(* com.sitechdev.vehicle.pad.utils.JumpUtils.jump(..))")
+    @Around("execution(* android.view.View.OnClickListener.onClick(..))|| execution(* android.widget.CompoundButton.OnCheckedChangeListener.onCheckedChanged(..))|| execution(* com.sitechdev.vehicle.pad.util.JumpUtils.jump(..))")
     public void onViewEventClick(ProceedingJoinPoint joinPoint) throws Throwable {
         String key = joinPoint.getSignature().toString();
         Log.i(TAG, "onViewEventClick: joinPoint==>:==>" + key + "\n" + joinPoint.getThis());
