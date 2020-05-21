@@ -73,9 +73,9 @@ public class AppsListGridActivity extends BaseActivity {
                 if (AppsMenuConfig.mAllMenuBean == null) {
                     AppsMenuConfig.mAllMenuBean = new AllModuleBean();
                 }
-                if (!AppsMenuConfig.mAllMenuBeanList.isEmpty()) {
-                    AppsMenuConfig.mAllMenuBeanList.clear();
-                }
+//                if (!AppsMenuConfig.mAllMenuBeanList.isEmpty()) {
+//                    AppsMenuConfig.mAllMenuBeanList.clear();
+//                }
                 AppsMenuConfig.mAllMenuBeanList = AppsMenuConfig.mAllMenuBean.apps;
                 if (!AppsMenuConfig.mAllMenuAdapterList.isEmpty()) {
                     AppsMenuConfig.mAllMenuAdapterList.clear();
