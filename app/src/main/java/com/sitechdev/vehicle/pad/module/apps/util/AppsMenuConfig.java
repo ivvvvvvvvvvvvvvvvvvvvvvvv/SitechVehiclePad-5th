@@ -28,6 +28,10 @@ public class AppsMenuConfig {
      **/
     public static final int MAX_GRIDVIEW_SIZE = 12;
     /**
+     * 编辑状态的超时时间
+     **/
+    public static final long MAX_COUNT_DOWN_TIME = 30000;
+    /**
      * true=进入编辑状态
      */
     public static boolean isAppsEditStatus = false;

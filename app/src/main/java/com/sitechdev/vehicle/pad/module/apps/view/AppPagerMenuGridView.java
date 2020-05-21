@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 
+import com.amap.api.services.route.TruckStep;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.app.AppConst;
 import com.sitechdev.vehicle.pad.bean.AllModuleBean;
@@ -185,6 +186,11 @@ public class AppPagerMenuGridView extends GridView implements OnItemLongClickLis
                 if (AppsMenuConfig.isAppsEditStatus && AppsMenuConfig.mMoveImageView != null) {
                     AppsMenuConfig.isItemTouchCount++;
                 }
+                //退出编辑倒计时取消
+                if (AppsMenuConfig.isAppsEditStatus && MenuBundle.getInstance().getMainViewMenuListener() != null) {
+                    SitechDevLog.w(AppConst.TAG_APP, "setCountDownTimeRunnable ====>onTouchEvent ACTION_DOWN ==取消 退出编辑倒计时 线程===>");
+                    MenuBundle.getInstance().getMainViewMenuListener().setCountDownTimeRunnable(false);
+                }
                 if (AppsMenuConfig.mMoveImageView == null) {
                     initDragImageView(ev);
                 } else {
@@ -213,6 +219,11 @@ public class AppPagerMenuGridView extends GridView implements OnItemLongClickLis
                 SitechDevLog.w(AppConst.TAG_APP, "onTouchEvent  ACTION_UP");
                 SitechDevLog.w(AppConst.TAG_APP, "onTouchEvent  ACTION_UP isItemTouching===>" + AppsMenuConfig.isItemTouching);
 //                LoggerUtil.warn("onTouchEvent", "ACTION_UP isItemTouchCount===>" + AppViewPagerUtil.isItemTouchCount);
+                //退出编辑倒计时开始
+                if (AppsMenuConfig.isAppsEditStatus && MenuBundle.getInstance().getMainViewMenuListener() != null) {
+                    SitechDevLog.w(AppConst.TAG_APP, "setCountDownTimeRunnable ====>onTouchEvent ACTION_UP ==开始 退出编辑倒计时 线程===>");
+                    MenuBundle.getInstance().getMainViewMenuListener().setCountDownTimeRunnable(true);
+                }
 
                 if (AppsMenuConfig.isItemTouchCount > 0 && AppsMenuConfig.isItemTouching) {
 //                    LoggerUtil.warn("onTouchEvent", "ACTION_UP if isItemTouchCount===>" + CyberMainMenuUtil.isItemTouchCount);
@@ -265,6 +276,10 @@ public class AppPagerMenuGridView extends GridView implements OnItemLongClickLis
             AppsMenuConfig.updateViewPager = false;
             SitechDevLog.w(AppConst.TAG_APP, "onItemLongClick   进入编辑");
             AppsMenuConfig.isAppsEditStatus = true;
+            if (MenuBundle.getInstance().getMainViewMenuListener() != null) {
+                SitechDevLog.w(AppConst.TAG_APP, "setCountDownTimeRunnable ====> onItemLongClick ==开始 退出编辑倒计时 线程===>");
+                MenuBundle.getInstance().getMainViewMenuListener().setCountDownTimeRunnable(true);
+            }
             AppsMenuConfig.setLongClick(true);
             AppViewPager.isTouchResponse = false;
             MenuBundle.getInstance().getMainViewMenuListener().refreshMainViewLongClick();

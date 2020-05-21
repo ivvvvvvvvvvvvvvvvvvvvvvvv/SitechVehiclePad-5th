@@ -68,14 +68,14 @@ public class AppsListGridActivity extends BaseActivity {
         appsModel.getAllModuleData(new AllAppsContract.AllModuleCallback() {
             @Override
             public void onSuccess(AllModuleBean bean) {
-                if (!AppsMenuConfig.mAllMenuBeanList.isEmpty()){
+                if (!AppsMenuConfig.mAllMenuBeanList.isEmpty()) {
                     AppsMenuConfig.mAllMenuBeanList.clear();
                 }
                 AppsMenuConfig.mAllMenuBeanList = bean.apps;
-                if (!AppsMenuConfig.mAllMenuAdapterList.isEmpty()){
+                if (!AppsMenuConfig.mAllMenuAdapterList.isEmpty()) {
                     AppsMenuConfig.mAllMenuAdapterList.clear();
                 }
-                if (!AppViewPager.mAllMenuGridViewList.isEmpty()){
+                if (!AppViewPager.mAllMenuGridViewList.isEmpty()) {
                     AppViewPager.mAllMenuGridViewList.clear();
                 }
                 initRecycleData();
@@ -89,7 +89,7 @@ public class AppsListGridActivity extends BaseActivity {
     }
 
     /**
-     *
+     * 初始化首页数据
      */
     private void initRecycleData() {
         //计算一共需要几个RecycleView
@@ -158,6 +158,11 @@ public class AppsListGridActivity extends BaseActivity {
     @Override
     protected void onStop() {
         super.onStop();
+        //退出编辑倒计时取消
+        if (AppsMenuConfig.isAppsEditStatus && MenuBundle.getInstance().getMainViewMenuListener() != null) {
+            SitechDevLog.w(AppConst.TAG_APP, "setCountDownTimeRunnable ====>Activity onStop ==取消 退出编辑倒计时 线程===>");
+            MenuBundle.getInstance().getMainViewMenuListener().setCountDownTimeRunnable(false);
+        }
         exitRecycleViewEditStatus();
     }
 
@@ -295,6 +300,37 @@ public class AppsListGridActivity extends BaseActivity {
                 }
             });
         }
+
+        /**
+         * 移动item时viewpager滑动界面
+         *
+         * @param enable true=开始计时状态，false=退出计时
+         */
+        @Override
+        public void setCountDownTimeRunnable(boolean enable) {
+            SitechDevLog.w(AppConst.TAG_APP, "setCountDownTimeRunnable ====>编辑状态倒计时 enable===>" + enable);
+            //如果之前有，则先移除，重新计时
+            //移除退出编辑的倒计时
+            AppsMenuConfig.mHandler.removeCallbacks(countDownTimeRunnable);
+            if (enable) {
+                //启动30秒倒计时，30秒后，自动退出编辑状态
+                AppsMenuConfig.mHandler.postDelayed(countDownTimeRunnable, AppsMenuConfig.MAX_COUNT_DOWN_TIME);
+            }
+        }
+    };
+
+    /**
+     * 编辑状态倒计时线程。30秒后自动退出编辑状态
+     */
+    private Runnable countDownTimeRunnable = new Runnable() {
+        @Override
+        public void run() {
+            SitechDevLog.w(AppConst.TAG_APP, "setCountDownTimeRunnable ====>编辑状态倒计时时间到，退出编辑状态===>");
+            //退出编辑状态
+            exitRecycleViewEditStatus();
+            //移除本次线程
+            AppsMenuConfig.mHandler.removeCallbacks(this);
+        }
     };
 
     /**
@@ -374,6 +410,9 @@ public class AppsListGridActivity extends BaseActivity {
      * 退出编辑状态的处理
      */
     private void exitEditStateUtil() {
+        if (AppsMenuConfig.isAppsEditStatus) {
+            return;
+        }
         //变量重置
         cancelEditState();
         //停止滚动

@@ -85,4 +85,10 @@ public interface MainViewMenuListener {
 	 */
 	void dragViewPager();
 
+	/**
+	 * 移动item时viewpager滑动界面
+	 *
+	 */
+	void setCountDownTimeRunnable(boolean enable);
+
 }
