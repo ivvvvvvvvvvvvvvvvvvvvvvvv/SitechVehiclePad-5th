@@ -1,8 +1,13 @@
 package com.sitechdev.vehicle.lib.imageloader;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Looper;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -12,6 +17,8 @@ import com.bumptech.glide.load.Transformation;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.sitechdev.vehicle.lib.util.R;
 
 import java.util.ArrayList;
@@ -125,5 +132,41 @@ public class GlideUtils {
         }
         builder.load(options.getSource());
         return builder;
+    }
+
+    public void loadImgIntoLayout(Context context, String imgUrl, View view) {
+        GlideApp.with(context)
+                .asBitmap()
+                .load(imgUrl)
+                .into(new CustomTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                        Drawable drawable = new BitmapDrawable(resource);
+                        view.setBackground(drawable);
+                    }
+
+                    @Override
+                    public void onLoadCleared(@Nullable Drawable placeholder) {
+
+                    }
+                });
+    }
+
+    public void loadImgIntoLayout(Context context, int imgResId, View view) {
+        GlideApp.with(context)
+                .asBitmap()
+                .load(imgResId)
+                .into(new CustomTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                        Drawable drawable = new BitmapDrawable(resource);
+                        view.setBackground(drawable);
+                    }
+
+                    @Override
+                    public void onLoadCleared(@Nullable Drawable placeholder) {
+
+                    }
+                });
     }
 }
