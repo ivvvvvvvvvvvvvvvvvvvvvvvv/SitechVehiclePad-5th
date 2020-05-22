@@ -56,4 +56,6 @@ dependencies {
     api Config.depConfig.tencent.mmkv
     //zxing组件
     api Config.depConfig.google.zxing
+    //
+    api Config.depConfig.utilCode
 }

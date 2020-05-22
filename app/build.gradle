@@ -165,8 +165,7 @@ dependencies {
     implementation Config.depConfig.tinypinyin
 
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.20'
-    //
-    implementation Config.depConfig.utilCode
+
     implementation Config.depConfig.FlycoTabLayout
     //换肤控件
     implementation Config.depConfig.skin_support.skin_support
