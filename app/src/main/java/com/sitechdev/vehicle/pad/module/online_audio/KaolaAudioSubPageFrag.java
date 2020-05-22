@@ -1,18 +1,16 @@
 package com.sitechdev.vehicle.pad.module.online_audio;
 
-import android.app.Fragment;
-import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import com.sitechdev.vehicle.pad.R;
-import com.sitechdev.vehicle.pad.view.TabLayout;
+import com.sitechdev.vehicle.pad.bean.BaseFragment;
+import com.sitechdev.vehicle.pad.view.Indexable;
+import com.sitechdev.vehicle.pad.view.ZSideBar;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <pre>
@@ -20,54 +18,91 @@ import java.util.ArrayList;
  *      time   : 2020/5/20
  * </pre>
  */
-public class KaolaAudioSubPageFrag extends Fragment {
-    private View root;
-    private Context mContext;
-
-    private TabLayout tabLayout;
-
-    private ViewPager pager;
-
-    private ArrayList<Fragment> fragmentlist = new ArrayList<>();
-    @Nullable
+public class KaolaAudioSubPageFrag extends BaseFragment {
+    private ZSideBar zbar;
+    private RecyclerView recyclerView;
+    private KaolaAIListAdapter adapter ;
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        if (root == null) {
-            root = inflater.inflate(R.layout.audio_kaola_sub_frame, null);
-            initFrags();
-            initContentView();
-        }
-        return root;
+    protected int getLayoutId() {
+        return R.layout.audio_kaola_sub_frame;
     }
 
-    private void initFrags() {
-        fragmentlist.add(new KaolaRecommendFrag());
-        fragmentlist.add(new KaolaRecommendFrag());
-        fragmentlist.add(new KaolaRecommendFrag());
-        fragmentlist.add(new KaolaRecommendFrag());
-        fragmentlist.add(new KaolaRecommendFrag());
+    @Override
+    protected void initView(Bundle savedInstanceState) {
+        zbar = mContentView.findViewById(R.id.zbar);
+        recyclerView = mContentView.findViewById(R.id.recyclerView);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 1);
+        gridLayoutManager.setOrientation(GridLayoutManager.HORIZONTAL);
+        recyclerView.setLayoutManager(gridLayoutManager);
+        adapter = new KaolaAIListAdapter(mContext, new ArrayList());
+        recyclerView.setAdapter(adapter);
+        zbar.setChoose(0);
+        zbar.setupWithRecycler(recyclerView);
     }
 
-    private void initContentView() {
-        tabLayout = root.findViewById(R.id.tv_sub_title);
-        pager = root.findViewById(R.id.vp);
-        tabLayout.setupWithViewPager(pager);
-        KaolaFragmentAdapter adapter = new KaolaFragmentAdapter(getChildFragmentManager(), fragmentlist, new String[]{"推荐", "新特速报", "少儿读物", "车嗨娱乐", "生活一点通"});
-        pager.setAdapter(adapter);
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-
+    @Override
+    protected void initData() {
+        super.initData();
+        List<Indexable> list = initMock();
+        adapter.setDataAndNotify(list);
     }
+
+    private List<Indexable> initMock(){
+        List<Indexable> list = new ArrayList<>();
+        Indexable indexable = new Indexable() {
+            @Override
+            public String getIndex() {
+                return "推荐";
+            }
+        };
+        list.add(indexable);
+        list.add(indexable);
+        list.add(indexable);
+        Indexable indexable1 = new Indexable() {
+            @Override
+            public String getIndex() {
+                return "新特速报";
+            }
+        };
+        list.add(indexable1);
+        list.add(indexable1);
+        list.add(indexable1);
+        list.add(indexable1);
+        list.add(indexable1);
+        Indexable indexable2 = new Indexable() {
+            @Override
+            public String getIndex() {
+                return "少儿读物";
+            }
+        };
+        list.add(indexable2);
+        list.add(indexable2);
+        list.add(indexable2);
+        list.add(indexable2);
+        list.add(indexable2);
+        Indexable indexable3 = new Indexable() {
+            @Override
+            public String getIndex() {
+                return "车嗨娱乐";
+            }
+        };
+        list.add(indexable3);
+        list.add(indexable3);
+        list.add(indexable3);
+        list.add(indexable3);
+        list.add(indexable3);
+        Indexable indexable4 = new Indexable() {
+            @Override
+            public String getIndex() {
+                return "生活一点通";
+            }
+        };
+        list.add(indexable4);
+        list.add(indexable4);
+        list.add(indexable4);
+        list.add(indexable4);
+        list.add(indexable4);
+        return list;
+    }
+
 }

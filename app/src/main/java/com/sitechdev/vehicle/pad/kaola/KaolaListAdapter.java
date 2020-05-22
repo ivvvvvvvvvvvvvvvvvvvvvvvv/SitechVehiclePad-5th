@@ -9,19 +9,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.ImageUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.MultiTransformation;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.kaolafm.opensdk.api.operation.model.ImageFile;
 import com.kaolafm.opensdk.api.operation.model.column.ColumnMember;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.util.BlurTransformation;
 import com.sitechdev.vehicle.pad.util.GlideRoundedCornersTransform;
-import com.yalantis.ucrop.util.BitmapUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 

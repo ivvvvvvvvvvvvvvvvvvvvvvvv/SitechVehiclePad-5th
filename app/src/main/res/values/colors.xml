@@ -96,4 +96,6 @@
 
     <!--  应用列表页面颜色值  -->
     <color name="color_all_app_title_text">#FFFFFF</color>
+    <color name="kaola_page_index_checked">#FF98A7D1</color>
+    <color name="kaola_page_index_uncheck">#FF5A6997</color>
 </resources>

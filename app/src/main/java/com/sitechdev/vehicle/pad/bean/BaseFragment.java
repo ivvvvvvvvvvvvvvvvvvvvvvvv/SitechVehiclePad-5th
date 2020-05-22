@@ -48,7 +48,18 @@ public abstract class BaseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        mContentView = inflater.inflate(getLayoutId(), container, false);
+        if (isInFragmentHost()) {
+            if (null != mContentView) {
+                ViewGroup parent = (ViewGroup) mContentView.getParent();
+                if (null != parent) {
+                    parent.removeView(mContentView);
+                }
+            } else {
+                mContentView = inflater.inflate(getLayoutId(), null);
+            }
+        } else {
+            mContentView = inflater.inflate(getLayoutId(), container, false);
+        }
         return mContentView;
     }
 
@@ -101,6 +112,11 @@ public abstract class BaseFragment extends Fragment {
     }
 
     private void hideLoading() {
+    }
+
+
+    protected boolean isInFragmentHost() {
+        return false;
     }
 
     @LayoutRes

@@ -113,7 +113,6 @@ public class MainActivity extends BaseActivity
 
 //        NetManagerImpl.getInstance().initNetCallback();
         registerReceiver(new NetReceiver(), new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
-        startActivity(new Intent(this, KaolaAudioActivity.class));
     }
 
 

@@ -1,9 +1,9 @@
 package com.sitechdev.vehicle.pad.module.online_audio;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
@@ -94,7 +94,7 @@ public class KaolaAudioActivity extends BaseActivity implements
         tabLayout = findViewById(R.id.tv_sub_title);
         pager = findViewById(R.id.vp);
         tabLayout.setupWithViewPager(pager);
-        KaolaFragmentAdapter adapter = new KaolaFragmentAdapter(getFragmentManager(), fragmentlist, new String[]{"AI电台","专辑分类","在线广播"});
+        KaolaFragmentAdapter adapter = new KaolaFragmentAdapter(getSupportFragmentManager(), fragmentlist, new String[]{"AI电台","专辑分类","在线广播"});
         pager.setAdapter(adapter);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
