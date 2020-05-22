@@ -1241,7 +1241,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                 break;
             case VoiceEvent.EVENT_VOICE_SR_OVER:
                 onWindowHide();
-                shutdown = false;
+//                shutdown = false;
                 break;
             default:
                 break;
