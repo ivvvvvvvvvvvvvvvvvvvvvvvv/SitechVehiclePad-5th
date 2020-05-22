@@ -27,6 +27,7 @@ import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.event.AppEvent;
+import com.sitechdev.vehicle.pad.event.TeddyEvent;
 import com.sitechdev.vehicle.pad.event.VoiceEvent;
 import com.sitechdev.vehicle.pad.event.WindowEvent;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
@@ -1317,7 +1318,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                             doFinally = !result;
                         } else if (null != slot && "main_classify".equals(slot.optString("normValue"))) {
                             shutAndTTS(defaultPlayTTS);
-                            gotoPlay(index, autoPlay || autoRandomPlay ? new Random().nextInt(6) : -1);
+                            gotoPlay(index, autoPlay || autoRandomPlay ? new Random().nextInt(index == 1 ? 5 : 6) : -1);
                             doFinally = false;
                         }
                         return;
@@ -1474,6 +1475,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                         break;
                     case "close":
                         VoiceSourceManager.getInstance().pause(VoiceSourceManager.VOICE);
+                        EventBusUtils.postEvent(new TeddyEvent(TeddyEvent.EVENT_TEDDY_AUDIO_STOP));
                         break;
                     case "volume_minus":
                         //声音减小

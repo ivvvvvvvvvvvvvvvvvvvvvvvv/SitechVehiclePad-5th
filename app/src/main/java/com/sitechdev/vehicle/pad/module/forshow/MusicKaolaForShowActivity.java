@@ -516,6 +516,8 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
                     playListAdapter.setSelected(curPosition);
                 }
             }
+        } else if (event.getEventKey().equals(TeddyEvent.EVENT_TEDDY_AUDIO_STOP)) {
+            finish();
         }
     }
 }

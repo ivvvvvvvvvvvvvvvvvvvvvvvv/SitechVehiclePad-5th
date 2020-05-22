@@ -14,6 +14,7 @@ import com.sitechdev.vehicle.lib.event.BaseEvent;
 public class TeddyEvent extends BaseEvent {
 
     public static final String EVENT_TEDDY_KAOLA_PLAY_UPDATElIST = "EVENT_TEDDY_KAOLA_PLAY_UPDATElIST";
+    public static final String EVENT_TEDDY_AUDIO_STOP = "EVENT_TEDDY_AUDIO_STOP";
 
     private String eventKey = "";
     private Object eventValue = null;
