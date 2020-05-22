@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="480px"
+        android:layout_marginBottom="520px"
         android:orientation="horizontal" />
 
 </FrameLayout>
