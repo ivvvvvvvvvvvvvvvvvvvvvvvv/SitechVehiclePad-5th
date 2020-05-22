@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/menu_icon"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50px"
+        android:layout_marginTop="40px"
         android:text="应用1"
         android:textColor="@color/color_all_app_title_text"
         android:textSize="32px" />

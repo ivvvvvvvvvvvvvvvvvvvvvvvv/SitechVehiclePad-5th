@@ -30,7 +30,7 @@ public class AppsMenuConfig {
     /**
      * 编辑状态的超时时间
      **/
-    public static final long MAX_COUNT_DOWN_TIME = 30000;
+    public static final long MAX_COUNT_DOWN_TIME = 15000;
     /**
      * true=进入编辑状态
      */
