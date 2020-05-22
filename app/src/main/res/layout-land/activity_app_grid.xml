@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/ico_taxi_main_bg">
@@ -7,16 +7,16 @@
     <com.sitechdev.vehicle.pad.module.apps.view.AppViewPager
         android:id="@+id/id_all_apps_vp"
         android:layout_width="match_parent"
-        android:layout_height="700px"
-        android:layout_marginTop="100px"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100px"
+        android:layout_marginBottom="180px" />
 
     <LinearLayout
         android:id="@+id/id_main_tag"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/id_all_apps_vp"
-        android:layout_marginTop="50px"
-        android:gravity="center_horizontal"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="190px"
         android:orientation="horizontal" />
 
-</RelativeLayout>
+</FrameLayout>
