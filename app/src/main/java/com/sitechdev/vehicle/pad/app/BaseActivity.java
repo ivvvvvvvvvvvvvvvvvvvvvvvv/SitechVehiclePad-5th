@@ -22,8 +22,10 @@ import android.view.WindowManager;
 import com.blankj.utilcode.util.AdaptScreenUtils;
 import com.blankj.utilcode.util.BarUtils;
 import com.blankj.utilcode.util.ScreenUtils;
+import com.sitechdev.vehicle.lib.event.BindBus;
 import com.sitechdev.vehicle.lib.event.BindEventBus;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
+import com.sitechdev.vehicle.lib.event.XtBusUtil;
 import com.sitechdev.vehicle.lib.util.ActivityManager;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.R;
@@ -48,7 +50,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     @Override
     public Resources getResources() {
 //        return super.getResources();
-        Log.i("BaseActivity", "getResources=======");
+//        Log.i("BaseActivity", "getResources=======");
         if (ScreenUtils.isLandscape()) {
 //            Log.i(this.getClass().getSimpleName(), "横屏");
             return AdaptScreenUtils.adaptWidth(super.getResources(), 1920);
@@ -78,6 +80,9 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         setContentView(getLayoutId());
         if (this.getClass().isAnnotationPresent(BindEventBus.class)) {
             EventBusUtils.register(this);
+        }
+        if (this.getClass().isAnnotationPresent(BindBus.class)) {
+            XtBusUtil.register(this);
         }
         ActivityManager.getInstance().addActivity(this);
         initViewBefore();
@@ -179,6 +184,9 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         super.onDestroy();
         if (this.getClass().isAnnotationPresent(BindEventBus.class)) {
             EventBusUtils.unregister(this);
+        }
+        if (this.getClass().isAnnotationPresent(BindBus.class)) {
+            XtBusUtil.unregister(this);
         }
     }
 
