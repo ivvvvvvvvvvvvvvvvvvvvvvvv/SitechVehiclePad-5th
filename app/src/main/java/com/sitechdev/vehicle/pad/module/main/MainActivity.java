@@ -49,6 +49,7 @@ import com.sitechdev.vehicle.pad.module.login.util.LoginHttpUtil;
 import com.sitechdev.vehicle.pad.module.main.bean.WeatherInfoBean;
 import com.sitechdev.vehicle.pad.module.main.util.MainHttpUtils;
 import com.sitechdev.vehicle.pad.module.main.util.WeatherUtils;
+import com.sitechdev.vehicle.pad.module.online_audio.KaolaAudioActivity;
 import com.sitechdev.vehicle.pad.receiver.NetReceiver;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
@@ -112,6 +113,7 @@ public class MainActivity extends BaseActivity
 
 //        NetManagerImpl.getInstance().initNetCallback();
         registerReceiver(new NetReceiver(), new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        startActivity(new Intent(this, KaolaAudioActivity.class));
     }
 
 

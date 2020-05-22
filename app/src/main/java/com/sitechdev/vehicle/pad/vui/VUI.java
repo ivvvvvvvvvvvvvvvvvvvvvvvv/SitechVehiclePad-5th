@@ -1472,6 +1472,9 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                     case "pause":
                         VoiceSourceManager.getInstance().pause(VoiceSourceManager.VOICE);
                         break;
+                    case "close":
+                        VoiceSourceManager.getInstance().pause(VoiceSourceManager.VOICE);
+                        break;
                     case "volume_minus":
                         //声音减小
                         AudioUtil.onKeyDownVolume(AudioManager.STREAM_MUSIC);
