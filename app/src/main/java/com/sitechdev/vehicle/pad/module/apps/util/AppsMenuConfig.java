@@ -192,4 +192,16 @@ public class AppsMenuConfig {
         }
         return moduleBeanList;
     }
+
+    public static void resetCache() {
+        isItemTouching = false;
+        mMoveImageView = null;
+        mPagerChanged = false;
+        mPagerDirection = 0;
+        isItemTouchCount = 0;
+        mLongClick = false;
+        updateViewPager = false;
+        mAnimationEnd = true;
+        moveRunnableLists.clear();
+    }
 }

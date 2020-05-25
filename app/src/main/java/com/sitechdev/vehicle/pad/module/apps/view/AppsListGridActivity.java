@@ -431,6 +431,8 @@ public class AppsListGridActivity extends BaseActivity {
         refreshViewPagerByExitEditStatus();
         //下标刷新
         refreshBottomTag();
+        //停止滚动
+        AppsMenuConfig.resetCache();
         //保存数据
         AllModuleUtils.saveNewMenuData();
     }
