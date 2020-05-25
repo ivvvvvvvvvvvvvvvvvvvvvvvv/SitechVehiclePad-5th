@@ -111,8 +111,8 @@ public class MainMenuWindowManager {
             params = new WindowManager.LayoutParams();
             params.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
             params.format = PixelFormat.RGBA_8888;
-            params.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
-                    | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+            params.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+                    | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM;
             params.gravity = Gravity.BOTTOM;
 //            params.flags = WindowManager.LayoutParams.FLAG_FULLSCREEN;
 //            params.format = PixelFormat.TRANSPARENT;
@@ -196,11 +196,5 @@ public class MainMenuWindowManager {
 //            default:
 //                break;
 //        }
-    }
-
-    public void changeViewByOri() {
-        SitechDevLog.i(TAG, this + "============changeViewByOri");
-        hide();
-        show();
     }
 }

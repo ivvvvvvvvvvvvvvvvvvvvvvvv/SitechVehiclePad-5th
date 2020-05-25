@@ -22,7 +22,8 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 
-public class MainControlPanelWindowManager {
+public class
+MainControlPanelWindowManager {
 
     private static volatile MainControlPanelWindowManager manager;
     private static final String TAG = MainControlPanelWindowManager.class.getSimpleName();
@@ -71,40 +72,6 @@ public class MainControlPanelWindowManager {
         displayHeight = BaseWindow.getInstance().getDisplayHeight();
         getView();
         initData();
-    }
-
-    /**
-     * 显示悬浮框
-     */
-    public void show() {
-        SitechDevLog.e(TAG, "-------------show()=====" + mainControlPanelView);
-        if (isViewShow()) {
-            return;
-        }
-        if (mainControlPanelView == null) {
-            SitechDevLog.e(TAG, "-------------show()  new view ");
-            getView();
-        }
-        if (mainControlPanelView.getParent() != null) {
-            winManager.removeViewImmediate(mainControlPanelView);
-        }
-        if (mainControlPanelView != null && mainControlPanelView.getParent() == null && !mainControlPanelView.isShown()) {
-            mainControlPanelView.initVolumeAndLightData();
-            winManager.addView(mainControlPanelView, params);
-        }
-    }
-
-    /**
-     * 隐藏悬浮框
-     */
-    public void hide() {
-        SitechDevLog.e(TAG, "-------------hide()=====" + mainControlPanelView);
-        if (mainControlPanelView != null && mainControlPanelView.isShown()) {
-            SitechDevLog.e(TAG, "-------------hide()  remove=====" + mainControlPanelView);
-            winManager.removeViewImmediate(mainControlPanelView);
-            mainControlPanelView = null;
-            params = null;
-        }
     }
 
     public boolean isViewShow() {
@@ -268,7 +235,7 @@ public class MainControlPanelWindowManager {
     }
 
     /**
-     * 强制显示Window
+     * 强制显示Window。被拖动展示出来
      */
     public void mustShownView() {
         SitechDevLog.i(TAG, "*********************   mustShownView==========");
@@ -281,7 +248,7 @@ public class MainControlPanelWindowManager {
     }
 
     /**
-     * 强制隐藏Window
+     * 强制隐藏Window。隐藏到底部，并没有从manager中移除
      */
     public void mustHiddenView() {
         SitechDevLog.i(TAG, "*********************   mustHiddenView==========");
@@ -291,6 +258,40 @@ public class MainControlPanelWindowManager {
         mainControlPanelView.resetViewAlpha(0);
         mainControlPanelView.setFullScreen(false);
         updateWindow();
+    }
+
+    /**
+     * 显示悬浮框。默认形态，展示到底部，不会全部出现。
+     */
+    public void show() {
+        SitechDevLog.e(TAG, "-------------show()=====" + mainControlPanelView);
+        if (isViewShow()) {
+            return;
+        }
+        if (mainControlPanelView == null) {
+            SitechDevLog.e(TAG, "-------------show()  new view ");
+            getView();
+        }
+        if (mainControlPanelView.getParent() != null) {
+            winManager.removeViewImmediate(mainControlPanelView);
+        }
+        if (mainControlPanelView != null && mainControlPanelView.getParent() == null && !mainControlPanelView.isShown()) {
+            mainControlPanelView.initVolumeAndLightData();
+            winManager.addView(mainControlPanelView, params);
+        }
+    }
+
+    /**
+     * 隐藏悬浮框。从winmanager中移除。
+     */
+    public void hide() {
+        SitechDevLog.e(TAG, "-------------hide()=====" + mainControlPanelView);
+        if (mainControlPanelView != null && mainControlPanelView.isShown()) {
+            SitechDevLog.e(TAG, "-------------hide()  remove=====" + mainControlPanelView);
+            winManager.removeViewImmediate(mainControlPanelView);
+            mainControlPanelView = null;
+            params = null;
+        }
     }
 
     /**

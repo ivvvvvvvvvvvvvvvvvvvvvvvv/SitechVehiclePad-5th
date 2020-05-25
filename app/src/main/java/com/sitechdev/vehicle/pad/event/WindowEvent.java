@@ -32,6 +32,14 @@ public class WindowEvent extends BaseEvent {
      * 显示必须的所有窗口--APP切换到前台
      */
     public static final String EVENT_WINDOW_APP_FRONT = "EVENT_WINDOW_APP_FRONT";
+    /**
+     * INPUT_SHOW_STATE 隐藏所有窗口--APP主动隐藏，例如：弹出输入法
+     */
+    public static final String EVENT_WINDOW_INPUT_SHOW_STATE = "EVENT_WINDOW_INPUT_SHOW_STATE";
+    /**
+     * INPUT_HIDDEN_STATE 展示窗口--APP主动隐藏
+     */
+    public static final String EVENT_WINDOW_INPUT_HIDDEN_STATE = "EVENT_WINDOW_INPUT_HIDDEN_STATE";
 
     private String eventKey = "";
     private Object eventObject = null;

@@ -4,6 +4,7 @@ import android.content.IntentFilter;
 
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.pad.event.WindowEvent;
+import com.sitechdev.vehicle.pad.manager.CommonTipWindowManager;
 import com.sitechdev.vehicle.pad.receiver.OrientationReceiver;
 import com.sitechdev.vehicle.pad.window.manager.AppSignalWindowManager;
 import com.sitechdev.vehicle.pad.window.manager.MainControlPanelWindowManager;
@@ -35,7 +36,16 @@ public class BaseAppWindowManager {
         return SingleBaseWindowManager.SINGLE;
     }
 
-    public void init() {
+    public void init(AppApplication appApplication) {
+        //右上角状态window
+        AppSignalWindowManager.getInstance().init(appApplication);
+        //底部主菜单
+        MainMenuWindowManager.getInstance().init(appApplication);
+        //底部控制菜单
+        MainControlPanelWindowManager.getInstance().init(appApplication);
+        //登录、普通Toast弹窗
+        CommonTipWindowManager.getInstance().init(appApplication);
+
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("android.intent.action.CONFIGURATION_CHANGED");
         OrientationReceiver receiver = new OrientationReceiver();
@@ -67,11 +77,22 @@ public class BaseAppWindowManager {
             case WindowEvent.EVENT_WINDOW_APP_FRONT:
                 AppSignalWindowManager.getInstance().show();
                 MainMenuWindowManager.getInstance().show();
+                MainControlPanelWindowManager.getInstance().show();
                 break;
             case WindowEvent.EVENT_WINDOW_APP_BACKGROUD:
                 AppSignalWindowManager.getInstance().hide();
                 MainMenuWindowManager.getInstance().hide();
                 MainControlPanelWindowManager.getInstance().hide();
+                break;
+            //输入法弹出时
+            case WindowEvent.EVENT_WINDOW_INPUT_SHOW_STATE:
+                MainMenuWindowManager.getInstance().hide();
+                MainControlPanelWindowManager.getInstance().mustHiddenView();
+                break;
+            //输入法隐藏时
+            case WindowEvent.EVENT_WINDOW_INPUT_HIDDEN_STATE:
+                MainMenuWindowManager.getInstance().show();
+                MainControlPanelWindowManager.getInstance().show();
                 break;
             default:
                 break;

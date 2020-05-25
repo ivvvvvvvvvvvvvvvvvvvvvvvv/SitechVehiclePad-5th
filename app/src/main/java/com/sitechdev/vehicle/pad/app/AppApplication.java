@@ -25,7 +25,6 @@ import com.sitechdev.vehicle.pad.BuildConfig;
 import com.sitechdev.vehicle.pad.event.WindowEvent;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.manager.AppManager;
-import com.sitechdev.vehicle.pad.manager.CommonTipWindowManager;
 import com.sitechdev.vehicle.pad.manager.SkinManager;
 import com.sitechdev.vehicle.pad.module.map.util.MapVoiceEventUtil;
 import com.sitechdev.vehicle.pad.net.interception.SitechRequestInterceptor;
@@ -34,9 +33,6 @@ import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppVariants;
 import com.sitechdev.vehicle.pad.util.BuglyHelper;
 import com.sitechdev.vehicle.pad.utils.MyEventBusIndex;
-import com.sitechdev.vehicle.pad.window.manager.AppSignalWindowManager;
-import com.sitechdev.vehicle.pad.window.manager.MainControlPanelWindowManager;
-import com.sitechdev.vehicle.pad.window.manager.MainMenuWindowManager;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -99,15 +95,7 @@ public class AppApplication extends Application {
 
     @DebugTrace
     private void initCustomWindow() {
-        //右上角状态window
-        AppSignalWindowManager.getInstance().init(this);
-        //底部主菜单
-        MainMenuWindowManager.getInstance().init(this);
-        //底部控制菜单
-        MainControlPanelWindowManager.getInstance().init(this);
-        //登录、普通Toast弹窗
-        CommonTipWindowManager.getInstance().init(this);
-        BaseAppWindowManager.getInstance().init();
+        BaseAppWindowManager.getInstance().init(this);
     }
 
     @DebugTrace
