@@ -11,6 +11,7 @@ import java.util.List;
  */
 public class BaseResponseBean implements Serializable {
 
+    private static final long serialVersionUID = -103L;
     /**
      * code : 10032001
      * data :

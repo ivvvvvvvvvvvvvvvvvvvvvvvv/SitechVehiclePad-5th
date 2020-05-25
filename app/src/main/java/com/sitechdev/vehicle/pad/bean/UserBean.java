@@ -2,8 +2,6 @@ package com.sitechdev.vehicle.pad.bean;
 
 import com.sitechdev.net.bean.BaseBean;
 
-import java.io.Serializable;
-
 /**
  * 项目名称：SitechVehiclePad
  * 类名称：User
@@ -14,6 +12,8 @@ import java.io.Serializable;
  * 备注：
  */
 public class UserBean extends BaseBean {
+
+    private static final long serialVersionUID = -6420469L;
     /**
      * userId : 100430100067
      * mobile : 15010279557

@@ -13,6 +13,7 @@ import java.io.Serializable;
  */
 public class CmdBean implements Serializable {
 
+    private static final long serialVersionUID = -101283306725L;
     private String cmdToken = "";
     private String cmdExpiresIn = "";
 

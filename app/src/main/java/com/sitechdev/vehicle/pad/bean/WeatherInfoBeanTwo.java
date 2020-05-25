@@ -5,6 +5,7 @@ import java.util.List;
 
 public class WeatherInfoBeanTwo implements Serializable {
 
+    private static final long serialVersionUID = -121L;
     /**
      * code : 200
      * message :

@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class BaseErrorBean implements Serializable {
 
+    private static final long serialVersionUID = -2724785L;
     /**
      * code : 10001001
      * errors : [{"domain":"loginDTO","location":"body","locationType":"mobile","message":"invalidParameter","reason":"手机号格式不正确"}]

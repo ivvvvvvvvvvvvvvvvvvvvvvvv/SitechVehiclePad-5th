@@ -10,6 +10,8 @@ import java.util.List;
  * @date 2019/4/12
  */
 public class AllModuleBean implements Serializable {
+
+    private static final long serialVersionUID = -15L;
     public List<ModuleBean> apps;
 
     public class ModuleBean {

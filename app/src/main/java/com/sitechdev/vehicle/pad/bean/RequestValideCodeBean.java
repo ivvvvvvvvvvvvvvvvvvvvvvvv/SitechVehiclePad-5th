@@ -13,6 +13,7 @@ import java.io.Serializable;
  */
 public class RequestValideCodeBean implements Serializable {
 
+    private static final long serialVersionUID = -47L;
     /**
      * code : 200
      * message : 验证码发送成功
