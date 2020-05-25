@@ -42,6 +42,7 @@ import com.sitechdev.vehicle.pad.util.AudioUtil;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.greenrobot.greendao.annotation.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -149,6 +150,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
         mWakeupEngine.stop();
         mAIUIEngine.ttsStart(StringUtils.isEmpty(ttsText) ? VoiceConstants.TTS_RESPONSE_DEFAULT_TEXT : ttsText);
         isWakeupTTS = true;
+        shutdown = false;
     }
 
     private AIUIListener mAIUIListener = new AIUIListener() {
@@ -181,12 +183,14 @@ public class VUI implements VUIWindow.OnWindowHideListener {
 //                    if (null != vuiWindow) {
 //                        vuiWindow.hide();
 //                    }
+                    shutdown = true;
+                    EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_SR_OVER));
                     break;
                 case AIUIConstant.EVENT_VAD:
                     log("EVENT_VAD");
                     handleEventVad(event);
                     break;
-                case AIUIConstant.EVENT_START_RECORD: {
+                case AIUIConstant.EVENT_START_RECORD:
                     log("已开始录音");
                     vadBos = false;
 //                    if (null != vuiWindow.getCurrentHolder()) {
@@ -197,12 +201,10 @@ public class VUI implements VUIWindow.OnWindowHideListener {
 //                    vuiWindow.show();
 //                    vuiWindow.showText(context.getResources().getString(R.string.vui_welcome_text));
                     EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_START_SR));
-                }
-                break;
-                case AIUIConstant.EVENT_STOP_RECORD: {
+                    break;
+                case AIUIConstant.EVENT_STOP_RECORD:
                     log("已停止录音");
-                }
-                break;
+                    break;
                 case AIUIConstant.EVENT_STATE:    // 状态事件EVENT_VAD
                     log("EVENT_STATE");
                     handleEventState(event);
@@ -381,11 +383,12 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                     EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_SR_OVER));
                     shutdown = false;
                     return;
-                }
-                EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_TTS_PLAYIING, ""));
-                if (AIUIConstant.STATE_READY == mAIUIState) {
-                    isWakeupTTS = false;
-                    mAIUIEngine.startRecord();
+                } else {
+                    EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_TTS_PLAYIING, ""));
+                    if (AIUIConstant.STATE_READY == mAIUIState) {
+                        isWakeupTTS = false;
+                        mAIUIEngine.startRecord();
+                    }
                 }
                 break;
             default:
@@ -965,17 +968,16 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                 R.string.vui_anr_text));
     }
 
-    public void shutAndTTS(String tts) {
-        shutdown = true;
+    public void shutAndTTS(@NotNull String tts) {
+        shutAndTTS(true, tts);
+    }
+
+    public void shutAndTTS(boolean shutdown, @NotNull String tts) {
+        shutdown = shutdown;
         mAIUIEngine.ttsStart(tts);
         EventBusUtils.postEvent(new VoiceEvent(
                 VoiceEvent.EVENT_VOICE_TTS_PLAYIING,
                 tts));
-    }
-
-    public void shutAndTTS(boolean shutdown, String tts) {
-        this.shutdown = shutdown;
-        mAIUIEngine.ttsStart(tts);
     }
 
     public void shut() {
@@ -1240,8 +1242,10 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                 }
                 break;
             case VoiceEvent.EVENT_VOICE_SR_OVER:
+                if (isInTTS) {
+                    shutdown = true;
+                }
                 onWindowHide();
-//                shutdown = false;
                 break;
             default:
                 break;

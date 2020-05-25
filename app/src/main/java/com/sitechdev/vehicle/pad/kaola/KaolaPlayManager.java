@@ -2,7 +2,6 @@ package com.sitechdev.vehicle.pad.kaola;
 
 import android.app.ActivityManager;
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 
 import com.kaolafm.opensdk.OpenSDK;
@@ -16,13 +15,10 @@ import com.kaolafm.sdk.core.mediaplayer.PlayItem;
 import com.kaolafm.sdk.core.mediaplayer.PlayerListManager;
 import com.kaolafm.sdk.core.mediaplayer.PlayerManager;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
-import com.sitechdev.vehicle.lib.util.Constant;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.event.AppEvent;
-import com.sitechdev.vehicle.pad.event.MapEvent;
 import com.sitechdev.vehicle.pad.event.TeddyEvent;
-import com.sitechdev.vehicle.pad.event.VoiceEvent;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.module.main.MainActivity;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
@@ -106,7 +102,7 @@ public class KaolaPlayManager {
             @Override
             public void onError(ApiException e) {
                 SitechDevLog.e(this.getClass().getSimpleName(), e.getMessage());
-                CommonToast.makeText(AppApplication.getContext(), "错误信息 ----> 错误码：" + e.getCode() + " -----> 错误信息：" + e.getMessage());
+//                CommonToast.makeText(AppApplication.getContext(), "错误信息 ----> 错误码：" + e.getCode() + " -----> 错误信息：" + e.getMessage());
             }
         });
     }
