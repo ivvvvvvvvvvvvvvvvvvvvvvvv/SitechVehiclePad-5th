@@ -2,6 +2,7 @@ package com.sitechdev.vehicle.pad.module.taxi;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,17 +13,21 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.sitechdev.vehicle.lib.event.BindEventBus;
+import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.imageloader.GlideApp;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppConst;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.event.AppEvent;
+import com.sitechdev.vehicle.pad.event.WindowEvent;
 import com.sitechdev.vehicle.pad.module.taxi.enums.TaxiDataModel;
+import com.sitechdev.vehicle.pad.module.taxi.enums.TaxiParamsModel;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.util.FontUtil;
 import com.sitechdev.vehicle.pad.view.SkinRollingTextView;
 import com.sitechdev.vehicle.pad.view.SkinTextView;
+import com.sitechdev.vehicle.pad.window.view.TaxiSettingDialogView;
 import com.yy.mobile.rollingtextview.CharOrder;
 import com.yy.mobile.rollingtextview.strategy.Direction;
 import com.yy.mobile.rollingtextview.strategy.Strategy;
@@ -149,6 +154,7 @@ public class TaximeterActivity extends BaseActivity {
                 SitechDevLog.i("Taxi", "onAnimationEnd===========");
             }
         });
+        refreshView();
     }
 
     private void startChangePriceTextView() {
@@ -239,6 +245,16 @@ public class TaximeterActivity extends BaseActivity {
                 break;
             //设置
             case R.id.id_taxi_setting:
+                EventBusUtils.postEvent(new WindowEvent(WindowEvent.EVENT_WINDOW_INPUT_SHOW_STATE));
+                TaxiSettingDialogView settingDialogView = new TaxiSettingDialogView(this);
+                settingDialogView.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        EventBusUtils.postEvent(new WindowEvent(WindowEvent.EVENT_WINDOW_INPUT_HIDDEN_STATE));
+                        refreshView();
+                    }
+                });
+                settingDialogView.show();
                 break;
             //历史
             case R.id.id_taxi_history:
@@ -258,6 +274,11 @@ public class TaximeterActivity extends BaseActivity {
             default:
                 break;
         }
+    }
+
+    private void refreshView() {
+        unitPriceTextView.setText(String.format("%s元/公里", TaxiParamsModel.getInstance().getSinglePriceKm()));
+        unitStartPriceTextView.setText(String.format("%s元/%s公里内", TaxiParamsModel.getInstance().getStartPriceInKm(), TaxiParamsModel.getInstance().getStartPrice_km()));
     }
 
     private String getFullPrice(double fullKm, double unitPrice, double startPrice) {
