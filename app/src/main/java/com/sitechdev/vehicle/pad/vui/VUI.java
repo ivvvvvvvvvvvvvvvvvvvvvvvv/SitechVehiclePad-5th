@@ -973,7 +973,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
     }
 
     public void shutAndTTS(boolean shutdown, @NotNull String tts) {
-        shutdown = shutdown;
+        this.shutdown = shutdown;
         mAIUIEngine.ttsStart(tts);
         EventBusUtils.postEvent(new VoiceEvent(
                 VoiceEvent.EVENT_VOICE_TTS_PLAYIING,
