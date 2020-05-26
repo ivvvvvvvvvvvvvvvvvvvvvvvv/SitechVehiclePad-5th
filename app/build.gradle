@@ -186,6 +186,7 @@ android.applicationVariants.all { variant ->
     def apkProvider = variant.getPackageApplicationProvider().get().outputScope.apkDatas
     apkProvider.forEach { apkData ->
         def isRelease = "release".equalsIgnoreCase(variant.buildType.name)
-        apkData.outputFileName = fileName + (isRelease ? "_Release_" : "_Test_") + "${variant.productFlavors[0].name}_v" + versionName + ".apk"
+//        apkData.outputFileName = fileName + (isRelease ? "_Release_" : "_Test_") + "${variant.productFlavors[0].name}_v" + versionName + ".apk"
+        apkData.outputFileName = fileName + (isRelease ? "_Release_" : "_Test_") + "_v" + versionName + ".apk"
     }
 }

@@ -76,7 +76,7 @@ public class AppSignalWindowManager {
         winManager = BaseWindow.getInstance().getWinManager();
         displayWidth = BaseWindow.getInstance().getDisplayWidth();
         displayHeight = BaseWindow.getInstance().getDisplayHeight();
-        appSignalView = getView();
+//        appSignalView = getView();
         //        DL.i(TeddyConstants.TAG_TEDDY, "宽度====>" + displayWidth + "，高度======>" + displayHeight);
         initData();
     }

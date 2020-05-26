@@ -127,8 +127,8 @@ public class MainMenuView extends RelativeLayout implements View.OnClickListener
                 break;
             case R.id.id_btn_apps:
 //                ToastUtils.showShort("应用按钮被点击了。。。");
-//                RouterUtils.getInstance().navigation(RouterConstants.SETTING_SKIN_PAGE);
-                RouterUtils.getInstance().navigation(RouterConstants.SETTING_APP_LIST);
+                RouterUtils.getInstance().navigation(RouterConstants.SETTING_SKIN_PAGE);
+//                RouterUtils.getInstance().navigation(RouterConstants.SETTING_APP_LIST);
                 break;
             case R.id.id_btn_teddy:
                 SitechDevLog.i(VoiceConstants.TEDDY_TAG, this.getClass().getSimpleName()+"=====>手动点击Teddy启动图标===");
