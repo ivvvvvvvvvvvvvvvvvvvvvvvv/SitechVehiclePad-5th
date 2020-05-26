@@ -4,22 +4,32 @@
     android:id="@+id/fth"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/transparent">
+    android:background="@color/transparent"
+    android:orientation="vertical">
 
-    <com.sitechdev.vehicle.pad.view.ZSideBar
-        android:id="@+id/zbar"
-        android:layout_width="1300px"
-        android:layout_height="70px"
-        android:background="@color/bbs_color_pri"
-        android:layout_gravity="center_horizontal"
-        tools:layout_width="1100px"
-        tools:layout_height="70px" />
+    <FrameLayout
+        android:layout_width="1100px"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="40px"
+        android:layout_marginBottom="40px"
+        android:background="#FF161B2A"
+        tools:layout_height="70px"
+        tools:layout_width="1100px">
+
+        <com.sitechdev.vehicle.pad.view.ListIndicatorRecycview
+            android:id="@+id/indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            tools:layout_height="70px"
+            tools:layout_width="1100px" />
+
+    </FrameLayout>
 
     <com.sitechdev.vehicle.pad.view.RecycviewInViewPager
         android:id="@+id/recyclerView"
-        android:background="@color/color_main_weather_status_desc_range"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

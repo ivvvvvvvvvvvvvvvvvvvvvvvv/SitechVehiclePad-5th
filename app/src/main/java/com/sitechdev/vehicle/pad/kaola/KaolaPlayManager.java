@@ -8,6 +8,10 @@ import com.kaolafm.opensdk.OpenSDK;
 import com.kaolafm.opensdk.api.operation.OperationRequest;
 import com.kaolafm.opensdk.api.operation.model.column.Column;
 import com.kaolafm.opensdk.api.operation.model.column.ColumnGrp;
+import com.kaolafm.opensdk.api.scene.AccScene;
+import com.kaolafm.opensdk.api.scene.Scene;
+import com.kaolafm.opensdk.api.scene.SceneInfo;
+import com.kaolafm.opensdk.api.scene.SceneRequest;
 import com.kaolafm.opensdk.http.core.HttpCallback;
 import com.kaolafm.opensdk.http.error.ApiException;
 import com.kaolafm.sdk.core.mediaplayer.IPlayerStateListener;
@@ -60,53 +64,70 @@ public class KaolaPlayManager {
     public enum PlayType {
         SITEV_NEWS, CHILD_PAPERS, CAR_FUN, LIFE_ALL
     }
-
+    private boolean isLoadingData = false;
     public void acquireKaolaData() {
+        if (isLoadingData) {
+            return;
+        }
         SitechDevLog.e(MainActivity.class.getSimpleName(), "---------------");
-        new OperationRequest().getColumnList("0", true, new HttpCallback<List<ColumnGrp>>() {
-            @Override
-            public void onSuccess(List<ColumnGrp> columnGrps) {
-                if (columnGrps == null || columnGrps.isEmpty()) {
-                    SitechDevLog.i(this.getClass().getSimpleName(), "听伴数据未获取到 ========== ");
-                    return;
-                }
-                mColumns = (List<Column>) columnGrps.get(0).getChildColumns();
-                SitechDevLog.i(this.getClass().getSimpleName(), "AI 电台分类大小 ========== " + columnGrps.size());
-                if (mColumns != null) {
-
-                    if (mColumns.size() >= 1 && mColumns.get(0) != null) {
-                        mCallback.onSuccess(0, mColumns.get(0).getTitle());
-                        SitechDevLog.e(KaolaPlayManager.class.getSimpleName(), " 新特速报 === " + mColumns.get(0).getTitle());
-                    }
-                    if (mColumns.size() >= 2 && mColumns.get(1) != null) {
-                        mCallback.onSuccess(1, mColumns.get(1).getTitle());
-                        SitechDevLog.e(KaolaPlayManager.class.getSimpleName(), " 少儿读物 === " + mColumns.get(1).getTitle());
-                    }
-                    if (mColumns.size() >= 3 && mColumns.get(2) != null) {
-                        mCallback.onSuccess(2, mColumns.get(2).getTitle());
-                        SitechDevLog.e(KaolaPlayManager.class.getSimpleName(), " 车海娱乐 === " + mColumns.get(2).getTitle());
-                    }
-                    if (mColumns.size() >= 4 && mColumns.get(3) != null) {
-                        mCallback.onSuccess(3, mColumns.get(3).getTitle());
-                        SitechDevLog.e(KaolaPlayManager.class.getSimpleName(), " 生活一点通 === " + mColumns.get(3).getTitle());
-                    }
-
-                }
-                if (DEBUG)
-                    for (int i = 0; i < columnGrps.size(); i++) {
-                        SitechDevLog.e(KaolaListActivity.class.getSimpleName(), columnGrps.get(i).toString());
-                    }
-
-            }
-
-            @Override
-            public void onError(ApiException e) {
-                SitechDevLog.e(this.getClass().getSimpleName(), e.getMessage());
-//                CommonToast.makeText(AppApplication.getContext(), "错误信息 ----> 错误码：" + e.getCode() + " -----> 错误信息：" + e.getMessage());
-            }
-        });
+        isLoadingData = true;
+        new OperationRequest().getColumnTree(true, httpCallback);
     }
 
+    HttpCallback httpCallback = new HttpCallback<List<ColumnGrp>>() {
+        @Override
+        public void onSuccess(List<ColumnGrp> columnGrps) {
+            isLoadingData = false;
+            if (columnGrps == null || columnGrps.isEmpty()) {
+                SitechDevLog.i(this.getClass().getSimpleName(), "听伴数据未获取到 ========== ");
+                return;
+            }
+            mColumns = (List<Column>) columnGrps.get(0).getChildColumns();
+            SitechDevLog.i(this.getClass().getSimpleName(), "AI 电台分类大小 ========== " + columnGrps.size());
+            if (mColumns != null) {
+                for (int i = 0; i < callbacks.size(); i++) {
+                    callbacks.get(i).onDataGot(mColumns);
+                }
+                if (mColumns.size() >= 1 && mColumns.get(0) != null) {
+                    for (int i = 0; i < callbacks.size(); i++) {
+                        callbacks.get(i).onSuccess(0, mColumns.get(0).getTitle());
+                    }
+                    SitechDevLog.e(KaolaPlayManager.class.getSimpleName(), " 新特速报 === " + mColumns.get(0).getTitle());
+                }
+                if (mColumns.size() >= 2 && mColumns.get(1) != null) {
+                    for (int i = 0; i < callbacks.size(); i++) {
+                        callbacks.get(i).onSuccess(1, mColumns.get(1).getTitle());
+                    }
+                    SitechDevLog.e(KaolaPlayManager.class.getSimpleName(), " 少儿读物 === " + mColumns.get(1).getTitle());
+                }
+                if (mColumns.size() >= 3 && mColumns.get(2) != null) {
+                    for (int i = 0; i < callbacks.size(); i++) {
+                        callbacks.get(i).onSuccess(2, mColumns.get(2).getTitle());
+                    }
+                    SitechDevLog.e(KaolaPlayManager.class.getSimpleName(), " 车海娱乐 === " + mColumns.get(2).getTitle());
+                }
+                if (mColumns.size() >= 4 && mColumns.get(3) != null) {
+                    for (int i = 0; i < callbacks.size(); i++) {
+                        callbacks.get(i).onSuccess(3, mColumns.get(3).getTitle());
+                    }
+                    SitechDevLog.e(KaolaPlayManager.class.getSimpleName(), " 生活一点通 === " + mColumns.get(3).getTitle());
+                }
+
+            }
+            if (DEBUG)
+                for (int i = 0; i < columnGrps.size(); i++) {
+                    SitechDevLog.e(KaolaPlayManager.class.getSimpleName(), columnGrps.get(i).toString());
+                }
+
+        }
+
+        @Override
+        public void onError(ApiException e) {
+            isLoadingData = false;
+            SitechDevLog.e(this.getClass().getSimpleName(), e.getMessage());
+//                CommonToast.makeText(AppApplication.getContext(), "错误信息 ----> 错误码：" + e.getCode() + " -----> 错误信息：" + e.getMessage());
+        }
+    };
     /**
      * @param context
      * @param index   0, 新特速报 1,少儿读物 2,车海娱乐 3,生活一点通
@@ -313,14 +334,13 @@ public class KaolaPlayManager {
         });
     }
 
-    private Callback mCallback;
-
     public interface Callback {
         void onSuccess(int index, String textContent);
+        void onDataGot(List<Column> data);
     }
-
+    List<Callback> callbacks = new ArrayList<>();
     public void setCallback(Callback callback) {
-        mCallback = callback;
+        callbacks.add(callback);
     }
 
     private PlayCallback mPlayCallback;

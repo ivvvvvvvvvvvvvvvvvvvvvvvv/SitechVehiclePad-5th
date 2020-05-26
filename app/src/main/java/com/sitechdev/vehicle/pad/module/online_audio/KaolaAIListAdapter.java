@@ -3,11 +3,18 @@ package com.sitechdev.vehicle.pad.module.online_audio;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.kaolafm.opensdk.api.operation.model.ImageFile;
+import com.sitechdev.vehicle.lib.imageloader.GlideApp;
+import com.sitechdev.vehicle.pad.R;
+import com.sitechdev.vehicle.pad.model.kaola.KaolaDataWarpper;
 import com.sitechdev.vehicle.pad.view.IndexAdapter;
 import com.sitechdev.vehicle.pad.view.Indexable;
 
@@ -15,17 +22,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 // 选择品牌列表适配器
-public class KaolaAIListAdapter extends RecyclerView.Adapter<KaolaAIListAdapter.VHolder> implements IndexAdapter {
+public class KaolaAIListAdapter extends RecyclerView.Adapter<KaolaAIListAdapter.VHolderAbs> implements IndexAdapter {
     private Context context;
-    private List mLists ;
+    private List<KaolaDataWarpper> mLists;
 
     // 构造方法
-    KaolaAIListAdapter(Context context, List  mLists) {
+    KaolaAIListAdapter(Context context, List<KaolaDataWarpper> mLists) {
         this.context = context;
         this.mLists = mLists == null ? new ArrayList<>() : mLists;
     }
 
-    public void setDataAndNotify(List data) {
+    public void setDataAndNotify(List<KaolaDataWarpper> data) {
         this.mLists = data == null ? new ArrayList<>() : data;
         notifyDataSetChanged();
     }
@@ -37,29 +44,104 @@ public class KaolaAIListAdapter extends RecyclerView.Adapter<KaolaAIListAdapter.
 
     @Override
     public Indexable getItem(int position) {
-        return (Indexable) mLists.get(position);
+        return mLists.get(position);
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
+        if (manager instanceof GridLayoutManager) {
+            GridLayoutManager gridLayoutManager = (GridLayoutManager) manager;
+            gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                @Override
+                public int getSpanSize(int position) {
+                    if ("新特速报".equals(mLists.get(position).getIndex())) {
+                        return 2;
+                    } else {
+                        return 1;
+                    }
+                }
+            });
+        }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
     }
 
     @NonNull
     @Override
-    public VHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        return new VHolder(new TextView(context));
+    public VHolderAbs onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        View root = null;
+        if ("新特速报".equals(mLists.get(i).getIndex())) {
+            root = LayoutInflater.from(context).inflate(R.layout.kaola_item_recommend, viewGroup, false);
+            return new VHolder(root);
+        } else {
+            root = LayoutInflater.from(context).inflate(R.layout.kaola_item_common, viewGroup, false);
+            return new VHolder2(root);
+        }
+
     }
 
     @Override
-    public void onBindViewHolder(@NonNull VHolder vh, int i) {
-        vh.nameText.setWidth(1000);
-        vh.nameText.setText("              " + System.currentTimeMillis() + "-00000000000000000000000000000             ");
+    public void onBindViewHolder(@NonNull VHolderAbs vh, int i) {
+        vh.des.setText(mLists.get(i).column.getTitle());
+        if (mLists.get(i).column.getImageFiles() != null && mLists.get(i).column.getImageFiles().containsKey("cover")) {
+            ImageFile img = mLists.get(i).column.getImageFiles().get("cover");
+            if ("新特速报".equals(mLists.get(i).getIndex())) {
+                GlideApp.with(context).load(img.getUrl()).centerCrop().into(vh.img);
+            } else {
+                GlideApp.with(context).load(img.getUrl()).circleCrop().centerCrop().into(vh.img);
+            }
+        }
+        vh.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onItemClick != null) {
+                    onItemClick.onClick(mLists.get(i));
+                }
+            }
+        });
     }
 
-    class VHolder extends RecyclerView.ViewHolder {
+    interface OnItemClick {
+        void onClick(KaolaDataWarpper warpper);
+    }
 
-        TextView nameText;
+    public void setOnItemClick(OnItemClick onItemClick) {
+        this.onItemClick = onItemClick;
+    }
+
+    OnItemClick onItemClick;
+
+    class VHolder extends VHolderAbs {
 
         VHolder(View itemView) {
             super(itemView);
-            nameText = (TextView) itemView;
+            des = itemView.findViewById(R.id.des);
+            img = itemView.findViewById(R.id.image);
         }
     }
 
+    class VHolder2 extends VHolderAbs {
+
+        VHolder2(View itemView) {
+            super(itemView);
+            des = itemView.findViewById(R.id.des);
+            img = itemView.findViewById(R.id.image);
+        }
+    }
+
+    abstract class VHolderAbs extends RecyclerView.ViewHolder {
+        TextView des;
+        ImageView img;
+
+        public VHolderAbs(@NonNull View itemView) {
+            super(itemView);
+        }
+    }
+
+    ;
 }

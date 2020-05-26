@@ -24,6 +24,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
+import com.kaolafm.opensdk.api.operation.model.column.Column;
 import com.kaolafm.sdk.core.mediaplayer.PlayerManager;
 import com.sitechdev.net.HttpCode;
 import com.sitechdev.vehicle.lib.event.BindEventBus;
@@ -64,6 +65,8 @@ import com.sitechdev.vehicle.pad.window.manager.MainMenuWindowManager;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.List;
 
 @BindEventBus
 @Route(path = RouterConstants.HOME_MAIN)
@@ -114,8 +117,7 @@ public class MainActivity extends BaseActivity
 //        NetManagerImpl.getInstance().initNetCallback();
         registerReceiver(new NetReceiver(), new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
-
-
+    NetReceiver receiver = new NetReceiver();
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
@@ -218,6 +220,7 @@ public class MainActivity extends BaseActivity
     protected void onDestroy() {
         super.onDestroy();
         VoiceSourceManager.getInstance().removeMusicChangeListener(this);
+        unregisterReceiver(receiver);
 //        MusicManager.getInstance().removeMusicChangeListener(musicChangeListener);
     }
 
@@ -277,6 +280,11 @@ public class MainActivity extends BaseActivity
                     CommonToast.makeText(mContext, "数据异常~~~~");
                     break;
             }
+        }
+
+        @Override
+        public void onDataGot(List<Column> data) {
+            
         }
     };
 
