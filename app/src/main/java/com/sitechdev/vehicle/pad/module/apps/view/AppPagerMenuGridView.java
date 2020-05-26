@@ -22,6 +22,7 @@ import android.widget.ListAdapter;
 
 import com.amap.api.services.route.TruckStep;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
+import com.sitechdev.vehicle.pad.BuildConfig;
 import com.sitechdev.vehicle.pad.app.AppConst;
 import com.sitechdev.vehicle.pad.bean.AllModuleBean;
 import com.sitechdev.vehicle.pad.module.apps.adapter.MainMenuAdapater;
@@ -162,8 +163,11 @@ public class AppPagerMenuGridView extends GridView implements OnItemLongClickLis
         SitechDevLog.w(AppConst.TAG_APP, "width=" + dm.widthPixels);
         SitechDevLog.w(AppConst.TAG_APP, "height=" + dm.heightPixels);
 
-        this.setOnItemClickListener(this);
-        this.setOnItemLongClickListener(this);
+        if (BuildConfig.DEBUG) {
+            //todo 发布会的正式版本暂时取消掉按键事件
+            this.setOnItemClickListener(this);
+            this.setOnItemLongClickListener(this);
+        }
     }
 
     @Override
