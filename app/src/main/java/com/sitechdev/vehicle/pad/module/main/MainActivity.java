@@ -380,6 +380,7 @@ public class MainActivity extends BaseActivity
                 break;
             case R.id.ll_life:
                 KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(this, 3);
+//                startActivity(new Intent(this,KaolaAudioActivity.class));
                 break;
             case R.id.ll_car_power_info:
 //                Intent tempIntent = new Intent(MainActivity.this, CarStatusPreActivity.class);
