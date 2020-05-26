@@ -30,6 +30,7 @@ import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppVariants;
 import com.sitechdev.vehicle.pad.view.CommonToast;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -365,5 +366,13 @@ public class KaolaPlayManager {
 
     public void clearPlayVoiceSourceManagerListener() {
         onPlaySourceMusicChangeListener = null;
+    }
+
+    public static String getShowTimeString(int timeInMs) {
+        DecimalFormat df = new DecimalFormat("00");
+        long minute = 60 * 1000;// 1分钟
+        int min = (int) (timeInMs / minute);
+        int sec = (int) (timeInMs % minute) / 1000;
+        return new StringBuffer().append(df.format(min)).append(":").append(df.format(sec)).toString();
     }
 }

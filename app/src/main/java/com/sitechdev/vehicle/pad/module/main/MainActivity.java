@@ -115,7 +115,7 @@ public class MainActivity extends BaseActivity
         }
 
 //        NetManagerImpl.getInstance().initNetCallback();
-        registerReceiver(new NetReceiver(), new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        registerReceiver(receiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
     NetReceiver receiver = new NetReceiver();
     @Override

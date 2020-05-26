@@ -60,7 +60,7 @@ public class KaolaAudioSubPageFrag extends BaseFragment {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(Constant.KEY_TYPE_KEY, Constant.TYPE.FIRST_ENTERED);
                 bundle.putSerializable(Constant.KEY_MEMBER_CODE, warpper.column);
-                RouterUtils.getInstance().navigation(RouterConstants.MUSIC_PLAY_SHOW, bundle);
+                RouterUtils.getInstance().navigation(RouterConstants.MUSIC_PLAY_ONLINE, bundle);
             }
         });
     }

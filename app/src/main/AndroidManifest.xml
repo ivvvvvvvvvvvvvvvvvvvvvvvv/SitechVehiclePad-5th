@@ -106,6 +106,7 @@
             android:screenOrientation="landscape"
             android:theme="@style/NoTitleAppTheme" />
         <activity android:name=".module.online_audio.KaolaAudioActivity" />
+        <activity android:name=".module.online_audio.MusicKaolaActivity" />
 
         <meta-data
             android:name="com.amap.api.v2.apikey"

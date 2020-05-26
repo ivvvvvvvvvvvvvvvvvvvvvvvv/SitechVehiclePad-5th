@@ -36,6 +36,7 @@ public interface RouterConstants {
      * 在线音乐播放列表页面
      */
     String MUSIC_PLAY_SHOW = "/subApp/musicPlay";
+    String MUSIC_PLAY_ONLINE = "/subApp/musicPlayOnline";
 
     /**
      * 设置
