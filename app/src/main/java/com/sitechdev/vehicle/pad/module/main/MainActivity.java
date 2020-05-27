@@ -220,6 +220,7 @@ public class MainActivity extends BaseActivity
     protected void onDestroy() {
         super.onDestroy();
         VoiceSourceManager.getInstance().removeMusicChangeListener(this);
+
         unregisterReceiver(receiver);
 //        MusicManager.getInstance().removeMusicChangeListener(musicChangeListener);
     }

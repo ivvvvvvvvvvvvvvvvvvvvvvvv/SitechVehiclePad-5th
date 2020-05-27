@@ -5,6 +5,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.kaolafm.opensdk.api.operation.model.column.Column;
+import com.kaolafm.opensdk.api.operation.model.column.RadioDetailColumnMember;
 import com.sitechdev.vehicle.lib.util.Constant;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.bean.BaseFragment;
@@ -59,7 +60,9 @@ public class KaolaAudioSubPageFrag extends BaseFragment {
             public void onClick(KaolaDataWarpper warpper) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(Constant.KEY_TYPE_KEY, Constant.TYPE.FIRST_ENTERED);
-                bundle.putSerializable(Constant.KEY_MEMBER_CODE, warpper.column);
+                bundle.putLong(Constant.KEY_MEMBER_CODE, ((RadioDetailColumnMember) warpper.column).getRadioId());
+                bundle.putString(Constant.KEY_IMG_URL, warpper.column.getImageFiles().get("cover").getUrl());
+                bundle.putString(Constant.KEY_TITLE, warpper.column.getTitle());
                 RouterUtils.getInstance().navigation(RouterConstants.MUSIC_PLAY_ONLINE, bundle);
             }
         });

@@ -12,9 +12,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.kaolafm.opensdk.api.operation.model.column.ColumnMember;
-import com.kaolafm.opensdk.api.operation.model.column.RadioDetailColumnMember;
 import com.kaolafm.opensdk.utils.ListUtil;
+import com.kaolafm.sdk.core.dao.AlbumDao;
 import com.kaolafm.sdk.core.mediaplayer.IPlayerListChangedListener;
 import com.kaolafm.sdk.core.mediaplayer.OnPlayItemInfoListener;
 import com.kaolafm.sdk.core.mediaplayer.PlayItem;
@@ -32,13 +31,11 @@ import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.event.TeddyEvent;
-import com.sitechdev.vehicle.pad.kaola.ColumnMemberMamager;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.kaola.PlayItemAdapter;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceType;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
-import com.sitechdev.vehicle.pad.util.FontUtil;
 import com.sitechdev.vehicle.pad.view.CommonToast;
 import com.sitechdev.vehicle.pad.view.RecycleViewDivider;
 import com.sitechdev.vehicle.pad.view.ScrollTextView;
@@ -60,8 +57,9 @@ public class MusicKaolaActivity extends BaseActivity implements
     private Context mContext;
     //new
     private Constant.TYPE TYPE_CODE;
-    private ColumnMember mColumnMember;
-    private RadioDetailColumnMember mRadioDetailColumnMember;
+    private long id;
+    private boolean isAlbum;
+    private String imageUrl;
     private int mCurPosition = 0;
 
     private boolean flag_FIRST_PLAY;
@@ -81,6 +79,7 @@ public class MusicKaolaActivity extends BaseActivity implements
     private TextView seekStartTime,seekEndTime;
     private int defaultImgResId = 0;
     private TextView tv_title;
+    private AlbumDao mAlbumDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,12 +137,12 @@ public class MusicKaolaActivity extends BaseActivity implements
         TYPE_CODE = (Constant.TYPE) intent.getSerializableExtra(Constant.KEY_TYPE_KEY);
         if (TYPE_CODE == Constant.TYPE.FIRST_ENTERED) {
             SitechDevLog.e(TAG, "======== FIRST_ENT1ERED ");
-            mColumnMember = (ColumnMember) intent.getSerializableExtra(Constant.KEY_MEMBER_CODE);
-            ColumnMemberMamager.SingltonHolder.INSTANCE.mColumnMember = mColumnMember;
-            mRadioDetailColumnMember = (RadioDetailColumnMember) mColumnMember;
+            id = intent.getLongExtra(Constant.KEY_MEMBER_CODE, -1);
+            isAlbum = intent.getBooleanExtra(Constant.KEY_IS_ALBUM, false);
+            imageUrl = intent.getStringExtra(Constant.KEY_IMG_URL);
+            title = intent.getStringExtra(Constant.KEY_TITLE);
             requestKaoLaInfo();
         } else {
-            mColumnMember = ColumnMemberMamager.SingltonHolder.INSTANCE.mColumnMember;
             PlayItem curPlayItem = PlayerListManager.getInstance().getCurPlayItem();
             mCurPosition = PlayerListManager.getInstance().getCurPosition();
             SitechDevLog.e(TAG, "========== PLAYING   mCurPosition " + mCurPosition);
@@ -153,16 +152,11 @@ public class MusicKaolaActivity extends BaseActivity implements
             setListData();
         }
         //默认图片索引
-        GlideApp.with(this).load(mColumnMember.getImageFiles().get("cover").getUrl()).into(musicImageView);
-        title = ColumnMemberMamager.SingltonHolder.INSTANCE.mColumnMember.getTitle();
+        GlideApp.with(this).load(imageUrl).into(musicImageView);
         tv_title.setText(title);
     }
 
     private void initPlayListView() {
-        TextView playListTextView = findViewById(R.id.tip_playlist_title);
-
-//        playListTextView.setTypeface(FontUtil.getInstance().getMainFont_Min_i());
-
         refreshLayout = findViewById(R.id.music_kaola_refresh_layout);
         refreshLayout.setEnableRefresh(false);
         refreshLayout.setEnableLoadmore(true);
@@ -420,11 +414,11 @@ public class MusicKaolaActivity extends BaseActivity implements
      * 请求数据信息
      */
     private void requestKaoLaInfo() {
-        if (mColumnMember != null) {
-            SitechDevLog.e(TAG, mColumnMember.toString());
+        if (isAlbum) {
+            PlayerManager.getInstance(this).playAlbum(id);
+        } else {
+            PlayerManager.getInstance(this).playPgc(id);
         }
-
-        PlayerManager.getInstance(this).playPgc(mRadioDetailColumnMember.getRadioId());
     }
 
     @Override

@@ -55,9 +55,36 @@ public class ListIndicatorRecycview extends RecyclerView {
         if (indexMap.size() == 0) {
             return;
         }
-        notifyIndicatorAdapter();
+        if (initWithData != null) {
+            notifyIndicatorAdapter(tabCheckClick);
+        } else {
+            notifyIndicatorAdapter(oneListItemCheck);
+        }
     }
 
+    private List<Indexable> initWithData;
+
+    /**
+     *  标签切换类型   目标是一个多个tab 点击标签进行tab切换
+     * @param indexables
+     */
+
+    public void setupWithData(List<Indexable> indexables, OnItemClickListener listener) {
+        for (int i = 0; i < indexables.size(); i++) {
+            Indexable item = indexables.get(i);
+            if (item == null) {
+                continue;
+            }
+            indexMap.put(i, item.getIndex());
+        }
+        initWithData = indexables;
+        tabCheckClick = listener;
+        notifyIndicatorAdapter(tabCheckClick);
+    }
+    /**
+     *  标签指示类型 目标是一个recycleview 点击标签进行滑动
+     * @param recyclerView
+     */
     public void setupWithRecycler(RecyclerView recyclerView) {
         this.recyclerView = recyclerView;
         final RecyclerView.Adapter adapter = recyclerView.getAdapter();
@@ -150,46 +177,57 @@ public class ListIndicatorRecycview extends RecyclerView {
             }
         }
 
-        notifyIndicatorAdapter();
+        notifyIndicatorAdapter(oneListItemCheck);
 
     }
 
     private void updateCheckSt() {
 //        recyclerView.getLayoutManager()
 //        choose = c;
-        notifyIndicatorAdapter();
+        notifyIndicatorAdapter(oneListItemCheck);
     }
 
     private ListIndicatorAdapter indicatorAdapter;
 
-    private void notifyIndicatorAdapter() {
+    private OnItemClickListener oneListItemCheck = new OnItemClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (v.getTag() != null && recyclerView != null) {
+                try {
+                    for (Integer key : indexMap.keySet()) {
+                        if (indexMap.get(key).equals(((TextView) v).getText())) {
+                            recyclerView.scrollToPosition(key);
+                            GridLayoutManager mLayoutManager =
+                                    (GridLayoutManager) recyclerView.getLayoutManager();
+                            mLayoutManager.scrollToPositionWithOffset(key, 0);
+                        }
+                    }
+                    curChoosed = (int) v.getTag();
+                    indicatorAdapter.notifyDataSetChanged();
+                } catch (Exception e) {
+
+                }
+            }
+        }
+    };
+
+    private OnItemClickListener tabCheckClick = new OnItemClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (v.getTag() != null ) {
+
+            }
+        }
+    };
+
+    private void notifyIndicatorAdapter(OnItemClickListener onItemClickListener) {
         if (indicatorAdapter == null) {
             indicatorAdapter = new ListIndicatorAdapter(getContext(), indexMap);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
             linearLayoutManager.setOrientation(GridLayoutManager.HORIZONTAL);
             setLayoutManager(linearLayoutManager);
             setAdapter(indicatorAdapter);
-            indicatorAdapter.setOnItemClickListener(new OnItemClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (v.getTag() != null) {
-                        try {
-                            for (Integer key : indexMap.keySet()) {
-                                if (indexMap.get(key).equals(((TextView) v).getText())) {
-                                    recyclerView.scrollToPosition(key);
-                                    GridLayoutManager mLayoutManager =
-                                            (GridLayoutManager) recyclerView.getLayoutManager();
-                                    mLayoutManager.scrollToPositionWithOffset(key, 0);
-                                }
-                            }
-                            curChoosed = (int) v.getTag();
-                            indicatorAdapter.notifyDataSetChanged();
-                        } catch (Exception e) {
-
-                        }
-                    }
-                }
-            });
+            indicatorAdapter.setOnItemClickListener(onItemClickListener);
         } else {
             indicatorAdapter.notifyDataSetChanged();
         }
@@ -305,8 +343,9 @@ public class ListIndicatorRecycview extends RecyclerView {
     int smallTextSize = 20;
     private int color_text_common = R.color.kaola_page_index_uncheck;
     private int color_text_selected = R.color.kaola_page_index_checked;
+    public interface OnItemClickListener{
+        void onClick(View v);
+    }
 }
 
-interface OnItemClickListener{
-    void onClick(View v);
-}
+

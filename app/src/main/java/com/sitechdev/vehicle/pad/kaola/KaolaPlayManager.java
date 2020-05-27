@@ -5,7 +5,9 @@ import android.content.Context;
 import android.util.Log;
 
 import com.kaolafm.opensdk.OpenSDK;
+import com.kaolafm.opensdk.ResType;
 import com.kaolafm.opensdk.api.operation.OperationRequest;
+import com.kaolafm.opensdk.api.operation.model.category.Category;
 import com.kaolafm.opensdk.api.operation.model.column.Column;
 import com.kaolafm.opensdk.api.operation.model.column.ColumnGrp;
 import com.kaolafm.opensdk.api.scene.AccScene;
@@ -66,6 +68,11 @@ public class KaolaPlayManager {
         SITEV_NEWS, CHILD_PAPERS, CAR_FUN, LIFE_ALL
     }
     private boolean isLoadingData = false;
+
+    public void getkaolaCategory(HttpCallback<List<Category>> callback) {
+        new OperationRequest().getCategoryTree(ResType.TYPE_ALBUM, callback);
+    }
+
     public void acquireKaolaData() {
         if (isLoadingData) {
             return;
