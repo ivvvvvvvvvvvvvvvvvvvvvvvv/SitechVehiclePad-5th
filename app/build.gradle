@@ -104,6 +104,12 @@ android {
         pickFirst 'lib/arm64-v8a/libc++_shared.so'
         pickFirst 'lib/armeabi/libc++_shared.so'
     }
+
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
 }
 
 dependencies {
@@ -187,6 +193,6 @@ android.applicationVariants.all { variant ->
     apkProvider.forEach { apkData ->
         def isRelease = "release".equalsIgnoreCase(variant.buildType.name)
 //        apkData.outputFileName = fileName + (isRelease ? "_Release_" : "_Test_") + "${variant.productFlavors[0].name}_v" + versionName + ".apk"
-        apkData.outputFileName = fileName + (isRelease ? "_Release_" : "_Test_") + "_v" + versionName + ".apk"
+        apkData.outputFileName = fileName + (isRelease ? "_Release_" : "_Test") + "_v" + versionName + ".apk"
     }
 }
