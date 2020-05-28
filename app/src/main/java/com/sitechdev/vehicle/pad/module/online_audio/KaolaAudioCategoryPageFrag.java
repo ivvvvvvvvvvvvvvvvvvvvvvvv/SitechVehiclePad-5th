@@ -4,12 +4,14 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 
 import com.kaolafm.opensdk.api.BasePageResult;
 import com.kaolafm.opensdk.api.operation.OperationRequest;
 import com.kaolafm.opensdk.api.operation.model.category.AlbumCategoryMember;
 import com.kaolafm.opensdk.api.operation.model.category.Category;
 import com.kaolafm.opensdk.api.operation.model.category.CategoryMember;
+import com.kaolafm.opensdk.api.operation.model.category.LeafCategory;
 import com.kaolafm.opensdk.http.core.HttpCallback;
 import com.kaolafm.opensdk.http.error.ApiException;
 import com.sitechdev.vehicle.lib.util.Constant;
@@ -36,15 +38,18 @@ import java.util.List;
 public class KaolaAudioCategoryPageFrag extends BaseFragment {
     private RecyclerView recyclerView;
     private ListIndicatorRecycview indecator;
-    private KaolaAICategoryListAdapter adapter ;
+    private KaolaAICategoryListAdapter adapter;
+    private TextView curSelectChannel;
+
     @Override
     protected int getLayoutId() {
-        return R.layout.audio_kaola_sub_frame;
+        return R.layout.audio_kaola_category_frame;
     }
 
     @Override
     protected void initView(Bundle savedInstanceState) {
         indecator = mContentView.findViewById(R.id.indicator);
+        curSelectChannel = mContentView.findViewById(R.id.cur_select_channel);
         recyclerView = mContentView.findViewById(R.id.recyclerView);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 1);
         gridLayoutManager.setOrientation(GridLayoutManager.HORIZONTAL);
@@ -66,6 +71,9 @@ public class KaolaAudioCategoryPageFrag extends BaseFragment {
                     mCategories = categories;
                     List<Indexable> indexs = new ArrayList<>();
                     for (int i = 0; i < categories.size(); i++) {
+                        if (!(categories.get(i) instanceof LeafCategory)) {
+                            continue;
+                        }
                         int finalI = i;
                         Indexable indexable = new Indexable() {
                             @Override
@@ -74,14 +82,16 @@ public class KaolaAudioCategoryPageFrag extends BaseFragment {
                             }
                         };
                         indexs.add(indexable);
+                        if (indexs.size() > 3) {
+                            break;
+                        }
                     }
-                    indecator.setChoose(0);
                     indecator.setupWithData(indexs, new ListIndicatorRecycview.OnItemClickListener() {
                         @Override
                         public void onClick(View v) {
                             try {
                                 int pos = (Integer) v.getTag();
-                                indecator.setChoose(pos);
+                                curSelectChannel.setText(mCategories.get((Integer) v.getTag()).getName());
                                 getCategoryAblum(mCategories.get((Integer) v.getTag()));
                             } catch (Exception e) {
 
@@ -90,6 +100,7 @@ public class KaolaAudioCategoryPageFrag extends BaseFragment {
                     });
                     //初始化分类专辑数据
                     getCategoryAblum(mCategories.get(0));
+                    curSelectChannel.setText(mCategories.get(0).getName());
                 }
 
                 @Override
