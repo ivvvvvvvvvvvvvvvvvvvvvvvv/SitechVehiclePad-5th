@@ -139,6 +139,7 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
             mColumnMember = (ColumnMember) intent.getSerializableExtra(Constant.KEY_MEMBER_CODE);
             ColumnMemberMamager.SingltonHolder.INSTANCE.mColumnMember = mColumnMember;
             mRadioDetailColumnMember = (RadioDetailColumnMember) mColumnMember;
+            mCurPosition = 0;
             requestKaoLaInfo();
         } else {
             mColumnMember = ColumnMemberMamager.SingltonHolder.INSTANCE.mColumnMember;
