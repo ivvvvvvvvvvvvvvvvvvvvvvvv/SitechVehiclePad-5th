@@ -1,5 +1,6 @@
 package com.sitechdev.vehicle.pad.module.member;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,6 +19,7 @@ import com.sitechdev.vehicle.pad.manager.UserManager;
 import com.sitechdev.vehicle.pad.module.member.bean.TotalPointsBean;
 import com.sitechdev.vehicle.pad.module.member.util.MemberHttpUtil;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
+import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.view.ReflectTextView;
 
 /**
@@ -92,6 +94,8 @@ public class MemberPreActivity extends BaseActivity {
         mMySignChangeRelaLayoutView.setOnClickListener(this);
         //签到
         mSignBtnRelaLayoutView.setOnClickListener(this);
+        //积分数量
+        mUserSignView.setOnClickListener(this);
         //我的积分
         mMySignRelaLayoutView.setOnClickListener(this);
         //退出登录
@@ -107,7 +111,7 @@ public class MemberPreActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         refreshView();
-
+        //请求积分
         requestPoints();
     }
 
@@ -124,14 +128,14 @@ public class MemberPreActivity extends BaseActivity {
         // 描述
         mUserDescView.setText(UserManager.getInstance().getLoginUserBean().getJob());
         //积分数量
-        mUserSignView.setText(UserManager.getInstance().getLoginUserBean().getReferralCode());
+        mUserSignView.setText(UserManager.getInstance().getLoginUserBean().getPoints());
     }
 
     /**
      * 请求积分
      */
     private void requestPoints() {
-        showProgressDialog();
+//        showProgressDialog();
         MemberHttpUtil.requestUserPoints(new BaseBribery() {
             @Override
             public void onSuccess(Object successObj) {
@@ -140,8 +144,9 @@ public class MemberPreActivity extends BaseActivity {
                     return;
                 }
                 mTotalPointsBean = (TotalPointsBean) successObj;
+                UserManager.getInstance().getLoginUserBean().setPoints(mTotalPointsBean.getIntegral());
                 runOnUiThread(() -> {
-                    cancelProgressDialog();
+//                    cancelProgressDialog();
                     mUserSignView.setText(mTotalPointsBean.getIntegral());
                 });
             }
@@ -149,9 +154,9 @@ public class MemberPreActivity extends BaseActivity {
             @Override
             public void onFailure(Object failObj) {
                 super.onFailure(failObj);
-                runOnUiThread(() -> {
-                    cancelProgressDialog();
-                });
+//                runOnUiThread(() -> {
+//                    cancelProgressDialog();
+//                });
             }
         });
     }
@@ -171,11 +176,17 @@ public class MemberPreActivity extends BaseActivity {
             //签到
             case R.id.id_sign_btn:
                 break;
-            //我的积分
+            case R.id.id_tv_sign_count_number:
+                //我的积分
             case R.id.id_sign_count_top_content:
+                RouterUtils.getInstance().navigation(RouterConstants.SUB_APP_MY_POINTS);
                 break;
             //退出登录
             case R.id.id_logout:
+                UserManager.getInstance().logoutUser();
+                RouterUtils.getInstance().navigationWithFlags(RouterConstants.HOME_MAIN,
+                        Intent.FLAG_ACTIVITY_NEW_TASK, Intent.FLAG_ACTIVITY_CLEAR_TASK, Intent.FLAG_ACTIVITY_CLEAR_TOP
+                );
                 break;
             default:
                 break;

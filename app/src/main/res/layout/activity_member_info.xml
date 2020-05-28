@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/main_bg_land">
 
     <include layout="@layout/common_title_toolbar" />
@@ -136,7 +137,8 @@
                 android:layout_below="@id/id_sign_count_top_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="70px"
-                android:text="1122"
+                android:text="0"
+                tools:text="1122"
                 android:textColor="#ffffff"
                 android:textSize="68px" />
 
@@ -257,7 +259,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginLeft="30px"
             android:layout_marginTop="24px"
-            android:background="@drawable/bg_logout"
+            android:background="@drawable/bg_window_logout"
             android:gravity="center_horizontal">
 
             <TextView

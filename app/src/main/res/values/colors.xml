@@ -99,4 +99,14 @@
     <color name="color_all_app_title_text">#FFFFFF</color>
     <color name="kaola_page_index_checked">#FF98A7D1</color>
     <color name="kaola_page_index_uncheck">#FF5A6997</color>
+
+    <!--  我的积分页面颜色值  -->
+    <color name="color_my_point_left_number_text">#FFFFFF</color>
+    <color name="color_my_point_left_number_desc_text">#99FFFFFF</color>
+    <color name="color_my_point_recycle_title_text">#586C96</color>
+    <color name="color_my_point_recycle_date_text">#586C96</color>
+    <color name="color_my_point_recycle_split_line">#33FFFFFF</color>
+    <color name="color_my_point_recycle_number_text">#019EEA</color>
+
+
 </resources>

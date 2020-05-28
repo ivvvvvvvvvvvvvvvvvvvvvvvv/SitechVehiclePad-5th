@@ -1,12 +1,15 @@
 package com.sitechdev.vehicle.pad.module.member;
 
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
+import com.sitechdev.vehicle.lib.util.DensityUtils;
 import com.sitechdev.vehicle.lib.util.NetworkUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.ThreadUtils;
@@ -15,11 +18,15 @@ import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.app.AppConst;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.callback.BaseBribery;
+import com.sitechdev.vehicle.pad.manager.UserManager;
+import com.sitechdev.vehicle.pad.module.login.bean.util.MemberHttpUtil;
 import com.sitechdev.vehicle.pad.module.member.adapter.PointDataItemAdapter;
 import com.sitechdev.vehicle.pad.module.member.bean.PointsInfoBean;
 import com.sitechdev.vehicle.pad.module.member.bean.TotalPointsBean;
-import com.sitechdev.vehicle.pad.module.login.bean.util.MemberHttpUtil;
+import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.view.CommonToast;
+import com.sitechdev.vehicle.pad.view.RecycleViewDivider;
+import com.sitechdev.vehicle.pad.view.ReflectTextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,13 +40,15 @@ import java.util.List;
  * 修改时间：
  * 备注：
  */
+@Route(path = RouterConstants.SUB_APP_MY_POINTS)
 public class MyPointActivity extends BaseActivity {
     private RecyclerView mPoiRecycleView = null;
-    private TextView pointView = null;
+    private ReflectTextView myPointsView = null;
     private PointDataItemAdapter mAdapter = null;
     private TwinklingRefreshLayout refreshLayout = null;
     private int pageIndex = 0;
     private List<PointsInfoBean.PointsDataBean.PointsListBean> mPointsList = new ArrayList<>();
+    private TextView tvTitle;
 
     @Override
     protected int getLayoutId() {
@@ -49,20 +58,20 @@ public class MyPointActivity extends BaseActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
+        tvTitle = findViewById(R.id.tv_sub_title);
 
+        myPointsView = findViewById(R.id.id_tv_sign_count_number);
 
-        pointView = findViewById(R.id.id_tv_point_count);
+        refreshLayout = findViewById(R.id.id_points_refresh_layout);
 
-        refreshLayout = findViewById(R.id.id_point_refresh_layout);
-
-        mPoiRecycleView = findViewById(R.id.id_point_recycle_view);
+        mPoiRecycleView = findViewById(R.id.id_points_recycle_view);
     }
 
     @Override
     protected void initListener() {
         super.initListener();
 
-        findViewById(R.id.id_img_back).setOnClickListener(v -> {
+        findViewById(R.id.iv_sub_back).setOnClickListener(v -> {
             finish();
         });
         refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
@@ -83,13 +92,20 @@ public class MyPointActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        tvTitle.setText("我的积分");
+        //积分数量
+        myPointsView.setText(UserManager.getInstance().getLoginUserBean().getPoints());
         //poi数据
         mAdapter = new PointDataItemAdapter(this);
-        //设置适配器
-        mPoiRecycleView.setAdapter(mAdapter);
         //设置布局管理器 , 将布局设置成纵向
         LinearLayoutManager linerLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mPoiRecycleView.setLayoutManager(linerLayoutManager);
+        mPoiRecycleView.setItemAnimator(new DefaultItemAnimator());
+        mPoiRecycleView.addItemDecoration(new RecycleViewDivider(this,  DensityUtils.dp2px(1),
+                getResources().getColor(R.color.color_my_point_recycle_split_line)));
+        mPoiRecycleView.setHasFixedSize(true);
+        //设置适配器
+        mPoiRecycleView.setAdapter(mAdapter);
     }
 
     @Override
@@ -118,7 +134,7 @@ public class MyPointActivity extends BaseActivity {
                 if (pointsBean != null) {
                     String myPoint = pointsBean.getIntegral();
                     ThreadUtils.runOnUIThread(() -> {
-                        pointView.setText(myPoint);
+                        myPointsView.setText(myPoint);
                     });
                 }
             }

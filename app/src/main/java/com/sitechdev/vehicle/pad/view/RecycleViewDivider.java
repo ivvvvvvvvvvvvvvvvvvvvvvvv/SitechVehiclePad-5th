@@ -9,8 +9,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.sitechdev.vehicle.pad.module.music.adapter.LocalMusicAdapter;
-
 /**
  * @author zhubaoqiang
  * @date 2019/8/24
@@ -20,7 +18,7 @@ public class RecycleViewDivider extends RecyclerView.ItemDecoration {
     private Paint mPaint;
     private int mDividerHeight = 2;//分割线高度，默认为1px
     private Path mPath;
-//    private PathEffect mPathEffect;
+    //    private PathEffect mPathEffect;
     private RecyclerView.Adapter adapter;
     private int checkedClor;
     private int normalClor;
@@ -44,6 +42,24 @@ public class RecycleViewDivider extends RecyclerView.ItemDecoration {
         mPaint.setStrokeWidth(mDividerHeight);
 //        mPathEffect = new DashPathEffect(new float[]{mDividerHeight * 2, mDividerHeight * 2},0);
         this.checkedClor = checkedColor;
+    }
+
+    /**
+     * 自定义分割线
+     *
+     * @param context
+     * @param dividerHeight 分割线高度
+     * @param dividerColor  分割线颜色
+     */
+    public RecycleViewDivider(Context context, int dividerHeight, int dividerColor) {
+        this.adapter = adapter;
+        mDividerHeight = dividerHeight;
+        mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        this.normalClor = dividerColor;
+        mPaint.setColor(Color.TRANSPARENT);
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPath = new Path();
+        mPaint.setStrokeWidth(mDividerHeight);
     }
 
 
@@ -78,7 +94,7 @@ public class RecycleViewDivider extends RecyclerView.ItemDecoration {
 //                    canvas.drawPath(mPath, mPaint);
 //                    mPaint.setPathEffect(null);
 //                    mPaint.setStrokeWidth(mDividerHeight);
-//                    mPaint.setColor(normalClor);
+                    mPaint.setColor(normalClor);
 //                }else {
 //                    canvas.drawPath(mPath, mPaint);
 //                }

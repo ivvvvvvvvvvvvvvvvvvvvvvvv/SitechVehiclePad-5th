@@ -17,6 +17,10 @@ public interface RouterConstants {
      */
     String SUB_APP_MEMBER = "/subApp/member";
     /**
+     * 我的积分页面
+     */
+    String SUB_APP_MY_POINTS = "/subApp/MyPoints";
+    /**
      * 车辆状态页面
      */
     String SUB_APP_CAR_STATUS = "/subApp/carstatus";

@@ -65,6 +65,7 @@ public class LoginUserBean implements Serializable {
     private String deviceType;
     private String userId;
     private String mobile;
+    private String points;
     private boolean mobileVerified;
     private String email;
     private boolean emailVerified;
@@ -194,6 +195,14 @@ public class LoginUserBean implements Serializable {
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
+    }
+
+    public String getPoints() {
+        return points;
+    }
+
+    public void setPoints(String points) {
+        this.points = points;
     }
 
     public boolean isMobileVerified() {

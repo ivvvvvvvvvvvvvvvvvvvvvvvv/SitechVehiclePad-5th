@@ -1,86 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/id_rl_root"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#12173D"
-    android:paddingLeft="118px"
-    android:paddingRight="244px">
+    android:background="@drawable/main_bg_land">
 
-    <ImageView
-        android:id="@+id/id_img_back"
-        android:layout_width="34px"
-        android:layout_height="58px"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="138px"
-        android:src="@drawable/ico_back" />
+    <include layout="@layout/common_title_toolbar" />
 
     <RelativeLayout
-        android:id="@+id/id_point_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="102px"
-        android:layout_marginTop="134px"
-        android:layout_toRightOf="@id/id_img_back"
-        android:includeFontPadding="false"
-        android:orientation="horizontal">
+        android:id="@+id/id_points_left_content"
+        android:layout_width="608px"
+        android:layout_height="498px"
+        android:layout_marginStart="127px"
+        android:layout_marginTop="267px"
+        android:layout_marginEnd="127px"
+        android:background="@drawable/bg_member_info_border"
+        android:paddingLeft="102px"
+        android:paddingRight="102px">
 
         <ImageView
-            android:id="@+id/id_img_money"
-            android:layout_width="328px"
-            android:layout_height="350px"
-            android:layout_alignParentRight="true"
-            android:scaleType="fitXY"
-            android:src="@drawable/ico_point_money" />
+            android:id="@+id/id_sign_tag"
+            android:layout_width="115px"
+            android:layout_height="115px"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="90px"
+            android:src="@drawable/icon_my_points" />
 
-        <TextView
-            android:id="@+id/id_point_title"
+        <com.sitechdev.vehicle.pad.view.ReflectTextView
+            android:id="@+id/id_tv_sign_count_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:includeFontPadding="false"
-            android:singleLine="true"
-            android:text="我的积分"
-            android:textColor="@android:color/white"
-            android:textSize="60px" />
+            android:layout_below="@id/id_sign_tag"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="54px"
+            android:text="0"
+            android:textColor="@color/color_my_point_left_number_text"
+            android:textSize="68px"
+            tools:text="1122" />
 
         <TextView
-            android:id="@+id/id_tv_point_count"
+            android:id="@+id/id_sign_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/id_point_title"
-            android:layout_alignParentLeft="true"
-            android:layout_marginTop="111px"
-            android:includeFontPadding="false"
-            android:singleLine="true"
-            android:textColor="#239CE2"
-            android:textSize="120px" />
-
-        <TextView
-            android:id="@+id/id_tv_point_desc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/id_tv_point_count"
-            android:layout_alignParentLeft="true"
-            android:layout_marginTop="48px"
-            android:includeFontPadding="false"
-            android:singleLine="true"
+            android:layout_below="@id/id_tv_sign_count_number"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="20px"
+            android:layout_marginTop="-40px"
             android:text="可用积分（个）"
-            android:textColor="#838BA6"
-            android:textSize="38px" />
+            android:textColor="@color/color_my_point_left_number_desc_text"
+            android:textSize="36px" />
     </RelativeLayout>
 
     <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
-        android:id="@+id/id_point_refresh_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/id_point_info"
+        android:id="@+id/id_points_refresh_layout"
+        android:layout_width="850px"
+        android:layout_height="498px"
         android:layout_marginLeft="104px"
-        android:layout_marginTop="74px"
-        android:layout_toRightOf="@id/id_img_back">
+        android:layout_marginTop="267px"
+        android:layout_toRightOf="@id/id_points_left_content">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/id_point_recycle_view"
+            android:id="@+id/id_points_recycle_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
