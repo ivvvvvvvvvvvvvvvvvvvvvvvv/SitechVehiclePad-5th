@@ -11,6 +11,7 @@ import com.sitechdev.vehicle.pad.bean.RefreshTokenBean;
 import com.sitechdev.vehicle.pad.bean.UserBean;
 import com.sitechdev.vehicle.pad.event.AppEvent;
 import com.sitechdev.vehicle.pad.manager.UserManager;
+import com.sitechdev.vehicle.pad.module.login.bean.LoginUserBean;
 import com.sitechdev.vehicle.pad.net.util.HttpUtil;
 
 import org.json.JSONObject;
@@ -59,6 +60,11 @@ public class SitechResponseInterceptor implements Interceptor {
                 oldToken = UserManager.getInstance().getUserToken();
                 SitechDevLog.d(AppConst.TAG, this + "响应报错403 需要刷新Token流程 ==threadID=" + Thread.currentThread().getId()
                         + " , oldToken = " + oldToken);
+                if (StringUtils.isEmpty(oldToken)) {
+                    //token为空，需要登录
+                    //重新请求
+                    return response;
+                }
                 //如果本次请求是refreshToken的请求，则退出响应处理。跳转登录页面
                 if (request != null && HttpUtil.formatUserFinalRequestUrl(AppUrlConst.URL_REFRESHTOKEN).equals(request.url())) {
                     EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_RELOGIN));
@@ -122,7 +128,7 @@ public class SitechResponseInterceptor implements Interceptor {
             switch (refreshTokenData.getCode()) {
                 case AppUrlConst.HTTP_CODE_200:
                     //刷新用户信息内容
-                    UserBean data = UserManager.getInstance().getUser();
+                    LoginUserBean data = UserManager.getInstance().getLoginUserBean();
                     //对旧TOKEN重新赋值
                     oldToken = refreshTokenData.getData().getAccessToken();
                     data.getCredential().setAccessToken(refreshTokenData.getData().getAccessToken());

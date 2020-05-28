@@ -27,6 +27,7 @@ import com.sitechdev.vehicle.pad.bean.UserBean;
 import com.sitechdev.vehicle.pad.callback.BaseBribery;
 import com.sitechdev.vehicle.pad.event.AppEvent;
 import com.sitechdev.vehicle.pad.manager.UserManager;
+import com.sitechdev.vehicle.pad.module.login.bean.LoginUserBean;
 import com.sitechdev.vehicle.pad.module.login.util.LoginHttpUtil;
 import com.sitechdev.vehicle.pad.view.CommonToast;
 
@@ -199,7 +200,7 @@ public class LoginActivity extends BaseActivity {
                                 SitechDevLog.i(AppConst.TAG, "请求成功   onSuccess====>" + successObj);
                                 ThreadUtils.runOnUIThread(() -> {
                                     cancelProgressDialog();
-                                    UserManager.getInstance().saveUserInfo((UserBean) successObj);
+                                    UserManager.getInstance().saveUserInfo((LoginUserBean) successObj);
                                     //发出登录成功事件
                                     EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_LOGIN_SUCCESS));
                                     //结束

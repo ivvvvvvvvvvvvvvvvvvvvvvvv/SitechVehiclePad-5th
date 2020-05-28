@@ -56,6 +56,7 @@
     <color name="colo_D2D2D2">#D2D2D2</color>
     <color name="colo_FF6E6E80">#FF6E6E80</color>
 
+    <color name="edit_color">#284056</color>
     <!--  首页部分颜色值  -->
     <color name="color_main_login_text">#FFFFFF</color>
 

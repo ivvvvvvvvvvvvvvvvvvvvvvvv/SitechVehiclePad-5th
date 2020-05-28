@@ -24,7 +24,6 @@ import com.sitechdev.vehicle.pad.manager.CommonTopWindowManager;
 import com.sitechdev.vehicle.pad.manager.UserManager;
 import com.sitechdev.vehicle.pad.module.main.MainActivity;
 import com.sitechdev.vehicle.pad.module.member.bean.PointsSigninBean;
-import com.sitechdev.vehicle.pad.module.member.util.MemberHttpUtil;
 import com.sitechdev.vehicle.pad.view.CommonToast;
 
 /**
@@ -76,7 +75,7 @@ public class MemberActivity extends BaseActivity {
     protected void initData() {
         try {
             if (UserManager.getInstance().getLoginUserBean() != null) {
-                Glide.with(MemberActivity.this).load(UserManager.getInstance().getLoginUserBean().avatarUrl)
+                Glide.with(MemberActivity.this).load(UserManager.getInstance().getLoginUserBean().getAvatarUrl())
                         .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                         .into(mMemberLogoView);
             } else {
@@ -158,42 +157,42 @@ public class MemberActivity extends BaseActivity {
             CommonToast.showToast(getString(R.string.tip_no_net));
             return;
         }
-        showProgressDialog();
-        MemberHttpUtil.requestSignInAccount(new BaseBribery() {
-            @Override
-            public void onSuccess(Object successObj) {
-                ThreadUtils.runOnUIThread(() -> {
-                    cancelProgressDialog();
-                });
-                PointsSigninBean mPointsSignBean = (PointsSigninBean) successObj;
-                if (mPointsSignBean != null) {
-                    UserManager.getInstance().setPointsSigninBean(mPointsSignBean);
-                }
-                if (HttpCode.HTTP_OK.equals(mPointsSignBean.code)) {
-                    if ("-1".equalsIgnoreCase(mPointsSignBean.data.getIntegral())) {
-                        //已签到，签到成功
-                        ThreadUtils.runOnUIThread(() -> {
-                            mMemberQDView.setText("已签到");
-                            CommonToast.showToast(getString(R.string.personal_point_ed_message));
-                        });
-                    } else {
-                        String pt = mPointsSignBean.data.getIntegral();
-                        ThreadUtils.runOnUIThread(() -> {
-                            mMemberQDView.setText("已签到");
-                            CommonToast.showToast(R.drawable.ico_mypoint, getString(R.string.personal_point_sign_success_message, pt));
-                        });
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Object failObj) {
-                super.onFailure(failObj);
-                ThreadUtils.runOnUIThread(() -> {
-                    cancelProgressDialog();
-                    CommonToast.showToast("请求失败，请稍候重试。");
-                });
-            }
-        });
+//        showProgressDialog();
+//        MemberHttpUtil.requestSignInAccount(new BaseBribery() {
+//            @Override
+//            public void onSuccess(Object successObj) {
+//                ThreadUtils.runOnUIThread(() -> {
+//                    cancelProgressDialog();
+//                });
+//                PointsSigninBean mPointsSignBean = (PointsSigninBean) successObj;
+//                if (mPointsSignBean != null) {
+//                    UserManager.getInstance().setPointsSigninBean(mPointsSignBean);
+//                }
+//                if (HttpCode.HTTP_OK.equals(mPointsSignBean.code)) {
+//                    if ("-1".equalsIgnoreCase(mPointsSignBean.data.getIntegral())) {
+//                        //已签到，签到成功
+//                        ThreadUtils.runOnUIThread(() -> {
+//                            mMemberQDView.setText("已签到");
+//                            CommonToast.showToast(getString(R.string.personal_point_ed_message));
+//                        });
+//                    } else {
+//                        String pt = mPointsSignBean.data.getIntegral();
+//                        ThreadUtils.runOnUIThread(() -> {
+//                            mMemberQDView.setText("已签到");
+//                            CommonToast.showToast(R.drawable.ico_mypoint, getString(R.string.personal_point_sign_success_message, pt));
+//                        });
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Object failObj) {
+//                super.onFailure(failObj);
+//                ThreadUtils.runOnUIThread(() -> {
+//                    cancelProgressDialog();
+//                    CommonToast.showToast("请求失败，请稍候重试。");
+//                });
+//            }
+//        });
     }
 }

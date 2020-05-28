@@ -18,7 +18,7 @@ import com.sitechdev.vehicle.pad.callback.BaseBribery;
 import com.sitechdev.vehicle.pad.module.member.adapter.PointDataItemAdapter;
 import com.sitechdev.vehicle.pad.module.member.bean.PointsInfoBean;
 import com.sitechdev.vehicle.pad.module.member.bean.TotalPointsBean;
-import com.sitechdev.vehicle.pad.module.member.util.MemberHttpUtil;
+import com.sitechdev.vehicle.pad.module.login.bean.util.MemberHttpUtil;
 import com.sitechdev.vehicle.pad.view.CommonToast;
 
 import java.util.ArrayList;

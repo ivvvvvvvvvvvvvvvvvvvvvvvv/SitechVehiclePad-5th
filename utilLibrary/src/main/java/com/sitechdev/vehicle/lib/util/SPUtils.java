@@ -25,37 +25,39 @@ public class SPUtils {
      * 保存数据的方法
      */
     public static boolean setData(Context context, String key, Object object) {
-        if (object != null && null != context) {
-            String type = object.getClass().getSimpleName();
-            SharedPreferences sp = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sp.edit();
-            if ("String".equals(type)) {
-                editor.putString(key, (String) object);
-            } else if ("Integer".equals(type)) {
-                editor.putInt(key, (Integer) object);
-            } else if ("Boolean".equals(type)) {
-                editor.putBoolean(key, (Boolean) object);
-            } else if ("Float".equals(type)) {
-                editor.putFloat(key, (Float) object);
-            } else if ("Long".equals(type)) {
-                editor.putLong(key, (Long) object);
-            }
-            return editor.commit();
-        }
-        return false;
+//        if (object != null && null != context) {
+//            String type = object.getClass().getSimpleName();
+//            SharedPreferences sp = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+//            SharedPreferences.Editor editor = sp.edit();
+//            if ("String".equals(type)) {
+//                editor.putString(key, (String) object);
+//            } else if ("Integer".equals(type)) {
+//                editor.putInt(key, (Integer) object);
+//            } else if ("Boolean".equals(type)) {
+//                editor.putBoolean(key, (Boolean) object);
+//            } else if ("Float".equals(type)) {
+//                editor.putFloat(key, (Float) object);
+//            } else if ("Long".equals(type)) {
+//                editor.putLong(key, (Long) object);
+//            }
+//            return editor.commit();
+//        }
+        ParamsUtil.setData(key,object);
+        return true;
     }
 
     /**
      * 清除数据的方法
      */
     public static void clearData(Context context, String key) {
-        if (null == context) {
-            return;
-        }
-        SharedPreferences sp = context.getApplicationContext()
-                .getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.remove(key).apply();
+//        if (null == context) {
+//            return;
+//        }
+//        SharedPreferences sp = context.getApplicationContext()
+//                .getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = sp.edit();
+//        editor.remove(key).apply();
+        ParamsUtil.removeValue(key);
     }
 
     /**
@@ -67,21 +69,21 @@ public class SPUtils {
      * @return
      */
     public static Object getData(Context context, String key, Object defaultObject) {
-        String type = defaultObject.getClass().getSimpleName();
-        SharedPreferences sp = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
-
-        if ("String".equals(type)) {
-            return sp.getString(key, (String) defaultObject);
-        } else if ("Integer".equals(type)) {
-            return sp.getInt(key, (Integer) defaultObject);
-        } else if ("Boolean".equals(type)) {
-            return sp.getBoolean(key, (Boolean) defaultObject);
-        } else if ("Float".equals(type)) {
-            return sp.getFloat(key, (Float) defaultObject);
-        } else if ("Long".equals(type)) {
-            return sp.getLong(key, (Long) defaultObject);
-        }
-        return null;
+//        String type = defaultObject.getClass().getSimpleName();
+//        SharedPreferences sp = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+//
+//        if ("String".equals(type)) {
+//            return sp.getString(key, (String) defaultObject);
+//        } else if ("Integer".equals(type)) {
+//            return sp.getInt(key, (Integer) defaultObject);
+//        } else if ("Boolean".equals(type)) {
+//            return sp.getBoolean(key, (Boolean) defaultObject);
+//        } else if ("Float".equals(type)) {
+//            return sp.getFloat(key, (Float) defaultObject);
+//        } else if ("Long".equals(type)) {
+//            return sp.getLong(key, (Long) defaultObject);
+//        }
+        return ParamsUtil.getBeanData(key);
     }
 
     /**
@@ -92,11 +94,12 @@ public class SPUtils {
      * @param saveObject 储存的对象
      */
     public static void save(Context context, String key, Object saveObject) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        String string = object2String(saveObject);
-        editor.putString(key, string);
-        editor.commit();
+//        SharedPreferences sharedPreferences = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
+//        String string = object2String(saveObject);
+//        editor.putString(key, string);
+//        editor.commit();
+        ParamsUtil.setData(key,saveObject);
     }
 
     /**
@@ -107,14 +110,15 @@ public class SPUtils {
      * @return object 返回根据key得到的对象
      */
     public static Object get(Context context, String key) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
-        String string = sharedPreferences.getString(key, null);
-        if (string != null) {
-            Object object = string2Object(string);
-            return object;
-        } else {
-            return null;
-        }
+//        SharedPreferences sharedPreferences = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+//        String string = sharedPreferences.getString(key, null);
+//        if (string != null) {
+//            Object object = string2Object(string);
+//            return object;
+//        } else {
+//            return null;
+//        }
+        return ParamsUtil.getBeanData(key);
     }
 
     /**

@@ -2,13 +2,12 @@ package com.sitechdev.vehicle.pad.manager;
 
 import android.util.Base64;
 
+import com.blankj.utilcode.util.EncodeUtils;
 import com.sitechdev.net.GsonUtils;
-import com.sitechdev.vehicle.lib.util.SPUtils;
+import com.sitechdev.vehicle.lib.util.ParamsUtil;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.StringUtils;
-import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.app.AppConst;
-import com.sitechdev.vehicle.pad.bean.UserBean;
 import com.sitechdev.vehicle.pad.module.login.bean.LoginUserBean;
 import com.sitechdev.vehicle.pad.module.member.bean.PointsSigninBean;
 
@@ -22,9 +21,6 @@ import com.sitechdev.vehicle.pad.module.member.bean.PointsSigninBean;
  * 备注：
  */
 public class UserManager {
-
-    private UserBean mUser = null;
-    private boolean hasCar = false;
 
     /**
      * 第三方登录授权接口处理后返回的relationId，如：微信code授权接口，返回的relationId，使用该id与微信用户进行关联绑定
@@ -50,28 +46,29 @@ public class UserManager {
         return Single.singleUserManager;
     }
 
-    public UserBean getUser() {
-        if (mUser == null) {
-            mUser = GsonUtils.jsonToBean(getLocalUserInfo(), UserBean.class);
-        }
-        if (mUser == null) {
-            mUser = new UserBean();
-        }
-        return mUser;
+    /**
+     * 获取userBean对象
+     *
+     * @deprecated 请使用  {@link getLoginUserBean}
+     */
+    public LoginUserBean getUser() {
+        return getLoginUserBean();
     }
 
-    public String getUserId4RestoreTag() {
-        String tag = getUser().getUserId();
-        if (StringUtils.isEmpty(tag)) {
-            tag = "temp";
+    public LoginUserBean getLoginUserBean() {
+        if (loginUserBean == null) {
+            loginUserBean = GsonUtils.jsonToBean(getLocalUserInfo(), LoginUserBean.class);
         }
-        return tag;
+        if (loginUserBean == null) {
+            loginUserBean = new LoginUserBean();
+        }
+        return loginUserBean;
     }
 
     public String getUserToken() {
-        if (mUser != null) {
-            if (mUser.getCredential() != null && !StringUtils.isEmpty(mUser.getCredential().getAccessToken())) {
-                return mUser.getCredential().getAccessToken();
+        if (loginUserBean != null) {
+            if (loginUserBean.getCredential() != null && !StringUtils.isEmpty(loginUserBean.getCredential().getAccessToken())) {
+                return loginUserBean.getCredential().getAccessToken();
             }
         }
         return "";
@@ -89,22 +86,25 @@ public class UserManager {
 
     public void setUserClass(String userInfo) {
         try {
-            mUser = GsonUtils.jsonToBean(userInfo, UserBean.class);
+            loginUserBean = GsonUtils.jsonToBean(userInfo, LoginUserBean.class);
         } catch (Exception e) {
             SitechDevLog.exception(e);
         }
-        if (mUser == null) {
-            mUser = new UserBean();
+        if (loginUserBean == null) {
+            loginUserBean = new LoginUserBean();
         }
     }
 
+    /**
+     * 保存用户个人信息
+     */
     public void saveUserInfo(String info) {
         try {
             //请求正确响应，内存对象赋值。
             setUserClass(info);
 
             //本地清单文件保存登录用户信息
-            saveUserInfo();
+            setLoginUserBean(loginUserBean);
         } catch (Exception e) {
             SitechDevLog.exception(e);
         }
@@ -113,24 +113,14 @@ public class UserManager {
     /**
      * 保存用户个人信息
      */
-    public void saveUserInfo() {
-        saveUserInfo(getUser());
-    }
-
-    /**
-     * 保存用户个人信息
-     */
-    public void saveUserInfo(UserBean user) {
+    public void saveUserInfo(LoginUserBean user) {
         if (user == null) {
             return;
         }
-        this.mUser = user;
+        this.loginUserBean = user;
         if (isExistUserToken()) {
             try {
-                //请求正确响应，内存对象赋值。
-                String userInfo = GsonUtils.toJson(user);
-                //本地清单文件保存登录用户信息
-                writeToShareSP(AppConst.KEY_USER, Base64.encodeToString(userInfo.getBytes(), Base64.DEFAULT));
+                setLoginUserBean(loginUserBean);
             } catch (Exception e) {
                 SitechDevLog.exception(e);
             }
@@ -141,49 +131,34 @@ public class UserManager {
      * 读取用户个人信息
      */
     public String getLocalUserInfo() {
-        return new String(Base64.decode(SPUtils.getValue(AppApplication.getContext(), AppConst.KEY_USER, ""), Base64.DEFAULT));
+        String userStr = ParamsUtil.getStringData(AppConst.SP_KEY_LOGIN_USER);
+        SitechDevLog.i("Login", "userStr====>" + userStr);
+        return userStr;
     }
 
+    /**
+     * 退出登录
+     */
     public void logoutUser() {
-        try {
-//            CarManager.getInstance().setCarModelClazz(null);
-            //清掉用户缓存
-//            if (null != mUser) {
-//                mUser.getCredential().setAccessToken("");
-//                mUser.getCredential().setCmdTokenDTO(new CmdBean("", ""));
-//            }
-            mUser = new UserBean();
-            //刷新用户信息
-            removeUserInfoCache();
-        } catch (Exception e) {
-            SitechDevLog.exception(e);
-        }
+        removeUserInfoCache();
     }
 
     private void removeUserInfoCache() {
-        SPUtils.putValue(AppApplication.getContext(), AppConst.KEY_USER, "");
+        ParamsUtil.setData(AppConst.KEY_USER, "");
         setLoginUserBean(null);
         setPointsSigninBean(null);
     }
 
-    public void writeToShareSP(String key, String value) {
-        SPUtils.putValue(AppApplication.getContext(), key, value);
-    }
-
-    public String getUserRelationID() {
-        return userRelationID;
-    }
-
-    public void setUserRelationID(String userRelationID) {
-        this.userRelationID = userRelationID;
-    }
-
-    public String getUserReferralCode() {
-        return userReferralCode;
-    }
-
-    public void setUserReferralCode(String userReferralCode) {
-        this.userReferralCode = userReferralCode;
+    public void setLoginUserBean(LoginUserBean loginUserBean) {
+        this.loginUserBean = loginUserBean;
+        if (loginUserBean != null) {
+            String userStr = GsonUtils.toJson(loginUserBean);
+            SitechDevLog.i("Login", "setLoginUserBean userStr====>" + userStr);
+            //保存
+            ParamsUtil.setData(AppConst.SP_KEY_LOGIN_USER, userStr);
+        } else {
+            ParamsUtil.removeValue(AppConst.SP_KEY_LOGIN_USER);
+        }
     }
 
     public PointsSigninBean getPointsSigninBean() {
@@ -204,19 +179,5 @@ public class UserManager {
             return false;
         }
         return "-1".equals(pointsSigninBean.data.getIntegral());
-    }
-
-    public LoginUserBean getLoginUserBean() {
-        if (loginUserBean == null) {
-            //查看是否有保存的数据
-            loginUserBean = (LoginUserBean) SPUtils.get(AppApplication.getContext(), AppConst.SP_KEY_LOGIN_USER);
-        }
-        return loginUserBean;
-    }
-
-    public void setLoginUserBean(LoginUserBean loginUserBean) {
-        this.loginUserBean = loginUserBean;
-        //保存
-        SPUtils.save(AppApplication.getContext(), AppConst.SP_KEY_LOGIN_USER, (loginUserBean == null) ? "" : loginUserBean);
     }
 }

@@ -225,4 +225,11 @@ public class ParamsUtil implements MMKVHandler {
         }
     }
 
+    public static void removeValue(String key){
+        if (kvInstance == null) {
+            kvInstance = MMKV.defaultMMKV();
+        }
+        kvInstance.remove(key);
+    }
+
 }

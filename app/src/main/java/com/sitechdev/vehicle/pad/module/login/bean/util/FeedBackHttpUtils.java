@@ -1,4 +1,4 @@
-package com.sitechdev.vehicle.pad.module.member.util;
+package com.sitechdev.vehicle.pad.module.login.bean.util;
 
 import android.text.TextUtils;
 import android.util.Log;
@@ -8,11 +8,9 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.model.Response;
 import com.sitechdev.net.GsonUtils;
-import com.sitechdev.net.HttpCode;
 import com.sitechdev.net.JsonCallback;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.StringUtils;
-import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.app.AppConst;
 import com.sitechdev.vehicle.pad.app.AppUrlConst;
 import com.sitechdev.vehicle.pad.bean.BaseResponseBean;
@@ -20,7 +18,6 @@ import com.sitechdev.vehicle.pad.callback.BaseBribery;
 import com.sitechdev.vehicle.pad.manager.UserManager;
 import com.sitechdev.vehicle.pad.module.member.bean.FeedBackTypeBean;
 import com.sitechdev.vehicle.pad.net.util.HttpUtil;
-import com.sitechdev.vehicle.pad.view.CommonToast;
 
 import org.json.JSONObject;
 

@@ -69,6 +69,15 @@ public interface AppUrlConst {
      * 刷新Token认证接口
      */
     String URL_REFRESHTOKEN = "/sitechid/v2/refreshtoken";
+
+    /**
+     * 二维码登录
+     */
+    String LOGIN_GRANT = "/sitechid/v2/login-grant";
+    /**
+     * 个性化定制
+     */
+    String PERSONAL_CONFIG_URL = "/vehicle/v2/settings/items";
     /**
      * Personal car info
      * 尤金

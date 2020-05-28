@@ -9,6 +9,7 @@ import com.sitechdev.vehicle.pad.receiver.OrientationReceiver;
 import com.sitechdev.vehicle.pad.window.manager.AppSignalWindowManager;
 import com.sitechdev.vehicle.pad.window.manager.MainControlPanelWindowManager;
 import com.sitechdev.vehicle.pad.window.manager.MainMenuWindowManager;
+import com.sitechdev.vehicle.pad.window.view.PersonLoginWindow;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -45,6 +46,7 @@ public class BaseAppWindowManager {
         MainControlPanelWindowManager.getInstance().init(appApplication);
         //登录、普通Toast弹窗
         CommonTipWindowManager.getInstance().init(appApplication);
+        PersonLoginWindow.getInstance().init(appApplication);
 
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("android.intent.action.CONFIGURATION_CHANGED");

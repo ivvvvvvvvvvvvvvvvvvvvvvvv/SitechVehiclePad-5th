@@ -32,7 +32,7 @@ public abstract class BasicWindow {
         }
         if (mLayoutParams == null) {
             mLayoutParams = new WindowManager.LayoutParams();
-            mLayoutParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
+            mLayoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
             mLayoutParams.format = PixelFormat.RGBA_8888;
             mLayoutParams.flags = WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL;
             mLayoutParams.windowAnimations = R.style.sitech_window_anim;
@@ -63,6 +63,7 @@ public abstract class BasicWindow {
     }
 
     public void showWnd() {
+        hideWnd();
         if (mWindowManager != null && mView != null && !mView.isShown()) {
             mWindowManager.addView(mView, mLayoutParams);
         }
