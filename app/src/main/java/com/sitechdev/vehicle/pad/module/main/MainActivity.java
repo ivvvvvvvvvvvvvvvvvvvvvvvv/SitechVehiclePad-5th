@@ -40,6 +40,7 @@ import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.callback.BaseBribery;
 import com.sitechdev.vehicle.pad.event.AppEvent;
 import com.sitechdev.vehicle.pad.event.MapEvent;
+import com.sitechdev.vehicle.pad.event.SSOEvent;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.manager.UserManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
@@ -47,10 +48,10 @@ import com.sitechdev.vehicle.pad.manager.VoiceSourceType;
 import com.sitechdev.vehicle.pad.module.login.bean.LoginResponseBean;
 import com.sitechdev.vehicle.pad.module.login.bean.LoginUserBean;
 import com.sitechdev.vehicle.pad.module.login.util.LoginHttpUtil;
+import com.sitechdev.vehicle.pad.module.login.util.LoginUtils;
 import com.sitechdev.vehicle.pad.module.main.bean.WeatherInfoBean;
 import com.sitechdev.vehicle.pad.module.main.util.MainHttpUtils;
 import com.sitechdev.vehicle.pad.module.main.util.WeatherUtils;
-import com.sitechdev.vehicle.pad.module.online_audio.KaolaAudioActivity;
 import com.sitechdev.vehicle.pad.receiver.NetReceiver;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
@@ -62,6 +63,7 @@ import com.sitechdev.vehicle.pad.view.ScrollTextView;
 import com.sitechdev.vehicle.pad.window.manager.AppSignalWindowManager;
 import com.sitechdev.vehicle.pad.window.manager.MainControlPanelWindowManager;
 import com.sitechdev.vehicle.pad.window.manager.MainMenuWindowManager;
+import com.sitechdev.vehicle.pad.window.view.PersonLoginWindow;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -99,6 +101,8 @@ public class MainActivity extends BaseActivity
 //    private static final int KAOLA = 0;
 //    private static final int LOCAL_MUSIC = 1;
 
+    NetReceiver receiver = new NetReceiver();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,7 +121,7 @@ public class MainActivity extends BaseActivity
 //        NetManagerImpl.getInstance().initNetCallback();
         registerReceiver(receiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
-    NetReceiver receiver = new NetReceiver();
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
@@ -179,7 +183,7 @@ public class MainActivity extends BaseActivity
     @Override
     protected void initData() {
         try {
-            if (!StringUtils.isEmpty(UserManager.getInstance().getUser().getCredential().getAccessToken())) {
+            if (!StringUtils.isEmpty(UserManager.getInstance().getLoginUserBean().getCredential().getAccessToken())) {
                 LoginUserBean userBean = UserManager.getInstance().getLoginUserBean();
                 if (userBean != null) {
                     //存在用户token
@@ -220,8 +224,9 @@ public class MainActivity extends BaseActivity
     protected void onDestroy() {
         super.onDestroy();
         VoiceSourceManager.getInstance().removeMusicChangeListener(this);
-
-        unregisterReceiver(receiver);
+        if (receiver!=null){
+            unregisterReceiver(receiver);
+        }
 //        MusicManager.getInstance().removeMusicChangeListener(musicChangeListener);
     }
 
@@ -285,7 +290,7 @@ public class MainActivity extends BaseActivity
 
         @Override
         public void onDataGot(List<Column> data) {
-            
+
         }
     };
 
@@ -340,14 +345,15 @@ public class MainActivity extends BaseActivity
             case R.id.tv_login:
 //                CommonToast.makeText(this, "请登录..");
             case R.id.id_rela_login:
-//                if (UserManager.getInstance().isExistUserToken()) {
-                //已经登录，去往会员中心
-                RouterUtils.getInstance().navigation(RouterConstants.SUB_APP_MEMBER);
-//                } else {
-//                    //未登录，去往登录
+                if (LoginUtils.isLogin()) {
+                    //已经登录，去往会员中心
+                    RouterUtils.getInstance().navigation(RouterConstants.SUB_APP_MEMBER);
+                } else {
+                    //未登录，去往登录
 //                    Intent mIntent1 = new Intent(MainActivity.this, LoginActivity.class);
 //                    startActivity(mIntent1);
-//                }
+                    PersonLoginWindow.getInstance().showWnd();
+                }
                 break;
             case R.id.fl_weather:
                 RouterUtils.getInstance().navigation(RouterConstants.SUB_APP_WEATHER);
@@ -500,9 +506,9 @@ public class MainActivity extends BaseActivity
      * 退出登录的默认用户信息
      */
     private void refreshUserView(boolean isLogin, LoginUserBean userBean) {
-        tvLogin.setText(isLogin ? String.format("Hi，%s", userBean.nickName) : "立即登录");
+        tvLogin.setText(isLogin ? String.format("Hi，%s", userBean.getNickName()) : "立即登录");
         if (isLogin && userBean != null) {
-            Glide.with(MainActivity.this).load(userBean.avatarUrl)
+            Glide.with(MainActivity.this).load(userBean.getAvatarUrl())
                     .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                     .into(ivLogin);
         } else {
@@ -511,7 +517,6 @@ public class MainActivity extends BaseActivity
                     .into(ivLogin);
         }
     }
-
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMapEvent(MapEvent event) {
@@ -527,6 +532,22 @@ public class MainActivity extends BaseActivity
                 break;
         }
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onSsoEvent(SSOEvent event) {
+        SitechDevLog.i(AppConst.TAG, this + "==SSOEvent 消息==" + event.eventKey);
+        switch (event.eventKey) {
+            case SSOEvent.EB_MSG_LOGIN:
+                LoginUserBean userBean = (LoginUserBean) event.mValue;
+                //刷新个人信息
+                UserManager.getInstance().setLoginUserBean(userBean);
+                refreshUserView(true, userBean);
+                break;
+            default:
+                break;
+        }
+    }
+
 
     public void refreshWeatherView(WeatherInfoBean.DataBean dataBean) {
         tvTemperature.setText(dataBean.getTemp());
