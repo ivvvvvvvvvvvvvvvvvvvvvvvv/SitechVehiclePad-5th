@@ -46,7 +46,7 @@ android {
 
     aspectjx {
         //排除所有package路径中包含`android.support`的class文件及库（jar文件）
-        exclude 'android.support','androidx','com.google','com.squareup','com.alipay','org.apache'
+        exclude 'android.support', 'androidx', 'com.google', 'com.squareup', 'com.alipay', 'org.apache'
     }
     /*
     * 渠道Flavors，配置不同风格的app
@@ -193,6 +193,6 @@ android.applicationVariants.all { variant ->
     apkProvider.forEach { apkData ->
         def isRelease = "release".equalsIgnoreCase(variant.buildType.name)
 //        apkData.outputFileName = fileName + (isRelease ? "_Release_" : "_Test_") + "${variant.productFlavors[0].name}_v" + versionName + ".apk"
-        apkData.outputFileName = fileName + (isRelease ? "_Release_" : "_Test") + "_v" + versionName + ".apk"
+        apkData.outputFileName = fileName + (isRelease ? "_Release_v" : "_Test_v") + versionName + ".apk"
     }
 }
