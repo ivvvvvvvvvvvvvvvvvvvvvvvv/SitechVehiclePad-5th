@@ -35,9 +35,9 @@ public class TaxiSettingDialogView extends BaseDialog {
     @Override
     public void initView() {
 
-        EditText firstEdt = mDialogView.findViewById(R.id.id_edt_title_km_content);
-        EditText secondEdt = mDialogView.findViewById(R.id.id_edt_title_km_content_price);
-        EditText kmEdt = mDialogView.findViewById(R.id.id_edt_title_single_km_content);
+        firstEdt = mDialogView.findViewById(R.id.id_edt_title_km_content);
+        secondEdt = mDialogView.findViewById(R.id.id_edt_title_km_content_price);
+        kmEdt = mDialogView.findViewById(R.id.id_edt_title_single_km_content);
 
         LinearLayout saveBtn = findViewById(R.id.id_price_save_content);
         saveBtn.setOnClickListener(this);

@@ -39,7 +39,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="29px"
                 android:layout_toRightOf="@id/iv_login"
-                android:text="A欢欢"
+                android:text="立即登录"
                 android:textColor="@color/color_main_login_text"
                 android:textSize="32px" />
         </RelativeLayout>

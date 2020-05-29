@@ -7,7 +7,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 
+import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
+import com.sitechdev.vehicle.pad.event.WindowEvent;
 
 /**
  * @author 邵志
@@ -65,6 +67,11 @@ public abstract class BaseDialog extends Dialog implements View.OnClickListener 
         if (getDialogContentView() != 0) {
             setContentView(getDialogContentView());
         }
+        initView();
+
+        initListener();
+
+        initData();
     }
 
     /**
@@ -89,6 +96,6 @@ public abstract class BaseDialog extends Dialog implements View.OnClickListener 
      */
     @Override
     public void onClick(View v) {
-
+        EventBusUtils.postEvent(new WindowEvent(WindowEvent.EVENT_WINDOW_INPUT_HIDDEN_STATE));
     }
 }
