@@ -16,11 +16,13 @@ import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.callback.BaseBribery;
 import com.sitechdev.vehicle.pad.manager.UserManager;
+import com.sitechdev.vehicle.pad.module.login.util.LoginUtils;
 import com.sitechdev.vehicle.pad.module.member.bean.TotalPointsBean;
 import com.sitechdev.vehicle.pad.module.member.util.MemberHttpUtil;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.view.ReflectTextView;
+import com.sitechdev.vehicle.pad.window.view.CommonLogoutDialog;
 
 /**
  * 项目名称：SitechVehiclePad
@@ -111,24 +113,32 @@ public class MemberPreActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         refreshView();
-        //请求积分
-        requestPoints();
+        if (LoginUtils.isLogin()) {
+            //TODO 为了发布会版本做的判断处理。发布会版本暂未接入登录功能。待发布会同步登录功能后，此处判断会去掉
+            //请求积分
+            requestPoints();
+        }
     }
 
     /**
      * 刷新view
      */
     private void refreshView() {
-        // 图片
-        Glide.with(this).load(UserManager.getInstance().getLoginUserBean().getAvatarUrl())
-                .apply(RequestOptions.bitmapTransform(new CircleCrop()))
-                .into(mUserIconView);
-        // 昵称
-        mUserNameTextView.setText(String.format("Hi，%s", UserManager.getInstance().getLoginUserBean().getNickName()));
-        // 描述
-        mUserDescView.setText(UserManager.getInstance().getLoginUserBean().getJob());
         //积分数量
-        mUserSignView.setText(UserManager.getInstance().getLoginUserBean().getPoints());
+        if (LoginUtils.isLogin()) {
+            // 图片
+            Glide.with(this).load(UserManager.getInstance().getLoginUserBean().getAvatarUrl())
+                    .apply(RequestOptions.bitmapTransform(new CircleCrop()))
+                    .into(mUserIconView);
+            // 昵称
+            mUserNameTextView.setText(String.format("Hi，%s", UserManager.getInstance().getLoginUserBean().getNickName()));
+            // 描述
+            mUserDescView.setText(UserManager.getInstance().getLoginUserBean().getJob());
+            mUserSignView.setText(UserManager.getInstance().getLoginUserBean().getPoints());
+        } else {
+            //TODO 为了发布会版本做的判断处理。发布会版本暂未接入登录功能。待发布会同步登录功能后，此处判断会去掉
+            mUserSignView.setText("1208");
+        }
     }
 
     /**
@@ -179,14 +189,25 @@ public class MemberPreActivity extends BaseActivity {
             case R.id.id_tv_sign_count_number:
                 //我的积分
             case R.id.id_sign_count_top_content:
+                if (!LoginUtils.isLogin()) {
+                    return;
+                }
                 RouterUtils.getInstance().navigation(RouterConstants.SUB_APP_MY_POINTS);
                 break;
             //退出登录
             case R.id.id_logout:
-                UserManager.getInstance().logoutUser();
-                RouterUtils.getInstance().navigationWithFlags(RouterConstants.HOME_MAIN,
-                        Intent.FLAG_ACTIVITY_NEW_TASK, Intent.FLAG_ACTIVITY_CLEAR_TASK, Intent.FLAG_ACTIVITY_CLEAR_TOP
-                );
+                if (!LoginUtils.isLogin()) {
+                    return;
+                }
+                CommonLogoutDialog logoutDialog = new CommonLogoutDialog(this);
+                logoutDialog.setListener(() -> {
+                    //确定按钮被点击
+                    UserManager.getInstance().logoutUser();
+                    RouterUtils.getInstance().navigationWithFlags(RouterConstants.HOME_MAIN,
+                            Intent.FLAG_ACTIVITY_NEW_TASK, Intent.FLAG_ACTIVITY_CLEAR_TASK, Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    );
+                });
+                logoutDialog.show();
                 break;
             default:
                 break;

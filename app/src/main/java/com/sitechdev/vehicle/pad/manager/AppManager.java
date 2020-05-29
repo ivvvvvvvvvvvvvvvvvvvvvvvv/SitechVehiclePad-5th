@@ -1,6 +1,5 @@
 package com.sitechdev.vehicle.pad.manager;
 
-import com.lzy.okgo.OkGo;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.AppUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
@@ -12,7 +11,6 @@ import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppUtil;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 

@@ -1,6 +1,5 @@
 package com.sitechdev.vehicle.pad.window.view;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
@@ -10,12 +9,11 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.sitechdev.vehicle.pad.R;
+import com.sitechdev.vehicle.pad.app.BaseDialog;
 import com.sitechdev.vehicle.pad.module.taxi.enums.TaxiParamsModel;
 
-public class TaxiSettingDialogView extends Dialog implements View.OnClickListener {
+public class TaxiSettingDialogView extends BaseDialog {
 
-    private final String TAG = "TaxiSettingDialogView";
-    private View mDialogView;
     private EditText firstEdt, secondEdt, kmEdt = null;
 
     public TaxiSettingDialogView(Context context) {
@@ -24,27 +22,18 @@ public class TaxiSettingDialogView extends Dialog implements View.OnClickListene
         setCanceledOnTouchOutside(false);
     }
 
-    public TaxiSettingDialogView(Context context, int themeResId) {
-        super(context, themeResId);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mDialogView = getWindow().getDecorView().findViewById(android.R.id.content);
-        setContentView(R.layout.custom_taxi_setting_view);
-        initView();
-
-        initListener();
-
-        initData();
     }
-//
-//    public View getContentView() {
-//        return contentView;
-//    }
 
-    private void initView() {
+    @Override
+    public int getDialogContentView() {
+        return R.layout.custom_taxi_setting_view;
+    }
+
+    @Override
+    public void initView() {
 
         EditText firstEdt = mDialogView.findViewById(R.id.id_edt_title_km_content);
         EditText secondEdt = mDialogView.findViewById(R.id.id_edt_title_km_content_price);
@@ -54,10 +43,12 @@ public class TaxiSettingDialogView extends Dialog implements View.OnClickListene
         saveBtn.setOnClickListener(this);
     }
 
-    private void initListener() {
+    @Override
+    public void initListener() {
     }
 
-    private void initData() {
+    @Override
+    public void initData() {
         firstEdt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -119,7 +110,7 @@ public class TaxiSettingDialogView extends Dialog implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        boolean isActivated = false;
+        super.onClick(v);
         switch (v.getId()) {
             case R.id.id_price_save_content:
                 dismiss();
