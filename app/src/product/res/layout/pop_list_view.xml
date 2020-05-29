@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shape_bg_popwindow"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv_close_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/px_70"
+        android:layout_marginTop="@dimen/px_30"
+        android:clickable="true"
+        android:src="@drawable/icon_close_list" />
+
+    <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+        android:id="@+id/trf_detail_playlist"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:paddingBottom="50dp">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_pop_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/px_70"
+            android:background="@drawable/shape_bg_popwindow"/>
+    </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+
+</LinearLayout>

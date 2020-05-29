@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/id_poi_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_poi_singlt_border"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
+
+        <TextView
+            android:id="@+id/id_tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textColor="@color/map_poi_item_title"
+            android:textSize="14sp"
+            tools:text="路口充电站" />
+
+        <TextView
+            android:id="@+id/id_tv_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/id_tv_title"
+            android:layout_alignBaseline="@id/id_tv_title"
+            android:singleLine="true"
+            android:layout_marginLeft="2dp"
+            android:textColor="@color/map_poi_item_distance"
+            android:textSize="10sp"
+            tools:text="距离您15.5公里" />
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/id_poi_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="4dp"
+        android:layout_gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/id_ico_logo"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/poi_marker_pressed" />
+
+        <TextView
+            android:id="@+id/id_poi_index"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="4dp"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+    </FrameLayout>
+
+</RelativeLayout>

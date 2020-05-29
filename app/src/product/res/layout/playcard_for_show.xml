@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/id_rl_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60px"
+        android:layout_marginRight="60px"
+        android:layout_marginTop="20px">
+
+        <include
+            android:id="@+id/card1"
+            layout="@layout/playcard_for_show_big1"
+            android:layout_width="870px"
+            android:layout_height="361px"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true" />
+
+        <include
+            android:id="@+id/card2"
+            layout="@layout/playcard_for_show_big1"
+            android:layout_width="870px"
+            android:layout_height="361px"
+            android:layout_alignTop="@+id/card1"
+            android:layout_marginLeft="53px"
+            android:layout_toRightOf="@+id/card1" />
+
+        <include
+            android:id="@+id/card3"
+            layout="@layout/playcard_for_show_small1"
+            android:layout_width="320px"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/card1"
+            android:layout_alignLeft="@+id/card1"
+            android:layout_marginTop="40px" />
+
+        <include
+            android:id="@+id/card4"
+            layout="@layout/playcard_for_show_small1"
+            android:layout_width="320px"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/card3"
+            android:layout_marginLeft="48px"
+            android:layout_toRightOf="@+id/card3" />
+
+        <include
+            android:id="@+id/card5"
+            layout="@layout/playcard_for_show_small1"
+            android:layout_width="320px"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/card4"
+            android:layout_marginLeft="48px"
+            android:layout_toRightOf="@+id/card4" />
+
+        <include
+            android:id="@+id/card6"
+            layout="@layout/playcard_for_show_small1"
+            android:layout_width="320px"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/card5"
+            android:layout_marginLeft="48px"
+            android:layout_toRightOf="@+id/card5" />
+
+        <include
+            android:id="@+id/card7"
+            layout="@layout/playcard_for_show_small1"
+            android:layout_width="320px"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/card6"
+            android:layout_marginLeft="48px"
+            android:layout_toRightOf="@+id/card6" />
+    </RelativeLayout>
+
+</FrameLayout>

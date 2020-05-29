@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_bg"
+    android:orientation="vertical"
+    tools:context="com.sitechdev.vehicle.pad.kaola.KaolaListActivity">
+
+    <include
+        android:id="@+id/title_bar"
+        layout="@layout/common_title_bar" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_kaola_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:layout_marginLeft="@dimen/px_200"
+        android:layout_marginTop="@dimen/px_280"
+        android:layout_marginRight="@dimen/px_160"
+        ></android.support.v7.widget.RecyclerView>
+
+    <Button
+        android:id="@+id/btn_to_child"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="跳转少儿读物"
+        android:visibility="gone" />
+
+    <include
+        layout="@layout/play_status_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_151"
+        android:layout_alignParentBottom="true" />
+</RelativeLayout>

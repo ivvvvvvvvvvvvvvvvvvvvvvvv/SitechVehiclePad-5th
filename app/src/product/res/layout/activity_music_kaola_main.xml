@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_kaola_play"
+    android:paddingBottom="300px"
+    tools:ignore="PxUsage">
+
+    <include
+        layout="@layout/common_title_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="138px"
+        android:layout_alignParentTop="true" />
+
+    <RelativeLayout
+        android:id="@+id/list_frame"
+        android:layout_width="824px"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/play_bar_root"
+        android:layout_below="@+id/toolbar_sub"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="35px"
+        android:layout_marginRight="48px"
+        android:background="@drawable/bg_playlist">
+
+        <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+            android:id="@+id/music_kaola_refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tip_img"
+            android:layout_marginLeft="62px"
+            android:layout_marginTop="30px"
+            android:layout_marginRight="48px"
+            android:layout_marginBottom="48px">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/music_kaola_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layerType="software" />
+        </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+
+    </RelativeLayout>
+
+    <include
+        android:id="@+id/play_detail_status"
+        layout="@layout/play_detail_status_kaola"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar_sub"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="61px"
+        android:layout_marginEnd="54px"
+        android:layout_toStartOf="@+id/list_frame" />
+
+    <include
+        layout="@layout/play_progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="60px"
+        android:layout_marginTop="30px"
+        android:layout_marginEnd="60px" />
+</RelativeLayout>

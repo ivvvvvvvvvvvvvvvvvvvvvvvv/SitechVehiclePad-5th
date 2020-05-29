@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/toast_relative"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_common_toast"
+    android:paddingLeft="100px"
+    android:paddingTop="48px"
+    android:paddingRight="100px"
+    android:paddingBottom="48px">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <ImageView
+            android:id="@+id/id_img_toast_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/ico_mypoint"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_toast_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/id_img_toast_top"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="签到成功\n恭喜您，获得10积分。"
+            android:textColor="#fff"
+            android:textSize="38px" />
+    </RelativeLayout>
+</RelativeLayout>

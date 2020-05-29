@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ 既然用 Toolbar 取代 ActionBar，基本的需要做到以下三点：
+1. Toolbar 颜色（android:background）与原来一致
+2. Toolbar 高度（android:layout_height）与原来一致
+3. 按照md风格，我们增加一个投影（android:elvation 一般为 4dp）。
+--><!--<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"--><!--android:id="@+id/root_toolbar"--><!--android:layout_width="match_parent"--><!--android:layout_height="@dimen/tool_bar_height"--><!--android:paddingTop="@dimen/status_bar_height"--><!--android:background="@color/colorAccent"--><!--android:minHeight="?attr/actionBarSize"/>-->
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="138px">
+
+    <ImageView
+        android:id="@+id/id_img_left"
+        android:layout_width="34px"
+        android:layout_height="58px"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="118px"
+        android:background="@drawable/ico_back"
+        android:scaleType="center" />
+
+    <TextView
+        android:id="@+id/id_tv_maintitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="214px"
+        android:layout_gravity="center_vertical"
+        android:singleLine="true"
+        android:text="登录"
+        android:includeFontPadding="false"
+        android:textColor="@android:color/white"
+        android:textSize="60px" />
+</FrameLayout>

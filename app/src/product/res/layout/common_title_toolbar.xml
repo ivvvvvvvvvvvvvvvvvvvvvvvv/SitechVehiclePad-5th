@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar_sub"
+    android:layout_width="match_parent"
+    android:layout_height="138px"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <!--返回-->
+    <ImageView
+        android:id="@+id/iv_sub_back"
+        style="@style/SubBackStyle"
+        android:layout_marginTop="30px"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--标题-->
+    <TextView
+        android:id="@+id/tv_sub_title"
+        style="@style/RadioButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40px"
+        android:layout_marginTop="10px"
+        android:text="@string/app_name"
+        android:textColor="@color/white"
+        android:textSize="36px"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/iv_sub_back"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/tv_sub_title_underline"
+        android:layout_width="87px"
+        android:layout_height="3px"
+        android:layout_marginTop="20px"
+        android:background="@color/white"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_sub_title"
+        app:layout_constraintRight_toRightOf="@+id/tv_sub_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_sub_title" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="50px"
+        android:layout_marginRight="50px"
+        android:background="@color/main_info_line"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_sub_title_underline" />
+
+</android.support.constraint.ConstraintLayout>

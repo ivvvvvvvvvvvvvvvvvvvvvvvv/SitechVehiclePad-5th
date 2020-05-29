@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="362px"
+        android:layout_height="362px"
+        android:gravity="center"
+        tools:background="@color/colorPrimary_red_tip">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="362px"
+            android:layout_height="362px" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/image"
+            android:layout_alignTop="@+id/image"
+            android:layout_marginTop="10px"
+            android:paddingLeft="20px"
+            android:paddingTop="4px"
+            android:paddingRight="20px"
+            android:paddingBottom="4px"
+            android:text="推荐"
+            android:textColor="#000"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/des"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/image"
+            android:layout_margin="10px"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐"
+            android:textColor="#fff"
+            android:textSize="13sp" />
+    </RelativeLayout>
+</FrameLayout>
+

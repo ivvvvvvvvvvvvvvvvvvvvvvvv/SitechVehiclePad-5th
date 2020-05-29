@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar_sub"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <!--标题-->
+    <com.sitechdev.vehicle.pad.view.TabLayout
+        android:id="@+id/tv_sub_title"
+        style="@style/RadioButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="40px"
+        android:layout_marginTop="10px"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/iv_sub_back"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabIndicatorColor="@color/transparent"
+        app:tabIndicatorHeight="0px"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="#FF98A7D1"
+        app:tabTextAppearance="@style/TabLayoutTextStyle2"
+        app:tabTextColor="#FF5A6997">
+
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="推荐" />
+
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="新特速报" />
+
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="少儿读物" />
+
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="车嗨娱乐" />
+
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="生活一点通" />
+    </com.sitechdev.vehicle.pad.view.TabLayout>
+    /
+
+
+</FrameLayout>

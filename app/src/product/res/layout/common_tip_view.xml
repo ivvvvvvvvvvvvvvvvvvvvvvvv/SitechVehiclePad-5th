@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/id_relative_tip"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/ico_common_tip_bg">
+
+    <ImageView
+        android:id="@+id/tv_tip_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/margin_dialog_top"
+        android:src="@drawable/ico_mypoint" />
+
+    <TextView
+        android:id="@+id/tv_tip_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_tip_img"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+        android:text="签到成功\n恭喜您，获得10积分。"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+</RelativeLayout>

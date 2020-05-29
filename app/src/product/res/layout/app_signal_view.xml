@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/id_linear_app_signal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
+
+    <ImageView
+        android:id="@+id/iv_wifi_icon"
+        android:layout_width="32px"
+        android:layout_height="22px"
+        android:layout_marginRight="20px"
+        android:src="@drawable/wifi_icon"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/iv_bluetooth_icon"
+        android:layout_width="23px"
+        android:layout_height="25px"
+        android:layout_marginRight="20px"
+        android:src="@drawable/bluetooth_icon"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/iv_usb_icon"
+        android:layout_width="32px"
+        android:layout_height="30px"
+        android:layout_marginRight="20px"
+        android:src="@drawable/usb_icon"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/iv_top_voice"
+        android:layout_width="24px"
+        android:layout_height="24px"
+        android:layout_marginRight="20px"
+        android:src="@drawable/ic_top_voice"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/iv_hot_icon"
+        android:layout_width="31px"
+        android:layout_height="22px"
+        android:layout_marginRight="20px"
+        android:src="@drawable/rigth_top_hot_icon"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/iv_tbox_icon"
+        android:layout_width="32px"
+        android:layout_height="30px"
+        android:layout_marginRight="20px"
+        android:src="@drawable/tbox_zero"
+        android:visibility="gone" />
+
+    <TextClock
+        android:id="@+id/id_app_signal_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="40px"
+        android:format12Hour="hh:mm"
+        android:format24Hour="HH:mm"
+        android:textColor="@color/white"
+        android:textSize="24px" />
+</LinearLayout>

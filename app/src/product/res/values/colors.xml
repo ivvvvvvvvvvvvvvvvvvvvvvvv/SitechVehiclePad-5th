@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#1C8FFE</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorMainBg">#000000</color>
+    <color name="colorSubBg">#1BA5FF</color>
+    <color name="colorPrimary_middle">#ff4a90e2</color>
+    <color name="colorPrimary_bg_press">#33272F3D</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="bg_toast">#768295</color>
+    <color name="color_login_mainTitle">#101B2B</color>
+    <color name="color_login_hintMainTitle">#33101B2B</color>
+    <color name="color_login_mainTitle_dark">@color/white</color>
+    <color name="colorPrimary_light_text_first">#272F3D</color>
+    <color name="colorPrimary_light_text90">#e6272f3d</color><!--90%-->
+    <color name="colorPrimary_light_text_sec">#B3272F3D</color><!--70%-->
+    <color name="colorPrimary_light_text_40">#66272F3D</color><!--40%-->
+    <color name="colorPrimary_light_text_thr">#4D272F3D</color><!--30%-->
+    <color name="colorPrimary_light_text20">#33272F3D</color><!--20%-->
+    <color name="colorPrimary_bg_light">#FFF5F6F7</color>
+    <color name="colorPrimary_gray">#444</color>
+    <color name="colorPrimary_red_tip">#ffe24a4a</color>
+    <color name="bbs_color_pri">#0156FF</color>
+    <color name="bbs_follow_btn">#4A90E2</color>
+    <color name="bbs_follow_btn_checked">#9299A2</color>
+    <color name="bbs_follow_btn_bg">#144A90E2</color>
+    <color name="bbs_follow_btn_bg_checked">#0D26283C</color>
+    <color name="product_classify_title_bg">#f9f9f9</color>
+    <color name="mall_main_color">#F56500</color>
+    <color name="map_search_hint">#ffc1c1c1</color>
+    <color name="bg_color">#EDEDED</color>
+    <color name="map_poi_item_bg">#ffffffff</color>
+    <color name="pop_bg_color">#0B0C21</color>
+    <color name="line_color">#1AFFFFFF</color>
+    <color name="bar_color">#13172E</color>
+    <color name="play_control_bg">#1B3D57</color>
+    <color name="common_bg">#132C56</color>
+    <color name="bottom_bar_bg">#13172E</color>
+    <color name="subtitle_color">#626983</color>
+    <color name="map_poi_item_title">#ffffffff</color>
+    <color name="map_poi_item_distance">#ABABAB</color>
+    <color name="stock_holder_up">#E62734</color>
+    <color name="stock_holder_down">#52C41A</color>
+    <color name="item_local_music_checked_color">#239CE2</color>
+    <color name="color_mask">#B3000000</color>
+
+    <color name="colo_939393">#939393</color>
+    <color name="colo_A8A8A8">#A8A8A8</color>
+    <color name="colo_A5A5A5">#A5A5A5</color>
+    <color name="colo_D8D8D8">#D8D8D8</color>
+    <color name="colo_6E6E80">#6E6E80</color>
+    <color name="colo_80ffffff">#80ffffff</color>
+    <color name="colo_50ffffff">#50ffffff</color>
+    <color name="colo_50000000">#50000000</color>
+    <color name="colo_E3E3E3">#E3E3E3</color>
+    <color name="colo_D2D2D2">#D2D2D2</color>
+    <color name="colo_FF6E6E80">#FF6E6E80</color>
+
+    <color name="edit_color">#284056</color>
+    <!--  首页部分颜色值  -->
+    <color name="color_main_login_text">#FFFFFF</color>
+
+    <color name="color_main_weather_temp_text">#FFFFFF</color>
+    <color name="color_main_weather_temp_unit">#FFFFFF</color>
+    <color name="color_main_weather_status_desc">#FFFFFF</color>
+    <color name="color_main_weather_temp_range">#86929E</color>
+    <color name="color_main_weather_status_desc_range">#86929E</color>
+
+    <color name="color_main_weather_location_text">#FFFFFF</color>
+    <!--  首页-日期时间  -->
+    <color name="color_main_date_text">#86929E</color>
+    <color name="color_main_time_text">#FFFFFF</color>
+    <!--  蓝牙描述文字  -->
+    <color name="color_main_bluetooth_text">#86929E</color>
+    <!--  右上回家回公司文字  -->
+    <color name="color_main_come_home_company_text">#FFFFFF</color>
+    <!--  右上去哪里文字  -->
+    <color name="color_main_where_text">#CC535353</color>
+    <!--  右中音乐文字  -->
+    <color name="color_main_music_text">#FFFFFF</color>
+    <!--  右中播放歌曲名称  -->
+    <color name="color_main_music_playing_name_text">#838BA6</color>
+    <!--  右中娱乐分类  -->
+    <color name="color_main_music_type_text">#FFFFFF</color>
+    <!--  右底车辆状态分类  -->
+    <color name="color_main_car_info_text">#FFFFFF</color>
+    <!--  右底车辆状态分类  -->
+    <color name="color_main_car_info_split_line">#4DFFFFFF</color>
+
+    <!--  出行计价器页面颜色值  -->
+    <color name="color_taxi_main_text">#FFFFFF</color>
+    <color name="color_taxi_second_text">#80FFFFFF</color>
+
+    <!--  皮肤模式设置计价器页面颜色值  -->
+    <color name="color_setting_skin_main_text">#FFFFFF</color>
+    <color name="color_setting_skin_second_text">#838BA6</color>
+
+    <!--  应用列表页面颜色值  -->
+    <color name="color_all_app_title_text">#FFFFFF</color>
+    <color name="kaola_page_index_checked">#FF98A7D1</color>
+    <color name="kaola_page_index_uncheck">#FF5A6997</color>
+
+    <!--  我的积分页面颜色值  -->
+    <color name="color_my_point_left_number_text">#FFFFFF</color>
+    <color name="color_my_point_left_number_desc_text">#99FFFFFF</color>
+    <color name="color_my_point_recycle_title_text">#586C96</color>
+    <color name="color_my_point_recycle_date_text">#586C96</color>
+    <color name="color_my_point_recycle_split_line">#33FFFFFF</color>
+    <color name="color_my_point_recycle_number_text">#019EEA</color>
+
+
+</resources>

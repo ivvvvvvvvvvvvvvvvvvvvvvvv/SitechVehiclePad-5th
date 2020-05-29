@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <com.amap.api.maps.MapView
+            android:id="@+id/id_main_map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <include layout="@layout/custom_search_map_title" />
+
+        <ImageView
+            android:id="@+id/id_img_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|bottom"
+            android:layout_marginLeft="59px"
+            android:layout_marginBottom="40px"
+            android:src="@drawable/bg_map_to_current_location" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|bottom"
+            android:layout_marginRight="105px"
+            android:layout_marginBottom="66px"
+            android:background="@drawable/bg_map_btn_add_sub"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/id_linear_add"
+                android:layout_width="123px"
+                android:layout_height="123px"
+                android:background="@drawable/bg_map_btn_add_sub"
+                android:gravity="center"
+                android:padding="32px">
+
+                <ImageView
+                    android:layout_width="58px"
+                    android:layout_height="58px"
+                    android:src="@drawable/ico_map_add" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/id_linear_sub"
+                android:layout_width="123px"
+                android:layout_height="123px"
+                android:background="@drawable/bg_map_btn_add_sub"
+                android:gravity="center"
+                android:padding="32px">
+
+                <ImageView
+                    android:layout_width="58px"
+                    android:layout_height="58px"
+                    android:src="@drawable/ico_map_sub" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </FrameLayout>
+
+    <!--<RelativeLayout-->
+    <!--android:id="@+id/id_main_flow"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="200dp"-->
+    <!--android:layout_gravity="bottom"-->
+    <!--android:background="@color/white">-->
+
+    <!--<Button-->
+    <!--android:id="@+id/id_start_navi"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerInParent="true"-->
+    <!--android:gravity="center"-->
+    <!--android:padding="10dp"-->
+    <!--android:text="路线规划" />-->
+
+    <!--</RelativeLayout>-->
+    <include layout="@layout/custom_map_marker_info_view" />
+</LinearLayout>

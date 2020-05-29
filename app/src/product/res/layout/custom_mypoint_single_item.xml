@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="45px"
+    android:paddingBottom="45px">
+
+<!--    <View-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="2px"-->
+<!--        android:alpha="0.1"-->
+<!--        android:background="@color/white" />-->
+
+    <TextView
+        android:id="@+id/id_item_point_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:includeFontPadding="false"
+        android:singleLine="true"
+        android:textColor="@color/color_my_point_recycle_title_text"
+        android:textSize="32px"
+        tools:text="签到赠送积分" />
+
+    <TextView
+        android:id="@+id/id_item_point_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/id_item_point_title"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="29px"
+        android:includeFontPadding="false"
+        android:singleLine="true"
+        android:textColor="@color/color_my_point_recycle_date_text"
+        android:textSize="32px"
+        tools:text="2019-07-03 16:59:14" />
+
+    <TextView
+        android:id="@+id/id_item_point_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="150px"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:textColor="@color/color_my_point_recycle_number_text"
+        android:textSize="59px"
+        android:textStyle="bold" />
+
+</RelativeLayout>

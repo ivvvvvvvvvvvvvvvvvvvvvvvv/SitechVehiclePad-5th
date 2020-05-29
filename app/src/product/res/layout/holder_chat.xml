@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <com.sitechdev.vehicle.pad.view.VolumeView
+        android:id="@+id/chat_holder_volume_view"
+        android:layout_width="1181px"
+        android:layout_height="32px"
+        android:layout_alignParentBottom="true"
+        android:visibility="visible"/>
+    <TextView
+        android:id="@+id/chat_holder_text"
+        android:layout_width="1080px"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_above="@+id/chat_holder_volume_view"
+        android:layout_marginBottom="32px"
+        android:layout_centerHorizontal="true"
+        android:textSize="50px"
+        android:textColor="@color/white"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:marqueeRepeatLimit="marquee_forever"/>
+</RelativeLayout>

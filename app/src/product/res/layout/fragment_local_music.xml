@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".module.music.fragment.LocalMusicFragment">
+    <LinearLayout
+        android:id="@+id/local_music_empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="49px"
+            android:text="你还没有本地音乐哦"/>
+        <TextView
+            android:id="@+id/local_music_scan"
+            android:layout_width="642px"
+            android:layout_height="140px"
+            android:layout_marginTop="255px"
+            android:textColor="@color/white"
+            android:textSize="49px"
+            android:gravity="center"
+            android:text="扫描歌曲"
+            android:background="@mipmap/bg_scan_music"/>
+
+    </LinearLayout>
+    <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+        android:id="@+id/local_music_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/local_music_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layerType="software"/>
+    </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+</FrameLayout>

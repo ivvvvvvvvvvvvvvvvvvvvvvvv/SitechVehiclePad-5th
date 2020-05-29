@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/id_taxi_setting_view"
+    android:layout_width="800px"
+    android:layout_height="900px"
+    android:layout_centerInParent="true"
+    android:background="@drawable/bg_control_panel_v"
+    android:paddingLeft="50px"
+    android:paddingRight="50px">
+
+    <TextView
+        android:id="@+id/id_title_view_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100px"
+        android:gravity="center_horizontal"
+        android:text="收费标准设置"
+        android:textColor="#ffffff"
+        android:textSize="40px" />
+
+    <View
+        android:id="@+id/id_split_line1"
+        android:layout_width='match_parent'
+        android:layout_height="1px"
+        android:layout_below="@id/id_title_view_content"
+        android:layout_marginStart="30px"
+        android:layout_marginTop="30px"
+        android:layout_marginEnd="30px"
+        android:background="@drawable/ico_split_line" />
+
+    <TextView
+        android:id="@+id/id_title_view_start_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/id_split_line1"
+        android:layout_marginTop="40px"
+        android:gravity="left"
+        android:text="起步价"
+        android:textColor="#ffffff"
+        android:textSize="40px" />
+
+    <LinearLayout
+        android:id="@+id/id_start_price_content"
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:layout_below="@id/id_title_view_start_price"
+        android:layout_marginTop="30px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/id_edt_title_km_content"
+            android:layout_width="240px"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_taxi_setting_edt"
+            android:gravity="center"
+            android:imeOptions="actionNext"
+            android:inputType="numberDecimal"
+            android:maxLines="1"
+            android:padding="20px"
+            android:text="10"
+            android:textColor="#ffffff" />
+
+        <TextView
+            android:id="@+id/id_title_km"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/id_split_line1"
+            android:layout_marginLeft="20px"
+            android:gravity="left"
+            android:text="公里内"
+            android:textColor="#ffffff"
+            android:textSize="40px" />
+
+        <EditText
+            android:id="@+id/id_edt_title_km_content_price"
+            android:layout_width="240px"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20px"
+            android:background="@drawable/bg_taxi_setting_edt"
+            android:gravity="center"
+            android:imeOptions="actionNext"
+            android:inputType="numberDecimal"
+            android:maxLines="1"
+            android:padding="10px"
+            android:text="10"
+            android:textColor="#ffffff" />
+
+        <TextView
+            android:id="@+id/id_title_km_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/id_split_line1"
+            android:layout_marginLeft="20px"
+            android:gravity="left"
+            android:text="元"
+            android:textColor="#ffffff"
+            android:textSize="40px" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/id_title_view_km_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/id_start_price_content"
+        android:layout_marginTop="40px"
+        android:gravity="left"
+        android:text="里程价"
+        android:textColor="#ffffff"
+        android:textSize="40px" />
+
+    <LinearLayout
+        android:id="@+id/id_km_price_content"
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:layout_below="@id/id_title_view_km_price"
+        android:layout_marginTop="30px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/id_edt_title_single_km_content"
+            android:layout_width="240px"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_taxi_setting_edt"
+            android:gravity="center"
+            android:imeOptions="actionDone"
+            android:maxLines="1"
+            android:padding="10px"
+            android:text="10"
+            android:textColor="#ffffff" />
+
+        <TextView
+            android:id="@+id/id_title_single_km"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/id_split_line1"
+            android:layout_marginLeft="20px"
+            android:gravity="left"
+            android:inputType="numberDecimal"
+            android:text="元/公里"
+            android:textColor="#ffffff"
+            android:textSize="40px" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/id_price_save_content"
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:layout_below="@id/id_km_price_content"
+        android:layout_marginTop="80px"
+        android:background="@drawable/shape_main_map_item_bg"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="保存"
+            android:textColor="#ffffff"
+            android:textSize="40px" />
+
+    </LinearLayout>
+</RelativeLayout>

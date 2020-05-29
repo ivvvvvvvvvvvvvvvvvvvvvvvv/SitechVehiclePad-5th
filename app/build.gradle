@@ -29,6 +29,7 @@ android {
             abiFilters 'armeabi-v7a'//,'armeabi',  'x86'//, 'x86_64', 'arm64-v8a'
         }
         resConfigs "zh"
+        buildConfigField("String", "AIUI_APPID", "\"5e97d73d\"")
     }
     signingConfigs {
         release {
@@ -40,7 +41,7 @@ android {
     }
     repositories {
         flatDir {
-            dirs 'libs/aiui_5e97d73d/'
+            dirs 'libs/'
         }
     }
 
@@ -49,20 +50,36 @@ android {
         exclude 'android.support', 'androidx', 'com.google', 'com.squareup', 'com.alipay', 'org.apache'
     }
     /*
-    * 渠道Flavors，配置不同风格的app
+    * 渠道Flavors配置
     * */
-    flavorDimensions "aiui"
+    flavorDimensions "product"
     productFlavors {
-        aiui_5e97d73d {
-            buildConfigField("String", "AIUI_APPID", "\"5e97d73d\"")
+        preview {
+            //Preview 演示预览版本
+            buildConfigField("Boolean", "isPreview", "true")
+        }
+        product {
+            //product 正式量产版本
+            buildConfigField("Boolean", "isPreview", "false")
         }
     }
-    //配置资源文件路径，可动态指定不同版本资源文件
+    //配置资源文件路径
     sourceSets {
-        aiui_5e97d73d.assets.srcDirs = ['src/main/assets/aiui_5e97d73d/']
-        aiui_5e97d73d.jniLibs.srcDirs = ['libs/aiui_5e97d73d/']
-        main {
-            res.srcDirs = ['src/main/res', 'src/main/res-whiteorange', 'src/main/res-blueorange']
+        preview {
+            //Preview 版本
+            java.srcDirs = ['src/preview/java']
+            res.srcDirs = ['src/preview/res', 'src/preview/res-whiteorange', 'src/preview/res-blueorange']
+            assets.srcDirs = ['src/main/assets', 'src/main/assets/aiui_5e97d73d/']
+            aidl.srcDirs = ['src/main/aidl']
+            jniLibs.srcDirs = ['src/main/jniLibs', 'libs/']
+        }
+        product {
+            //product版本
+            java.srcDirs = ['src/product/java']
+            res.srcDirs = ['src/product/res', 'src/product/res-whiteorange', 'src/product/res-blueorange']
+            assets.srcDirs = ['src/main/assets', 'src/main/assets/aiui_5e97d73d/']
+            aidl.srcDirs = ['src/main/aidl']
+            jniLibs.srcDirs = ['src/main/jniLibs', 'libs/']
         }
     }
     buildTypes {
@@ -113,7 +130,7 @@ android {
 }
 
 dependencies {
-    aiui_5e97d73dImplementation fileTree(dir: 'libs/aiui_5e97d73d', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation Config.depConfig.android_support.appcompatV7
     implementation Config.depConfig.android_support.multidex
     implementation Config.depConfig.android_support.recyclerview
@@ -192,7 +209,6 @@ android.applicationVariants.all { variant ->
     def apkProvider = variant.getPackageApplicationProvider().get().outputScope.apkDatas
     apkProvider.forEach { apkData ->
         def isRelease = "release".equalsIgnoreCase(variant.buildType.name)
-//        apkData.outputFileName = fileName + (isRelease ? "_Release_" : "_Test_") + "${variant.productFlavors[0].name}_v" + versionName + ".apk"
-        apkData.outputFileName = fileName + (isRelease ? "_Release_v" : "_Test_v") + versionName + ".apk"
+        apkData.outputFileName = fileName + (isRelease ? "_Release_" : "_Debug_") + "${variant.productFlavors[0].name}_v" + versionName + ".apk"
     }
 }
