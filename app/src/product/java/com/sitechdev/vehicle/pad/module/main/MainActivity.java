@@ -349,15 +349,13 @@ public class MainActivity extends BaseActivity
             case R.id.tv_login:
 //                CommonToast.makeText(this, "请登录..");
             case R.id.id_rela_login:
-//                if (LoginUtils.isLogin()) {
-                //已经登录，去往会员中心
-                RouterUtils.getInstance().navigation(RouterConstants.SUB_APP_MEMBER);
-//                } else {
-//                    //未登录，去往登录
-////                    Intent mIntent1 = new Intent(MainActivity.this, LoginActivity.class);
-////                    startActivity(mIntent1);
-//                    PersonLoginWindow.getInstance().showWnd();
-//                }
+                if (LoginUtils.isLogin()) {
+                    //已经登录，去往会员中心
+                    RouterUtils.getInstance().navigation(RouterConstants.SUB_APP_MEMBER);
+                } else {
+                    //未登录，去往登录
+                    PersonLoginWindow.getInstance().showWnd();
+                }
                 break;
             case R.id.fl_weather:
                 RouterUtils.getInstance().navigation(RouterConstants.SUB_APP_WEATHER);
