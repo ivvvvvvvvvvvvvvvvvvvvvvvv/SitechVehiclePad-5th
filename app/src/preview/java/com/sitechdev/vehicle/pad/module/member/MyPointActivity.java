@@ -19,7 +19,6 @@ import com.sitechdev.vehicle.pad.app.AppConst;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.callback.BaseBribery;
 import com.sitechdev.vehicle.pad.manager.UserManager;
-import com.sitechdev.vehicle.pad.module.login.bean.util.MemberHttpUtil;
 import com.sitechdev.vehicle.pad.module.member.adapter.PointDataItemAdapter;
 import com.sitechdev.vehicle.pad.module.member.bean.PointsInfoBean;
 import com.sitechdev.vehicle.pad.module.member.bean.TotalPointsBean;
