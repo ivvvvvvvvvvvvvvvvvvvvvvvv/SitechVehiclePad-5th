@@ -68,11 +68,7 @@ public class SignDialog extends BaseDialog {
 
                 @Override
                 public void onFinish() {
-                    if (countDownTimer != null) {
-                        countDownTimer.cancel();
-                        countDownTimer = null;
-                    }
-                    SignDialog.this.cancel();
+                    cancelDialog();
                 }
             };
             countDownTimer.start();
@@ -88,5 +84,13 @@ public class SignDialog extends BaseDialog {
     @Override
     public void onClick(View v) {
         super.onClick(v);
+    }
+
+    public void cancelDialog() {
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+            countDownTimer = null;
+        }
+        SignDialog.this.cancel();
     }
 }
