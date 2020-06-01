@@ -239,7 +239,7 @@ public class FeedbackActivity extends MvpActivity<FeedbackContract.FeedbackPrese
     }
 
     private void logTest(String msg) {
-        Log.e("FeedbackActivity", "FUCKTEST----" + msg);
+        Log.e("FeedbackActivity", "TEST----" + msg);
 
     }
 }

@@ -71,7 +71,7 @@ public class FeedbackPresenter extends FeedbackContract.FeedbackPresenter implem
 
     @Override
     public void startRecord() {
-        logTest("FUCK----1");
+        logTest("----1");
         getView().showRecordFile();
         mRecordTime = 0;
         if (null != mTimeHandler) {
@@ -184,18 +184,18 @@ public class FeedbackPresenter extends FeedbackContract.FeedbackPresenter implem
      * 录音并保存文件
      */
     private void startRecorder() {
-        logTest("FUCK----3");
+        logTest("----3");
         mPcmFile = new File("mnt/sdcard/", "audioRecord.pcm");
         if (null != mWavFile && mWavFile.exists()) {
             mWavFile.delete();
         }
         mWhetherRecord = true;
         new Thread(() -> {
-            logTest("FUCK----4");
+            logTest("----4");
             mAudioRecord.startRecording();//开始录制
             FileOutputStream fileOutputStream = null;
             try {
-                logTest("FUCK----5");
+                logTest("----5");
                 fileOutputStream = new FileOutputStream(mPcmFile);
                 byte[] bytes = new byte[mRecordBufferSize];
                 while (mWhetherRecord) {
@@ -210,11 +210,11 @@ public class FeedbackPresenter extends FeedbackContract.FeedbackPresenter implem
                 fileOutputStream.close();
                 addHeadData();//添加音频头部信息并且转成wav格式
             } catch (FileNotFoundException e) {
-                logTest("FUCK----7");
+                logTest("----7");
                 e.printStackTrace();
                 mAudioRecord.stop();
             } catch (IOException e) {
-                logTest("FUCK----8");
+                logTest("----8");
                 e.printStackTrace();
             }
         }).start();
@@ -232,7 +232,7 @@ public class FeedbackPresenter extends FeedbackContract.FeedbackPresenter implem
         if(mPcmFile.exists()){
             mPcmFile.delete();
         }
-        logTest("FUCK---FILEPATH:"+mPcmFile.getAbsolutePath());
+        logTest("---FILEPATH:"+mPcmFile.getAbsolutePath());
     }
 
     @Override
@@ -253,9 +253,9 @@ public class FeedbackPresenter extends FeedbackContract.FeedbackPresenter implem
         }
         String url = EnvironmentConfig.URL_MALL_HOST.concat(AppUrlConst.COMMIT_FEEDBACK_FILLE);
         logTest("url:"+url);
-        String token = "B7YrT5i.XnmyRxw0R9z33sEllM5f15YtPAP.HnVhc1wIpgnXaoT3eRWZfZ.cJfrPOinxktMLtWdUqqeITw4LR8ADpwI2Jf9jUUyLlXOsiVUJB3mtcLhuiWXyyJ2z6fUSPoyIMp8fKmd-fw7xUL4hSnt574LIxnQATLSiASxeRLY_";
+//        String token = "B7YrT5i.XnmyRxw0R9z33sEllM5f15YtPAP.HnVhc1wIpgnXaoT3eRWZfZ.cJfrPOinxktMLtWdUqqeITw4LR8ADpwI2Jf9jUUyLlXOsiVUJB3mtcLhuiWXyyJ2z6fUSPoyIMp8fKmd-fw7xUL4hSnt574LIxnQATLSiASxeRLY_";
         OkGo.<FeedbackCommitBean>post(url).headers("Content-Type", "application/json")
-                .headers(HttpHeaders.HEAD_KEY_COOKIE, "access_token=" + token)
+                .headers(HttpHeaders.HEAD_KEY_COOKIE, "access_token=" + UserManager.getInstance().getUserToken())
                 .params("file", audioFile)
                 .params("voiceLength", mCommitDur)
                 .execute(new JsonCallback<FeedbackCommitBean>(FeedbackCommitBean.class) {
@@ -293,7 +293,7 @@ public class FeedbackPresenter extends FeedbackContract.FeedbackPresenter implem
     private Runnable mTimerTask = new Runnable() {
         @Override
         public void run() {
-            logTest("FUCK----2");
+            logTest("----2");
             if (mRecordTime < 60 && mRecordTime > -1) {
                 mRecordTime++;
                 getView().setRecordTime(mRecordTime);
@@ -320,6 +320,6 @@ public class FeedbackPresenter extends FeedbackContract.FeedbackPresenter implem
     }
     
     private void logTest(String msg){
-        Log.e("FUCK","-----"+msg);
+        Log.e("","-----"+msg);
     }
 }

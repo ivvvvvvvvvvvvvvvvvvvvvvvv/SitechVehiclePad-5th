@@ -277,13 +277,11 @@ public class FeedBackHttpUtils extends HttpUtil {
      */
     public static void loadFeedbackHistoryList(int page,
                                         final OnLoadFeedbackHistoryCallBack<FeedbackHistoryBean> onLoadPointsListener) {
-        Log.e("FUCK","WOCAO URL:"+"access_token=" + UserManager.getInstance().getUserToken());
         String token = "B7YrT5i.XnmyRxw0R9z33sEllM5f15YtPAP.HnVhc1wIpgnXaoT3eRWZfZ.cJfrPOinxktMLtWdUqqeITw4LR8ADpwI2Jf9jUUyLlXOsiVUJB3mtcLhuiWXyyJ2z6fUSPoyIMp8fKmd-fw7xUL4hSnt574LIxnQATLSiASxeRLY_";
-
         OkGo.<FeedbackHistoryBean>get(getFormatRequestUrl(EnvironmentConfig.URL_MALL_HOST,AppUrlConst.GET_FEEDBACK_HISTORY_LIST))
                 .headers("Content-Type", "application/json")
                 .headers(HttpHeaders.HEAD_KEY_COOKIE,
-                        "access_token=" + token)
+                        "access_token=" + UserManager.getInstance().getUserToken())
                 .params("pageNo", page)
                 .params("pageSize", 5)
                 .execute(new JsonCallback<FeedbackHistoryBean>(FeedbackHistoryBean.class) {

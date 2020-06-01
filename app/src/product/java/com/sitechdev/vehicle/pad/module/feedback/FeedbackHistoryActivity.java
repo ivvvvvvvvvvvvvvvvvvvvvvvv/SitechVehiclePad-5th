@@ -76,7 +76,7 @@ public class FeedbackHistoryActivity extends BaseActivity {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                 super.onRefresh(refreshLayout);
-                Log.e("FUCK", "ON REFRESH");
+                Log.e("Test", "ON REFRESH");
                 pageNo = 1;
                 requestMessageList(pageNo);
             }
@@ -84,7 +84,7 @@ public class FeedbackHistoryActivity extends BaseActivity {
             @Override
             public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
                 super.onLoadMore(refreshLayout);
-                Log.e("FUCK", "ON onLoadMore");
+                Log.e("Test", "ON onLoadMore");
                 pageNo++;
                 requestMessageList(pageNo);
             }
