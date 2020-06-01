@@ -65,6 +65,7 @@ public class MemberPreActivity extends BaseActivity {
     mLogoutLayoutView = null;
     private TotalPointsBean mTotalPointsBean = null;
     private PointsSigninBean mSigninBean = null;
+    private SignDialog mSignDialog = null;
 
     @Override
     protected int getLayoutId() {
@@ -228,7 +229,8 @@ public class MemberPreActivity extends BaseActivity {
                 break;
             //签到
             case R.id.id_sign_btn:
-                if ("1".equalsIgnoreCase(mSigninBean.getData().getStatus())) {
+                if (mSigninBean != null && "1".equalsIgnoreCase(mSigninBean.getData().getStatus())) {
+                    SitechDevLog.i(TAG, "已经签到过，本次不再响应");
                     //已签到，return
                     return;
                 }
@@ -278,8 +280,12 @@ public class MemberPreActivity extends BaseActivity {
                 mSigninBean = (PointsSigninBean) successObj;
                 runOnUiThread(() -> {
                     mSignTvView.setText("已签到");
+                    if (mSignDialog != null && mSignDialog.isShowing()) {
+                        mSignDialog.cancelDialog();
+                    }
+                    mSignDialog = new SignDialog(MemberPreActivity.this, mSigninBean);
                     //展示对话框
-                    new SignDialog(MemberPreActivity.this, mSigninBean).show();
+                    mSignDialog.show();
                 });
             }
 
