@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.kaolafm.sdk.core.mediaplayer.BroadcastRadioPlayerManager;
 import com.kaolafm.sdk.core.mediaplayer.PlayerManager;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.R;
@@ -37,9 +38,19 @@ public class MusicKaolaAdapter extends
     public static int mPrePosition = -1;
 
     private OnCheckEmptyListener onCheckEmptyListener;
+    private boolean isbroadcast =false;
+
+    public MusicKaolaAdapter(Context context, boolean isbroadcast) {
+        init(context, isbroadcast);
+    }
 
     public MusicKaolaAdapter(Context context) {
+        init(context, false);
+    }
+
+    private void init(Context context, boolean isbroadcast) {
         this.context = context;
+        this.isbroadcast = isbroadcast;
         this.musicInfos = new ArrayList<>();
         noramlColor = AppApplication.getContext().getResources().getColor(R.color.white);
         checkedColor = AppApplication.getContext().getResources().getColor(R.color.item_local_music_checked_color);
@@ -53,7 +64,7 @@ public class MusicKaolaAdapter extends
     @Override
     public MusicKaolaItemHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View root = inflater.inflate(R.layout.item_local_music2, viewGroup, false);
+        View root = inflater.inflate(R.layout.item_kaola_playlist, viewGroup, false);
         return new MusicKaolaItemHolder(root);
     }
 
@@ -66,7 +77,7 @@ public class MusicKaolaAdapter extends
         PlayItemAdapter.Item musicInfo = musicInfos.get(position);
         SitechDevLog.d("MusicKaolaAdapter", "-----------musicInfo------------" + musicInfo.title);
         if (mPrePosition == position) {
-            if (PlayerManager.getInstance(context).isPaused()) {
+            if (isbroadcast ? BroadcastRadioPlayerManager.getInstance().isPaused() : PlayerManager.getInstance(context).isPaused()) {
                 holder.getIndex().setImageResource(R.drawable.list_icon_playing);
             } else {
                 holder.getIndex().setImageResource(R.drawable.ic_music_play_gif);

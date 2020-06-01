@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -182,9 +183,30 @@ public class ListIndicatorRecycview extends RecyclerView {
     }
 
     private void updateCheckSt() {
-//        recyclerView.getLayoutManager()
-//        choose = c;
-        notifyIndicatorAdapter(oneListItemCheck);
+        if (indexMap == null) {
+            return;
+        }
+
+        LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+        int cur = layoutManager.findFirstVisibleItemPosition();
+
+        int keyIndex = 0;
+        int allDataSize =  recyclerView.getAdapter().getItemCount();
+        if (layoutManager.findLastVisibleItemPosition() >= allDataSize - 1) {//最后一个显示出来
+            keyIndex = indexMap.size() - 1;
+        } else {
+            for (Integer key : indexMap.keySet()) {
+                if (cur < key) {
+                    keyIndex--;
+                    break;
+                }
+                keyIndex++;
+            }
+        }
+        if (curChoosed == keyIndex) {
+            return;
+        }
+        setChoose(keyIndex);
     }
 
     private ListIndicatorAdapter indicatorAdapter;

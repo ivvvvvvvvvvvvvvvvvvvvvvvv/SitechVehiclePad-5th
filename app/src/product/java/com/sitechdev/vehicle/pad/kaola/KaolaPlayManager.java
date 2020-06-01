@@ -16,6 +16,8 @@ import com.kaolafm.opensdk.api.scene.SceneInfo;
 import com.kaolafm.opensdk.api.scene.SceneRequest;
 import com.kaolafm.opensdk.http.core.HttpCallback;
 import com.kaolafm.opensdk.http.error.ApiException;
+import com.kaolafm.sdk.core.mediaplayer.BroadcastRadioListManager;
+import com.kaolafm.sdk.core.mediaplayer.BroadcastRadioPlayerManager;
 import com.kaolafm.sdk.core.mediaplayer.IPlayerStateListener;
 import com.kaolafm.sdk.core.mediaplayer.PlayItem;
 import com.kaolafm.sdk.core.mediaplayer.PlayerListManager;
@@ -71,6 +73,10 @@ public class KaolaPlayManager {
 
     public void getkaolaCategory(HttpCallback<List<Category>> callback) {
         new OperationRequest().getCategoryTree(ResType.TYPE_ALBUM, callback);
+    }
+
+    public void getkaolaBroadcast(HttpCallback<List<Category>> callback) {
+        new OperationRequest().getCategoryTree(ResType.TYPE_BROADCAST, callback);
     }
 
     public void acquireKaolaData() {
@@ -202,51 +208,93 @@ public class KaolaPlayManager {
     }
 
     public boolean playAnother() {
+        return playAnother(false);
+    }
+
+    public boolean playAnother(boolean isBrocast) {
+        boolean result = false;
         SitechDevLog.e(this.getClass().getSimpleName(), "========  playAnother  was called");
-        if (PlayerManager.getInstance(AppApplication.getContext()).canSwitchNextOrPre()) {
-            int size = PlayerListManager.getInstance().getPlayListSize();
-            PlayItem curPlayItem = PlayerListManager.getInstance().getCurPlayItem();
-            PlayItem nextPlayItem = null;
-            while (true) {
-                nextPlayItem = PlayerListManager.getInstance().getPlayList().get(new Random().nextInt(size));
-                if (curPlayItem != nextPlayItem) {
-                    break;
+        if(isBrocast){
+            result = false;
+        }else{
+            if (PlayerManager.getInstance(AppApplication.getContext()).canSwitchNextOrPre()) {
+                int size = PlayerListManager.getInstance().getPlayListSize();
+                PlayItem curPlayItem = PlayerListManager.getInstance().getCurPlayItem();
+                PlayItem nextPlayItem = null;
+                while (true) {
+                    nextPlayItem = PlayerListManager.getInstance().getPlayList().get(new Random().nextInt(size));
+                    if (curPlayItem != nextPlayItem) {
+                        break;
+                    }
                 }
+                PlayerManager.getInstance(AppApplication.getContext()).play(nextPlayItem);
+                EventBusUtils.postEvent(new TeddyEvent(TeddyEvent.EVENT_TEDDY_KAOLA_PLAY_UPDATElIST));
+                SitechDevLog.e(KaolaPlayManager.class.getSimpleName(), " ============== change another song =============");
+                result = true;
+            } else {
+                SitechDevLog.e(KaolaPlayManager.class.getSimpleName(), " ============== can't change another song =============");
+                result = false;
             }
-            PlayerManager.getInstance(AppApplication.getContext()).play(nextPlayItem);
-            EventBusUtils.postEvent(new TeddyEvent(TeddyEvent.EVENT_TEDDY_KAOLA_PLAY_UPDATElIST));
-            SitechDevLog.e(KaolaPlayManager.class.getSimpleName(), " ============== change another song =============");
-            return true;
-        } else {
-            SitechDevLog.e(KaolaPlayManager.class.getSimpleName(), " ============== can't change another song =============");
-            return false;
         }
+        return result;
     }
 
     public boolean playNext() {
+        return playNext(false);
+    }
+
+    public boolean playNext(boolean isbrocast) {
         SitechDevLog.e(this.getClass().getSimpleName(), "========  playNext  was called");
-        boolean hasNext = PlayerManager.getInstance(AppApplication.getContext()).hasNext();
-        if (PlayerManager.getInstance(AppApplication.getContext()).hasNext()) {
-            int curPosition = PlayerListManager.getInstance().getCurPosition();
-            PlayerManager.getInstance(AppApplication.getContext()).playNext();
-            EventBusUtils.postEvent(new TeddyEvent(TeddyEvent.EVENT_TEDDY_KAOLA_PLAY_UPDATElIST, ++curPosition));
-//            CommonToast.makeText(AppApplication.getContext(), "下一曲");
+        boolean hasNext = false;
+        int curPosition = -1;
+        if (isbrocast) {
+            hasNext = BroadcastRadioPlayerManager.getInstance().hasNext();
+            if (hasNext) {
+                BroadcastRadioPlayerManager.getInstance().playNext();
+                curPosition = BroadcastRadioListManager.getInstance().getCurPosition();
+            } else {
+                CommonToast.makeText(AppApplication.getContext(), "已经是最后一首啦");
+            }
         } else {
-            CommonToast.makeText(AppApplication.getContext(), "已经是最后一首啦");
+            hasNext = PlayerManager.getInstance(AppApplication.getContext()).hasNext();
+            if (hasNext) {
+                curPosition = PlayerListManager.getInstance().getCurPosition();
+                PlayerManager.getInstance(AppApplication.getContext()).playNext();
+            } else {
+                CommonToast.makeText(AppApplication.getContext(), "已经是最后一首啦");
+            }
+        }
+        if (hasNext) {
+            EventBusUtils.postEvent(new TeddyEvent(TeddyEvent.EVENT_TEDDY_KAOLA_PLAY_UPDATElIST, ++curPosition));
         }
         return hasNext;
     }
-
-    public boolean playPre() {
-        SitechDevLog.e(this.getClass().getSimpleName(), "========  playPre  was called");
-        boolean hasPre = PlayerManager.getInstance(AppApplication.getContext()).hasPre();
-        if (PlayerManager.getInstance(AppApplication.getContext()).hasPre()) {
-            int curPosition = PlayerListManager.getInstance().getCurPosition();
-            PlayerManager.getInstance(AppApplication.getContext()).playPre();
-            EventBusUtils.postEvent(new TeddyEvent(TeddyEvent.EVENT_TEDDY_KAOLA_PLAY_UPDATElIST, --curPosition));
-//            CommonToast.makeText(AppApplication.getContext(), "上一曲");
+    public boolean playPre(){
+        return playPre(false);
+    }
+    public boolean playPre(boolean isbrocast) {
+        boolean hasPre = false;
+        int curPosition = -1;
+        if (isbrocast) {
+            hasPre = BroadcastRadioPlayerManager.getInstance().hasPre();
+            if (hasPre) {
+                BroadcastRadioPlayerManager.getInstance().playPre();
+            } else {
+                CommonToast.makeText(AppApplication.getContext(), "已经是最后一首啦");
+            }
         } else {
-            CommonToast.makeText(AppApplication.getContext(), "已经是第一首啦");
+            SitechDevLog.e(this.getClass().getSimpleName(), "========  playPre  was called");
+            hasPre = PlayerManager.getInstance(AppApplication.getContext()).hasPre();
+            if (hasPre) {
+                curPosition = PlayerListManager.getInstance().getCurPosition();
+                PlayerManager.getInstance(AppApplication.getContext()).playPre();
+//            CommonToast.makeText(AppApplication.getContext(), "上一曲");
+            } else {
+                CommonToast.makeText(AppApplication.getContext(), "已经是第一首啦");
+            }
+        }
+        if (hasPre) {
+            EventBusUtils.postEvent(new TeddyEvent(TeddyEvent.EVENT_TEDDY_KAOLA_PLAY_UPDATElIST, --curPosition));
         }
         return hasPre;
     }

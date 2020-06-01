@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="5px"
+    android:paddingBottom="5px"
+    tools:ignore="PxUsage">
+
+    <ImageView
+        android:id="@+id/item_locl_music_index"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_music_play_gif" />
+
+    <TextView
+        android:id="@+id/item_locl_music_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="32px"
+        android:layout_marginTop="12px"
+        android:layout_marginBottom="12px"
+        android:layout_toStartOf="@+id/item_locl_music_art"
+        android:layout_toEndOf="@+id/item_locl_music_index"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textSize="30px" />
+
+    <TextView
+        android:id="@+id/item_locl_music_art"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="20px"
+        android:alpha="0.5"
+        android:textSize="30px" />
+</RelativeLayout>

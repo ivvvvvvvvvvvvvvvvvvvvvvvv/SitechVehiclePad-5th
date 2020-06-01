@@ -88,6 +88,7 @@ public class KaolaAudioActivity extends BaseActivity implements
     private void initFrags() {
         fragmentlist.add(new KaolaAudioSubPageFrag());
         fragmentlist.add(new KaolaAudioCategoryPageFrag());
+        fragmentlist.add(new KaolaAudioBroadcastPageFrag());
     }
 
     private void initTabLayout() {
@@ -100,7 +101,7 @@ public class KaolaAudioActivity extends BaseActivity implements
             }
         });
         tabLayout.setupWithViewPager(pager);
-        KaolaFragmentAdapter adapter = new KaolaFragmentAdapter(getSupportFragmentManager(), fragmentlist, new String[]{"AI电台","专辑分类","在线广播"});
+        KaolaFragmentAdapter adapter = new KaolaFragmentAdapter(getSupportFragmentManager(), fragmentlist, new String[]{"AI电台", "专辑分类", "在线广播", "搜索"});
         pager.setAdapter(adapter);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

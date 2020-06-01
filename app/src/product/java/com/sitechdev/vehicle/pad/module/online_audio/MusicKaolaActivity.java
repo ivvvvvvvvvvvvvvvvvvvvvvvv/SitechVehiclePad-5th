@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.kaolafm.opensdk.utils.ListUtil;
 import com.kaolafm.sdk.core.dao.AlbumDao;
+import com.kaolafm.sdk.core.mediaplayer.BroadcastRadioPlayerManager;
 import com.kaolafm.sdk.core.mediaplayer.IPlayerListChangedListener;
 import com.kaolafm.sdk.core.mediaplayer.OnPlayItemInfoListener;
 import com.kaolafm.sdk.core.mediaplayer.PlayItem;
@@ -470,11 +471,9 @@ public class MusicKaolaActivity extends BaseActivity implements
     public void onMusicPlaying(PlayItem item) {
         if (tv_bottom_title != null && item != null) {
             tv_bottom_title.setText(item.getTitle());
-            btn_pause_play.setActivated(true);
+            btn_pause_play.setImageResource(R.drawable.pc_pause);
 //            GlideApp.with(this).load(item.getAlbumPic()).placeholder(R.drawable.img_song_card).into(musicImageView);
-//            musicImageView.setImageResource();
         }
-//        setListData();
         if (flag_FIRST_PLAY) {
             SitechDevLog.e(TAG, "onPlayerPlaying  flag_FIRST_PLAY = " + flag_FIRST_PLAY);
             flag_FIRST_PLAY = false;

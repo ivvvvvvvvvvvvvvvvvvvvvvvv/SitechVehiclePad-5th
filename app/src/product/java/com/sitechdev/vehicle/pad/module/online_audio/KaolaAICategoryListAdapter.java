@@ -1,6 +1,7 @@
 
 package com.sitechdev.vehicle.pad.module.online_audio;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.kaolafm.opensdk.api.operation.model.ImageFile;
 import com.kaolafm.opensdk.api.operation.model.category.AlbumCategoryMember;
+import com.kaolafm.opensdk.api.operation.model.category.BroadcastCategoryMember;
 import com.kaolafm.opensdk.api.operation.model.category.CategoryMember;
 import com.sitechdev.vehicle.lib.imageloader.GlideApp;
 import com.sitechdev.vehicle.pad.R;
@@ -58,7 +60,7 @@ public class KaolaAICategoryListAdapter extends RecyclerView.Adapter<KaolaAICate
     }
 
     @Override
-    public void onBindViewHolder(@NonNull VHolderAbs vh, int i) {
+    public void onBindViewHolder(@NonNull VHolderAbs vh, @SuppressLint("RecyclerView") int i) {
         CategoryMember categoryMember = mLists.get(i);
         vh.des.setText(mLists.get(i).getTitle());
         if (categoryMember instanceof AlbumCategoryMember) {
@@ -66,9 +68,20 @@ public class KaolaAICategoryListAdapter extends RecyclerView.Adapter<KaolaAICate
             vh.title.setText(albumCategoryMember.getTitle());
             setPlayTime(vh.des, albumCategoryMember.getPlayTimes());
         }
-        if (mLists.get(i).getImageFiles() != null && mLists.get(i).getImageFiles().containsKey("cover")) {
-            ImageFile img = mLists.get(i).getImageFiles().get("cover");
-            GlideApp.with(context).load(img.getUrl()).centerCrop().into(vh.img);
+        if (categoryMember instanceof BroadcastCategoryMember) {
+            BroadcastCategoryMember broadcastCategoryMember = (BroadcastCategoryMember) categoryMember;
+            vh.title.setText(broadcastCategoryMember.getTitle());
+            setPlayTime(vh.des, broadcastCategoryMember.getPlayTimes());
+        }
+        if (mLists.get(i).getImageFiles() != null ) {
+            if (mLists.get(i).getImageFiles().containsKey("icon")) {
+                ImageFile img = mLists.get(i).getImageFiles().get("icon");
+                GlideApp.with(context).load(img.getUrl()).centerCrop().into(vh.img);
+            }
+            if (mLists.get(i).getImageFiles().containsKey("cover")) {
+                ImageFile img = mLists.get(i).getImageFiles().get("cover");
+                GlideApp.with(context).load(img.getUrl()).centerCrop().into(vh.img);
+            }
         }
         vh.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

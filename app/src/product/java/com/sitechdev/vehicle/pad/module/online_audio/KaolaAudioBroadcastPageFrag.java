@@ -9,11 +9,13 @@ import android.widget.TextView;
 import com.kaolafm.opensdk.api.BasePageResult;
 import com.kaolafm.opensdk.api.operation.OperationRequest;
 import com.kaolafm.opensdk.api.operation.model.category.AlbumCategoryMember;
+import com.kaolafm.opensdk.api.operation.model.category.BroadcastCategoryMember;
 import com.kaolafm.opensdk.api.operation.model.category.Category;
 import com.kaolafm.opensdk.api.operation.model.category.CategoryMember;
 import com.kaolafm.opensdk.api.operation.model.category.LeafCategory;
 import com.kaolafm.opensdk.http.core.HttpCallback;
 import com.kaolafm.opensdk.http.error.ApiException;
+import com.kaolafm.sdk.core.mediaplayer.BroadcastRadioPlayerManager;
 import com.sitechdev.vehicle.lib.util.Constant;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.bean.BaseFragment;
@@ -35,7 +37,7 @@ import java.util.List;
  *      time   : 2020/5/20
  * </pre>
  */
-public class KaolaAudioCategoryPageFrag extends BaseFragment {
+public class KaolaAudioBroadcastPageFrag extends BaseFragment {
     private RecyclerView recyclerView;
     private ListIndicatorRecycview indecator;
     private KaolaAICategoryListAdapter adapter;
@@ -65,24 +67,37 @@ public class KaolaAudioCategoryPageFrag extends BaseFragment {
         super.initData();
         if (AppVariants.activeSuccess) {
             //获取分类数据
-            KaolaPlayManager.SingletonHolder.INSTANCE.getkaolaCategory(new HttpCallback<List<Category>>() {
+            KaolaPlayManager.SingletonHolder.INSTANCE.getkaolaBroadcast(new HttpCallback<List<Category>>() {
                 @Override
                 public void onSuccess(List<Category> categories) {
-                    mCategories = categories;
+                    mCategories.clear();
                     List<Indexable> indexs = new ArrayList<>();
                     for (int i = 0; i < categories.size(); i++) {
-                        if (!(categories.get(i) instanceof LeafCategory)) {
-                            continue;
-                        }
                         int finalI = i;
-                        Indexable indexable = new Indexable() {
-                            @Override
-                            public String getIndex() {
-                                return categories.get(finalI).getName();
+                        if (categories.get(i) instanceof LeafCategory) {
+                            Indexable indexable = new Indexable() {
+                                @Override
+                                public String getIndex() {
+                                    return categories.get(finalI).getName();
+                                }
+                            };
+                            indexs.add(indexable);
+                            mCategories.add(categories.get(i));
+                        } else {
+                            for (int j = 0; j < categories.get(i).getChildCategories().size(); j++) {
+                                int finalJ = j;
+                                Indexable indexable = new Indexable() {
+                                    @Override
+                                    public String getIndex() {
+                                        return categories.get(finalI).getChildCategories().get(finalJ).getName();
+                                    }
+                                };
+                                indexs.add(indexable);
+                                mCategories.add(categories.get(finalI).getChildCategories().get(finalJ));
                             }
-                        };
-                        indexs.add(indexable);
+                        }
                         if (indexs.size() > 3) {
+                            indexs = indexs.size() == 4 ? indexs : indexs.subList(0, 4);
                             break;
                         }
                     }
@@ -121,11 +136,14 @@ public class KaolaAudioCategoryPageFrag extends BaseFragment {
                 adapter.setOnItemClick(new KaolaAICategoryListAdapter.OnItemClick() {
                     @Override
                     public void onClick(CategoryMember cm) {
-                        if (cm instanceof AlbumCategoryMember) {
-                            AlbumCategoryMember albumCategoryMember = (AlbumCategoryMember) cm;
-                            jump2Play(albumCategoryMember.getAlbumId(), albumCategoryMember.getTitle(), albumCategoryMember.getImageFiles().get("cover").getUrl());
+                        if (cm instanceof BroadcastCategoryMember) {
+                            BroadcastCategoryMember broadcastCategoryMember = (BroadcastCategoryMember) cm;
+                            String url = "";
+                            if (broadcastCategoryMember.getImageFiles() != null && broadcastCategoryMember.getImageFiles().get("cover") != null) {
+                                url = broadcastCategoryMember.getImageFiles().get("cover").getUrl();
+                            }
+                            jump2Play(broadcastCategoryMember.getBroadcastId(), broadcastCategoryMember.getTitle(), url);
                         }
-
                     }
                 });
             }
@@ -142,9 +160,8 @@ public class KaolaAudioCategoryPageFrag extends BaseFragment {
         bundle.putSerializable(Constant.KEY_TYPE_KEY, Constant.TYPE.FIRST_ENTERED);
         bundle.putLong(Constant.KEY_MEMBER_CODE, id);
         bundle.putString(Constant.KEY_IMG_URL, url);
-        bundle.putBoolean(Constant.KEY_IS_ALBUM, true);
         bundle.putString(Constant.KEY_TITLE, title);
-        RouterUtils.getInstance().navigation(RouterConstants.MUSIC_PLAY_ONLINE, bundle);
+        RouterUtils.getInstance().navigation(RouterConstants.MUSIC_PLAY_ONLINE_BROADCAST, bundle);
     }
 
 }

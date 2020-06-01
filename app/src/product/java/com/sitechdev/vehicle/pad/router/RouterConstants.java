@@ -41,7 +41,7 @@ public interface RouterConstants {
      */
     String MUSIC_PLAY_SHOW = "/subApp/musicPlay";
     String MUSIC_PLAY_ONLINE = "/subApp/musicPlayOnline";
-
+    String MUSIC_PLAY_ONLINE_BROADCAST = "/subApp/musicPlayBroadcastOnline";
     /**
      * 设置
      */
