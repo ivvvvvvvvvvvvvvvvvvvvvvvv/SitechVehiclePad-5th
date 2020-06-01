@@ -1,0 +1,388 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="200px"
+    android:background="@drawable/ico_taxi_main_bg"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_title_toolbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="1045dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:orientation="vertical">
+
+
+                <RelativeLayout
+                    android:id="@+id/btn_sett_teddy"
+                    android:layout_width="match_parent"
+                    android:layout_height="119dp"
+                    android:background="@drawable/selector_setting_reset_btn">
+
+                    <TextView
+                        android:textColor="@color/white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="48dp"
+                        android:text="唤醒词"
+                        android:textSize="32sp" />
+
+                    <TextView
+                        android:textColor="@color/white"
+                        android:id="@+id/setting_voice_wake_up_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="109dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="80dp"
+                        android:drawableRight="@drawable/arrow_right"
+                        android:gravity="center"
+                        android:text="Hey,Teddy"
+                        android:textSize="32sp" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="1040dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/common_line_white" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="119dp">
+
+                    <TextView
+                        android:textColor="@color/white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="48dp"
+                        android:text="允许语音唤醒"
+                        android:textSize="32sp" />
+
+                    <RadioGroup
+                        android:id="@+id/setting_voice_enable_voice_switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="64dp"
+                        android:background="@drawable/car_set_radio_group_bg"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/setting_voice_enable_voice_switch_off"
+                            style="@style/car_set_radiobutton"
+                            android:text="OFF " />
+
+                        <RadioButton
+                            android:id="@+id/setting_voice_enable_voice_switch_on"
+                            style="@style/car_set_radiobutton"
+                            android:checked="true"
+                            android:text=" ON" />
+
+                    </RadioGroup>
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="1040dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/common_line_white" />
+
+                <RelativeLayout
+                    android:id="@+id/tts_speaker_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="119dp">
+
+                    <TextView
+                        android:textColor="@color/white"
+                        android:id="@+id/tv_tts_speaker"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="48dp"
+                        android:text="发音人"
+                        android:textSize="32sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="34dp"
+                        android:layout_toRightOf="@id/tv_tts_speaker"
+                        android:text="方言选项只适用于播报，请不要对我说方言，\nTeddy听不懂。"
+                        android:textColor="#747474"
+                        android:textSize="@dimen/dp_24" />
+
+                    <TextView
+                        android:textColor="@color/white"
+                        android:id="@+id/tts_speaker"
+                        android:layout_width="wrap_content"
+                        android:layout_height="109dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="80dp"
+                        android:drawableRight="@drawable/arrow_right"
+                        android:gravity="center"
+                        android:textSize="32sp" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="1040dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/common_line_white" />
+
+                <RelativeLayout
+                    android:id="@+id/tts_speed_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="119dp">
+
+                    <TextView
+                        android:textColor="@color/white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="48dp"
+                        android:text="播报语速"
+                        android:textSize="32sp" />
+
+                    <TextView
+                        android:textColor="@color/white"
+                        android:id="@+id/tts_speed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="109dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="80dp"
+                        android:drawableRight="@drawable/arrow_right"
+                        android:gravity="center"
+                        android:textSize="32sp" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="1040dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/common_line_white" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="119dp">
+
+                    <TextView
+                        android:textColor="@color/white"
+                        android:id="@+id/tv_ongoing_dialogue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="48dp"
+                        android:text="持续对话"
+                        android:textSize="32sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="34dp"
+                        android:layout_toRightOf="@id/tv_ongoing_dialogue"
+                        android:text="非多媒体播放场景时，在与您进行对话后，\n会自动等待8s与您持续对话。"
+                        android:textColor="#747474"
+                        android:textSize="@dimen/dp_24" />
+
+                    <RadioGroup
+                        android:id="@+id/setting_voice_ongoing_dialogue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="64dp"
+                        android:background="@drawable/car_set_radio_group_bg"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/setting_voice_ongoing_dialogue_off"
+                            style="@style/car_set_radiobutton"
+                            android:text="OFF " />
+
+                        <RadioButton
+                            android:id="@+id/setting_voice_ongoing_dialogue_on"
+                            style="@style/car_set_radiobutton"
+                            android:checked="true"
+                            android:text=" ON" />
+
+                    </RadioGroup>
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="1040dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/common_line_white" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="119dp">
+
+                    <TextView
+                        android:textColor="@color/white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="48dp"
+                        android:text="开机问候语"
+                        android:textSize="32sp" />
+
+                    <RadioGroup
+                        android:id="@+id/setting_voice_welcome_text_switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="64dp"
+                        android:background="@drawable/car_set_radio_group_bg"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/setting_voice_welcome_text_switch_off"
+                            style="@style/car_set_radiobutton"
+                            android:text="OFF " />
+
+                        <RadioButton
+                            android:id="@+id/setting_voice_welcome_text_switch_on"
+                            style="@style/car_set_radiobutton"
+                            android:checked="true"
+                            android:text=" ON" />
+                    </RadioGroup>
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="1040dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/common_line_white" />
+
+                <RelativeLayout
+                    android:id="@+id/setting_voice_set_welcome_text_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="119dp"
+                    android:background="@drawable/selector_setting_reset_btn">
+
+                    <TextView
+                        android:textColor="@color/white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="48dp"
+                        android:text="自定义开机问候语"
+                        android:textSize="32sp" />
+
+                    <TextView
+                        android:textColor="@color/white"
+                        android:id="@+id/setting_voice_set_welcome_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="109dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="80dp"
+                        android:drawableRight="@drawable/arrow_right"
+                        android:gravity="center"
+                        android:text="打开"
+                        android:textSize="32sp" />
+                </RelativeLayout>
+
+
+                <ImageView
+                    android:layout_width="1040dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/common_line_white" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="119dp">
+
+                    <TextView
+                        android:textColor="@color/white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="48dp"
+                        android:text="语音图标隐藏"
+                        android:textSize="32sp" />
+
+                    <RadioGroup
+                        android:id="@+id/setting_voice_display_switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="64dp"
+                        android:background="@drawable/car_set_radio_group_bg"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/setting_voice_display_switch_off"
+                            style="@style/car_set_radiobutton"
+                            android:checked="true"
+                            android:text="OFF " />
+
+                        <RadioButton
+                            android:id="@+id/setting_voice_display_switch_on"
+                            style="@style/car_set_radiobutton"
+                            android:text=" ON" />
+
+                    </RadioGroup>
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="1040dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/common_line_white" />
+
+                <RelativeLayout
+                    android:id="@+id/setting_voice_reset_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="119dp"
+                    android:layout_marginEnd="80dp"
+                    android:background="@drawable/selector_setting_reset_btn">
+
+                    <TextView
+                        android:textColor="@color/white"
+                        android:id="@+id/setting_voice_reset_txt"
+                        android:layout_width="match_parent"
+                        android:layout_height="119dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="48dp"
+                        android:gravity="center_vertical"
+                        android:text="恢复语音设置"
+                        android:textSize="32sp" />
+
+
+                </RelativeLayout>
+
+
+                <ImageView
+                    android:layout_width="1040dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/common_line_white" />
+
+            </LinearLayout>
+        </ScrollView>
+
+        <ImageView
+            android:id="@+id/setting_voice_icon_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="60dp"
+            android:src="@drawable/ic_hello_teddy_big" />
+    </LinearLayout>
+</LinearLayout>

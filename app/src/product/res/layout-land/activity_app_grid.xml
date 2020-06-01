@@ -8,12 +8,14 @@
         android:id="@+id/id_all_apps_vp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#f00"
         android:layout_marginTop="140px"
         android:layout_marginBottom="200px" />
 
     <LinearLayout
         android:id="@+id/id_main_tag"
         android:layout_width="wrap_content"
+        android:background="#ff0"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom"
         android:layout_marginBottom="220px"

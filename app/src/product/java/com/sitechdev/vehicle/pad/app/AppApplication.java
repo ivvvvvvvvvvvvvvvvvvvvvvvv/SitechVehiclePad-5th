@@ -3,6 +3,7 @@ package com.sitechdev.vehicle.pad.app;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.multidex.MultiDex;
 import android.util.Log;
@@ -48,6 +49,7 @@ import org.greenrobot.eventbus.EventBus;
 public class AppApplication extends Application {
 
     private static AppApplication mApplication = null;
+    private static AudioManager mAudioManager = null;
 
     @Override
     @DebugTrace
@@ -221,5 +223,11 @@ public class AppApplication extends Application {
         SkinManager.getInstance().initSkinManager(this);
     }
 
+    public static AudioManager getAudioManager() {
+        if (mAudioManager == null) {
+            mAudioManager = (AudioManager) AppApplication.getContext().getSystemService(Context.AUDIO_SERVICE);
+        }
+        return mAudioManager;
+    }
 
 }

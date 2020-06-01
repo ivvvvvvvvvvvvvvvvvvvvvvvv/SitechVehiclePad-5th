@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="640dp"
+    android:layout_height="360dp"
+    android:background="@drawable/shape_bg_dialog">
+
+    <EditText
+        android:id="@+id/wifi_dialog_pass_word_box_edt"
+        android:layout_width="500dp"
+        android:layout_height="78dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="120dp"
+        android:background="@drawable/set_wifi_connected_password_input_box"
+        android:inputType="textPassword"
+        android:paddingEnd="80dp"
+        android:paddingStart="8dp"
+        android:singleLine="true"
+        android:textColor="@color/white"
+        android:textSize="32sp" />
+
+    <CheckBox
+        android:id="@+id/wifi_dialog_invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/wifi_dialog_pass_word_box_edt"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="450dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/selector_set_invisible_pass_ward"
+        android:button="@null"
+        android:checked="true" />
+
+
+    <TextView
+        android:id="@+id/wifi_dialog_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/wifi_dialog_pass_word_box_edt"
+        android:layout_marginTop="40dp"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="ViennaHotel"
+        android:textSize="32sp" />
+
+    <Button
+        android:id="@+id/wifi_dialog_sure_btn"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/wifi_dialog_pass_word_box_edt"
+        android:layout_alignEnd="@+id/wifi_dialog_pass_word_box_edt"
+        android:layout_marginTop="64dp"
+        android:background="@drawable/selector_common_btn_positive"
+        android:paddingBottom="10dp"
+        android:text="连接"
+        android:textColor="@color/white"
+        android:textSize="32sp" />
+
+    <Button
+        android:id="@+id/wifi_dialog_cancel_btn"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/wifi_dialog_name"
+        android:layout_below="@+id/wifi_dialog_pass_word_box_edt"
+        android:layout_marginTop="64dp"
+        android:background="@drawable/selector_common_btn_negative"
+        android:gravity="center"
+        android:paddingBottom="10dp"
+        android:text="取消"
+        android:textColor="@color/white"
+        android:textSize="32sp" />
+
+</RelativeLayout>

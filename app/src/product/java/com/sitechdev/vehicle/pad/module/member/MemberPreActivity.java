@@ -18,6 +18,7 @@ import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.callback.BaseBribery;
 import com.sitechdev.vehicle.pad.manager.UserManager;
+import com.sitechdev.vehicle.pad.module.feedback.FeedbackActivity;
 import com.sitechdev.vehicle.pad.module.login.util.LoginUtils;
 import com.sitechdev.vehicle.pad.module.member.bean.PointsSigninBean;
 import com.sitechdev.vehicle.pad.module.member.bean.TotalPointsBean;
@@ -110,6 +111,7 @@ public class MemberPreActivity extends BaseActivity {
         mMySignRelaLayoutView.setOnClickListener(this);
         //退出登录
         mLogoutLayoutView.setOnClickListener(this);
+        findViewById(R.id.id_feedback).setOnClickListener(this);
     }
 
     @Override
@@ -239,6 +241,10 @@ public class MemberPreActivity extends BaseActivity {
                 break;
             case R.id.id_tv_sign_count_number:
                 //我的积分
+                break;
+            case R.id.id_feedback:
+                toFeedback();
+                break;
             case R.id.id_sign_count_top_content:
                 if (!LoginUtils.isLogin()) {
                     return;
@@ -299,5 +305,9 @@ public class MemberPreActivity extends BaseActivity {
                 });
             }
         });
+    }
+
+    private void toFeedback() {
+        startActivity(new Intent(this, FeedbackActivity.class));
     }
 }

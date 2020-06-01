@@ -71,6 +71,7 @@ class Config {
             //kaola-tingban
             tingban            : 'com.kaolafm:open-sdk:1.5.0',
             //下拉刷新组件
+            smartrefresh       : 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1',
             tkrefreshlayout    : 'com.lcodecorex:tkrefreshlayout:1.0.7',
             //rxjava--rxandroid
             rxjava             : 'io.reactivex.rxjava2:rxjava:2.1.3',

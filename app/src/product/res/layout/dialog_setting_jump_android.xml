@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="584dp"
+    android:layout_height="400dp"
+    android:background="@drawable/shape_bg_dialog">
+
+    <TextView
+        android:id="@+id/setting_dialog_jump_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="70dp"
+        android:text="申请进入"
+        android:textSize="32sp" />
+
+    <EditText
+        android:id="@+id/dialog_setting_jump_edt"
+        android:layout_width="500dp"
+        android:layout_height="78dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/set_wifi_connected_password_input_box"
+        android:imeOptions="flagNoExtractUi"
+        android:paddingEnd="80dp"
+        android:paddingStart="8dp"
+        android:singleLine="true"
+        android:hint="请输入校验码"
+        android:maxLength="50"
+        android:textColor="@color/white"
+        android:textSize="32sp" />
+
+    <Button
+        android:id="@+id/setting_dialog_jump_cancel_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/setting_dialog_jump_name"
+        android:layout_below="@+id/dialog_setting_jump_edt"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/selector_common_btn_negative"
+        android:text="取消"
+        android:textColor="@color/white"
+        android:textSize="32sp" />
+
+    <Button
+        android:id="@+id/setting_dialog_jump_sure_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dialog_setting_jump_edt"
+        android:layout_alignEnd="@+id/dialog_setting_jump_edt"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/selector_common_btn_positive"
+        android:text="确定"
+        android:textColor="@color/white"
+        android:textSize="32sp" />
+</RelativeLayout>

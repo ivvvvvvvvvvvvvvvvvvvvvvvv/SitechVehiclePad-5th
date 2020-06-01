@@ -13,6 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup">
+        <activity android:name=".module.feedback.FeedbackHistoryActivity"
+            android:screenOrientation="landscape"/>
         <activity
             android:name=".module.music.MusicMainActivity"
             android:screenOrientation="landscape" />
@@ -105,8 +107,29 @@
             android:name=".module.forshow.AudioListForShowActivity"
             android:screenOrientation="landscape"
             android:theme="@style/NoTitleAppTheme" />
+        <activity
+            android:name=".module.setting.activity.SettingNetActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/NoTitleAppTheme" />
+        <activity
+            android:name=".module.setting.activity.SettingHomeActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/NoTitleAppTheme" />
+        <activity
+            android:name=".module.setting.activity.SettingBtActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/NoTitleAppTheme" />
+        <activity
+            android:name=".module.setting.activity.SettingSystemActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/NoTitleAppTheme" />
+        <activity
+            android:name=".module.setting.activity.SettingTeddyActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/NoTitleAppTheme" />
         <activity android:name=".module.online_audio.KaolaAudioActivity" />
         <activity android:name=".module.online_audio.MusicKaolaActivity" />
+        <activity android:name=".module.feedback.FeedbackActivity" />
 
         <meta-data
             android:name="com.amap.api.v2.apikey"

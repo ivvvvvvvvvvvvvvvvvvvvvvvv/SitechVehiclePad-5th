@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/feedback_history_item_voice"
+        android:layout_width="wrap_content"
+        android:layout_height="90dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/feedback_voicelayout_bg"
+        android:minWidth="200dp">
+
+        <ImageView
+            android:id="@+id/feedback_history_item_anim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/feedback_history_item_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="28sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <ProgressBar
+        android:id="@+id/feedback_history_item_progress"
+        android:layout_width="@dimen/dp_30"
+        android:layout_height="@dimen/dp_30"
+        android:layout_alignTop="@id/feedback_history_item_voice"
+        android:layout_marginLeft="@dimen/dp_30"
+        android:layout_marginTop="@dimen/dp_30"
+        android:layout_toRightOf="@id/feedback_history_item_voice"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/feedback_history_item_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/feedback_history_item_voice"
+        android:layout_alignLeft="@id/feedback_history_item_voice"
+        android:layout_marginLeft="19dp"
+        android:layout_marginTop="26dp"
+        android:textColor="#828282"
+        android:textSize="24sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/feedback_history_item_date"
+        android:layout_marginTop="30dp"
+        android:alpha="0.5"
+        android:background="@drawable/common_line_white" />
+
+</RelativeLayout>

@@ -198,6 +198,9 @@ dependencies {
     implementation Config.depConfig.rollingText
     //通用组件
     implementation project(':library:CommonLibrary')
+
+    //下拉刷新
+    implementation Config.depConfig.smartrefresh
 }
 
 android.applicationVariants.all { variant ->

@@ -218,7 +218,7 @@ public class AppSignalWindowManager {
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
                         int level = signalStrength.getLevel();
                         SitechDevLog.i(TAG, "signalStrength level====" + level);
-                        tBoxIconChange(level);
+//                        tBoxIconChange(level);
                     }
                 }
 
