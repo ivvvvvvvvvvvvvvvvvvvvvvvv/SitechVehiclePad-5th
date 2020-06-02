@@ -22,7 +22,6 @@ import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.sitechdev.vehicle.lib.event.BindEventBus;
 import com.sitechdev.vehicle.lib.imageloader.GlideApp;
 import com.sitechdev.vehicle.lib.util.Constant;
-import com.sitechdev.vehicle.lib.util.DensityUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.R;
@@ -34,7 +33,6 @@ import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceType;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.view.CommonToast;
-import com.sitechdev.vehicle.pad.view.RecycleViewDivider;
 import com.sitechdev.vehicle.pad.view.ScrollTextView;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -42,7 +40,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
-
+// 听伴广播播放页
 @Route(path = RouterConstants.MUSIC_PLAY_ONLINE_BROADCAST)
 @VoiceSourceType(VoiceSourceManager.SUPPORT_TYPE_KAOLA)
 @BindEventBus
@@ -81,7 +79,7 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
         flag_FIRST_PLAY = true;
         mContext = this;
         VoiceSourceManager.getInstance().addMusicChangeListener(this);
-        KaolaPlayManager.SingletonHolder.INSTANCE.setPlayVoiceSourceManagerListener(this);
+        KaolaPlayManager.SingletonHolder.INSTANCE.addPlayVoiceSourceManagerListener(this);
     }
 
     @Override
@@ -239,7 +237,7 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        KaolaPlayManager.SingletonHolder.INSTANCE.clearPlayVoiceSourceManagerListener();
+        KaolaPlayManager.SingletonHolder.INSTANCE.clearPlayVoiceSourceManagerListener(this);
     }
 
     @Override
@@ -412,7 +410,7 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
      * 请求数据信息
      */
     private void requestKaoLaInfo() {
-        BroadcastRadioPlayerManager.getInstance().playBroadcast(id, null);
+        KaolaPlayManager.SingletonHolder.INSTANCE.playBroadcast(id, null);
     }
 
     @Override

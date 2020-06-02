@@ -25,6 +25,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.kaolafm.opensdk.api.operation.model.column.Column;
+import com.kaolafm.sdk.core.mediaplayer.BroadcastRadioPlayerManager;
 import com.kaolafm.sdk.core.mediaplayer.PlayerManager;
 import com.sitechdev.net.HttpCode;
 import com.sitechdev.vehicle.lib.event.BindEventBus;
@@ -205,7 +206,8 @@ public class MainActivity extends BaseActivity
 
 //        KaolaPlayManager.SingletonHolder.INSTANCE.setPlayCallback(mPlayCallback);
         PlayerManager.getInstance(this).addPlayerStateListener(KaolaPlayManager.SingletonHolder.INSTANCE.mIPlayerStateListener);
-//        MusicManager.getInstance().addMusicChangeListener(musicChangeListener);
+        BroadcastRadioPlayerManager.getInstance().addPlayerStateListener(KaolaPlayManager.SingletonHolder.INSTANCE.mIPlayerStateListener);
+        //        MusicManager.getInstance().addMusicChangeListener(musicChangeListener);
         VoiceSourceManager.getInstance().addMusicChangeListener(this);
 
         btn_music_title.setTypeface(FontUtil.getInstance().getMainFont_Min_i());

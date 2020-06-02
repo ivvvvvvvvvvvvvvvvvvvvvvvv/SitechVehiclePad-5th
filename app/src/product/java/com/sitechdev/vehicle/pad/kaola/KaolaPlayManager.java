@@ -10,10 +10,6 @@ import com.kaolafm.opensdk.api.operation.OperationRequest;
 import com.kaolafm.opensdk.api.operation.model.category.Category;
 import com.kaolafm.opensdk.api.operation.model.column.Column;
 import com.kaolafm.opensdk.api.operation.model.column.ColumnGrp;
-import com.kaolafm.opensdk.api.scene.AccScene;
-import com.kaolafm.opensdk.api.scene.Scene;
-import com.kaolafm.opensdk.api.scene.SceneInfo;
-import com.kaolafm.opensdk.api.scene.SceneRequest;
 import com.kaolafm.opensdk.http.core.HttpCallback;
 import com.kaolafm.opensdk.http.error.ApiException;
 import com.kaolafm.sdk.core.mediaplayer.BroadcastRadioListManager;
@@ -22,6 +18,7 @@ import com.kaolafm.sdk.core.mediaplayer.IPlayerStateListener;
 import com.kaolafm.sdk.core.mediaplayer.PlayItem;
 import com.kaolafm.sdk.core.mediaplayer.PlayerListManager;
 import com.kaolafm.sdk.core.mediaplayer.PlayerManager;
+import com.kaolafm.sdk.vehicle.GeneralCallback;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.app.AppApplication;
@@ -69,6 +66,7 @@ public class KaolaPlayManager {
     public enum PlayType {
         SITEV_NEWS, CHILD_PAPERS, CAR_FUN, LIFE_ALL
     }
+
     private boolean isLoadingData = false;
 
     public void getkaolaCategory(HttpCallback<List<Category>> callback) {
@@ -142,6 +140,7 @@ public class KaolaPlayManager {
 //                CommonToast.makeText(AppApplication.getContext(), "错误信息 ----> 错误码：" + e.getCode() + " -----> 错误信息：" + e.getMessage());
         }
     };
+
     /**
      * @param context
      * @param index   0, 新特速报 1,少儿读物 2,车海娱乐 3,生活一点通
@@ -207,16 +206,53 @@ public class KaolaPlayManager {
         return false;
     }
 
+    private boolean curPlayingBroadcast = false;
+
+    public boolean isCurPlayingBroadcast() {
+        return curPlayingBroadcast;
+    }
+
+    public List<PlayItem> getPlayList() {
+        return isCurPlayingBroadcast() ? BroadcastRadioListManager.getInstance().getPlayList() : PlayerListManager.getInstance().getPlayList();
+    }
+
+    public boolean isPlaying(Context context){
+        if (curPlayingBroadcast) {
+            return BroadcastRadioPlayerManager.getInstance().isPlaying();
+        } else {
+            return PlayerManager.getInstance(context).isPlaying();
+        }
+    }
+    public void switchPlayPause(Context context) {
+        if (isCurPlayingBroadcast()) {
+            if (BroadcastRadioPlayerManager.getInstance().isPlaying()) {
+                BroadcastRadioPlayerManager.getInstance().pause();
+            } else {
+                BroadcastRadioPlayerManager.getInstance().play();
+            }
+        } else {
+            if (PlayerManager.getInstance(context).isPlaying()) {
+                PlayerManager.getInstance(context).pause();
+            } else {
+                PlayerManager.getInstance(context).play();
+            }
+        }
+    }
+
+    public void setCurPlayingBroadcast(boolean curPlayingBroadcast) {
+        this.curPlayingBroadcast = curPlayingBroadcast;
+    }
+
     public boolean playAnother() {
-        return playAnother(false);
+        return playAnother(isCurPlayingBroadcast());
     }
 
     public boolean playAnother(boolean isBrocast) {
         boolean result = false;
         SitechDevLog.e(this.getClass().getSimpleName(), "========  playAnother  was called");
-        if(isBrocast){
+        if (isBrocast) {
             result = false;
-        }else{
+        } else {
             if (PlayerManager.getInstance(AppApplication.getContext()).canSwitchNextOrPre()) {
                 int size = PlayerListManager.getInstance().getPlayListSize();
                 PlayItem curPlayItem = PlayerListManager.getInstance().getCurPlayItem();
@@ -240,7 +276,7 @@ public class KaolaPlayManager {
     }
 
     public boolean playNext() {
-        return playNext(false);
+        return playNext(isCurPlayingBroadcast());
     }
 
     public boolean playNext(boolean isbrocast) {
@@ -269,9 +305,11 @@ public class KaolaPlayManager {
         }
         return hasNext;
     }
-    public boolean playPre(){
-        return playPre(false);
+
+    public boolean playPre() {
+        return playPre(isCurPlayingBroadcast());
     }
+
     public boolean playPre(boolean isbrocast) {
         boolean hasPre = false;
         int curPosition = -1;
@@ -315,8 +353,10 @@ public class KaolaPlayManager {
         public void onPlayerPlaying(PlayItem playItem) {
             mPlayCallback.onPlay();
             SitechDevLog.e(KaolaPlayManager.class.getSimpleName(), " ============== onPlayerPlaying =============");
-            if (onPlaySourceMusicChangeListener != null) {
-                onPlaySourceMusicChangeListener.onMusicPlaying(playItem);
+            if (onPlaySourceMusicChangeListeners != null && onPlaySourceMusicChangeListeners.size() > 0) {
+                for (int j = 0; j < onPlaySourceMusicChangeListeners.size(); j++) {
+                    onPlaySourceMusicChangeListeners.get(j).onMusicPlaying(playItem);
+                }
             }
         }
 
@@ -331,24 +371,30 @@ public class KaolaPlayManager {
         @Override
         public void onProgress(String s, int i, int i1, boolean b) {
             SitechDevLog.e(KaolaPlayManager.class.getSimpleName(), " ============== onProgress =============");
-            if (onPlaySourceMusicChangeListener != null) {
-                onPlaySourceMusicChangeListener.onMusicPlayProgress(s, i, i1, b);
+            if (onPlaySourceMusicChangeListeners != null && onPlaySourceMusicChangeListeners.size() > 0) {
+                for (int j = 0; j < onPlaySourceMusicChangeListeners.size(); j++) {
+                    onPlaySourceMusicChangeListeners.get(j).onMusicPlayProgress(s, i, i1, b);
+                }
             }
         }
 
         @Override
         public void onPlayerFailed(PlayItem playItem, int i, int i1) {
             SitechDevLog.e(KaolaPlayManager.class.getSimpleName(), " ============== onPlayerFailed =============");
-            if (onPlaySourceMusicChangeListener != null) {
-                onPlaySourceMusicChangeListener.onPlayerFailed(playItem);
+            if (onPlaySourceMusicChangeListeners != null && onPlaySourceMusicChangeListeners.size() > 0) {
+                for (int j = 0; j < onPlaySourceMusicChangeListeners.size(); j++) {
+                    onPlaySourceMusicChangeListeners.get(j).onPlayerFailed(playItem);
+                }
             }
         }
 
         @Override
         public void onPlayerEnd(PlayItem playItem) {
             SitechDevLog.e(KaolaPlayManager.class.getSimpleName(), " ============== onPlayerEnd =============");
-            if (onPlaySourceMusicChangeListener != null) {
-                onPlaySourceMusicChangeListener.onMusicPlayEnd(playItem);
+            if (onPlaySourceMusicChangeListeners != null && onPlaySourceMusicChangeListeners.size() > 0) {
+                for (int j = 0; j < onPlaySourceMusicChangeListeners.size(); j++) {
+                    onPlaySourceMusicChangeListeners.get(j).onMusicPlayEnd(playItem);
+                }
             }
         }
 
@@ -392,9 +438,12 @@ public class KaolaPlayManager {
 
     public interface Callback {
         void onSuccess(int index, String textContent);
+
         void onDataGot(List<Column> data);
     }
+
     List<Callback> callbacks = new ArrayList<>();
+
     public void setCallback(Callback callback) {
         callbacks.add(callback);
     }
@@ -413,14 +462,14 @@ public class KaolaPlayManager {
         mPlayCallback = playCallback;
     }
 
-    private VoiceSourceManager.onPlaySourceMusicChangeListener onPlaySourceMusicChangeListener = null;
+    private List<VoiceSourceManager.onPlaySourceMusicChangeListener> onPlaySourceMusicChangeListeners = new ArrayList<>();
 
-    public void setPlayVoiceSourceManagerListener(VoiceSourceManager.onPlaySourceMusicChangeListener playSourceMusicChangeListener) {
-        onPlaySourceMusicChangeListener = playSourceMusicChangeListener;
+    public void addPlayVoiceSourceManagerListener(VoiceSourceManager.onPlaySourceMusicChangeListener playSourceMusicChangeListener) {
+        onPlaySourceMusicChangeListeners.add(playSourceMusicChangeListener);
     }
 
-    public void clearPlayVoiceSourceManagerListener() {
-        onPlaySourceMusicChangeListener = null;
+    public void clearPlayVoiceSourceManagerListener(VoiceSourceManager.onPlaySourceMusicChangeListener l) {
+        onPlaySourceMusicChangeListeners.remove(l);
     }
 
     public static String getShowTimeString(int timeInMs) {
@@ -430,4 +479,20 @@ public class KaolaPlayManager {
         int sec = (int) (timeInMs % minute) / 1000;
         return new StringBuffer().append(df.format(min)).append(":").append(df.format(sec)).toString();
     }
+
+    public void playBroadcast(long id, GeneralCallback<Boolean> callback) {
+        BroadcastRadioPlayerManager.getInstance().playBroadcast(id, callback);
+        setCurPlayingBroadcast(true);
+    }
+
+    public void playAlbum(Context context, long id) {
+        PlayerManager.getInstance(context).playAlbum(id);
+        setCurPlayingBroadcast(false);
+    }
+
+    public void playPgc(Context context, long id) {
+        PlayerManager.getInstance(context).playPgc(id);
+        setCurPlayingBroadcast(false);
+    }
+
 }

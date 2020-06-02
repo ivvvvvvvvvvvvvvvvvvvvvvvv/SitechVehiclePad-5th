@@ -46,7 +46,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
-
+// 听伴专辑播放页
 @Route(path = RouterConstants.MUSIC_PLAY_ONLINE)
 @VoiceSourceType(VoiceSourceManager.SUPPORT_TYPE_KAOLA)
 @BindEventBus
@@ -89,7 +89,7 @@ public class MusicKaolaActivity extends BaseActivity implements
         mContext = this;
         mCurrentType = KaolaPlayManager.SingletonHolder.INSTANCE.mPlayType;
         VoiceSourceManager.getInstance().addMusicChangeListener(this);
-        KaolaPlayManager.SingletonHolder.INSTANCE.setPlayVoiceSourceManagerListener(this);
+        KaolaPlayManager.SingletonHolder.INSTANCE.addPlayVoiceSourceManagerListener(this);
     }
 
     @Override
@@ -245,7 +245,7 @@ public class MusicKaolaActivity extends BaseActivity implements
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        KaolaPlayManager.SingletonHolder.INSTANCE.clearPlayVoiceSourceManagerListener();
+        KaolaPlayManager.SingletonHolder.INSTANCE.clearPlayVoiceSourceManagerListener(this);
     }
 
     @Override
@@ -416,9 +416,9 @@ public class MusicKaolaActivity extends BaseActivity implements
      */
     private void requestKaoLaInfo() {
         if (isAlbum) {
-            PlayerManager.getInstance(this).playAlbum(id);
+            KaolaPlayManager.SingletonHolder.INSTANCE.playAlbum(this, id);
         } else {
-            PlayerManager.getInstance(this).playPgc(id);
+            KaolaPlayManager.SingletonHolder.INSTANCE.playPgc(this, id);
         }
     }
 

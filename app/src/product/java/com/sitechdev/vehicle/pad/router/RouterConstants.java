@@ -58,8 +58,8 @@ public interface RouterConstants {
      * 在线音乐播放列表页面
      */
     String MUSIC_PLAY_SHOW = "/subApp/musicPlay";
-    String MUSIC_PLAY_ONLINE = "/subApp/musicPlayOnline";
-    String MUSIC_PLAY_ONLINE_BROADCAST = "/subApp/musicPlayBroadcastOnline";
+    String MUSIC_PLAY_ONLINE = "/subApp/musicPlayOnline"; // 听伴专辑播放页
+    String MUSIC_PLAY_ONLINE_BROADCAST = "/subApp/musicPlayBroadcastOnline";// 听伴广播播放页
     /**
      * 设置
      */

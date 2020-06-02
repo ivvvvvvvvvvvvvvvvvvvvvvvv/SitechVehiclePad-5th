@@ -6,19 +6,27 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_kaola_play"
     android:orientation="vertical"
-    android:paddingBottom="300px"
     tools:ignore="PxUsage">
 
     <include
         layout="@layout/common_kaola_mutil_title_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="138px"
-        android:layout_alignParentTop="true" />
+        android:layout_height="138px" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar_sub" />
+        android:layout_height="570px" />
 
+    <include
+        layout="@layout/kaola_player_holder_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="140px"
+        android:layout_marginTop="10px"
+        android:layout_marginLeft="60px"
+        android:layout_marginRight="60px" />
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="300px" />
 </LinearLayout>
