@@ -16,6 +16,7 @@ import com.kaolafm.opensdk.http.core.HttpCallback;
 import com.kaolafm.opensdk.http.error.ApiException;
 import com.sitechdev.vehicle.lib.util.Constant;
 import com.sitechdev.vehicle.pad.R;
+import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.bean.BaseFragment;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.model.kaola.KaolaDataWarpper;
@@ -40,7 +41,7 @@ public class KaolaAudioCategoryPageFrag extends BaseFragment {
     private ListIndicatorRecycview indecator;
     private KaolaAICategoryListAdapter adapter;
     private TextView curSelectChannel;
-
+    ViewAllCategoryDialog dialog;
     @Override
     protected int getLayoutId() {
         return R.layout.audio_kaola_category_frame;
@@ -55,6 +56,30 @@ public class KaolaAudioCategoryPageFrag extends BaseFragment {
         gridLayoutManager.setOrientation(GridLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.addItemDecoration(new SpaceItemDecoration(60));
+        mContentView.findViewById(R.id.btn_all_categroy).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((BaseActivity) getActivity()).showProgressDialog();
+                dialog = new ViewAllCategoryDialog(getActivity());
+                dialog.getCategoryData(new HttpCallback<List<Category>>() {
+                    @Override
+                    public void onSuccess(List<Category> categories) {
+                        ((BaseActivity) getActivity()).cancelProgressDialog();
+                        dialog.show();
+                    }
+
+
+                    @Override
+                    public void onError(ApiException e) {
+                        ((BaseActivity) getActivity()).cancelProgressDialog();
+                    }
+                }, warpper -> {
+                    dialog.cancel();
+                    getCategoryAblum(warpper);
+                    curSelectChannel.setText(warpper.getName());
+                });
+            }
+        });
     }
 
     List<KaolaDataWarpper> kaolaDataWarpperList = new ArrayList<>();

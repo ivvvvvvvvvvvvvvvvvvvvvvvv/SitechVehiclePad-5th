@@ -69,12 +69,16 @@ public class KaolaPlayManager {
 
     private boolean isLoadingData = false;
 
+    public void getkaolagetCategoryTree(int resType, HttpCallback<List<Category>> callback) {
+        new OperationRequest().getCategoryTree(resType, callback);
+    }
+
     public void getkaolaCategory(HttpCallback<List<Category>> callback) {
-        new OperationRequest().getCategoryTree(ResType.TYPE_ALBUM, callback);
+        getkaolagetCategoryTree(ResType.TYPE_ALBUM, callback);
     }
 
     public void getkaolaBroadcast(HttpCallback<List<Category>> callback) {
-        new OperationRequest().getCategoryTree(ResType.TYPE_BROADCAST, callback);
+        getkaolagetCategoryTree(ResType.TYPE_BROADCAST, callback);
     }
 
     public void acquireKaolaData() {

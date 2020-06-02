@@ -18,6 +18,7 @@ import com.kaolafm.opensdk.http.error.ApiException;
 import com.kaolafm.sdk.core.mediaplayer.BroadcastRadioPlayerManager;
 import com.sitechdev.vehicle.lib.util.Constant;
 import com.sitechdev.vehicle.pad.R;
+import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.bean.BaseFragment;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.model.kaola.KaolaDataWarpper;
@@ -47,7 +48,7 @@ public class KaolaAudioBroadcastPageFrag extends BaseFragment {
     protected int getLayoutId() {
         return R.layout.audio_kaola_category_frame;
     }
-
+    ViewAllCategoryDialog dialog;
     @Override
     protected void initView(Bundle savedInstanceState) {
         indecator = mContentView.findViewById(R.id.indicator);
@@ -57,6 +58,30 @@ public class KaolaAudioBroadcastPageFrag extends BaseFragment {
         gridLayoutManager.setOrientation(GridLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.addItemDecoration(new SpaceItemDecoration(60));
+        mContentView.findViewById(R.id.btn_all_categroy).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((BaseActivity) getActivity()).showProgressDialog();
+                dialog = new ViewAllCategoryDialog(getActivity());
+                dialog.getBroadcastData(new HttpCallback<List<Category>>() {
+                    @Override
+                    public void onSuccess(List<Category> categories) {
+                        ((BaseActivity) getActivity()).cancelProgressDialog();
+                        dialog.show();
+                    }
+
+
+                    @Override
+                    public void onError(ApiException e) {
+                        ((BaseActivity) getActivity()).cancelProgressDialog();
+                    }
+                }, warpper -> {
+                    dialog.cancel();
+                    getCategoryAblum(warpper);
+                    curSelectChannel.setText(warpper.getName());
+                });
+            }
+        });
     }
 
     List<KaolaDataWarpper> kaolaDataWarpperList = new ArrayList<>();
@@ -71,36 +96,8 @@ public class KaolaAudioBroadcastPageFrag extends BaseFragment {
                 @Override
                 public void onSuccess(List<Category> categories) {
                     mCategories.clear();
-                    List<Indexable> indexs = new ArrayList<>();
-                    for (int i = 0; i < categories.size(); i++) {
-                        int finalI = i;
-                        if (categories.get(i) instanceof LeafCategory) {
-                            Indexable indexable = new Indexable() {
-                                @Override
-                                public String getIndex() {
-                                    return categories.get(finalI).getName();
-                                }
-                            };
-                            indexs.add(indexable);
-                            mCategories.add(categories.get(i));
-                        } else {
-                            for (int j = 0; j < categories.get(i).getChildCategories().size(); j++) {
-                                int finalJ = j;
-                                Indexable indexable = new Indexable() {
-                                    @Override
-                                    public String getIndex() {
-                                        return categories.get(finalI).getChildCategories().get(finalJ).getName();
-                                    }
-                                };
-                                indexs.add(indexable);
-                                mCategories.add(categories.get(finalI).getChildCategories().get(finalJ));
-                            }
-                        }
-                        if (indexs.size() > 3) {
-                            indexs = indexs.size() == 4 ? indexs : indexs.subList(0, 4);
-                            break;
-                        }
-                    }
+                    List<Indexable> indexs = KaolaBroadcastUtil.getIndexableData(categories, 4);
+                    mCategories = KaolaBroadcastUtil.getList(categories);
                     indecator.setupWithData(indexs, new ListIndicatorRecycview.OnItemClickListener() {
                         @Override
                         public void onClick(View v) {
