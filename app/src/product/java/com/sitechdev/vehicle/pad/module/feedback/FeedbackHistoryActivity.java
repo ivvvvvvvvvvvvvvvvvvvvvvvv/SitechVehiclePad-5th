@@ -17,7 +17,7 @@ import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.model.feedback.FeedbackHistoryBean;
-import com.sitechdev.vehicle.pad.module.feedback.utils.FeedBackHttpUtils;
+import com.sitechdev.vehicle.pad.module.feedback.utils.FeedBackUtils;
 import com.sitechdev.vehicle.pad.view.loading.LoadingView;
 
 import java.util.ArrayList;
@@ -134,8 +134,8 @@ public class FeedbackHistoryActivity extends BaseActivity {
         if (0 == pageIndex) {
             mList.clear();
         }
-        FeedBackHttpUtils.loadFeedbackHistoryList(pageIndex,
-                new FeedBackHttpUtils.OnLoadFeedbackHistoryCallBack<FeedbackHistoryBean>() {
+        FeedBackUtils.loadFeedbackHistoryList(pageIndex,
+                new FeedBackUtils.OnLoadFeedbackHistoryCallBack<FeedbackHistoryBean>() {
                     @Override
                     public void onLoadSuccess(FeedbackHistoryBean feedbackHistoryBean) {
                         mRefreshLayout.setEnableRefresh(false);

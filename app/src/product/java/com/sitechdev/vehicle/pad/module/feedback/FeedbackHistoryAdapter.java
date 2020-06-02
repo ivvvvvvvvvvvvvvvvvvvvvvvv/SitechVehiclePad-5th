@@ -44,9 +44,13 @@ public class FeedbackHistoryAdapter extends RecyclerView.Adapter<FeedbackHistory
             holder.view.setData(mList.get(position));
 //        }
         holder.view.setPosition(position);
-        holder.view.layout.setOnClickListener(this);
+        holder.view.layout.setOnClickListener(v -> {
+            holder.view.clickItem();
+            mPlayingIndex = holder.view.getPosition();
+            notifyDataSetChanged();
+        });
         holder.view.layout.setTag(holder);
-        if(mPlayingIndex != -1 && position!=mPlayingIndex){
+        if (mPlayingIndex != -1 && position != mPlayingIndex) {
             holder.view.interrupt();
         }
     }

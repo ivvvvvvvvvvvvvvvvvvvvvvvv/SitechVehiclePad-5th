@@ -1,5 +1,6 @@
 package com.sitechdev.vehicle.pad.module.feedback.utils;
 
+import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -12,6 +13,7 @@ import com.sitechdev.net.EnvironmentConfig;
 import com.sitechdev.net.GsonUtils;
 import com.sitechdev.net.HttpCode;
 import com.sitechdev.net.JsonCallback;
+import com.sitechdev.vehicle.lib.util.FileUtil;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.StringUtils;
 import com.sitechdev.vehicle.pad.app.AppConst;
@@ -20,6 +22,7 @@ import com.sitechdev.vehicle.pad.bean.BaseResponseBean;
 import com.sitechdev.vehicle.pad.callback.BaseBribery;
 import com.sitechdev.vehicle.pad.manager.UserManager;
 import com.sitechdev.vehicle.pad.model.feedback.FeedbackHistoryBean;
+import com.sitechdev.vehicle.pad.model.feedback.utils.FeedbackConfig;
 import com.sitechdev.vehicle.pad.module.member.bean.FeedBackTypeBean;
 import com.sitechdev.vehicle.pad.net.util.HttpUtil;
 
@@ -27,6 +30,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import okhttp3.MediaType;
@@ -37,7 +41,7 @@ import okhttp3.MediaType;
  * @author bijingshuai
  * @date 2019/8/21
  */
-public class FeedBackHttpUtils extends HttpUtil {
+public class FeedBackUtils extends HttpUtil {
 
     /**
      * 请求反馈的类型：车机端使用“优化意见”，若匹配失败，默认使用1所标识的类型
@@ -281,7 +285,7 @@ public class FeedBackHttpUtils extends HttpUtil {
         OkGo.<FeedbackHistoryBean>get(getFormatRequestUrl(EnvironmentConfig.URL_MALL_HOST,AppUrlConst.GET_FEEDBACK_HISTORY_LIST))
                 .headers("Content-Type", "application/json")
                 .headers(HttpHeaders.HEAD_KEY_COOKIE,
-                        "access_token=" + UserManager.getInstance().getUserToken())
+                        "access_token=" + token)
                 .params("pageNo", page)
                 .params("pageSize", 5)
                 .execute(new JsonCallback<FeedbackHistoryBean>(FeedbackHistoryBean.class) {
@@ -311,39 +315,10 @@ public class FeedBackHttpUtils extends HttpUtil {
                 });
     }
 
-    public static void loadFeedbackHistoryLists(int page,
-                                               final OnLoadFeedbackHistoryCallBack<FeedbackHistoryBean> onLoadPointsListener) {
-        OkGo.<FeedbackHistoryBean>get(getFormatRequestUrl(EnvironmentConfig.URL_MALL_HOST,AppUrlConst.GET_FEEDBACK_HISTORY_LIST))
-                .headers("Content-Type", " application/json")
-                .headers(HttpHeaders.HEAD_KEY_COOKIE,
-                        "access_token=" + UserManager.getInstance().getUserToken())
-                .params("pageNo", page)
-                .params("pageSize", 5)
-                .execute(new JsonCallback<FeedbackHistoryBean>(FeedbackHistoryBean.class) {
-
-                    @Override
-                    public void onSuccess(Response<FeedbackHistoryBean> response) {
-                        FeedbackHistoryBean databean = null != response ? response.body() : null;
-                        if (null != onLoadPointsListener) {
-                            if (null != databean && null != databean.code && HttpCode.HTTP_OK.equals(databean.code)) {
-                                onLoadPointsListener.onLoadSuccess(databean);
-                            } else {
-                                onLoadPointsListener.onLoadFailed("");
-                            }
-                        }
-
-                    }
-
-                    @Override
-                    public void onError(Response<FeedbackHistoryBean> response) {
-                        super.onError(response);
-                        FeedbackHistoryBean databean = null != response ? response.body() : null;
-                        if (null != onLoadPointsListener) {
-                            onLoadPointsListener.onLoadFailed(null != databean ?
-                                    getErrorMsg(databean.message) : "数据请求失败，请稍后再试！");
-                        }
-                    }
-                });
+    public static void deleteVoiceCache(){
+        FileUtil.delete(Environment.getExternalStorageDirectory().getAbsolutePath()
+                + "/VideoCache/");
+        FeedbackConfig.getInstance().setFileMap(new HashMap());
     }
 
     private static String getErrorMsg(String errorMsg) {

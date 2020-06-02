@@ -46,6 +46,8 @@ import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.manager.UserManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceType;
+import com.sitechdev.vehicle.pad.module.feedback.FeedbackActivity;
+import com.sitechdev.vehicle.pad.module.feedback.utils.FeedBackUtils;
 import com.sitechdev.vehicle.pad.module.login.bean.LoginResponseBean;
 import com.sitechdev.vehicle.pad.module.login.bean.LoginUserBean;
 import com.sitechdev.vehicle.pad.module.login.util.LoginHttpUtil;
@@ -53,6 +55,7 @@ import com.sitechdev.vehicle.pad.module.login.util.LoginUtils;
 import com.sitechdev.vehicle.pad.module.main.bean.WeatherInfoBean;
 import com.sitechdev.vehicle.pad.module.main.util.MainHttpUtils;
 import com.sitechdev.vehicle.pad.module.main.util.WeatherUtils;
+import com.sitechdev.vehicle.pad.module.setting.activity.SettingHomeActivity;
 import com.sitechdev.vehicle.pad.receiver.NetReceiver;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
@@ -179,6 +182,7 @@ public class MainActivity extends BaseActivity
         ReflectTextClock tcTime = (ReflectTextClock) findViewById(R.id.btn_hp_time);
         tcTime.setTypeface(FontUtil.getInstance().getMainFont());
         tvTemperature.setTypeface(FontUtil.getInstance().getMainFont());
+        FeedBackUtils.deleteVoiceCache();
     }
 
     @Override
