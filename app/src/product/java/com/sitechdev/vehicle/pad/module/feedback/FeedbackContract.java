@@ -10,7 +10,7 @@ public class FeedbackContract {
         public abstract void playRecord();
         public abstract void hideCommitLayout();
         public abstract void sendRecordFile();
-        public abstract void release();
+        public abstract void release(boolean isDestroy);
         public abstract void deleteRecorder();
     }
 

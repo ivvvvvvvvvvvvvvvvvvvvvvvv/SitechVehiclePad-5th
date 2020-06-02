@@ -18,7 +18,7 @@ public class EnvironmentConfig {
      * @param isRelease true=正式环境
      */
     public static void init(boolean isRelease) {
-        isRelease = true;
+        isRelease = false;
         if (isRelease) {
             URL_ROOT_HOST = "https://cloud-api.sitechdev.com";
             URL_MALL_HOST = "https://ecommerce-api.sitechdev.com";

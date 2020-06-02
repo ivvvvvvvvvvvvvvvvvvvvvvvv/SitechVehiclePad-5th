@@ -8,7 +8,6 @@ import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.lzy.okgo.OkGo;
@@ -20,7 +19,6 @@ import com.sitechdev.net.JsonCallback;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.app.AppUrlConst;
-import com.sitechdev.vehicle.pad.manager.UserManager;
 import com.sitechdev.vehicle.pad.model.feedback.FeedbackCommitBean;
 import com.sitechdev.vehicle.pad.model.feedback.utils.PcmToWavUtil;
 import com.sitechdev.vehicle.pad.vui.VUI;
@@ -58,7 +56,7 @@ public class FeedbackPresenter extends FeedbackContract.FeedbackPresenter implem
                     }
                     break;
                     default:
-                    break;
+                        break;
                 }
             }
         };
@@ -71,14 +69,12 @@ public class FeedbackPresenter extends FeedbackContract.FeedbackPresenter implem
 
     @Override
     public void startRecord() {
-        logTest("----1");
         getView().showRecordFile();
         mRecordTime = 0;
         if (null != mTimeHandler) {
             mTimeHandler.removeCallbacks(mTimerTask);
             mTimeHandler.post(mTimerTask);
         }
-        logTest(TAG+"START RECORDER");
         //停止语音
         handleAudioFocus(true);
         VUI.getInstance().stop();
@@ -89,7 +85,6 @@ public class FeedbackPresenter extends FeedbackContract.FeedbackPresenter implem
 
     @Override
     public void hideCommitLayout() {
-        logTest("hidecommitlayout");
         getView().hideCommitView(true);
         mRecordTime = -1;
     }
@@ -109,15 +104,19 @@ public class FeedbackPresenter extends FeedbackContract.FeedbackPresenter implem
     }
 
     @Override
-    public void release() {
+    public void release(boolean isDestroy) {
         handleAudioFocus(false);
         if (null != mHandler) {
             mHandler.removeCallbacksAndMessages(null);
-            mHandler = null;
+            if (isDestroy) {
+                mHandler = null;
+            }
         }
         if (null != mTimeHandler) {
             mTimeHandler.removeCallbacksAndMessages(null);
-            mTimeHandler = null;
+            if (isDestroy) {
+                mTimeHandler = null;
+            }
         }
         if (null != mMediaPlayer) {
             mMediaPlayer.stop();
@@ -129,10 +128,10 @@ public class FeedbackPresenter extends FeedbackContract.FeedbackPresenter implem
 
     @Override
     public void deleteRecorder() {
-        if(null != mPcmFile && mPcmFile.exists()){
+        if (null != mPcmFile && mPcmFile.exists()) {
             mPcmFile.delete();
         }
-        if(null != mWavFile && mWavFile.exists()){
+        if (null != mWavFile && mWavFile.exists()) {
             mWavFile.delete();
         }
     }
@@ -141,7 +140,6 @@ public class FeedbackPresenter extends FeedbackContract.FeedbackPresenter implem
      * 停止录音
      */
     private void stopRecorder() {
-        logTest(TAG+"STOP RECORDER");
         //启用语音
         handleAudioFocus(false);
         VUI.getInstance().start();
@@ -156,7 +154,6 @@ public class FeedbackPresenter extends FeedbackContract.FeedbackPresenter implem
         if (!mMediaPlayer.isPlaying() && null != mWavFile) {
             try {
                 mMediaPlayer.setDataSource(mWavFile.getAbsolutePath());
-                logTest(TAG + "STARTPLAY FILE:" + mWavFile.getAbsolutePath());
                 handleAudioFocus(true);
                 mMediaPlayer.prepare();
                 mMediaPlayer.start();
@@ -184,18 +181,15 @@ public class FeedbackPresenter extends FeedbackContract.FeedbackPresenter implem
      * 录音并保存文件
      */
     private void startRecorder() {
-        logTest("----3");
         mPcmFile = new File("mnt/sdcard/", "audioRecord.pcm");
         if (null != mWavFile && mWavFile.exists()) {
             mWavFile.delete();
         }
         mWhetherRecord = true;
         new Thread(() -> {
-            logTest("----4");
             mAudioRecord.startRecording();//开始录制
             FileOutputStream fileOutputStream = null;
             try {
-                logTest("----5");
                 fileOutputStream = new FileOutputStream(mPcmFile);
                 byte[] bytes = new byte[mRecordBufferSize];
                 while (mWhetherRecord) {
@@ -204,17 +198,14 @@ public class FeedbackPresenter extends FeedbackContract.FeedbackPresenter implem
                     fileOutputStream.flush();
 
                 }
-                logTest(TAG + "run: 暂停录制");
                 mAudioRecord.stop();//停止录制
                 fileOutputStream.flush();
                 fileOutputStream.close();
                 addHeadData();//添加音频头部信息并且转成wav格式
             } catch (FileNotFoundException e) {
-                logTest("----7");
                 e.printStackTrace();
                 mAudioRecord.stop();
             } catch (IOException e) {
-                logTest("----8");
                 e.printStackTrace();
             }
         }).start();
@@ -224,15 +215,13 @@ public class FeedbackPresenter extends FeedbackContract.FeedbackPresenter implem
      * 将pcm格式转化为wav格式，并添加head!
      */
     private void addHeadData() {
-        logTest(TAG + "addHeadData");
         mWavFile = new File("mnt/sdcard", "audioRecord_handler.wav");
         PcmToWavUtil pcmToWavUtil = new PcmToWavUtil(8000, AudioFormat.CHANNEL_IN_MONO,
                 AudioFormat.ENCODING_PCM_16BIT);
         pcmToWavUtil.pcmToWav(mPcmFile.toString(), mWavFile.toString());
-        if(mPcmFile.exists()){
+        if (mPcmFile.exists()) {
             mPcmFile.delete();
         }
-        logTest("---FILEPATH:"+mPcmFile.getAbsolutePath());
     }
 
     @Override
@@ -248,12 +237,11 @@ public class FeedbackPresenter extends FeedbackContract.FeedbackPresenter implem
 
     private void commitFile(File audioFile) {
         if (null == null && !audioFile.exists()) {
-            logTest(TAG + "sendFile NULL");
             return;
         }
         String url = EnvironmentConfig.URL_MALL_HOST.concat(AppUrlConst.COMMIT_FEEDBACK_FILLE);
-        logTest("url:"+url);
-//        String token = "B7YrT5i.XnmyRxw0R9z33sEllM5f15YtPAP.HnVhc1wIpgnXaoT3eRWZfZ.cJfrPOinxktMLtWdUqqeITw4LR8ADpwI2Jf9jUUyLlXOsiVUJB3mtcLhuiWXyyJ2z6fUSPoyIMp8fKmd-fw7xUL4hSnt574LIxnQATLSiASxeRLY_";
+        String token = "B7YrT5i.XnmyRxw0R9z33sEllM5f15YtPAP.HnVhc1wIpgnXaoT3eRWZfZ" +
+                ".cJfrPOinxktMLtWdUqqeITw4LR8ADpwI2Jf9jUUyLlXOsiVUJB3mtcLhuiWXyyJ2z6fUSPoyIMp8fKmd-fw7xUL4hSnt574LIxnQATLSiASxeRLY_";
         OkGo.<FeedbackCommitBean>post(url).headers("Content-Type", "application/json")
                 .headers(HttpHeaders.HEAD_KEY_COOKIE, "access_token=" + UserManager.getInstance().getUserToken())
                 .params("file", audioFile)
@@ -266,10 +254,6 @@ public class FeedbackPresenter extends FeedbackContract.FeedbackPresenter implem
                                 ToastUtils.showShort("反馈成功！");
                                 getView().hideCommitView(true);
                                 mRecordTime = -1;
-                                logTest(TAG + "onSuccess:" + response.body() == null ? "body = " +
-                                        "null" :
-                                        response.body() + " response:" + response == null ? "null" :
-                                                response.toString());
                             } else {
                                 ToastUtils.showShort(R.string.hint_message);
                                 getView().hideCommitView(false);
@@ -283,7 +267,6 @@ public class FeedbackPresenter extends FeedbackContract.FeedbackPresenter implem
                     @Override
                     public void onError(Response<FeedbackCommitBean> response) {
                         super.onError(response);
-                        logTest(TAG + "commitFeedbackData onError");
                         ToastUtils.showShort("反馈失败,请您检查网络！");
                         getView().hideCommitView(false);
                     }
@@ -293,7 +276,6 @@ public class FeedbackPresenter extends FeedbackContract.FeedbackPresenter implem
     private Runnable mTimerTask = new Runnable() {
         @Override
         public void run() {
-            logTest("----2");
             if (mRecordTime < 60 && mRecordTime > -1) {
                 mRecordTime++;
                 getView().setRecordTime(mRecordTime);
@@ -318,8 +300,5 @@ public class FeedbackPresenter extends FeedbackContract.FeedbackPresenter implem
             AppApplication.getAudioManager().abandonAudioFocus((AudioManager.OnAudioFocusChangeListener) null);
         }
     }
-    
-    private void logTest(String msg){
-        Log.e("","-----"+msg);
-    }
+
 }

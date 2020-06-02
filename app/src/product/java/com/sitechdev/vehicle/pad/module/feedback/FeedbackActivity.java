@@ -84,7 +84,7 @@ public class FeedbackActivity extends MvpActivity<FeedbackContract.FeedbackPrese
         if (null != mPresenter) {
             mPresenter.stopRecord();
             mPresenter.hideCommitLayout();
-            mPresenter.release();
+            mPresenter.release(false);
         }
     }
 
@@ -94,7 +94,7 @@ public class FeedbackActivity extends MvpActivity<FeedbackContract.FeedbackPrese
         if (null != mPresenter) {
             mPresenter.stopRecord();
             mPresenter.hideCommitLayout();
-            mPresenter.release();
+            mPresenter.release(true);
         }
     }
 
