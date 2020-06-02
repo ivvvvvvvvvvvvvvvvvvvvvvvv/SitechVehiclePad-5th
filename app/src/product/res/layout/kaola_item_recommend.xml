@@ -2,7 +2,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -11,7 +12,8 @@
         android:gravity="center"
         tools:background="@color/colorPrimary_red_tip">
 
-        <ImageView
+        <com.gcssloop.widget.RCImageView
+            app:round_corner="6px"
             android:id="@+id/image"
             android:layout_width="362px"
             android:layout_height="362px" />

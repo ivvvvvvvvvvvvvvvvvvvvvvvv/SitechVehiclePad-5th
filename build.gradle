@@ -29,6 +29,7 @@ allprojects {
         maven {
             url "https://raw.githubusercontent.com/tingban/maven-repository/release"
         }
+        maven { url "http://lib.gcssloop.com:8081/repository/gcssloop-central/" }
         google()
     }
 }

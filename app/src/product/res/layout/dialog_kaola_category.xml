@@ -10,6 +10,7 @@
         android:id="@+id/close"
         android:layout_width="43px"
         android:layout_height="43px"
+        android:src="@drawable/ic_close_dialog"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true" />
 

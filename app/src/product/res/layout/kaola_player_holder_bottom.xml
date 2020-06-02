@@ -3,10 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="140px"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/bg_kaola_player"
     android:orientation="horizontal">
 
-    <ImageView
+    <com.gcssloop.widget.RCImageView
+        app:round_corner="4px"
         android:id="@+id/icon"
         android:layout_width="90px"
         android:layout_height="90px"

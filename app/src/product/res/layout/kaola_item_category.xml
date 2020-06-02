@@ -3,9 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="251px"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:background="@color/blue">
 
-    <ImageView
+    <com.gcssloop.widget.RCImageView
+        app:round_corner="6px"
         android:id="@+id/image"
         android:layout_width="251px"
         android:layout_height="251px"

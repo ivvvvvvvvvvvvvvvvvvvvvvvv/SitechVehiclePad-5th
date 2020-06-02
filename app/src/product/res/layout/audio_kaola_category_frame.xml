@@ -52,7 +52,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20px"
                 android:layout_marginRight="20px"
-                android:src="@drawable/icon_audio" />
+                android:src="@drawable/all_category" />
         </LinearLayout>
 
     </FrameLayout>

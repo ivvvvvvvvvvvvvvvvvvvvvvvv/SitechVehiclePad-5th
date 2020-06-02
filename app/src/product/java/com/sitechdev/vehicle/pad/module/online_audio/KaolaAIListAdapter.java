@@ -1,6 +1,7 @@
 
 package com.sitechdev.vehicle.pad.module.online_audio;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
@@ -86,7 +87,7 @@ public class KaolaAIListAdapter extends RecyclerView.Adapter<KaolaAIListAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull VHolderAbs vh, int i) {
+    public void onBindViewHolder(@NonNull VHolderAbs vh, @SuppressLint("RecyclerView") int i) {
         vh.des.setText(mLists.get(i).column.getTitle());
         if (mLists.get(i).column.getImageFiles() != null && mLists.get(i).column.getImageFiles().containsKey("cover")) {
             ImageFile img = mLists.get(i).column.getImageFiles().get("cover");

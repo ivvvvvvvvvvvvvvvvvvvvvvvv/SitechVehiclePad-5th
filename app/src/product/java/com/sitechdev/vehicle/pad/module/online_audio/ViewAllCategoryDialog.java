@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.kaolafm.opensdk.ResType;
 import com.kaolafm.opensdk.api.operation.model.category.Category;
@@ -62,7 +61,12 @@ class ViewAllCategoryDialog extends Dialog {
         recyclerView = root.findViewById(R.id.recyclerView);
         recyclerView.addItemDecoration(new SpaceItemKaolaDialogItemDecoration(40));
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 5));
-        ImageView close = root.findViewById(R.id.close);
+        root.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cancel();
+            }
+        });
         setContentView(root);
     }
 

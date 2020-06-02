@@ -13,8 +13,6 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.kaolafm.opensdk.utils.ListUtil;
-import com.kaolafm.sdk.core.dao.AlbumDao;
-import com.kaolafm.sdk.core.mediaplayer.BroadcastRadioPlayerManager;
 import com.kaolafm.sdk.core.mediaplayer.IPlayerListChangedListener;
 import com.kaolafm.sdk.core.mediaplayer.OnPlayItemInfoListener;
 import com.kaolafm.sdk.core.mediaplayer.PlayItem;
@@ -26,7 +24,6 @@ import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.sitechdev.vehicle.lib.event.BindEventBus;
 import com.sitechdev.vehicle.lib.imageloader.GlideApp;
 import com.sitechdev.vehicle.lib.util.Constant;
-import com.sitechdev.vehicle.lib.util.DensityUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.R;
@@ -38,7 +35,6 @@ import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceType;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.view.CommonToast;
-import com.sitechdev.vehicle.pad.view.RecycleViewDivider;
 import com.sitechdev.vehicle.pad.view.ScrollTextView;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -80,7 +76,6 @@ public class MusicKaolaActivity extends BaseActivity implements
     private TextView seekStartTime,seekEndTime;
     private int defaultImgResId = 0;
     private TextView tv_title;
-    private AlbumDao mAlbumDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,10 +168,6 @@ public class MusicKaolaActivity extends BaseActivity implements
         vLocalMusicList = findViewById(R.id.music_kaola_list);
         vLocalMusicList.setLayoutManager(linearLayoutManager);
         vLocalMusicList.setItemAnimator(new DefaultItemAnimator());
-        vLocalMusicList.addItemDecoration(new RecycleViewDivider(this,
-                playListAdapter, DensityUtils.dp2px(20),
-                getResources().getColor(R.color.white_5),
-                getResources().getColor(R.color.white_21)));
         vLocalMusicList.setHasFixedSize(true);
 
         if (playListAdapter == null) {

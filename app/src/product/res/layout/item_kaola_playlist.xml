@@ -5,6 +5,8 @@
     android:layout_height="wrap_content"
     android:paddingTop="5px"
     android:paddingBottom="5px"
+    android:paddingEnd="48px"
+    android:paddingStart="48px"
     tools:ignore="PxUsage">
 
     <ImageView

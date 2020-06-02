@@ -201,6 +201,7 @@ dependencies {
 
     //下拉刷新
     implementation Config.depConfig.smartrefresh
+    implementation 'com.gcssloop.widget:rclayout:1.8.1'
 }
 
 android.applicationVariants.all { variant ->

@@ -1,6 +1,7 @@
 package com.sitechdev.vehicle.pad.module.online_audio;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -85,9 +86,11 @@ public class MusicKaolaAdapter extends
                         .getDrawable();
                 mAnimationDrawable.start();
             }
+            holder.itemView.setBackgroundResource(R.drawable.bg_playlist_item);
             holder.getName().setTextColor(checkedColor);
             holder.getArt().setTextColor(checkedColor);
         } else {
+            holder.itemView.setBackgroundColor(Color.TRANSPARENT);
             holder.getIndex().setImageResource(R.drawable.list_icon_play);
             holder.getName().setTextColor(noramlColor);
             holder.getArt().setTextColor(noramlColor);
