@@ -19,6 +19,7 @@ import com.sitechdev.net.JsonCallback;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.app.AppUrlConst;
+import com.sitechdev.vehicle.pad.manager.UserManager;
 import com.sitechdev.vehicle.pad.model.feedback.FeedbackCommitBean;
 import com.sitechdev.vehicle.pad.model.feedback.utils.PcmToWavUtil;
 import com.sitechdev.vehicle.pad.vui.VUI;
