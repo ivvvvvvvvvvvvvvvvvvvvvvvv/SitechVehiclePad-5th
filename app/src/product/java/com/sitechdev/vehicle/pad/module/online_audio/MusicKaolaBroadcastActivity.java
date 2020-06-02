@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import com.kaolafm.sdk.core.mediaplayer.BroadcastRadioPlayerManager;
 import com.kaolafm.sdk.core.mediaplayer.IPlayerListChangedListener;
 import com.kaolafm.sdk.core.mediaplayer.OnPlayItemInfoListener;
 import com.kaolafm.sdk.core.mediaplayer.PlayItem;
+import com.kaolafm.sdk.core.mediaplayer.PlayItemType;
 import com.kaolafm.sdk.core.mediaplayer.PlayerRadioListManager;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.sitechdev.vehicle.lib.event.BindEventBus;
@@ -24,6 +26,7 @@ import com.sitechdev.vehicle.lib.imageloader.GlideApp;
 import com.sitechdev.vehicle.lib.util.Constant;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.ThreadUtils;
+import com.sitechdev.vehicle.lib.util.TimeUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.event.TeddyEvent;
@@ -67,7 +70,7 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
 
     private MusicKaolaAdapter playListAdapter;
 
-    private ImageView musicImageView, btn_pre, btn_next, btn_pause_play;
+    private ImageView musicImageView, btn_pre, btn_next, btn_pause_play,tag;
     private TextView subtitle;
     private ScrollTextView tv_bottom_title;
     private int defaultImgResId = 0;
@@ -116,6 +119,7 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
         btn_next = findViewById(R.id.btn_next);
         //播放，暂停
         btn_pause_play = findViewById(R.id.btn_pause_play);
+        tag = findViewById(R.id.tag);
         findViewById(R.id.play_bar_root).setVisibility(View.GONE);
 
         //数据传入
@@ -145,7 +149,7 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
             setListData();
         }
         //默认图片索引
-        GlideApp.with(this).load(imageUrl).circleCrop().into(musicImageView);
+        GlideApp.with(this).load(imageUrl).into(musicImageView);
         tv_title.setText(title);
     }
 
@@ -369,7 +373,7 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
             PlayItemAdapter.Item sai = new PlayItemAdapter.Item();
             sai.id = item.getAudioId();
             sai.title = item.getTitle();
-            sai.details = item.getAlbumName();
+            sai.details = TimeUtils.formatTime(item.getStartTime(), "HH:mm") + "-" + TimeUtils.formatTime(item.getFinishTime(), "HH:mm");
             datas.add(sai);
         }
     }
@@ -462,7 +466,12 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
             tv_bottom_title.setText(item.getTitle());
             subtitle.setText(item.getAlbumName());
             btn_pause_play.setImageResource(R.drawable.pc_pause);
-            GlideApp.with(this).load(item.getAlbumPic()).circleCrop().into(musicImageView);
+            GlideApp.with(this).load(item.getAlbumPic()).into(musicImageView);
+            if ((item.getType() == PlayItemType.BROADCAST_LIVING)) {
+                GlideApp.with(this).load(R.drawable.tag_living).into(tag);
+            } else {
+                GlideApp.with(this).load(R.drawable.tag_not_living).into(tag);
+            }
         }
         if (flag_FIRST_PLAY) {
             SitechDevLog.e(TAG, "onPlayerPlaying  flag_FIRST_PLAY = " + flag_FIRST_PLAY);

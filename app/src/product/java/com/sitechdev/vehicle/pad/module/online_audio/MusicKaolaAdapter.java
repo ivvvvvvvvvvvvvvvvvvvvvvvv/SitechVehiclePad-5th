@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.kaolafm.sdk.core.mediaplayer.BroadcastRadioPlayerManager;
 import com.kaolafm.sdk.core.mediaplayer.PlayerManager;
+import com.sitechdev.vehicle.lib.imageloader.GlideApp;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
@@ -92,12 +93,21 @@ public class MusicKaolaAdapter extends
             holder.getArt().setTextColor(checkedColor);
         } else {
             holder.itemView.setBackgroundColor(Color.TRANSPARENT);
-            holder.getIndex().setImageResource(R.drawable.list_icon_play);
+            if (KaolaPlayManager.SingletonHolder.INSTANCE.isCurPlayingBroadcast()) {
+                holder.getIndex().setImageResource(R.drawable.icon_not_living_tip);
+            } else {
+                holder.getIndex().setImageResource(R.drawable.list_icon_playing);
+            }
             holder.getName().setTextColor(noramlColor);
             holder.getArt().setTextColor(noramlColor);
         }
         holder.getName().setText(musicInfo.title);
-        holder.getArt().setVisibility(View.GONE);
+        if (KaolaPlayManager.SingletonHolder.INSTANCE.isCurPlayingBroadcast()) {
+            holder.getArt().setText(musicInfo.details);
+            holder.getArt().setVisibility(View.VISIBLE);
+        } else {
+            holder.getArt().setVisibility(View.GONE);
+        }
         holder.itemView.setTag(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
