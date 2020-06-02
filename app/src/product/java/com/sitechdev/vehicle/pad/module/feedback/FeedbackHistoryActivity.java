@@ -70,8 +70,6 @@ public class FeedbackHistoryActivity extends BaseActivity {
         mLoading.setLoadingText("加载中...");
         mAllView.setVisibility(View.GONE);
         mTitleView.setText(getResources().getText(R.string.feedback_history_title));
-        mRefreshLayout.setEnableRefresh(true);
-        mRefreshLayout.setEnableLoadmore(true);
         mRefreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
@@ -131,15 +129,13 @@ public class FeedbackHistoryActivity extends BaseActivity {
         } catch (Exception e) {
             showError(ERROR_MSG_NET);
         }
-        if (0 == pageIndex) {
+        if (1 == pageIndex) {
             mList.clear();
         }
         FeedBackUtils.loadFeedbackHistoryList(pageIndex,
                 new FeedBackUtils.OnLoadFeedbackHistoryCallBack<FeedbackHistoryBean>() {
                     @Override
                     public void onLoadSuccess(FeedbackHistoryBean feedbackHistoryBean) {
-                        mRefreshLayout.setEnableRefresh(false);
-                        mRefreshLayout.setEnableLoadmore(false);
                         mEndChecker = feedbackHistoryBean.data.getCount();
                         List<FeedbackHistoryBean.FeedbackDataBean.FeedbackItemBean> list =
                                 feedbackHistoryBean.data.getFeedbackList();
@@ -152,12 +148,21 @@ public class FeedbackHistoryActivity extends BaseActivity {
                         } else {
                             mEmptyView.setVisibility(View.VISIBLE);
                         }
+                        if(pageIndex != 1) {
+                            mRefreshLayout.finishLoadmore();
+                        } else {
+                            mRefreshLayout.finishRefreshing();
+                        }
                     }
 
                     @Override
                     public void onLoadFailed(String message) {
-                        mRefreshLayout.setEnableRefresh(false);
                         showError(ERROR_MSG_ERROR);
+                        if(pageIndex != 1) {
+                            mRefreshLayout.finishLoadmore();
+                        } else {
+                            mRefreshLayout.finishRefreshing();
+                        }
                     }
                 });
     }
