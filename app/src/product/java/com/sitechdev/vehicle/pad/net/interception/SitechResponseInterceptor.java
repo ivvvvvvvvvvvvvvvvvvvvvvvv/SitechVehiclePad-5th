@@ -53,7 +53,7 @@ public class SitechResponseInterceptor implements Interceptor {
                 //401时，代表用户登录身份为空或失效，中断本次请求，做相应的处理
                 //返回登录界面，做重新登录处理
                 SitechDevLog.d(AppConst.TAG, this + "响应报错   =  : " + AppUrlConst.HTTPRESPONSE_401);
-                EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_RELOGIN));
+//                EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_RELOGIN));
                 return null;
             case AppUrlConst.HTTPRESPONSE_403:
 //                    //需要刷新登录Token
@@ -67,7 +67,7 @@ public class SitechResponseInterceptor implements Interceptor {
                 }
                 //如果本次请求是refreshToken的请求，则退出响应处理。跳转登录页面
                 if (request != null && HttpUtil.formatUserFinalRequestUrl(AppUrlConst.URL_REFRESHTOKEN).equals(request.url())) {
-                    EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_RELOGIN));
+//                    EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_RELOGIN));
                 } else {
                     //获取新Token
                     if (requestNewToken()) {

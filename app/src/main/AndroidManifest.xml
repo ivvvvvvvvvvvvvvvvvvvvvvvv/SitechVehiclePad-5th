@@ -66,10 +66,10 @@
                 <action android:name="com.sitechdev.vehicle" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".module.login.LoginActivity"
-            android:screenOrientation="landscape"
-            android:theme="@style/NoTitleAppTheme" />
+<!--        <activity-->
+<!--            android:name=".module.login.LoginActivity"-->
+<!--            android:screenOrientation="landscape"-->
+<!--            android:theme="@style/NoTitleAppTheme" />-->
 
         <activity
             android:name=".module.map.MapActivity"

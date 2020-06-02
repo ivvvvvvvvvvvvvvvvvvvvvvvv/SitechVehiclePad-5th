@@ -307,6 +307,7 @@ public class MainActivity extends BaseActivity
         super.onResume();
         SitechDevLog.i(AppConst.TAG, "===MainActivity======================onResume=============================");
         EventBusUtils.register(this);
+        refreshUserView(LoginUtils.isLogin(), null);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             if (Settings.canDrawOverlays(AppApplication.getContext())) {
@@ -512,6 +513,9 @@ public class MainActivity extends BaseActivity
      * 退出登录的默认用户信息
      */
     private void refreshUserView(boolean isLogin, LoginUserBean userBean) {
+        if (userBean == null && isLogin) {
+            userBean = UserManager.getInstance().getLoginUserBean();
+        }
         tvLogin.setText(isLogin ? String.format("Hi，%s", userBean.getNickName()) : "立即登录");
         if (isLogin && userBean != null) {
             Glide.with(MainActivity.this).load(userBean.getAvatarUrl())

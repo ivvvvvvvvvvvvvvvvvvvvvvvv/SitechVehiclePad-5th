@@ -13,6 +13,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
+import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
@@ -260,6 +261,7 @@ public class MemberPreActivity extends BaseActivity {
                 logoutDialog.setListener(() -> {
                     //确定按钮被点击
                     UserManager.getInstance().logoutUser();
+                    LoginUtils.handleLogout();
                     RouterUtils.getInstance().navigationWithFlags(RouterConstants.HOME_MAIN,
                             Intent.FLAG_ACTIVITY_NEW_TASK, Intent.FLAG_ACTIVITY_CLEAR_TASK, Intent.FLAG_ACTIVITY_CLEAR_TOP
                     );
