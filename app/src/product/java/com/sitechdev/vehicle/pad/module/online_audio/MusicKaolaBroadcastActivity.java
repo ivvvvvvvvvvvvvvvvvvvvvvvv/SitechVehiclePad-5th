@@ -85,7 +85,6 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
     @Override
     protected void onStart() {
         super.onStart();
-        showProgressDialog();
     }
 
     @Override
@@ -146,7 +145,7 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
             setListData();
         }
         //默认图片索引
-        GlideApp.with(this).load(imageUrl).into(musicImageView);
+        GlideApp.with(this).load(imageUrl).circleCrop().into(musicImageView);
         tv_title.setText(title);
     }
 
@@ -380,12 +379,13 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
      */
     private void switchPlayPause() {
         SitechDevLog.e(TAG, "========  switchPlayPause  was called");
-        if (BroadcastRadioPlayerManager.getInstance().isPlaying()) {
-            BroadcastRadioPlayerManager.getInstance().pause();
-        } else {
-            BroadcastRadioPlayerManager.getInstance().play();
-        }
-        refreshPlayStatusView();
+        KaolaPlayManager.SingletonHolder.INSTANCE.switchPlayPause(this);
+        ThreadUtils.runOnUIThreadDelay(new Runnable() {//延迟更新  广播播放状态放有延迟
+            @Override
+            public void run() {
+                refreshPlayStatusView();
+            }
+        },500);
     }
 
     /**
@@ -393,13 +393,11 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
      */
     private void refreshPlayStatusView() {
         btn_pause_play.post(() -> {
-            if (BroadcastRadioPlayerManager.getInstance().isPlaying()) {
-                if (btn_pause_play != null) {
-                    btn_pause_play.setImageResource(R.drawable.pc_play);
-                }
-            } else {
-                if (btn_pause_play != null) {
+            if (btn_pause_play != null) {
+                if (KaolaPlayManager.SingletonHolder.INSTANCE.isPlaying(this)) {
                     btn_pause_play.setImageResource(R.drawable.pc_pause);
+                } else {
+                    btn_pause_play.setImageResource(R.drawable.pc_play);
                 }
             }
         });
@@ -464,7 +462,7 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
             tv_bottom_title.setText(item.getTitle());
             subtitle.setText(item.getAlbumName());
             btn_pause_play.setImageResource(R.drawable.pc_pause);
-            GlideApp.with(this).load(item.getAlbumPic()).into(musicImageView);
+            GlideApp.with(this).load(item.getAlbumPic()).circleCrop().into(musicImageView);
         }
         if (flag_FIRST_PLAY) {
             SitechDevLog.e(TAG, "onPlayerPlaying  flag_FIRST_PLAY = " + flag_FIRST_PLAY);

@@ -16,6 +16,7 @@ import com.kaolafm.sdk.core.mediaplayer.PlayerManager;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
+import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.kaola.PlayItemAdapter;
 import com.sitechdev.vehicle.pad.util.FontUtil;
 
@@ -78,13 +79,13 @@ public class MusicKaolaAdapter extends
         PlayItemAdapter.Item musicInfo = musicInfos.get(position);
         SitechDevLog.d("MusicKaolaAdapter", "-----------musicInfo------------" + musicInfo.title);
         if (mPrePosition == position) {
-            if (isbroadcast ? BroadcastRadioPlayerManager.getInstance().isPaused() : PlayerManager.getInstance(context).isPaused()) {
-                holder.getIndex().setImageResource(R.drawable.list_icon_playing);
-            } else {
+            if (KaolaPlayManager.SingletonHolder.INSTANCE.isPlaying(context)) {
                 holder.getIndex().setImageResource(R.drawable.ic_music_play_gif);
                 AnimationDrawable mAnimationDrawable = (AnimationDrawable) holder.getIndex()
                         .getDrawable();
                 mAnimationDrawable.start();
+            } else {
+                holder.getIndex().setImageResource(R.drawable.list_icon_playing);
             }
             holder.itemView.setBackgroundResource(R.drawable.bg_playlist_item);
             holder.getName().setTextColor(checkedColor);

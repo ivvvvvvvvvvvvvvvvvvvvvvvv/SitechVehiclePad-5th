@@ -148,7 +148,7 @@ public class MusicKaolaActivity extends BaseActivity implements
             setListData();
         }
         //默认图片索引
-        GlideApp.with(this).load(imageUrl).into(musicImageView);
+        GlideApp.with(this).load(imageUrl).circleCrop().into(musicImageView);
         tv_title.setText(title);
     }
 
