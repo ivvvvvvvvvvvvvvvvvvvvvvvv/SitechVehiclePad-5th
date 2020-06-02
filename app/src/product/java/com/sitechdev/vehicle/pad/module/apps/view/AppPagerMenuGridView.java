@@ -163,11 +163,9 @@ public class AppPagerMenuGridView extends GridView implements OnItemLongClickLis
         SitechDevLog.w(AppConst.TAG_APP, "width=" + dm.widthPixels);
         SitechDevLog.w(AppConst.TAG_APP, "height=" + dm.heightPixels);
 
-        if (BuildConfig.DEBUG) {
-            //todo 发布会的正式版本暂时取消掉按键事件
-            this.setOnItemClickListener(this);
-            this.setOnItemLongClickListener(this);
-        }
+        //todo 发布会的正式版本暂时取消掉按键事件
+        this.setOnItemClickListener(this);
+        this.setOnItemLongClickListener(this);
     }
 
     @Override
