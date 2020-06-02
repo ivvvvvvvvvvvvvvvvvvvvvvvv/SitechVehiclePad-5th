@@ -10,10 +10,12 @@ import android.widget.TextView;
 import com.lcodecore.tkrefreshlayout.utils.LogUtil;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.bean.MvpActivity;
+import com.sitechdev.vehicle.pad.model.feedback.utils.FeedbackConfig;
 import com.sitechdev.vehicle.pad.view.RoundProgressBarWidthNumber;
 import com.sitechdev.vehicle.pad.view.VolumeView2;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 public class FeedbackActivity extends MvpActivity<FeedbackContract.FeedbackPresenter> implements FeedbackContract.View {
 
@@ -32,7 +34,7 @@ public class FeedbackActivity extends MvpActivity<FeedbackContract.FeedbackPrese
     private TextView mCommitTime;
     private View mAnimView;
     private View mPlay;
-//    private View mLoading;
+    private View mLoading;
     private RoundProgressBarWidthNumber mProgress;
 
     @Override
@@ -63,9 +65,12 @@ public class FeedbackActivity extends MvpActivity<FeedbackContract.FeedbackPrese
         mCommitTime = findViewById(R.id.feedback_main_commit_time);
         mAnimView = findViewById(R.id.feedback_main_commit_anim);
         mAnimView.setBackgroundResource(R.drawable.feedback_audio_anim3);
-//        mLoading = findViewById(R.id.feedback_main_commit_loading);
+        mLoading = findViewById(R.id.feedback_main_commit_loading);
         mProgress = findViewById(R.id.feedback_main_progressbar);
         mTitleView.setText(getResources().getText(R.string.feedback_main_title));
+        if (null == FeedbackConfig.getInstance().getFileMap()) {
+            FeedbackConfig.getInstance().setFileMap(new HashMap());
+        }
     }
 
     @Override
@@ -128,7 +133,7 @@ public class FeedbackActivity extends MvpActivity<FeedbackContract.FeedbackPrese
             break;
             case R.id.feedback_main_commit: {
                 mPresenter.sendRecordFile();
-//                mLoading.setVisibility(View.VISIBLE);
+                mLoading.setVisibility(View.VISIBLE);
             }
             break;
             case R.id.feedback_main_cancle: {
@@ -208,7 +213,7 @@ public class FeedbackActivity extends MvpActivity<FeedbackContract.FeedbackPrese
             mStartTip.setVisibility(View.VISIBLE);
             mStartRecord.setVisibility(View.VISIBLE);
         }
-//        mLoading.setVisibility(View.GONE);
+        mLoading.setVisibility(View.GONE);
         mPresenter.deleteRecorder();
     }
 

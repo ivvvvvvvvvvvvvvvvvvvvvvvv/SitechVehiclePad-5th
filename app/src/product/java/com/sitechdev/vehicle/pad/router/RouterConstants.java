@@ -33,6 +33,24 @@ public interface RouterConstants {
      */
     String SETTING_SKIN_PAGE = "/setting/skin";
     /**
+     * 网络设置页面
+     */
+    String SETTING_NET_PAGE = "/setting/net";
+    /**
+     * 系统设置页面
+     */
+    String SETTING_SYSTEM_PAGE = "/setting/system";
+    /**
+     * 设置主页面
+     */
+    String SETTING_HOME_PAGE = "/setting/home";
+    /**
+     * 蓝牙设置页面
+     */
+    String SETTING_BT_PAGE = "/setting/bt";
+
+
+    /**
      * 应用列表页面
      */
     String SETTING_APP_LIST = "/subApp/appList";

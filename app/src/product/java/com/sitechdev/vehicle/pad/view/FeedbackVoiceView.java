@@ -72,24 +72,24 @@ public class FeedbackVoiceView extends RelativeLayout implements MyPlayMusicHelp
     }
 
     private void setDurationLength(View view, int duration) {
-        int extendWidth = 200;
-        if (duration >= 50) {
-            extendWidth = 400;
-        } else if (duration < 50 && duration >= 40) {
-            extendWidth = 350;
-        } else if (duration < 40 && duration >= 30) {
-            extendWidth = 300;
-        } else if (duration < 30 && duration >= 20) {
-            extendWidth = 250;
-        } else if (duration < 20 && duration >= 10) {
-            extendWidth = 220;
-        } else if (duration < 10) {
-            extendWidth = 180;
-        }
-        LayoutParams params =
-                (LayoutParams) view.getLayoutParams();
-        params.width = extendWidth;
-        view.setLayoutParams(params);
+//        int extendWidth = 200;
+//        if (duration >= 50) {
+//            extendWidth = 400;
+//        } else if (duration < 50 && duration >= 40) {
+//            extendWidth = 350;
+//        } else if (duration < 40 && duration >= 30) {
+//            extendWidth = 300;
+//        } else if (duration < 30 && duration >= 20) {
+//            extendWidth = 250;
+//        } else if (duration < 20 && duration >= 10) {
+//            extendWidth = 220;
+//        } else if (duration < 10) {
+//            extendWidth = 180;
+//        }
+//        LayoutParams params =
+//                (LayoutParams) view.getLayoutParams();
+//        params.width = extendWidth;
+//        view.setLayoutParams(params);
     }
 
     private void initView(Context context) {

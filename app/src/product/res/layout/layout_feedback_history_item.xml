@@ -6,17 +6,16 @@
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/feedback_history_item_voice"
-        android:layout_width="wrap_content"
-        android:layout_height="90dp"
-        android:layout_marginLeft="100dp"
+        android:layout_width="372px"
+        android:layout_height="90px"
         android:layout_marginTop="30dp"
-        android:background="@drawable/feedback_voicelayout_bg"
-        android:minWidth="200dp">
+        android:background="@drawable/feedback_main_play">
 
         <ImageView
             android:id="@+id/feedback_history_item_anim"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="42px"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -26,6 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
+            android:layout_marginRight="40px"
             android:textSize="28sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
