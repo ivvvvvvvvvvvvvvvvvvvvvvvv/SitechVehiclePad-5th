@@ -74,7 +74,7 @@ public class KaolaCategoryDialogAdapter extends RecyclerView.Adapter<KaolaCatego
     public VHolderAbs onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View root = null;
         if (mLists.get(i).category == null) {
-            root = LayoutInflater.from(context).inflate(R.layout.dialog_kaola_category_item, null);
+            root = LayoutInflater.from(context).inflate(R.layout.dialog_kaola_category_item_group, null);
         } else {
             root = LayoutInflater.from(context).inflate(R.layout.dialog_kaola_category_item, null);
         }
