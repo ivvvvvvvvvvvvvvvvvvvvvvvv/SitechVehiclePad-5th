@@ -285,7 +285,7 @@ public class FeedBackUtils extends HttpUtil {
         OkGo.<FeedbackHistoryBean>get(getFormatRequestUrl(EnvironmentConfig.URL_MALL_HOST,AppUrlConst.GET_FEEDBACK_HISTORY_LIST))
                 .headers("Content-Type", "application/json")
                 .headers(HttpHeaders.HEAD_KEY_COOKIE,
-                        "access_token=" + token)
+                        "access_token=" + UserManager.getInstance().getUserToken())
                 .params("pageNo", page)
                 .params("pageSize", 5)
                 .execute(new JsonCallback<FeedbackHistoryBean>(FeedbackHistoryBean.class) {
