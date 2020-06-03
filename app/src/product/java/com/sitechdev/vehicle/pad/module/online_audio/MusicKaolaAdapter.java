@@ -96,7 +96,7 @@ public class MusicKaolaAdapter extends
             if (KaolaPlayManager.SingletonHolder.INSTANCE.isCurPlayingBroadcast()) {
                 holder.getIndex().setImageResource(R.drawable.icon_not_living_tip);
             } else {
-                holder.getIndex().setImageResource(R.drawable.list_icon_playing);
+                holder.getIndex().setImageResource(R.drawable.list_icon_play);
             }
             holder.getName().setTextColor(noramlColor);
             holder.getArt().setTextColor(noramlColor);

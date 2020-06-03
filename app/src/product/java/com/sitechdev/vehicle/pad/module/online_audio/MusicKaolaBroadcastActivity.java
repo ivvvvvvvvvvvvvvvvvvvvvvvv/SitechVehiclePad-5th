@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -43,6 +44,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
+
 // 听伴广播播放页
 @Route(path = RouterConstants.MUSIC_PLAY_ONLINE_BROADCAST)
 @VoiceSourceType(VoiceSourceManager.SUPPORT_TYPE_KAOLA)
@@ -70,11 +72,12 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
 
     private MusicKaolaAdapter playListAdapter;
 
-    private ImageView musicImageView, btn_pre, btn_next, btn_pause_play,tag;
+    private ImageView musicImageView, btn_pre, btn_next, btn_pause_play, tag;
     private TextView subtitle;
     private ScrollTextView tv_bottom_title;
     private int defaultImgResId = 0;
     private TextView tv_title;
+    private FrameLayout playCoverHolder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,8 +107,8 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        tv_title =   findViewById(R.id.tv_sub_title);
-        subtitle =   findViewById(R.id.subtitle);
+        tv_title = findViewById(R.id.tv_sub_title);
+        subtitle = findViewById(R.id.subtitle);
 
         //左边播放条控制
 
@@ -113,6 +116,7 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
         tv_bottom_title = findViewById(R.id.tv_bottom_title);
         //专辑图片
         musicImageView = findViewById(R.id.image);
+        playCoverHolder = findViewById(R.id.play_cover_frame);
         //上一首
         btn_pre = findViewById(R.id.btn_pre);
         //下一首
@@ -176,7 +180,7 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
         vLocalMusicList.setHasFixedSize(true);
 
         if (playListAdapter == null) {
-            playListAdapter = new MusicKaolaAdapter(MusicKaolaBroadcastActivity.this,true);
+            playListAdapter = new MusicKaolaAdapter(MusicKaolaBroadcastActivity.this, true);
             vLocalMusicList.setAdapter(playListAdapter);
 
             playListAdapter.setOnItemClickListener(new MusicKaolaAdapter.OnItemClickListener() {
@@ -384,28 +388,22 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
     private void switchPlayPause() {
         SitechDevLog.e(TAG, "========  switchPlayPause  was called");
         KaolaPlayManager.SingletonHolder.INSTANCE.switchPlayPause(this);
-        ThreadUtils.runOnUIThreadDelay(new Runnable() {//延迟更新  广播播放状态放有延迟
-            @Override
-            public void run() {
-                refreshPlayStatusView();
-            }
-        },500);
+        btn_pause_play.postDelayed(refreshplayRunnable, 500);//切换有延迟
     }
 
     /**
      * 刷新view
      */
     private void refreshPlayStatusView() {
-        btn_pause_play.post(() -> {
-            if (btn_pause_play != null) {
-                if (KaolaPlayManager.SingletonHolder.INSTANCE.isPlaying(this)) {
-                    btn_pause_play.setImageResource(R.drawable.pc_pause);
-                } else {
-                    btn_pause_play.setImageResource(R.drawable.pc_play);
-                }
+        if (btn_pause_play != null) {
+            if (KaolaPlayManager.SingletonHolder.INSTANCE.isPlaying(this)) {
+                btn_pause_play.setImageResource(R.drawable.pc_pause);
+                KaolaPlayManager.setCoverPlayStartAnim(playCoverHolder);
+            } else {
+                btn_pause_play.setImageResource(R.drawable.pc_play);
+                KaolaPlayManager.setCoverPlayPauseAnim(playCoverHolder);
             }
-        });
-
+        }
     }
 
     /**
@@ -424,27 +422,17 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
 
     @Override
     public void pause() {
-        refreshPlayStatusView();
-        if (playListAdapter != null && playListAdapter.getItemCount() > 0) {
-            ThreadUtils.runOnUIThread(() -> {
-                playListAdapter.notifyDataSetChanged();
-            });
-        }
     }
+
+    Runnable refreshplayRunnable = new Runnable() {
+        @Override
+        public void run() {
+            refreshPlayStatusView();
+        }
+    };
 
     @Override
     public void resume() {
-        refreshPlayStatusView();
-        if (playListAdapter != null && playListAdapter.getItemCount() > 0) {
-            ThreadUtils.runOnUIThread(() -> {
-                playListAdapter.notifyDataSetChanged();
-            });
-        }
-    }
-
-    @Override
-    public void onMusicPause() {
-
     }
 
     @Override
@@ -461,12 +449,18 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
     }
 
     @Override
+    public void onMusicPause() {
+        playCoverHolder.removeCallbacks(refreshplayRunnable);
+        playCoverHolder.postDelayed(refreshplayRunnable, 500);
+    }
+
+    @Override
     public void onMusicPlaying(PlayItem item) {
         if (tv_bottom_title != null && item != null) {
             tv_bottom_title.setText(item.getTitle());
             subtitle.setText(item.getAlbumName());
             btn_pause_play.setImageResource(R.drawable.pc_pause);
-            GlideApp.with(this).load(item.getAlbumPic()).into(musicImageView);
+            GlideApp.with(this).load(item.getAlbumPic()).circleCrop().into(musicImageView);
             if ((item.getType() == PlayItemType.BROADCAST_LIVING)) {
                 GlideApp.with(this).load(R.drawable.tag_living).into(tag);
             } else {
@@ -482,6 +476,8 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
         cancelProgressDialog();
 
         SitechDevLog.e(TAG, "====== onPlayerPlaying ======= mCurPosition = " + mCurPosition);
+        playCoverHolder.removeCallbacks(refreshplayRunnable);
+        playCoverHolder.postDelayed(refreshplayRunnable, 500);
     }
 
     @Override
@@ -517,7 +513,8 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
             finish();
         }
     }
-    private void getProgamList(){
+
+    private void getProgamList() {
 
     }
 }

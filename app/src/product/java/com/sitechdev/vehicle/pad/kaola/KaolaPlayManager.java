@@ -1,8 +1,14 @@
 package com.sitechdev.vehicle.pad.kaola;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 
 import com.kaolafm.opensdk.OpenSDK;
 import com.kaolafm.opensdk.ResType;
@@ -21,6 +27,7 @@ import com.kaolafm.sdk.core.mediaplayer.PlayerManager;
 import com.kaolafm.sdk.vehicle.GeneralCallback;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
+import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.event.AppEvent;
 import com.sitechdev.vehicle.pad.event.TeddyEvent;
@@ -31,8 +38,10 @@ import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppVariants;
 import com.sitechdev.vehicle.pad.view.CommonToast;
 
+import java.lang.ref.WeakReference;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -59,6 +68,10 @@ public class KaolaPlayManager {
 
     public static class SingletonHolder {
         public static KaolaPlayManager INSTANCE = new KaolaPlayManager();
+    }
+
+    public void seekTo(Context context, int position) {
+        PlayerManager.getInstance(context).seek(position);
     }
 
     public volatile PlayType mPlayType = null;
@@ -220,13 +233,14 @@ public class KaolaPlayManager {
         return isCurPlayingBroadcast() ? BroadcastRadioListManager.getInstance().getPlayList() : PlayerListManager.getInstance().getPlayList();
     }
 
-    public boolean isPlaying(Context context){
+    public boolean isPlaying(Context context) {
         if (curPlayingBroadcast) {
             return BroadcastRadioPlayerManager.getInstance().isPlaying();
         } else {
             return PlayerManager.getInstance(context).isPlaying();
         }
     }
+
     public void switchPlayPause(Context context) {
         if (isCurPlayingBroadcast()) {
             if (BroadcastRadioPlayerManager.getInstance().isPlaying()) {
@@ -355,7 +369,9 @@ public class KaolaPlayManager {
 
         @Override
         public void onPlayerPlaying(PlayItem playItem) {
-            mPlayCallback.onPlay();
+            if (mPlayCallback != null) {
+                mPlayCallback.onPlay();
+            }
             SitechDevLog.e(KaolaPlayManager.class.getSimpleName(), " ============== onPlayerPlaying =============");
             if (onPlaySourceMusicChangeListeners != null && onPlaySourceMusicChangeListeners.size() > 0) {
                 for (int j = 0; j < onPlaySourceMusicChangeListeners.size(); j++) {
@@ -368,6 +384,11 @@ public class KaolaPlayManager {
         public void onPlayerPaused(PlayItem playItem) {
             if (mPlayCallback != null) {
                 mPlayCallback.onPause();
+            }
+            if (onPlaySourceMusicChangeListeners != null && onPlaySourceMusicChangeListeners.size() > 0) {
+                for (int j = 0; j < onPlaySourceMusicChangeListeners.size(); j++) {
+                    onPlaySourceMusicChangeListeners.get(j).onMusicPause();
+                }
             }
             SitechDevLog.e(KaolaPlayManager.class.getSimpleName(), " ============== onPlayerPaused =============");
         }
@@ -499,4 +520,92 @@ public class KaolaPlayManager {
         setCurPlayingBroadcast(false);
     }
 
+    private static HashMap<View, WeakReference<ValueAnimator>> viewAnimators = new HashMap<>();
+
+    public static boolean isCoverPlayImageAnimInited(View holder) {
+        return viewAnimators.size() > 0 && viewAnimators.containsKey(holder.findViewById(R.id.image));
+    }
+
+    public static void setCoverPlayStartAnim(View holder) {
+        if (!checkCoverHolderNull(holder)) {
+            View image = holder.findViewById(R.id.image);
+            View imageBg = holder.findViewById(R.id.image_bg);
+            View imagePlayStick = holder.findViewById(R.id.ui_play_bar);
+            if (viewAnimators.get(image) != null && viewAnimators.size() > 0) {
+                if (viewAnimators.get(image).get() != null) {
+                    viewAnimators.get(image).get().resume();
+                }
+            } else {
+                //image动画
+                ValueAnimator anim_img = ObjectAnimator
+                        .ofFloat(image, "rotation", 0F, 360F);
+                anim_img.setRepeatCount(ValueAnimator.INFINITE);
+                anim_img.setRepeatMode(ValueAnimator.RESTART);
+                anim_img.setInterpolator(new LinearInterpolator());
+                anim_img.setDuration(7000);
+                anim_img.start();
+                viewAnimators.put(image, new WeakReference<>(anim_img));
+            }
+            if (viewAnimators.get(imageBg) != null && viewAnimators.size() > 0) {
+                if (viewAnimators.get(image) != null && viewAnimators.get(image).get() != null) {
+                    viewAnimators.get(imageBg).get().resume();
+                }
+            } else {
+                //image bg动画
+                ValueAnimator anim_imageBg = ObjectAnimator
+                        .ofFloat(imageBg, "rotation", 0F, 360F);
+                anim_imageBg.setDuration(9000);
+                anim_imageBg.setInterpolator(new LinearInterpolator());
+                anim_imageBg.setRepeatCount(ValueAnimator.INFINITE);
+                anim_imageBg.setRepeatMode(ValueAnimator.RESTART);
+                anim_imageBg.start();
+                viewAnimators.put(imageBg, new WeakReference<>(anim_imageBg));
+            }
+            RotateAnimation rotateAnimation = new RotateAnimation(0f, -30f, Animation.RELATIVE_TO_SELF, 1f, Animation.RELATIVE_TO_SELF, 0.5f);
+            rotateAnimation.setDuration(500);
+            rotateAnimation.setFillAfter(true);
+            rotateAnimation.setFillBefore(false);
+            imagePlayStick.startAnimation(rotateAnimation);
+        }
+    }
+
+    public static void setCoverPlayPauseAnim(View holder) {
+        if (!checkCoverHolderNull(holder)) {
+            try {
+                View image = holder.findViewById(R.id.image);
+                View imageBg = holder.findViewById(R.id.image_bg);
+                View imagePlayStick = holder.findViewById(R.id.ui_play_bar);
+                if (viewAnimators != null && viewAnimators.size() > 0) {
+                    if (viewAnimators.get(image) != null && viewAnimators.get(image).get() != null) {
+                        viewAnimators.get(image).get().pause();
+                    }
+                }
+                if (viewAnimators != null && viewAnimators.size() > 0) {
+                    if (viewAnimators.get(image) != null && viewAnimators.get(image).get() != null) {
+                        viewAnimators.get(imageBg).get().pause();
+                    }
+                }
+                RotateAnimation rotateAnimation = new RotateAnimation(-30f, 0f, Animation.RELATIVE_TO_SELF, 1f, Animation.RELATIVE_TO_SELF, 0.5f);
+                rotateAnimation.setDuration(500);
+                rotateAnimation.setFillBefore(true);
+                rotateAnimation.setFillAfter(false);
+                imagePlayStick.startAnimation(rotateAnimation);
+            } finally {
+
+            }
+        }
+    }
+
+    private static boolean checkCoverHolderNull(View holder) {
+        if (null == holder) {
+            return true;
+        }
+        View image = holder.findViewById(R.id.image);
+        View imageBg = holder.findViewById(R.id.image_bg);
+        View imagePlayStick = holder.findViewById(R.id.ui_play_bar);
+        if (image == null || imageBg == null || imagePlayStick == null) {
+            return true;
+        }
+        return false;
+    }
 }

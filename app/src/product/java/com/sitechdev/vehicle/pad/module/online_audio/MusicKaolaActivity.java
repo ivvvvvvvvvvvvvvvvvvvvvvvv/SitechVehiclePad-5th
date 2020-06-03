@@ -7,6 +7,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -42,6 +43,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
+
 // 听伴专辑播放页
 @Route(path = RouterConstants.MUSIC_PLAY_ONLINE)
 @VoiceSourceType(VoiceSourceManager.SUPPORT_TYPE_KAOLA)
@@ -73,9 +75,11 @@ public class MusicKaolaActivity extends BaseActivity implements
     private TextView subtitle;
     private ScrollTextView tv_bottom_title;
     private SeekBar musicSeekBar;
-    private TextView seekStartTime,seekEndTime;
+    private TextView seekStartTime, seekEndTime;
     private int defaultImgResId = 0;
     private TextView tv_title;
+    private boolean seekUpdateFlag = true;
+    private FrameLayout playCoverHolder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +113,7 @@ public class MusicKaolaActivity extends BaseActivity implements
         tv_bottom_title = findViewById(R.id.tv_bottom_title);
         //专辑图片
         musicImageView = findViewById(R.id.image);
+        playCoverHolder = findViewById(R.id.play_cover_frame);
         //上一首
         btn_pre = findViewById(R.id.btn_pre);
         //下一首
@@ -148,7 +153,7 @@ public class MusicKaolaActivity extends BaseActivity implements
             setListData();
         }
         //默认图片索引
-        GlideApp.with(this).load(imageUrl).into(musicImageView);
+        GlideApp.with(this).load(imageUrl).circleCrop().into(musicImageView);
         tv_title.setText(title);
     }
 
@@ -185,6 +190,22 @@ public class MusicKaolaActivity extends BaseActivity implements
         } else {
             playListAdapter.notifyDataSetChanged();
         }
+        musicSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                seekUpdateFlag = false;
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                KaolaPlayManager.SingletonHolder.INSTANCE.seekTo(MusicKaolaActivity.this, seekBar.getProgress());
+            }
+        });
     }
 
     private void setListData() {
@@ -382,7 +403,6 @@ public class MusicKaolaActivity extends BaseActivity implements
         } else {
             PlayerManager.getInstance(this).play();
         }
-        refreshPlayStatusView();
     }
 
     /**
@@ -393,10 +413,12 @@ public class MusicKaolaActivity extends BaseActivity implements
             if (PlayerManager.getInstance(this).isPlaying()) {
                 if (btn_pause_play != null) {
                     btn_pause_play.setImageResource(R.drawable.pc_pause);
+                    KaolaPlayManager.setCoverPlayStartAnim(playCoverHolder);
                 }
             } else {
                 if (btn_pause_play != null) {
                     btn_pause_play.setImageResource(R.drawable.pc_play);
+                    KaolaPlayManager.setCoverPlayPauseAnim(playCoverHolder);
                 }
             }
         });
@@ -460,6 +482,7 @@ public class MusicKaolaActivity extends BaseActivity implements
 
     @Override
     public void onMusicPlaying(PlayItem item) {
+        seekUpdateFlag = true;
         if (tv_bottom_title != null && item != null) {
             tv_bottom_title.setText(item.getTitle());
             btn_pause_play.setImageResource(R.drawable.pc_pause);
@@ -488,10 +511,16 @@ public class MusicKaolaActivity extends BaseActivity implements
 
     @Override
     public void onMusicPlayProgress(String url, int position, int duration, boolean isPreDownloadComplete) {
-        musicSeekBar.setMax(duration);
-        musicSeekBar.setProgress(position);
-        seekEndTime.setText(KaolaPlayManager.getShowTimeString(duration));
         seekStartTime.setText(KaolaPlayManager.getShowTimeString(position));
+        if (seekUpdateFlag) {
+            musicSeekBar.setProgress(position);
+        }
+        if (duration != musicSeekBar.getMax()) {
+            musicSeekBar.setMax(duration);
+        }
+        if (!KaolaPlayManager.getShowTimeString(duration).equals(seekEndTime.getText().toString())) {
+            seekEndTime.setText(KaolaPlayManager.getShowTimeString(duration));
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -509,4 +538,5 @@ public class MusicKaolaActivity extends BaseActivity implements
             finish();
         }
     }
+
 }
