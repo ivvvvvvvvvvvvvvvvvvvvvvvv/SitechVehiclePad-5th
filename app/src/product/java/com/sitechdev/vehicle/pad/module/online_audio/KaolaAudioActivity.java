@@ -161,6 +161,7 @@ public class KaolaAudioActivity extends BaseActivity implements
         fragmentlist.add(new KaolaAudioSubPageFrag());
         fragmentlist.add(new KaolaAudioCategoryPageFrag());
         fragmentlist.add(new KaolaAudioBroadcastPageFrag());
+        fragmentlist.add(new KaolaAudioSearchPageFrag());
     }
 
     private void initTabLayout() {
@@ -194,6 +195,13 @@ public class KaolaAudioActivity extends BaseActivity implements
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                for (int i = 0; i < tabLayout.getTabCount(); i++) {
+                    if (tabLayout.getTabAt(i) == tab && i == 3) {
+                        findViewById(R.id.player_holder).setVisibility(View.GONE);
+                    } else {
+                        findViewById(R.id.player_holder).setVisibility(View.VISIBLE);
+                    }
+                }
             }
 
             @Override

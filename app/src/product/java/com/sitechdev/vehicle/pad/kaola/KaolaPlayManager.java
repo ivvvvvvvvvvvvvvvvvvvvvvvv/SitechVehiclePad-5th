@@ -12,12 +12,17 @@ import android.view.animation.RotateAnimation;
 
 import com.kaolafm.opensdk.OpenSDK;
 import com.kaolafm.opensdk.ResType;
+import com.kaolafm.opensdk.api.BasePageResult;
 import com.kaolafm.opensdk.api.operation.OperationRequest;
 import com.kaolafm.opensdk.api.operation.model.category.Category;
 import com.kaolafm.opensdk.api.operation.model.column.Column;
 import com.kaolafm.opensdk.api.operation.model.column.ColumnGrp;
+import com.kaolafm.opensdk.api.search.SearchRequest;
+import com.kaolafm.opensdk.api.search.model.SearchProgramBean;
+import com.kaolafm.opensdk.api.search.model.VoiceSearchResult;
 import com.kaolafm.opensdk.http.core.HttpCallback;
 import com.kaolafm.opensdk.http.error.ApiException;
+import com.kaolafm.sdk.core.dao.VoiceSearchDao;
 import com.kaolafm.sdk.core.mediaplayer.BroadcastRadioListManager;
 import com.kaolafm.sdk.core.mediaplayer.BroadcastRadioPlayerManager;
 import com.kaolafm.sdk.core.mediaplayer.IPlayerStateListener;
@@ -529,20 +534,27 @@ public class KaolaPlayManager {
     static long lastCoverPlayPauseAnimTime = 0;
     static long lastCoverPlayStartAnimTime = 0;
     public static void setCoverPlayStartAnim(View holder) {
+        Log.e("zyf","Play Start -- setCoverPlayStartAnim ");
         if (!checkCoverHolderNull(holder)) {
             long curInTime = System.currentTimeMillis();
             int dura = 500;
             if (curInTime - lastCoverPlayStartAnimTime <= dura) {//防止重复执行
-                return;
+//                return;
             }
             lastCoverPlayStartAnimTime = curInTime;
+            Log.e("zyf","Play Start -- do anim ");
             try {
                 View image = holder.findViewById(R.id.image);
                 View imageBg = holder.findViewById(R.id.image_bg);
                 View imagePlayStick = holder.findViewById(R.id.ui_play_bar);
                 if (viewAnimators.get(image) != null && viewAnimators.size() > 0) {//image已经初始化 直接执行resume
                     if (viewAnimators.get(image).get() != null) {
-                        viewAnimators.get(image).get().resume();
+                        ValueAnimator valueAnimator = viewAnimators.get(image).get();
+                        if (valueAnimator.isPaused()) {
+                            valueAnimator.resume();
+                        } else {
+                            valueAnimator.start();
+                        }
                     }
                 } else {//初始化动画
                     ValueAnimator anim_img = ObjectAnimator
@@ -555,9 +567,16 @@ public class KaolaPlayManager {
                     //保存动画
                     viewAnimators.put(image, new WeakReference<>(anim_img));
                 }
+
+
                 if (viewAnimators.get(imageBg) != null && viewAnimators.size() > 0) {//imageBg已经初始化 直接执行resume
-                    if (viewAnimators.get(image) != null && viewAnimators.get(image).get() != null) {
-                        viewAnimators.get(imageBg).get().resume();
+                    if (viewAnimators.get(imageBg) != null && viewAnimators.get(imageBg).get() != null) {
+                        ValueAnimator valueAnimator = viewAnimators.get(imageBg).get();
+                        if (valueAnimator.isPaused()) {
+                            valueAnimator.resume();
+                        } else {
+                            valueAnimator.start();
+                        }
                     }
                 } else {//初始化动画
                     //image bg动画
@@ -570,6 +589,9 @@ public class KaolaPlayManager {
                     anim_imageBg.start();
                     viewAnimators.put(imageBg, new WeakReference<>(anim_imageBg));
                 }
+
+
+
                 //stick 动画
                 RotateAnimation rotateAnimation = new RotateAnimation(0f, -30f, Animation.RELATIVE_TO_SELF, 1f, Animation.RELATIVE_TO_SELF, 0.5f);
                 rotateAnimation.setDuration(dura);
@@ -583,13 +605,15 @@ public class KaolaPlayManager {
     }
 
     public static void setCoverPlayPauseAnim(View holder) {
+        Log.e("zyf","Play Pause -- setCoverPlayPauseAnim ");
         if (!checkCoverHolderNull(holder)) {
             long curInTime = System.currentTimeMillis();
             int dura = 500;
             if (curInTime - lastCoverPlayPauseAnimTime <= dura) {//防止重复执行
-                return;
+//                return;
             }
             lastCoverPlayPauseAnimTime = curInTime;
+            Log.e("zyf","Play Pause -- do anim ");
             try {
                 View image = holder.findViewById(R.id.image);
                 View imageBg = holder.findViewById(R.id.image_bg);
@@ -598,18 +622,18 @@ public class KaolaPlayManager {
                     if (viewAnimators.get(image) != null && viewAnimators.get(image).get() != null) {
                         viewAnimators.get(image).get().pause();
                     }
+                    //stick 动画
+                    RotateAnimation rotateAnimation = new RotateAnimation(-30f, 0f, Animation.RELATIVE_TO_SELF, 1f, Animation.RELATIVE_TO_SELF, 0.5f);
+                    rotateAnimation.setDuration(dura);
+                    rotateAnimation.setFillBefore(true);
+                    rotateAnimation.setFillAfter(false);
+                    imagePlayStick.startAnimation(rotateAnimation);
                 }
                 if (viewAnimators != null && viewAnimators.size() > 0) {
-                    if (viewAnimators.get(image) != null && viewAnimators.get(image).get() != null) {
+                    if (viewAnimators.get(imageBg) != null && viewAnimators.get(imageBg).get() != null) {
                         viewAnimators.get(imageBg).get().pause();
                     }
                 }
-                //stick 动画
-                RotateAnimation rotateAnimation = new RotateAnimation(-30f, 0f, Animation.RELATIVE_TO_SELF, 1f, Animation.RELATIVE_TO_SELF, 0.5f);
-                rotateAnimation.setDuration(dura);
-                rotateAnimation.setFillBefore(true);
-                rotateAnimation.setFillAfter(false);
-                imagePlayStick.startAnimation(rotateAnimation);
             } finally {
             }
         }
@@ -626,5 +650,30 @@ public class KaolaPlayManager {
             return true;
         }
         return false;
+    }
+
+    public static void searchByKeyword(String keywords, HttpCallback<List<SearchProgramBean>> callback) {
+    ////旧逻辑   获取数据跟searchAll 相同
+        //        String voiceSource = "kedaxunfei";
+//        int qualityType = 0;
+//        String originJson = "";
+//        int field = 2;
+//        int tag = 0;
+//        String text = "";// 用户声控原始串
+//        new SearchRequest().searchBySemantics(voiceSource, qualityType,
+//                originJson, field, tag,
+//                null, null, null, null,
+//                keywords, text, new HttpCallback<VoiceSearchResult>() {
+//                    @Override
+//                    public void onSuccess(VoiceSearchResult voiceSearchResult) {
+//                        Log.e("zyf", "VoiceSearchResult = ");
+//                    }
+//
+//                    @Override
+//                    public void onError(ApiException e) {
+//
+//                    }
+//                });
+        new SearchRequest().searchAll(keywords, callback);
     }
 }

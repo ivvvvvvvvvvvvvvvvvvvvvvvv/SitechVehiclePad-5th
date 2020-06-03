@@ -19,6 +19,7 @@
         android:layout_height="570px" />
 
     <include
+        android:id="@+id/player_holder"
         layout="@layout/kaola_player_holder_bottom"
         android:layout_width="match_parent"
         android:layout_height="140px"
