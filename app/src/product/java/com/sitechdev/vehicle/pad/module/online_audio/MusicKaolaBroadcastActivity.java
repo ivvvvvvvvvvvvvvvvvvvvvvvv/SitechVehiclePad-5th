@@ -388,7 +388,12 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
     private void switchPlayPause() {
         SitechDevLog.e(TAG, "========  switchPlayPause  was called");
         KaolaPlayManager.SingletonHolder.INSTANCE.switchPlayPause(this);
-        btn_pause_play.postDelayed(refreshplayRunnable, 500);//切换有延迟
+        btn_pause_play.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                refreshPlayStatusView();
+            }
+        }, 500);//切换有延迟
     }
 
     /**
@@ -424,13 +429,6 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
     public void pause() {
     }
 
-    Runnable refreshplayRunnable = new Runnable() {
-        @Override
-        public void run() {
-            refreshPlayStatusView();
-        }
-    };
-
     @Override
     public void resume() {
     }
@@ -450,8 +448,7 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
 
     @Override
     public void onMusicPause() {
-        playCoverHolder.removeCallbacks(refreshplayRunnable);
-        playCoverHolder.postDelayed(refreshplayRunnable, 500);
+        refreshPlayStatusView();
     }
 
     @Override
@@ -476,8 +473,7 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
         cancelProgressDialog();
 
         SitechDevLog.e(TAG, "====== onPlayerPlaying ======= mCurPosition = " + mCurPosition);
-        playCoverHolder.removeCallbacks(refreshplayRunnable);
-        playCoverHolder.postDelayed(refreshplayRunnable, 500);
+        refreshPlayStatusView();
     }
 
     @Override

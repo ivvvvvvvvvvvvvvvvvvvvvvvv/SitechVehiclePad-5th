@@ -526,51 +526,70 @@ public class KaolaPlayManager {
         return viewAnimators.size() > 0 && viewAnimators.containsKey(holder.findViewById(R.id.image));
     }
 
+    static long lastCoverPlayPauseAnimTime = 0;
+    static long lastCoverPlayStartAnimTime = 0;
     public static void setCoverPlayStartAnim(View holder) {
         if (!checkCoverHolderNull(holder)) {
-            View image = holder.findViewById(R.id.image);
-            View imageBg = holder.findViewById(R.id.image_bg);
-            View imagePlayStick = holder.findViewById(R.id.ui_play_bar);
-            if (viewAnimators.get(image) != null && viewAnimators.size() > 0) {
-                if (viewAnimators.get(image).get() != null) {
-                    viewAnimators.get(image).get().resume();
-                }
-            } else {
-                //image动画
-                ValueAnimator anim_img = ObjectAnimator
-                        .ofFloat(image, "rotation", 0F, 360F);
-                anim_img.setRepeatCount(ValueAnimator.INFINITE);
-                anim_img.setRepeatMode(ValueAnimator.RESTART);
-                anim_img.setInterpolator(new LinearInterpolator());
-                anim_img.setDuration(7000);
-                anim_img.start();
-                viewAnimators.put(image, new WeakReference<>(anim_img));
+            long curInTime = System.currentTimeMillis();
+            int dura = 500;
+            if (curInTime - lastCoverPlayStartAnimTime <= dura) {//防止重复执行
+                return;
             }
-            if (viewAnimators.get(imageBg) != null && viewAnimators.size() > 0) {
-                if (viewAnimators.get(image) != null && viewAnimators.get(image).get() != null) {
-                    viewAnimators.get(imageBg).get().resume();
+            lastCoverPlayStartAnimTime = curInTime;
+            try {
+                View image = holder.findViewById(R.id.image);
+                View imageBg = holder.findViewById(R.id.image_bg);
+                View imagePlayStick = holder.findViewById(R.id.ui_play_bar);
+                if (viewAnimators.get(image) != null && viewAnimators.size() > 0) {//image已经初始化 直接执行resume
+                    if (viewAnimators.get(image).get() != null) {
+                        viewAnimators.get(image).get().resume();
+                    }
+                } else {//初始化动画
+                    ValueAnimator anim_img = ObjectAnimator
+                            .ofFloat(image, "rotation", 0F, 360F);
+                    anim_img.setRepeatCount(ValueAnimator.INFINITE);
+                    anim_img.setRepeatMode(ValueAnimator.RESTART);
+                    anim_img.setInterpolator(new LinearInterpolator());
+                    anim_img.setDuration(7000);
+                    anim_img.start();
+                    //保存动画
+                    viewAnimators.put(image, new WeakReference<>(anim_img));
                 }
-            } else {
-                //image bg动画
-                ValueAnimator anim_imageBg = ObjectAnimator
-                        .ofFloat(imageBg, "rotation", 0F, 360F);
-                anim_imageBg.setDuration(9000);
-                anim_imageBg.setInterpolator(new LinearInterpolator());
-                anim_imageBg.setRepeatCount(ValueAnimator.INFINITE);
-                anim_imageBg.setRepeatMode(ValueAnimator.RESTART);
-                anim_imageBg.start();
-                viewAnimators.put(imageBg, new WeakReference<>(anim_imageBg));
+                if (viewAnimators.get(imageBg) != null && viewAnimators.size() > 0) {//imageBg已经初始化 直接执行resume
+                    if (viewAnimators.get(image) != null && viewAnimators.get(image).get() != null) {
+                        viewAnimators.get(imageBg).get().resume();
+                    }
+                } else {//初始化动画
+                    //image bg动画
+                    ValueAnimator anim_imageBg = ObjectAnimator
+                            .ofFloat(imageBg, "rotation", 0F, 360F);
+                    anim_imageBg.setDuration(9000);
+                    anim_imageBg.setInterpolator(new LinearInterpolator());
+                    anim_imageBg.setRepeatCount(ValueAnimator.INFINITE);
+                    anim_imageBg.setRepeatMode(ValueAnimator.RESTART);
+                    anim_imageBg.start();
+                    viewAnimators.put(imageBg, new WeakReference<>(anim_imageBg));
+                }
+                //stick 动画
+                RotateAnimation rotateAnimation = new RotateAnimation(0f, -30f, Animation.RELATIVE_TO_SELF, 1f, Animation.RELATIVE_TO_SELF, 0.5f);
+                rotateAnimation.setDuration(dura);
+                rotateAnimation.setFillAfter(true);
+                rotateAnimation.setFillBefore(false);
+                imagePlayStick.startAnimation(rotateAnimation);
+            } finally {
+
             }
-            RotateAnimation rotateAnimation = new RotateAnimation(0f, -30f, Animation.RELATIVE_TO_SELF, 1f, Animation.RELATIVE_TO_SELF, 0.5f);
-            rotateAnimation.setDuration(500);
-            rotateAnimation.setFillAfter(true);
-            rotateAnimation.setFillBefore(false);
-            imagePlayStick.startAnimation(rotateAnimation);
         }
     }
 
     public static void setCoverPlayPauseAnim(View holder) {
         if (!checkCoverHolderNull(holder)) {
+            long curInTime = System.currentTimeMillis();
+            int dura = 500;
+            if (curInTime - lastCoverPlayPauseAnimTime <= dura) {//防止重复执行
+                return;
+            }
+            lastCoverPlayPauseAnimTime = curInTime;
             try {
                 View image = holder.findViewById(R.id.image);
                 View imageBg = holder.findViewById(R.id.image_bg);
@@ -585,13 +604,13 @@ public class KaolaPlayManager {
                         viewAnimators.get(imageBg).get().pause();
                     }
                 }
+                //stick 动画
                 RotateAnimation rotateAnimation = new RotateAnimation(-30f, 0f, Animation.RELATIVE_TO_SELF, 1f, Animation.RELATIVE_TO_SELF, 0.5f);
-                rotateAnimation.setDuration(500);
+                rotateAnimation.setDuration(dura);
                 rotateAnimation.setFillBefore(true);
                 rotateAnimation.setFillAfter(false);
                 imagePlayStick.startAnimation(rotateAnimation);
             } finally {
-
             }
         }
     }
