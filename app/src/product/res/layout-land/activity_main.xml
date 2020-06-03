@@ -6,15 +6,15 @@
     android:background="@drawable/main_bg_land"
     android:clipChildren="false"
     android:clipToPadding="false"
-    android:paddingLeft="52px"
-    android:paddingTop="91px"
-    android:paddingRight="52px">
+    android:paddingLeft="52pt"
+    android:paddingTop="140pt"
+    android:paddingRight="52pt">
 
     <!--左侧信息界面-->
     <LinearLayout
         android:id="@+id/id_main_left_content"
-        android:layout_width="639px"
-        android:layout_height="771px"
+        android:layout_width="639pt"
+        android:layout_height="771pt"
         android:layout_alignParentStart="true"
         android:background="@drawable/bg_main_info_land"
         android:orientation="vertical">
@@ -22,13 +22,13 @@
         <RelativeLayout
             android:id="@+id/id_rela_login"
             android:layout_width="match_parent"
-            android:layout_height="134px"
-            android:paddingLeft="70px">
+            android:layout_height="134pt"
+            android:paddingLeft="70pt">
 
             <ImageView
                 android:id="@+id/iv_login"
-                android:layout_width="76px"
-                android:layout_height="77px"
+                android:layout_width="76pt"
+                android:layout_height="77pt"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ico_default_member_logo" />
 
@@ -37,11 +37,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="29px"
+                android:layout_marginLeft="29pt"
                 android:layout_toRightOf="@id/iv_login"
                 android:text="立即登录"
                 android:textColor="@color/color_main_login_text"
-                android:textSize="32px" />
+                android:textSize="32pt" />
         </RelativeLayout>
 
         <View
@@ -52,9 +52,9 @@
             android:id="@+id/fl_weather"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="70px"
-            android:paddingTop="23px"
-            android:paddingBottom="23px">
+            android:paddingLeft="70pt"
+            android:paddingTop="23pt"
+            android:paddingBottom="23pt">
 
             <RelativeLayout
                 android:id="@+id/id_weather_left_content"
@@ -69,19 +69,19 @@
                     android:includeFontPadding="false"
                     android:text="28"
                     android:textColor="@color/color_main_weather_temp_text"
-                    android:textSize="80px"
+                    android:textSize="80pt"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/id_sign_code"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5px"
-                    android:layout_marginTop="5px"
+                    android:layout_marginLeft="5pt"
+                    android:layout_marginTop="5pt"
                     android:layout_toRightOf="@id/tv_temperature"
                     android:text="℃"
                     android:textColor="@color/color_main_weather_temp_unit"
-                    android:textSize="32px"
+                    android:textSize="32pt"
                     android:textStyle="bold" />
 
                 <TextView
@@ -89,31 +89,31 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@id/tv_temperature"
-                    android:layout_marginLeft="22px"
+                    android:layout_marginLeft="22pt"
                     android:layout_toRightOf="@id/id_sign_code"
                     android:text="有雨"
                     android:textColor="@color/color_main_weather_status_desc"
-                    android:textSize="34px" />
+                    android:textSize="34pt" />
 
                 <TextView
                     android:id="@+id/tv_temperature_day"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_temperature"
-                    android:layout_marginTop="5px"
+                    android:layout_marginTop="5pt"
                     android:text="20°/28°"
                     android:textColor="@color/color_main_weather_temp_range"
-                    android:textSize="30px" />
+                    android:textSize="30pt" />
 
                 <TextView
                     android:id="@+id/tv_window"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_temperature_day"
-                    android:layout_marginTop="5px"
+                    android:layout_marginTop="5pt"
                     android:text="西南风3-4级"
                     android:textColor="@color/color_main_weather_status_desc_range"
-                    android:textSize="30px" />
+                    android:textSize="30pt" />
             </RelativeLayout>
 
             <LinearLayout
@@ -126,10 +126,10 @@
 
                 <ImageView
                     android:id="@+id/iv_weather_icon"
-                    android:layout_width="150px"
-                    android:layout_height="150px"
+                    android:layout_width="150pt"
+                    android:layout_height="150pt"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="10px"
+                    android:layout_marginLeft="10pt"
                     android:src="@drawable/icon_weather_rain" />
 
                 <LinearLayout
@@ -141,9 +141,9 @@
 
                     <ImageView
                         android:id="@+id/iv_weather_location_icon"
-                        android:layout_width="40px"
-                        android:layout_height="40px"
-                        android:layout_marginRight="10px"
+                        android:layout_width="40pt"
+                        android:layout_height="40pt"
+                        android:layout_marginRight="10pt"
                         android:src="@drawable/ico_main_location" />
 
                     <TextView
@@ -153,7 +153,7 @@
                         android:maxLines="1"
                         android:text="--，--"
                         android:textColor="@color/color_main_weather_status_desc_range"
-                        android:textSize="28px" />
+                        android:textSize="28pt" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -167,32 +167,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingLeft="70px"
-            android:paddingTop="20px"
-            android:paddingBottom="5px">
+            android:paddingLeft="70pt"
+            android:paddingTop="20pt"
+            android:paddingBottom="5pt">
 
             <TextClock
                 android:id="@+id/tc_data"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10px"
+                android:layout_marginTop="10pt"
                 android:format12Hour="yyyy年MM月dd日"
                 android:format24Hour="yyyy年MM月dd日"
                 android:includeFontPadding="false"
                 android:textColor="@color/color_main_date_text"
-                android:textSize="30px" />
+                android:textSize="30pt" />
 
             <com.sitechdev.vehicle.pad.view.ReflectTextClock
                 android:id="@+id/btn_hp_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10px"
-                android:layout_marginBottom="10px"
+                android:layout_marginTop="10pt"
+                android:layout_marginBottom="10pt"
                 android:format12Hour="hh:mm"
                 android:format24Hour="HH:mm"
                 android:includeFontPadding="false"
                 android:textColor="@color/color_main_time_text"
-                android:textSize="84px"
+                android:textSize="84pt"
                 android:textStyle="bold"
                 android:typeface="serif" />
         </LinearLayout>
@@ -204,13 +204,13 @@
         <RelativeLayout
             android:id="@+id/id_bluetooth_content"
             android:layout_width="match_parent"
-            android:layout_height="130px"
-            android:paddingLeft="70px">
+            android:layout_height="130pt"
+            android:paddingLeft="70pt">
 
             <ImageView
                 android:id="@+id/iv_bluetooth_icon"
-                android:layout_width="44px"
-                android:layout_height="60px"
+                android:layout_width="44pt"
+                android:layout_height="60pt"
                 android:layout_centerVertical="true"
                 android:src="@drawable/icon_bluetooth" />
 
@@ -219,11 +219,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="26px"
+                android:layout_marginLeft="26pt"
                 android:layout_toRightOf="@id/iv_bluetooth_icon"
                 android:text="请连接蓝牙设备"
                 android:textColor="@color/color_main_bluetooth_text"
-                android:textSize="30px" />
+                android:textSize="30pt" />
         </RelativeLayout>
 
 
@@ -233,17 +233,17 @@
     <!--右上左部分-->
     <LinearLayout
         android:id="@+id/id_main_right_top_left_content"
-        android:layout_width="656px"
-        android:layout_height="131px"
-        android:layout_marginLeft="22px"
+        android:layout_width="656pt"
+        android:layout_height="131pt"
+        android:layout_marginLeft="22pt"
         android:layout_toRightOf="@id/id_main_left_content"
         android:background="@drawable/shape_main_map_item_bg"
         android:orientation="horizontal"
-        android:paddingTop="36px"
-        android:paddingBottom="36px">
+        android:paddingTop="36pt"
+        android:paddingBottom="36pt">
 
         <LinearLayout
-            android:layout_width="0px"
+            android:layout_width="0pt"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
@@ -251,8 +251,8 @@
 
             <ImageView
                 android:id="@+id/id_img_home"
-                android:layout_width="60px"
-                android:layout_height="60px"
+                android:layout_width="60pt"
+                android:layout_height="60pt"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/iv_map_home" />
 
@@ -262,20 +262,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="22px"
+                android:layout_marginLeft="22pt"
                 android:text="回家"
                 android:textColor="@color/color_main_come_home_company_text"
-                android:textSize="32px" />
+                android:textSize="32pt" />
 
         </LinearLayout>
 
         <View
-            android:layout_width="1px"
+            android:layout_width="1pt"
             android:layout_height="match_parent"
             android:background="@color/color_main_car_info_split_line" />
 
         <LinearLayout
-            android:layout_width="0px"
+            android:layout_width="0pt"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
@@ -283,8 +283,8 @@
 
             <ImageView
                 android:id="@+id/id_img_work"
-                android:layout_width="60px"
-                android:layout_height="60px"
+                android:layout_width="60pt"
+                android:layout_height="60pt"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/iv_map_work" />
 
@@ -294,10 +294,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="22px"
+                android:layout_marginLeft="22pt"
                 android:text="公司"
                 android:textColor="@color/color_main_come_home_company_text"
-                android:textSize="32px" />
+                android:textSize="32pt" />
 
         </LinearLayout>
     </LinearLayout>
@@ -305,49 +305,49 @@
     <!--右上右部分-->
     <LinearLayout
         android:id="@+id/id_main_right_top_right_content"
-        android:layout_width="489px"
-        android:layout_height="131px"
-        android:layout_marginLeft="12px"
+        android:layout_width="489pt"
+        android:layout_height="131pt"
+        android:layout_marginLeft="12pt"
         android:layout_toRightOf="@id/id_main_right_top_left_content"
         android:background="@drawable/shape_main_map_item_bg"
         android:gravity="center"
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="60px"
-            android:layout_height="60px"
+            android:layout_width="60pt"
+            android:layout_height="60pt"
             android:src="@drawable/iv_teddy_ask" />
 
         <TextView
             android:id="@+id/tv_what"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="23px"
+            android:layout_marginLeft="23pt"
             android:text="你要去哪里"
             android:textColor="@color/color_main_where_text"
-            android:textSize="32px" />
+            android:textSize="32pt" />
     </LinearLayout>
 
     <!--右中部分-->
     <RelativeLayout
         android:id="@+id/id_main_right_middle_content"
-        android:layout_width="1155px"
-        android:layout_height="443px"
+        android:layout_width="1155pt"
+        android:layout_height="443pt"
         android:layout_below="@id/id_main_right_top_right_content"
-        android:layout_marginLeft="22px"
-        android:layout_marginTop="19px"
+        android:layout_marginLeft="22pt"
+        android:layout_marginTop="19pt"
         android:layout_toRightOf="@id/id_main_left_content">
 
         <LinearLayout
             android:id="@+id/ll_music"
-            android:layout_width="392px"
-            android:layout_height="443px"
+            android:layout_width="392pt"
+            android:layout_height="443pt"
             android:layout_alignParentStart="true"
             android:background="@drawable/main_info_right_middle_bg"
             android:gravity="center"
             android:orientation="vertical"
-            android:paddingLeft="50px"
-            android:paddingRight="50px">
+            android:paddingLeft="50pt"
+            android:paddingRight="50pt">
 
             <TextView
                 android:id="@+id/id_r_m_l_music_main_title"
@@ -357,16 +357,16 @@
 
             <ImageView
                 android:id="@+id/id_r_m_l_music_icon"
-                android:layout_width="120px"
-                android:layout_height="120px"
-                android:layout_marginTop="36px"
+                android:layout_width="120pt"
+                android:layout_height="120pt"
+                android:layout_marginTop="36pt"
                 android:src="@drawable/iv_music" />
 
             <LinearLayout
                 android:id="@+id/id_r_m_l_music_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="27px"
+                android:layout_marginTop="27pt"
                 android:orientation="horizontal">
 
                 <com.sitechdev.vehicle.pad.view.ScrollTextView
@@ -377,7 +377,7 @@
                     android:maxLines="1"
                     android:text="-- --"
                     android:textColor="@color/color_main_music_playing_name_text"
-                    android:textSize="32px" />
+                    android:textSize="32pt" />
             </LinearLayout>
 
             <LinearLayout
@@ -385,120 +385,120 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/id_r_m_l_music_title"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="36px"
+                android:layout_marginTop="36pt"
                 android:gravity="center_horizontal">
 
                 <ImageView
                     android:id="@+id/iv_music_bef"
-                    android:layout_width="42px"
-                    android:layout_height="42px"
+                    android:layout_width="42pt"
+                    android:layout_height="42pt"
                     android:src="@drawable/iv_music_bef" />
 
                 <ImageView
                     android:id="@+id/iv_music_stop"
-                    android:layout_width="42px"
-                    android:layout_height="42px"
-                    android:layout_marginLeft="68px"
+                    android:layout_width="42pt"
+                    android:layout_height="42pt"
+                    android:layout_marginLeft="68pt"
                     android:clickable="true"
                     android:src="@drawable/selector_play_pause" />
 
                 <ImageView
                     android:id="@+id/iv_music_next"
-                    android:layout_width="42px"
-                    android:layout_height="42px"
-                    android:layout_marginLeft="68px"
+                    android:layout_width="42pt"
+                    android:layout_height="42pt"
+                    android:layout_marginLeft="68pt"
                     android:src="@drawable/iv_music_next" />
             </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/ll_news"
-            android:layout_width="370px"
-            android:layout_height="216px"
-            android:layout_marginLeft="12px"
+            android:layout_width="370pt"
+            android:layout_height="216pt"
+            android:layout_marginLeft="12pt"
             android:layout_toRightOf="@id/ll_music"
             android:background="@drawable/main_info_right_middle_bg"
             android:gravity="center">
 
             <ImageView
-                android:layout_width="100px"
-                android:layout_height="100px"
+                android:layout_width="100pt"
+                android:layout_height="100pt"
                 android:src="@drawable/iv_news" />
 
             <TextView
                 android:id="@+id/btn_sitev_news"
                 style="@style/style_tv_home_music"
-                android:layout_marginLeft="10px"
+                android:layout_marginLeft="10pt"
                 android:text="新特速报"
                 android:textColor="@color/color_main_music_type_text" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/ll_book"
-            android:layout_width="370px"
-            android:layout_height="216px"
-            android:layout_marginLeft="12px"
+            android:layout_width="370pt"
+            android:layout_height="216pt"
+            android:layout_marginLeft="12pt"
             android:layout_toRightOf="@id/ll_news"
             android:background="@drawable/main_info_right_middle_bg"
             android:gravity="center">
 
             <ImageView
-                android:layout_width="100px"
-                android:layout_height="100px"
+                android:layout_width="100pt"
+                android:layout_height="100pt"
                 android:src="@drawable/iv_child_book" />
 
             <TextView
                 android:id="@+id/btn_child_papers"
                 style="@style/style_tv_home_music"
-                android:layout_marginLeft="10px"
+                android:layout_marginLeft="10pt"
                 android:text="少儿读物"
                 android:textColor="@color/color_main_music_type_text" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/ll_car"
-            android:layout_width="370px"
-            android:layout_height="215px"
+            android:layout_width="370pt"
+            android:layout_height="215pt"
             android:layout_below="@id/ll_news"
-            android:layout_marginLeft="12px"
-            android:layout_marginTop="11px"
+            android:layout_marginLeft="12pt"
+            android:layout_marginTop="11pt"
             android:layout_toRightOf="@id/ll_music"
             android:background="@drawable/main_info_right_middle_bg"
             android:gravity="center">
 
             <ImageView
-                android:layout_width="100px"
-                android:layout_height="100px"
+                android:layout_width="100pt"
+                android:layout_height="100pt"
                 android:src="@drawable/iv_car" />
 
             <TextView
                 android:id="@+id/btn_car_fun"
                 style="@style/style_tv_home_music"
-                android:layout_marginLeft="10px"
+                android:layout_marginLeft="10pt"
                 android:text="车嗨娱乐"
                 android:textColor="@color/color_main_music_type_text" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/ll_life"
-            android:layout_width="370px"
-            android:layout_height="215px"
+            android:layout_width="370pt"
+            android:layout_height="215pt"
             android:layout_below="@id/ll_book"
-            android:layout_marginLeft="11px"
-            android:layout_marginTop="11px"
+            android:layout_marginLeft="11pt"
+            android:layout_marginTop="11pt"
             android:layout_toRightOf="@id/ll_car"
             android:background="@drawable/main_info_right_middle_bg"
             android:gravity="center">
 
             <ImageView
-                android:layout_width="100px"
-                android:layout_height="100px"
+                android:layout_width="100pt"
+                android:layout_height="100pt"
                 android:src="@drawable/iv_life" />
 
             <TextView
                 android:id="@+id/btn_life_all"
                 style="@style/style_tv_home_music"
-                android:layout_marginLeft="10px"
+                android:layout_marginLeft="10pt"
                 android:text="生活一点通"
                 android:textColor="@color/color_main_music_type_text" />
         </LinearLayout>
@@ -507,20 +507,20 @@
     <!--右下部分 -->
     <LinearLayout
         android:id="@+id/ll_car_power_info"
-        android:layout_width="1155px"
-        android:layout_height="156px"
+        android:layout_width="1155pt"
+        android:layout_height="156pt"
         android:layout_below="@id/id_main_right_middle_content"
-        android:layout_marginLeft="22px"
-        android:layout_marginTop="20px"
+        android:layout_marginLeft="22pt"
+        android:layout_marginTop="20pt"
         android:layout_toRightOf="@id/id_main_left_content"
         android:background="@drawable/bg_car_info_land"
         android:gravity="center"
         android:orientation="horizontal"
-        android:paddingTop="50px"
-        android:paddingBottom="50px">
+        android:paddingTop="50pt"
+        android:paddingBottom="50pt">
 
         <LinearLayout
-            android:layout_width="0px"
+            android:layout_width="0pt"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
@@ -529,8 +529,8 @@
 
             <ImageView
                 android:id="@+id/id_img_power"
-                android:layout_width="60px"
-                android:layout_height="60px"
+                android:layout_width="60pt"
+                android:layout_height="60pt"
                 android:scaleType="centerCrop"
                 android:src="@drawable/icon_power" />
 
@@ -539,21 +539,21 @@
                 style="@style/style_tv_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15px"
+                android:layout_marginLeft="15pt"
                 android:includeFontPadding="false"
                 android:textColor="@color/color_main_car_info_text"
-                android:textSize="48px"
+                android:textSize="48pt"
                 tools:text="70 %" />
 
         </LinearLayout>
 
         <View
-            android:layout_width="1px"
+            android:layout_width="1pt"
             android:layout_height="match_parent"
             android:background="@color/color_main_car_info_split_line" />
 
         <LinearLayout
-            android:layout_width="0px"
+            android:layout_width="0pt"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
@@ -562,8 +562,8 @@
 
             <ImageView
                 android:id="@+id/id_img_km"
-                android:layout_width="60px"
-                android:layout_height="60px"
+                android:layout_width="60pt"
+                android:layout_height="60pt"
                 android:src="@drawable/icon_km" />
 
             <TextView
@@ -571,21 +571,21 @@
                 style="@style/style_tv_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15px"
+                android:layout_marginLeft="15pt"
                 android:includeFontPadding="false"
                 android:textColor="@color/color_main_car_info_text"
-                android:textSize="48px"
+                android:textSize="48pt"
                 tools:text="230 KM" />
 
         </LinearLayout>
 
         <View
-            android:layout_width="1px"
+            android:layout_width="1pt"
             android:layout_height="match_parent"
             android:background="@color/color_main_car_info_split_line" />
 
         <LinearLayout
-            android:layout_width="0px"
+            android:layout_width="0pt"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
@@ -594,8 +594,8 @@
 
             <ImageView
                 android:id="@+id/id_img_recharge_count"
-                android:layout_width="60px"
-                android:layout_height="60px"
+                android:layout_width="60pt"
+                android:layout_height="60pt"
                 android:src="@drawable/icon_recharge_count" />
 
             <TextView
@@ -603,10 +603,10 @@
                 style="@style/style_tv_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15px"
+                android:layout_marginLeft="15pt"
                 android:includeFontPadding="false"
                 android:textColor="@color/color_main_car_info_text"
-                android:textSize="48px"
+                android:textSize="48pt"
                 tools:text="48 次" />
 
         </LinearLayout>

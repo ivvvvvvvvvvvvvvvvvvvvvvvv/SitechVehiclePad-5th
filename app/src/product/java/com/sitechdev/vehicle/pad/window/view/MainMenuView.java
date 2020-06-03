@@ -2,12 +2,14 @@ package com.sitechdev.vehicle.pad.window.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.ImageUtils;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
@@ -16,6 +18,7 @@ import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.event.VoiceEvent;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
+import com.sitechdev.vehicle.pad.util.AppUtil;
 import com.sitechdev.vehicle.pad.view.SkinTextView;
 import com.sitechdev.vehicle.pad.view.VolumeView2;
 import com.sitechdev.vehicle.pad.vui.VUI;
@@ -49,8 +52,14 @@ public class MainMenuView extends RelativeLayout implements View.OnClickListener
         this(context, null);
     }
 
+    @Override
+    public Resources getResources() {
+        return AppUtil.getCurrentResource(ActivityUtils.getTopActivity().getResources());
+    }
+
     public MainMenuView(Context context, AttributeSet attrs) {
         super(context, attrs);
+
         // 填充布局，并添加至
         LayoutInflater.from(context).inflate(R.layout.main_menu_view, this);
         View view = findViewById(R.id.id_main_menu_view);
@@ -131,12 +140,12 @@ public class MainMenuView extends RelativeLayout implements View.OnClickListener
                 RouterUtils.getInstance().navigation(RouterConstants.SETTING_APP_LIST);
                 break;
             case R.id.id_btn_teddy:
-                SitechDevLog.i(VoiceConstants.TEDDY_TAG, this.getClass().getSimpleName()+"=====>手动点击Teddy启动图标===");
+                SitechDevLog.i(VoiceConstants.TEDDY_TAG, this.getClass().getSimpleName() + "=====>手动点击Teddy启动图标===");
                 if (VUI.getInstance().isTeddyWorking()) {
-                    SitechDevLog.i(VoiceConstants.TEDDY_TAG, this.getClass().getSimpleName()+"=====>Teddy正在工作中===发出SR_OVER事件");
+                    SitechDevLog.i(VoiceConstants.TEDDY_TAG, this.getClass().getSimpleName() + "=====>Teddy正在工作中===发出SR_OVER事件");
                     EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_SR_OVER));
                 } else {
-                    SitechDevLog.i(VoiceConstants.TEDDY_TAG, this.getClass().getSimpleName()+"=====>Teddy未在工作，===发出MVW_SUCCESS事件");
+                    SitechDevLog.i(VoiceConstants.TEDDY_TAG, this.getClass().getSimpleName() + "=====>Teddy未在工作，===发出MVW_SUCCESS事件");
                     EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_MVW_SUCCESS));
                 }
                 break;

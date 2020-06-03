@@ -2,12 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/id_weather_tomorrow_content"
-    android:layout_width="590px"
-    android:layout_height="130px"
+    android:layout_width="590pt"
+    android:layout_height="130pt"
     android:background="@drawable/weather_info_day_bg"
     android:gravity="center_horizontal"
-    android:paddingLeft="24px"
-    android:paddingRight="24px">
+    android:paddingLeft="24pt"
+    android:paddingRight="24pt">
 
     <TextView
         android:id="@+id/id_weather_date"
@@ -16,7 +16,7 @@
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:textColor="#B3FFFFFF"
-        android:textSize="28px"
+        android:textSize="28pt"
         tools:text="12日" />
 
     <TextView
@@ -24,27 +24,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="30px"
+        android:layout_marginLeft="30pt"
         android:layout_toRightOf="@id/id_weather_date"
         android:textColor="#B3FFFFFF"
-        android:textSize="28px"
+        android:textSize="28pt"
         tools:text="周三" />
 
     <TextView
         android:id="@+id/id_weather_tip"
         android:layout_width="wrap_content"
-        android:layout_height="46px"
+        android:layout_height="46pt"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="30px"
+        android:layout_marginLeft="30pt"
         android:layout_toRightOf="@id/id_weather_date_week"
         android:background="@drawable/weather_info_tip_wuran_bg"
         android:gravity="center"
-        android:paddingLeft="20px"
-        android:paddingTop="5px"
-        android:paddingRight="20px"
-        android:paddingBottom="5px"
+        android:paddingLeft="20pt"
+        android:paddingTop="5pt"
+        android:paddingRight="20pt"
+        android:paddingBottom="5pt"
         android:textColor="#B3FFFFFF"
-        android:textSize="28px"
+        android:textSize="28pt"
         tools:text="污染" />
 
     <TextView
@@ -52,10 +52,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="34px"
+        android:layout_marginLeft="34pt"
         android:layout_toRightOf="@id/id_weather_tip"
         android:textColor="#B3FFFFFF"
-        android:textSize="28px"
+        android:textSize="28pt"
         tools:text="晴" />
 
     <TextView
@@ -63,10 +63,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="34px"
+        android:layout_marginLeft="34pt"
         android:layout_toRightOf="@id/id_weather_status"
         android:textColor="#B3FFFFFF"
-        android:textSize="28px"
+        android:textSize="28pt"
         tools:text="16/0" />
 
     <!--                <TextView-->
@@ -74,10 +74,10 @@
     <!--                    android:layout_width="wrap_content"-->
     <!--                    android:layout_height="wrap_content"-->
     <!--                    android:layout_centerVertical="true"-->
-    <!--                    android:layout_marginLeft="10px"-->
+    <!--                    android:layout_marginLeft="10pt"-->
     <!--                    android:layout_toRightOf="@id/id_weather_tomorrow_temp"-->
     <!--                    android:text="℃"-->
     <!--                    android:textColor="#B3FFFFFF"-->
-    <!--                    android:textSize="28px" />-->
+    <!--                    android:textSize="28pt" />-->
 
 </RelativeLayout>

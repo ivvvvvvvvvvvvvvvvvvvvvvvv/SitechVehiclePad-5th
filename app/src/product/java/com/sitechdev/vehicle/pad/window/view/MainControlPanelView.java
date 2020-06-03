@@ -2,6 +2,7 @@ package com.sitechdev.vehicle.pad.window.view;
 
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Rect;
 import android.media.AudioManager;
 import android.util.AttributeSet;
@@ -25,6 +26,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
+import com.sitechdev.vehicle.pad.util.AppUtil;
 import com.sitechdev.vehicle.pad.view.VerticalSeekBarForSkin;
 import com.sitechdev.vehicle.pad.window.manager.MainControlPanelWindowManager;
 
@@ -81,6 +83,11 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
     private int maxScreenLightValue = 255, currentScreenLightValue = 0;
 
     private AudioManager mAudioManager = null;
+
+    @Override
+    public Resources getResources() {
+        return AppUtil.getCurrentResource(ActivityUtils.getTopActivity().getResources());
+    }
 
     public MainControlPanelView(Context context) {
         this(context, null);

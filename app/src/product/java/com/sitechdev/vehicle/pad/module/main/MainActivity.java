@@ -399,6 +399,7 @@ public class MainActivity extends BaseActivity
             case R.id.ll_car_power_info:
 //                Intent tempIntent = new Intent(MainActivity.this, CarStatusPreActivity.class);
 //                startActivity(tempIntent);
+//                EventBusUtils.postEvent(new WindowEvent(WindowEvent.EVENT_WINDOW_CONTROL_MENU, true));
                 break;
             case R.id.iv_music_bef:
 //                switch (musicSource){
@@ -615,7 +616,7 @@ public class MainActivity extends BaseActivity
     private SpannableStringBuilder setBottomAlignment(String value, String unitStr) {
         SpannableStringBuilder spanString = new SpannableStringBuilder(value + " " + unitStr);
         //绝对尺寸
-        AbsoluteSizeSpan absoluteSizeSpan = new AbsoluteSizeSpan(48);
+        AbsoluteSizeSpan absoluteSizeSpan = new AbsoluteSizeSpan(36);
         spanString.setSpan(absoluteSizeSpan, 0, String.valueOf(value).length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         //单位字体颜色
         ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.WHITE);
@@ -624,7 +625,7 @@ public class MainActivity extends BaseActivity
 //        StyleSpan styleSpan = new StyleSpan(Typeface.BOLD);
 //        spanString.setSpan(styleSpan, 0, String.valueOf(value).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         //绝对尺寸
-        AbsoluteSizeSpan absoluteSizeSpan2 = new AbsoluteSizeSpan(30);
+        AbsoluteSizeSpan absoluteSizeSpan2 = new AbsoluteSizeSpan(20);
         spanString.setSpan(absoluteSizeSpan2, String.valueOf(value).length(), spanString.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
 
         return spanString;

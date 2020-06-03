@@ -17,8 +17,8 @@
 
     <ImageView
         android:id="@+id/iv_bg"
-        android:layout_width="891dp"
-        android:layout_height="518dp"
+        android:layout_width="891pt"
+        android:layout_height="518pt"
         android:background="@drawable/shape_login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,10 +27,10 @@
 
     <ImageView
         android:id="@+id/iv_logo"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginStart="95dp"
-        android:layout_marginTop="55dp"
+        android:layout_width="200pt"
+        android:layout_height="200pt"
+        android:layout_marginStart="95pt"
+        android:layout_marginTop="55pt"
         android:scaleType="fitXY"
         android:src="@drawable/xintelogo"
         android:visibility="gone"
@@ -38,40 +38,40 @@
         app:layout_constraintTop_toTopOf="@+id/iv_bg" />
 
     <LinearLayout
-        android:layout_width="200dp"
+        android:layout_width="200pt"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="10pt"
         android:orientation="vertical"
         android:visibility="gone"
         app:layout_constraintStart_toEndOf="@+id/iv_logo"
         app:layout_constraintTop_toTopOf="@+id/iv_logo">
 
         <TextView
-            android:layout_width="200dp"
-            android:layout_height="97dp"
+            android:layout_width="200pt"
+            android:layout_height="97pt"
             android:background="@drawable/common_btn_n"
             android:gravity="center"
             android:text="二维码登录"
             android:textColor="#fff"
-            android:textSize="35sp"
+            android:textSize="35pt"
             android:visibility="gone" />
 
         <Button
-            android:layout_width="200dp"
-            android:layout_height="97dp"
+            android:layout_width="200pt"
+            android:layout_height="97pt"
             android:background="@drawable/tv_delete_selector"
             android:text="二维码登录"
-            android:textSize="35sp"
+            android:textSize="35pt"
             android:visibility="gone" />
 
         <Button
-            android:layout_width="200dp"
-            android:layout_height="97dp"
-            android:layout_marginTop="6dp"
+            android:layout_width="200pt"
+            android:layout_height="97pt"
+            android:layout_marginTop="6pt"
             android:background="@drawable/tv_delete_selector"
             android:enabled="false"
             android:text="帐号登录"
-            android:textSize="35sp"
+            android:textSize="35pt"
             android:visibility="gone" />
     </LinearLayout>
 
@@ -86,50 +86,50 @@
 
         <LinearLayout
             android:id="@+id/ll_count"
-            android:layout_width="400dp"
+            android:layout_width="400pt"
             android:layout_height="wrap_content"
-            android:layout_marginRight="30dp"
+            android:layout_marginRight="30pt"
             android:gravity="center_horizontal"
             android:orientation="vertical"
             android:visibility="gone">
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="89dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="6dp"
+                android:layout_height="89pt"
+                android:layout_marginTop="12pt"
+                android:layout_marginBottom="6pt"
                 android:background="@drawable/shape_rectangle_border"
                 android:hint="请输入账号"
                 android:imeOptions="actionNext"
                 android:inputType="text"
-                android:paddingLeft="8dp"
+                android:paddingLeft="8pt"
                 android:textColorHint="#70ffffff"
-                android:textSize="35sp" />
+                android:textSize="35pt" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp">
+                android:layout_marginTop="25pt">
 
                 <EditText
                     android:layout_width="match_parent"
-                    android:layout_height="89dp"
+                    android:layout_height="89pt"
                     android:background="@drawable/shape_rectangle_border"
                     android:hint="请输入密码"
                     android:imeOptions="actionDone"
                     android:inputType="textPassword"
-                    android:paddingLeft="8dp"
+                    android:paddingLeft="8pt"
                     android:textColorHint="#70ffffff"
-                    android:textSize="35sp" />
+                    android:textSize="35pt" />
 
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="450dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="450pt"
+                    android:layout_marginTop="10pt"
+                    android:layout_marginEnd="15pt"
                     android:background="@drawable/selector_set_invisible_pass_ward"
                     android:button="@null"
                     android:checked="true" />
@@ -139,59 +139,59 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="15pt"
                 android:text="帐号或密码不能为空"
                 android:textColor="#fff"
-                android:textSize="20sp"
+                android:textSize="20pt"
                 android:visibility="gone" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="15pt"
                 android:text="帐号或密码错误"
                 android:textColor="#fff"
-                android:textSize="20sp"
+                android:textSize="20pt"
                 android:visibility="gone" />
 
             <Button
                 android:id="@+id/btn_login"
-                android:layout_width="200dp"
-                android:layout_height="80dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginBottom="10dp"
+                android:layout_width="200pt"
+                android:layout_height="80pt"
+                android:layout_marginTop="25pt"
+                android:layout_marginBottom="10pt"
                 android:background="@drawable/selector_common_btn_gray"
                 android:text="登录"
-                android:textSize="35sp" />
+                android:textSize="35pt" />
         </LinearLayout>
 
         <RelativeLayout
-            android:layout_width="400dp"
+            android:layout_width="400pt"
             android:layout_height="wrap_content"
             android:visibility="visible">
 
             <ImageView
                 android:id="@+id/iv_code"
-                android:layout_width="280dp"
-                android:layout_height="280dp"
+                android:layout_width="280pt"
+                android:layout_height="280pt"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="15pt"
                 android:background="#FFC0C0C0"
-                android:padding="5dp"
+                android:padding="5pt"
                 android:scaleType="fitXY" />
 
             <RelativeLayout
                 android:id="@+id/rl_load"
-                android:layout_width="280dp"
-                android:layout_height="280dp"
-                android:layout_marginStart="55dp"
-                android:layout_marginTop="15dp"
+                android:layout_width="280pt"
+                android:layout_height="280pt"
+                android:layout_marginStart="55pt"
+                android:layout_marginTop="15pt"
                 android:background="#FFC0C0C0"
                 android:visibility="visible">
 
                 <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="100pt"
+                    android:layout_height="100pt"
                     android:layout_centerInParent="true"
                     android:src="@drawable/music_mode_order_n" />
             </RelativeLayout>
@@ -202,11 +202,11 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/iv_code"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginTop="30pt"
+                android:layout_marginBottom="5pt"
                 android:text="请使用新特APP扫码"
                 android:textColor="@color/white"
-                android:textSize="33sp" />
+                android:textSize="33pt" />
 
         </RelativeLayout>
     </LinearLayout>

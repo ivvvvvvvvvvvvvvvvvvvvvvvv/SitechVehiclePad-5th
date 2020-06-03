@@ -2,6 +2,7 @@ package com.sitechdev.vehicle.pad.window.view;
 
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
+import android.content.res.Resources;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,9 +10,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextClock;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.NetworkUtils;
 import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.R;
+import com.sitechdev.vehicle.pad.util.AppUtil;
 import com.sitechdev.vehicle.pad.util.FontUtil;
 
 /**
@@ -37,6 +40,11 @@ public class AppSignalView extends LinearLayout {
 
     public AppSignalView(Context context) {
         this(context, null);
+    }
+    
+    @Override
+    public Resources getResources() {
+        return AppUtil.getCurrentResource(ActivityUtils.getTopActivity().getResources());
     }
 
     public AppSignalView(Context context, AttributeSet attrs) {

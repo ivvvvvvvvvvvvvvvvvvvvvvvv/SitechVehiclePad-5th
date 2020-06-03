@@ -75,7 +75,7 @@
     <!--  右上回家回公司文字  -->
     <color name="color_main_come_home_company_text">#FFFFFF</color>
     <!--  右上去哪里文字  -->
-    <color name="color_main_where_text">#CC535353</color>
+    <color name="color_main_where_text">#99FFFFFF</color>
     <!--  右中音乐文字  -->
     <color name="color_main_music_text">#FFFFFF</color>
     <!--  右中播放歌曲名称  -->

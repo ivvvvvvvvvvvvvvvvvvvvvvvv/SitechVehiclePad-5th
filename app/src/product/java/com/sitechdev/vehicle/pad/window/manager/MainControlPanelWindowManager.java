@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.AdaptScreenUtils;
 import com.blankj.utilcode.util.BarUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
@@ -22,8 +23,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 
-public class
-MainControlPanelWindowManager {
+public class MainControlPanelWindowManager {
 
     private static volatile MainControlPanelWindowManager manager;
     private static final String TAG = MainControlPanelWindowManager.class.getSimpleName();
@@ -70,8 +70,6 @@ MainControlPanelWindowManager {
         winManager = BaseWindow.getInstance().getWinManager();
         displayWidth = BaseWindow.getInstance().getDisplayWidth();
         displayHeight = BaseWindow.getInstance().getDisplayHeight();
-        getView();
-        initData();
     }
 
     public boolean isViewShow() {
@@ -89,6 +87,7 @@ MainControlPanelWindowManager {
             mainControlPanelView = new MainControlPanelView(context);
             SitechDevLog.i(TAG, "-------------getView()===mainControlPanelView==" + mainControlPanelView);
         }
+        minWindowY = AdaptScreenUtils.pt2Px(70);
         if (params == null) {
 //            params = new WindowManager.LayoutParams();
 //            params.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
@@ -113,11 +112,11 @@ MainControlPanelWindowManager {
             params.width = WindowManager.LayoutParams.MATCH_PARENT;
             if (ScreenUtils.isLandscape()) {
                 //横屏
-                maxWindowY = 519;
-                params.height = 519;
+                maxWindowY = AdaptScreenUtils.pt2Px(519);
+                params.height = AdaptScreenUtils.pt2Px(519);
             } else {
-                maxWindowY = 1000;
-                params.height = 1000;
+                maxWindowY = AdaptScreenUtils.pt2Px(1000);
+                params.height = AdaptScreenUtils.pt2Px(1000);
             }
             displayHeight = BaseWindow.getInstance().getDisplayHeight();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -149,12 +148,6 @@ MainControlPanelWindowManager {
         SitechDevLog.e(TAG, "getNewParams *********************isShowFull====" + isShowFull);
         return isShowFull ? (WindowManager.LayoutParams.FLAG_FULLSCREEN | WindowManager.LayoutParams.FLAG_DIM_BEHIND | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
                 : (WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-    }
-
-    /**
-     * 初始化逻辑
-     */
-    private void initData() {
     }
 
     /**

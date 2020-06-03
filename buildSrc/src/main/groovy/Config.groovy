@@ -79,7 +79,7 @@ class Config {
             //sitech maven
             dataStatistics     : 'com.sitechdev.vehicle:datastatistics:1.0.10',
             //androidUtilCode
-            utilCode           : 'com.blankj:utilcode:1.28.1',
+            utilCode           : 'com.blankj:utilcode:1.29.0',
             FlycoTabLayout     : 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar',
             //pingyin
             tinypinyin         : 'com.github.promeg:tinypinyin:2.0.3',
