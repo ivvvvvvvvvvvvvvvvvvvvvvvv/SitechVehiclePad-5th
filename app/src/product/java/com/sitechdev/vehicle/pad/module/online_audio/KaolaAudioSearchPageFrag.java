@@ -1,11 +1,14 @@
 package com.sitechdev.vehicle.pad.module.online_audio;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -21,6 +24,7 @@ import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppVariants;
+import com.sitechdev.vehicle.pad.view.CommonToast;
 import com.sitechdev.vehicle.pad.view.SpaceItemDecoration;
 
 import java.util.List;
@@ -63,8 +67,22 @@ public class KaolaAudioSearchPageFrag extends BaseFragment {
             }
         });
     }
-
+    /**
+     * 隐藏键盘
+     */
+    public void hideInput() {
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+        View v = getActivity().getWindow().peekDecorView();
+        if (null != v) {
+            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+        }
+    }
     private void goSearch(){
+        if(TextUtils.isEmpty(edit.getText().toString().trim())){
+            CommonToast.makeText(getActivity(),"搜索内容不能为空");
+            return;
+        }
+        hideInput();
         ((BaseActivity)getActivity()).showProgressDialog();
         search(edit.getText().toString().trim(), new HttpCallback<List<SearchProgramBean>>() {
             @Override

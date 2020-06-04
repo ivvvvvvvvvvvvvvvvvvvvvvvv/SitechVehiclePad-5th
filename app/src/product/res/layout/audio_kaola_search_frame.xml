@@ -21,6 +21,7 @@
         tools:layout_height="80pt">
 
         <EditText
+            android:textCursorDrawable="@drawable/kaola_edit_cursor"
             android:id="@+id/edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -33,9 +34,9 @@
 
         <ImageView
             android:id="@+id/search_btn"
-            android:layout_width="50pt"
-            android:layout_height="50pt"
-            android:src="@drawable/icon_audio" />
+            android:layout_width="37pt"
+            android:layout_height="37pt"
+            android:src="@drawable/icon_kaola_search" />
 
     </LinearLayout>
 

@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="right"
-            android:background="#FF161B2A"
+            android:background="@drawable/bg_kaola_category_indicator"
             android:orientation="horizontal"
             android:paddingLeft="20px"
             android:paddingRight="20px">
