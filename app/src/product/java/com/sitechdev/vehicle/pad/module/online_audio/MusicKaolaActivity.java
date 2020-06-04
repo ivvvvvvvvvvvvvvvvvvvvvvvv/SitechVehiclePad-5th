@@ -142,6 +142,7 @@ public class MusicKaolaActivity extends BaseActivity implements
             isAlbum = intent.getBooleanExtra(Constant.KEY_IS_ALBUM, false);
             imageUrl = intent.getStringExtra(Constant.KEY_IMG_URL);
             title = intent.getStringExtra(Constant.KEY_TITLE);
+            mCurPosition = PlayerListManager.getInstance().getCurPosition();
             requestKaoLaInfo();
         } else {
             PlayItem curPlayItem = PlayerListManager.getInstance().getCurPlayItem();

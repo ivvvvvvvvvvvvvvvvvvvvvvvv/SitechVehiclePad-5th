@@ -142,6 +142,7 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
             id = intent.getLongExtra(Constant.KEY_MEMBER_CODE, -1);
             imageUrl = intent.getStringExtra(Constant.KEY_IMG_URL);
             title = intent.getStringExtra(Constant.KEY_TITLE);
+            mCurPosition = BroadcastRadioListManager.getInstance().getCurPosition();
             requestKaoLaInfo();
         } else {
             PlayItem curPlayItem = BroadcastRadioListManager.getInstance().getCurPlayItem();
@@ -365,9 +366,9 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
         transformDataToItem(list, playDataItemList);
 
         if (playListAdapter != null) {
-            playListAdapter.setData(playDataItemList);
+            playListAdapter.refreshDataChanged(playDataItemList, mCurPosition);
             SitechDevLog.e(TAG, "addPlayListToFullList  mCurPosition ====" + mCurPosition);
-            playListAdapter.setSelectedShow(mCurPosition);
+            vLocalMusicList.smoothScrollToPosition(mCurPosition);
         }
     }
 
@@ -468,11 +469,10 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
             SitechDevLog.e(TAG, "onPlayerPlaying  flag_FIRST_PLAY = " + flag_FIRST_PLAY);
             flag_FIRST_PLAY = false;
         }
-
+        mCurPosition = BroadcastRadioListManager.getInstance().getCurPosition();
         addPlayListToFullList(BroadcastRadioListManager.getInstance().getPlayList());
         cancelProgressDialog();
 
-        SitechDevLog.e(TAG, "====== onPlayerPlaying ======= mCurPosition = " + mCurPosition);
         refreshPlayStatusView();
     }
 
