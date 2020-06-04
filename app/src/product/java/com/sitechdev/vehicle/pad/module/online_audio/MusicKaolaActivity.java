@@ -182,11 +182,12 @@ public class MusicKaolaActivity extends BaseActivity implements
 
             playListAdapter.setOnItemClickListener(new MusicKaolaAdapter.OnItemClickListener() {
                 @Override
-                public void onItemClick(long playItemID, int position) {
+                public void onItemClick(PlayItemAdapter.Item item, int position) {
                     mCurPosition = position;
                     playListAdapter.setSelected(position);
-                    PlayerManager.getInstance(mContext).playAudioFromPlayList(playItemID);
+                    PlayerManager.getInstance(mContext).playAudioFromPlayList(item.id);
                 }
+
             });
         } else {
             playListAdapter.notifyDataSetChanged();

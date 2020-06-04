@@ -11,9 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.kaolafm.sdk.core.mediaplayer.BroadcastRadioPlayerManager;
-import com.kaolafm.sdk.core.mediaplayer.PlayerManager;
-import com.sitechdev.vehicle.lib.imageloader.GlideApp;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
@@ -94,7 +91,15 @@ public class MusicKaolaAdapter extends
         } else {
             holder.itemView.setBackgroundColor(Color.TRANSPARENT);
             if (KaolaPlayManager.SingletonHolder.INSTANCE.isCurPlayingBroadcast()) {
-                holder.getIndex().setImageResource(R.drawable.icon_not_living_tip);
+                if (musicInfo.status == 3) {
+                    holder.getIndex().setImageResource(R.drawable.icon_not_living_tip);
+                }
+                if (musicInfo.status == 1) {
+                    holder.getIndex().setImageResource(R.drawable.icon_living_tip);
+                }
+                if (musicInfo.status == 2) {
+                    holder.getIndex().setImageResource(R.drawable.icon_play_back);
+                }
             } else {
                 holder.getIndex().setImageResource(R.drawable.list_icon_play);
             }
@@ -113,8 +118,11 @@ public class MusicKaolaAdapter extends
             @Override
             public void onClick(View v) {
                 if (mOnItemClickListener != null) {
+                    if (mPrePosition == position) {
+                        return;
+                    }
                     int clickIndex = (int) v.getTag();
-                    mOnItemClickListener.onItemClick(musicInfos.get(clickIndex).id, clickIndex);
+                    mOnItemClickListener.onItemClick(musicInfos.get(clickIndex), clickIndex);
                 }
             }
         });
@@ -189,7 +197,7 @@ public class MusicKaolaAdapter extends
     public OnItemClickListener mOnItemClickListener;
 
     interface OnItemClickListener {
-        void onItemClick(long id, int position);
+        void onItemClick(PlayItemAdapter.Item item,int position);
     }
 
     public static class MusicKaolaItemHolder extends RecyclerView.ViewHolder {

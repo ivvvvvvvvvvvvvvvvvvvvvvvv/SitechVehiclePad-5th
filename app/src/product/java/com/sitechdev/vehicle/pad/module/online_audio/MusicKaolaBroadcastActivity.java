@@ -6,13 +6,17 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.kaolafm.opensdk.api.broadcast.BroadcastDetails;
+import com.kaolafm.opensdk.api.broadcast.BroadcastRequest;
+import com.kaolafm.opensdk.http.core.HttpCallback;
+import com.kaolafm.opensdk.http.error.ApiException;
 import com.kaolafm.opensdk.utils.ListUtil;
 import com.kaolafm.sdk.core.mediaplayer.BroadcastRadioListManager;
 import com.kaolafm.sdk.core.mediaplayer.BroadcastRadioPlayerManager;
@@ -20,7 +24,9 @@ import com.kaolafm.sdk.core.mediaplayer.IPlayerListChangedListener;
 import com.kaolafm.sdk.core.mediaplayer.OnPlayItemInfoListener;
 import com.kaolafm.sdk.core.mediaplayer.PlayItem;
 import com.kaolafm.sdk.core.mediaplayer.PlayItemType;
+import com.kaolafm.sdk.core.mediaplayer.PlayerManager;
 import com.kaolafm.sdk.core.mediaplayer.PlayerRadioListManager;
+import com.kaolafm.sdk.vehicle.GeneralCallback;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.sitechdev.vehicle.lib.event.BindEventBus;
 import com.sitechdev.vehicle.lib.imageloader.GlideApp;
@@ -186,10 +192,49 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
 
             playListAdapter.setOnItemClickListener(new MusicKaolaAdapter.OnItemClickListener() {
                 @Override
-                public void onItemClick(long playItemID, int position) {
-//                    mCurPosition = position;
-//                    playListAdapter.setSelected(position);
-//                    PlayerManager.getInstance(mContext).playAudioFromPlayList(playItemID);
+                public void onItemClick(PlayItemAdapter.Item item ,int position) {
+                    if (true) {
+                        //todo  广播回放
+                        return;
+                    }
+                    //1-直播中，2-回放，3-未开播
+                    if (item.status == 3) {
+                        return;
+                    }
+                    mCurPosition = position;
+                    playListAdapter.setSelected(position);
+                    if (item.status == 2) {
+                        PlayerManager.getInstance(mContext).playPgc(item.id);
+                    }else{
+                        BroadcastRadioPlayerManager.getInstance().playBroadcast(item.id, new GeneralCallback<Boolean>() {
+                            @Override
+                            public void onResult(Boolean aBoolean) {
+                                Log.e("","");
+                            }
+
+                            @Override
+                            public void onError(int i) {
+                                Log.e("","");
+                            }
+
+                            @Override
+                            public void onException(Throwable throwable) {
+                                Log.e("","");
+                            }
+                        });
+                        new BroadcastRequest().getBroadcastDetails(item.id, new HttpCallback<BroadcastDetails>() {
+                            @Override
+                            public void onSuccess(BroadcastDetails broadcastDetails) {
+                                Log.e("","");
+                            }
+
+                            @Override
+                            public void onError(ApiException e) {
+
+                            }
+                        });
+                    }
+
                 }
             });
         } else {
@@ -378,6 +423,8 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
             PlayItemAdapter.Item sai = new PlayItemAdapter.Item();
             sai.id = item.getAudioId();
             sai.title = item.getTitle();
+            sai.status = item.getStatus();
+            sai.item = item;
             sai.details = TimeUtils.formatTime(item.getStartTime(), "HH:mm") + "-" + TimeUtils.formatTime(item.getFinishTime(), "HH:mm");
             datas.add(sai);
         }
