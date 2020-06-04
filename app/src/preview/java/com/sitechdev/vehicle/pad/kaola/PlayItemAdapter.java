@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.kaolafm.sdk.core.mediaplayer.PlayerListManager;
+import com.kaolafm.sdk.core.mediaplayer.PlayItem;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.R;
 
@@ -39,6 +39,10 @@ public class PlayItemAdapter extends RecyclerView.Adapter<PlayItemAdapter.PopVie
         public String details;
 
         public boolean isSelected;
+
+        public int status;
+
+        public PlayItem item;
     }
 
     public PlayItemAdapter(Context context) {

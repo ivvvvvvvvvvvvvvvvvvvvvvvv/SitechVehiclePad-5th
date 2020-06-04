@@ -130,7 +130,7 @@ public class MainMenuWindowManager {
             SitechDevLog.i(TAG, "-------------params.height()>" + params.height);
             //
             params.x = 0;
-            params.y = displayHeight - mainMenuView.mHeight;
+            params.y = displayHeight - mainMenuView.mHeight + 20;
             SitechDevLog.i(TAG, "-------------params.x()>" + params.x);
             SitechDevLog.i(TAG, "--displayHeight==" + displayHeight + "-----------params.y()>" + params.y);
 

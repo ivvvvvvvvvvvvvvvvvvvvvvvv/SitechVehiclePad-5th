@@ -23,7 +23,7 @@
             android:layout_height="56dp"
             android:padding="16dp"
             android:layout_alignParentEnd="true"
-            android:src="@drawable/ic_close"/>
+            android:src="@drawable/ic_close_dialog"/>
     </RelativeLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/dialog_radio_list"

@@ -16,7 +16,7 @@
 
     <RelativeLayout
         android:id="@+id/list_frame"
-        android:layout_width="824px"
+        android:layout_width="1094px"
         android:layout_height="match_parent"
         android:layout_above="@+id/play_bar_root"
         android:layout_below="@+id/toolbar_sub"
