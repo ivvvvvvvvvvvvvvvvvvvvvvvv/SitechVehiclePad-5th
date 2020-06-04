@@ -3,6 +3,11 @@ package com.sitechdev.vehicle.pad.module.online_audio;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
+import android.view.KeyEvent;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.kaolafm.opensdk.ResType;
 import com.kaolafm.opensdk.api.search.model.SearchProgramBean;
@@ -10,6 +15,7 @@ import com.kaolafm.opensdk.http.core.HttpCallback;
 import com.kaolafm.opensdk.http.error.ApiException;
 import com.sitechdev.vehicle.lib.util.Constant;
 import com.sitechdev.vehicle.pad.R;
+import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.bean.BaseFragment;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
@@ -28,22 +34,49 @@ import java.util.List;
 public class KaolaAudioSearchPageFrag extends BaseFragment {
     private RecyclerView recyclerView;
     private KaolaSearchAdapter adapter;
-
     @Override
     protected int getLayoutId() {
         return R.layout.audio_kaola_search_frame;
     }
 
-    ViewAllCategoryDialog dialog;
+    private EditText edit;
 
     @Override
     protected void initView(Bundle savedInstanceState) {
         recyclerView = mContentView.findViewById(R.id.recyclerView);
+        edit = mContentView.findViewById(R.id.edit);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 1);
         gridLayoutManager.setOrientation(GridLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.addItemDecoration(new SpaceItemDecoration(60));
-        search("新闻");
+        mContentView.findViewById(R.id.search_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goSearch();
+            }
+        });
+        edit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                goSearch();
+                return true;
+            }
+        });
+    }
+
+    private void goSearch(){
+        ((BaseActivity)getActivity()).showProgressDialog();
+        search(edit.getText().toString().trim(), new HttpCallback<List<SearchProgramBean>>() {
+            @Override
+            public void onSuccess(List<SearchProgramBean> searchProgramBeans) {
+                ((BaseActivity)getActivity()).cancelProgressDialog();
+            }
+
+            @Override
+            public void onError(ApiException e) {
+                ((BaseActivity)getActivity()).cancelProgressDialog();
+            }
+        });
     }
 
     @Override
@@ -52,7 +85,7 @@ public class KaolaAudioSearchPageFrag extends BaseFragment {
 
     }
 
-    private void search(String key) {
+    private void search(String key,HttpCallback<List<SearchProgramBean>> callback) {
         if (AppVariants.activeSuccess) {
             //获取分类数据
             KaolaPlayManager.SingletonHolder.INSTANCE.searchByKeyword(key, new HttpCallback<List<SearchProgramBean>>() {
@@ -79,7 +112,10 @@ public class KaolaAudioSearchPageFrag extends BaseFragment {
                         adapter.setDataAndNotify(searchProgramBeans);
                     }
                     if (searchProgramBeans == null || searchProgramBeans.size() == 0) {
-                        //todo 文字提示
+                        String.format("未找到“%s”相关内容", key);
+                        ((TextView) mContentView.findViewById(R.id.tip)).setText(Html.fromHtml("未找到<font color= '#499AC8'>“" + key + "”</font>相关内容"));
+                    } else {
+                        ((TextView) mContentView.findViewById(R.id.tip)).setText(Html.fromHtml("为您找到<font color= '#499AC8'>“" + key + "”</font>相关内容"));
                     }
                 }
 
