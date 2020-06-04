@@ -572,7 +572,7 @@ public class MainActivity extends BaseActivity
         tvTemperatureDay.setText(dataBean.getTemplow() + "°/" + dataBean.getTemphigh() + "°");
         tvWindow.setText(dataBean.getWinddirect() + dataBean.getWindpower());
         tvWeather.setText(dataBean.getWeather());
-        GlideUtils.getInstance().loadImage(WeatherUtils.getInstance().getWeatherIcon(dataBean.getImg()), mWeatherIconView);
+        GlideApp.with(this).load(BitmapFactory.decodeResource(this.getResources(), WeatherUtils.getInstance().getWeatherIcon(dataBean.getImg()))).into(mWeatherIconView);
     }
 
     public void refreshCityView() {

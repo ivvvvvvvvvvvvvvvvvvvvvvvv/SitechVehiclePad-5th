@@ -40,8 +40,6 @@ import java.util.List;
  */
 public class AppUtil {
 
-    private static Resources landScapeResource = null, oriScapeResource = null;
-
     public static AnimationSet getAnimationSet() {
         AnimationSet animationSet = new AnimationSet(true);
 
@@ -161,24 +159,19 @@ public class AppUtil {
 
     /**
      * 获取屏幕适配的宽高
+     *
      * @param currentResources
      * @return
      */
     public static Resources getCurrentResource(Resources currentResources) {
-        Log.i("AppUtil", "getResources=======");
+        Log.i("AppUtil", "getResources=======" + ScreenUtils.isLandscape() + "=====>" + currentResources);
         if (ScreenUtils.isLandscape()) {
 //            Log.i(this.getClass().getSimpleName(), "横屏");
-            if (landScapeResource == null) {
-                landScapeResource = AdaptScreenUtils.adaptWidth(currentResources, AppConst.LAND_SCAPE_DESIGN_WIDTH);
-            }
-            return landScapeResource;
+            return AdaptScreenUtils.adaptWidth(currentResources, AppConst.LAND_SCAPE_DESIGN_WIDTH);
         } else {
 //            Log.i(this.getClass().getSimpleName(), "竖屏");
 //            return AdaptScreenUtils.adaptWidth(super.getResources(), 800);
-            if (oriScapeResource == null) {
-                oriScapeResource = AdaptScreenUtils.adaptWidth(currentResources, AppConst.ORI_SCAPE_DESIGN_WIDTH);
-            }
-            return oriScapeResource;
+            return AdaptScreenUtils.adaptWidth(currentResources, AppConst.ORI_SCAPE_DESIGN_WIDTH);
         }
     }
 }

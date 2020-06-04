@@ -103,7 +103,7 @@ public class AppApplication extends Application {
     @DebugTrace
     private void initTencentUtil() {
         //日志组件
-        MarsXlogUtil.initXlog(this, BuildConfig.DEBUG);
+        MarsXlogUtil.initXlog(this, true);
         //数据存储组件
         ParamsUtil.init(this);
     }
