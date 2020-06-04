@@ -86,7 +86,7 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
         mContext = this;
         mCurrentType = KaolaPlayManager.SingletonHolder.INSTANCE.mPlayType;
         VoiceSourceManager.getInstance().addMusicChangeListener(this);
-        KaolaPlayManager.SingletonHolder.INSTANCE.setPlayVoiceSourceManagerListener(this);
+        KaolaPlayManager.SingletonHolder.INSTANCE.addPlayVoiceSourceManagerListener(this);
     }
 
     @Override
@@ -249,7 +249,7 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        KaolaPlayManager.SingletonHolder.INSTANCE.clearPlayVoiceSourceManagerListener();
+        KaolaPlayManager.SingletonHolder.INSTANCE.clearPlayVoiceSourceManagerListener(this);
     }
 
     @Override

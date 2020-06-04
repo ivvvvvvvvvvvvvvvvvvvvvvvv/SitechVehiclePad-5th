@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/transparent"
-
     android:orientation="vertical">
 
     <FrameLayout
@@ -24,7 +23,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
-
             android:drawableLeft="@drawable/icon_kaola_category_cur_select_tag"
             android:drawablePadding="10px"
             android:textColor="#469DF7"
@@ -35,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="right"
-            android:background="#FF161B2A"
+            android:background="@drawable/bg_kaola_category_indicator"
             android:orientation="horizontal"
             android:paddingLeft="20px"
             android:paddingRight="20px">
@@ -54,7 +52,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20px"
                 android:layout_marginRight="20px"
-                android:src="@drawable/icon_audio" />
+                android:src="@drawable/all_category" />
         </LinearLayout>
 
     </FrameLayout>

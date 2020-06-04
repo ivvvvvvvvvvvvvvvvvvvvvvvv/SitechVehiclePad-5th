@@ -1,0 +1,245 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:background="@drawable/ico_taxi_main_bg"
+    android:paddingBottom="200px"
+    android:orientation="vertical">
+    <include layout="@layout/common_title_toolbar" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="48dp"
+        android:layout_weight="1098"
+        android:paddingBottom="16dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="119dp"
+                android:layout_marginEnd="80dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/white"
+                    android:layout_marginStart="48dp"
+                    android:text="蓝牙开关"
+                    android:textSize="32sp" />
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/bluetooth_off_on_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="9dp"
+                    android:background="@color/transparent"
+                    android:padding="10dp"
+                    android:thumb="@drawable/bg_common_btn_pf"
+                    app:track="@drawable/car_set_radio_group_bg"
+                    app:trackTintMode="multiply" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginEnd="72dp"
+                    android:text="    OFF            ON"
+                    android:textSize="32sp" />
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/common_line_white" />
+
+            <RelativeLayout
+                android:id="@+id/btn_setbt_name"
+                android:layout_width="match_parent"
+                android:layout_height="119dp"
+                android:layout_marginStart="48dp"
+                android:layout_marginEnd="80dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:layout_centerVertical="true"
+                    android:text="本机名称"
+                    android:textSize="32sp" />
+
+                <TextView
+                    android:id="@+id/bluetooth_name_txt"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:text="SITECH"
+                    android:textSize="32sp" />
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/common_line_white" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="119dp"
+                android:layout_marginStart="48dp"
+                android:layout_marginEnd="80dp">
+
+                <TextView
+                    android:id="@+id/bluetooth_find_enable_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="蓝牙可被发现"
+                    android:textColor="@color/white"
+                    android:textSize="32sp" />
+
+
+                <TextView
+                    android:id="@+id/bluetooth_time_minute_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="50dp"
+                    android:textColor="@color/white"
+                    android:layout_marginLeft="24dp"
+                    android:layout_toRightOf="@id/bluetooth_find_enable_txt"
+                    android:text="02"
+                    android:textSize="32sp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/bluetooth_time_colon_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/white"
+                    android:layout_toRightOf="@+id/bluetooth_time_minute_txt"
+                    android:text=":"
+                    android:textSize="32sp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/bluetooth_time_second_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/white"
+                    android:layout_toRightOf="@+id/bluetooth_time_colon_txt"
+                    android:text="00"
+                    android:textSize="32sp"
+                    android:visibility="gone" />
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/bluetooth_find_enable_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="9dp"
+                    android:background="@color/transparent"
+                    android:padding="10dp"
+                    android:thumb="@drawable/bg_common_btn_pf"
+                    app:track="@drawable/car_set_radio_group_bg"
+                    app:trackTintMode="multiply" />
+
+                <TextView
+                    android:id="@+id/find_on_off_switch_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="72dp"
+                    android:text="    OFF            ON"
+                    android:textSize="32sp" />
+            </RelativeLayout>
+
+
+            <TextView
+                android:id="@+id/bluetooth_pair_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_marginStart="48dp"
+                android:textColor="@color/white"
+                android:gravity="center_vertical"
+                android:text="已配对设备"
+                android:textSize="32sp" />
+
+            <LinearLayout
+                android:id="@+id/lv_pair_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="80dp"
+                    android:layout_marginBottom="16dp">
+
+                    <com.sitechdev.vehicle.pad.view.BluetoothListView
+                        android:id="@+id/lv_pair"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_marginBottom="16dp"
+                        android:background="@drawable/shape_wifi_list"
+                        android:divider="@null"
+                        android:fadeScrollbars="false"
+                        android:listSelector="@color/transparent"
+                        android:minHeight="400dp"
+                        android:paddingBottom="16dp" />
+
+                    <TextView
+                        android:id="@+id/lv_empty"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/shape_wifi_list"
+                        android:gravity="center"
+                        android:text="暂无已配对设备"
+                        android:textColor="@color/white"
+                        android:textSize="24sp" />
+
+                </FrameLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="720"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_bluetooth_big" />
+    </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

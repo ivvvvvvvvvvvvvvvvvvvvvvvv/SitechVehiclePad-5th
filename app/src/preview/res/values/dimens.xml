@@ -50,4 +50,7 @@
     <dimen name="mainmenu_gridview_versplit">21dp</dimen>
     <dimen name="mainmenu_gridview_horsplit">36dp</dimen>
     <dimen name="main_menu_size">60dp</dimen>
+    <dimen name="margin_top_toolbar">140px</dimen>
+    <dimen name="margin_bottom_window">300px</dimen>
+    <dimen name="content_padding_left_right">45px</dimen>
 </resources>

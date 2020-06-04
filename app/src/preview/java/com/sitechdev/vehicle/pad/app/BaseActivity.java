@@ -19,9 +19,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 
-import com.blankj.utilcode.util.AdaptScreenUtils;
 import com.blankj.utilcode.util.BarUtils;
-import com.blankj.utilcode.util.ScreenUtils;
 import com.sitechdev.vehicle.lib.event.BindBus;
 import com.sitechdev.vehicle.lib.event.BindEventBus;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
@@ -29,6 +27,7 @@ import com.sitechdev.vehicle.lib.event.XtBusUtil;
 import com.sitechdev.vehicle.lib.util.ActivityManager;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.R;
+import com.sitechdev.vehicle.pad.util.AppUtil;
 import com.sitechdev.vehicle.pad.view.CommonDialog;
 import com.sitechdev.vehicle.pad.view.CommonProgressDialog;
 import com.sitechdev.vehicle.pad.view.ToolbarView;
@@ -49,15 +48,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     @Override
     public Resources getResources() {
-//        return super.getResources();
-//        Log.i("BaseActivity", "getResources=======");
-        if (ScreenUtils.isLandscape()) {
-//            Log.i(this.getClass().getSimpleName(), "横屏");
-            return AdaptScreenUtils.adaptWidth(super.getResources(), 1920);
-        } else {
-//            Log.i(this.getClass().getSimpleName(), "竖屏");
-            return AdaptScreenUtils.adaptWidth(super.getResources(), 1080);
-        }
+        return AppUtil.getCurrentResource(super.getResources());
     }
 
     @NonNull

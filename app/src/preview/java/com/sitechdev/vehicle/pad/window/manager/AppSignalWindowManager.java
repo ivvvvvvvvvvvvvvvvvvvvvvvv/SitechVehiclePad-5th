@@ -1,9 +1,6 @@
 package com.sitechdev.vehicle.pad.window.manager;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.PixelFormat;
 import android.telephony.PhoneStateListener;
 import android.telephony.SignalStrength;
@@ -11,7 +8,6 @@ import android.telephony.TelephonyManager;
 import android.view.Gravity;
 import android.view.WindowManager;
 
-import com.blankj.utilcode.util.ScreenUtils;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.app.BaseWindow;
@@ -70,15 +66,9 @@ public class AppSignalWindowManager {
     public void init(Context context) {
         SitechDevLog.e(TAG, "-->init");
         this.context = context;
-//        winManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-//        displayWidth = winManager.getDefaultDisplay().getWidth();
-//        displayHeight = winManager.getDefaultDisplay().getHeight();
         winManager = BaseWindow.getInstance().getWinManager();
         displayWidth = BaseWindow.getInstance().getDisplayWidth();
         displayHeight = BaseWindow.getInstance().getDisplayHeight();
-//        appSignalView = getView();
-        //        DL.i(TeddyConstants.TAG_TEDDY, "宽度====>" + displayWidth + "，高度======>" + displayHeight);
-        initData();
     }
 
     /**
@@ -137,7 +127,7 @@ public class AppSignalWindowManager {
             params.height = appSignalView.mHeight;
             //
             params.x = displayWidth - appSignalView.mWidth;
-            params.y = 0;
+            params.y = 20;
 
         }
         return appSignalView;
@@ -218,7 +208,7 @@ public class AppSignalWindowManager {
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
                         int level = signalStrength.getLevel();
                         SitechDevLog.i(TAG, "signalStrength level====" + level);
-                        tBoxIconChange(level);
+//                        tBoxIconChange(level);
                     }
                 }
 

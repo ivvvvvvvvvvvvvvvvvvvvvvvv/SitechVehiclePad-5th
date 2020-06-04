@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="700dp"
+    android:layout_height="352dp"
+    android:background="@drawable/shape_bg_dialog">
+
+    <TextView
+        android:id="@+id/setting_dialog_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="34dp"
+        android:text="修改语音唤醒词(限4个汉字)"
+        android:textColor="@color/white"
+        android:textSize="32sp" />
+
+    <RelativeLayout
+        android:layout_width="631dp"
+        android:layout_height="91dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="95dp">
+
+        <EditText
+            android:id="@+id/dialog_setting_voice_edt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp"
+            android:background="@drawable/set_wifi_connected_password_input_box"
+            android:imeOptions="flagNoExtractUi"
+            android:paddingStart="36dp"
+            android:paddingEnd="80dp"
+            android:singleLine="true"
+            android:textColor="@color/colo_D2D2D2"
+            android:textSize="30sp" />
+
+        <ImageView
+            android:id="@+id/iv_dialog_setting_voice_clear"
+            android:layout_width="78dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/setting_teddy_dialog_clear"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/iv_dialog_setting_voice_ask"
+            android:layout_width="78dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/setting_teddy_dialog_ask" />
+    </RelativeLayout>
+
+
+    <Button
+        android:id="@+id/setting_dialog_sure_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/dp_60"
+        android:layout_marginBottom="43dp"
+        android:background="@drawable/selector_common_btn_positive"
+        android:text="保存"
+        android:textColor="@color/white"
+        android:textSize="32sp" />
+
+    <Button
+        android:id="@+id/setting_dialog_cancel_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="@dimen/dp_60"
+        android:layout_marginBottom="43dp"
+        android:background="@drawable/selector_common_btn_negative"
+        android:text="取消"
+        android:textColor="@color/white"
+        android:textSize="32sp" />
+
+    <com.sitechdev.framework.widget.loading.LoadingView
+        android:id="@+id/ll_dialog_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="gone" />
+</RelativeLayout>

@@ -411,7 +411,9 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
         //移动网络
         mobileNetControlView.setActivated(NetworkUtils.getMobileDataEnabled());
         //蓝牙是否开启
-        bluetoothControlView.setActivated(BluetoothAdapter.getDefaultAdapter().isEnabled());
+        if (BluetoothAdapter.getDefaultAdapter()!=null) {
+            bluetoothControlView.setActivated(BluetoothAdapter.getDefaultAdapter().isEnabled());
+        }
 
         if (ScreenUtils.isLandscape()) {
             volumeVerticalSeekBar.setMax(maxVolumeValue);

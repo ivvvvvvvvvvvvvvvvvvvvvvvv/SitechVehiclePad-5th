@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ico_taxi_main_bg">
+
+    <include layout="@layout/common_title_toolbar" />
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/margin_top_toolbar"
+        android:paddingLeft="@dimen/content_padding_left_right"
+        android:paddingRight="@dimen/content_padding_left_right"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/feedback_main_tip_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:lineSpacingExtra="10dp"
+            android:text="@string/feedback_main_tip"
+            android:textColor="@color/color_main_music_type_text"
+            android:textSize="30px"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_sub" />
+
+        <Button
+            android:id="@+id/feedback_main_tohistory_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="300dp"
+            android:layout_marginTop="92dp"
+            android:background="@drawable/bg_shadow_button"
+            android:paddingLeft="50dp"
+            android:paddingTop="14dp"
+            android:paddingRight="50dp"
+            android:paddingBottom="14dp"
+            android:text="@string/feedback_history_title"
+            android:textColor="@color/white"
+            android:textSize="30px"
+            app:layout_constraintLeft_toRightOf="@id/feedback_main_tip_tv"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_sub" />
+
+        <View
+            android:id="@+id/feedback_main_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="63dp"
+            android:layout_marginBottom="5dp"
+            android:alpha="0.5"
+            android:background="@drawable/common_line_white"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/feedback_main_tip_tv" />
+
+        <Button
+            android:id="@+id/feedback_main_record"
+            android:layout_width="133px"
+            android:layout_height="133px"
+            android:layout_marginTop="52dp"
+            android:background="@drawable/feedback_record"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/feedback_main_line" />
+
+        <TextView
+            android:id="@+id/feedback_main_record_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:gravity="center"
+            android:lineSpacingExtra="10dp"
+            android:text="@string/feedback_main_recordtip"
+            android:textColor="#4767AA"
+            android:textSize="26px"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/feedback_main_record" />
+
+        <RelativeLayout
+            android:id="@+id/feedback_main_stoprecord"
+            android:layout_width="133px"
+            android:layout_height="133px"
+            android:layout_marginTop="52dp"
+            android:background="@drawable/feedback_stop_record"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/feedback_main_line">
+
+            <com.sitechdev.vehicle.pad.view.RoundProgressBarWidthNumber
+                android:id="@+id/feedback_main_progressbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:max="60"
+                android:min="0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:progress_reached_bar_height="4dp"
+                app:progress_reached_color="#108ED8"
+                app:progress_text_visibility="invisible"
+                app:progress_unreached_bar_height="4dp"
+                app:progress_unreached_color="#00ffffff"
+                app:radius="66px" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/feedback_main_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="23dp"
+            android:textColor="#0498EB"
+            android:textSize="26px"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/feedback_main_stoprecord" />
+
+        <com.sitechdev.vehicle.pad.view.VolumeView2
+            android:id="@+id/feedback_main_record_gif"
+            android:layout_width="450dp"
+            android:layout_height="@dimen/dp_100"
+            android:layout_marginTop="70dp"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/feedback_main_stoprecord" />
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/feedback_main_commit_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="#0f0"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/feedback_main_line">
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/feedback_main_play"
+                android:layout_width="372dp"
+                android:layout_height="90dp"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/feedback_main_play"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/feedback_main_commit_anim"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="42dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/feedback_main_commit_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="29dp"
+                    android:textColor="@color/white"
+                    android:textSize="28px"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_goneMarginRight="29dp" />
+            </android.support.constraint.ConstraintLayout>
+
+            <LinearLayout
+                android:layout_width="372dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="200dp"
+                android:background="#ff0"
+                android:orientation="horizontal"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <Button
+                    android:id="@+id/feedback_main_commit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/feedback_main_commit"
+                    android:text="发送"
+                    android:textColor="@color/white"
+                    android:textSize="30px"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/feedback_main_cancle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#f00"
+                    android:text="取消"
+                    android:textColor="@color/white"
+                    android:textSize="30px"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </LinearLayout>
+
+            <!-- <Button
+                 android:id="@+id/feedback_main_commit"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginLeft="79dp"
+                 android:layout_marginTop="200dp"
+                 android:background="@drawable/feedback_main_commit"
+                 android:text="发送"
+                 android:textColor="@color/white"
+                 android:textSize="30px"
+                 app:layout_constraintLeft_toLeftOf="parent"
+                 app:layout_constraintTop_toTopOf="parent" />
+
+             <Button
+                 android:id="@+id/feedback_main_cancle"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginLeft="287dp"
+                 android:layout_marginTop="200dp"
+                 android:background="#f00"
+                 android:text="取消"
+                 android:textColor="@color/white"
+                 android:textSize="30px"
+                 app:layout_constraintLeft_toLeftOf="parent"
+                 app:layout_constraintTop_toTopOf="parent" />-->
+
+            <com.sitechdev.vehicle.pad.view.loading.LoadingView
+                android:id="@+id/feedback_main_commit_loading"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:visibility="gone" />
+
+        </android.support.constraint.ConstraintLayout>
+
+
+    </android.support.constraint.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>

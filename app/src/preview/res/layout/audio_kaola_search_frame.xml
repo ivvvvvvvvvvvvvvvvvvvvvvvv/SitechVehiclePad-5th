@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fth"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="982pt"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30px"
+        android:background="@drawable/bg_kaola_search_bar"
+        android:paddingLeft="40pt"
+        android:paddingTop="10pt"
+        android:paddingRight="40pt"
+        android:paddingBottom="10pt"
+        tools:layout_height="80pt">
+
+        <EditText
+            android:textCursorDrawable="@drawable/kaola_edit_cursor"
+            android:id="@+id/edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/transparent"
+            android:imeOptions="actionSearch"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/search_btn"
+            android:layout_width="37pt"
+            android:layout_height="37pt"
+            android:src="@drawable/icon_kaola_search" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60pt"
+        android:layout_marginTop="20pt"
+        android:layout_marginBottom="10pt"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        tools:text="为您找到“ -- ”相关内容/未找到“”相关内容" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/voice_tip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:background="@color/black">
+
+        <TextView
+            android:id="@+id/text0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50pt"
+            android:text="你可以直接对我说"
+            android:textColor="#FDFEFF"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100pt"
+            android:text="“我想听新闻1”"
+            android:textColor="#818282"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/text2"
+            app:layout_constraintTop_toBottomOf="@+id/text0" />
+
+        <TextView
+            android:id="@+id/text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="“我想听新闻2”"
+            android:textColor="#818282"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toRightOf="@+id/text1"
+            app:layout_constraintRight_toLeftOf="@+id/text3"
+            app:layout_constraintTop_toTopOf="@+id/text1" />
+
+        <TextView
+            android:id="@+id/text3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="“我想听新闻3”"
+            android:textColor="#818282"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toRightOf="@+id/text2"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/text1" />
+
+
+        <TextView
+            android:id="@+id/text4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="90pt"
+            android:text="“我想听新闻4”"
+            android:textColor="#818282"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="@+id/text5"
+            app:layout_constraintTop_toBottomOf="@+id/text1" />
+
+
+        <TextView
+            android:id="@+id/text5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="“我想听新闻5”"
+            android:textColor="#818282"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toRightOf="@+id/text4"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/text4" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+    <com.sitechdev.vehicle.pad.view.RecycviewInViewPager
+        android:id="@+id/recyclerView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

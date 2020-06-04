@@ -15,6 +15,15 @@ public interface AppConst {
     String TAG_APP = "AppListPage";
 
     /**
+     * 横屏时设计稿的宽度 px
+     */
+    int LAND_SCAPE_DESIGN_WIDTH = 1920;
+    /**
+     * 竖屏时设计稿的宽度 px
+     */
+    int ORI_SCAPE_DESIGN_WIDTH = 1080;
+
+    /**
      * poi检索关键字key
      */
     String DEVICE_SOURCE = "native_pad";

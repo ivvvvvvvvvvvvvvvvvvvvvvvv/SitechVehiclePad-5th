@@ -18,7 +18,6 @@ import com.sitechdev.vehicle.pad.app.BaseDialog;
  */
 public class CommonLogoutDialog extends BaseDialog {
 
-    private TextView mDialogMessageTv;
     private TextView mDialogTitleTv;
     private TextView mBtnCancelTv, mBtnOkTv;
     private OnDialogListener mDialogListener;
@@ -37,7 +36,6 @@ public class CommonLogoutDialog extends BaseDialog {
 
     @Override
     public void initView() {
-        mDialogMessageTv = findViewById(R.id.tv_dialog_content);
         mBtnCancelTv = findViewById(R.id.id_tv_cancel);
         mBtnOkTv = findViewById(R.id.id_tv_ok);
         mDialogTitleTv = findViewById(R.id.tv_dialog_title);
@@ -51,15 +49,6 @@ public class CommonLogoutDialog extends BaseDialog {
 
     @Override
     public void initData() {
-    }
-
-    public void setDialogMessage(String message){
-        if (!StringUtils.isEmpty(message)) {
-            mDialogMessageTv.setVisibility(View.VISIBLE);
-            mDialogMessageTv.setText(message);
-        } else {
-            mDialogMessageTv.setVisibility(View.GONE);
-        }
     }
 
     public void setDialogTitle(String title){

@@ -94,7 +94,7 @@ public class RecycleViewDivider extends RecyclerView.ItemDecoration {
 //                    canvas.drawPath(mPath, mPaint);
 //                    mPaint.setPathEffect(null);
 //                    mPaint.setStrokeWidth(mDividerHeight);
-//                    mPaint.setColor(normalClor);
+                mPaint.setColor(normalClor);
 //                }else {
 //                    canvas.drawPath(mPath, mPaint);
 //                }

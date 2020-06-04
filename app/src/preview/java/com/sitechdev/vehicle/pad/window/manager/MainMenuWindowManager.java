@@ -58,8 +58,8 @@ public class MainMenuWindowManager {
         winManager = BaseWindow.getInstance().getWinManager();
         displayWidth = BaseWindow.getInstance().getDisplayWidth();
         displayHeight = BaseWindow.getInstance().getDisplayHeight();
-        getView();
-        initData();
+//        getView();
+//        initData();
     }
 
     /**
@@ -113,7 +113,7 @@ public class MainMenuWindowManager {
             params.format = PixelFormat.RGBA_8888;
             params.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
                     | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM;
-            params.gravity = Gravity.BOTTOM;
+            params.gravity = Gravity.TOP;
 //            params.flags = WindowManager.LayoutParams.FLAG_FULLSCREEN;
 //            params.format = PixelFormat.TRANSPARENT;
 //            Point point = new Point();
@@ -129,8 +129,8 @@ public class MainMenuWindowManager {
             SitechDevLog.i(TAG, "-------------params.width()>" + params.width);
             SitechDevLog.i(TAG, "-------------params.height()>" + params.height);
             //
-            params.x = displayHeight - mainMenuView.mHeight;
-            params.y = 0;
+            params.x = 0;
+            params.y = displayHeight - mainMenuView.mHeight;
             SitechDevLog.i(TAG, "-------------params.x()>" + params.x);
             SitechDevLog.i(TAG, "--displayHeight==" + displayHeight + "-----------params.y()>" + params.y);
 

@@ -2,26 +2,32 @@ package com.sitechdev.vehicle.pad.module.member;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
+import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.callback.BaseBribery;
 import com.sitechdev.vehicle.pad.manager.UserManager;
+import com.sitechdev.vehicle.pad.module.feedback.FeedbackActivity;
 import com.sitechdev.vehicle.pad.module.login.util.LoginUtils;
+import com.sitechdev.vehicle.pad.module.member.bean.PointsSigninBean;
 import com.sitechdev.vehicle.pad.module.member.bean.TotalPointsBean;
 import com.sitechdev.vehicle.pad.module.member.util.MemberHttpUtil;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.view.ReflectTextView;
+import com.sitechdev.vehicle.pad.window.SignDialog;
 import com.sitechdev.vehicle.pad.window.view.CommonLogoutDialog;
 
 /**
@@ -39,7 +45,7 @@ public class MemberPreActivity extends BaseActivity {
 
     private TextView tvTitle;
     private ImageView mUserIconView = null;
-    private TextView mUserNameTextView = null, mUserDescView = null,
+    private TextView mUserNameTextView = null, mUserDescView = null, mSignTvView = null,
     /**
      * 积分兑换
      */
@@ -59,7 +65,9 @@ public class MemberPreActivity extends BaseActivity {
      * 退出登录
      */
     mLogoutLayoutView = null;
-    private TotalPointsBean mTotalPointsBean;
+    private TotalPointsBean mTotalPointsBean = null;
+    private PointsSigninBean mSigninBean = null;
+    private SignDialog mSignDialog = null;
 
     @Override
     protected int getLayoutId() {
@@ -81,6 +89,8 @@ public class MemberPreActivity extends BaseActivity {
 
         //签到
         mSignBtnRelaLayoutView = findViewById(R.id.id_sign_btn);
+        mSignTvView = findViewById(R.id.id_tv_sign);
+
         //积分兑换
         mMySignChangeRelaLayoutView = findViewById(R.id.id_tv_sign_change);
         //我的积分
@@ -102,6 +112,7 @@ public class MemberPreActivity extends BaseActivity {
         mMySignRelaLayoutView.setOnClickListener(this);
         //退出登录
         mLogoutLayoutView.setOnClickListener(this);
+        findViewById(R.id.id_feedback).setOnClickListener(this);
     }
 
     @Override
@@ -117,6 +128,8 @@ public class MemberPreActivity extends BaseActivity {
             //TODO 为了发布会版本做的判断处理。发布会版本暂未接入登录功能。待发布会同步登录功能后，此处判断会去掉
             //请求积分
             requestPoints();
+            //
+            requestSignStatus();
         }
     }
 
@@ -171,6 +184,40 @@ public class MemberPreActivity extends BaseActivity {
         });
     }
 
+    /**
+     * 请求签到状态
+     */
+    private void requestSignStatus() {
+//        showProgressDialog();
+        MemberHttpUtil.requestSignStatus(new BaseBribery() {
+            @Override
+            public void onSuccess(Object successObj) {
+                if (null == successObj) {
+                    SitechDevLog.d(TAG, "onSuccess: this message is null requestSignStatus");
+                    return;
+                }
+                try {
+                    mSigninBean = (PointsSigninBean) successObj;
+                    if ("1".equalsIgnoreCase(mSigninBean.getData().getStatus())) {
+                        runOnUiThread(() -> {
+                            mSignTvView.setText("已签到");
+                        });
+                    }
+                } catch (Exception e) {
+                    SitechDevLog.exception(e);
+                }
+            }
+
+            @Override
+            public void onFailure(Object failObj) {
+                super.onFailure(failObj);
+//                runOnUiThread(() -> {
+//                    cancelProgressDialog();
+//                });
+            }
+        });
+    }
+
     @Override
     public void onClick(View v) {
         super.onClick(v);
@@ -185,9 +232,20 @@ public class MemberPreActivity extends BaseActivity {
                 break;
             //签到
             case R.id.id_sign_btn:
+                if (mSigninBean != null && "1".equalsIgnoreCase(mSigninBean.getData().getStatus())) {
+                    SitechDevLog.i(TAG, "已经签到过，本次不再响应");
+                    //已签到，return
+                    return;
+                }
+                //确定按钮被点击
+                requestSignAccount();
                 break;
             case R.id.id_tv_sign_count_number:
                 //我的积分
+                break;
+            case R.id.id_feedback:
+                toFeedback();
+                break;
             case R.id.id_sign_count_top_content:
                 if (!LoginUtils.isLogin()) {
                     return;
@@ -203,6 +261,7 @@ public class MemberPreActivity extends BaseActivity {
                 logoutDialog.setListener(() -> {
                     //确定按钮被点击
                     UserManager.getInstance().logoutUser();
+                    LoginUtils.handleLogout();
                     RouterUtils.getInstance().navigationWithFlags(RouterConstants.HOME_MAIN,
                             Intent.FLAG_ACTIVITY_NEW_TASK, Intent.FLAG_ACTIVITY_CLEAR_TASK, Intent.FLAG_ACTIVITY_CLEAR_TOP
                     );
@@ -212,5 +271,45 @@ public class MemberPreActivity extends BaseActivity {
             default:
                 break;
         }
+    }
+
+    private void requestSignAccount() {
+        showProgressDialog();
+        MemberHttpUtil.requestSignInAccount(new BaseBribery() {
+            @Override
+            public void onSuccess(Object successObj) {
+                runOnUiThread(() -> {
+                    cancelProgressDialog();
+                });
+                if (null == successObj) {
+                    SitechDevLog.d(TAG, "onSuccess: this message is null requestSignStatus");
+                    return;
+                }
+                mSigninBean = (PointsSigninBean) successObj;
+                runOnUiThread(() -> {
+                    mSignTvView.setText("已签到");
+                    if (mSignDialog != null && mSignDialog.isShowing()) {
+                        mSignDialog.cancelDialog();
+                    }
+                    mSignDialog = new SignDialog(MemberPreActivity.this, mSigninBean);
+                    //展示对话框
+                    mSignDialog.show();
+                });
+            }
+
+            @Override
+            public void onFailure(Object failObj) {
+                super.onFailure(failObj);
+                runOnUiThread(() -> {
+                    cancelProgressDialog();
+                    ToastUtils.setGravity(Gravity.CENTER, 0, 0);
+                    ToastUtils.showShort(((PointsSigninBean) failObj).getMessage());
+                });
+            }
+        });
+    }
+
+    private void toFeedback() {
+        startActivity(new Intent(this, FeedbackActivity.class));
     }
 }

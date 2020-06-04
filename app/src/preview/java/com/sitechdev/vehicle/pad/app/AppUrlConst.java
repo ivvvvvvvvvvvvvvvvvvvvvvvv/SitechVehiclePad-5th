@@ -127,4 +127,13 @@ public interface AppUrlConst {
      * 通过经纬度获取天气
      */
     String WEATHER_INFO_BY_COORDINATE = "/applications/v1/weather/coordinate";
+    /**
+     * 上传反馈内容
+     */
+    String COMMIT_FEEDBACK_FILLE = "/activity/vehfeedback/v1/addfeedback";
+    /**
+     * 获取反馈历史列表
+     */
+    String GET_FEEDBACK_HISTORY_LIST = "/activity/vehfeedback/v1/getUserFeedBackList";
+
 }

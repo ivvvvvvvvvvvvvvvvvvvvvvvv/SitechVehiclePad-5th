@@ -71,7 +71,6 @@ MainControlPanelWindowManager {
         displayWidth = BaseWindow.getInstance().getDisplayWidth();
         displayHeight = BaseWindow.getInstance().getDisplayHeight();
         getView();
-        initData();
     }
 
     public boolean isViewShow() {
@@ -149,12 +148,6 @@ MainControlPanelWindowManager {
         SitechDevLog.e(TAG, "getNewParams *********************isShowFull====" + isShowFull);
         return isShowFull ? (WindowManager.LayoutParams.FLAG_FULLSCREEN | WindowManager.LayoutParams.FLAG_DIM_BEHIND | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
                 : (WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-    }
-
-    /**
-     * 初始化逻辑
-     */
-    private void initData() {
     }
 
     /**

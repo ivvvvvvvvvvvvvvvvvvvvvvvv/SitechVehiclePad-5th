@@ -22,6 +22,7 @@ import com.sitechdev.vehicle.pad.manager.UserManager;
 import com.sitechdev.vehicle.pad.module.member.adapter.PointDataItemAdapter;
 import com.sitechdev.vehicle.pad.module.member.bean.PointsInfoBean;
 import com.sitechdev.vehicle.pad.module.member.bean.TotalPointsBean;
+import com.sitechdev.vehicle.pad.module.member.util.MemberHttpUtil;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.view.CommonToast;
 import com.sitechdev.vehicle.pad.view.RecycleViewDivider;
@@ -123,7 +124,7 @@ public class MyPointActivity extends BaseActivity {
             return;
         }
         showProgressDialog();
-        MemberHttpUtil.requestMyPointCount(new BaseBribery() {
+        MemberHttpUtil.requestUserPoints(new BaseBribery() {
             @Override
             public void onSuccess(Object successObj) {
                 ThreadUtils.runOnUIThread(() -> {

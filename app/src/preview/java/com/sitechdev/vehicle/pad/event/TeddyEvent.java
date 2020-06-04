@@ -15,6 +15,24 @@ public class TeddyEvent extends BaseEvent {
 
     public static final String EVENT_TEDDY_KAOLA_PLAY_UPDATElIST = "EVENT_TEDDY_KAOLA_PLAY_UPDATElIST";
     public static final String EVENT_TEDDY_AUDIO_STOP = "EVENT_TEDDY_AUDIO_STOP";
+    /**
+     * 识别流程结束--终止识别流程
+     */
+    public static final String EB_TEDDY_EVENT_SR_OVER = "EB_EVENT_TEDDY_SR_OVER";
+    /**
+     * teddy事件--释放音频焦点-结束
+     */
+    public static final String EB_TEDDY_RELEASE_VOICE_FOCUS_OVER = "EB_TEDDY_RELEASE_VOICE_FOCUS_OVER";
+    /**
+     * 更新设置-teddy设置-自定义开机问候语
+     */
+    public static final String EB_TEDDY_EVENT_SETTING_WELCOME = "EB_TEDDY_EVENT_SETTING_WELCOME";
+
+    /**
+     * 在Teddy设置界面唤醒成功，启动识别
+     */
+    public static final String EB_TEDDY_EVENT_SETTING_TEDDY_MVW_SUCCESS = "EB_TEDDY_EVENT_SETTING_TEDDY_MVW_SUCCESS";
+
 
     private String eventKey = "";
     private Object eventValue = null;

@@ -27,11 +27,17 @@
 
         <SeekBar
             android:id="@+id/music_seek_bar"
-            android:progressDrawable="@drawable/bg_play_seek_all"
             style="@android:style/Widget.Holo.SeekBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:maxHeight="4px"
+            android:minHeight="4px"
+            android:progressDrawable="@drawable/bg_play_seek_all"
+            android:splitTrack="false"
+            android:thumb="@drawable/play_seekbar_thumb"
+            android:thumbOffset="0dp" />
 
         <TextView
             android:id="@+id/end_time"

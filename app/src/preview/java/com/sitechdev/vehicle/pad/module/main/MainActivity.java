@@ -3,6 +3,7 @@ package com.sitechdev.vehicle.pad.module.main;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.Uri;
@@ -25,11 +26,14 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.kaolafm.opensdk.api.operation.model.column.Column;
+import com.kaolafm.sdk.core.mediaplayer.BroadcastRadioPlayerManager;
 import com.kaolafm.sdk.core.mediaplayer.PlayerManager;
 import com.sitechdev.net.HttpCode;
 import com.sitechdev.vehicle.lib.event.BindEventBus;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
+import com.sitechdev.vehicle.lib.imageloader.GlideApp;
 import com.sitechdev.vehicle.lib.imageloader.GlideUtils;
+import com.sitechdev.vehicle.lib.util.Constant;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.StringUtils;
 import com.sitechdev.vehicle.lib.util.ThreadUtils;
@@ -45,6 +49,7 @@ import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.manager.UserManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceType;
+import com.sitechdev.vehicle.pad.module.feedback.utils.FeedBackUtils;
 import com.sitechdev.vehicle.pad.module.login.bean.LoginResponseBean;
 import com.sitechdev.vehicle.pad.module.login.bean.LoginUserBean;
 import com.sitechdev.vehicle.pad.module.login.util.LoginHttpUtil;
@@ -178,6 +183,7 @@ public class MainActivity extends BaseActivity
         ReflectTextClock tcTime = (ReflectTextClock) findViewById(R.id.btn_hp_time);
         tcTime.setTypeface(FontUtil.getInstance().getMainFont());
         tvTemperature.setTypeface(FontUtil.getInstance().getMainFont());
+        FeedBackUtils.deleteVoiceCache();
     }
 
     @Override
@@ -205,7 +211,8 @@ public class MainActivity extends BaseActivity
 
 //        KaolaPlayManager.SingletonHolder.INSTANCE.setPlayCallback(mPlayCallback);
         PlayerManager.getInstance(this).addPlayerStateListener(KaolaPlayManager.SingletonHolder.INSTANCE.mIPlayerStateListener);
-//        MusicManager.getInstance().addMusicChangeListener(musicChangeListener);
+        BroadcastRadioPlayerManager.getInstance().addPlayerStateListener(KaolaPlayManager.SingletonHolder.INSTANCE.mIPlayerStateListener);
+        //        MusicManager.getInstance().addMusicChangeListener(musicChangeListener);
         VoiceSourceManager.getInstance().addMusicChangeListener(this);
 
         btn_music_title.setTypeface(FontUtil.getInstance().getMainFont_Min_i());
@@ -303,6 +310,7 @@ public class MainActivity extends BaseActivity
         super.onResume();
         SitechDevLog.i(AppConst.TAG, "===MainActivity======================onResume=============================");
         EventBusUtils.register(this);
+        refreshUserView(LoginUtils.isLogin(), null);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             if (Settings.canDrawOverlays(AppApplication.getContext())) {
@@ -381,13 +389,19 @@ public class MainActivity extends BaseActivity
 //                startActivity(goMusic);
                 break;
             case R.id.ll_news:
-                KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(mContext, 0);
+                Bundle bundle0 = new Bundle();
+                bundle0.putInt(Constant.KEY_DEFAULT_INDEX, 0);
+                RouterUtils.getInstance().navigation(RouterConstants.MUSIC_PLAY_ONLINE_MAIN, bundle0);
                 break;
             case R.id.ll_book:
-                KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(this, 1);
+                Bundle bundle1 = new Bundle();
+                bundle1.putInt(Constant.KEY_DEFAULT_INDEX, 1);
+                RouterUtils.getInstance().navigation(RouterConstants.MUSIC_PLAY_ONLINE_MAIN, bundle1);
                 break;
             case R.id.ll_car:
-                KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(this, 2);
+                Bundle bundle2 = new Bundle();
+                bundle2.putInt(Constant.KEY_DEFAULT_INDEX, 2);
+                RouterUtils.getInstance().navigation(RouterConstants.MUSIC_PLAY_ONLINE_MAIN, bundle2);
                 break;
             case R.id.ll_life:
                 KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(this, 3);
@@ -396,6 +410,7 @@ public class MainActivity extends BaseActivity
             case R.id.ll_car_power_info:
 //                Intent tempIntent = new Intent(MainActivity.this, CarStatusPreActivity.class);
 //                startActivity(tempIntent);
+//                EventBusUtils.postEvent(new WindowEvent(WindowEvent.EVENT_WINDOW_CONTROL_MENU, true));
                 break;
             case R.id.iv_music_bef:
 //                switch (musicSource){
@@ -510,6 +525,9 @@ public class MainActivity extends BaseActivity
      * 退出登录的默认用户信息
      */
     private void refreshUserView(boolean isLogin, LoginUserBean userBean) {
+        if (userBean == null && isLogin) {
+            userBean = UserManager.getInstance().getLoginUserBean();
+        }
         tvLogin.setText(isLogin ? String.format("Hi，%s", userBean.getNickName()) : "立即登录");
         if (isLogin && userBean != null) {
             Glide.with(MainActivity.this).load(userBean.getAvatarUrl())
@@ -558,7 +576,7 @@ public class MainActivity extends BaseActivity
         tvTemperatureDay.setText(dataBean.getTemplow() + "°/" + dataBean.getTemphigh() + "°");
         tvWindow.setText(dataBean.getWinddirect() + dataBean.getWindpower());
         tvWeather.setText(dataBean.getWeather());
-        GlideUtils.getInstance().loadImage(WeatherUtils.getInstance().getWeatherIcon(dataBean.getImg()), mWeatherIconView);
+        GlideApp.with(this).load(BitmapFactory.decodeResource(this.getResources(), WeatherUtils.getInstance().getWeatherIcon(dataBean.getImg()))).into(mWeatherIconView);
     }
 
     public void refreshCityView() {
@@ -609,7 +627,7 @@ public class MainActivity extends BaseActivity
     private SpannableStringBuilder setBottomAlignment(String value, String unitStr) {
         SpannableStringBuilder spanString = new SpannableStringBuilder(value + " " + unitStr);
         //绝对尺寸
-        AbsoluteSizeSpan absoluteSizeSpan = new AbsoluteSizeSpan(48);
+        AbsoluteSizeSpan absoluteSizeSpan = new AbsoluteSizeSpan(36);
         spanString.setSpan(absoluteSizeSpan, 0, String.valueOf(value).length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         //单位字体颜色
         ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.WHITE);
@@ -618,7 +636,7 @@ public class MainActivity extends BaseActivity
 //        StyleSpan styleSpan = new StyleSpan(Typeface.BOLD);
 //        spanString.setSpan(styleSpan, 0, String.valueOf(value).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         //绝对尺寸
-        AbsoluteSizeSpan absoluteSizeSpan2 = new AbsoluteSizeSpan(30);
+        AbsoluteSizeSpan absoluteSizeSpan2 = new AbsoluteSizeSpan(20);
         spanString.setSpan(absoluteSizeSpan2, String.valueOf(value).length(), spanString.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
 
         return spanString;

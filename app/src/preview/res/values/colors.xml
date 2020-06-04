@@ -75,7 +75,7 @@
     <!--  右上回家回公司文字  -->
     <color name="color_main_come_home_company_text">#FFFFFF</color>
     <!--  右上去哪里文字  -->
-    <color name="color_main_where_text">#CC535353</color>
+    <color name="color_main_where_text">#99FFFFFF</color>
     <!--  右中音乐文字  -->
     <color name="color_main_music_text">#FFFFFF</color>
     <!--  右中播放歌曲名称  -->
@@ -108,5 +108,7 @@
     <color name="color_my_point_recycle_split_line">#33FFFFFF</color>
     <color name="color_my_point_recycle_number_text">#019EEA</color>
 
+    <color name="c_8f8f8f">#8F8F8F</color>
+    <color name="wifi_txt">#05AEDB</color>
 
 </resources>
