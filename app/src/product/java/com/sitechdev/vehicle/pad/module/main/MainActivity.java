@@ -31,6 +31,7 @@ import com.sitechdev.net.HttpCode;
 import com.sitechdev.vehicle.lib.event.BindEventBus;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.imageloader.GlideUtils;
+import com.sitechdev.vehicle.lib.util.Constant;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.StringUtils;
 import com.sitechdev.vehicle.lib.util.ThreadUtils;
@@ -384,13 +385,19 @@ public class MainActivity extends BaseActivity
 //                startActivity(goMusic);
                 break;
             case R.id.ll_news:
-                KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(mContext, 0);
+                Bundle bundle0 = new Bundle();
+                bundle0.putInt(Constant.KEY_DEFAULT_INDEX, 0);
+                RouterUtils.getInstance().navigation(RouterConstants.MUSIC_PLAY_ONLINE_MAIN, bundle0);
                 break;
             case R.id.ll_book:
-                KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(this, 1);
+                Bundle bundle1 = new Bundle();
+                bundle1.putInt(Constant.KEY_DEFAULT_INDEX, 1);
+                RouterUtils.getInstance().navigation(RouterConstants.MUSIC_PLAY_ONLINE_MAIN, bundle1);
                 break;
             case R.id.ll_car:
-                KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(this, 2);
+                Bundle bundle2 = new Bundle();
+                bundle2.putInt(Constant.KEY_DEFAULT_INDEX, 2);
+                RouterUtils.getInstance().navigation(RouterConstants.MUSIC_PLAY_ONLINE_MAIN, bundle2);
                 break;
             case R.id.ll_life:
                 KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(this, 3);

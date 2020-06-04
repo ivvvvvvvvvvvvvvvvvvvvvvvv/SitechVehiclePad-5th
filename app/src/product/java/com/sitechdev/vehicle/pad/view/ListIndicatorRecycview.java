@@ -63,6 +63,20 @@ public class ListIndicatorRecycview extends RecyclerView {
         }
     }
 
+    public void initChoose(int choose) {
+        if (indexMap != null && indexMap.size() > 0) {
+            setChoose(choose);
+            int index = 0;
+            for (Integer key : indexMap.keySet()) {
+                if (choose == index) {
+                    recyclerView.scrollToPosition(key);
+                    break;
+                }
+                index++;
+            }
+        }
+    }
+
     private List<Indexable> initWithData;
 
     /**

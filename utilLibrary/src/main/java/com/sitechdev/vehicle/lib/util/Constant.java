@@ -15,6 +15,7 @@ public class Constant {
     public static final String KEY_IMG_URL = "KEY_IMG_URL";
     public static final String KEY_TITLE = "KEY_TITLE";
     public static final String KEY_DEFAULT_IMG_RESID = "KEY_DEFAULT_IMG_RESID";
+    public static final String KEY_DEFAULT_INDEX = "KEY_DEFAULT_INDEX";
 
     public enum TYPE {
         PLAYING, FIRST_ENTERED

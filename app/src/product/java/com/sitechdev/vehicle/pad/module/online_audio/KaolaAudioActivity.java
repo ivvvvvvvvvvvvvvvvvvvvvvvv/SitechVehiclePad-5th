@@ -9,9 +9,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.kaolafm.sdk.core.mediaplayer.PlayItem;
 import com.sitechdev.vehicle.lib.event.BindEventBus;
 import com.sitechdev.vehicle.lib.imageloader.GlideApp;
+import com.sitechdev.vehicle.lib.util.Constant;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.event.TeddyEvent;
@@ -29,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 //听伴 主页面
+@Route(path = RouterConstants.MUSIC_PLAY_ONLINE_MAIN)
 @VoiceSourceType(VoiceSourceManager.SUPPORT_TYPE_KAOLA)
 @BindEventBus
 public class KaolaAudioActivity extends BaseActivity implements
@@ -80,6 +83,7 @@ public class KaolaAudioActivity extends BaseActivity implements
 
         }
     };
+    private int defaultRecommendIndex = 0;//默认进入标签页
     // 初始化页面集合的方法
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +106,7 @@ public class KaolaAudioActivity extends BaseActivity implements
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
+        defaultRecommendIndex = getIntent().getIntExtra(Constant.KEY_DEFAULT_INDEX,0);
         initFrags();
         initTabLayout();
     }
@@ -158,7 +163,7 @@ public class KaolaAudioActivity extends BaseActivity implements
     }
 
     private void initFrags() {
-        fragmentlist.add(new KaolaAudioSubPageFrag());
+        fragmentlist.add(new KaolaAudioSubPageFrag(defaultRecommendIndex));
         fragmentlist.add(new KaolaAudioCategoryPageFrag());
         fragmentlist.add(new KaolaAudioBroadcastPageFrag());
         fragmentlist.add(new KaolaAudioSearchPageFrag());

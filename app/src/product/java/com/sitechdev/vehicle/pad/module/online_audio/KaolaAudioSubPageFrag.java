@@ -1,5 +1,6 @@
 package com.sitechdev.vehicle.pad.module.online_audio;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -38,7 +39,17 @@ import io.reactivex.schedulers.Schedulers;
 public class KaolaAudioSubPageFrag extends BaseFragment {
     private RecyclerView recyclerView;
     private ListIndicatorRecycview indecator;
-    private KaolaAIListAdapter adapter ;
+    private KaolaAIListAdapter adapter;
+    private int defaultIndex = 0;
+
+    public KaolaAudioSubPageFrag() {
+
+    }
+
+    @SuppressLint("ValidFragment")
+    public KaolaAudioSubPageFrag(int defaultIndex) {
+        this.defaultIndex= defaultIndex;
+    }
     @Override
     protected int getLayoutId() {
         return R.layout.audio_kaola_sub_frame;
@@ -54,7 +65,6 @@ public class KaolaAudioSubPageFrag extends BaseFragment {
         recyclerView.addItemDecoration(new SpaceItemDecoration(60));
         adapter = new KaolaAIListAdapter(mContext, new ArrayList());
         recyclerView.setAdapter(adapter);
-        indecator.setChoose(0);
         indecator.setupWithRecycler(recyclerView);
         adapter.setOnItemClick(new KaolaAIListAdapter.OnItemClick() {
             @Override
@@ -113,6 +123,7 @@ public class KaolaAudioSubPageFrag extends BaseFragment {
                         @Override
                         public void onComplete() {
                             adapter.setDataAndNotify(kaolaDataWarpperList);
+                            indecator.initChoose(defaultIndex);
                         }
                     });
                 }
