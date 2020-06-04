@@ -91,6 +91,7 @@ public class KaolaAudioSearchPageFrag extends BaseFragment {
             KaolaPlayManager.SingletonHolder.INSTANCE.searchByKeyword(key, new HttpCallback<List<SearchProgramBean>>() {
                 @Override
                 public void onSuccess(List<SearchProgramBean> searchProgramBeans) {
+                    callback.onSuccess(searchProgramBeans);
                     if (adapter == null) {
                         adapter = new KaolaSearchAdapter(getActivity(), searchProgramBeans);
                         adapter.setOnItemClick(new KaolaSearchAdapter.OnItemClick() {
@@ -111,6 +112,7 @@ public class KaolaAudioSearchPageFrag extends BaseFragment {
                     } else {
                         adapter.setDataAndNotify(searchProgramBeans);
                     }
+                    mContentView.findViewById(R.id.voice_tip).setVisibility(View.GONE);
                     if (searchProgramBeans == null || searchProgramBeans.size() == 0) {
                         String.format("未找到“%s”相关内容", key);
                         ((TextView) mContentView.findViewById(R.id.tip)).setText(Html.fromHtml("未找到<font color= '#499AC8'>“" + key + "”</font>相关内容"));
@@ -121,7 +123,7 @@ public class KaolaAudioSearchPageFrag extends BaseFragment {
 
                 @Override
                 public void onError(ApiException e) {
-
+                    callback.onError(e);
                 }
             });
         } else {
