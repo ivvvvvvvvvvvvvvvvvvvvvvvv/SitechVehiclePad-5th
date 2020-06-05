@@ -408,15 +408,26 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
         }, 500);//切换有延迟
     }
 
+    long lastStartAnimTime = 0;
+    long lastPasueAnimTime = 0;
+
     /**
      * 刷新view
      */
     private void refreshPlayStatusView() {
         if (btn_pause_play != null) {
             if (KaolaPlayManager.SingletonHolder.INSTANCE.isPlaying(this)) {
+                if (System.currentTimeMillis() - lastStartAnimTime < 700) {
+                    return;
+                }
+                lastStartAnimTime = System.currentTimeMillis();
                 btn_pause_play.setImageResource(R.drawable.pc_pause);
                 KaolaPlayManager.setCoverPlayStartAnim(playCoverHolder);
             } else {
+                if (System.currentTimeMillis() - lastPasueAnimTime < 700) {
+                    return;
+                }
+                lastPasueAnimTime = System.currentTimeMillis();
                 btn_pause_play.setImageResource(R.drawable.pc_play);
                 KaolaPlayManager.setCoverPlayPauseAnim(playCoverHolder);
             }
