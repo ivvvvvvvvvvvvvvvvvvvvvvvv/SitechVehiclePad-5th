@@ -9,6 +9,7 @@ import com.sitechdev.vehicle.pad.receiver.OrientationReceiver;
 import com.sitechdev.vehicle.pad.window.manager.AppSignalWindowManager;
 import com.sitechdev.vehicle.pad.window.manager.MainControlPanelWindowManager;
 import com.sitechdev.vehicle.pad.window.manager.MainMenuWindowManager;
+import com.sitechdev.vehicle.pad.window.manager.TeddyWindowManager;
 import com.sitechdev.vehicle.pad.window.view.PersonLoginWindow;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -42,6 +43,8 @@ public class BaseAppWindowManager {
         AppSignalWindowManager.getInstance().init(appApplication);
         //底部主菜单
         MainMenuWindowManager.getInstance().init(appApplication);
+        //底部主菜单--Teddy图标
+        TeddyWindowManager.getInstance().init(appApplication);
         //底部控制菜单
         MainControlPanelWindowManager.getInstance().init(appApplication);
         //登录、普通Toast弹窗
