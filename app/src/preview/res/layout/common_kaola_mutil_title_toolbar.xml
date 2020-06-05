@@ -3,10 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar_sub"
     android:layout_width="match_parent"
-    android:layout_height="138px"
-    app:layout_constraintLeft_toLeftOf="parent"
-    app:layout_constraintRight_toRightOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
+    android:layout_height="wrap_content">
 
     <!--返回-->
     <ImageView
@@ -21,9 +18,8 @@
         android:id="@+id/tv_sub_title"
         style="@style/RadioButtonStyle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="40px"
-        android:layout_marginTop="10px"
+        android:layout_height="74px"
+        android:layout_marginLeft="25px"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/iv_sub_back"
         app:layout_constraintTop_toTopOf="parent"
@@ -37,6 +33,7 @@
         <android.support.design.widget.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="25px"
             android:text="AI电台" />
 
         <android.support.design.widget.TabItem
@@ -50,7 +47,6 @@
             android:text="在线广播" />
 
     </com.sitechdev.vehicle.pad.view.TabLayout>
-    /
 
     <View
         android:layout_width="match_parent"
