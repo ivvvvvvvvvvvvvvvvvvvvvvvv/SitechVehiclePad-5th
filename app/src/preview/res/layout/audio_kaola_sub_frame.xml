@@ -8,9 +8,12 @@
     android:orientation="vertical">
 
     <FrameLayout
-        android:layout_width="1100px"
+        android:minWidth="1100px"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:paddingLeft="40px"
+        android:paddingRight="40px"
         android:layout_marginTop="40px"
         android:layout_marginBottom="40px"
         android:background="@drawable/bg_kaola_ai_indicator"

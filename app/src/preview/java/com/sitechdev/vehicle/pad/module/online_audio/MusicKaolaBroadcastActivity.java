@@ -167,7 +167,7 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
     private void initPlayListView() {
         refreshLayout = findViewById(R.id.music_kaola_refresh_layout);
         refreshLayout.setEnableRefresh(false);
-        refreshLayout.setEnableLoadmore(true);
+        refreshLayout.setEnableLoadmore(false);
 //        refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
 //            @Override
 //            public void onLoadMore(TwinklingRefreshLayout refreshLayout) {

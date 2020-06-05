@@ -404,8 +404,9 @@ public class MainActivity extends BaseActivity
                 RouterUtils.getInstance().navigation(RouterConstants.MUSIC_PLAY_ONLINE_MAIN, bundle2);
                 break;
             case R.id.ll_life:
-                KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(this, 3);
-//                startActivity(new Intent(this,KaolaAudioActivity.class));
+                Bundle bundle3 = new Bundle();
+                bundle3.putInt(Constant.KEY_DEFAULT_INDEX, 3);
+                RouterUtils.getInstance().navigation(RouterConstants.MUSIC_PLAY_ONLINE_MAIN, bundle3);
                 break;
             case R.id.ll_car_power_info:
 //                Intent tempIntent = new Intent(MainActivity.this, CarStatusPreActivity.class);

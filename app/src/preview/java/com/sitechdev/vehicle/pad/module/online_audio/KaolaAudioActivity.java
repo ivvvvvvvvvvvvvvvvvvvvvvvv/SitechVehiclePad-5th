@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -49,6 +50,7 @@ public class KaolaAudioActivity extends BaseActivity implements
     private ImageView icon, pre, next, play, list;
     private TextView title;
     private TextView subTitle;
+    String[] titleArr = new String[]{"AI电台", "专辑分类", "在线广播", "搜索"};
     private VoiceSourceManager.onPlaySourceMusicChangeListener sourceListener = new VoiceSourceManager.onPlaySourceMusicChangeListener() {
         @Override
         public void onMusicPause() {
@@ -87,8 +89,8 @@ public class KaolaAudioActivity extends BaseActivity implements
     // 初始化页面集合的方法
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         mContext = this;
+        super.onCreate(savedInstanceState);
         VoiceSourceManager.getInstance().addMusicChangeListener(this);
         KaolaPlayManager.SingletonHolder.INSTANCE.addPlayVoiceSourceManagerListener(sourceListener);
     }
@@ -195,8 +197,13 @@ public class KaolaAudioActivity extends BaseActivity implements
             }
         });
         tabLayout.setupWithViewPager(pager);
-        KaolaFragmentAdapter adapter = new KaolaFragmentAdapter(getSupportFragmentManager(), fragmentlist, new String[]{"AI电台", "专辑分类", "在线广播", "搜索"});
+
+        KaolaFragmentAdapter adapter = new KaolaFragmentAdapter(getSupportFragmentManager(), fragmentlist, titleArr);
         pager.setAdapter(adapter);
+        for (int i = 0; i < tabLayout.getTabCount(); i++) {
+            TabLayout.Tab tab = tabLayout.getTabAt(i);
+            tab.setCustomView(getTabView(i));
+        }
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -237,5 +244,18 @@ public class KaolaAudioActivity extends BaseActivity implements
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(TeddyEvent event) {
+    }
+
+    /**
+     * 自定义Tab的View
+     *
+     * @param currentPosition
+     * @return
+     */
+    private View getTabView(int currentPosition) {
+        View view = LayoutInflater.from(KaolaAudioActivity.this).inflate(R.layout.layout_kaola_tab, null);
+        TextView textView = view.findViewById(android.R.id.text1);
+        textView.setText(titleArr[currentPosition]);
+        return view;
     }
 }
