@@ -26,6 +26,7 @@ import java.util.List;
 public class KaolaAIListAdapter extends RecyclerView.Adapter<KaolaAIListAdapter.VHolderAbs> implements IndexAdapter {
     private Context context;
     private List<KaolaDataWarpper> mLists;
+    private final String recommendtag = "推荐";
 
     // 构造方法
     KaolaAIListAdapter(Context context, List<KaolaDataWarpper> mLists) {
@@ -57,7 +58,7 @@ public class KaolaAIListAdapter extends RecyclerView.Adapter<KaolaAIListAdapter.
             gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override
                 public int getSpanSize(int position) {
-                    if ("新特速报".equals(mLists.get(position).getIndex())) {
+                    if (recommendtag.equals(mLists.get(position).getIndex())) {
                         return 2;
                     } else {
                         return 1;
@@ -76,7 +77,7 @@ public class KaolaAIListAdapter extends RecyclerView.Adapter<KaolaAIListAdapter.
     @Override
     public VHolderAbs onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View root = null;
-        if ("新特速报".equals(mLists.get(i).getIndex())) {
+        if (recommendtag.equals(mLists.get(i).getIndex())) {
             root = LayoutInflater.from(context).inflate(R.layout.kaola_item_recommend, viewGroup, false);
             return new VHolder(root);
         } else {
@@ -89,12 +90,16 @@ public class KaolaAIListAdapter extends RecyclerView.Adapter<KaolaAIListAdapter.
     @Override
     public void onBindViewHolder(@NonNull VHolderAbs vh, @SuppressLint("RecyclerView") int i) {
         vh.des.setText(mLists.get(i).column.getTitle());
-        if (mLists.get(i).column.getImageFiles() != null && mLists.get(i).column.getImageFiles().containsKey("cover")) {
-            ImageFile img = mLists.get(i).column.getImageFiles().get("cover");
-            if ("新特速报".equals(mLists.get(i).getIndex())) {
+        if (mLists.get(i).column.getImageFiles() != null) {
+            ImageFile img = null;
+            if (mLists.get(i).column.getImageFiles().containsKey("icon")) {
+                img = mLists.get(i).column.getImageFiles().get("icon");
+            }
+            if (mLists.get(i).column.getImageFiles().containsKey("cover")) {
+                img = mLists.get(i).column.getImageFiles().get("cover");
+            }
+            if (img != null) {
                 GlideApp.with(context).load(img.getUrl()).centerCrop().into(vh.img);
-            } else {
-                GlideApp.with(context).load(img.getUrl()).circleCrop().centerCrop().into(vh.img);
             }
         }
         vh.itemView.setOnClickListener(new View.OnClickListener() {

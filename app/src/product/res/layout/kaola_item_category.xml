@@ -23,7 +23,7 @@
         android:ellipsize="end"
         android:singleLine="true"
         android:textColor="#fff"
-        android:textSize="16sp"
+        android:textSize="32px"
         tools:text="二货一箩筐" />
 
     <TextView
@@ -36,5 +36,5 @@
         android:singleLine="true"
         android:text="播放次数：10W"
         android:textColor="#818282"
-        android:textSize="14sp" />
+        android:textSize="28px" />
 </RelativeLayout>

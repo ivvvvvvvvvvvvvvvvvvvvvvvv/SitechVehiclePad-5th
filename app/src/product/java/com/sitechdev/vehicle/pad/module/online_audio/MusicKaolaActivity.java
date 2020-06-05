@@ -187,7 +187,6 @@ public class MusicKaolaActivity extends BaseActivity implements
                     playListAdapter.setSelected(position);
                     PlayerManager.getInstance(mContext).playAudioFromPlayList(item.id);
                 }
-
             });
         } else {
             playListAdapter.notifyDataSetChanged();

@@ -34,7 +34,7 @@
             android:ellipsize="end"
             android:singleLine="true"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="36px"
             tools:text="zsdasdasd" />
 
         <TextView
@@ -46,7 +46,7 @@
             android:ellipsize="end"
             android:singleLine="true"
             android:textColor="#6073B5"
-            android:textSize="18sp"
+            android:textSize="36px"
             tools:text="11111" />
     </LinearLayout>
 

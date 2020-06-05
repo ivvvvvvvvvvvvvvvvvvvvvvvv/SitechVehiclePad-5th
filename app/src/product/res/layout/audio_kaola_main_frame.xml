@@ -9,9 +9,10 @@
     tools:ignore="PxUsage">
 
     <include
+        android:layout_marginTop="40px"
         layout="@layout/common_kaola_mutil_title_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="138px" />
+        android:layout_height="wrap_content" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vp"

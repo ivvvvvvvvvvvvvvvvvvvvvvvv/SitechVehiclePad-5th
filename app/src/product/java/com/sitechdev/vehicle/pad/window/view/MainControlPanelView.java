@@ -400,7 +400,7 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
                             if (isFullScreen) {
                                 manager.mustHiddenView();
                             } else {
-                                manager.mustShownView();
+//                                manager.mustShownView();
                             }
                         }
                         return true;
@@ -536,44 +536,6 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
                 break;
         }
     }
-
-//    @Override
-//    public boolean onTouchEvent(MotionEvent event) {
-//        switch (event.getAction()) {
-//            case MotionEvent.ACTION_DOWN:
-//                preX = (int) event.getRawX();
-//                preY = (int) event.getRawY();
-//                lastX = (int) event.getRawX();
-//                lastY = (int) event.getRawY();
-//                SitechDevLog.i(TAG, "点击坐标prex==" + preX + "，点击坐标prey==" + preY + "，点击坐标lastX==" + lastX + "点击坐标lastY==" + lastY);
-//                if (isInClickView(popControlView, event)) {
-//                    //点击区域
-//                    isPullDownView = true;
-//                }
-//                break;
-//
-//            case MotionEvent.ACTION_MOVE:
-//                x = (int) event.getRawX();
-//                y = (int) event.getRawY();
-//                if (isPullDownView) {
-////                    SitechDevLog.i(TAG, "ACTION_MOVE (x - preX)==" + (x - preX) + "，点击坐标 (y - preY)==" + (y - preY));
-//                    manager.move(x - preX, y - preY);
-//                }
-//                preX = x;
-//                preY = y;
-//                break;
-//            case MotionEvent.ACTION_UP:
-//                SitechDevLog.i(TAG, "ACTION_UP ==============");
-//                if (isPullDownView) {
-//                    manager.resetView();
-//                }
-//                isPullDownView = false;
-//                break;
-//            default:
-//                break;
-//        }
-//        return super.onTouchEvent(event);
-//    }
 
     /**
      * 判断触摸的点是否在view范围内

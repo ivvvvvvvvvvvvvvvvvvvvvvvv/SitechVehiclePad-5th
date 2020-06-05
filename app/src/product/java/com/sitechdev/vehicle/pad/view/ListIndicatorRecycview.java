@@ -38,6 +38,7 @@ public class ListIndicatorRecycview extends RecyclerView {
     private LinkedHashMap<Integer, String> indexMap = new LinkedHashMap<>();
     private RecyclerView recyclerView;
     private int curChoosed = -1;// 选中
+    private ListIndicatorAdapter indicatorAdapter;
 
     public ListIndicatorRecycview(@NonNull Context context) {
         super(context);
@@ -222,8 +223,6 @@ public class ListIndicatorRecycview extends RecyclerView {
         }
         setChoose(keyIndex);
     }
-
-    private ListIndicatorAdapter indicatorAdapter;
 
     private OnItemClickListener oneListItemCheck = new OnItemClickListener() {
         @Override

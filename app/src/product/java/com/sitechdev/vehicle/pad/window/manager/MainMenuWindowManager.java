@@ -79,6 +79,7 @@ public class MainMenuWindowManager {
         if (mainMenuView != null && mainMenuView.getParent() == null && !mainMenuView.isShown()) {
             winManager.addView(mainMenuView, params);
         }
+        TeddyWindowManager.getInstance().show();
     }
 
     /**
@@ -134,16 +135,6 @@ public class MainMenuWindowManager {
             SitechDevLog.i(TAG, "-------------params.x()>" + params.x);
             SitechDevLog.i(TAG, "--displayHeight==" + displayHeight + "-----------params.y()>" + params.y);
 
-        }
-    }
-
-    /**
-     * 初始化逻辑
-     */
-    private void initData() {
-        try {
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 

@@ -28,7 +28,7 @@ public class MainMenuView extends RelativeLayout implements View.OnClickListener
 
     private final String TAG = MainMenuView.class.getSimpleName();
 
-    private ImageView mTeddyView, mHomeBtnImageView, mNaviBtnImageView, mMusicBtnImageView, mDriverBtnImageView, mAppsBtnImageView;
+    private ImageView mHomeBtnImageView, mNaviBtnImageView, mMusicBtnImageView, mDriverBtnImageView, mAppsBtnImageView;
 
     public int mWidth;
     public int mHeight;
@@ -59,7 +59,6 @@ public class MainMenuView extends RelativeLayout implements View.OnClickListener
 
     public MainMenuView(Context context, AttributeSet attrs) {
         super(context, attrs);
-
         // 填充布局，并添加至
         LayoutInflater.from(context).inflate(R.layout.main_menu_view, this);
         View view = findViewById(R.id.id_main_menu_view);
@@ -72,8 +71,6 @@ public class MainMenuView extends RelativeLayout implements View.OnClickListener
 
         mWidth = view.getLayoutParams().width;
         mHeight = view.getLayoutParams().height;
-
-        mTeddyView = findViewById(R.id.id_btn_teddy);
 
         initView();
 
@@ -106,7 +103,6 @@ public class MainMenuView extends RelativeLayout implements View.OnClickListener
     }
 
     private void initListener() {
-        mTeddyView.setOnClickListener(this);
         mHomeBtnImageView.setOnClickListener(this);
         mNaviBtnImageView.setOnClickListener(this);
         mMusicBtnImageView.setOnClickListener(this);
@@ -139,16 +135,16 @@ public class MainMenuView extends RelativeLayout implements View.OnClickListener
 //                RouterUtils.getInstance().navigation(RouterConstants.SETTING_SKIN_PAGE);
                 RouterUtils.getInstance().navigation(RouterConstants.SETTING_APP_LIST);
                 break;
-            case R.id.id_btn_teddy:
-                SitechDevLog.i(VoiceConstants.TEDDY_TAG, this.getClass().getSimpleName() + "=====>手动点击Teddy启动图标===");
-                if (VUI.getInstance().isTeddyWorking()) {
-                    SitechDevLog.i(VoiceConstants.TEDDY_TAG, this.getClass().getSimpleName() + "=====>Teddy正在工作中===发出SR_OVER事件");
-                    EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_SR_OVER));
-                } else {
-                    SitechDevLog.i(VoiceConstants.TEDDY_TAG, this.getClass().getSimpleName() + "=====>Teddy未在工作，===发出MVW_SUCCESS事件");
-                    EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_MVW_SUCCESS));
-                }
-                break;
+//            case R.id.id_btn_teddy:
+//                SitechDevLog.i(VoiceConstants.TEDDY_TAG, this.getClass().getSimpleName() + "=====>手动点击Teddy启动图标===");
+//                if (VUI.getInstance().isTeddyWorking()) {
+//                    SitechDevLog.i(VoiceConstants.TEDDY_TAG, this.getClass().getSimpleName() + "=====>Teddy正在工作中===发出SR_OVER事件");
+//                    EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_SR_OVER));
+//                } else {
+//                    SitechDevLog.i(VoiceConstants.TEDDY_TAG, this.getClass().getSimpleName() + "=====>Teddy未在工作，===发出MVW_SUCCESS事件");
+//                    EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_MVW_SUCCESS));
+//                }
+//                break;
             default:
                 break;
         }

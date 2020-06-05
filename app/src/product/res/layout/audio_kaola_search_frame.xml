@@ -30,7 +30,7 @@
             android:imeOptions="actionSearch"
             android:singleLine="true"
             android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:textSize="32px" />
 
         <ImageView
             android:id="@+id/search_btn"
@@ -64,7 +64,7 @@
             android:layout_marginTop="50pt"
             android:text="你可以直接对我说"
             android:textColor="#FDFEFF"
-            android:textSize="20sp"
+            android:textSize="40px"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -76,7 +76,7 @@
             android:layout_marginTop="100pt"
             android:text="“我想听新闻1”"
             android:textColor="#818282"
-            android:textSize="16sp"
+            android:textSize="32px"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/text2"
             app:layout_constraintTop_toBottomOf="@+id/text0" />
@@ -87,7 +87,7 @@
             android:layout_height="wrap_content"
             android:text="“我想听新闻2”"
             android:textColor="#818282"
-            android:textSize="16sp"
+            android:textSize="32px"
             app:layout_constraintLeft_toRightOf="@+id/text1"
             app:layout_constraintRight_toLeftOf="@+id/text3"
             app:layout_constraintTop_toTopOf="@+id/text1" />
@@ -98,7 +98,7 @@
             android:layout_height="wrap_content"
             android:text="“我想听新闻3”"
             android:textColor="#818282"
-            android:textSize="16sp"
+            android:textSize="32px"
             app:layout_constraintLeft_toRightOf="@+id/text2"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@+id/text1" />
@@ -111,7 +111,7 @@
             android:layout_marginTop="90pt"
             android:text="“我想听新闻4”"
             android:textColor="#818282"
-            android:textSize="16sp"
+            android:textSize="32px"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="@+id/text5"
             app:layout_constraintTop_toBottomOf="@+id/text1" />
@@ -123,7 +123,7 @@
             android:layout_height="wrap_content"
             android:text="“我想听新闻5”"
             android:textColor="#818282"
-            android:textSize="16sp"
+            android:textSize="32px"
             app:layout_constraintLeft_toRightOf="@+id/text4"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@+id/text4" />

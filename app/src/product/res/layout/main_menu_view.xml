@@ -16,11 +16,11 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/id_btn_teddy"
-            android:layout_width="167pt"
-            android:layout_height="243pt"
-            android:src="@drawable/iv_teddy" />
+<!--        <ImageView-->
+<!--            android:id="@+id/id_btn_teddy"-->
+<!--            android:layout_width="167px"-->
+<!--            android:layout_height="243px"-->
+<!--            android:src="@drawable/iv_teddy" />-->
 
         <RelativeLayout
             android:id="@+id/id_Teddy_Content"
