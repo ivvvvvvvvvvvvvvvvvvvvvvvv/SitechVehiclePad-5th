@@ -193,48 +193,14 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
             playListAdapter.setOnItemClickListener(new MusicKaolaAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(PlayItemAdapter.Item item ,int position) {
-                    if (true) {
-                        //todo  广播回放
-                        return;
-                    }
                     //1-直播中，2-回放，3-未开播
                     if (item.status == 3) {
+                        CommonToast.makeText(mContext, "节目未开始");
                         return;
                     }
                     mCurPosition = position;
                     playListAdapter.setSelected(position);
-                    if (item.status == 2) {
-                        PlayerManager.getInstance(mContext).playPgc(item.id);
-                    }else{
-                        BroadcastRadioPlayerManager.getInstance().playBroadcast(item.id, new GeneralCallback<Boolean>() {
-                            @Override
-                            public void onResult(Boolean aBoolean) {
-                                Log.e("","");
-                            }
-
-                            @Override
-                            public void onError(int i) {
-                                Log.e("","");
-                            }
-
-                            @Override
-                            public void onException(Throwable throwable) {
-                                Log.e("","");
-                            }
-                        });
-                        new BroadcastRequest().getBroadcastDetails(item.id, new HttpCallback<BroadcastDetails>() {
-                            @Override
-                            public void onSuccess(BroadcastDetails broadcastDetails) {
-                                Log.e("","");
-                            }
-
-                            @Override
-                            public void onError(ApiException e) {
-
-                            }
-                        });
-                    }
-
+                    BroadcastRadioPlayerManager.getInstance().play(item.item);
                 }
             });
         } else {
@@ -517,7 +483,10 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
             flag_FIRST_PLAY = false;
         }
         mCurPosition = BroadcastRadioListManager.getInstance().getCurPosition();
-        addPlayListToFullList(BroadcastRadioListManager.getInstance().getPlayList());
+        if (item.getType() == PlayItemType.BROADCAST_LIVING) {
+            addPlayListToFullList(BroadcastRadioListManager.getInstance().getPlayList());
+        }
+
         cancelProgressDialog();
 
         refreshPlayStatusView();
