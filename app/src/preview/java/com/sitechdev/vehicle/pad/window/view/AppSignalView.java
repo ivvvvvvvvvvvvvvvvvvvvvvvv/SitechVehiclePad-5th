@@ -67,7 +67,9 @@ public class AppSignalView extends LinearLayout {
         //WIFI
         refreshWifiIconView(NetworkUtils.getWifiEnabled());
         //蓝牙
-        refreshBtIconView(BluetoothAdapter.getDefaultAdapter().isEnabled());
+        if (BluetoothAdapter.getDefaultAdapter() != null) {
+            refreshBtIconView(BluetoothAdapter.getDefaultAdapter().isEnabled());
+        }
     }
 
     /**
