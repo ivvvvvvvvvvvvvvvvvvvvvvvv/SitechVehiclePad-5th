@@ -41,6 +41,20 @@
 -keepattributes Signature,SourceFile,LineNumberTable,*JavascriptInterface*
 #保持所有的JavaBean都不被混淆，防止GSON解析出错
 -keep class com.sitechdev.vehicle.pad.bean.** {*;}
+-keep class com.sitechdev.vehicle.pad.module.login.bean.** {*;}
+-keep class com.sitechdev.vehicle.pad.module.member.bean.** {*;}
+
+#保持所有实现 Serializable 接口的类成员
+-keepnames class * implements java.io.Serializable
+-keepclassmembers class * implements java.io.Serializable {
+    static final long serialVersionUID;
+    private static final java.io.ObjectStreamField[] serialPersistentFields;
+    !static !transient <fields>;
+    private void writeObject(java.io.ObjectOutputStream);
+    private void readObject(java.io.ObjectInputStream);
+    java.lang.Object writeReplace();
+    java.lang.Object readResolve();
+}
 
 -keep class com.google.** {*;}
 
