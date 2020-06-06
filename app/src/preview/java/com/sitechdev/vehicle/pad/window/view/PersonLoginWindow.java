@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.sitechdev.vehicle.lib.base.BasicWindow;
+import com.sitechdev.vehicle.pad.app.BasicWindow;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.R;
@@ -115,6 +115,7 @@ public class PersonLoginWindow extends BasicWindow implements View.OnClickListen
 
     @Override
     public void showWnd() {
+        resetSize();
         super.showWnd();
         EventBusUtils.register(mInstance);
         showQrCode();

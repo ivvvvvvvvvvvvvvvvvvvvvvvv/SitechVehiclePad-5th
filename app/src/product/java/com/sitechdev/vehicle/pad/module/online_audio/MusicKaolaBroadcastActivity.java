@@ -193,48 +193,14 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
             playListAdapter.setOnItemClickListener(new MusicKaolaAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(PlayItemAdapter.Item item ,int position) {
-                    if (true) {
-                        //todo  广播回放
-                        return;
-                    }
                     //1-直播中，2-回放，3-未开播
                     if (item.status == 3) {
+                        CommonToast.makeText(mContext, "节目未开始");
                         return;
                     }
                     mCurPosition = position;
                     playListAdapter.setSelected(position);
-                    if (item.status == 2) {
-                        PlayerManager.getInstance(mContext).playPgc(item.id);
-                    }else{
-                        BroadcastRadioPlayerManager.getInstance().playBroadcast(item.id, new GeneralCallback<Boolean>() {
-                            @Override
-                            public void onResult(Boolean aBoolean) {
-                                Log.e("","");
-                            }
-
-                            @Override
-                            public void onError(int i) {
-                                Log.e("","");
-                            }
-
-                            @Override
-                            public void onException(Throwable throwable) {
-                                Log.e("","");
-                            }
-                        });
-                        new BroadcastRequest().getBroadcastDetails(item.id, new HttpCallback<BroadcastDetails>() {
-                            @Override
-                            public void onSuccess(BroadcastDetails broadcastDetails) {
-                                Log.e("","");
-                            }
-
-                            @Override
-                            public void onError(ApiException e) {
-
-                            }
-                        });
-                    }
-
+                    BroadcastRadioPlayerManager.getInstance().play(item.item);
                 }
             });
         } else {
@@ -252,19 +218,16 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
                 } else {
                     playDataItemList.clear();
                 }
-                //重组播放列表
-                transformDataToItem(playList, playDataItemList);
-
                 if (playListAdapter == null) {
                     playListAdapter = new MusicKaolaAdapter(MusicKaolaBroadcastActivity.this);
                     if (playDataItemList != null) {
                         SitechDevLog.e(TAG, "setListData mCurPosition ====" + mCurPosition);
-                        playListAdapter.refreshData(playDataItemList, mCurPosition);
+                        playListAdapter.refreshData(transformDataToItem(playList), mCurPosition);
                     }
                     vLocalMusicList.setAdapter(playListAdapter);
                 } else {
                     if (playDataItemList != null) {
-                        playListAdapter.setData(playDataItemList);
+                        playListAdapter.setData(transformDataToItem(playList));
                     }
                 }
                 playListAdapter.notifyDataSetChanged();
@@ -337,12 +300,11 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
     }
 
     private void playPre() {
-        //todo 添加能否播放判断
         SitechDevLog.e(TAG, "========  playPre  was called");
-//        boolean hasPre = KaolaPlayManager.SingletonHolder.INSTANCE.playPre(true);
-//        if (hasPre) {
-//            move2Pre();
-//        }
+        boolean hasPre = KaolaPlayManager.SingletonHolder.INSTANCE.playPre();
+        if (hasPre) {
+            move2Pre();
+        }
     }
 
     private void move2Pre() {
@@ -354,12 +316,11 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
     }
 
     private void playNext() {
-        //todo 添加能否播放判断
         SitechDevLog.e(TAG, "========  playNext  was called");
-//        boolean hasNext = KaolaPlayManager.SingletonHolder.INSTANCE.playNext(true);
-//        if (hasNext) {
-//            move2Next();
-//        }
+        boolean hasNext = KaolaPlayManager.SingletonHolder.INSTANCE.playNext(true);
+        if (hasNext) {
+            move2Next();
+        }
     }
 
     private void move2Next() {
@@ -405,19 +366,21 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
     }
 
     private synchronized void addPlayListToFullList(List<PlayItem> list) {
+        if (list == null || list.size() == 0) {
+            return;
+        }
         if (playDataItemList != null) {
             playDataItemList.clear();
         }
-        transformDataToItem(list, playDataItemList);
-
         if (playListAdapter != null) {
-            playListAdapter.refreshDataChanged(playDataItemList, mCurPosition);
+            playListAdapter.refreshDataChanged(transformDataToItem(list), mCurPosition);
             SitechDevLog.e(TAG, "addPlayListToFullList  mCurPosition ====" + mCurPosition);
             vLocalMusicList.smoothScrollToPosition(mCurPosition);
         }
     }
 
-    private void transformDataToItem(List<PlayItem> dataList, List<PlayItemAdapter.Item> datas) {
+    private List<PlayItemAdapter.Item> transformDataToItem(List<PlayItem> dataList) {
+        List<PlayItemAdapter.Item> datas = new ArrayList<>();
         for (int i = 0, size = dataList.size(); i < size; i++) {
             PlayItem item = dataList.get(i);
             PlayItemAdapter.Item sai = new PlayItemAdapter.Item();
@@ -428,6 +391,7 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
             sai.details = TimeUtils.formatTime(item.getStartTime(), "HH:mm") + "-" + TimeUtils.formatTime(item.getFinishTime(), "HH:mm");
             datas.add(sai);
         }
+        return datas;
     }
 
     /**
@@ -444,15 +408,26 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
         }, 500);//切换有延迟
     }
 
+    long lastStartAnimTime = 0;
+    long lastPasueAnimTime = 0;
+
     /**
      * 刷新view
      */
     private void refreshPlayStatusView() {
         if (btn_pause_play != null) {
             if (KaolaPlayManager.SingletonHolder.INSTANCE.isPlaying(this)) {
+                if (System.currentTimeMillis() - lastStartAnimTime < 700) {
+                    return;
+                }
+                lastStartAnimTime = System.currentTimeMillis();
                 btn_pause_play.setImageResource(R.drawable.pc_pause);
                 KaolaPlayManager.setCoverPlayStartAnim(playCoverHolder);
             } else {
+                if (System.currentTimeMillis() - lastPasueAnimTime < 700) {
+                    return;
+                }
+                lastPasueAnimTime = System.currentTimeMillis();
                 btn_pause_play.setImageResource(R.drawable.pc_play);
                 KaolaPlayManager.setCoverPlayPauseAnim(playCoverHolder);
             }
@@ -518,6 +493,7 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
         }
         mCurPosition = BroadcastRadioListManager.getInstance().getCurPosition();
         addPlayListToFullList(BroadcastRadioListManager.getInstance().getPlayList());
+
         cancelProgressDialog();
 
         refreshPlayStatusView();

@@ -3,10 +3,8 @@ package com.sitechdev.vehicle.pad.window.view;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
@@ -90,51 +88,4 @@ public class FloatTeddyView extends RelativeLayout implements View.OnClickListen
                 break;
         }
     }
-
-//    @Override
-//    public boolean onTouchEvent(MotionEvent event) {
-//        switch (event.getAction()) {
-//            case MotionEvent.ACTION_DOWN:
-//                preX = (int) event.getRawX();
-//                preY = (int) event.getRawY();
-//                lastX = (int) event.getRawX();
-//                lastY = (int) event.getRawY();
-//                break;
-//
-//            case MotionEvent.ACTION_MOVE:
-//                x = (int) event.getRawX();
-//                y = (int) event.getRawY();
-//                manager.move(this, x - preX, y - preY);
-//                preX = x;
-//                preY = y;
-//                break;
-//            case MotionEvent.ACTION_UP:
-//                if (event.getRawX() - lastX < 10
-//                        && event.getRawX() - lastX > -10
-//                        && event.getRawY() - lastY < 10
-//                        && event.getRawY() - lastY > -10) {
-//                    boolean isShowTeddy = TeddyEventHelper.getInstance().isShowTeddyIcon();
-//                    DL.d("teddyFloat", "FloatView-onTouchEvent-泰迪是否显示" + isShowTeddy);
-//                    if (System.currentTimeMillis() - lastClickTime < FAST_CLICK_DELAY_TIME) {
-//                        break;
-//                    }
-//                    lastClickTime = System.currentTimeMillis();
-//                    TraceManager.getInstance().traceClick(this.getClass(), CommonTraceEnum.TEDDY_NOTIFY.getPoint());
-//                    if (DataFactory.produceMemData().getTeddyVoiceData().isPlayTtsWelcomeText) {
-//                        DL.i(TeddyConstants.TAG_TEDDY, "正在播放欢迎语");
-//                        TeddyUtil.releaseWelcomeFocus();
-//                        //正在播放欢迎语
-//                        break;
-//                    }
-//                    //未在工作
-//                    EventBusUtils.postEvent(new TeddyEvent(TeddyEvent.EB_TEDDY_EVENT_MVW_SUCCESS));
-//
-//                    TeddyVoiceManager.getInstance().prinTeddyServertLogs();
-//                }
-//                break;
-//            default:
-//                break;
-//        }
-//        return super.onTouchEvent(event);
-//    }
 }

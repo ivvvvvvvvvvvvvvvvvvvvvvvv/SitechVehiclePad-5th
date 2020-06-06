@@ -12,17 +12,14 @@ import android.view.animation.RotateAnimation;
 
 import com.kaolafm.opensdk.OpenSDK;
 import com.kaolafm.opensdk.ResType;
-import com.kaolafm.opensdk.api.BasePageResult;
 import com.kaolafm.opensdk.api.operation.OperationRequest;
 import com.kaolafm.opensdk.api.operation.model.category.Category;
 import com.kaolafm.opensdk.api.operation.model.column.Column;
 import com.kaolafm.opensdk.api.operation.model.column.ColumnGrp;
 import com.kaolafm.opensdk.api.search.SearchRequest;
 import com.kaolafm.opensdk.api.search.model.SearchProgramBean;
-import com.kaolafm.opensdk.api.search.model.VoiceSearchResult;
 import com.kaolafm.opensdk.http.core.HttpCallback;
 import com.kaolafm.opensdk.http.error.ApiException;
-import com.kaolafm.sdk.core.dao.VoiceSearchDao;
 import com.kaolafm.sdk.core.mediaplayer.BroadcastRadioListManager;
 import com.kaolafm.sdk.core.mediaplayer.BroadcastRadioPlayerManager;
 import com.kaolafm.sdk.core.mediaplayer.IPlayerStateListener;
@@ -307,12 +304,17 @@ public class KaolaPlayManager {
         boolean hasNext = false;
         int curPosition = -1;
         if (isbrocast) {
-            hasNext = BroadcastRadioPlayerManager.getInstance().hasNext();
-            if (hasNext) {
-                BroadcastRadioPlayerManager.getInstance().playNext();
-                curPosition = BroadcastRadioListManager.getInstance().getCurPosition();
-            } else {
-                CommonToast.makeText(AppApplication.getContext(), "已经是最后一首啦");
+            if (BroadcastRadioListManager.getInstance().getCurPlayItem().getStatus() == 1) {  //1-直播中，2-回放，3-未开播
+                CommonToast.makeText(AppApplication.getContext(), "节目未开播");
+                hasNext = false;
+            }else{
+                hasNext = BroadcastRadioPlayerManager.getInstance().hasNext();
+                if (hasNext) {
+                    BroadcastRadioPlayerManager.getInstance().playNext();
+                    curPosition = BroadcastRadioListManager.getInstance().getCurPosition();
+                } else {
+                    CommonToast.makeText(AppApplication.getContext(), "已经是最后一首啦");
+                }
             }
         } else {
             hasNext = PlayerManager.getInstance(AppApplication.getContext()).hasNext();

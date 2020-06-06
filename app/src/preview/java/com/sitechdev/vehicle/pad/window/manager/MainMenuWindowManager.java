@@ -5,6 +5,7 @@ import android.graphics.PixelFormat;
 import android.view.Gravity;
 import android.view.WindowManager;
 
+import com.blankj.utilcode.util.ScreenUtils;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.app.BaseWindow;
@@ -56,10 +57,6 @@ public class MainMenuWindowManager {
         SitechDevLog.e(TAG, "-->init");
         this.context = context;
         winManager = BaseWindow.getInstance().getWinManager();
-        displayWidth = BaseWindow.getInstance().getDisplayWidth();
-        displayHeight = BaseWindow.getInstance().getDisplayHeight();
-//        getView();
-//        initData();
     }
 
     /**
@@ -67,6 +64,8 @@ public class MainMenuWindowManager {
      */
     public void show() {
         SitechDevLog.e(TAG, "-------------show()>");
+        displayWidth = BaseWindow.getInstance().getDisplayWidth();
+        displayHeight = BaseWindow.getInstance().getDisplayHeight();
         if (isViewShow()) {
             return;
         }
@@ -92,6 +91,7 @@ public class MainMenuWindowManager {
             mainMenuView = null;
             params = null;
         }
+        TeddyWindowManager.getInstance().hide();
     }
 
     public boolean isViewShow() {
@@ -131,7 +131,12 @@ public class MainMenuWindowManager {
             SitechDevLog.i(TAG, "-------------params.height()>" + params.height);
             //
             params.x = 0;
-            params.y = displayHeight - mainMenuView.mHeight + 20;
+            if (ScreenUtils.isLandscape()) {
+                //横屏
+                params.y = displayHeight - mainMenuView.mHeight + 30;
+            } else {
+                params.y = displayHeight - mainMenuView.mHeight;
+            }
             SitechDevLog.i(TAG, "-------------params.x()>" + params.x);
             SitechDevLog.i(TAG, "--displayHeight==" + displayHeight + "-----------params.y()>" + params.y);
 

@@ -32,7 +32,6 @@ import com.sitechdev.net.HttpCode;
 import com.sitechdev.vehicle.lib.event.BindEventBus;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.imageloader.GlideApp;
-import com.sitechdev.vehicle.lib.imageloader.GlideUtils;
 import com.sitechdev.vehicle.lib.util.Constant;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.StringUtils;
@@ -281,20 +280,20 @@ public class MainActivity extends BaseActivity
         @Override
         public void onSuccess(int index, String textContent) {
             switch (index) {
-                case 0:
+                case 1:
                     btn_sitev_news.setText(textContent);
                     break;
-                case 1:
+                case 2:
                     btn_child_papers.setText(textContent);
                     break;
-                case 2:
+                case 3:
                     btn_car_fun.setText(textContent);
                     break;
-                case 3:
+                case 4:
                     btn_life_all.setText(textContent);
                     break;
                 case -1:
-                    CommonToast.makeText(mContext, "数据异常~~~~");
+//                    CommonToast.makeText(mContext, "数据异常~~~~");
                     break;
             }
         }
@@ -388,22 +387,23 @@ public class MainActivity extends BaseActivity
                 break;
             case R.id.ll_news:
                 Bundle bundle0 = new Bundle();
-                bundle0.putInt(Constant.KEY_DEFAULT_INDEX, 0);
+                bundle0.putInt(Constant.KEY_DEFAULT_INDEX, 1);
                 RouterUtils.getInstance().navigation(RouterConstants.MUSIC_PLAY_ONLINE_MAIN, bundle0);
                 break;
             case R.id.ll_book:
                 Bundle bundle1 = new Bundle();
-                bundle1.putInt(Constant.KEY_DEFAULT_INDEX, 1);
+                bundle1.putInt(Constant.KEY_DEFAULT_INDEX, 2);
                 RouterUtils.getInstance().navigation(RouterConstants.MUSIC_PLAY_ONLINE_MAIN, bundle1);
                 break;
             case R.id.ll_car:
                 Bundle bundle2 = new Bundle();
-                bundle2.putInt(Constant.KEY_DEFAULT_INDEX, 2);
+                bundle2.putInt(Constant.KEY_DEFAULT_INDEX, 3);
                 RouterUtils.getInstance().navigation(RouterConstants.MUSIC_PLAY_ONLINE_MAIN, bundle2);
                 break;
             case R.id.ll_life:
-                KaolaPlayManager.SingletonHolder.INSTANCE.toPlayListActivity(this, 3);
-//                startActivity(new Intent(this,KaolaAudioActivity.class));
+                Bundle bundle3 = new Bundle();
+                bundle3.putInt(Constant.KEY_DEFAULT_INDEX, 4);
+                RouterUtils.getInstance().navigation(RouterConstants.MUSIC_PLAY_ONLINE_MAIN, bundle3);
                 break;
             case R.id.ll_car_power_info:
 //                Intent tempIntent = new Intent(MainActivity.this, CarStatusPreActivity.class);

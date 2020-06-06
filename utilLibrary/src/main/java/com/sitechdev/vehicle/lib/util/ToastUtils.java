@@ -6,8 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.widget.Toast;
 
-import com.sitechdev.vehicle.lib.base.BaseToast;
-
 /**
  * @author liuhe
  * @date 18-8-2
@@ -103,10 +101,10 @@ public class ToastUtils {
     }
 
     private static void showToast(String text, int duration, boolean showSingle) {
-        if (showSingle) {
-            BaseToast.getInstance().showSingleToast(text, duration);
-        } else {
-            BaseToast.getInstance().showToast(text, duration);
-        }
+//        if (showSingle) {
+//            BaseToast.getInstance().showSingleToast(text, duration);
+//        } else {
+//            BaseToast.getInstance().showToast(text, duration);
+//        }
     }
 }

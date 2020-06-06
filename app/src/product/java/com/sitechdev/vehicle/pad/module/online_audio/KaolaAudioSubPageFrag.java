@@ -72,7 +72,15 @@ public class KaolaAudioSubPageFrag extends BaseFragment {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(Constant.KEY_TYPE_KEY, Constant.TYPE.FIRST_ENTERED);
                 bundle.putLong(Constant.KEY_MEMBER_CODE, ((RadioDetailColumnMember) warpper.column).getRadioId());
-                bundle.putString(Constant.KEY_IMG_URL, warpper.column.getImageFiles().get("cover").getUrl());
+                if(warpper.column.getImageFiles() != null){
+                    if(warpper.column.getImageFiles().containsKey("cover")){
+                        bundle.putString(Constant.KEY_IMG_URL, warpper.column.getImageFiles().get("cover").getUrl());
+                    }
+                    if(warpper.column.getImageFiles().containsKey("icon")){
+                        bundle.putString(Constant.KEY_IMG_URL, warpper.column.getImageFiles().get("icon").getUrl());
+                    }
+                }
+
                 bundle.putString(Constant.KEY_TITLE, warpper.column.getTitle());
                 RouterUtils.getInstance().navigation(RouterConstants.MUSIC_PLAY_ONLINE, bundle);
             }

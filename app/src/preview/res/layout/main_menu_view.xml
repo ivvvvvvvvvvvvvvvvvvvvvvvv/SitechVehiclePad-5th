@@ -16,19 +16,18 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-<!--        <ImageView-->
-<!--            android:id="@+id/id_btn_teddy"-->
-<!--            android:layout_width="167px"-->
-<!--            android:layout_height="243px"-->
-<!--            android:src="@drawable/iv_teddy" />-->
+        <ImageView
+            android:id="@+id/id_btn_teddy_stup"
+            android:layout_width="167px"
+            android:layout_height="243px" />
 
         <RelativeLayout
             android:id="@+id/id_Teddy_Content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="187px"
-            android:layout_toRightOf="@+id/id_btn_teddy">
+            android:layout_marginLeft="20px"
+            android:layout_toRightOf="@+id/id_btn_teddy_stup">
 
             <RelativeLayout
                 android:id="@+id/id_teddy_default_content"
@@ -155,7 +154,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/fl_teddy"
-        android:layout_marginTop="40px"
+        android:layout_marginTop="30px"
         android:orientation="horizontal">
 
         <ImageView

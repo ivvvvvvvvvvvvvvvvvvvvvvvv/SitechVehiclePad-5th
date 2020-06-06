@@ -54,12 +54,12 @@ public class TeddyWindowManager {
         SitechDevLog.e(TAG, "-->init");
         this.context = context;
         winManager = BaseWindow.getInstance().getWinManager();
-        displayWidth = BaseWindow.getInstance().getDisplayWidth();
-        displayHeight = BaseWindow.getInstance().getDisplayHeight();
     }
 
     public void show() {
         SitechDevLog.e(TAG, "-------------show()>");
+        displayWidth = BaseWindow.getInstance().getDisplayWidth();
+        displayHeight = BaseWindow.getInstance().getDisplayHeight();
         if (isViewShow()) {
             hide();
         }
@@ -100,11 +100,11 @@ public class TeddyWindowManager {
                 //横屏
                 params.gravity = Gravity.TOP;
                 params.x = displayWidth - floatView.mWidth - 50;
-                params.y = displayHeight - floatView.mHeight - 30;
+                params.y = displayHeight - floatView.mHeight;
             } else {
                 params.gravity = Gravity.TOP | Gravity.LEFT;
-                params.x = 20;
-                params.y = displayHeight - floatView.mHeight - 170;
+                params.x = 60;
+                params.y = displayHeight - floatView.mHeight - 150;
             }
 
         }
