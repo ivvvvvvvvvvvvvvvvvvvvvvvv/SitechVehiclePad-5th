@@ -38,8 +38,8 @@ public abstract class BasicWindow {
             mLayoutParams.windowAnimations = R.style.sitech_window_anim;
 //            mLayoutParams.x = 150;
             mLayoutParams.gravity = Gravity.CENTER;
-            mLayoutParams.width = 1770;
-            mLayoutParams.height = 720;
+//            mLayoutParams.width = BaseWindow.getInstance().getDisplayWidth();
+//            mLayoutParams.height = BaseWindow.getInstance().getDisplayHeight();
         }
     }
 
@@ -47,6 +47,15 @@ public abstract class BasicWindow {
         if (mView == null) {
             mView = LayoutInflater.from(context).inflate(getLayoutId(), null);
             findView();
+        }
+    }
+
+    public void resetSize() {
+        if (mLayoutParams != null) {
+            mLayoutParams.width = BaseWindow.getInstance().getDisplayWidth();
+            mLayoutParams.height = BaseWindow.getInstance().getDisplayHeight();
+        } else {
+            initWindow();
         }
     }
 

@@ -570,11 +570,15 @@ public class MainActivity extends BaseActivity
 
 
     public void refreshWeatherView(WeatherInfoBean.DataBean dataBean) {
-        tvTemperature.setText(dataBean.getTemp());
-        tvTemperatureDay.setText(dataBean.getTemplow() + "°/" + dataBean.getTemphigh() + "°");
-        tvWindow.setText(dataBean.getWinddirect() + dataBean.getWindpower());
-        tvWeather.setText(dataBean.getWeather());
-        GlideApp.with(this).load(BitmapFactory.decodeResource(this.getResources(), WeatherUtils.getInstance().getWeatherIcon(dataBean.getImg()))).into(mWeatherIconView);
+        try {
+            tvTemperature.setText(dataBean.getTemp());
+            tvTemperatureDay.setText(dataBean.getTemplow() + "°/" + dataBean.getTemphigh() + "°");
+            tvWindow.setText(dataBean.getWinddirect() + dataBean.getWindpower());
+            tvWeather.setText(dataBean.getWeather());
+            GlideApp.with(this).load(BitmapFactory.decodeResource(this.getResources(), WeatherUtils.getInstance().getWeatherIcon(dataBean.getImg()))).into(mWeatherIconView);
+        } catch (Exception e) {
+            SitechDevLog.exception(e);
+        }
     }
 
     public void refreshCityView() {

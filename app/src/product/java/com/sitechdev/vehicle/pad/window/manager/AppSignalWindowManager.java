@@ -67,8 +67,6 @@ public class AppSignalWindowManager {
         SitechDevLog.e(TAG, "-->init");
         this.context = context;
         winManager = BaseWindow.getInstance().getWinManager();
-        displayWidth = BaseWindow.getInstance().getDisplayWidth();
-        displayHeight = BaseWindow.getInstance().getDisplayHeight();
     }
 
     /**
@@ -76,8 +74,10 @@ public class AppSignalWindowManager {
      */
     public void show() {
         SitechDevLog.e(TAG, "-------------show()>");
+        displayWidth = BaseWindow.getInstance().getDisplayWidth();
+        displayHeight = BaseWindow.getInstance().getDisplayHeight();
         if (isAppSignalViewShow()) {
-            return;
+            hide();
         }
         if (appSignalView == null) {
             appSignalView = getView();
@@ -97,6 +97,8 @@ public class AppSignalWindowManager {
         SitechDevLog.e(TAG, "-------------hide()>");
         if (appSignalView != null && appSignalView.isShown()) {
             winManager.removeViewImmediate(appSignalView);
+            appSignalView = null;
+            params = null;
         }
     }
 
@@ -128,6 +130,7 @@ public class AppSignalWindowManager {
             //
             params.x = displayWidth - appSignalView.mWidth;
             params.y = 20;
+            SitechDevLog.i(TAG, "-------------displayWidth>" + displayWidth);
 
         }
         return appSignalView;
