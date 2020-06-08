@@ -31,7 +31,7 @@
         android:layout_height="149px"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30px"
-        android:src="@drawable/ico_default_member_logo" />
+        android:src="@drawable/ico_sign_success" />
 
     <TextView
         android:id="@+id/tv_sign_number"

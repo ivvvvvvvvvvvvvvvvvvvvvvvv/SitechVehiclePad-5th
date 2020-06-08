@@ -77,11 +77,11 @@ public class LoginUserBean implements Serializable {
     private String langKey;
     private String avatarUrl;
     private String nickName;
-    private int cardType;
+    private String cardType;
     private String cardId;
     private String realName;
     private String gender;
-    private int dateBirth;
+    private String dateBirth;
     private String postCode;
     private String addressLine1;
     private String addressCity;
@@ -97,7 +97,7 @@ public class LoginUserBean implements Serializable {
     private String level;
     private String dataComplete;
     private long createTime;
-    private int businessFlag;
+    private String businessFlag;
     private String identityType;
     private CredentialBean credential;
 
@@ -293,11 +293,11 @@ public class LoginUserBean implements Serializable {
         this.nickName = nickName;
     }
 
-    public int getCardType() {
+    public String getCardType() {
         return cardType;
     }
 
-    public void setCardType(int cardType) {
+    public void setCardType(String cardType) {
         this.cardType = cardType;
     }
 
@@ -325,11 +325,11 @@ public class LoginUserBean implements Serializable {
         this.gender = gender;
     }
 
-    public int getDateBirth() {
+    public String getDateBirth() {
         return dateBirth;
     }
 
-    public void setDateBirth(int dateBirth) {
+    public void setDateBirth(String dateBirth) {
         this.dateBirth = dateBirth;
     }
 
@@ -453,11 +453,11 @@ public class LoginUserBean implements Serializable {
         this.createTime = createTime;
     }
 
-    public int getBusinessFlag() {
+    public String getBusinessFlag() {
         return businessFlag;
     }
 
-    public void setBusinessFlag(int businessFlag) {
+    public void setBusinessFlag(String businessFlag) {
         this.businessFlag = businessFlag;
     }
 

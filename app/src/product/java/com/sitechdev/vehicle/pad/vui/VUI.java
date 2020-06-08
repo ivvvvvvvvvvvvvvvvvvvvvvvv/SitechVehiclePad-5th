@@ -912,6 +912,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                         Intent goMusicMain = new Intent();
                                         goMusicMain.setClass(context, MusicMainActivity.class);
                                         goMusicMain.putExtra("index", 1);
+                                        goMusicMain.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         context.startActivity(goMusicMain);
                                         shut();
                                     } else {
@@ -1332,7 +1333,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                 }
             }
         } finally {
-            if(doFinally){
+            if (doFinally) {
                 shutAndTTS(defaultPlayTTS);
                 gotoPlay(index, -1);
             }
@@ -1457,7 +1458,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
         return false;
     }
 
-    private void doMusicControl(JSONObject semantic){
+    private void doMusicControl(JSONObject semantic) {
         JSONArray slots = semantic.optJSONArray("slots");
         int len = slots.length();
         if (null != slots && len > 0) {
