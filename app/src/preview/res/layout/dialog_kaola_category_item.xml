@@ -15,6 +15,6 @@
         android:paddingTop="25px"
         android:paddingBottom="25px"
         android:gravity="center"
-        android:textSize="17sp" />
+        android:textSize="34px" />
 
 </FrameLayout>

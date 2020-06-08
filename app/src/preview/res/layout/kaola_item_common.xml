@@ -36,7 +36,7 @@
             android:singleLine="true"
             android:text="推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐"
             android:textColor="#fff"
-            android:textSize="21sp" />
+            android:textSize="42px" />
     </RelativeLayout>
 </FrameLayout>
 

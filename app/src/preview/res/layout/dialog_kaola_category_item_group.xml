@@ -13,7 +13,7 @@
         android:drawableLeft="@drawable/icon_kaola_category_cur_select_tag"
         android:drawablePadding="10px"
         android:textColor="#37ABEC"
-        android:textSize="18sp"
+        android:textSize="36px"
         tools:text="推荐" />
 
 </FrameLayout>
