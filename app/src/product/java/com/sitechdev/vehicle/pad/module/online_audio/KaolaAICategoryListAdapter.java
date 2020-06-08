@@ -4,6 +4,7 @@ package com.sitechdev.vehicle.pad.module.online_audio;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,12 +22,13 @@ import com.sitechdev.vehicle.pad.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class KaolaAICategoryListAdapter extends RecyclerView.Adapter<KaolaAICategoryListAdapter.VHolderAbs> {
+public class KaolaAICategoryListAdapter extends KaolaBaseAdapter<KaolaAICategoryListAdapter.VHolderAbs> {
     private Context context;
     private List<CategoryMember> mLists;
 
     // 构造方法
     KaolaAICategoryListAdapter(Context context, List<CategoryMember> mLists) {
+        super(context);
         this.context = context;
         this.mLists = mLists == null ? new ArrayList<>() : mLists;
     }
@@ -44,6 +46,20 @@ public class KaolaAICategoryListAdapter extends RecyclerView.Adapter<KaolaAICate
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
+        RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
+        if (manager instanceof GridLayoutManager) {
+            GridLayoutManager gridLayoutManager = (GridLayoutManager) manager;
+            gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                @Override
+                public int getSpanSize(int position) {
+                    if (isLandscape()) {
+                        return 3;
+                    } else {
+                        return 1;
+                    }
+                }
+            });
+        }
     }
 
     @Override

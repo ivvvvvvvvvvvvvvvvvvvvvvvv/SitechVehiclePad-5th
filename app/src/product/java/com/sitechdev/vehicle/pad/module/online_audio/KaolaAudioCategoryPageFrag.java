@@ -24,8 +24,8 @@ import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppVariants;
 import com.sitechdev.vehicle.pad.view.Indexable;
+import com.sitechdev.vehicle.pad.view.KaolaCategorySpaceItemDecoration;
 import com.sitechdev.vehicle.pad.view.ListIndicatorRecycview;
-import com.sitechdev.vehicle.pad.view.SpaceItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,10 +52,10 @@ public class KaolaAudioCategoryPageFrag extends BaseFragment {
         indecator = mContentView.findViewById(R.id.indicator);
         curSelectChannel = mContentView.findViewById(R.id.cur_select_channel);
         recyclerView = mContentView.findViewById(R.id.recyclerView);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 1);
-        gridLayoutManager.setOrientation(GridLayoutManager.HORIZONTAL);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 3);
+        gridLayoutManager.setOrientation(isLandscape() ? GridLayoutManager.HORIZONTAL : GridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(gridLayoutManager);
-        recyclerView.addItemDecoration(new SpaceItemDecoration(60));
+        recyclerView.addItemDecoration(new KaolaCategorySpaceItemDecoration());
         mContentView.findViewById(R.id.btn_all_categroy).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

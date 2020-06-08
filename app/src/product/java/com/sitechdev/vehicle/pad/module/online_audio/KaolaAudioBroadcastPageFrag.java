@@ -8,14 +8,11 @@ import android.widget.TextView;
 
 import com.kaolafm.opensdk.api.BasePageResult;
 import com.kaolafm.opensdk.api.operation.OperationRequest;
-import com.kaolafm.opensdk.api.operation.model.category.AlbumCategoryMember;
 import com.kaolafm.opensdk.api.operation.model.category.BroadcastCategoryMember;
 import com.kaolafm.opensdk.api.operation.model.category.Category;
 import com.kaolafm.opensdk.api.operation.model.category.CategoryMember;
-import com.kaolafm.opensdk.api.operation.model.category.LeafCategory;
 import com.kaolafm.opensdk.http.core.HttpCallback;
 import com.kaolafm.opensdk.http.error.ApiException;
-import com.kaolafm.sdk.core.mediaplayer.BroadcastRadioPlayerManager;
 import com.sitechdev.vehicle.lib.util.Constant;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
@@ -26,8 +23,8 @@ import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppVariants;
 import com.sitechdev.vehicle.pad.view.Indexable;
+import com.sitechdev.vehicle.pad.view.KaolaCategorySpaceItemDecoration;
 import com.sitechdev.vehicle.pad.view.ListIndicatorRecycview;
-import com.sitechdev.vehicle.pad.view.SpaceItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,10 +51,10 @@ public class KaolaAudioBroadcastPageFrag extends BaseFragment {
         indecator = mContentView.findViewById(R.id.indicator);
         curSelectChannel = mContentView.findViewById(R.id.cur_select_channel);
         recyclerView = mContentView.findViewById(R.id.recyclerView);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 1);
-        gridLayoutManager.setOrientation(GridLayoutManager.HORIZONTAL);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 3);
+        gridLayoutManager.setOrientation(isLandscape() ? GridLayoutManager.HORIZONTAL : GridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(gridLayoutManager);
-        recyclerView.addItemDecoration(new SpaceItemDecoration(60));
+        recyclerView.addItemDecoration(new KaolaCategorySpaceItemDecoration());
         mContentView.findViewById(R.id.btn_all_categroy).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
