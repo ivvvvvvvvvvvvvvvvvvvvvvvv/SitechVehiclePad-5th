@@ -226,6 +226,6 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     public void cancelProgressDialog() {
         //进度窗口消失
-        CommonProgressDialog.getInstance().cancel();
+        CommonProgressDialog.getInstance().cancel(this);
     }
 }
