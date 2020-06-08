@@ -101,7 +101,7 @@ public class MusicKaolaAdapter extends
                     holder.getIndex().setImageResource(R.drawable.icon_play_back);
                 }
             } else {
-                holder.getIndex().setImageResource(R.drawable.list_icon_play);
+                holder.getIndex().setImageResource(R.drawable.icon_play_back);
             }
             holder.getName().setTextColor(noramlColor);
             holder.getArt().setTextColor(noramlColor);

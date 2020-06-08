@@ -15,9 +15,9 @@
         android:layout_marginTop="30px"
         android:background="@drawable/bg_kaola_search_bar"
         android:paddingLeft="40pt"
-        android:paddingTop="10pt"
+        android:paddingTop="20pt"
         android:paddingRight="40pt"
-        android:paddingBottom="10pt"
+        android:paddingBottom="20pt"
         tools:layout_height="80pt">
 
         <EditText
@@ -45,10 +45,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="60pt"
-        android:layout_marginTop="20pt"
+        android:layout_marginTop="10pt"
         android:layout_marginBottom="10pt"
         android:textColor="@color/white"
-        android:textSize="16sp"
+        android:textSize="32px"
         tools:text="为您找到“ -- ”相关内容/未找到“”相关内容" />
 
     <android.support.constraint.ConstraintLayout
