@@ -125,7 +125,7 @@ public class MainMenuView extends RelativeLayout implements View.OnClickListener
                 break;
             case R.id.id_btn_music:
 //                ToastUtils.showShort("音乐按钮被点击了。。。");
-                RouterUtils.getInstance().navigation(RouterConstants.FRAGMENT_LOCAL_MUSIC);
+//                RouterUtils.getInstance().navigation(RouterConstants.FRAGMENT_LOCAL_MUSIC);
                 break;
             case R.id.id_btn_driver:
 //                ToastUtils.showShort("驾驶按钮被点击了。。。");
