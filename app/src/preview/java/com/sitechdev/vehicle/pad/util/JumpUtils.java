@@ -6,7 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.sitechdev.vehicle.lib.util.NetworkUtils;
+import com.sitechdev.vehicle.lib.util.SitechDevLog;
+import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.bean.AllModuleBean;
+import com.sitechdev.vehicle.pad.module.login.util.LoginUtils;
+import com.sitechdev.vehicle.pad.router.RouterUtils;
+import com.sitechdev.vehicle.pad.window.view.PersonLoginWindow;
 
 /**
  * 项目名称：SitechVehiclePad-5th
@@ -36,8 +42,8 @@ public class JumpUtils {
     }
 
     public static void jump(Context context, AllModuleBean.ModuleBean bean) {
-//        try {
-//            int jumpType = bean.jumpType;
+        try {
+            int jumpType = bean.jumpType;
 
             //对酷我单独做处理，逻辑如下：判断是否登录，若登录直接进入酷我；若未登录，走正常的下面的逻辑。
 //            if (RouterConstants.THIRD_APP_KUWO.equals(bean.appRoute) && LoginUtils.isLogin()) {
@@ -46,31 +52,45 @@ public class JumpUtils {
 //                return;
 //            }
 
-            //判断是否需要网络
-//            if (checkNetGroup(bean.appRoute) && !(NetworkUtils.isNetworkAvailable(context))) {
+            if (checkIsDeveloping(bean.appRoute)){
+                CommonUtil.showToast(R.string.app_developing);
+                return;
+            }
+
+//            判断是否需要网络
+            if (checkNetGroup(bean.appRoute) && !(NetworkUtils.isNetworkAvailable(context))) {
 //                Bundle bundle = new Bundle();
 //                bundle.putString(TITLE_NAME, bean.appName);
 //                SubActivity.start(context, RouterConstants.NO_NET, bundle);
-//                return;
-//            }
+                CommonUtil.showToast(R.string.tip_no_net);
+                return;
+            }
 
-//            // 判断是否需要登录
-//            if (checkLoginGroup(bean.appRoute)) {
-//                PersonLoginWindow.getInstance().showWnd(() -> toJump(context, jumpType, bean));
-//                return;
-//            }
+            // 判断是否需要登录
+            if (checkLoginGroup(bean.appRoute)) {
+                PersonLoginWindow.getInstance().showWnd(() -> toJump(context, jumpType, bean));
+                return;
+            }
 
-//            toJump(context, jumpType, bean);
-//        } catch (Exception e) {
+            toJump(context, jumpType, bean);
+        } catch (Exception e) {
 //            ToastUtils.showShort(e.getMessage());
-//        }
+            SitechDevLog.exception(e);
+        }
     }
 
     /**
      * 页面跳转
+     *
+     * @param context  context
+     * @param jumpType 跳转标识
+     *                 * 0->跳转本地页面
+     *                 * 1->跳转三方应用，具体跳转页面根据appRoute判断
+     *                 * 2->window展示，eg:空调
+     * @param bean     实体类
      */
     private static void toJump(Context context, int jumpType, AllModuleBean.ModuleBean bean) {
-//        if (jumpType == 0) {
+        if (jumpType == 0) {
 //            GA10App.fromSetting = StringUtils.isEquals(RouterConstants.FRAGMENT_SETTING, bean.appRoute);
 //            if (StringUtils.isEquals(RouterConstants.FRAGMENT_PERSONAL, bean.appRoute)) {
 //                Bundle bundle1 = new Bundle();
@@ -78,8 +98,9 @@ public class JumpUtils {
 //                SubActivity.start(context, RouterConstants.FRAGMENT_PERSONAL, bundle1);
 //            } else {
 //                SubActivity.start(context, bean.appRoute);
+            RouterUtils.getInstance().navigation(bean.appRoute);
 //            }
-//        } else if (jumpType == 1) {
+        } else if (jumpType == 1) {
 //            switch (bean.appRoute) {
 //                case RouterConstants.FRAGMENT_CAR_CONTROL:
 //                    CarControlWindow.getInstance().showCarSetWnd(false);
@@ -105,25 +126,34 @@ public class JumpUtils {
 //                default:
 //                    break;
 //            }
-//        } else if (jumpType == 2) {
+        } else if (jumpType == 2) {
 //            if (StringUtils.isEquals(RouterConstants.FRAGMENT_AIR_CONTROL, bean.appRoute)) {
 //                if (!AirWindow.getInstance().isShow()) {
 //                    AirWindow.getInstance().showAirWnd(false);
 //                }
 //            }
-//        }
+        }
     }
 
     private static boolean checkNetGroup(String appRoute) {
-        return true;//appRoute.contains("needNet");
+        return appRoute.contains("/needNet");
     }
 
     /**
      * 判断登录组是否登录
      */
     public static boolean checkLoginGroup(String appRoute) {
-//        boolean shouldLogin = appRoute.startsWith("/needLogin");
-//        return shouldLogin && !LoginUtils.isLogin();
-            return true;
+        boolean shouldLogin = appRoute.startsWith("/needLogin");
+        return shouldLogin && !LoginUtils.isLogin();
+    }
+
+    /**
+     * 是否还在开发中
+     *
+     * @param appRoute
+     * @return
+     */
+    public static boolean checkIsDeveloping(String appRoute) {
+        return appRoute.contains("/developing");
     }
 }

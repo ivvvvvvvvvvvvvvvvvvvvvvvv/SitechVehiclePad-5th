@@ -15,7 +15,7 @@ public interface RouterConstants {
     /**
      * 个人中心页面
      */
-    String SUB_APP_MEMBER = "/subApp/member";
+    String SUB_APP_MEMBER = "/needLogin/subApp/member";
     /**
      * 我的积分页面
      */
@@ -73,6 +73,11 @@ public interface RouterConstants {
     String FRAGMENT_LOCAL_MUSIC = "/main/localMusic";
 
     /**
+     * 本地音乐
+     */
+    String FRAGMENT_LOCAL_SHOW_MUSIC = "/subApp/forShow/localMusic";
+
+    /**
      * 视频
      */
     String FRAGMENT_VIDEO = "/main/video";
@@ -94,7 +99,7 @@ public interface RouterConstants {
     /**
      * 天气
      */
-    String SUB_APP_WEATHER = "/subApp/weather";
+    String SUB_APP_WEATHER = "/subApp/needNet/weather";
 
     /**
      * 空调控制
