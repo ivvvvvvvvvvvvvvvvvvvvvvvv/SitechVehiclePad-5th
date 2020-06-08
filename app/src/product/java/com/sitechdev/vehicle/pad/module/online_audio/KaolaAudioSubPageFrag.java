@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.kaolafm.opensdk.api.operation.model.column.Column;
 import com.kaolafm.opensdk.api.operation.model.column.RadioDetailColumnMember;
@@ -15,7 +16,6 @@ import com.sitechdev.vehicle.pad.model.kaola.KaolaDataWarpper;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppVariants;
-import com.sitechdev.vehicle.pad.view.Indexable;
 import com.sitechdev.vehicle.pad.view.ListIndicatorRecycview;
 import com.sitechdev.vehicle.pad.view.SpaceItemDecoration;
 
@@ -58,9 +58,12 @@ public class KaolaAudioSubPageFrag extends BaseFragment {
     @Override
     protected void initView(Bundle savedInstanceState) {
         indecator = mContentView.findViewById(R.id.indicator);
+        if (!isLandscape()) {
+            indecator.setVisibility(View.GONE);
+        }
         recyclerView = mContentView.findViewById(R.id.recyclerView);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 2);
-        gridLayoutManager.setOrientation(GridLayoutManager.HORIZONTAL);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 6);
+        gridLayoutManager.setOrientation(isLandscape() ? GridLayoutManager.HORIZONTAL : GridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.addItemDecoration(new SpaceItemDecoration(60));
         adapter = new KaolaAIListAdapter(mContext, new ArrayList());
@@ -120,6 +123,11 @@ public class KaolaAudioSubPageFrag extends BaseFragment {
 
                         @Override
                         public void onNext(List<KaolaDataWarpper> kaolaDataWarppers) {
+                            if (kaolaDataWarppers != null && kaolaDataWarppers.size() > 0 && !kaolaDataWarppers.get(0).getIndex().equals(adapter.RECOMMEND_TAG)) {
+                                KaolaDataWarpper warpper = new KaolaDataWarpper();
+                                warpper.tag = kaolaDataWarppers.get(0).getIndex();
+                                kaolaDataWarppers.add(0, warpper);
+                            }
                             kaolaDataWarpperList.addAll(kaolaDataWarppers);
                         }
 
@@ -140,64 +148,6 @@ public class KaolaAudioSubPageFrag extends BaseFragment {
         } else {
             KaolaPlayManager.SingletonHolder.INSTANCE.activeKaola();
         }
-    }
-
-    private List<Indexable> initMock(){
-        List<Indexable> list = new ArrayList<>();
-        Indexable indexable = new Indexable() {
-            @Override
-            public String getIndex() {
-                return "推荐";
-            }
-        };
-        list.add(indexable);
-        list.add(indexable);
-        list.add(indexable);
-        Indexable indexable1 = new Indexable() {
-            @Override
-            public String getIndex() {
-                return "新特速报";
-            }
-        };
-        list.add(indexable1);
-        list.add(indexable1);
-        list.add(indexable1);
-        list.add(indexable1);
-        list.add(indexable1);
-        Indexable indexable2 = new Indexable() {
-            @Override
-            public String getIndex() {
-                return "少儿读物";
-            }
-        };
-        list.add(indexable2);
-        list.add(indexable2);
-        list.add(indexable2);
-        list.add(indexable2);
-        list.add(indexable2);
-        Indexable indexable3 = new Indexable() {
-            @Override
-            public String getIndex() {
-                return "车嗨娱乐";
-            }
-        };
-        list.add(indexable3);
-        list.add(indexable3);
-        list.add(indexable3);
-        list.add(indexable3);
-        list.add(indexable3);
-        Indexable indexable4 = new Indexable() {
-            @Override
-            public String getIndex() {
-                return "生活一点通";
-            }
-        };
-        list.add(indexable4);
-        list.add(indexable4);
-        list.add(indexable4);
-        list.add(indexable4);
-        list.add(indexable4);
-        return list;
     }
 
 }

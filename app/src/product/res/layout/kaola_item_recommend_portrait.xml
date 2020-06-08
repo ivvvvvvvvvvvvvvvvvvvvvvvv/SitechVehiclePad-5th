@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="301px"
+        android:layout_height="301px"
+        android:gravity="center"
+        tools:background="@color/colorPrimary_red_tip">
+
+        <com.gcssloop.widget.RCImageView
+            app:round_corner="8px"
+            android:id="@+id/image"
+            android:layout_width="301px"
+            android:layout_height="301px" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/image"
+            android:layout_alignTop="@+id/image"
+            android:layout_marginTop="30pt"
+            android:paddingLeft="25pt"
+            android:paddingTop="2pt"
+            android:paddingRight="25pt"
+            android:paddingBottom="2pt"
+            android:text="推荐"
+            android:background="@drawable/bg_kaola_item_recommend_tag"
+            android:textColor="#000"
+            android:textSize="24px" />
+
+        <TextView
+            android:id="@+id/des"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/image"
+            android:layout_margin="10px"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐"
+            android:textColor="#fff"
+            android:textSize="26px" />
+    </RelativeLayout>
+</FrameLayout>
+

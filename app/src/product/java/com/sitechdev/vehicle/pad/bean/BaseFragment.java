@@ -1,6 +1,7 @@
 package com.sitechdev.vehicle.pad.bean;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
@@ -14,6 +15,7 @@ import android.widget.RadioGroup;
 import com.sitechdev.vehicle.lib.event.BindEventBus;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
+import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.view.CommonDialog;
 import com.sitechdev.vehicle.pad.view.dialog.DialogWrapper;
 import com.sitechdev.vehicle.pad.view.dialog.DialogWrapperFatory;
@@ -41,6 +43,10 @@ public abstract class BaseFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         mContext = context;
+    }
+
+    public boolean isLandscape(){
+        return getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
     }
 
     @Nullable

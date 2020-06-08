@@ -102,7 +102,7 @@ public class KaolaAudioActivity extends BaseActivity implements
 
     @Override
     protected int getLayoutId() {
-        return R.layout.audio_kaola_main_frame;
+        return isLandscape() ? R.layout.audio_kaola_main_frame : R.layout.audio_kaola_main_frame_protrait;
     }
 
     @Override

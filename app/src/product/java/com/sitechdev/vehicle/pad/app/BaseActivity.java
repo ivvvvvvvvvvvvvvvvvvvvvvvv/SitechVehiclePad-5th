@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
@@ -228,4 +229,9 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         //进度窗口消失
         CommonProgressDialog.getInstance().cancel(this);
     }
+
+    public boolean isLandscape(){
+        return getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+    }
+
 }

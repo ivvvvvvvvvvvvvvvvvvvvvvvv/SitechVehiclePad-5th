@@ -3,6 +3,8 @@ package com.sitechdev.vehicle.pad.module.online_audio;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,13 +25,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 // 选择品牌列表适配器
-public class KaolaAIListAdapter extends RecyclerView.Adapter<KaolaAIListAdapter.VHolderAbs> implements IndexAdapter {
+public class KaolaAIListAdapter extends KaolaBaseAdapter<KaolaAIListAdapter.VHolderAbs> implements IndexAdapter {
     private Context context;
     private List<KaolaDataWarpper> mLists;
-    private final String recommendtag = "推荐";
+    public final static  String RECOMMEND_TAG = "推荐";
+
+
+    KaolaAIListAdapter(Context context) {
+        super(context);
+        this.context = context;
+        this.mLists = new ArrayList<>();
+    }
 
     // 构造方法
     KaolaAIListAdapter(Context context, List<KaolaDataWarpper> mLists) {
+        super(context);
         this.context = context;
         this.mLists = mLists == null ? new ArrayList<>() : mLists;
     }
@@ -58,10 +68,22 @@ public class KaolaAIListAdapter extends RecyclerView.Adapter<KaolaAIListAdapter.
             gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override
                 public int getSpanSize(int position) {
-                    if (recommendtag.equals(mLists.get(position).getIndex())) {
-                        return 2;
+                    if (isLandscape()) {
+                        if (RECOMMEND_TAG.equals(mLists.get(position).getIndex())) {
+                            return 6;
+                        }
+                        if (null == mLists.get(position).column) {
+                            return 6;
+                        }
+                        return 3;
                     } else {
-                        return 1;
+                        if (RECOMMEND_TAG.equals(mLists.get(position).getIndex())) {
+                            return 2;
+                        }
+                        if (null == mLists.get(position).column) {
+                            return 6;
+                        }
+                        return 3;
                     }
                 }
             });
@@ -77,9 +99,12 @@ public class KaolaAIListAdapter extends RecyclerView.Adapter<KaolaAIListAdapter.
     @Override
     public VHolderAbs onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View root = null;
-        if (recommendtag.equals(mLists.get(i).getIndex())) {
-            root = LayoutInflater.from(context).inflate(R.layout.kaola_item_recommend, viewGroup, false);
+        if (RECOMMEND_TAG.equals(mLists.get(i).getIndex())) {
+            root = LayoutInflater.from(context).inflate(isLandscape() ? R.layout.kaola_item_recommend : R.layout.kaola_item_recommend_portrait, viewGroup, false);
             return new VHolder(root);
+        } else if (mLists.get(i).column == null) {
+            root = LayoutInflater.from(context).inflate( R.layout.kaola_item_group, viewGroup, false);
+            return new VHolderGroup(root);
         } else {
             root = LayoutInflater.from(context).inflate(R.layout.kaola_item_common, viewGroup, false);
             return new VHolder2(root);
@@ -89,27 +114,36 @@ public class KaolaAIListAdapter extends RecyclerView.Adapter<KaolaAIListAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull VHolderAbs vh, @SuppressLint("RecyclerView") int i) {
-        vh.des.setText(mLists.get(i).column.getTitle());
-        if (mLists.get(i).column.getImageFiles() != null) {
-            ImageFile img = null;
-            if (mLists.get(i).column.getImageFiles().containsKey("icon")) {
-                img = mLists.get(i).column.getImageFiles().get("icon");
+        if (vh instanceof VHolderGroup) {
+            if (isLandscape()) {
+                vh.des.setVisibility(View.GONE);
+            } else {
+                vh.des.setText(mLists.get(i).getIndex());
             }
-            if (mLists.get(i).column.getImageFiles().containsKey("cover")) {
-                img = mLists.get(i).column.getImageFiles().get("cover");
-            }
-            if (img != null) {
-                GlideApp.with(context).load(img.getUrl()).centerCrop().into(vh.img);
-            }
-        }
-        vh.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (onItemClick != null) {
-                    onItemClick.onClick(mLists.get(i));
+        } else {
+            vh.des.setText(mLists.get(i).column.getTitle());
+            if (mLists.get(i).column.getImageFiles() != null) {
+                ImageFile img = null;
+                if (mLists.get(i).column.getImageFiles().containsKey("icon")) {
+                    img = mLists.get(i).column.getImageFiles().get("icon");
+                }
+                if (mLists.get(i).column.getImageFiles().containsKey("cover")) {
+                    img = mLists.get(i).column.getImageFiles().get("cover");
+                }
+                if (img != null) {
+                    GlideApp.with(context).load(img.getUrl()).centerCrop().into(vh.img);
                 }
             }
-        });
+            vh.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onItemClick != null) {
+                        onItemClick.onClick(mLists.get(i));
+                    }
+                }
+            });
+        }
+
     }
 
     interface OnItemClick {
@@ -137,6 +171,14 @@ public class KaolaAIListAdapter extends RecyclerView.Adapter<KaolaAIListAdapter.
             super(itemView);
             des = itemView.findViewById(R.id.des);
             img = itemView.findViewById(R.id.image);
+        }
+    }
+
+    class VHolderGroup extends VHolderAbs {
+
+        VHolderGroup(View itemView) {
+            super(itemView);
+            des = itemView.findViewById(R.id.group_name);
         }
     }
 

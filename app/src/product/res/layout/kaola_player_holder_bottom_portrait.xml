@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    tools:layout_width="1000px"
+    android:layout_height="140px"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bg_kaola_player"
+    android:orientation="horizontal">
+
+    <com.gcssloop.widget.RCImageView
+        app:round_corner="4px"
+        android:id="@+id/icon"
+        android:layout_width="90px"
+        android:layout_height="90px"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="40px"
+        android:layout_marginRight="40px" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:orientation="vertical"
+        android:layout_toLeftOf="@+id/playcontrol"
+        android:layout_toRightOf="@+id/icon">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textSize="36px"
+            tools:text="zsdasdasd" />
+
+        <TextView
+            android:id="@+id/sub_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="#6073B5"
+            android:textSize="36px"
+            tools:text="11111" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/playcontrol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="120px"
+        android:layout_toLeftOf="@+id/list"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/pre"
+            android:layout_width="72px"
+            android:layout_height="72px"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/pc_pre" />
+
+        <ImageView
+            android:id="@+id/playpause"
+            android:layout_width="52px"
+            android:layout_height="52px"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="96px"
+            android:src="@drawable/pc_play" />
+
+        <ImageView
+            android:id="@+id/next"
+            android:layout_width="52px"
+            android:layout_height="52px"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="96px"
+            android:src="@drawable/pc_next" />
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/list"
+        android:layout_width="52px"
+        android:layout_height="52px"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="42px"
+        android:src="@drawable/pc_playlist" />
+</RelativeLayout>
