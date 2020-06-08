@@ -34,4 +34,19 @@
         <attr name="radius" format="dimension" />
     </declare-styleable>
 
+    <!--setting home界面的item-->
+    <declare-styleable name="setting_home_item">
+        <attr name="title_name" format="string"/>
+        <attr name="title_content" format="string"/>
+    </declare-styleable>
+
+    <!--自定义选择框，类似于设置当中的title+switch-->
+    <declare-styleable name="custom_switch">
+        <attr name="title" format="string"/>
+        <attr name="tip" format="string"/>
+        <attr name="off_title" format="string"/>
+        <attr name="on_title" format="string"/>
+        <attr name="button" format="string"/>
+    </declare-styleable>
+
 </resources>

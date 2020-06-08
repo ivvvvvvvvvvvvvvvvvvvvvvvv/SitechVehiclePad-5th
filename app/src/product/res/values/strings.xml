@@ -83,4 +83,8 @@
     <string name="feedback_main_tip">致新特用户：\n我们非常重视您的意见和建议，请通过Teddy告诉我们，\n我们会认真听取您的反馈，与您携手打造更好的操作体验。</string>
     <string name="feedback_main_recordtip">点击录音按钮就可以向我们反馈问题了，\n反馈完成后点击停止，发送给我们，我们就收到您的反馈了~</string>
 
+
+    <string name="bt_pair_list_conn">未连接</string>
+    <string name="bt_pair_list_disc">已连接</string>
+
 </resources>

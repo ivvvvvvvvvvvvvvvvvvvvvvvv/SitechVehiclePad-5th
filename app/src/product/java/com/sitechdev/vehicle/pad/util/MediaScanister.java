@@ -127,7 +127,7 @@ public class MediaScanister {
                                                 MediaFile.MediaFileType fileType = MediaFile.getFileType(
                                                         child.getAbsolutePath());
                                                 if (null != fileType){
-                                                    if (MediaFile.isAudioFileType(fileType.fileType)){
+                                                    if (MediaFile.isAudioFileType(fileType.fileType) && null != connection && null != child){
                                                         connection.scanFile(child.getAbsolutePath(), "audio/*");
                                                         sendCount += 1;
                                                     }

@@ -1,186 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ico_taxi_main_bg">
+    android:background="@drawable/ico_taxi_main_bg"
+    android:orientation="vertical">
 
     <include layout="@layout/common_title_toolbar" />
 
-    <HorizontalScrollView
-        android:id="@+id/fl_setting"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/dp_90"
-        android:orientation="horizontal"
-        android:paddingTop="140dp">
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <RelativeLayout
-                android:id="@+id/rl_setting_vol"
-                style="@style/style_setting_home_item_layout"
-                android:background="@drawable/setting_home_vol_bg">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="110dp"
-                    android:background="@drawable/setting_home_vol" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="56dp"
-                    android:text="声音"
-                    android:textColor="@color/white"
-                    android:textSize="36sp" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/rl_setting_light"
-                style="@style/style_setting_home_item_layout"
-                android:background="@drawable/setting_home_ligh_bg">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="110dp"
-                    android:background="@drawable/setting_home_ligh" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="56dp"
-                    android:text="模式"
-                    android:textColor="@color/white"
-                    android:textSize="36sp" />
-            </RelativeLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <com.sitechdev.vehicle.pad.view.SettingHomeItemView
+                android:id="@+id/setting_home_item_skin"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                app:title_name="模式设置" />
 
-                <RelativeLayout
-                    android:id="@+id/rl_setting_teddy"
-                    style="@style/style_setting_home_item_layout"
-                    android:background="@drawable/setting_home_teddy_bg">
+            <com.sitechdev.vehicle.pad.view.SettingHomeItemView
+                android:id="@+id/setting_home_item_net"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title_name="网络设置" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="110dp"
-                        android:background="@drawable/setting_home_teddy" />
+            <com.sitechdev.vehicle.pad.view.SettingHomeItemView
+                android:id="@+id/setting_home_item_bt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title_name="蓝牙设置" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginBottom="56dp"
-                        android:text="Teddy"
-                        android:textColor="@color/white"
-                        android:textSize="36sp" />
-                </RelativeLayout>
+            <com.sitechdev.vehicle.pad.view.SettingHomeItemView
+                android:id="@+id/setting_home_item_teddy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title_name="语音设置" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="50dp"
-                    android:gravity="center_horizontal"
-                    android:text="*语音设置与账号绑定\n请先登录"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
-            </LinearLayout>
-
-            <RelativeLayout
-                android:id="@+id/rl_setting_bt"
-                style="@style/style_setting_home_item_layout"
-                android:background="@drawable/setting_home_bt_bg">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="110dp"
-                    android:background="@drawable/setting_home_bt" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="56dp"
-                    android:text="蓝牙"
-                    android:textColor="@color/white"
-                    android:textSize="36sp" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/rl_setting_wifi"
-                style="@style/style_setting_home_item_layout"
-                android:background="@drawable/setting_home_wifi_bg">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="110dp"
-                    android:background="@drawable/setting_home_wifi" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="56dp"
-                    android:text="WIFI"
-                    android:textColor="@color/white"
-                    android:textSize="36sp" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/rl_setting_sys"
-                style="@style/style_setting_home_item_layout"
-                android:layout_marginRight="50dp"
-                android:background="@drawable/setting_home_sys_bg">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="110dp"
-                    android:background="@drawable/setting_home_sys" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="56dp"
-                    android:text="系统"
-                    android:textColor="@color/white"
-                    android:textSize="36sp" />
-            </RelativeLayout>
+            <com.sitechdev.vehicle.pad.view.SettingHomeItemView
+                android:id="@+id/setting_home_item_system"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title_name="系统设置" />
         </LinearLayout>
-    </HorizontalScrollView>
+    </ScrollView>
 
-    <FrameLayout
-        android:id="@+id/fl_setting_fm"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/dp_100"
-        android:layout_marginTop="@dimen/dp_90"
-        android:visibility="gone" />
-
-</FrameLayout>
+</LinearLayout>

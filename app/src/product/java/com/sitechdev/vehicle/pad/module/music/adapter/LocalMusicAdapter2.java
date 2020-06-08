@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sitechdev.vehicle.pad.R;
@@ -163,7 +164,7 @@ public class LocalMusicAdapter2 extends
 
     public static class LocalMusicHolder extends RecyclerView.ViewHolder{
 
-        private GifImageView vIndex;
+        private ImageView vIndex;
         private TextView vName;
         private TextView art;
 
@@ -174,7 +175,7 @@ public class LocalMusicAdapter2 extends
             art = itemView.findViewById(R.id.item_locl_music_art);
         }
 
-        public GifImageView getIndex() {
+        public ImageView getIndex() {
             return vIndex;
         }
 

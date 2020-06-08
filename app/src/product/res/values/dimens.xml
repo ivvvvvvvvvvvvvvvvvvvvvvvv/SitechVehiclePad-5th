@@ -53,4 +53,8 @@
     <dimen name="margin_top_toolbar">140px</dimen>
     <dimen name="margin_bottom_window">300px</dimen>
     <dimen name="content_padding_left_right">45px</dimen>
+
+    <dimen name="text_size_main">32px</dimen>
+    <dimen name="setting_padding_left_right">150px</dimen>
+    <dimen name="main_menu_height">300px</dimen>
 </resources>
