@@ -83,7 +83,7 @@ public class MusicKaolaAdapter extends
                         .getDrawable();
                 mAnimationDrawable.start();
             } else {
-                holder.getIndex().setImageResource(R.drawable.list_icon_playing);
+                holder.getIndex().setImageResource(R.drawable.list_icon_playing1);
             }
             holder.itemView.setBackgroundResource(R.drawable.bg_playlist_item);
             holder.getName().setTextColor(checkedColor);

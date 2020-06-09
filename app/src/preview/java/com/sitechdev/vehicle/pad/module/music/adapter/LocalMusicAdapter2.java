@@ -67,7 +67,7 @@ public class LocalMusicAdapter2 extends
         }
         MusicInfo musicInfo = musicInfos.get(position);
         if (checkedPositon == position){
-            holder.getIndex().setImageResource(R.drawable.list_icon_playing);
+            holder.getIndex().setImageResource(R.drawable.list_icon_playing1);
             holder.getName().setTextColor(checkedColor);
             holder.getArt().setTextColor(checkedColor);
         }else {
