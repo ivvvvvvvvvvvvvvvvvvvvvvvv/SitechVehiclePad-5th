@@ -45,9 +45,9 @@ import com.sitechdev.vehicle.pad.window.view.CommonLogoutDialog;
 public class MemberPreActivity extends BaseActivity {
     private static final String TAG = "MemberPreActivity";
 
-    private TextView tvTitle;
+    private TextView tvTitle, tvSignedView;
     private ImageView mUserIconView = null;
-    private TextView mUserNameTextView = null, mUserDescView = null, mSignTvView = null,
+    private TextView mUserNameTextView = null, mUserDescView = null,
     /**
      * 积分兑换
      */
@@ -91,7 +91,9 @@ public class MemberPreActivity extends BaseActivity {
 
         //签到
         mSignBtnRelaLayoutView = findViewById(R.id.id_sign_btn);
-        mSignTvView = findViewById(R.id.id_tv_sign);
+        //已签到
+        tvSignedView = findViewById(R.id.id_tv_sign_ed);
+
 
         //积分兑换
         mMySignChangeRelaLayoutView = findViewById(R.id.id_tv_sign_change);
@@ -209,7 +211,8 @@ public class MemberPreActivity extends BaseActivity {
                     mSigninBean = (PointsSigninBean) successObj;
                     if ("1".equalsIgnoreCase(mSigninBean.getData().getStatus())) {
                         runOnUiThread(() -> {
-                            mSignTvView.setText("已签到");
+                            mSignBtnRelaLayoutView.setVisibility(View.GONE);
+                            tvSignedView.setVisibility(View.VISIBLE);
                         });
                     }
                 } catch (Exception e) {
@@ -296,7 +299,8 @@ public class MemberPreActivity extends BaseActivity {
                 }
                 mSigninBean = (PointsSigninBean) successObj;
                 runOnUiThread(() -> {
-                    mSignTvView.setText("已签到");
+                    mSignBtnRelaLayoutView.setVisibility(View.GONE);
+                    tvSignedView.setVisibility(View.VISIBLE);
                     if ("-1".equals(mSigninBean.getData().getIntegral())) {
                         CommonUtil.showToast("今日已完成签到，记得明天再来哦");
                         return;

@@ -112,7 +112,7 @@ public class AllModuleUtils {
                 resId = R.drawable.icon_app_menu_car_status;
                 break;
             case 7:            //模式设置
-                resId = R.drawable.icon_app_menu_car_status;
+                resId = R.drawable.icon_app_menu_setting_skin;
                 break;
             case 8:             //导航
                 resId = R.drawable.icon_app_menu_navi;

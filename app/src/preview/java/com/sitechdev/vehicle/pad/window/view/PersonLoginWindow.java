@@ -7,18 +7,17 @@ import android.os.Message;
 import android.support.constraint.ConstraintLayout;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.sitechdev.vehicle.pad.app.BasicWindow;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.app.AppConst;
+import com.sitechdev.vehicle.pad.app.BaseWindow;
+import com.sitechdev.vehicle.pad.app.BasicWindow;
 import com.sitechdev.vehicle.pad.callback.BaseBribery;
 import com.sitechdev.vehicle.pad.event.SSOEvent;
 import com.sitechdev.vehicle.pad.module.login.bean.LoginUserBean;
@@ -32,11 +31,9 @@ import org.greenrobot.eventbus.ThreadMode;
 public class PersonLoginWindow extends BasicWindow implements View.OnClickListener {
 
     private final String TAG = PersonLoginWindow.class.getSimpleName();
-    private ImageButton login_back_ibtn;
     private ImageView iv_code;
     private RelativeLayout rl_load;
-    private LinearLayout ll_count;
-    private ConstraintLayout mLoginContainer;
+    private RelativeLayout mLoginContainer;
     private TextView mScanTipView;
     private String mLoginCode;
 
@@ -89,9 +86,11 @@ public class PersonLoginWindow extends BasicWindow implements View.OnClickListen
     @Override
     protected void initWindow() {
         super.initWindow();
-        mLayoutParams.dimAmount = 0.5f;
+        mLayoutParams.dimAmount = 0.7f;
         mLayoutParams.flags = WindowManager.LayoutParams.FLAG_FULLSCREEN | WindowManager.LayoutParams.FLAG_DIM_BEHIND
                 | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL;
+        mLayoutParams.width = 800;
+        mLayoutParams.height = 600;
     }
 
     @Override
@@ -101,16 +100,11 @@ public class PersonLoginWindow extends BasicWindow implements View.OnClickListen
 
     @Override
     public void findView() {
-        login_back_ibtn = mView.findViewById(R.id.login_back_ibtn);
         iv_code = mView.findViewById(R.id.iv_code);
         rl_load = mView.findViewById(R.id.rl_load);
-        ll_count = mView.findViewById(R.id.ll_count);
         mLoginContainer = mView.findViewById(R.id.cl_person_login_container);
         mScanTipView = mView.findViewById(R.id.tv_login_scan);
-        mScanTipView.setTextSize(30);
         rl_load.setVisibility(View.GONE);
-        ll_count.setVisibility(View.GONE);
-        login_back_ibtn.setVisibility(View.GONE);
     }
 
     @Override
@@ -148,7 +142,6 @@ public class PersonLoginWindow extends BasicWindow implements View.OnClickListen
     @Override
     public void initListener() {
         super.initListener();
-        login_back_ibtn.setOnClickListener(this);
         rl_load.setOnClickListener(this);
         mLoginContainer.setOnClickListener(this);
     }
@@ -163,9 +156,6 @@ public class PersonLoginWindow extends BasicWindow implements View.OnClickListen
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.login_back_ibtn:
-                hideWnd();
-                break;
             case R.id.rl_load:
                 showQrCode();
                 iv_code.setAlpha((float) 1);
