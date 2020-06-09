@@ -6,7 +6,9 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.kaolafm.opensdk.api.operation.model.column.Column;
+import com.kaolafm.opensdk.api.operation.model.column.ColumnMember;
 import com.kaolafm.opensdk.api.operation.model.column.RadioDetailColumnMember;
+import com.kaolafm.sdk.core.mediaplayer.PlayerListManager;
 import com.sitechdev.vehicle.lib.util.Constant;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.bean.BaseFragment;
@@ -40,16 +42,20 @@ public class KaolaAudioSubPageFrag extends BaseFragment {
     private RecyclerView recyclerView;
     private ListIndicatorRecycview indecator;
     private KaolaAIListAdapter adapter;
-    private int defaultIndex = 0;
+    private ColumnMember ready2playColumn;
+    private int defaultIndex;
+    private int defaultSubIndex = 0;
 
     public KaolaAudioSubPageFrag() {
 
     }
 
     @SuppressLint("ValidFragment")
-    public KaolaAudioSubPageFrag(int defaultIndex) {
-        this.defaultIndex= defaultIndex;
+    public KaolaAudioSubPageFrag(int defaultIndex, int subIndex) {
+        this.defaultIndex = defaultIndex;
+        this.defaultSubIndex = subIndex;
     }
+
     @Override
     protected int getLayoutId() {
         return R.layout.audio_kaola_sub_frame;
@@ -69,22 +75,26 @@ public class KaolaAudioSubPageFrag extends BaseFragment {
         adapter.setOnItemClick(new KaolaAIListAdapter.OnItemClick() {
             @Override
             public void onClick(KaolaDataWarpper warpper) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(Constant.KEY_TYPE_KEY, Constant.TYPE.FIRST_ENTERED);
-                bundle.putLong(Constant.KEY_MEMBER_CODE, ((RadioDetailColumnMember) warpper.column).getRadioId());
-                if(warpper.column.getImageFiles() != null){
-                    if(warpper.column.getImageFiles().containsKey("cover")){
-                        bundle.putString(Constant.KEY_IMG_URL, warpper.column.getImageFiles().get("cover").getUrl());
-                    }
-                    if(warpper.column.getImageFiles().containsKey("icon")){
-                        bundle.putString(Constant.KEY_IMG_URL, warpper.column.getImageFiles().get("icon").getUrl());
-                    }
-                }
-
-                bundle.putString(Constant.KEY_TITLE, warpper.column.getTitle());
-                RouterUtils.getInstance().navigation(RouterConstants.MUSIC_PLAY_ONLINE, bundle);
+                toPlaylist(warpper.column);
             }
         });
+    }
+
+    private void toPlaylist(ColumnMember column){
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Constant.KEY_TYPE_KEY, Constant.TYPE.FIRST_ENTERED);
+        bundle.putLong(Constant.KEY_MEMBER_CODE, ((RadioDetailColumnMember) column).getRadioId());
+        if(column.getImageFiles() != null){
+            if(column.getImageFiles().containsKey("cover")){
+                bundle.putString(Constant.KEY_IMG_URL, column.getImageFiles().get("cover").getUrl());
+            }
+            if(column.getImageFiles().containsKey("icon")){
+                bundle.putString(Constant.KEY_IMG_URL, column.getImageFiles().get("icon").getUrl());
+            }
+        }
+
+        bundle.putString(Constant.KEY_TITLE, column.getTitle());
+        RouterUtils.getInstance().navigation(RouterConstants.MUSIC_PLAY_ONLINE, bundle);
     }
 
     List<KaolaDataWarpper> kaolaDataWarpperList = new ArrayList<>();
@@ -100,6 +110,24 @@ public class KaolaAudioSubPageFrag extends BaseFragment {
 
                 @Override
                 public void onDataGot(List<Column> data) {
+                    if (!KaolaPlayManager.SingletonHolder.INSTANCE.isPlaying(getActivity())) {
+                        //当前未播放资源   播放数据中defaultIndex 下面defaultSubIndex 内容
+                        final int index = defaultIndex;
+                        for (int i = 0; i < data.size(); i++) {
+                            if (i == index) {
+                                if (data.get(i) != null && data.get(i).getColumnMembers() != null && defaultSubIndex < data.get(i).getColumnMembers().size()) {
+                                    ready2playColumn = data.get(i).getColumnMembers().get(defaultSubIndex);
+                                    if (null != ready2playColumn && ready2playColumn instanceof RadioDetailColumnMember) {
+                                        PlayerListManager.getInstance().clearPlayList();
+                                        KaolaPlayManager.SingletonHolder.INSTANCE.playPgc(getActivity(), ((RadioDetailColumnMember) ready2playColumn).getRadioId());
+                                        KaolaPlayManager.SingletonHolder.INSTANCE.setCurPlayingAlbumTitle(ready2playColumn.getTitle());
+                                        KaolaPlayManager.SingletonHolder.INSTANCE.setCurPlayingAlbumCover(ready2playColumn.getImageFiles());
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                    }
                     Observable.fromIterable(data).map(new Function<Column, List<KaolaDataWarpper>>() {
                         @Override
                         public List<KaolaDataWarpper> apply(Column column) throws Exception {
@@ -132,6 +160,7 @@ public class KaolaAudioSubPageFrag extends BaseFragment {
                         public void onComplete() {
                             adapter.setDataAndNotify(kaolaDataWarpperList);
                             indecator.initChoose(defaultIndex);
+
                         }
                     });
                 }

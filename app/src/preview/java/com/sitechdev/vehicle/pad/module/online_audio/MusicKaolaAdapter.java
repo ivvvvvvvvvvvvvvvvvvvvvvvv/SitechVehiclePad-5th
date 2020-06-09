@@ -37,6 +37,10 @@ public class MusicKaolaAdapter extends
     private int checkedColor;
     public static int mPrePosition = -1;
 
+    public static void setmPrePosition(int mPrePosition) {
+        MusicKaolaAdapter.mPrePosition = mPrePosition;
+    }
+
     private OnCheckEmptyListener onCheckEmptyListener;
     private boolean isbroadcast =false;
 

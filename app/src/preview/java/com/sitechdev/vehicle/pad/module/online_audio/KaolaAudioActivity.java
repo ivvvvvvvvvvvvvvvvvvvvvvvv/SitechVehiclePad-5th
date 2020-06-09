@@ -170,7 +170,7 @@ public class KaolaAudioActivity extends BaseActivity implements
     }
 
     private void initFrags() {
-        fragmentlist.add(new KaolaAudioSubPageFrag(defaultRecommendIndex));
+        fragmentlist.add(new KaolaAudioSubPageFrag(defaultRecommendIndex, 0));
         fragmentlist.add(new KaolaAudioCategoryPageFrag());
         fragmentlist.add(new KaolaAudioBroadcastPageFrag());
         fragmentlist.add(new KaolaAudioSearchPageFrag());

@@ -13,6 +13,7 @@ import android.view.animation.RotateAnimation;
 import com.kaolafm.opensdk.OpenSDK;
 import com.kaolafm.opensdk.ResType;
 import com.kaolafm.opensdk.api.operation.OperationRequest;
+import com.kaolafm.opensdk.api.operation.model.ImageFile;
 import com.kaolafm.opensdk.api.operation.model.category.Category;
 import com.kaolafm.opensdk.api.operation.model.column.Column;
 import com.kaolafm.opensdk.api.operation.model.column.ColumnGrp;
@@ -45,6 +46,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import static com.sitechdev.vehicle.lib.util.BuildConfig.DEBUG;
@@ -74,6 +76,32 @@ public class KaolaPlayManager {
 
     public void seekTo(Context context, int position) {
         PlayerManager.getInstance(context).seek(position);
+    }
+
+    private String curPlayingAlbumTitle = "";
+    private Map<String, ImageFile> curPlayingAlbumCover = null;
+
+    public String getCurPlayingAlbumCover() {
+        ImageFile img = null;
+        if (curPlayingAlbumCover.containsKey("icon")) {
+            img = curPlayingAlbumCover.get("icon");
+        }
+        if (curPlayingAlbumCover.containsKey("cover")) {
+            img = curPlayingAlbumCover.get("cover");
+        }
+        return img == null ? "" : img.getUrl();
+    }
+
+    public void setCurPlayingAlbumCover(Map<String, ImageFile> curPlayingAlbumCover) {
+        this.curPlayingAlbumCover = curPlayingAlbumCover;
+    }
+
+    public String getCurPlayingAlbumTitle() {
+        return curPlayingAlbumTitle;
+    }
+
+    public void setCurPlayingAlbumTitle(String curPlayingAlbumTitle) {
+        this.curPlayingAlbumTitle = curPlayingAlbumTitle;
     }
 
     public volatile PlayType mPlayType = null;
@@ -116,9 +144,6 @@ public class KaolaPlayManager {
             mColumns = (List<Column>) columnGrps.get(0).getChildColumns();
             SitechDevLog.i(this.getClass().getSimpleName(), "AI 电台分类大小 ========== " + columnGrps.size());
             if (mColumns != null) {
-                for (int i = 0; i < callbacks.size(); i++) {
-                    callbacks.get(i).onDataGot(mColumns);
-                }
                 if (mColumns.size() >= 1 && mColumns.get(0) != null) {
                     for (int i = 0; i < callbacks.size(); i++) {
                         callbacks.get(i).onSuccess(0, mColumns.get(0).getTitle());
@@ -143,7 +168,10 @@ public class KaolaPlayManager {
                     }
                     SitechDevLog.e(KaolaPlayManager.class.getSimpleName(), " 生活一点通 === " + mColumns.get(3).getTitle());
                 }
-
+                for (int i = 0; i < callbacks.size(); i++) {
+                    callbacks.get(i).onDataGot(mColumns);
+                    callbacks.remove(callbacks.get(i));
+                }
             }
             if (DEBUG)
                 for (int i = 0; i < columnGrps.size(); i++) {
@@ -607,7 +635,6 @@ public class KaolaPlayManager {
     }
 
     public static void setCoverPlayPauseAnim(View holder) {
-        Log.e("zyf","Play Pause -- setCoverPlayPauseAnim ");
         if (!checkCoverHolderNull(holder)) {
             long curInTime = System.currentTimeMillis();
             int dura = 500;
@@ -615,7 +642,6 @@ public class KaolaPlayManager {
 //                return;
             }
             lastCoverPlayPauseAnimTime = curInTime;
-            Log.e("zyf","Play Pause -- do anim ");
             try {
                 View image = holder.findViewById(R.id.image);
                 View imageBg = holder.findViewById(R.id.image_bg);

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -154,7 +155,13 @@ public class MusicKaolaActivity extends BaseActivity implements
             setListData();
         }
         //默认图片索引
-        GlideApp.with(this).load(imageUrl).circleCrop().into(musicImageView);
+        if (TextUtils.isEmpty(imageUrl)) {
+            imageUrl = KaolaPlayManager.SingletonHolder.INSTANCE.getCurPlayingAlbumCover();
+        }
+        if (TextUtils.isEmpty(title)) {
+            title = KaolaPlayManager.SingletonHolder.INSTANCE.getCurPlayingAlbumTitle();
+        }
+        GlideApp.with(this).load(imageUrl).placeholder(R.drawable.default_audio).circleCrop().into(musicImageView);
         tv_title.setText(title);
     }
 
@@ -175,11 +182,11 @@ public class MusicKaolaActivity extends BaseActivity implements
         vLocalMusicList.setLayoutManager(linearLayoutManager);
         vLocalMusicList.setItemAnimator(new DefaultItemAnimator());
         vLocalMusicList.setHasFixedSize(true);
-
+        mCurPosition = PlayerListManager.getInstance().getCurPosition();
         if (playListAdapter == null) {
             playListAdapter = new MusicKaolaAdapter(MusicKaolaActivity.this);
             vLocalMusicList.setAdapter(playListAdapter);
-
+            playListAdapter.setSelected(mCurPosition);
             playListAdapter.setOnItemClickListener(new MusicKaolaAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(PlayItemAdapter.Item item, int position) {
@@ -189,7 +196,7 @@ public class MusicKaolaActivity extends BaseActivity implements
                 }
             });
         } else {
-            playListAdapter.notifyDataSetChanged();
+            playListAdapter.setSelected(mCurPosition);
         }
         musicSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -487,13 +494,12 @@ public class MusicKaolaActivity extends BaseActivity implements
         if (tv_bottom_title != null && item != null) {
             tv_bottom_title.setText(item.getTitle());
             btn_pause_play.setImageResource(R.drawable.pc_pause);
-//            GlideApp.with(this).load(item.getAlbumPic()).placeholder(R.drawable.img_song_card).into(musicImageView);
+            GlideApp.with(this).load(item.getAlbumPic()).placeholder(R.drawable.default_audio).circleCrop().into(musicImageView);
         }
         if (flag_FIRST_PLAY) {
             SitechDevLog.e(TAG, "onPlayerPlaying  flag_FIRST_PLAY = " + flag_FIRST_PLAY);
             flag_FIRST_PLAY = false;
         }
-
         SitechDevLog.e(TAG, "====== onPlayerPlaying ======= mCurPosition = " + mCurPosition);
     }
 
