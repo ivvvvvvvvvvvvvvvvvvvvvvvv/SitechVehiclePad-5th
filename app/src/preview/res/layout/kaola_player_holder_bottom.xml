@@ -20,7 +20,7 @@
         app:round_corner="4px" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="550px"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@+id/playcontrol"
@@ -35,7 +35,7 @@
             android:ellipsize="end"
             android:singleLine="true"
             android:textColor="@color/white"
-            android:textSize="36px"
+            android:textSize="32px"
             tools:text="zsdasdasd" />
 
         <TextView
@@ -57,7 +57,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginRight="300px"
+        android:layout_marginRight="180px"
         android:layout_toLeftOf="@+id/list"
         android:orientation="horizontal">
 
@@ -93,7 +93,6 @@
         android:id="@+id/list"
         android:layout_width="50px"
         android:layout_height="50px"
-
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_gravity="center_vertical"

@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.MultiTransformation;
+import com.bumptech.glide.load.resource.bitmap.DrawableTransformation;
 import com.bumptech.glide.request.RequestOptions;
 import com.kaolafm.opensdk.api.operation.model.ImageFile;
 import com.sitechdev.vehicle.lib.imageloader.GlideApp;
@@ -25,6 +26,8 @@ import com.sitechdev.vehicle.pad.view.Indexable;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import jp.wasabeef.glide.transformations.ColorFilterTransformation;
 
 // 选择品牌列表适配器
 public class KaolaAIListAdapter extends RecyclerView.Adapter<KaolaAIListAdapter.VHolderAbs> implements IndexAdapter {

@@ -1,5 +1,8 @@
 package com.sitechdev.vehicle.pad.module.online_audio;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +10,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -70,7 +75,7 @@ public class KaolaAudioActivity extends BaseActivity implements
         @Override
         public void onMusicPlaying(PlayItem item) {
             title.setText(item.getTitle());
-            subTitle.setText(item.getAlbumName());
+            subTitle.setText(" - "+item.getAlbumName());
             GlideApp.with(KaolaAudioActivity.this).load(item.getAlbumPic()).into(icon);
             play.setImageResource(R.drawable.pc_pause);
         }
@@ -215,10 +220,16 @@ public class KaolaAudioActivity extends BaseActivity implements
                         findViewById(R.id.player_holder).setVisibility(View.VISIBLE);
                     }
                 }
+                View text = tab.getCustomView().findViewById(android.R.id.text1);
+                selectTabAni(text);
+                text.setAlpha(1);
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
+                View text = tab.getCustomView().findViewById(android.R.id.text1);
+                unselectTabAni(text);
+                text.setAlpha(0.5f);
             }
 
             @Override
@@ -226,6 +237,9 @@ public class KaolaAudioActivity extends BaseActivity implements
 
             }
         });
+        View text = tabLayout.getTabAt(0).getCustomView().findViewById(android.R.id.text1);
+        selectTabAni(text);
+        text.setAlpha(1f);
     }
 
     @Override
@@ -258,5 +272,50 @@ public class KaolaAudioActivity extends BaseActivity implements
         TextView textView = view.findViewById(android.R.id.text1);
         textView.setText(titleArr[currentPosition]);
         return view;
+    }
+
+    private void selectTabAni(View view) {
+        if (null != view) {
+            ValueAnimator animx = ObjectAnimator
+                    .ofFloat(view, "ScaleX", 1F, 1.1F)
+                    .setDuration(100);
+            ValueAnimator animy = ObjectAnimator
+                    .ofFloat(view, "ScaleY", 1F, 1.1F)
+                    .setDuration(100);
+            AnimatorSet set = new AnimatorSet();
+            set.playTogether(animx, animy);
+            set.setTarget(view);
+            set.setInterpolator(new LinearInterpolator());
+            animx.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    view.setScaleX(1.1f);
+                    view.setScaleY(1.1f);
+                }
+            });
+            set.start();
+        }
+    }
+    private void unselectTabAni(View view) {
+        if (null != view) {
+            ValueAnimator animx = ObjectAnimator
+                    .ofFloat(view, "ScaleX", 1.1F, 1F)
+                    .setDuration(100);
+            ValueAnimator animy = ObjectAnimator
+                    .ofFloat(view, "ScaleY", 1.1F, 1F)
+                    .setDuration(100);
+            AnimatorSet set = new AnimatorSet();
+            set.playTogether(animx, animy);
+            set.setTarget(view);
+            set.setInterpolator(new LinearInterpolator());
+            animx.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    view.setScaleX(1.0f);
+                    view.setScaleY(1.0f);
+                }
+            });
+            set.start();
+        }
     }
 }

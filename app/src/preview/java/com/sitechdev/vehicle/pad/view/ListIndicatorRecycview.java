@@ -11,11 +11,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
 
 import com.sitechdev.vehicle.pad.R;
@@ -38,6 +38,7 @@ public class ListIndicatorRecycview extends RecyclerView {
     private LinkedHashMap<Integer, String> indexMap = new LinkedHashMap<>();
     private RecyclerView recyclerView;
     private int curChoosed = -1;// 选中
+    private int lastChoosed = -1;// shangci选中
     private ListIndicatorAdapter indicatorAdapter;
 
     public ListIndicatorRecycview(@NonNull Context context) {
@@ -53,6 +54,7 @@ public class ListIndicatorRecycview extends RecyclerView {
     }
 
     public void setChoose(int choose) {
+        lastChoosed = curChoosed;
         this.curChoosed = choose;
         if (indexMap.size() == 0) {
             return;
@@ -81,7 +83,8 @@ public class ListIndicatorRecycview extends RecyclerView {
     private List<Indexable> initWithData;
 
     /**
-     *  标签切换类型   目标是一个多个tab 点击标签进行tab切换
+     * 标签切换类型   目标是一个多个tab 点击标签进行tab切换
+     *
      * @param indexables
      */
 
@@ -97,8 +100,10 @@ public class ListIndicatorRecycview extends RecyclerView {
         tabCheckClick = listener;
         notifyIndicatorAdapter(tabCheckClick);
     }
+
     /**
-     *  标签指示类型 目标是一个recycleview 点击标签进行滑动
+     * 标签指示类型 目标是一个recycleview 点击标签进行滑动
+     *
      * @param recyclerView
      */
     public void setupWithRecycler(RecyclerView recyclerView) {
@@ -206,7 +211,7 @@ public class ListIndicatorRecycview extends RecyclerView {
         int cur = layoutManager.findFirstVisibleItemPosition();
 
         int keyIndex = 0;
-        int allDataSize =  recyclerView.getAdapter().getItemCount();
+        int allDataSize = recyclerView.getAdapter().getItemCount();
         if (layoutManager.findLastVisibleItemPosition() >= allDataSize - 1) {//最后一个显示出来
             keyIndex = indexMap.size() - 1;
         } else {
@@ -237,6 +242,7 @@ public class ListIndicatorRecycview extends RecyclerView {
                             mLayoutManager.scrollToPositionWithOffset(key, 0);
                         }
                     }
+                    lastChoosed = curChoosed;
                     curChoosed = (int) v.getTag();
                     indicatorAdapter.notifyDataSetChanged();
                 } catch (Exception e) {
@@ -249,7 +255,7 @@ public class ListIndicatorRecycview extends RecyclerView {
     private OnItemClickListener tabCheckClick = new OnItemClickListener() {
         @Override
         public void onClick(View v) {
-            if (v.getTag() != null ) {
+            if (v.getTag() != null) {
 
             }
         }
@@ -268,7 +274,7 @@ public class ListIndicatorRecycview extends RecyclerView {
         }
     }
 
-    class ListIndicatorAdapter extends RecyclerView.Adapter<ListIndicatorAdapter.VHolder>  {
+    class ListIndicatorAdapter extends RecyclerView.Adapter<ListIndicatorAdapter.VHolder> {
         private Context context;
         private List<String> mLists;
 
@@ -286,7 +292,7 @@ public class ListIndicatorRecycview extends RecyclerView {
             }
         }
 
-        public void setDataAndNotify(@NotNull HashMap<Integer,String> map) {
+        public void setDataAndNotify(@NotNull HashMap<Integer, String> map) {
             if (mLists == null) {
                 mLists = new ArrayList<>();
             } else {
@@ -328,7 +334,9 @@ public class ListIndicatorRecycview extends RecyclerView {
                 selectTabAni(vHolder.nameText);
                 vHolder.nameText.setTextColor(getResources().getColor(color_text_selected));
             } else {
-
+                if (lastChoosed == i) {
+                    unselectTabAni(vHolder.nameText);
+                }
                 vHolder.nameText.setTextColor(getResources().getColor(color_text_common));
             }
         }
@@ -336,14 +344,15 @@ public class ListIndicatorRecycview extends RecyclerView {
         private void selectTabAni(View view) {
             if (null != view) {
                 ValueAnimator animx = ObjectAnimator
-                        .ofFloat(view, "ScaleX", 1.0F, 1.1F)
+                        .ofFloat(view, "ScaleX", 1F, 1.1F)
                         .setDuration(100);
                 ValueAnimator animy = ObjectAnimator
-                        .ofFloat(view, "ScaleY", 1.0F, 1.1F)
+                        .ofFloat(view, "ScaleY", 1F, 1.1F)
                         .setDuration(100);
                 AnimatorSet set = new AnimatorSet();
                 set.playTogether(animx, animy);
                 set.setTarget(view);
+                set.setInterpolator(new LinearInterpolator());
                 animx.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                     @Override
                     public void onAnimationUpdate(ValueAnimator animation) {
@@ -355,6 +364,28 @@ public class ListIndicatorRecycview extends RecyclerView {
             }
         }
 
+        private void unselectTabAni(View view) {
+            if (null != view) {
+                ValueAnimator animx = ObjectAnimator
+                        .ofFloat(view, "ScaleX", 1.1F, 1F)
+                        .setDuration(100);
+                ValueAnimator animy = ObjectAnimator
+                        .ofFloat(view, "ScaleY", 1.1F, 1F)
+                        .setDuration(100);
+                AnimatorSet set = new AnimatorSet();
+                set.playTogether(animx, animy);
+                set.setTarget(view);
+                set.setInterpolator(new LinearInterpolator());
+                animx.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator animation) {
+                        view.setScaleX(1F);
+                        view.setScaleY(1F);
+                    }
+                });
+                set.start();
+            }
+        }
 
         class VHolder extends RecyclerView.ViewHolder {
 
@@ -368,7 +399,8 @@ public class ListIndicatorRecycview extends RecyclerView {
             }
         }
 
-        OnItemClickListener onItemClickListener ;
+        OnItemClickListener onItemClickListener;
+
         public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
             this.onItemClickListener = onItemClickListener;
         }
@@ -378,7 +410,8 @@ public class ListIndicatorRecycview extends RecyclerView {
     int smallTextSize = 20;
     private int color_text_common = R.color.kaola_page_index_uncheck;
     private int color_text_selected = R.color.kaola_page_index_checked;
-    public interface OnItemClickListener{
+
+    public interface OnItemClickListener {
         void onClick(View v);
     }
 }
