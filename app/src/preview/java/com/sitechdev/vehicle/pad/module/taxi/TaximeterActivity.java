@@ -246,16 +246,16 @@ public class TaximeterActivity extends BaseActivity {
             //设置
             case R.id.id_taxi_setting:
                 //发布会版本，关闭该事件响应
-                EventBusUtils.postEvent(new WindowEvent(WindowEvent.EVENT_WINDOW_INPUT_SHOW_STATE));
-                TaxiSettingDialogView settingDialogView = new TaxiSettingDialogView(this);
-                settingDialogView.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialog) {
-                        EventBusUtils.postEvent(new WindowEvent(WindowEvent.EVENT_WINDOW_INPUT_HIDDEN_STATE));
-                        refreshView();
-                    }
-                });
-                settingDialogView.show();
+//                EventBusUtils.postEvent(new WindowEvent(WindowEvent.EVENT_WINDOW_INPUT_SHOW_STATE));
+//                TaxiSettingDialogView settingDialogView = new TaxiSettingDialogView(this);
+//                settingDialogView.setOnDismissListener(new DialogInterface.OnDismissListener() {
+//                    @Override
+//                    public void onDismiss(DialogInterface dialog) {
+//                        EventBusUtils.postEvent(new WindowEvent(WindowEvent.EVENT_WINDOW_INPUT_HIDDEN_STATE));
+//                        refreshView();
+//                    }
+//                });
+//                settingDialogView.show();
                 break;
             //历史
             case R.id.id_taxi_history:
