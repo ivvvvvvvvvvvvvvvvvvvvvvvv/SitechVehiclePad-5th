@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.Message;
 import android.support.constraint.ConstraintLayout;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -88,7 +89,7 @@ public class PersonLoginWindow extends BasicWindow implements View.OnClickListen
         super.initWindow();
         mLayoutParams.dimAmount = 0.7f;
         mLayoutParams.flags = WindowManager.LayoutParams.FLAG_FULLSCREEN | WindowManager.LayoutParams.FLAG_DIM_BEHIND
-                | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL;
+                | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
         mLayoutParams.width = 800;
         mLayoutParams.height = 600;
     }
@@ -105,6 +106,17 @@ public class PersonLoginWindow extends BasicWindow implements View.OnClickListen
         mLoginContainer = mView.findViewById(R.id.cl_person_login_container);
         mScanTipView = mView.findViewById(R.id.tv_login_scan);
         rl_load.setVisibility(View.GONE);
+
+        mView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                SitechDevLog.i(TAG, "setOnTouchListener onTouch===" + event.getAction() + "，v=" + (v.getId() == R.id.cl_person_login_container));
+                if (event.getAction() == MotionEvent.ACTION_UP && (v.getId() == R.id.cl_person_login_container)) {
+                    hideWnd();
+                }
+                return false;
+            }
+        });
     }
 
     @Override

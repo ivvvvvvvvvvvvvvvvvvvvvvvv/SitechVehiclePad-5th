@@ -27,6 +27,7 @@ import com.sitechdev.vehicle.lib.event.XtBusUtil;
 import com.sitechdev.vehicle.lib.util.ActivityManager;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.R;
+import com.sitechdev.vehicle.pad.module.main.MainActivity;
 import com.sitechdev.vehicle.pad.util.AppUtil;
 import com.sitechdev.vehicle.pad.view.CommonDialog;
 import com.sitechdev.vehicle.pad.view.CommonProgressDialog;
@@ -87,6 +88,11 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     @Override
     protected void onResume() {
+        //TODO 预览版本，强制横屏,除了首页
+        SitechDevLog.i("BaseActivity", "当前类===>" + (this.getClass()) + "===>" + (this.getClass() != MainActivity.class));
+        if (this.getClass() != MainActivity.class) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        }
         super.onResume();
         BarUtils.setNavBarVisibility(this, false);
     }
