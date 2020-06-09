@@ -188,7 +188,7 @@ public class KaolaAudioActivity extends BaseActivity implements
         list.setOnClickListener(this);
         title.setOnClickListener(this);
         icon.setOnClickListener(this);
-        GlideApp.with(KaolaAudioActivity.this).load("").placeholder(R.drawable.default_audio).into(icon);
+        GlideApp.with(KaolaAudioActivity.this).load("").placeholder(R.drawable.default_audio_2).into(icon);
         title.setText("无内容");
         pager = findViewById(R.id.vp);
         findViewById(R.id.iv_sub_back).setOnClickListener(new View.OnClickListener() {

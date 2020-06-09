@@ -131,6 +131,7 @@
         <activity android:name=".module.online_audio.MusicKaolaActivity" />
         <activity android:name=".module.online_audio.MusicKaolaBroadcastActivity" />
         <activity android:name=".module.feedback.FeedbackActivity" />
+        <activity android:name=".module.main.DebugInfo" />
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
