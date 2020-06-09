@@ -17,6 +17,7 @@ import com.sitechdev.vehicle.pad.app.AppUrlConst;
 import com.sitechdev.vehicle.pad.callback.BaseBribery;
 import com.sitechdev.vehicle.pad.event.AppEvent;
 import com.sitechdev.vehicle.pad.event.SSOEvent;
+import com.sitechdev.vehicle.pad.manager.UserManager;
 import com.sitechdev.vehicle.pad.manager.trace.TraceManager;
 import com.sitechdev.vehicle.pad.module.login.bean.LoginResponseBean;
 import com.sitechdev.vehicle.pad.module.login.bean.LoginUserBean;
@@ -136,16 +137,13 @@ public class LoginUtils {
         LoginUtils.saveLoginData(userBean.getCredential());
         LoginUtils.saveLoginUserData(userBean);
 
+        UserManager.getInstance().setLoginUserBean(userBean);
+
         //获取用户个性化设置
         PersonalDefaultUtils.requestPersonal();
 //        ServerUtils.requestFunChatPersonalData();
 
         EventBusUtils.postEvent(new SSOEvent(SSOEvent.EB_MSG_LOGIN, userBean));
-        if (LoginIntent.getInstance().getOnLoginIntent() != null) {
-            //登录后的步骤
-            LoginIntent.getInstance().getOnLoginIntent().onNext();
-            LoginIntent.getInstance().setOnLoginIntent(null);
-        }
         isParseData = true;
     }
 

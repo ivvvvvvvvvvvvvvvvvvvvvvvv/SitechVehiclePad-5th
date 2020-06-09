@@ -151,7 +151,7 @@ public class MemberPreActivity extends BaseActivity {
             // 昵称
             mUserNameTextView.setText(String.format("Hi，%s", UserManager.getInstance().getLoginUserBean().getNickName()));
             // 描述
-            if (StringUtils.isEmpty(UserManager.getInstance().getLoginUserBean().getJob())) {
+            if (!StringUtils.isEmpty(UserManager.getInstance().getLoginUserBean().getJob())) {
                 mUserDescView.setVisibility(View.VISIBLE);
                 mUserDescView.setText(UserManager.getInstance().getLoginUserBean().getJob());
             } else {

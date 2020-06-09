@@ -11,7 +11,7 @@
         android:id="@+id/id_top_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="180px"
+        android:layout_marginTop="150px"
         android:paddingLeft="72px"
         android:paddingRight="72px">
 
@@ -89,7 +89,7 @@
                 android:layout_below="@id/id_taxi_price_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="100px"
-                android:background="@drawable/ico_taxi_price_btn_bg"
+                android:background="@drawable/bg_btn_new_enable"
                 android:gravity="center">
 
                 <ImageView

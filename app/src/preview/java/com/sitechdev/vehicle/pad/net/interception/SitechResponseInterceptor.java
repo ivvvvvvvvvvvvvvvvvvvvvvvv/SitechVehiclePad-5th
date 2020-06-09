@@ -54,7 +54,7 @@ public class SitechResponseInterceptor implements Interceptor {
                 //返回登录界面，做重新登录处理
                 SitechDevLog.d(AppConst.TAG, this + "响应报错   =  : " + AppUrlConst.HTTPRESPONSE_401);
 //                EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_RELOGIN));
-                return null;
+                return response;
             case AppUrlConst.HTTPRESPONSE_403:
 //                    //需要刷新登录Token
                 oldToken = UserManager.getInstance().getUserToken();

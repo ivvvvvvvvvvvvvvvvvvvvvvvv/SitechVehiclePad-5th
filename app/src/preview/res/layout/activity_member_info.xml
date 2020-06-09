@@ -11,7 +11,7 @@
         android:id="@+id/id_top_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200px"
+        android:layout_marginTop="170px"
         android:paddingLeft="72px"
         android:paddingRight="72px">
 
@@ -24,8 +24,9 @@
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/id_img_member_logo">
+            android:layout_height="130px"
+            android:layout_toRightOf="@id/id_img_member_logo"
+            android:gravity="center_vertical">
 
             <TextView
                 android:id="@+id/id_tv_member_name"
@@ -54,7 +55,7 @@
             android:layout_height="100px"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/ico_btn_enable"
+            android:background="@drawable/bg_btn_new_enable"
             android:gravity="center_horizontal">
 
             <TextView
@@ -87,9 +88,9 @@
             android:background="@drawable/ico_btn_disable"
             android:gravity="center"
             android:text="已签到"
-            android:visibility="gone"
             android:textColor="@color/white"
-            android:textSize="30px" />
+            android:textSize="30px"
+            android:visibility="gone" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -158,12 +159,12 @@
             <TextView
                 android:id="@+id/id_tv_sign_change"
                 android:layout_width="364px"
-                android:layout_height="100px"
+                android:layout_height="88px"
                 android:layout_below="@id/id_tv_sign_count_number"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:layout_marginTop="10px"
-                android:background="@drawable/ico_btn_enable"
+                android:background="@drawable/bg_btn_new_enable"
                 android:gravity="center"
                 android:text="积分兑换"
                 android:textColor="@color/white"

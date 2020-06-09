@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.Message;
-import android.support.constraint.ConstraintLayout;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -17,7 +16,6 @@ import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.app.AppConst;
-import com.sitechdev.vehicle.pad.app.BaseWindow;
 import com.sitechdev.vehicle.pad.app.BasicWindow;
 import com.sitechdev.vehicle.pad.callback.BaseBribery;
 import com.sitechdev.vehicle.pad.event.SSOEvent;
@@ -190,6 +188,11 @@ public class PersonLoginWindow extends BasicWindow implements View.OnClickListen
                 LoginUserBean loginBean = (LoginUserBean) event.mValue;
                 if (null != loginBean) {
                     hideWnd();
+                }
+                if (LoginIntent.getInstance().getOnLoginIntent() != null) {
+                    //登录后的步骤
+                    LoginIntent.getInstance().getOnLoginIntent().onNext();
+                    LoginIntent.getInstance().setOnLoginIntent(null);
                 }
                 break;
             default:
