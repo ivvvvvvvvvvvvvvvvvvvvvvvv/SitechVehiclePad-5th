@@ -28,6 +28,7 @@ import com.sitechdev.vehicle.pad.bean.AllModuleBean;
 import com.sitechdev.vehicle.pad.module.apps.adapter.MainMenuAdapater;
 import com.sitechdev.vehicle.pad.module.apps.util.MenuBundle;
 import com.sitechdev.vehicle.pad.module.apps.util.AppsMenuConfig;
+import com.sitechdev.vehicle.pad.util.JumpUtils;
 
 /**
  *
@@ -262,9 +263,19 @@ public class AppPagerMenuGridView extends GridView implements OnItemLongClickLis
             AllModuleBean.ModuleBean menuElement = (AllModuleBean.ModuleBean) parent.getItemAtPosition(position);
             //TODO 点击事件增加
 //            Util.clickItemEvent(mContext, menuElement);
+            jumpSubApp(menuElement);
         } catch (Exception e) {
             SitechDevLog.exception(e);
         }
+    }
+
+    /**
+     * 菜单点击的跳转事件
+     *
+     * @param menuElement 菜单类
+     */
+    private void jumpSubApp(AllModuleBean.ModuleBean menuElement) {
+        JumpUtils.jump(mContext, menuElement);
     }
 
     /**

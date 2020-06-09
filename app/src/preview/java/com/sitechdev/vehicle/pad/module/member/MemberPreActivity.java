@@ -13,8 +13,8 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
-import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
+import com.sitechdev.vehicle.lib.util.StringUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.callback.BaseBribery;
@@ -26,6 +26,8 @@ import com.sitechdev.vehicle.pad.module.member.bean.TotalPointsBean;
 import com.sitechdev.vehicle.pad.module.member.util.MemberHttpUtil;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
+import com.sitechdev.vehicle.pad.util.CommonUtil;
+import com.sitechdev.vehicle.pad.util.FontUtil;
 import com.sitechdev.vehicle.pad.view.ReflectTextView;
 import com.sitechdev.vehicle.pad.window.SignDialog;
 import com.sitechdev.vehicle.pad.window.view.CommonLogoutDialog;
@@ -108,6 +110,7 @@ public class MemberPreActivity extends BaseActivity {
         mSignBtnRelaLayoutView.setOnClickListener(this);
         //积分数量
         mUserSignView.setOnClickListener(this);
+        mUserSignView.setTypeface(FontUtil.getInstance().getMainFont());
         //我的积分
         mMySignRelaLayoutView.setOnClickListener(this);
         //退出登录
@@ -146,7 +149,13 @@ public class MemberPreActivity extends BaseActivity {
             // 昵称
             mUserNameTextView.setText(String.format("Hi，%s", UserManager.getInstance().getLoginUserBean().getNickName()));
             // 描述
-            mUserDescView.setText(UserManager.getInstance().getLoginUserBean().getJob());
+            if (StringUtils.isEmpty(UserManager.getInstance().getLoginUserBean().getJob())) {
+                mUserDescView.setVisibility(View.VISIBLE);
+                mUserDescView.setText(UserManager.getInstance().getLoginUserBean().getJob());
+            } else {
+                mUserDescView.setVisibility(View.GONE);
+            }
+            //积分数量
             mUserSignView.setText(UserManager.getInstance().getLoginUserBean().getPoints());
         } else {
             //TODO 为了发布会版本做的判断处理。发布会版本暂未接入登录功能。待发布会同步登录功能后，此处判断会去掉
@@ -288,6 +297,10 @@ public class MemberPreActivity extends BaseActivity {
                 mSigninBean = (PointsSigninBean) successObj;
                 runOnUiThread(() -> {
                     mSignTvView.setText("已签到");
+                    if ("-1".equals(mSigninBean.getData().getIntegral())) {
+                        CommonUtil.showToast("今日已完成签到，记得明天再来哦");
+                        return;
+                    }
                     if (mSignDialog != null && mSignDialog.isShowing()) {
                         mSignDialog.cancelDialog();
                     }

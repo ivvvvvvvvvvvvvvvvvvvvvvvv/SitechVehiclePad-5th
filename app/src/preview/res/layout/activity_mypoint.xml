@@ -24,7 +24,7 @@
             android:layout_height="115px"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="90px"
-            android:src="@drawable/icon_my_points" />
+            android:src="@drawable/ico_my_point" />
 
         <com.sitechdev.vehicle.pad.view.ReflectTextView
             android:id="@+id/id_tv_sign_count_number"
