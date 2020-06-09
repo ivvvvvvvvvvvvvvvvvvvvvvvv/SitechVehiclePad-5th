@@ -111,7 +111,7 @@ public class AllModuleUtils {
             case 6:            //车辆状态
                 resId = R.drawable.icon_app_menu_car_status;
                 break;
-            case 7:            //模式设置
+            case 7:            //皮肤设置
                 resId = R.drawable.icon_app_menu_setting_skin;
                 break;
             case 8:             //导航

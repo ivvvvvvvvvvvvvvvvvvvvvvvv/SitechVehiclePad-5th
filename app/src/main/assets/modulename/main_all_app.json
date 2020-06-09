@@ -50,7 +50,7 @@
     },
     {
       "index": 6,
-      "appName": "模式设置",
+      "appName": "皮肤设置",
       "appIcon": 7,
       "appRoute": "/setting/skin",
       "jumpType": 0,

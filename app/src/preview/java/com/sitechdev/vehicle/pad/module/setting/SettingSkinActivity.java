@@ -43,7 +43,7 @@ public class SettingSkinActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        tvTitle.setText("模式设置");
+        tvTitle.setText("皮肤设置");
     }
 
     @Override

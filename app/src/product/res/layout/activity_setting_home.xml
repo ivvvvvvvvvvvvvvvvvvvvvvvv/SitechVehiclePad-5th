@@ -21,7 +21,7 @@
                 android:id="@+id/setting_home_item_skin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:title_name="模式设置" />
+                app:title_name="皮肤设置" />
 
             <com.sitechdev.vehicle.pad.view.SettingHomeItemView
                 android:id="@+id/setting_home_item_net"

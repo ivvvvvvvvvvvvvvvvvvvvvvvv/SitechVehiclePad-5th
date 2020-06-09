@@ -91,7 +91,7 @@
     <color name="color_taxi_main_text">#FFFFFF</color>
     <color name="color_taxi_second_text">#80FFFFFF</color>
 
-    <!--  皮肤模式设置计价器页面颜色值  -->
+    <!--  皮肤设置计价器页面颜色值  -->
     <color name="color_setting_skin_main_text">#FFFFFF</color>
     <color name="color_setting_skin_second_text">#838BA6</color>
 

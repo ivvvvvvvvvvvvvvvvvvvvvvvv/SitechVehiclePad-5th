@@ -29,7 +29,7 @@ public interface RouterConstants {
      */
     String SUB_APP_TAXI = "/subApp/taxi";
     /**
-     * 模式设置页面
+     * 皮肤设置页面
      */
     String SETTING_SKIN_PAGE = "/setting/skin";
     /**

@@ -97,6 +97,12 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         BarUtils.setNavBarVisibility(this, false);
     }
 
+//    @Override
+//    public void onConfigurationChanged(Configuration newConfig) {
+//        SitechDevLog.i("BaseActivity", "onConfigurationChanged  当前类===>" + (this.getClass()));
+//        super.onConfigurationChanged(newConfig);
+//    }
+
     @SuppressLint("NewApi")
     public void setFullScreen() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

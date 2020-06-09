@@ -528,11 +528,11 @@ public class MainActivity extends BaseActivity
         }
         tvLogin.setText(isLogin ? String.format("Hi，%s", userBean.getNickName()) : "立即登录");
         if (isLogin && userBean != null) {
-            Glide.with(MainActivity.this).load(userBean.getAvatarUrl())
+            GlideApp.with(MainActivity.this).load(userBean.getAvatarUrl())
                     .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                     .into(ivLogin);
         } else {
-            Glide.with(MainActivity.this).load(R.drawable.ico_default_member_logo)
+            GlideApp.with(MainActivity.this).load(R.drawable.ico_default_member_logo)
                     .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                     .into(ivLogin);
         }

@@ -10,14 +10,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.flyco.tablayout.SlidingTabLayout;
-import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.module.music.MusicManager;
 import com.sitechdev.vehicle.pad.module.music.adapter.MusicPagerAdapter;
 import com.sitechdev.vehicle.pad.module.music.fragment.LocalMusicFragment;
-import com.sitechdev.vehicle.pad.module.music.fragment.OtherMusicFragment;
 import com.sitechdev.vehicle.pad.module.music.service.MusicInfo;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.view.CommonToast;
@@ -70,7 +67,7 @@ public class MusicMainForShowActivity extends BaseActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        ((TextView) findViewById(R.id.tv_sub_title)).setText("儿童读物");
+        ((TextView) findViewById(R.id.tv_sub_title)).setText("本地音乐");
         vPager = findViewById(R.id.music_main_viewpager);
         mFragments = new ArrayList<>();
         mFragments.add(LocalMusicFragment.newInstance());
