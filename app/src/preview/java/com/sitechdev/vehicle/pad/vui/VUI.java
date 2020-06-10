@@ -33,6 +33,7 @@ import com.sitechdev.vehicle.pad.event.WindowEvent;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.module.forshow.MusicKaolaForShowActivity;
+import com.sitechdev.vehicle.pad.module.login.util.LoginUtils;
 import com.sitechdev.vehicle.pad.module.main.MainActivity;
 import com.sitechdev.vehicle.pad.module.music.MusicMainActivity;
 import com.sitechdev.vehicle.pad.module.music.MusicManager;
@@ -41,6 +42,7 @@ import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppUtil;
 import com.sitechdev.vehicle.pad.util.AppVariants;
 import com.sitechdev.vehicle.pad.util.AudioUtil;
+import com.sitechdev.vehicle.pad.window.view.PersonLoginWindow;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -920,10 +922,16 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                     shut();
                                     break;
                                 case "个人中心":
-                                    log("正在打开个人中心");
-                                    EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_OPEN_MEMBER_INFO_PAGE));
-                                    shutAndTTS("好的，已为您打开个人中心");
-                                    shut();
+                                    if (LoginUtils.isLogin()) {
+                                        PersonLoginWindow.getInstance().showWnd(() -> EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_OPEN_MEMBER_INFO_PAGE)));
+                                        shutAndTTS("我还没有权限打开个人中心，请您登录授权。");
+                                        shut();
+                                    } else {
+                                        log("正在打开个人中心");
+                                        EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_OPEN_MEMBER_INFO_PAGE));
+                                        shutAndTTS("好的，已为您打开个人中心");
+                                        shut();
+                                    }
                                     break;
                                 case "本地音乐":
                                     if (null == AppVariants.currentActivity || !(AppVariants.currentActivity instanceof MusicMainActivity)) {
