@@ -57,7 +57,7 @@ import java.util.List;
 public class MusicKaolaActivity extends BaseActivity implements
         VoiceSourceManager.MusicChangeListener, VoiceSourceManager.onPlaySourceMusicChangeListener {
     private static final String TAG = "MusicKaolaActivity";
-    public static String title = "";
+    public String title = "";
 
     private Context mContext;
     //new

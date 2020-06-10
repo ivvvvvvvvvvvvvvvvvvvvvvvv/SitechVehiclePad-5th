@@ -249,17 +249,23 @@ public class KaolaAudioSubPageFrag extends BaseFragment {
             if (i == index) {
                 if (data.get(i) != null && data.get(i).getColumnMembers() != null && childIndex < data.get(i).getColumnMembers().size()) {
                     ColumnMember ready2playColumn = data.get(i).getColumnMembers().get(childIndex);
+                    boolean playResult = false;
                     KaolaPlayManager.SingletonHolder.INSTANCE.setCurPlayingAlbumTitle(ready2playColumn.getTitle());
                     if (null != ready2playColumn && ready2playColumn instanceof RadioDetailColumnMember) {
                         PlayerListManager.getInstance().clearPlayList();
                         KaolaPlayManager.SingletonHolder.INSTANCE.playPgc(getActivity(), ((RadioDetailColumnMember) ready2playColumn).getRadioId());
                         KaolaPlayManager.SingletonHolder.INSTANCE.setCurPlayingAlbumTitle(ready2playColumn.getTitle());
                         KaolaPlayManager.SingletonHolder.INSTANCE.setCurPlayingAlbumCover(ready2playColumn.getImageFiles());
+                        playResult = true;
                     }else if (null != ready2playColumn && ready2playColumn instanceof AlbumDetailColumnMember) {
                         PlayerListManager.getInstance().clearPlayList();
                         KaolaPlayManager.SingletonHolder.INSTANCE.playAlbum(getActivity(), ((AlbumDetailColumnMember) ready2playColumn).getAlbumId());
                         KaolaPlayManager.SingletonHolder.INSTANCE.setCurPlayingAlbumTitle(ready2playColumn.getTitle());
                         KaolaPlayManager.SingletonHolder.INSTANCE.setCurPlayingAlbumCover(ready2playColumn.getImageFiles());
+                        playResult = true;
+                    }
+                    if (playResult) {
+                        KaolaPlayManager.SingletonHolder.INSTANCE.setCurPlayingAlbumTitle(ready2playColumn.getTitle());
                     }
                     break;
                 }
