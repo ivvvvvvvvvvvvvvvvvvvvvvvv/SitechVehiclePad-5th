@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.blankj.utilcode.util.ScreenUtils;
 import com.kaolafm.sdk.core.mediaplayer.PlayItem;
 import com.sitechdev.vehicle.lib.event.BindEventBus;
 import com.sitechdev.vehicle.lib.imageloader.GlideApp;
@@ -64,12 +65,22 @@ public class KaolaAudioActivity extends BaseActivity implements
     private VoiceSourceManager.onPlaySourceMusicChangeListener sourceListener = new VoiceSourceManager.onPlaySourceMusicChangeListener() {
         @Override
         public void onMusicPause() {
-            play.setImageResource(R.drawable.pc_play);
+            if (!ScreenUtils.isLandscape()) {
+                return;
+            }
+            if (play != null) {
+                play.setImageResource(R.drawable.pc_play);
+            }
         }
 
         @Override
         public void onMusicResume() {
-            play.setImageResource(R.drawable.pc_pause);
+            if (!ScreenUtils.isLandscape()) {
+                return;
+            }
+            if (play != null) {
+                play.setImageResource(R.drawable.pc_pause);
+            }
         }
 
         @Override
@@ -79,10 +90,19 @@ public class KaolaAudioActivity extends BaseActivity implements
 
         @Override
         public void onMusicPlaying(PlayItem item) {
-            title.setText(item.getTitle());
-            subTitle.setText(" - "+item.getAlbumName());
+            if (!ScreenUtils.isLandscape()) {
+                return;
+            }
+            if (title != null) {
+                title.setText(item.getTitle());
+            }
+            if (subTitle != null) {
+                subTitle.setText(" - " + item.getAlbumName());
+            }
             GlideApp.with(KaolaAudioActivity.this).load(item.getAlbumPic()).into(icon);
-            play.setImageResource(R.drawable.pc_pause);
+            if (play != null) {
+                play.setImageResource(R.drawable.pc_pause);
+            }
         }
 
         @Override
@@ -95,6 +115,7 @@ public class KaolaAudioActivity extends BaseActivity implements
 
         }
     };
+
     // 初始化页面集合的方法
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -250,20 +271,34 @@ public class KaolaAudioActivity extends BaseActivity implements
     }
 
 
-
     @Override
     public void onMusicChange(String name) {
-        title.setText(name);
+        if (!ScreenUtils.isLandscape()) {
+            return;
+        }
+        if (title != null) {
+            title.setText(name);
+        }
     }
 
     @Override
     public void pause() {
-        play.setImageResource(R.drawable.pc_play);
+        if (!ScreenUtils.isLandscape()) {
+            return;
+        }
+        if (play != null) {
+            play.setImageResource(R.drawable.pc_play);
+        }
     }
 
     @Override
     public void resume() {
-        play.setImageResource(R.drawable.pc_pause);
+        if (!ScreenUtils.isLandscape()) {
+            return;
+        }
+        if (play != null) {
+            play.setImageResource(R.drawable.pc_pause);
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -305,6 +340,7 @@ public class KaolaAudioActivity extends BaseActivity implements
             set.start();
         }
     }
+
     private void unselectTabAni(View view) {
         if (null != view) {
             ValueAnimator animx = ObjectAnimator

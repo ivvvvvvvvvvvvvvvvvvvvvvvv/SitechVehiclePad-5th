@@ -13,4 +13,22 @@
         layout="@layout/common_kaola_mutil_title_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp"
+        android:layout_width="match_parent"
+        android:layout_height="570px" />
+
+    <include
+        android:id="@+id/player_holder"
+        layout="@layout/kaola_player_holder_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="140px"
+        android:layout_marginTop="10px"
+        android:layout_marginLeft="60px"
+        android:layout_marginRight="60px" />
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="300px" />
 </LinearLayout>

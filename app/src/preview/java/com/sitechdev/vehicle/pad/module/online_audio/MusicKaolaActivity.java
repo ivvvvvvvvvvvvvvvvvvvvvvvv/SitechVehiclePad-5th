@@ -14,6 +14,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.blankj.utilcode.util.ScreenUtils;
 import com.kaolafm.opensdk.api.operation.model.column.AlbumDetailColumnMember;
 import com.kaolafm.opensdk.api.operation.model.column.Column;
 import com.kaolafm.opensdk.api.operation.model.column.ColumnMember;
@@ -495,6 +496,9 @@ public class MusicKaolaActivity extends BaseActivity implements
 
     @Override
     public void onMusicPlaying(PlayItem item) {
+        if (!ScreenUtils.isLandscape()) {
+            return;
+        }
         seekUpdateFlag = true;
         if (tv_bottom_title != null && item != null) {
             tv_bottom_title.setText(item.getTitle());
@@ -510,6 +514,9 @@ public class MusicKaolaActivity extends BaseActivity implements
 
     @Override
     public void onMusicPlayEnd(PlayItem item) {
+        if (!ScreenUtils.isLandscape()) {
+            return;
+        }
         int curPosition = PlayerListManager.getInstance().getCurPosition();
         if (mCurPosition != curPosition) {
             mCurPosition = curPosition;
@@ -523,6 +530,9 @@ public class MusicKaolaActivity extends BaseActivity implements
 
     @Override
     public void onMusicPlayProgress(String url, int position, int duration, boolean isPreDownloadComplete) {
+        if (!ScreenUtils.isLandscape()) {
+            return;
+        }
         seekStartTime.setText(KaolaPlayManager.getShowTimeString(position));
         if (seekUpdateFlag) {
             musicSeekBar.setProgress(position);

@@ -1,7 +1,11 @@
 package com.sitechdev.vehicle.pad.manager;
 
+import android.app.PendingIntent;
+import android.content.Intent;
+
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.AppUtils;
+import com.sitechdev.vehicle.lib.util.CrashHandler;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.XTIDUtil;
 import com.sitechdev.vehicle.pad.app.AppApplication;
@@ -42,6 +46,11 @@ public class AppManager {
         XTIDUtil.init(appApplication);
         //app
         AppUtils.init(appApplication);
+
+        Intent mIntent = new Intent();
+        mIntent.setAction("com.sitechdev.vehicle");
+        PendingIntent intent = PendingIntent.getActivity(appApplication, 1000, mIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        CrashHandler.getInstance().init(appApplication, intent);
     }
 
     @Subscribe(threadMode = ThreadMode.POSTING)
