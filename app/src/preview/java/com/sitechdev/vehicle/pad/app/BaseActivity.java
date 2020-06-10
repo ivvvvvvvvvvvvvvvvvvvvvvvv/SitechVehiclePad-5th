@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.blankj.utilcode.util.BarUtils;
+import com.blankj.utilcode.util.ScreenUtils;
 import com.sitechdev.vehicle.lib.event.BindBus;
 import com.sitechdev.vehicle.lib.event.BindEventBus;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
@@ -28,10 +29,12 @@ import com.sitechdev.vehicle.lib.util.ActivityManager;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.module.main.MainActivity;
+import com.sitechdev.vehicle.pad.module.splash.SplashActivity;
 import com.sitechdev.vehicle.pad.util.AppUtil;
 import com.sitechdev.vehicle.pad.view.CommonDialog;
 import com.sitechdev.vehicle.pad.view.CommonProgressDialog;
 import com.sitechdev.vehicle.pad.view.ToolbarView;
+import com.sitechdev.vehicle.pad.window.view.CommonScreenTipDialog;
 
 /**
  * 项目名称：SitechVehiclePad
@@ -70,20 +73,44 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         setFullScreen();
         initToolBarView();
         setContentView(getLayoutId());
-        if (this.getClass().isAnnotationPresent(BindEventBus.class)) {
-            EventBusUtils.register(this);
+        if (!isShowTipDialog()) {
+            if (this.getClass().isAnnotationPresent(BindEventBus.class)) {
+                EventBusUtils.register(this);
+            }
+            if (this.getClass().isAnnotationPresent(BindBus.class)) {
+                XtBusUtil.register(this);
+            }
+            ActivityManager.getInstance().addActivity(this);
+            initViewBefore();
+            //无需检查权限
+            initView(savedInstanceState);
+            if (!checkPermission()) {
+                initData();
+                initListener();
+            }
+        } else {
+            onShowOriDialog();
         }
-        if (this.getClass().isAnnotationPresent(BindBus.class)) {
-            XtBusUtil.register(this);
-        }
-        ActivityManager.getInstance().addActivity(this);
-        initViewBefore();
-        //无需检查权限
-        initView(savedInstanceState);
-        if (!checkPermission()) {
-            initData();
-            initListener();
-        }
+    }
+
+    /**
+     * 竖屏并且不是欢迎页和首页的情况下
+     *
+     * @return true=弹出提示窗口
+     */
+    public boolean isShowTipDialog() {
+        return !ScreenUtils.isLandscape()
+                && (getClass() != SplashActivity.class) && (getClass() != MainActivity.class);
+    }
+
+    /**
+     * 展示横屏提示窗口。
+     * 该方法是为了预览发布会版本使用。除了首页外，其余各个页面均不能使用竖屏
+     */
+    public void onShowOriDialog() {
+        CommonScreenTipDialog tipDialog = new CommonScreenTipDialog(this);
+        tipDialog.setListener(this::finish);
+        tipDialog.show();
     }
 
     @Override
