@@ -36,6 +36,8 @@ import com.sitechdev.vehicle.pad.module.forshow.MusicKaolaForShowActivity;
 import com.sitechdev.vehicle.pad.module.main.MainActivity;
 import com.sitechdev.vehicle.pad.module.music.MusicMainActivity;
 import com.sitechdev.vehicle.pad.module.music.MusicManager;
+import com.sitechdev.vehicle.pad.router.RouterConstants;
+import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppUtil;
 import com.sitechdev.vehicle.pad.util.AppVariants;
 import com.sitechdev.vehicle.pad.util.AudioUtil;
@@ -545,6 +547,9 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                             case "AIradio_random":
                                 gotoPlay(new Random().nextInt(4), new Random().nextInt(6));
                                 break;
+//                            case "AIradio_broadcast":
+//                                analysisBroadcast(semantic);
+//                                break;
                             case "INSTRUCTION":
                                 doMusicControl(semantic);
                                 break;
@@ -781,7 +786,8 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                     case "cmdAction":
                                         String template = semantic.optString("template");
                                         if ("{sitechaction}{appname}".equals(template)
-                                                || "{sitechaction}{pricecounter}".equals(template)) {
+                                                || "{sitechaction}{pricecounter}".equals(template)
+                                                || "{sitechaction}{page}".equals(template)) {
                                             doSitechactionWithAppName(semantic);
                                         } else {
                                             vuiAnr();
@@ -819,6 +825,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
             int len = slots.length();
             String sitechaction = null;
             String appname = null;
+            String page = null;
             String appnameTag = null;
             String priceCounter = null;
             if (len > 0) {
@@ -831,6 +838,11 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                         }
                         if (TextUtils.equals(slot.optString("name"), "appname")) {
                             appname = slot.optString("value");
+                            appnameTag = slot.optString("normValue");
+                            continue;
+                        }
+                        if (TextUtils.equals(slot.optString("name"), "page")) {
+                            page = slot.optString("value");
                             appnameTag = slot.optString("normValue");
                             continue;
                         }
@@ -870,9 +882,25 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                 shut();
                                 break;
                             }
+                            if(appnameTag.equals("page")){
+                                switch (page) {
+                                    case "首页":
+                                    case "主页":
+                                        if (null == AppVariants.currentActivity || !(AppVariants.currentActivity instanceof MainActivity)) {
+                                            Intent goMain = new Intent();
+                                            goMain.setClass(context, MainActivity.class);
+                                            context.startActivity(goMain);
+                                            shut();
+                                        } else {
+                                            shutAndTTS("您当前已在首页");
+                                        }
+                                        break;
+                                }
+                            }
                             switch (appname) {
                                 case "皮肤设置":
                                 case "主题设置":
+                                case "设置":
                                     log("正在打开皮肤设置");
                                     EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_OPEN_SETTING_SKIN_PAGE));
                                     shutAndTTS("好的，已为您打开皮肤设置");
@@ -897,16 +925,6 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                     shutAndTTS("好的，已为您打开个人中心");
                                     shut();
                                     break;
-                                case "首页":
-                                    if (null == AppVariants.currentActivity || !(AppVariants.currentActivity instanceof MainActivity)) {
-                                        Intent goMain = new Intent();
-                                        goMain.setClass(context, MainActivity.class);
-                                        context.startActivity(goMain);
-                                        shut();
-                                    } else {
-                                        shutAndTTS("您当前已在首页");
-                                    }
-                                    break;
                                 case "本地音乐":
                                     if (null == AppVariants.currentActivity || !(AppVariants.currentActivity instanceof MusicMainActivity)) {
                                         Intent goMusicMain = new Intent();
@@ -918,10 +936,30 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                         shutAndTTS("您当前已在本地音乐");
                                     }
                                     break;
-                                case "qq音乐":
+                                case "QQ音乐":
                                     AppUtil.goOtherActivity(context, "QQ音乐", "com.tencent.qqmusiccar",
                                             "com.tencent.qqmusiccar.app.activity.AppStarterActivity");
                                     shut();
+                                    break;
+                                case "天气":
+                                    shutAndTTS("好的，正在为您打开天气");
+                                    shut();
+                                    RouterUtils.getInstance().navigation(RouterConstants.SUB_APP_WEATHER);
+                                    break;
+                                case "听伴":
+                                    shutAndTTS("好的，正在为您打开听伴");
+                                    shut();
+                                    RouterUtils.getInstance().navigation(RouterConstants.MUSIC_PLAY_ONLINE_MAIN);
+                                    break;
+                                case "导航":
+                                case "网络音乐":
+                                case "LED表情管理":
+                                case "表情管理":
+                                case "视频":
+                                case "电话":
+                                case "饭聊":
+                                case "商城":
+                                    shutAndTTS("努力开发中，尽请期待");
                                     break;
                                 default:
                                     vuiAnr();
@@ -1285,6 +1323,21 @@ public class VUI implements VUIWindow.OnWindowHideListener {
         }
     }
 
+    private void analysisBroadcast(JSONObject semantic) {
+        String template = semantic.optString("template");
+        JSONArray slots = semantic.optJSONArray("slots");
+        if (null != slots && slots.length() > 0) {
+            for (int i = 0; i < slots.length(); i++) {
+                JSONObject slot = slots.optJSONObject(i);
+                String name = slot.optString("name");
+                if ("broadcast_keyword".equals(slot.optString("normValue"))) {
+                    String va = slot.optString("value");
+
+                }
+            }
+        }
+    }
+
     private void playKaoLa(JSONObject semantic, int index) {
         playKaoLa(semantic, index, false);
     }
@@ -1332,7 +1385,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                 }
             }
         } finally {
-            if(doFinally){
+            if (doFinally) {
                 shutAndTTS(defaultPlayTTS);
                 gotoPlay(index, -1);
             }
@@ -1346,10 +1399,10 @@ public class VUI implements VUIWindow.OnWindowHideListener {
         shut();
     }
 
-    private boolean getAIRadioItem(String appname) {
+    private boolean getAIRadioItem(String name) {
         int index = -1;
         int deepIndex = -1;
-        switch (appname) {
+        switch (name) {
             case "新闻电台":
                 index = 1;
                 deepIndex = 0;
@@ -1451,13 +1504,13 @@ public class VUI implements VUIWindow.OnWindowHideListener {
         }
         if (index >= 0) {
             //intent to kaola
-            toKaolaPage(appname, index, deepIndex);
+            toKaolaPage(name, index, deepIndex);
             return true;
         }
         return false;
     }
 
-    private void doMusicControl(JSONObject semantic){
+    private void doMusicControl(JSONObject semantic) {
         JSONArray slots = semantic.optJSONArray("slots");
         int len = slots.length();
         if (null != slots && len > 0) {

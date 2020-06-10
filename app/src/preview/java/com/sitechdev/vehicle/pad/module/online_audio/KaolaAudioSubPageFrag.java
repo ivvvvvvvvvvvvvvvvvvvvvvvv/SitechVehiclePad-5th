@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.kaolafm.opensdk.api.operation.model.column.AlbumDetailColumnMember;
 import com.kaolafm.opensdk.api.operation.model.column.Column;
 import com.kaolafm.opensdk.api.operation.model.column.ColumnMember;
 import com.kaolafm.opensdk.api.operation.model.column.RadioDetailColumnMember;
@@ -101,7 +102,12 @@ public class KaolaAudioSubPageFrag extends BaseFragment {
     private void toPlaylist(ColumnMember column){
         Bundle bundle = new Bundle();
         bundle.putSerializable(Constant.KEY_TYPE_KEY, Constant.TYPE.FIRST_ENTERED);
-        bundle.putLong(Constant.KEY_MEMBER_CODE, ((RadioDetailColumnMember) column).getRadioId());
+        if (column instanceof RadioDetailColumnMember) {
+            bundle.putLong(Constant.KEY_MEMBER_CODE, ((RadioDetailColumnMember) column).getRadioId());
+        } else if (column instanceof AlbumDetailColumnMember) {
+            bundle.putLong(Constant.KEY_MEMBER_CODE, ((AlbumDetailColumnMember) column).getAlbumId());
+            bundle.putBoolean(Constant.KEY_IS_ALBUM, true);
+        }
         if(column.getImageFiles() != null){
             if(column.getImageFiles().containsKey("cover")){
                 bundle.putString(Constant.KEY_IMG_URL, column.getImageFiles().get("cover").getUrl());
