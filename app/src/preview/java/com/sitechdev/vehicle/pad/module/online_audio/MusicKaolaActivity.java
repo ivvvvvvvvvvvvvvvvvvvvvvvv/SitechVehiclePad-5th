@@ -168,7 +168,9 @@ public class MusicKaolaActivity extends BaseActivity implements
             title = KaolaPlayManager.SingletonHolder.INSTANCE.getCurPlayingAlbumTitle();
         }
         GlideApp.with(this).load(imageUrl).placeholder(R.drawable.default_audio_round).circleCrop().into(musicImageView);
-        tv_title.setText(title);
+        if (tv_title != null) {
+            tv_title.setText(title);
+        }
     }
 
     private void initPlayListView() {
@@ -533,15 +535,19 @@ public class MusicKaolaActivity extends BaseActivity implements
         if (!ScreenUtils.isLandscape()) {
             return;
         }
-        seekStartTime.setText(KaolaPlayManager.getShowTimeString(position));
-        if (seekUpdateFlag) {
+        if (seekStartTime != null) {
+            seekStartTime.setText(KaolaPlayManager.getShowTimeString(position));
+        }
+        if (seekUpdateFlag && musicSeekBar != null) {
             musicSeekBar.setProgress(position);
         }
-        if (duration != musicSeekBar.getMax()) {
+        if (musicSeekBar != null && (duration != musicSeekBar.getMax())) {
             musicSeekBar.setMax(duration);
         }
-        if (!KaolaPlayManager.getShowTimeString(duration).equals(seekEndTime.getText().toString())) {
-            seekEndTime.setText(KaolaPlayManager.getShowTimeString(duration));
+        if (seekEndTime != null && !KaolaPlayManager.getShowTimeString(duration).equals(seekEndTime.getText().toString())) {
+            if (seekEndTime != null) {
+                seekEndTime.setText(KaolaPlayManager.getShowTimeString(duration));
+            }
         }
     }
 
@@ -578,7 +584,9 @@ public class MusicKaolaActivity extends BaseActivity implements
             if (i == index) {
                 if (data.get(i) != null && data.get(i).getColumnMembers() != null && childIndex < data.get(i).getColumnMembers().size()) {
                     ColumnMember ready2playColumn = data.get(i).getColumnMembers().get(childIndex);
-                    tv_title.setText(ready2playColumn.getTitle());
+                    if (tv_title != null) {
+                        tv_title.setText(ready2playColumn.getTitle());
+                    }
                     KaolaPlayManager.SingletonHolder.INSTANCE.setCurPlayingAlbumTitle(ready2playColumn.getTitle());
                     if (null != ready2playColumn && ready2playColumn instanceof RadioDetailColumnMember) {
                         PlayerListManager.getInstance().clearPlayList();
