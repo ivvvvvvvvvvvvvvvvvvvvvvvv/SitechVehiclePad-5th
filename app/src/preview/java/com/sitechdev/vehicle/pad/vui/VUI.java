@@ -527,19 +527,19 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                         switch (semantic.optString("intent")) {
                             //新特速报
                             case "AIradio_news":
-                                playKaoLa(semantic, 0);
+                                playKaoLa(semantic, 1);
                                 break;
                             //少儿读物
                             case "AIradio_kid":
-                                playKaoLa(semantic, 1);
+                                playKaoLa(semantic, 2);
                                 break;
                             //车嗨娱乐
                             case "AIradio_joke":
-                                playKaoLa(semantic, 2);
+                                playKaoLa(semantic, 3);
                                 break;
                             //生活一点通
                             case "AIradio_life":
-                                playKaoLa(semantic, 3);
+                                playKaoLa(semantic, 4);
                                 break;
                             //随机音频
                             case "AIradio_random":
@@ -1292,13 +1292,13 @@ public class VUI implements VUIWindow.OnWindowHideListener {
     private void playKaoLa(JSONObject semantic, int index, boolean autoRandomPlay) {
         boolean doFinally = true;
         String defaultPlayTTS = "";
-        if (index == 0) {
+        if (index == 1) {
             defaultPlayTTS = "正在为您打开新特速报";
-        } else if (index == 1) {
-            defaultPlayTTS = "正在为您打开少儿读物";
         } else if (index == 2) {
-            defaultPlayTTS = "正在为您打开车嗨娱乐";
+            defaultPlayTTS = "正在为您打开少儿读物";
         } else if (index == 3) {
+            defaultPlayTTS = "正在为您打开车嗨娱乐";
+        } else if (index == 4) {
             defaultPlayTTS = "正在为您打开生活一点通";
         }
         try {
@@ -1322,7 +1322,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                             doFinally = !result;
                         } else if (null != slot && "main_classify".equals(slot.optString("normValue"))) {
                             shutAndTTS(defaultPlayTTS);
-                            gotoPlay(index, autoPlay || autoRandomPlay ? new Random().nextInt(index == 1 ? 5 : 6) : -1);
+                            gotoPlay(index, autoPlay || autoRandomPlay ? new Random().nextInt(index == 2 ? 5 : 6) : -1);//index == 2 ? 5 : 6 少儿读物  英语儿歌 音源缺失
                             doFinally = false;
                         }
                         return;
@@ -1351,101 +1351,101 @@ public class VUI implements VUIWindow.OnWindowHideListener {
         int deepIndex = -1;
         switch (appname) {
             case "新闻电台":
-                index = 0;
+                index = 1;
                 deepIndex = 0;
                 break;
             case "热点快讯":
-                index = 0;
+                index = 1;
                 deepIndex = 1;
                 break;
             case "环球时政":
-                index = 0;
+                index = 1;
                 deepIndex = 2;
                 break;
             case "汽车电台":
-                index = 0;
+                index = 1;
                 deepIndex = 3;
                 break;
             case "财经快讯":
-                index = 0;
+                index = 1;
                 deepIndex = 4;
                 break;
             case "娱乐":
-                index = 0;
+                index = 1;
                 deepIndex = 5;
                 break;
             case "搞定熊孩子":
-                index = 1;
+                index = 2;
                 deepIndex = 0;
                 break;
             case "童谣儿歌":
-                index = 1;
+                index = 2;
                 deepIndex = 1;
                 break;
             case "萌娃故事汇":
-                index = 1;
+                index = 2;
                 deepIndex = 2;
                 break;
             case "跟我学英语":
-                index = 1;
+                index = 2;
                 deepIndex = 3;
                 break;
             case "诗词歌赋":
-                index = 1;
+                index = 2;
                 deepIndex = 4;
                 break;
             case "英语儿歌":
             case "儿童英语儿歌故事":
-                index = 1;
+                index = 2;
                 deepIndex = 5;
                 break;
             case "相声电台":
             case "相声频道":
-                index = 2;
+                index = 3;
                 deepIndex = 0;
                 break;
-            case "堵车不堵心":
-                index = 2;
+            case "爆笑段子":
+                index = 3;
                 deepIndex = 1;
                 break;
-            case "爆笑段子":
-                index = 2;
+            case "闲聊脱口秀":
+                index = 3;
                 deepIndex = 2;
                 break;
-            case "闲聊脱口秀":
-                index = 2;
+            case "搞笑电台":
+                index = 3;
                 deepIndex = 3;
                 break;
-            case "搞笑电台":
-                index = 2;
+            case "堵车不堵心":
+                index = 3;
                 deepIndex = 4;
                 break;
             case "情景喜剧":
-                index = 2;
+                index = 3;
                 deepIndex = 5;
                 break;
             case "生活百科":
-                index = 3;
+                index = 4;
                 deepIndex = 0;
                 break;
             case "健康保鲜剂":
-                index = 3;
+                index = 4;
                 deepIndex = 1;
                 break;
             case "美食家":
-                index = 3;
+                index = 4;
                 deepIndex = 2;
                 break;
             case "旅行家":
-                index = 3;
+                index = 4;
                 deepIndex = 3;
                 break;
             case "运动健身":
-                index = 3;
+                index = 4;
                 deepIndex = 4;
                 break;
             case "情感故事":
-                index = 3;
+                index = 4;
                 deepIndex = 5;
                 break;
         }

@@ -10,16 +10,16 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.kaolafm.sdk.core.mediaplayer.PlayItem;
 import com.sitechdev.vehicle.lib.event.BindEventBus;
 import com.sitechdev.vehicle.lib.imageloader.GlideApp;
-import com.sitechdev.vehicle.lib.util.Constant;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.event.TeddyEvent;
@@ -43,7 +43,12 @@ import java.util.List;
 public class KaolaAudioActivity extends BaseActivity implements
         VoiceSourceManager.MusicChangeListener {
     private static final String TAG = "MusicKaolaForShowActivity";
-
+    @Autowired
+    public int deepIndex = -1;
+    @Autowired
+    public int pageIndex = -1;
+    @Autowired
+    public boolean playIfSuspend = false;
     private Context mContext;
     //new
     private TabLayout tabLayout;
@@ -90,11 +95,11 @@ public class KaolaAudioActivity extends BaseActivity implements
 
         }
     };
-    private int defaultRecommendIndex = 0;//默认进入标签页
     // 初始化页面集合的方法
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mContext = this;
+        ARouter.getInstance().inject(this);
         super.onCreate(savedInstanceState);
         VoiceSourceManager.getInstance().addMusicChangeListener(this);
         KaolaPlayManager.SingletonHolder.INSTANCE.addPlayVoiceSourceManagerListener(sourceListener);
@@ -113,9 +118,11 @@ public class KaolaAudioActivity extends BaseActivity implements
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        defaultRecommendIndex = getIntent().getIntExtra(Constant.KEY_DEFAULT_INDEX,0);
         initFrags();
         initTabLayout();
+        if (KaolaPlayManager.SingletonHolder.INSTANCE.isPlaying(this)) {
+            GlideApp.with(KaolaAudioActivity.this).load(KaolaPlayManager.SingletonHolder.INSTANCE.getCurPlayingItem().getAlbumPic()).into(icon);
+        }
     }
 
     @Override
@@ -170,7 +177,7 @@ public class KaolaAudioActivity extends BaseActivity implements
     }
 
     private void initFrags() {
-        fragmentlist.add(new KaolaAudioSubPageFrag(defaultRecommendIndex, 0));
+        fragmentlist.add(new KaolaAudioSubPageFrag(pageIndex, deepIndex, playIfSuspend));
         fragmentlist.add(new KaolaAudioCategoryPageFrag());
         fragmentlist.add(new KaolaAudioBroadcastPageFrag());
         fragmentlist.add(new KaolaAudioSearchPageFrag());
@@ -241,6 +248,8 @@ public class KaolaAudioActivity extends BaseActivity implements
         selectTabAni(text);
         text.setAlpha(1f);
     }
+
+
 
     @Override
     public void onMusicChange(String name) {
@@ -318,4 +327,5 @@ public class KaolaAudioActivity extends BaseActivity implements
             set.start();
         }
     }
+
 }

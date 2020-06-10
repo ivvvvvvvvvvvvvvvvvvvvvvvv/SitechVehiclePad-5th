@@ -386,24 +386,32 @@ public class MainActivity extends BaseActivity
 //                startActivity(goMusic);
                 break;
             case R.id.ll_news:
-                Bundle bundle0 = new Bundle();
-                bundle0.putInt(Constant.KEY_DEFAULT_INDEX, 1);
-                RouterUtils.getInstance().navigation(RouterConstants.MUSIC_PLAY_ONLINE_MAIN, bundle0);
+                RouterUtils.getInstance().getPostcard(RouterConstants.MUSIC_PLAY_ONLINE_MAIN)
+                        .withInt("pageIndex", 1)
+                        .withInt("deepIndex", 1)
+                        .withBoolean("playIfSuspend", true)
+                        .navigation();
                 break;
             case R.id.ll_book:
-                Bundle bundle1 = new Bundle();
-                bundle1.putInt(Constant.KEY_DEFAULT_INDEX, 2);
-                RouterUtils.getInstance().navigation(RouterConstants.MUSIC_PLAY_ONLINE_MAIN, bundle1);
+                RouterUtils.getInstance().getPostcard(RouterConstants.MUSIC_PLAY_ONLINE_MAIN)
+                        .withInt("pageIndex", 2)
+                        .withInt("deepIndex", 1)
+                        .withBoolean("playIfSuspend", true)
+                        .navigation();
                 break;
             case R.id.ll_car:
-                Bundle bundle2 = new Bundle();
-                bundle2.putInt(Constant.KEY_DEFAULT_INDEX, 3);
-                RouterUtils.getInstance().navigation(RouterConstants.MUSIC_PLAY_ONLINE_MAIN, bundle2);
+                RouterUtils.getInstance().getPostcard(RouterConstants.MUSIC_PLAY_ONLINE_MAIN)
+                        .withInt("pageIndex", 3)
+                        .withInt("deepIndex", 1)
+                        .withBoolean("playIfSuspend", true)
+                        .navigation();
                 break;
             case R.id.ll_life:
-                Bundle bundle3 = new Bundle();
-                bundle3.putInt(Constant.KEY_DEFAULT_INDEX, 4);
-                RouterUtils.getInstance().navigation(RouterConstants.MUSIC_PLAY_ONLINE_MAIN, bundle3);
+                RouterUtils.getInstance().getPostcard(RouterConstants.MUSIC_PLAY_ONLINE_MAIN)
+                        .withInt("pageIndex", 4)
+                        .withInt("deepIndex", 1)
+                        .withBoolean("playIfSuspend", true)
+                        .navigation();
                 break;
             case R.id.ll_car_power_info:
 //                Intent tempIntent = new Intent(MainActivity.this, CarStatusPreActivity.class);

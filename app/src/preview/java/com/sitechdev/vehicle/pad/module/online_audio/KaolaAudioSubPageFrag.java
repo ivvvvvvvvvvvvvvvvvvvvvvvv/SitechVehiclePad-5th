@@ -2,6 +2,7 @@ package com.sitechdev.vehicle.pad.module.online_audio;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -9,9 +10,11 @@ import com.kaolafm.opensdk.api.operation.model.column.Column;
 import com.kaolafm.opensdk.api.operation.model.column.ColumnMember;
 import com.kaolafm.opensdk.api.operation.model.column.RadioDetailColumnMember;
 import com.kaolafm.sdk.core.mediaplayer.PlayerListManager;
+import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.Constant;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.bean.BaseFragment;
+import com.sitechdev.vehicle.pad.event.AppEvent;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.model.kaola.KaolaDataWarpper;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
@@ -20,6 +23,9 @@ import com.sitechdev.vehicle.pad.util.AppVariants;
 import com.sitechdev.vehicle.pad.view.Indexable;
 import com.sitechdev.vehicle.pad.view.ListIndicatorRecycview;
 import com.sitechdev.vehicle.pad.view.SpaceItemDecoration;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,18 +48,30 @@ public class KaolaAudioSubPageFrag extends BaseFragment {
     private RecyclerView recyclerView;
     private ListIndicatorRecycview indecator;
     private KaolaAIListAdapter adapter;
-    private ColumnMember ready2playColumn;
+    private boolean playIfSuspend;//自动播放是否判断当前播放状态
     private int defaultIndex;
     private int defaultSubIndex = 0;
-
+    private List<Column> originData;
     public KaolaAudioSubPageFrag() {
 
     }
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBusUtils.register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBusUtils.unregister(this);
+    }
 
     @SuppressLint("ValidFragment")
-    public KaolaAudioSubPageFrag(int defaultIndex, int subIndex) {
+    public KaolaAudioSubPageFrag(int defaultIndex, int subIndex,boolean playIfSuspend) {
+        this.playIfSuspend = playIfSuspend;
         this.defaultIndex = defaultIndex;
-        this.defaultSubIndex = subIndex;
+        this.defaultSubIndex = subIndex >= 0 ? subIndex : 0;
     }
 
     @Override
@@ -110,23 +128,14 @@ public class KaolaAudioSubPageFrag extends BaseFragment {
 
                 @Override
                 public void onDataGot(List<Column> data) {
-                    if (!KaolaPlayManager.SingletonHolder.INSTANCE.isPlaying(getActivity())) {
-                        //当前未播放资源   播放数据中defaultIndex 下面defaultSubIndex 内容
-                        final int index = defaultIndex;
-                        for (int i = 0; i < data.size(); i++) {
-                            if (i == index) {
-                                if (data.get(i) != null && data.get(i).getColumnMembers() != null && defaultSubIndex < data.get(i).getColumnMembers().size()) {
-                                    ready2playColumn = data.get(i).getColumnMembers().get(defaultSubIndex);
-                                    if (null != ready2playColumn && ready2playColumn instanceof RadioDetailColumnMember) {
-                                        PlayerListManager.getInstance().clearPlayList();
-                                        KaolaPlayManager.SingletonHolder.INSTANCE.playPgc(getActivity(), ((RadioDetailColumnMember) ready2playColumn).getRadioId());
-                                        KaolaPlayManager.SingletonHolder.INSTANCE.setCurPlayingAlbumTitle(ready2playColumn.getTitle());
-                                        KaolaPlayManager.SingletonHolder.INSTANCE.setCurPlayingAlbumCover(ready2playColumn.getImageFiles());
-                                    }
-                                    break;
-                                }
-                            }
+                    originData = data;
+                    if (playIfSuspend) {//判断 是否判断当前播放状态
+                        if (!KaolaPlayManager.SingletonHolder.INSTANCE.isPlaying(getActivity())) {
+                            //当前未播放资源   播放数据中defaultIndex 下面defaultSubIndex 内容
+                            playColumSource(data, defaultIndex, defaultSubIndex);
                         }
+                    } else {
+                        playColumSource(data, defaultIndex, defaultSubIndex);
                     }
                     Observable.fromIterable(data).map(new Function<Column, List<KaolaDataWarpper>>() {
                         @Override
@@ -229,4 +238,38 @@ public class KaolaAudioSubPageFrag extends BaseFragment {
         return list;
     }
 
+    private void playColumSource(List<Column> data, int parentIndex, int childIndex) {
+        final int index = parentIndex;
+        for (int i = 0; i < data.size(); i++) {
+            if (i == index) {
+                if (data.get(i) != null && data.get(i).getColumnMembers() != null && childIndex < data.get(i).getColumnMembers().size()) {
+                    ColumnMember ready2playColumn = data.get(i).getColumnMembers().get(childIndex);
+                    if (null != ready2playColumn && ready2playColumn instanceof RadioDetailColumnMember) {
+                        PlayerListManager.getInstance().clearPlayList();
+                        KaolaPlayManager.SingletonHolder.INSTANCE.playPgc(getActivity(), ((RadioDetailColumnMember) ready2playColumn).getRadioId());
+                        KaolaPlayManager.SingletonHolder.INSTANCE.setCurPlayingAlbumTitle(ready2playColumn.getTitle());
+                        KaolaPlayManager.SingletonHolder.INSTANCE.setCurPlayingAlbumCover(ready2playColumn.getImageFiles());
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(AppEvent event) {
+        if (event.getEventKey().equals(AppEvent.EVENT_APP_KAOLA_UPDATE)) {
+            int page = (int) event.getEventValue();
+            int subIndex = (int) event.getEventValue2();
+            if (page == defaultIndex && subIndex == defaultSubIndex) {
+                return;//当前播放资源
+            } else {
+                if (originData != null) {
+                    defaultIndex = page;
+                    defaultSubIndex = subIndex;
+                    playColumSource(originData, defaultIndex, defaultSubIndex);
+                }
+            }
+        }
+    }
 }

@@ -36,6 +36,7 @@ import com.sitechdev.vehicle.pad.event.AppEvent;
 import com.sitechdev.vehicle.pad.event.TeddyEvent;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.module.main.MainActivity;
+import com.sitechdev.vehicle.pad.module.online_audio.KaolaAudioActivity;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppVariants;
@@ -81,15 +82,27 @@ public class KaolaPlayManager {
     private String curPlayingAlbumTitle = "";
     private Map<String, ImageFile> curPlayingAlbumCover = null;
 
-    public String getCurPlayingAlbumCover() {
-        ImageFile img = null;
-        if (curPlayingAlbumCover.containsKey("icon")) {
-            img = curPlayingAlbumCover.get("icon");
+    public PlayItem getCurPlayingItem() {
+        if (isCurPlayingBroadcast()) {
+            return BroadcastRadioListManager.getInstance().getCurPlayItem();
+        } else {
+            return PlayerListManager.getInstance().getCurPlayItem();
         }
-        if (curPlayingAlbumCover.containsKey("cover")) {
-            img = curPlayingAlbumCover.get("cover");
+    }
+
+    public String getCover(Map<String, ImageFile> imgs) {
+        ImageFile img = null;
+        if (imgs.containsKey("icon")) {
+            img = imgs.get("icon");
+        }
+        if (imgs.containsKey("cover")) {
+            img = imgs.get("cover");
         }
         return img == null ? "" : img.getUrl();
+    }
+
+    public String getCurPlayingAlbumCover() {
+        return getCover(curPlayingAlbumCover);
     }
 
     public void setCurPlayingAlbumCover(Map<String, ImageFile> curPlayingAlbumCover) {
@@ -208,16 +221,16 @@ public class KaolaPlayManager {
             return;
         }
         switch (index) {
-            case 0:
+            case 1:
                 mPlayType = SITEV_NEWS;
                 break;
-            case 1:
+            case 2:
                 mPlayType = CHILD_PAPERS;
                 break;
-            case 2:
+            case 3:
                 mPlayType = CAR_FUN;
                 break;
-            case 3:
+            case 4:
                 mPlayType = LIFE_ALL;
                 break;
         }
@@ -227,10 +240,10 @@ public class KaolaPlayManager {
 //            KaolaListActivity.mContext.startActivity(intent);
 //            return;
 //        }
-        if (isTopAct(context, KaolaListActivity.class)) {
+        if (isTopAct(context, KaolaAudioActivity.class)) {
             EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_KAOLA_UPDATE, index, deepIndex));
         } else {
-            RouterUtils.getInstance().getPostcard(RouterConstants.KAOLA_RADIO_LIST)
+            RouterUtils.getInstance().getPostcard(RouterConstants.MUSIC_PLAY_ONLINE_MAIN)
                     .withInt("pageIndex", index)
                     .withInt("deepIndex", deepIndex)
                     .navigation();
