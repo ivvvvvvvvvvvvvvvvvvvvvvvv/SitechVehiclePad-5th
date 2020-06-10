@@ -37,6 +37,10 @@ public class MusicKaolaAdapter extends
     private int checkedColor;
     public static int mPrePosition = -1;
 
+    public static void setmPrePosition(int mPrePosition) {
+        MusicKaolaAdapter.mPrePosition = mPrePosition;
+    }
+
     private OnCheckEmptyListener onCheckEmptyListener;
     private boolean isbroadcast =false;
 
@@ -83,7 +87,7 @@ public class MusicKaolaAdapter extends
                         .getDrawable();
                 mAnimationDrawable.start();
             } else {
-                holder.getIndex().setImageResource(R.drawable.list_icon_playing);
+                holder.getIndex().setImageResource(R.drawable.list_icon_playing1);
             }
             holder.itemView.setBackgroundResource(R.drawable.bg_playlist_item);
             holder.getName().setTextColor(checkedColor);
@@ -101,7 +105,7 @@ public class MusicKaolaAdapter extends
                     holder.getIndex().setImageResource(R.drawable.icon_play_back);
                 }
             } else {
-                holder.getIndex().setImageResource(R.drawable.list_icon_play);
+                holder.getIndex().setImageResource(R.drawable.icon_play_back);
             }
             holder.getName().setTextColor(noramlColor);
             holder.getArt().setTextColor(noramlColor);

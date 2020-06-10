@@ -3,9 +3,9 @@ package com.sitechdev.vehicle.pad.manager;
 import android.content.Context;
 import android.content.Intent;
 
+import com.kaolafm.sdk.core.mediaplayer.BroadcastRadioListManager;
 import com.kaolafm.sdk.core.mediaplayer.PlayItem;
 import com.kaolafm.sdk.core.mediaplayer.PlayerListManager;
-import com.kaolafm.sdk.core.mediaplayer.PlayerManager;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.Constant;
 import com.sitechdev.vehicle.pad.app.AppApplication;
@@ -91,7 +91,12 @@ public class VoiceSourceManager {
                     removes[i] = true;
                     continue;
                 }
-                PlayItem curPlayItem = PlayerListManager.getInstance().getCurPlayItem();
+                PlayItem curPlayItem;
+                if (KaolaPlayManager.SingletonHolder.INSTANCE.isCurPlayingBroadcast()) {
+                    curPlayItem = BroadcastRadioListManager.getInstance().getCurPlayItem();
+                } else {
+                    curPlayItem = PlayerListManager.getInstance().getCurPlayItem();
+                }
                 if (curPlayItem != null) {
                     String title = curPlayItem.getTitle();
                     MusicChangeListener listener = ref.get();
@@ -137,7 +142,13 @@ public class VoiceSourceManager {
                     continue;
                 }
                 MusicChangeListener listener = ref.get();
-                if (PlayerListManager.getInstance().getCurPlayItem() == null) {
+                PlayItem curPlayItem;
+                if (KaolaPlayManager.SingletonHolder.INSTANCE.isCurPlayingBroadcast()) {
+                    curPlayItem = BroadcastRadioListManager.getInstance().getCurPlayItem();
+                } else {
+                    curPlayItem = PlayerListManager.getInstance().getCurPlayItem();
+                }
+                if (curPlayItem == null) {
                     continue;
                 }
                 String value = listener.getClass().getAnnotation(
@@ -145,8 +156,8 @@ public class VoiceSourceManager {
                 if (value.equals(SUPPORT_TYPE_ALL) || value.equals(SUPPORT_TYPE_KAOLA)) {
                     listener.pause();
                 }
-                if (PlayerListManager.getInstance().getCurPlayItem() != null) {
-                    String title = PlayerListManager.getInstance().getCurPlayItem().getTitle();
+                if (curPlayItem != null) {
+                    String title = curPlayItem.getTitle();
                     switch (value) {
                         case SUPPORT_TYPE_ALL:
                             listener.onMusicChange(title);
@@ -258,8 +269,8 @@ public class VoiceSourceManager {
     public void pre(int type) {
         switch (musicSource) {
             case KAOLA:
-                if (PlayerManager.getInstance(context).hasPre()) {
-                    PlayerManager.getInstance(context).playPre();
+                if (KaolaPlayManager.SingletonHolder.INSTANCE.hasPre(context)) {
+                    KaolaPlayManager.SingletonHolder.INSTANCE.playPre();
                     EventBusUtils.postEvent(new TeddyEvent(TeddyEvent.EVENT_TEDDY_KAOLA_PLAY_UPDATElIST));
                     if (type == VOICE) {
                         VUIWindow.getInstance().hide();
@@ -303,8 +314,8 @@ public class VoiceSourceManager {
     public void next(int type) {
         switch (musicSource) {
             case KAOLA:
-                if (PlayerManager.getInstance(context).hasNext()) {
-                    PlayerManager.getInstance(context).playNext();
+                if (KaolaPlayManager.SingletonHolder.INSTANCE.hasNext(context)) {
+                    KaolaPlayManager.SingletonHolder.INSTANCE.playNext();
                     EventBusUtils.postEvent(new TeddyEvent(TeddyEvent.EVENT_TEDDY_KAOLA_PLAY_UPDATElIST));
                     if (type == VOICE) {
                         VUIWindow.getInstance().hide();
@@ -401,8 +412,8 @@ public class VoiceSourceManager {
         }
         switch (musicSource) {
             case KAOLA:
-                if (PlayerManager.getInstance(context).isPlaying()) {
-                    PlayerManager.getInstance(context).pause();
+                if (KaolaPlayManager.SingletonHolder.INSTANCE.isPlaying(context)) {
+                    KaolaPlayManager.SingletonHolder.INSTANCE.switchPlayPause(context);
                     if (type == VOICE) {
                         VUIWindow.getInstance().hide();
                     } else if (type == CONTENT) {
@@ -461,8 +472,8 @@ public class VoiceSourceManager {
         }
         switch (musicSource) {
             case KAOLA:
-                if (!PlayerManager.getInstance(context).isPlaying()) {
-                    PlayerManager.getInstance(context).switchPlayerStatus();
+                if (!KaolaPlayManager.SingletonHolder.INSTANCE.isPlaying(context)) {
+                    KaolaPlayManager.SingletonHolder.INSTANCE.switchPlayPause(context);
                     if (type == VOICE) {
                         VUIWindow.getInstance().hide();
                     }
@@ -505,7 +516,7 @@ public class VoiceSourceManager {
     public void toggle(int type) {
         switch (musicSource) {
             case KAOLA:
-                PlayerManager.getInstance(context).switchPlayerStatus();
+                KaolaPlayManager.SingletonHolder.INSTANCE.switchPlayPause(context);
                 break;
             case LOCAL_MUSIC:
                 MusicManager.getInstance().toggle(new MusicManager.CallBack<String>() {
@@ -585,13 +596,12 @@ public class VoiceSourceManager {
     }
 
     private void notifyKaola(MusicChangeListener listener) {
-        if (null != PlayerListManager.getInstance().getCurPlayItem()) {
-            listener.onMusicChange(PlayerListManager.getInstance().getCurPlayItem().getTitle());
-            if (PlayerManager.getInstance(AppApplication.getContext()).isPaused()) {
-                listener.pause();
-            }
-            if (PlayerManager.getInstance(AppApplication.getContext()).isPlaying()) {
+        if (null != KaolaPlayManager.SingletonHolder.INSTANCE.getCurPlayingItem()) {
+            listener.onMusicChange(KaolaPlayManager.SingletonHolder.INSTANCE.getCurPlayingItem().getTitle());
+            if (KaolaPlayManager.SingletonHolder.INSTANCE.isPlaying(context)) {
                 listener.resume();
+            } else {
+                listener.pause();
             }
         } else {
             musicSource = -1;

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -13,6 +14,10 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.kaolafm.opensdk.api.operation.model.column.AlbumDetailColumnMember;
+import com.kaolafm.opensdk.api.operation.model.column.Column;
+import com.kaolafm.opensdk.api.operation.model.column.ColumnMember;
+import com.kaolafm.opensdk.api.operation.model.column.RadioDetailColumnMember;
 import com.kaolafm.opensdk.utils.ListUtil;
 import com.kaolafm.sdk.core.mediaplayer.IPlayerListChangedListener;
 import com.kaolafm.sdk.core.mediaplayer.OnPlayItemInfoListener;
@@ -29,6 +34,7 @@ import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
+import com.sitechdev.vehicle.pad.event.AppEvent;
 import com.sitechdev.vehicle.pad.event.TeddyEvent;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.kaola.PlayItemAdapter;
@@ -154,7 +160,13 @@ public class MusicKaolaActivity extends BaseActivity implements
             setListData();
         }
         //默认图片索引
-        GlideApp.with(this).load(imageUrl).circleCrop().into(musicImageView);
+        if (TextUtils.isEmpty(imageUrl)) {
+            imageUrl = KaolaPlayManager.SingletonHolder.INSTANCE.getCurPlayingAlbumCover();
+        }
+        if (TextUtils.isEmpty(title)) {
+            title = KaolaPlayManager.SingletonHolder.INSTANCE.getCurPlayingAlbumTitle();
+        }
+        GlideApp.with(this).load(imageUrl).placeholder(R.drawable.default_audio_round).circleCrop().into(musicImageView);
         tv_title.setText(title);
     }
 
@@ -175,11 +187,11 @@ public class MusicKaolaActivity extends BaseActivity implements
         vLocalMusicList.setLayoutManager(linearLayoutManager);
         vLocalMusicList.setItemAnimator(new DefaultItemAnimator());
         vLocalMusicList.setHasFixedSize(true);
-
+        mCurPosition = PlayerListManager.getInstance().getCurPosition();
         if (playListAdapter == null) {
             playListAdapter = new MusicKaolaAdapter(MusicKaolaActivity.this);
             vLocalMusicList.setAdapter(playListAdapter);
-
+            playListAdapter.setSelected(mCurPosition);
             playListAdapter.setOnItemClickListener(new MusicKaolaAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(PlayItemAdapter.Item item, int position) {
@@ -189,7 +201,7 @@ public class MusicKaolaActivity extends BaseActivity implements
                 }
             });
         } else {
-            playListAdapter.notifyDataSetChanged();
+            playListAdapter.setSelected(mCurPosition);
         }
         musicSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -487,13 +499,12 @@ public class MusicKaolaActivity extends BaseActivity implements
         if (tv_bottom_title != null && item != null) {
             tv_bottom_title.setText(item.getTitle());
             btn_pause_play.setImageResource(R.drawable.pc_pause);
-//            GlideApp.with(this).load(item.getAlbumPic()).placeholder(R.drawable.img_song_card).into(musicImageView);
+            GlideApp.with(this).load(item.getAlbumPic()).placeholder(R.drawable.default_audio_round).circleCrop().into(musicImageView);
         }
         if (flag_FIRST_PLAY) {
             SitechDevLog.e(TAG, "onPlayerPlaying  flag_FIRST_PLAY = " + flag_FIRST_PLAY);
             flag_FIRST_PLAY = false;
         }
-
         SitechDevLog.e(TAG, "====== onPlayerPlaying ======= mCurPosition = " + mCurPosition);
     }
 
@@ -537,6 +548,42 @@ public class MusicKaolaActivity extends BaseActivity implements
             }
         } else if (event.getEventKey().equals(TeddyEvent.EVENT_TEDDY_AUDIO_STOP)) {
             finish();
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(AppEvent event) {
+        if (event.getEventKey().equals(AppEvent.EVENT_APP_KAOLA_UPDATE)) {
+            int page = (int) event.getEventValue();
+            int subIndex = (int) event.getEventValue2();
+            if (KaolaPlayManager.SingletonHolder.INSTANCE.getOriginData() != null) {
+                playColumSource(KaolaPlayManager.SingletonHolder.INSTANCE.getOriginData(), page, subIndex);
+            }
+        }
+    }
+
+    private void playColumSource(List<Column> data, int parentIndex, int childIndex) {
+        final int index = parentIndex;
+        for (int i = 0; i < data.size(); i++) {
+            if (i == index) {
+                if (data.get(i) != null && data.get(i).getColumnMembers() != null && childIndex < data.get(i).getColumnMembers().size()) {
+                    ColumnMember ready2playColumn = data.get(i).getColumnMembers().get(childIndex);
+                    tv_title.setText(ready2playColumn.getTitle());
+                    KaolaPlayManager.SingletonHolder.INSTANCE.setCurPlayingAlbumTitle(ready2playColumn.getTitle());
+                    if (null != ready2playColumn && ready2playColumn instanceof RadioDetailColumnMember) {
+                        PlayerListManager.getInstance().clearPlayList();
+                        KaolaPlayManager.SingletonHolder.INSTANCE.playPgc(this, ((RadioDetailColumnMember) ready2playColumn).getRadioId());
+                        KaolaPlayManager.SingletonHolder.INSTANCE.setCurPlayingAlbumTitle(ready2playColumn.getTitle());
+                        KaolaPlayManager.SingletonHolder.INSTANCE.setCurPlayingAlbumCover(ready2playColumn.getImageFiles());
+                    } else if (null != ready2playColumn && ready2playColumn instanceof AlbumDetailColumnMember) {
+                        PlayerListManager.getInstance().clearPlayList();
+                        KaolaPlayManager.SingletonHolder.INSTANCE.playAlbum(this, ((AlbumDetailColumnMember) ready2playColumn).getAlbumId());
+                        KaolaPlayManager.SingletonHolder.INSTANCE.setCurPlayingAlbumTitle(ready2playColumn.getTitle());
+                        KaolaPlayManager.SingletonHolder.INSTANCE.setCurPlayingAlbumCover(ready2playColumn.getImageFiles());
+                    }
+                    break;
+                }
+            }
         }
     }
 

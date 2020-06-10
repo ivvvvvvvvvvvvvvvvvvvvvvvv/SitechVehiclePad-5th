@@ -33,12 +33,19 @@ import com.sitechdev.vehicle.pad.event.WindowEvent;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.module.forshow.MusicKaolaForShowActivity;
+import com.sitechdev.vehicle.pad.module.forshow.MusicMainForShowActivity;
+import com.sitechdev.vehicle.pad.module.login.util.LoginUtils;
 import com.sitechdev.vehicle.pad.module.main.MainActivity;
 import com.sitechdev.vehicle.pad.module.music.MusicMainActivity;
 import com.sitechdev.vehicle.pad.module.music.MusicManager;
+import com.sitechdev.vehicle.pad.module.online_audio.KaolaAudioActivity;
+import com.sitechdev.vehicle.pad.module.online_audio.MusicKaolaActivity;
+import com.sitechdev.vehicle.pad.router.RouterConstants;
+import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppUtil;
 import com.sitechdev.vehicle.pad.util.AppVariants;
 import com.sitechdev.vehicle.pad.util.AudioUtil;
+import com.sitechdev.vehicle.pad.window.view.PersonLoginWindow;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -527,24 +534,27 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                         switch (semantic.optString("intent")) {
                             //新特速报
                             case "AIradio_news":
-                                playKaoLa(semantic, 0);
+                                playKaoLa(semantic, 1);
                                 break;
                             //少儿读物
                             case "AIradio_kid":
-                                playKaoLa(semantic, 1);
+                                playKaoLa(semantic, 2);
                                 break;
                             //车嗨娱乐
                             case "AIradio_joke":
-                                playKaoLa(semantic, 2);
+                                playKaoLa(semantic, 3);
                                 break;
                             //生活一点通
                             case "AIradio_life":
-                                playKaoLa(semantic, 3);
+                                playKaoLa(semantic, 4);
                                 break;
                             //随机音频
                             case "AIradio_random":
                                 gotoPlay(new Random().nextInt(4), new Random().nextInt(6));
                                 break;
+//                            case "AIradio_broadcast":
+//                                analysisBroadcast(semantic);
+//                                break;
                             case "INSTRUCTION":
                                 doMusicControl(semantic);
                                 break;
@@ -781,7 +791,8 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                     case "cmdAction":
                                         String template = semantic.optString("template");
                                         if ("{sitechaction}{appname}".equals(template)
-                                                || "{sitechaction}{pricecounter}".equals(template)) {
+                                                || "{sitechaction}{pricecounter}".equals(template)
+                                                || "{sitechaction}{page}".equals(template)) {
                                             doSitechactionWithAppName(semantic);
                                         } else {
                                             vuiAnr();
@@ -819,6 +830,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
             int len = slots.length();
             String sitechaction = null;
             String appname = null;
+            String page = null;
             String appnameTag = null;
             String priceCounter = null;
             if (len > 0) {
@@ -871,8 +883,20 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                 break;
                             }
                             switch (appname) {
+                                case "首页":
+                                case "主页":
+                                    if (null == AppVariants.currentActivity || !(AppVariants.currentActivity instanceof MainActivity)) {
+                                        Intent goMain = new Intent();
+                                        goMain.setClass(context, MainActivity.class);
+                                        context.startActivity(goMain);
+                                        shut();
+                                    } else {
+                                        shutAndTTS("您当前已在首页");
+                                    }
+                                    break;
                                 case "皮肤设置":
                                 case "主题设置":
+                                case "设置":
                                     log("正在打开皮肤设置");
                                     EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_OPEN_SETTING_SKIN_PAGE));
                                     shutAndTTS("好的，已为您打开皮肤设置");
@@ -892,37 +916,58 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                     shut();
                                     break;
                                 case "个人中心":
-                                    log("正在打开个人中心");
-                                    EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_OPEN_MEMBER_INFO_PAGE));
-                                    shutAndTTS("好的，已为您打开个人中心");
-                                    shut();
-                                    break;
-                                case "首页":
-                                    if (null == AppVariants.currentActivity || !(AppVariants.currentActivity instanceof MainActivity)) {
-                                        Intent goMain = new Intent();
-                                        goMain.setClass(context, MainActivity.class);
-                                        context.startActivity(goMain);
+                                    if (LoginUtils.isLogin()) {
+                                        log("正在打开个人中心");
+                                        EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_OPEN_MEMBER_INFO_PAGE));
+                                        shutAndTTS("好的，已为您打开个人中心");
                                         shut();
                                     } else {
-                                        shutAndTTS("您当前已在首页");
+                                        PersonLoginWindow.getInstance().showWnd(() -> EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_OPEN_MEMBER_INFO_PAGE)));
+                                        shutAndTTS("我还没有权限打开个人中心，请您登录授权。");
+                                        shut();
                                     }
                                     break;
                                 case "本地音乐":
                                     if (null == AppVariants.currentActivity || !(AppVariants.currentActivity instanceof MusicMainActivity)) {
                                         Intent goMusicMain = new Intent();
-                                        goMusicMain.setClass(context, MusicMainActivity.class);
+                                        goMusicMain.setClass(context, MusicMainForShowActivity.class);
                                         goMusicMain.putExtra("index", 1);
-                                        goMusicMain.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         context.startActivity(goMusicMain);
                                         shut();
                                     } else {
                                         shutAndTTS("您当前已在本地音乐");
                                     }
                                     break;
-                                case "qq音乐":
+                                case "QQ音乐":
                                     AppUtil.goOtherActivity(context, "QQ音乐", "com.tencent.qqmusiccar",
                                             "com.tencent.qqmusiccar.app.activity.AppStarterActivity");
                                     shut();
+                                    break;
+                                case "天气":
+                                    shutAndTTS("好的，正在为您打开天气");
+                                    shut();
+                                    RouterUtils.getInstance().navigation(RouterConstants.SUB_APP_WEATHER);
+                                    break;
+                                case "听伴":
+                                    shutAndTTS("好的，正在为您打开听伴");
+                                    shut();
+                                    RouterUtils.getInstance().navigation(RouterConstants.MUSIC_PLAY_ONLINE_MAIN);
+                                    break;
+                                case "全部应用":
+                                case "应用列表":
+                                    shutAndTTS("好的，正在为您打开全部应用");
+                                    shut();
+                                    RouterUtils.getInstance().navigation(RouterConstants.SETTING_APP_LIST);
+                                    break;
+                                case "导航":
+                                case "网络音乐":
+                                case "LED表情管理":
+                                case "表情管理":
+                                case "视频":
+                                case "电话":
+                                case "饭聊":
+                                case "商城":
+                                    shutAndTTS("努力开发中，尽请期待");
                                     break;
                                 default:
                                     vuiAnr();
@@ -1194,14 +1239,6 @@ public class VUI implements VUIWindow.OnWindowHideListener {
     }
 
     private void toKaolaPage(String appname, int index, int deepIndex) {
-        if (null != AppVariants.currentActivity) {
-            if (AppVariants.currentActivity instanceof MusicKaolaForShowActivity) {
-                if (TextUtils.equals(appname, ((MusicKaolaForShowActivity) AppVariants.currentActivity).title)) {
-                    shutAndTTS("您当前已在" + appname);
-                    return;
-                }
-            }
-        }
         gotoPlay(index, deepIndex);
     }
 
@@ -1286,6 +1323,21 @@ public class VUI implements VUIWindow.OnWindowHideListener {
         }
     }
 
+    private void analysisBroadcast(JSONObject semantic) {
+        String template = semantic.optString("template");
+        JSONArray slots = semantic.optJSONArray("slots");
+        if (null != slots && slots.length() > 0) {
+            for (int i = 0; i < slots.length(); i++) {
+                JSONObject slot = slots.optJSONObject(i);
+                String name = slot.optString("name");
+                if ("broadcast_keyword".equals(slot.optString("normValue"))) {
+                    String va = slot.optString("value");
+
+                }
+            }
+        }
+    }
+
     private void playKaoLa(JSONObject semantic, int index) {
         playKaoLa(semantic, index, false);
     }
@@ -1293,13 +1345,13 @@ public class VUI implements VUIWindow.OnWindowHideListener {
     private void playKaoLa(JSONObject semantic, int index, boolean autoRandomPlay) {
         boolean doFinally = true;
         String defaultPlayTTS = "";
-        if (index == 0) {
+        if (index == 1) {
             defaultPlayTTS = "正在为您打开新特速报";
-        } else if (index == 1) {
-            defaultPlayTTS = "正在为您打开少儿读物";
         } else if (index == 2) {
-            defaultPlayTTS = "正在为您打开车嗨娱乐";
+            defaultPlayTTS = "正在为您打开少儿读物";
         } else if (index == 3) {
+            defaultPlayTTS = "正在为您打开车嗨娱乐";
+        } else if (index == 4) {
             defaultPlayTTS = "正在为您打开生活一点通";
         }
         try {
@@ -1323,7 +1375,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                             doFinally = !result;
                         } else if (null != slot && "main_classify".equals(slot.optString("normValue"))) {
                             shutAndTTS(defaultPlayTTS);
-                            gotoPlay(index, autoPlay || autoRandomPlay ? new Random().nextInt(index == 1 ? 5 : 6) : -1);
+                            gotoPlay(index, autoPlay || autoRandomPlay ? new Random().nextInt(index == 2 ? 5 : 6) : -1);//index == 2 ? 5 : 6 少儿读物  英语儿歌 音源缺失
                             doFinally = false;
                         }
                         return;
@@ -1347,112 +1399,115 @@ public class VUI implements VUIWindow.OnWindowHideListener {
         shut();
     }
 
-    private boolean getAIRadioItem(String appname) {
+    private boolean getAIRadioItem(String name) {
         int index = -1;
         int deepIndex = -1;
-        switch (appname) {
+        switch (name) {
             case "新闻电台":
-                index = 0;
+                index = 1;
                 deepIndex = 0;
                 break;
             case "热点快讯":
-                index = 0;
+                index = 1;
                 deepIndex = 1;
                 break;
             case "环球时政":
-                index = 0;
+                index = 1;
                 deepIndex = 2;
                 break;
             case "汽车电台":
-                index = 0;
+                index = 1;
                 deepIndex = 3;
                 break;
             case "财经快讯":
-                index = 0;
+                index = 1;
                 deepIndex = 4;
                 break;
             case "娱乐":
-                index = 0;
+                index = 1;
                 deepIndex = 5;
                 break;
             case "搞定熊孩子":
-                index = 1;
+                index = 2;
                 deepIndex = 0;
                 break;
             case "童谣儿歌":
-                index = 1;
+            case "儿歌童谣":
+            case "儿歌":
+                index = 2;
                 deepIndex = 1;
                 break;
             case "萌娃故事汇":
-                index = 1;
+                index = 2;
                 deepIndex = 2;
                 break;
             case "跟我学英语":
-                index = 1;
+                index = 2;
                 deepIndex = 3;
                 break;
             case "诗词歌赋":
-                index = 1;
+                index = 2;
                 deepIndex = 4;
                 break;
             case "英语儿歌":
+            case "英文儿歌":
             case "儿童英语儿歌故事":
-                index = 1;
+                index = 2;
                 deepIndex = 5;
                 break;
             case "相声电台":
             case "相声频道":
-                index = 2;
+                index = 3;
                 deepIndex = 0;
                 break;
-            case "堵车不堵心":
-                index = 2;
+            case "爆笑段子":
+                index = 3;
                 deepIndex = 1;
                 break;
-            case "爆笑段子":
-                index = 2;
+            case "闲聊脱口秀":
+                index = 3;
                 deepIndex = 2;
                 break;
-            case "闲聊脱口秀":
-                index = 2;
+            case "搞笑电台":
+                index = 3;
                 deepIndex = 3;
                 break;
-            case "搞笑电台":
-                index = 2;
+            case "堵车不堵心":
+                index = 3;
                 deepIndex = 4;
                 break;
             case "情景喜剧":
-                index = 2;
+                index = 3;
                 deepIndex = 5;
                 break;
             case "生活百科":
-                index = 3;
+                index = 4;
                 deepIndex = 0;
                 break;
             case "健康保鲜剂":
-                index = 3;
+                index = 4;
                 deepIndex = 1;
                 break;
             case "美食家":
-                index = 3;
+                index = 4;
                 deepIndex = 2;
                 break;
             case "旅行家":
-                index = 3;
+                index = 4;
                 deepIndex = 3;
                 break;
             case "运动健身":
-                index = 3;
+                index = 4;
                 deepIndex = 4;
                 break;
             case "情感故事":
-                index = 3;
+                index = 4;
                 deepIndex = 5;
                 break;
         }
         if (index >= 0) {
             //intent to kaola
-            toKaolaPage(appname, index, deepIndex);
+            toKaolaPage(name, index, deepIndex);
             return true;
         }
         return false;

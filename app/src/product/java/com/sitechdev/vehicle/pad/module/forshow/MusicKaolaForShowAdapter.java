@@ -70,7 +70,7 @@ public class MusicKaolaForShowAdapter extends
         SitechDevLog.d("MusicKaolaAdapter", "-----------musicInfo------------" + musicInfo.title);
         if (mPrePosition == position) {
             if (PlayerManager.getInstance(context).isPaused()) {
-                holder.getIndex().setImageResource(R.drawable.list_icon_playing);
+                holder.getIndex().setImageResource(R.drawable.list_icon_playing1);
             } else {
                 holder.getIndex().setImageResource(R.drawable.ic_music_play_gif);
                 AnimationDrawable mAnimationDrawable = (AnimationDrawable) holder.getIndex()

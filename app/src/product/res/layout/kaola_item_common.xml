@@ -1,25 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="171px"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="171px">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <ImageView
+        android:id="@+id/image_bg"
+        android:layout_width="473px"
+        android:layout_height="171px" />
+
+    <ImageView
+        android:src="@drawable/bg_kaola_audioitem_common"
+        android:alpha="0.5"
+        android:layout_width="473px"
+        android:layout_height="171px" />
+
+    <RelativeLayout
         android:layout_width="473px"
         android:layout_height="171px"
-        android:gravity="center"
-        android:background="@drawable/bg_kaola_audioitem_common">
+        android:background="@color/transparent"
+        android:gravity="center">
 
         <com.gcssloop.widget.RCImageView
-            app:round_as_circle="true"
+            android:id="@+id/image"
+            android:layout_width="123px"
+            android:layout_height="123px"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="40px"
-            android:id="@+id/image"
-            android:layout_width="123px"
-            android:layout_height="123px" />
+            app:round_as_circle="true" />
 
         <TextView
             android:id="@+id/des"
@@ -29,14 +39,15 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="30px"
             android:layout_marginTop="10px"
-            android:layout_marginBottom="10px"
             android:layout_marginRight="10px"
+            android:layout_marginBottom="10px"
             android:layout_toEndOf="@+id/image"
             android:ellipsize="end"
             android:singleLine="true"
             android:text="推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐"
             android:textColor="#fff"
-            android:textSize="21sp" />
+            android:textSize="32px"
+            android:textStyle="bold" />
     </RelativeLayout>
 </FrameLayout>
 

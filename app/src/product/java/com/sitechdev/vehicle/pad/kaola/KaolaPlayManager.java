@@ -13,6 +13,7 @@ import android.view.animation.RotateAnimation;
 import com.kaolafm.opensdk.OpenSDK;
 import com.kaolafm.opensdk.ResType;
 import com.kaolafm.opensdk.api.operation.OperationRequest;
+import com.kaolafm.opensdk.api.operation.model.ImageFile;
 import com.kaolafm.opensdk.api.operation.model.category.Category;
 import com.kaolafm.opensdk.api.operation.model.column.Column;
 import com.kaolafm.opensdk.api.operation.model.column.ColumnGrp;
@@ -35,6 +36,8 @@ import com.sitechdev.vehicle.pad.event.AppEvent;
 import com.sitechdev.vehicle.pad.event.TeddyEvent;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.module.main.MainActivity;
+import com.sitechdev.vehicle.pad.module.online_audio.KaolaAudioActivity;
+import com.sitechdev.vehicle.pad.module.online_audio.MusicKaolaActivity;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppVariants;
@@ -45,9 +48,9 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
-import static com.sitechdev.vehicle.lib.util.BuildConfig.DEBUG;
 import static com.sitechdev.vehicle.pad.kaola.KaolaPlayManager.PlayType.CAR_FUN;
 import static com.sitechdev.vehicle.pad.kaola.KaolaPlayManager.PlayType.CHILD_PAPERS;
 import static com.sitechdev.vehicle.pad.kaola.KaolaPlayManager.PlayType.LIFE_ALL;
@@ -72,8 +75,56 @@ public class KaolaPlayManager {
         public static KaolaPlayManager INSTANCE = new KaolaPlayManager();
     }
 
+    private List<Column> originData;
+
+    public List<Column> getOriginData() {
+        return originData;
+    }
+
+    public void setOriginData(List<Column> originData) {
+        this.originData = originData;
+    }
+
     public void seekTo(Context context, int position) {
         PlayerManager.getInstance(context).seek(position);
+    }
+
+    private String curPlayingAlbumTitle = "";
+    private Map<String, ImageFile> curPlayingAlbumCover = null;
+
+    public PlayItem getCurPlayingItem() {
+        if (isCurPlayingBroadcast()) {
+            return BroadcastRadioListManager.getInstance().getCurPlayItem();
+        } else {
+            return PlayerListManager.getInstance().getCurPlayItem();
+        }
+    }
+
+    public String getCover(Map<String, ImageFile> imgs) {
+        ImageFile img = null;
+        if (imgs.containsKey("icon")) {
+            img = imgs.get("icon");
+        }
+        if (imgs.containsKey("cover")) {
+            img = imgs.get("cover");
+        }
+        return img == null ? "" : img.getUrl();
+    }
+
+    public String getCurPlayingAlbumCover() {
+        return getCover(curPlayingAlbumCover);
+    }
+
+    public void setCurPlayingAlbumCover(Map<String, ImageFile> curPlayingAlbumCover) {
+        this.curPlayingAlbumCover = curPlayingAlbumCover;
+    }
+
+    public String getCurPlayingAlbumTitle() {
+        return curPlayingAlbumTitle;
+    }
+
+    public void setCurPlayingAlbumTitle(String curPlayingAlbumTitle) {
+        this.curPlayingAlbumTitle = curPlayingAlbumTitle;
     }
 
     public volatile PlayType mPlayType = null;
@@ -116,9 +167,6 @@ public class KaolaPlayManager {
             mColumns = (List<Column>) columnGrps.get(0).getChildColumns();
             SitechDevLog.i(this.getClass().getSimpleName(), "AI 电台分类大小 ========== " + columnGrps.size());
             if (mColumns != null) {
-                for (int i = 0; i < callbacks.size(); i++) {
-                    callbacks.get(i).onDataGot(mColumns);
-                }
                 if (mColumns.size() >= 1 && mColumns.get(0) != null) {
                     for (int i = 0; i < callbacks.size(); i++) {
                         callbacks.get(i).onSuccess(0, mColumns.get(0).getTitle());
@@ -143,12 +191,15 @@ public class KaolaPlayManager {
                     }
                     SitechDevLog.e(KaolaPlayManager.class.getSimpleName(), " 生活一点通 === " + mColumns.get(3).getTitle());
                 }
-
-            }
-            if (DEBUG)
-                for (int i = 0; i < columnGrps.size(); i++) {
-                    SitechDevLog.e(KaolaPlayManager.class.getSimpleName(), columnGrps.get(i).toString());
+                for (int i = 0; i < callbacks.size(); i++) {
+                    callbacks.get(i).onDataGot(mColumns);
+                    callbacks.remove(callbacks.get(i));
                 }
+            }
+//            if (DEBUG)
+//                for (int i = 0; i < columnGrps.size(); i++) {
+//                    SitechDevLog.e(KaolaPlayManager.class.getSimpleName(), columnGrps.get(i).toString());
+//                }
 
         }
 
@@ -180,16 +231,16 @@ public class KaolaPlayManager {
             return;
         }
         switch (index) {
-            case 0:
+            case 1:
                 mPlayType = SITEV_NEWS;
                 break;
-            case 1:
+            case 2:
                 mPlayType = CHILD_PAPERS;
                 break;
-            case 2:
+            case 3:
                 mPlayType = CAR_FUN;
                 break;
-            case 3:
+            case 4:
                 mPlayType = LIFE_ALL;
                 break;
         }
@@ -199,10 +250,10 @@ public class KaolaPlayManager {
 //            KaolaListActivity.mContext.startActivity(intent);
 //            return;
 //        }
-        if (isTopAct(context, KaolaListActivity.class)) {
+        if (isTopAct(context, KaolaAudioActivity.class) || isTopAct(context, MusicKaolaActivity.class)) {
             EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_KAOLA_UPDATE, index, deepIndex));
         } else {
-            RouterUtils.getInstance().getPostcard(RouterConstants.KAOLA_RADIO_LIST)
+            RouterUtils.getInstance().getPostcard(RouterConstants.MUSIC_PLAY_ONLINE_MAIN)
                     .withInt("pageIndex", index)
                     .withInt("deepIndex", deepIndex)
                     .navigation();
@@ -329,6 +380,22 @@ public class KaolaPlayManager {
             EventBusUtils.postEvent(new TeddyEvent(TeddyEvent.EVENT_TEDDY_KAOLA_PLAY_UPDATElIST, ++curPosition));
         }
         return hasNext;
+    }
+
+    public boolean hasNext(Context context) {
+        if (isCurPlayingBroadcast()) {
+            return BroadcastRadioPlayerManager.getInstance().hasNext();
+        } else {
+            return PlayerManager.getInstance(context).hasNext();
+        }
+    }
+
+    public boolean hasPre(Context context) {
+        if (isCurPlayingBroadcast()) {
+            return BroadcastRadioPlayerManager.getInstance().hasPre();
+        } else {
+            return PlayerManager.getInstance(context).hasPre();
+        }
     }
 
     public boolean playPre() {

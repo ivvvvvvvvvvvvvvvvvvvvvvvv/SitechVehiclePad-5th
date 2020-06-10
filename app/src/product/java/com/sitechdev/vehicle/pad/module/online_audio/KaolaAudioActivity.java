@@ -1,5 +1,8 @@
 package com.sitechdev.vehicle.pad.module.online_audio;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,10 +10,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.kaolafm.sdk.core.mediaplayer.PlayItem;
 import com.sitechdev.vehicle.lib.event.BindEventBus;
 import com.sitechdev.vehicle.lib.imageloader.GlideApp;
@@ -38,7 +44,12 @@ import java.util.List;
 public class KaolaAudioActivity extends BaseActivity implements
         VoiceSourceManager.MusicChangeListener {
     private static final String TAG = "MusicKaolaForShowActivity";
-
+    @Autowired
+    public int deepIndex = -1;
+    @Autowired
+    public int pageIndex = 0;
+    @Autowired
+    public boolean playIfSuspend = false;
     private Context mContext;
     //new
     private TabLayout tabLayout;
@@ -70,7 +81,7 @@ public class KaolaAudioActivity extends BaseActivity implements
         @Override
         public void onMusicPlaying(PlayItem item) {
             title.setText(item.getTitle());
-            subTitle.setText(item.getAlbumName());
+            subTitle.setText(" - "+item.getAlbumName());
             GlideApp.with(KaolaAudioActivity.this).load(item.getAlbumPic()).into(icon);
             play.setImageResource(R.drawable.pc_pause);
         }
@@ -85,11 +96,11 @@ public class KaolaAudioActivity extends BaseActivity implements
 
         }
     };
-    private int defaultRecommendIndex = 0;//默认进入标签页
     // 初始化页面集合的方法
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mContext = this;
+        ARouter.getInstance().inject(this);
         super.onCreate(savedInstanceState);
         VoiceSourceManager.getInstance().addMusicChangeListener(this);
         KaolaPlayManager.SingletonHolder.INSTANCE.addPlayVoiceSourceManagerListener(sourceListener);
@@ -108,9 +119,11 @@ public class KaolaAudioActivity extends BaseActivity implements
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        defaultRecommendIndex = getIntent().getIntExtra(Constant.KEY_DEFAULT_INDEX,0);
         initFrags();
         initTabLayout();
+        if (KaolaPlayManager.SingletonHolder.INSTANCE.isPlaying(this)) {
+            GlideApp.with(KaolaAudioActivity.this).load(KaolaPlayManager.SingletonHolder.INSTANCE.getCurPlayingItem().getAlbumPic()).into(icon);
+        }
     }
 
     @Override
@@ -165,7 +178,7 @@ public class KaolaAudioActivity extends BaseActivity implements
     }
 
     private void initFrags() {
-        fragmentlist.add(new KaolaAudioSubPageFrag(defaultRecommendIndex));
+        fragmentlist.add(new KaolaAudioSubPageFrag(pageIndex, deepIndex, playIfSuspend));
         fragmentlist.add(new KaolaAudioCategoryPageFrag());
         fragmentlist.add(new KaolaAudioBroadcastPageFrag());
         fragmentlist.add(new KaolaAudioSearchPageFrag());
@@ -188,7 +201,8 @@ public class KaolaAudioActivity extends BaseActivity implements
         list.setOnClickListener(this);
         title.setOnClickListener(this);
         icon.setOnClickListener(this);
-
+        GlideApp.with(KaolaAudioActivity.this).load("").placeholder(R.drawable.default_audio_2).into(icon);
+        title.setText("无内容");
         pager = findViewById(R.id.vp);
         findViewById(R.id.iv_sub_back).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -214,10 +228,16 @@ public class KaolaAudioActivity extends BaseActivity implements
                         findViewById(R.id.player_holder).setVisibility(View.VISIBLE);
                     }
                 }
+                View text = tab.getCustomView().findViewById(android.R.id.text1);
+                selectTabAni(text);
+                text.setAlpha(1);
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
+                View text = tab.getCustomView().findViewById(android.R.id.text1);
+                unselectTabAni(text);
+                text.setAlpha(0.5f);
             }
 
             @Override
@@ -225,7 +245,12 @@ public class KaolaAudioActivity extends BaseActivity implements
 
             }
         });
+        View text = tabLayout.getTabAt(0).getCustomView().findViewById(android.R.id.text1);
+        selectTabAni(text);
+        text.setAlpha(1f);
     }
+
+
 
     @Override
     public void onMusicChange(String name) {
@@ -258,4 +283,50 @@ public class KaolaAudioActivity extends BaseActivity implements
         textView.setText(titleArr[currentPosition]);
         return view;
     }
+
+    private void selectTabAni(View view) {
+        if (null != view) {
+            ValueAnimator animx = ObjectAnimator
+                    .ofFloat(view, "ScaleX", 1F, 1.1F)
+                    .setDuration(100);
+            ValueAnimator animy = ObjectAnimator
+                    .ofFloat(view, "ScaleY", 1F, 1.1F)
+                    .setDuration(100);
+            AnimatorSet set = new AnimatorSet();
+            set.playTogether(animx, animy);
+            set.setTarget(view);
+            set.setInterpolator(new LinearInterpolator());
+            animx.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    view.setScaleX(1.1f);
+                    view.setScaleY(1.1f);
+                }
+            });
+            set.start();
+        }
+    }
+    private void unselectTabAni(View view) {
+        if (null != view) {
+            ValueAnimator animx = ObjectAnimator
+                    .ofFloat(view, "ScaleX", 1.1F, 1F)
+                    .setDuration(100);
+            ValueAnimator animy = ObjectAnimator
+                    .ofFloat(view, "ScaleY", 1.1F, 1F)
+                    .setDuration(100);
+            AnimatorSet set = new AnimatorSet();
+            set.playTogether(animx, animy);
+            set.setTarget(view);
+            set.setInterpolator(new LinearInterpolator());
+            animx.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    view.setScaleX(1.0f);
+                    view.setScaleY(1.0f);
+                }
+            });
+            set.start();
+        }
+    }
+
 }

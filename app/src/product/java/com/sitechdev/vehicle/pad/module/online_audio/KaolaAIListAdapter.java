@@ -14,15 +14,22 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.load.MultiTransformation;
+import com.bumptech.glide.load.resource.bitmap.DrawableTransformation;
+import com.bumptech.glide.request.RequestOptions;
 import com.kaolafm.opensdk.api.operation.model.ImageFile;
 import com.sitechdev.vehicle.lib.imageloader.GlideApp;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.model.kaola.KaolaDataWarpper;
+import com.sitechdev.vehicle.pad.util.BlurTransformation;
+import com.sitechdev.vehicle.pad.util.GlideRoundedCornersTransform;
 import com.sitechdev.vehicle.pad.view.IndexAdapter;
 import com.sitechdev.vehicle.pad.view.Indexable;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import jp.wasabeef.glide.transformations.ColorFilterTransformation;
 
 // 选择品牌列表适配器
 public class KaolaAIListAdapter extends KaolaBaseAdapter<KaolaAIListAdapter.VHolderAbs> implements IndexAdapter {
@@ -132,7 +139,16 @@ public class KaolaAIListAdapter extends KaolaBaseAdapter<KaolaAIListAdapter.VHol
                 }
                 if (img != null) {
                     GlideApp.with(context).load(img.getUrl()).centerCrop().into(vh.img);
-                }
+					if (!RECOMMEND_TAG.equals(mLists.get(i).getIndex())) {
+	                    MultiTransformation multiTransformation = new MultiTransformation(new BlurTransformation(15, 1),
+	                            new GlideRoundedCornersTransform(8
+	                                    , GlideRoundedCornersTransform.CornerType.ALL));
+	                    RequestOptions options = RequestOptions
+	                            .placeholderOf(R.drawable.bg_kaola_audioitem_common)
+	                            .bitmapTransform(multiTransformation);
+	                    GlideApp.with(context).load(img.getUrl()).apply(options).into(vh.bg);
+	                }
+	            }
             }
             vh.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -171,6 +187,7 @@ public class KaolaAIListAdapter extends KaolaBaseAdapter<KaolaAIListAdapter.VHol
             super(itemView);
             des = itemView.findViewById(R.id.des);
             img = itemView.findViewById(R.id.image);
+            bg = itemView.findViewById(R.id.image_bg);
         }
     }
 
@@ -185,6 +202,7 @@ public class KaolaAIListAdapter extends KaolaBaseAdapter<KaolaAIListAdapter.VHol
     abstract class VHolderAbs extends RecyclerView.ViewHolder {
         TextView des;
         ImageView img;
+        ImageView bg;
 
         public VHolderAbs(@NonNull View itemView) {
             super(itemView);

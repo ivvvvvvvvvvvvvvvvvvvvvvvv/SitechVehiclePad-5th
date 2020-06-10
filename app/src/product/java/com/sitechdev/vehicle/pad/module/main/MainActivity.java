@@ -36,6 +36,7 @@ import com.sitechdev.vehicle.lib.util.Constant;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.StringUtils;
 import com.sitechdev.vehicle.lib.util.ThreadUtils;
+import com.sitechdev.vehicle.pad.BuildConfig;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.app.AppConst;
@@ -347,6 +348,15 @@ public class MainActivity extends BaseActivity
 //        mMusicBtnImageView.setOnClickListener(this);
 //        mDriverBtnImageView.setOnClickListener(this);
 //        mAppsBtnImageView.setOnClickListener(this);
+        if (BuildConfig.DEBUG) {
+            llNews.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+//                    startActivity(new Intent(MainActivity.this, DebugInfo.class));
+                    return false;
+                }
+            });
+        }
     }
 
     @Override
@@ -386,24 +396,32 @@ public class MainActivity extends BaseActivity
 //                startActivity(goMusic);
                 break;
             case R.id.ll_news:
-                Bundle bundle0 = new Bundle();
-                bundle0.putInt(Constant.KEY_DEFAULT_INDEX, 1);
-                RouterUtils.getInstance().navigation(RouterConstants.MUSIC_PLAY_ONLINE_MAIN, bundle0);
+                RouterUtils.getInstance().getPostcard(RouterConstants.MUSIC_PLAY_ONLINE_MAIN)
+                        .withInt("pageIndex", 1)
+                        .withInt("deepIndex", 1)
+                        .withBoolean("playIfSuspend", true)
+                        .navigation();
                 break;
             case R.id.ll_book:
-                Bundle bundle1 = new Bundle();
-                bundle1.putInt(Constant.KEY_DEFAULT_INDEX, 2);
-                RouterUtils.getInstance().navigation(RouterConstants.MUSIC_PLAY_ONLINE_MAIN, bundle1);
+                RouterUtils.getInstance().getPostcard(RouterConstants.MUSIC_PLAY_ONLINE_MAIN)
+                        .withInt("pageIndex", 2)
+                        .withInt("deepIndex", 1)
+                        .withBoolean("playIfSuspend", true)
+                        .navigation();
                 break;
             case R.id.ll_car:
-                Bundle bundle2 = new Bundle();
-                bundle2.putInt(Constant.KEY_DEFAULT_INDEX, 3);
-                RouterUtils.getInstance().navigation(RouterConstants.MUSIC_PLAY_ONLINE_MAIN, bundle2);
+                RouterUtils.getInstance().getPostcard(RouterConstants.MUSIC_PLAY_ONLINE_MAIN)
+                        .withInt("pageIndex", 3)
+                        .withInt("deepIndex", 1)
+                        .withBoolean("playIfSuspend", true)
+                        .navigation();
                 break;
             case R.id.ll_life:
-                Bundle bundle3 = new Bundle();
-                bundle3.putInt(Constant.KEY_DEFAULT_INDEX, 4);
-                RouterUtils.getInstance().navigation(RouterConstants.MUSIC_PLAY_ONLINE_MAIN, bundle3);
+                RouterUtils.getInstance().getPostcard(RouterConstants.MUSIC_PLAY_ONLINE_MAIN)
+                        .withInt("pageIndex", 4)
+                        .withInt("deepIndex", 1)
+                        .withBoolean("playIfSuspend", true)
+                        .navigation();
                 break;
             case R.id.ll_car_power_info:
 //                Intent tempIntent = new Intent(MainActivity.this, CarStatusPreActivity.class);
@@ -528,11 +546,11 @@ public class MainActivity extends BaseActivity
         }
         tvLogin.setText(isLogin ? String.format("Hi，%s", userBean.getNickName()) : "立即登录");
         if (isLogin && userBean != null) {
-            Glide.with(MainActivity.this).load(userBean.getAvatarUrl())
+            GlideApp.with(MainActivity.this).load(userBean.getAvatarUrl())
                     .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                     .into(ivLogin);
         } else {
-            Glide.with(MainActivity.this).load(R.drawable.ico_default_member_logo)
+            GlideApp.with(MainActivity.this).load(R.drawable.ico_default_member_logo)
                     .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                     .into(ivLogin);
         }

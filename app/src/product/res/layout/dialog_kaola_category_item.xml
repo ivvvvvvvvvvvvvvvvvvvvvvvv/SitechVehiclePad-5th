@@ -11,9 +11,9 @@
         android:layout_width="240px"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textColor="#B8BBBC"
-        android:paddingTop="25px"
-        android:paddingBottom="25px"
+        android:textColor="@color/color_kaola_category_all_item_text"
+        android:paddingTop="22px"
+        android:paddingBottom="22px"
         android:gravity="center"
         android:textSize="34px" />
 
