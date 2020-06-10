@@ -28,8 +28,11 @@ import com.sitechdev.vehicle.lib.event.XtBusUtil;
 import com.sitechdev.vehicle.lib.util.ActivityManager;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.R;
+import com.sitechdev.vehicle.pad.module.apps.view.AppsListGridActivity;
 import com.sitechdev.vehicle.pad.module.main.MainActivity;
 import com.sitechdev.vehicle.pad.module.splash.SplashActivity;
+import com.sitechdev.vehicle.pad.router.RouterConstants;
+import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppUtil;
 import com.sitechdev.vehicle.pad.view.CommonDialog;
 import com.sitechdev.vehicle.pad.view.CommonProgressDialog;
@@ -100,7 +103,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
      */
     public boolean isShowTipDialog() {
         return !ScreenUtils.isLandscape()
-                && (getClass() != SplashActivity.class) && (getClass() != MainActivity.class);
+                && (getClass() != SplashActivity.class) && (getClass() != MainActivity.class)&& (getClass() != AppsListGridActivity.class);
     }
 
     /**
@@ -109,7 +112,12 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
      */
     public void onShowOriDialog() {
         CommonScreenTipDialog tipDialog = new CommonScreenTipDialog(this);
-        tipDialog.setListener(this::finish);
+        tipDialog.setListener(()->{
+            RouterUtils.getInstance().navigationWithFlags(RouterConstants.HOME_MAIN,
+                    Intent.FLAG_ACTIVITY_NEW_TASK, Intent.FLAG_ACTIVITY_CLEAR_TASK, Intent.FLAG_ACTIVITY_CLEAR_TOP
+            );
+            this.finish();
+        });
         tipDialog.show();
     }
 
