@@ -37,6 +37,7 @@ import com.sitechdev.vehicle.pad.event.TeddyEvent;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.module.main.MainActivity;
 import com.sitechdev.vehicle.pad.module.online_audio.KaolaAudioActivity;
+import com.sitechdev.vehicle.pad.module.online_audio.MusicKaolaActivity;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppVariants;
@@ -73,6 +74,16 @@ public class KaolaPlayManager {
 
     public static class SingletonHolder {
         public static KaolaPlayManager INSTANCE = new KaolaPlayManager();
+    }
+
+    private List<Column> originData;
+
+    public List<Column> getOriginData() {
+        return originData;
+    }
+
+    public void setOriginData(List<Column> originData) {
+        this.originData = originData;
     }
 
     public void seekTo(Context context, int position) {
@@ -240,7 +251,7 @@ public class KaolaPlayManager {
 //            KaolaListActivity.mContext.startActivity(intent);
 //            return;
 //        }
-        if (isTopAct(context, KaolaAudioActivity.class)) {
+        if (isTopAct(context, KaolaAudioActivity.class) || isTopAct(context, MusicKaolaActivity.class)) {
             EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_KAOLA_UPDATE, index, deepIndex));
         } else {
             RouterUtils.getInstance().getPostcard(RouterConstants.MUSIC_PLAY_ONLINE_MAIN)
@@ -370,6 +381,22 @@ public class KaolaPlayManager {
             EventBusUtils.postEvent(new TeddyEvent(TeddyEvent.EVENT_TEDDY_KAOLA_PLAY_UPDATElIST, ++curPosition));
         }
         return hasNext;
+    }
+
+    public boolean hasNext(Context context) {
+        if (isCurPlayingBroadcast()) {
+            return BroadcastRadioPlayerManager.getInstance().hasNext();
+        } else {
+            return PlayerManager.getInstance(context).hasNext();
+        }
+    }
+
+    public boolean hasPre(Context context) {
+        if (isCurPlayingBroadcast()) {
+            return BroadcastRadioPlayerManager.getInstance().hasPre();
+        } else {
+            return PlayerManager.getInstance(context).hasPre();
+        }
     }
 
     public boolean playPre() {

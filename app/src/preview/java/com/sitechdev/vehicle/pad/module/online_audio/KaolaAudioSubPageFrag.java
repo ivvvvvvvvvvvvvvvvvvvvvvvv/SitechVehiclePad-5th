@@ -52,7 +52,6 @@ public class KaolaAudioSubPageFrag extends BaseFragment {
     private boolean playIfSuspend;//自动播放是否判断当前播放状态
     private int defaultIndex;
     private int defaultSubIndex = 0;
-    private List<Column> originData;
     public KaolaAudioSubPageFrag() {
 
     }
@@ -134,7 +133,7 @@ public class KaolaAudioSubPageFrag extends BaseFragment {
 
                 @Override
                 public void onDataGot(List<Column> data) {
-                    originData = data;
+                    KaolaPlayManager.SingletonHolder.INSTANCE.setOriginData(data);
                     if (playIfSuspend) {//判断 是否判断当前播放状态
                         if (!KaolaPlayManager.SingletonHolder.INSTANCE.isPlaying(getActivity())) {
                             //当前未播放资源   播放数据中defaultIndex 下面defaultSubIndex 内容
@@ -279,10 +278,10 @@ public class KaolaAudioSubPageFrag extends BaseFragment {
                 }
                 return;//当前播放资源
             } else {
-                if (originData != null) {
+                if (KaolaPlayManager.SingletonHolder.INSTANCE.getOriginData() != null) {
                     defaultIndex = page;
                     defaultSubIndex = subIndex;
-                    playColumSource(originData, defaultIndex, defaultSubIndex);
+                    playColumSource(KaolaPlayManager.SingletonHolder.INSTANCE.getOriginData(), defaultIndex, defaultSubIndex);
                 }
             }
         }

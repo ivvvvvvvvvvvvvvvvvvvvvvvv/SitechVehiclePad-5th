@@ -36,6 +36,7 @@ import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.lib.util.TimeUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
+import com.sitechdev.vehicle.pad.event.AppEvent;
 import com.sitechdev.vehicle.pad.event.TeddyEvent;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.kaola.PlayItemAdapter;
@@ -535,5 +536,12 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
 
     private void getProgamList() {
 
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(AppEvent event) {
+        if (event.getEventKey().equals(AppEvent.EVENT_APP_KAOLA_UPDATE)) {
+            finish();
+        }
     }
 }

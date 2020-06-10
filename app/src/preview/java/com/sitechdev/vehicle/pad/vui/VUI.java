@@ -38,6 +38,8 @@ import com.sitechdev.vehicle.pad.module.login.util.LoginUtils;
 import com.sitechdev.vehicle.pad.module.main.MainActivity;
 import com.sitechdev.vehicle.pad.module.music.MusicMainActivity;
 import com.sitechdev.vehicle.pad.module.music.MusicManager;
+import com.sitechdev.vehicle.pad.module.online_audio.KaolaAudioActivity;
+import com.sitechdev.vehicle.pad.module.online_audio.MusicKaolaActivity;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppUtil;
@@ -915,13 +917,13 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                     break;
                                 case "个人中心":
                                     if (LoginUtils.isLogin()) {
-                                        PersonLoginWindow.getInstance().showWnd(() -> EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_OPEN_MEMBER_INFO_PAGE)));
-                                        shutAndTTS("我还没有权限打开个人中心，请您登录授权。");
-                                        shut();
-                                    } else {
                                         log("正在打开个人中心");
                                         EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_OPEN_MEMBER_INFO_PAGE));
                                         shutAndTTS("好的，已为您打开个人中心");
+                                        shut();
+                                    } else {
+                                        PersonLoginWindow.getInstance().showWnd(() -> EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_OPEN_MEMBER_INFO_PAGE)));
+                                        shutAndTTS("我还没有权限打开个人中心，请您登录授权。");
                                         shut();
                                     }
                                     break;
@@ -1237,14 +1239,6 @@ public class VUI implements VUIWindow.OnWindowHideListener {
     }
 
     private void toKaolaPage(String appname, int index, int deepIndex) {
-        if (null != AppVariants.currentActivity) {
-            if (AppVariants.currentActivity instanceof MusicKaolaForShowActivity) {
-                if (TextUtils.equals(appname, ((MusicKaolaForShowActivity) AppVariants.currentActivity).title)) {
-                    shutAndTTS("您当前已在" + appname);
-                    return;
-                }
-            }
-        }
         gotoPlay(index, deepIndex);
     }
 
