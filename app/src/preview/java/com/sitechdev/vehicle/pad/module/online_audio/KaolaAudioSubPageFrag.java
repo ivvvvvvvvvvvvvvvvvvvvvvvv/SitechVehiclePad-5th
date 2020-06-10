@@ -250,9 +250,15 @@ public class KaolaAudioSubPageFrag extends BaseFragment {
             if (i == index) {
                 if (data.get(i) != null && data.get(i).getColumnMembers() != null && childIndex < data.get(i).getColumnMembers().size()) {
                     ColumnMember ready2playColumn = data.get(i).getColumnMembers().get(childIndex);
+                    KaolaPlayManager.SingletonHolder.INSTANCE.setCurPlayingAlbumTitle(ready2playColumn.getTitle());
                     if (null != ready2playColumn && ready2playColumn instanceof RadioDetailColumnMember) {
                         PlayerListManager.getInstance().clearPlayList();
                         KaolaPlayManager.SingletonHolder.INSTANCE.playPgc(getActivity(), ((RadioDetailColumnMember) ready2playColumn).getRadioId());
+                        KaolaPlayManager.SingletonHolder.INSTANCE.setCurPlayingAlbumTitle(ready2playColumn.getTitle());
+                        KaolaPlayManager.SingletonHolder.INSTANCE.setCurPlayingAlbumCover(ready2playColumn.getImageFiles());
+                    }else if (null != ready2playColumn && ready2playColumn instanceof AlbumDetailColumnMember) {
+                        PlayerListManager.getInstance().clearPlayList();
+                        KaolaPlayManager.SingletonHolder.INSTANCE.playAlbum(getActivity(), ((AlbumDetailColumnMember) ready2playColumn).getAlbumId());
                         KaolaPlayManager.SingletonHolder.INSTANCE.setCurPlayingAlbumTitle(ready2playColumn.getTitle());
                         KaolaPlayManager.SingletonHolder.INSTANCE.setCurPlayingAlbumCover(ready2playColumn.getImageFiles());
                     }
@@ -268,6 +274,9 @@ public class KaolaAudioSubPageFrag extends BaseFragment {
             int page = (int) event.getEventValue();
             int subIndex = (int) event.getEventValue2();
             if (page == defaultIndex && subIndex == defaultSubIndex) {
+                if (!KaolaPlayManager.SingletonHolder.INSTANCE.isPlaying(getActivity())) {
+                    KaolaPlayManager.SingletonHolder.INSTANCE.switchPlayPause(getActivity());
+                }
                 return;//当前播放资源
             } else {
                 if (originData != null) {

@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@+id/playcontrol"
+        android:layout_marginRight="130px"
         android:layout_toRightOf="@+id/icon">
 
         <TextView

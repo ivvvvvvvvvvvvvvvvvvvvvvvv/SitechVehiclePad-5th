@@ -33,6 +33,7 @@ import com.sitechdev.vehicle.pad.event.WindowEvent;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.module.forshow.MusicKaolaForShowActivity;
+import com.sitechdev.vehicle.pad.module.forshow.MusicMainForShowActivity;
 import com.sitechdev.vehicle.pad.module.login.util.LoginUtils;
 import com.sitechdev.vehicle.pad.module.main.MainActivity;
 import com.sitechdev.vehicle.pad.module.music.MusicMainActivity;
@@ -843,11 +844,6 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                             appnameTag = slot.optString("normValue");
                             continue;
                         }
-                        if (TextUtils.equals(slot.optString("name"), "page")) {
-                            page = slot.optString("value");
-                            appnameTag = slot.optString("normValue");
-                            continue;
-                        }
                         if (TextUtils.equals(slot.optString("name"), "pricecounter")) {
                             priceCounter = slot.optString("normValue");
                             continue;
@@ -884,22 +880,18 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                 shut();
                                 break;
                             }
-                            if(appnameTag.equals("page")){
-                                switch (page) {
-                                    case "首页":
-                                    case "主页":
-                                        if (null == AppVariants.currentActivity || !(AppVariants.currentActivity instanceof MainActivity)) {
-                                            Intent goMain = new Intent();
-                                            goMain.setClass(context, MainActivity.class);
-                                            context.startActivity(goMain);
-                                            shut();
-                                        } else {
-                                            shutAndTTS("您当前已在首页");
-                                        }
-                                        break;
-                                }
-                            }
                             switch (appname) {
+                                case "首页":
+                                case "主页":
+                                    if (null == AppVariants.currentActivity || !(AppVariants.currentActivity instanceof MainActivity)) {
+                                        Intent goMain = new Intent();
+                                        goMain.setClass(context, MainActivity.class);
+                                        context.startActivity(goMain);
+                                        shut();
+                                    } else {
+                                        shutAndTTS("您当前已在首页");
+                                    }
+                                    break;
                                 case "皮肤设置":
                                 case "主题设置":
                                 case "设置":
@@ -936,7 +928,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                 case "本地音乐":
                                     if (null == AppVariants.currentActivity || !(AppVariants.currentActivity instanceof MusicMainActivity)) {
                                         Intent goMusicMain = new Intent();
-                                        goMusicMain.setClass(context, MusicMainActivity.class);
+                                        goMusicMain.setClass(context, MusicMainForShowActivity.class);
                                         goMusicMain.putExtra("index", 1);
                                         context.startActivity(goMusicMain);
                                         shut();
@@ -958,6 +950,12 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                     shutAndTTS("好的，正在为您打开听伴");
                                     shut();
                                     RouterUtils.getInstance().navigation(RouterConstants.MUSIC_PLAY_ONLINE_MAIN);
+                                    break;
+                                case "全部应用":
+                                case "应用列表":
+                                    shutAndTTS("好的，正在为您打开全部应用");
+                                    shut();
+                                    RouterUtils.getInstance().navigation(RouterConstants.SETTING_APP_LIST);
                                     break;
                                 case "导航":
                                 case "网络音乐":
@@ -1440,6 +1438,8 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                 deepIndex = 0;
                 break;
             case "童谣儿歌":
+            case "儿歌童谣":
+            case "儿歌":
                 index = 2;
                 deepIndex = 1;
                 break;
@@ -1456,6 +1456,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                 deepIndex = 4;
                 break;
             case "英语儿歌":
+            case "英文儿歌":
             case "儿童英语儿歌故事":
                 index = 2;
                 deepIndex = 5;
