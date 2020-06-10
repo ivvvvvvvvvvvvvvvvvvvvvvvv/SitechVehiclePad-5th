@@ -3,6 +3,8 @@ package com.sitechdev.vehicle.pad.manager;
 import android.content.Context;
 import android.content.Intent;
 
+import com.kaolafm.sdk.core.mediaplayer.BroadcastRadioListManager;
+import com.kaolafm.sdk.core.mediaplayer.BroadcastRadioPlayerManager;
 import com.kaolafm.sdk.core.mediaplayer.PlayItem;
 import com.kaolafm.sdk.core.mediaplayer.PlayerListManager;
 import com.kaolafm.sdk.core.mediaplayer.PlayerManager;
@@ -91,7 +93,12 @@ public class VoiceSourceManager {
                     removes[i] = true;
                     continue;
                 }
-                PlayItem curPlayItem = PlayerListManager.getInstance().getCurPlayItem();
+                PlayItem curPlayItem;
+                if (KaolaPlayManager.SingletonHolder.INSTANCE.isCurPlayingBroadcast()) {
+                    curPlayItem = BroadcastRadioListManager.getInstance().getCurPlayItem();
+                } else {
+                    curPlayItem = PlayerListManager.getInstance().getCurPlayItem();
+                }
                 if (curPlayItem != null) {
                     String title = curPlayItem.getTitle();
                     MusicChangeListener listener = ref.get();
@@ -137,7 +144,13 @@ public class VoiceSourceManager {
                     continue;
                 }
                 MusicChangeListener listener = ref.get();
-                if (PlayerListManager.getInstance().getCurPlayItem() == null) {
+                PlayItem curPlayItem;
+                if (KaolaPlayManager.SingletonHolder.INSTANCE.isCurPlayingBroadcast()) {
+                    curPlayItem = BroadcastRadioListManager.getInstance().getCurPlayItem();
+                } else {
+                    curPlayItem = PlayerListManager.getInstance().getCurPlayItem();
+                }
+                if (curPlayItem == null) {
                     continue;
                 }
                 String value = listener.getClass().getAnnotation(
@@ -145,8 +158,8 @@ public class VoiceSourceManager {
                 if (value.equals(SUPPORT_TYPE_ALL) || value.equals(SUPPORT_TYPE_KAOLA)) {
                     listener.pause();
                 }
-                if (PlayerListManager.getInstance().getCurPlayItem() != null) {
-                    String title = PlayerListManager.getInstance().getCurPlayItem().getTitle();
+                if (curPlayItem != null) {
+                    String title = curPlayItem.getTitle();
                     switch (value) {
                         case SUPPORT_TYPE_ALL:
                             listener.onMusicChange(title);
