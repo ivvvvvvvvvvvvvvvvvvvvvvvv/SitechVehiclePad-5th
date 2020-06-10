@@ -32,6 +32,15 @@
         <item name="android:backgroundDimAmount">1</item>
     </style>
 
+    <style name="set_sitech_progress_dialog" parent="android:Theme.Dialog">
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@style/phoneCallAnimStyle</item>
+    </style>
+
     <style name="phoneCallAnimStyle">
         <item name="android:windowEnterAnimation">@anim/phone_call_show</item>
         <item name="android:windowExitAnimation">@anim/phone_call_dismiss</item>

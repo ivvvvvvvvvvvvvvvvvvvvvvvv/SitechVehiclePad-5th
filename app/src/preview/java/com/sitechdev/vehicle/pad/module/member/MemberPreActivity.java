@@ -29,7 +29,7 @@ import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.CommonUtil;
 import com.sitechdev.vehicle.pad.util.FontUtil;
 import com.sitechdev.vehicle.pad.view.ReflectTextView;
-import com.sitechdev.vehicle.pad.window.SignDialog;
+import com.sitechdev.vehicle.pad.window.dialog.SignDialog;
 import com.sitechdev.vehicle.pad.window.view.CommonLogoutDialog;
 
 /**
