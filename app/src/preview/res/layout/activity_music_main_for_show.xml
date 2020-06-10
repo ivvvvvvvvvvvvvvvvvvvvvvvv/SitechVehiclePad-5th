@@ -29,7 +29,7 @@
             android:layout_width="10px"
             android:layout_height="40px"
             android:layout_marginLeft="62px"
-            android:background="#09AF39"
+            android:src="@drawable/playlist_tip_forshow"
             android:layout_marginTop="48px" />
 
         <TextView

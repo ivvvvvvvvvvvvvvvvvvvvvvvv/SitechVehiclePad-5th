@@ -160,7 +160,7 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
             setListData();
         }
         //默认图片索引
-        GlideApp.with(this).load(imageUrl).into(musicImageView);
+        GlideApp.with(this).load(imageUrl).placeholder(R.drawable.default_audio_round).circleCrop().into(musicImageView);
         tv_title.setText(title);
     }
 
@@ -192,7 +192,7 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
 
             playListAdapter.setOnItemClickListener(new MusicKaolaAdapter.OnItemClickListener() {
                 @Override
-                public void onItemClick(PlayItemAdapter.Item item ,int position) {
+                public void onItemClick(PlayItemAdapter.Item item, int position) {
                     //1-直播中，2-回放，3-未开播
                     if (item.status == 3) {
                         CommonToast.makeText(mContext, "节目未开始");
@@ -480,7 +480,7 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
             tv_bottom_title.setText(item.getTitle());
             subtitle.setText(item.getAlbumName());
             btn_pause_play.setImageResource(R.drawable.pc_pause);
-            GlideApp.with(this).load(item.getAlbumPic()).circleCrop().into(musicImageView);
+            GlideApp.with(this).load(item.getAlbumPic()).placeholder(R.drawable.default_audio_round).circleCrop().into(musicImageView);
             if ((item.getType() == PlayItemType.BROADCAST_LIVING)) {
                 GlideApp.with(this).load(R.drawable.tag_living).into(tag);
             } else {

@@ -161,7 +161,7 @@ public class MusicKaolaActivity extends BaseActivity implements
         if (TextUtils.isEmpty(title)) {
             title = KaolaPlayManager.SingletonHolder.INSTANCE.getCurPlayingAlbumTitle();
         }
-        GlideApp.with(this).load(imageUrl).placeholder(R.drawable.default_audio).circleCrop().into(musicImageView);
+        GlideApp.with(this).load(imageUrl).placeholder(R.drawable.default_audio_round).circleCrop().into(musicImageView);
         tv_title.setText(title);
     }
 
@@ -494,7 +494,7 @@ public class MusicKaolaActivity extends BaseActivity implements
         if (tv_bottom_title != null && item != null) {
             tv_bottom_title.setText(item.getTitle());
             btn_pause_play.setImageResource(R.drawable.pc_pause);
-            GlideApp.with(this).load(item.getAlbumPic()).placeholder(R.drawable.default_audio).circleCrop().into(musicImageView);
+            GlideApp.with(this).load(item.getAlbumPic()).placeholder(R.drawable.default_audio_round).circleCrop().into(musicImageView);
         }
         if (flag_FIRST_PLAY) {
             SitechDevLog.e(TAG, "onPlayerPlaying  flag_FIRST_PLAY = " + flag_FIRST_PLAY);
