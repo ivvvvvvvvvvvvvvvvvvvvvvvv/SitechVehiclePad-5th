@@ -93,46 +93,49 @@ public class AllModuleUtils {
     public static int getSrcId(int appIcon) {
         int resId = R.drawable.icon_app_menu_navi;
         switch (appIcon) {
-            case 1:             //本地音乐
-                resId = R.drawable.icon_app_menu_navi;
-                break;
-            case 2:             //收音机
-                resId = R.drawable.icon_app_menu_radio;
-                break;
-            case 3:             //本地音乐
-                resId = R.drawable.icon_app_menu_local_music;
-                break;
-            case 4:             //网络音乐
-                resId = R.drawable.icon_app_menu_kuwo;
-                break;
-            case 5:             //听伴FM
-                resId = R.drawable.icon_app_menu_kaola;
-                break;
-            case 6:             //LED表情管理
-                resId = R.drawable.icon_app_menu_led;
-                break;
-            case 7:             //视频
-                resId = R.drawable.icon_app_menu_video;
-                break;
-            case 8:             //天气
+            case 1:             //天气
                 resId = R.drawable.icon_app_menu_weather;
                 break;
-            case 9:             //电话
-                resId = R.drawable.icon_app_menu_phone;
-                break;
-            case 10:            //个人中心
-                resId = R.drawable.icon_app_menu_member;
-                break;
-            case 11:            //饭聊
-                resId = R.drawable.icon_app_menu_funchat;
-                break;
-            case 12:            //出行计价器
+            case 2:            //出行计价器
                 resId = R.drawable.icon_app_menu_taxi;
                 break;
-            case 13:            //商城
+            case 3:             //听伴FM
+                resId = R.drawable.icon_app_menu_kaola;
+                break;
+            case 4:             //本地音乐
+                resId = R.drawable.icon_app_menu_local_music;
+                break;
+            case 5:            //个人中心
+                resId = R.drawable.icon_app_menu_member;
+                break;
+            case 6:            //车辆状态
+                resId = R.drawable.icon_app_menu_car_status;
+                break;
+            case 7:            //皮肤设置
+                resId = R.drawable.icon_app_menu_setting_skin;
+                break;
+            case 8:             //导航
+                resId = R.drawable.icon_app_menu_navi;
+                break;
+            case 9:             //网络音乐
+                resId = R.drawable.icon_app_menu_kuwo;
+                break;
+            case 10:             //LED表情管理
+                resId = R.drawable.icon_app_menu_led;
+                break;
+            case 11:             //视频
+                resId = R.drawable.icon_app_menu_video;
+                break;
+            case 12:             //电话
+                resId = R.drawable.icon_app_menu_phone;
+                break;
+            case 13:            //饭聊
+                resId = R.drawable.icon_app_menu_funchat;
+                break;
+            case 14:            //商城
                 resId = R.drawable.icon_app_menu_mall;
                 break;
-            case 14:            //设置
+            case 15:            //设置
                 resId = R.drawable.icon_app_menu_setting;
                 break;
             default:

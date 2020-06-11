@@ -30,6 +30,7 @@ import com.sitechdev.vehicle.pad.module.map.util.LocationData;
 import com.sitechdev.vehicle.pad.module.weather.presenter.WeatherPresenter;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.util.FontUtil;
+import com.sitechdev.vehicle.pad.view.CommonProgressDialog;
 import com.sitechdev.vehicle.pad.view.loading.LoadingView;
 
 import java.text.DateFormat;
@@ -104,8 +105,8 @@ public class WeatherActivity extends MvpActivity<WeatherPresenter> implements We
         btnUpdate = findViewById(R.id.id_rl_update_time);
 
 
-        llLoading = findViewById(R.id.ll_loading);
-        llLoading.setLoadingText("加载中...");
+//        llLoading = findViewById(R.id.ll_loading);
+//        llLoading.setLoadingText("加载中...");
 
         //洗车适宜
         tvCarState = findViewById(R.id.weather_right_info_wash_car_text_params);
@@ -208,7 +209,8 @@ public class WeatherActivity extends MvpActivity<WeatherPresenter> implements We
 //        if (getActivity() == null) {
 //            return;
 //        }
-        llLoading.setVisibility(View.GONE);
+//        llLoading.setVisibility(View.GONE);
+        CommonProgressDialog.getInstance().cancel(this);
         if (type == WeatherUtils.ERROR_TYPE_NET) {
             clLayout.setVisibility(View.GONE);
             llError.setVisibility(View.VISIBLE);
@@ -329,7 +331,8 @@ public class WeatherActivity extends MvpActivity<WeatherPresenter> implements We
 
     @Override
     public void showLoading() {
-        llLoading.setVisibility(View.VISIBLE);
+        CommonProgressDialog.getInstance().show(this);
+//        llLoading.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -339,7 +342,8 @@ public class WeatherActivity extends MvpActivity<WeatherPresenter> implements We
 
     @Override
     public void hideLoading() {
-        llLoading.setVisibility(View.GONE);
+//        llLoading.setVisibility(View.GONE);
+        CommonProgressDialog.getInstance().cancel(this);
         clLayout.setVisibility(View.VISIBLE);
     }
 

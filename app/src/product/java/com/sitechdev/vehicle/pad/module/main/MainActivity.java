@@ -36,7 +36,6 @@ import com.sitechdev.vehicle.lib.util.Constant;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.StringUtils;
 import com.sitechdev.vehicle.lib.util.ThreadUtils;
-import com.sitechdev.vehicle.pad.BuildConfig;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.app.AppConst;
@@ -348,15 +347,6 @@ public class MainActivity extends BaseActivity
 //        mMusicBtnImageView.setOnClickListener(this);
 //        mDriverBtnImageView.setOnClickListener(this);
 //        mAppsBtnImageView.setOnClickListener(this);
-        if (BuildConfig.DEBUG) {
-            llNews.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-//                    startActivity(new Intent(MainActivity.this, DebugInfo.class));
-                    return false;
-                }
-            });
-        }
     }
 
     @Override

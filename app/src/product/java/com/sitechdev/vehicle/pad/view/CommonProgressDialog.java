@@ -1,9 +1,10 @@
 package com.sitechdev.vehicle.pad.view;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 
 import com.sitechdev.vehicle.pad.R;
+import com.sitechdev.vehicle.pad.callback.BaseBribery;
+import com.sitechdev.vehicle.pad.window.dialog.SitechProgressDialog;
 
 import java.lang.ref.SoftReference;
 import java.util.HashMap;
@@ -18,8 +19,8 @@ import java.util.HashMap;
  * 备注：
  */
 public class CommonProgressDialog {
-    private ProgressDialog mProgressDialog;
-    private HashMap<String, SoftReference<ProgressDialog>> dialogHashMap = new HashMap<>();
+    private SitechProgressDialog mProgressDialog;
+    private HashMap<String, SoftReference<SitechProgressDialog>> dialogHashMap = new HashMap<>();
 
     private CommonProgressDialog() {
         dialogHashMap = new HashMap<>();
@@ -47,30 +48,39 @@ public class CommonProgressDialog {
     public synchronized void show(Activity context, String text, boolean outCancelable) {
         //判断是否存在在map中
         String activityName = context.getClass().getSimpleName();
+//        SitechDevLog.e("ProgressDialog", "show Dialog===>" + activityName);
         if (dialogHashMap.containsKey(activityName)) {
             //已包含该Activity
-            SoftReference<ProgressDialog> progressDialogSoftReference = dialogHashMap.get(activityName);
+            SoftReference<SitechProgressDialog> progressDialogSoftReference = dialogHashMap.get(activityName);
             if (progressDialogSoftReference != null && progressDialogSoftReference.get() != null) {
                 mProgressDialog = progressDialogSoftReference.get();
             }
         } else {
             //未包含在Map中
-            mProgressDialog = new ProgressDialog(context);
-            mProgressDialog.setCanceledOnTouchOutside(outCancelable);
-            mProgressDialog.setMessage(text);
+            mProgressDialog = new SitechProgressDialog(context);
+            mProgressDialog.setOnCancelDialogListener(new BaseBribery() {
+                @Override
+                public void onSuccess(Object successObj) {
+//                    SitechDevLog.e("ProgressDialog", "show Dialog===>" + context.getClass().getSimpleName());
+                    cancel(context);
+                }
+            });
 
             //put 进 map中
-            SoftReference<ProgressDialog> progressDialogSoftReference = new SoftReference<>(mProgressDialog);
+            SoftReference<SitechProgressDialog> progressDialogSoftReference = new SoftReference<>(mProgressDialog);
             dialogHashMap.put(activityName, progressDialogSoftReference);
         }
-        mProgressDialog.show();
+        if (!mProgressDialog.isShowing()) {
+            mProgressDialog.show();
+        }
     }
 
     public synchronized void cancel(Activity context) {//判断是否存在在map中
         String activityName = context.getClass().getSimpleName();
+//        SitechDevLog.e("ProgressDialog", "cancelDialog===>" + activityName);
         if (dialogHashMap.containsKey(activityName)) {
             //已包含该Activity
-            SoftReference<ProgressDialog> progressDialogSoftReference = dialogHashMap.get(activityName);
+            SoftReference<SitechProgressDialog> progressDialogSoftReference = dialogHashMap.get(activityName);
             if (progressDialogSoftReference != null && progressDialogSoftReference.get() != null) {
                 mProgressDialog = progressDialogSoftReference.get();
                 if (mProgressDialog != null && mProgressDialog.isShowing()) {

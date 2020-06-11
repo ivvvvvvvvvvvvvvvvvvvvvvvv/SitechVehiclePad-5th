@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20pt"
-            android:layout_toRightOf="@+id/id_btn_teddy">
+            android:layout_toRightOf="@+id/id_btn_teddy_stup">
 
             <RelativeLayout
                 android:id="@+id/id_teddy_default_content"

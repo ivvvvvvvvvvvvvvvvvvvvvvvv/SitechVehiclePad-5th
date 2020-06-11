@@ -52,8 +52,8 @@ public abstract class BasicWindow {
 
     public void resetSize() {
         if (mLayoutParams != null) {
-            mLayoutParams.width = BaseWindow.getInstance().getDisplayWidth();
-            mLayoutParams.height = BaseWindow.getInstance().getDisplayHeight();
+//            mLayoutParams.width = BaseWindow.getInstance().getDisplayWidth();
+//            mLayoutParams.height = BaseWindow.getInstance().getDisplayHeight();
         } else {
             initWindow();
         }

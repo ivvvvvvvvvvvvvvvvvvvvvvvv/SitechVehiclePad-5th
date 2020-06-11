@@ -23,7 +23,7 @@ import com.sitechdev.vehicle.pad.view.ScrollTextView;
 import java.util.ArrayList;
 import java.util.List;
 
-//@Route(path = RouterConstants.FRAGMENT_LOCAL_SHOW_MUSIC)
+@Route(path = RouterConstants.FRAGMENT_LOCAL_SHOW_MUSIC)
 public class MusicMainForShowActivity extends BaseActivity {
 
     private Context context;

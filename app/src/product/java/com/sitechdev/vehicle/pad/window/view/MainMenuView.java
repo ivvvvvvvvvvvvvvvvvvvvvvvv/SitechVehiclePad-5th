@@ -18,7 +18,7 @@ import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.event.VoiceEvent;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
-import com.sitechdev.vehicle.pad.util.AppUtil;
+import com.sitechdev.vehicle.pad.util.CommonUtil;
 import com.sitechdev.vehicle.pad.view.SkinTextView;
 import com.sitechdev.vehicle.pad.view.VolumeView2;
 import com.sitechdev.vehicle.pad.vui.VUI;
@@ -121,11 +121,12 @@ public class MainMenuView extends RelativeLayout implements View.OnClickListener
                 break;
             case R.id.id_btn_location:
 //                ToastUtils.showShort("导航按钮被点击了。。。");
-                RouterUtils.getInstance().navigation(RouterConstants.SUB_APP_TAXI);
+//                RouterUtils.getInstance().navigation(RouterConstants.SUB_APP_TAXI);
+                CommonUtil.showToast(R.string.app_developing);
                 break;
             case R.id.id_btn_music:
 //                ToastUtils.showShort("音乐按钮被点击了。。。");
-//                RouterUtils.getInstance().navigation(RouterConstants.FRAGMENT_LOCAL_MUSIC);
+                RouterUtils.getInstance().navigation(RouterConstants.FRAGMENT_LOCAL_SHOW_MUSIC);
                 break;
             case R.id.id_btn_driver:
 //                ToastUtils.showShort("驾驶按钮被点击了。。。");

@@ -5,7 +5,7 @@
     android:layout_gravity="center_horizontal"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:padding="20dp">
+    android:padding="10dp">
 
     <ImageView
         android:id="@+id/menu_icon"
@@ -21,7 +21,8 @@
         android:layout_below="@id/menu_icon"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40px"
-        android:text="应用1"
+        android:maxLines="1"
+        android:text="LED表情管理"
         android:textColor="@color/color_all_app_title_text"
         android:textSize="32px" />
 

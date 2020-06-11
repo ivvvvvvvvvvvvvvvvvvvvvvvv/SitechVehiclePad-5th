@@ -1,4 +1,4 @@
-package com.sitechdev.vehicle.pad.window;
+package com.sitechdev.vehicle.pad.window.dialog;
 
 import android.content.Context;
 import android.os.CountDownTimer;
