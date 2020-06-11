@@ -603,7 +603,6 @@ public class KaolaPlayManager {
     static long lastCoverPlayPauseAnimTime = 0;
     static long lastCoverPlayStartAnimTime = 0;
     public static void setCoverPlayStartAnim(View holder) {
-        Log.e("zyf","Play Start -- setCoverPlayStartAnim ");
         if (!checkCoverHolderNull(holder)) {
             long curInTime = System.currentTimeMillis();
             int dura = 500;
@@ -611,7 +610,6 @@ public class KaolaPlayManager {
 //                return;
             }
             lastCoverPlayStartAnimTime = curInTime;
-            Log.e("zyf","Play Start -- do anim ");
             try {
                 View image = holder.findViewById(R.id.image);
                 View imageBg = holder.findViewById(R.id.image_bg);
@@ -674,7 +672,6 @@ public class KaolaPlayManager {
     }
 
     public static void setCoverPlayPauseAnim(View holder) {
-        Log.e("zyf","Play Pause -- setCoverPlayPauseAnim ");
         if (!checkCoverHolderNull(holder)) {
             long curInTime = System.currentTimeMillis();
             int dura = 500;
@@ -682,7 +679,6 @@ public class KaolaPlayManager {
 //                return;
             }
             lastCoverPlayPauseAnimTime = curInTime;
-            Log.e("zyf","Play Pause -- do anim ");
             try {
                 View image = holder.findViewById(R.id.image);
                 View imageBg = holder.findViewById(R.id.image_bg);
@@ -735,7 +731,6 @@ public class KaolaPlayManager {
 //                keywords, text, new HttpCallback<VoiceSearchResult>() {
 //                    @Override
 //                    public void onSuccess(VoiceSearchResult voiceSearchResult) {
-//                        Log.e("zyf", "VoiceSearchResult = ");
 //                    }
 //
 //                    @Override

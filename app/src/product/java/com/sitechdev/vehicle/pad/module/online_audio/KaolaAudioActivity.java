@@ -6,8 +6,8 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
@@ -20,7 +20,6 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.kaolafm.sdk.core.mediaplayer.PlayItem;
 import com.sitechdev.vehicle.lib.event.BindEventBus;
 import com.sitechdev.vehicle.lib.imageloader.GlideApp;
-import com.sitechdev.vehicle.lib.util.Constant;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.event.TeddyEvent;
@@ -34,7 +33,6 @@ import com.sitechdev.vehicle.pad.view.TabLayout;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.ArrayList;
 import java.util.List;
 
 //听伴 主页面
@@ -47,7 +45,7 @@ public class KaolaAudioActivity extends BaseActivity implements
     @Autowired
     public int deepIndex = -1;
     @Autowired
-    public int pageIndex = 0;
+    public int pageIndex = -1;
     @Autowired
     public boolean playIfSuspend = false;
     private Context mContext;
@@ -56,7 +54,6 @@ public class KaolaAudioActivity extends BaseActivity implements
 
     private ViewPager pager;
     // 页面类型字符串数组
-    private ArrayList<Fragment> fragmentlist = new ArrayList<>();
 
     private ImageView icon, pre, next, play, list;
     private TextView title;
@@ -119,10 +116,13 @@ public class KaolaAudioActivity extends BaseActivity implements
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        initFrags();
+//        initFrags();
         initTabLayout();
         if (KaolaPlayManager.SingletonHolder.INSTANCE.isPlaying(this)) {
-            GlideApp.with(KaolaAudioActivity.this).load(KaolaPlayManager.SingletonHolder.INSTANCE.getCurPlayingItem().getAlbumPic()).into(icon);
+            PlayItem item = KaolaPlayManager.SingletonHolder.INSTANCE.getCurPlayingItem();
+            if (item != null) {
+                GlideApp.with(KaolaAudioActivity.this).load(item.getAlbumPic()).into(icon);
+            }
         }
     }
 
@@ -177,13 +177,14 @@ public class KaolaAudioActivity extends BaseActivity implements
         }
     }
 
-    private void initFrags() {
-        fragmentlist.add(new KaolaAudioSubPageFrag(pageIndex, deepIndex, playIfSuspend));
-        fragmentlist.add(new KaolaAudioCategoryPageFrag());
-        fragmentlist.add(new KaolaAudioBroadcastPageFrag());
-        fragmentlist.add(new KaolaAudioSearchPageFrag());
-    }
-
+//    private void initFrags() {
+//        fragmentlist.clear();
+//        fragmentlist.add(new KaolaAudioSubPageFrag(pageIndex, deepIndex, playIfSuspend));
+//        fragmentlist.add(new KaolaAudioCategoryPageFrag());
+//        fragmentlist.add(new KaolaAudioBroadcastPageFrag());
+//        fragmentlist.add(new KaolaAudioSearchPageFrag());
+//    }
+    KaolaFragmentAdapter adapter;
     private void initTabLayout() {
         tabLayout = findViewById(R.id.tv_sub_title);
 
@@ -212,7 +213,7 @@ public class KaolaAudioActivity extends BaseActivity implements
         });
         tabLayout.setupWithViewPager(pager);
 
-        KaolaFragmentAdapter adapter = new KaolaFragmentAdapter(getSupportFragmentManager(), fragmentlist, titleArr);
+        adapter = new KaolaFragmentAdapter(getSupportFragmentManager(), titleArr, pageIndex, deepIndex, playIfSuspend);
         pager.setAdapter(adapter);
         for (int i = 0; i < tabLayout.getTabCount(); i++) {
             TabLayout.Tab tab = tabLayout.getTabAt(i);

@@ -8,28 +8,28 @@ import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.List;
-
 import io.reactivex.annotations.Nullable;
 
-// 带状态车源列表页面适配器
 public class KaolaFragmentAdapter extends PagerAdapter {
-    // 页面集合
-    private List<Fragment> fragments;
     // 页面管理器
     private FragmentManager fragmentManager;
     private String[] titles;
-
+    private String[] tags = new String[]{KaolaAudioSubPageFrag.class.getSimpleName(), KaolaAudioSubPageFrag.class.getSimpleName(), KaolaAudioSubPageFrag.class.getSimpleName(), KaolaAudioSubPageFrag.class.getSimpleName()};
+    int defaultIndex; int subIndex;boolean playIfSuspend;
     // 构造方法
-    public KaolaFragmentAdapter(FragmentManager fragmentManager, List<Fragment> fragments, String[] titles) {
-        this.fragments = fragments;
+    public KaolaFragmentAdapter(FragmentManager fragmentManager,  String[] titles,Object... args) {
         this.fragmentManager = fragmentManager;
         this.titles = titles;
+        if (args.length >= 3) {
+            defaultIndex = (int) args[0];
+            subIndex = (int) args[1];
+            playIfSuspend = (boolean) args[2];
+        }
     }
 
     @Override
     public int getCount() {
-        return fragments.size();
+        return titles.length;
     }
 
     @Override
@@ -39,16 +39,35 @@ public class KaolaFragmentAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, @NonNull Object object) {
-        container.removeView(fragments.get(position).getView());
+        Fragment fragment = fragmentManager.findFragmentByTag(titles[position] + position);
+        if (fragment != null) {
+            container.removeView(fragment.getView());
+        }
     }
 
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        Fragment fragment = fragments.get(position);
+        Fragment fragment = fragmentManager.findFragmentByTag(tags[position] + position);
+        if (fragment == null) {
+            switch (position) {
+                case 0:
+                    fragment = new KaolaAudioSubPageFrag(defaultIndex, subIndex, playIfSuspend);
+                    break;
+                case 1:
+                    fragment = new KaolaAudioCategoryPageFrag();
+                    break;
+                case 2:
+                    fragment = new KaolaAudioBroadcastPageFrag();
+                    break;
+                case 3:
+                    fragment = new KaolaAudioSearchPageFrag();
+                    break;
+            }
+        }
         if (!fragment.isAdded()) {
             FragmentTransaction ft = fragmentManager.beginTransaction();
-            ft.add(fragment, fragment.getClass().getSimpleName());
+            ft.add(fragment, fragment.getClass().getSimpleName() + position);
             ft.commit();
             fragmentManager.executePendingTransactions();
         }
@@ -59,7 +78,6 @@ public class KaolaFragmentAdapter extends PagerAdapter {
             }
         }
 
-        assert fragment.getView() != null;
         return fragment.getView();
     }
 

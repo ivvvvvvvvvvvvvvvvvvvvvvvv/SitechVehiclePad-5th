@@ -119,7 +119,6 @@ public class KaolaListActivity extends BaseActivity {
         ARouter.getInstance().inject(this);
         super.onCreate(savedInstanceState);
         mContext = this;
-        SitechDevLog.e("zyf", "onCreate " );
     }
 
     @Override
@@ -152,7 +151,6 @@ public class KaolaListActivity extends BaseActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        SitechDevLog.e("zyf", "onNewIntent " );
         setIntent(intent);
         initData();
         initListener();
