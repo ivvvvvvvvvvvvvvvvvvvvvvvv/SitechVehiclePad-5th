@@ -133,6 +133,7 @@
         <activity android:name=".module.feedback.FeedbackActivity" />
         <activity android:name=".module.main.DebugInfo" />
         <activity android:name=".module.music.MusicMainActivity"/>
+        <activity android:name=".module.video.VideoListActivity" />
 
         <meta-data
             android:name="com.amap.api.v2.apikey"

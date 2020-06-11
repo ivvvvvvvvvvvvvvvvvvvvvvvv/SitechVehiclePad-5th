@@ -62,6 +62,8 @@ public interface RouterConstants {
     String MUSIC_PLAY_ONLINE_MAIN = "/subApp/musicPlayOnline"; // 听伴首页
     String MUSIC_PLAY_ONLINE = "/subApp/musicPlayOnlinePlaypage"; // 听伴专辑播放页
     String MUSIC_PLAY_ONLINE_BROADCAST = "/subApp/musicPlayBroadcastOnline";// 听伴广播播放页
+
+    String VIDEO_LIST = "/subApp/videoList";// 视频列表页
     /**
      * 设置
      */
