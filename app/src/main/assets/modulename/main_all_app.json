@@ -69,8 +69,8 @@
       "index": 8,
       "appName": "网络音乐",
       "appIcon": 9,
-      "appRoute": "/subApp/developing/needLogin/needNet/netMusic",
-      "jumpType": 0,
+      "appRoute": "/subApp/needLogin/needNet/netMusic",
+      "jumpType": 1,
       "eventId": "btn_app_net_music"
     },
     {

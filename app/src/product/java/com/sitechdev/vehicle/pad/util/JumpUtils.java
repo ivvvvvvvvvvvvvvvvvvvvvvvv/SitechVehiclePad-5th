@@ -12,6 +12,7 @@ import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.bean.AllModuleBean;
 import com.sitechdev.vehicle.pad.module.login.util.LoginUtils;
+import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.window.view.PersonLoginWindow;
 
@@ -94,16 +95,16 @@ public class JumpUtils {
         if (jumpType == 0) {
             RouterUtils.getInstance().navigation(Uri.parse(bean.appRoute));
         } else if (jumpType == 1) {
-//            switch (bean.appRoute) {
-//                case RouterConstants.FRAGMENT_CAR_CONTROL:
+            switch (bean.appRoute) {
+                case RouterConstants.FRAGMENT_CAR_CONTROL:
 //                    CarControlWindow.getInstance().showCarSetWnd(false);
-//                    break;
-//
-//                case RouterConstants.THIRD_APP_KUWO:
-//                    KuwoUtil.startKuwoApp(true);
+                    break;
+
+                case RouterConstants.THIRD_APP_KUWO:
+                    KuwoUtil.startKuwoApp(true);
 //                    EventBusUtils.postEvent(new TeddyEvent(TeddyEvent.EB_TEDDY_SCENE_EVENT_CHANGE, TeddyEvent.TEDDY_SCENE_KU_WO));
-//                    break;
-//                case RouterConstants.THIRD_APP_CARLIFE:
+                    break;
+                case RouterConstants.THIRD_APP_CARLIFE:
 //                    CarLifeManager.getInstance().showTip(new CarLifeManager.OnDialogListener() {
 //                        @Override
 //                        public void onPositiveListener() {
@@ -111,14 +112,14 @@ public class JumpUtils {
 //                            EventBusUtils.postEvent(new SysEvent(SysEvent.EB_CAR_LIFE_START));
 //                        }
 //                    });
-//
-//                    break;
-//                case RouterConstants.THIRD_APP_MAP:
+
+                    break;
+                case RouterConstants.THIRD_APP_MAP:
 //                    MapDelegate.INSTANCE.startMap();
-//                    break;
-//                default:
-//                    break;
-//            }
+                    break;
+                default:
+                    break;
+            }
         } else if (jumpType == 2) {
 //            if (StringUtils.isEquals(RouterConstants.FRAGMENT_AIR_CONTROL, bean.appRoute)) {
 //                if (!AirWindow.getInstance().isShow()) {
@@ -136,7 +137,7 @@ public class JumpUtils {
      * 判断登录组是否登录
      */
     public static boolean checkLoginGroup(String appRoute) {
-        boolean shouldLogin = appRoute.startsWith("/needLogin");
+        boolean shouldLogin = appRoute.contains("/needLogin");
         return shouldLogin && !LoginUtils.isLogin();
     }
 
