@@ -101,7 +101,13 @@ public class KaolaAudioActivity extends BaseActivity implements
         super.onCreate(savedInstanceState);
         VoiceSourceManager.getInstance().addMusicChangeListener(this);
         KaolaPlayManager.SingletonHolder.INSTANCE.addPlayVoiceSourceManagerListener(sourceListener);
+//        getLastCustomNonConfigurationInstance();
     }
+
+//    @Override
+//    public Object onRetainCustomNonConfigurationInstance() {
+//        return super.onRetainCustomNonConfigurationInstance();
+//    }
 
     @Override
     protected void onNewIntent(Intent intent) {

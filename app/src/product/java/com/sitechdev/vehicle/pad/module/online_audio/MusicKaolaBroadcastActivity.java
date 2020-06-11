@@ -108,7 +108,7 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_music_kaola_main;
+        return isLandscape() ? R.layout.activity_music_kaola_main_land : R.layout.activity_music_kaola_main;
     }
 
     @Override
