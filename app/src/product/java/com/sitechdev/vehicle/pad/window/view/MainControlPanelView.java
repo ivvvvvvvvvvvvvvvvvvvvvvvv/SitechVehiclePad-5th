@@ -114,7 +114,6 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
 
         initView();
 
-//        ThreadUtils.runOnUIThreadDelay(this::initListener, 3000);
         initListener();
 
 //        initVolumeAndLightData();
@@ -164,28 +163,30 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
 
     public void initVolumeAndLightData() {
         contentView.setOnClickListener(this);
-        initVolumeData();
-        currentScreenLightValue = maxScreenLightValue / 5 * 4;
-        SitechDevLog.i(TAG, "当前亮度===>" + BrightnessUtils.getWindowBrightness(ActivityUtils.getTopActivity().getWindow()));
+
+        initVolumeLightData();
+
         if (ScreenUtils.isLandscape()) {
             volumeVerticalSeekBar.setProgress(currentVolumeValue);
-
-//            lightVerticalSeekBar.setProgress(BrightnessUtils.getWindowBrightness(ActivityUtils.getTopActivity().getWindow()));
             lightVerticalSeekBar.setProgress(currentScreenLightValue);
         } else {
             volumeSeekBar.setProgress(currentVolumeValue);
-
             lightSeekBar.setProgress(currentScreenLightValue);
         }
+        //按键监听
+        initSeekBarListener();
     }
 
-    public void initVolumeData() {
+    /**
+     * 获取音量数据
+     */
+    public void initVolumeLightData() {
         //当前音量
         currentVolumeValue = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-        if (currentVolumeValue == 0) {
-            currentVolumeValue = maxVolumeValue / 2;
-        }
         SitechDevLog.i(TAG, "当前音量===" + currentVolumeValue);
+
+        currentScreenLightValue = maxScreenLightValue / 5 * 4;
+        SitechDevLog.i(TAG, "当前亮度===>" + BrightnessUtils.getWindowBrightness(ActivityUtils.getTopActivity().getWindow()));
     }
 
     private void initListener() {
@@ -210,109 +211,6 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
             }
         });
 
-        if (ScreenUtils.isLandscape()) {
-            //横屏的view
-            volumeVerticalSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                @Override
-                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                    SitechDevLog.i(TAG, "volumeVerticalSeekBar onProgressChanged==========================================" + progress);
-//                    if (progress == seekBar.getMax() || progress == 0) {
-//                        seekBar.setThumb(null);
-//                    } else {
-//                        seekBar.setThumb(getResources().getDrawable((R.drawable.bg_popup_btn_thumb_land)));
-//                    }
-                    setVolumeValue(progress);
-                }
-
-                @Override
-                public void onStartTrackingTouch(SeekBar seekBar) {
-                    SitechDevLog.i(TAG, "volumeVerticalSeekBar onStartTrackingTouch==========================================");
-
-                }
-
-                @Override
-                public void onStopTrackingTouch(SeekBar seekBar) {
-                    SitechDevLog.i(TAG, "volumeVerticalSeekBar onStopTrackingTouch==========================================");
-
-                }
-            });
-
-            lightVerticalSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                @Override
-                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                    SitechDevLog.i(TAG, "lightVerticalSeekBar onProgressChanged==========================================" + progress);
-//                    if (progress == seekBar.getMax() || progress == 0) {
-//                        seekBar.setThumb(null);
-//                    } else {
-//                        seekBar.setThumb(getResources().getDrawable((R.drawable.bg_popup_btn_thumb_land)));
-//                    }
-                    setLightValue(progress);
-                }
-
-                @Override
-                public void onStartTrackingTouch(SeekBar seekBar) {
-                    SitechDevLog.i(TAG, "lightVerticalSeekBar onStartTrackingTouch==========================================");
-
-                }
-
-                @Override
-                public void onStopTrackingTouch(SeekBar seekBar) {
-                    SitechDevLog.i(TAG, "lightVerticalSeekBar onStopTrackingTouch==========================================");
-
-                }
-            });
-        } else {
-            //竖屏的view
-            volumeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                @Override
-                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                    SitechDevLog.i(TAG, "volumeSeekBar onProgressChanged==========================================" + progress);
-//                    if (progress == seekBar.getMax()) {
-//                        seekBar.setThumb(null);
-//                    } else {
-//                        seekBar.setThumb(getResources().getDrawable((R.drawable.bg_popup_btn_thumb)));
-//                    }
-                    setVolumeValue(progress);
-                }
-
-                @Override
-                public void onStartTrackingTouch(SeekBar seekBar) {
-                    SitechDevLog.i(TAG, "volumeSeekBar onStartTrackingTouch==========================================");
-
-                }
-
-                @Override
-                public void onStopTrackingTouch(SeekBar seekBar) {
-                    SitechDevLog.i(TAG, "volumeSeekBar onStopTrackingTouch==========================================");
-
-                }
-            });
-
-            lightSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                @Override
-                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                    SitechDevLog.i(TAG, "lightSeekBar onProgressChanged==========================================" + progress);
-//                    if (progress == seekBar.getMax()) {
-//                        seekBar.setThumb(null);
-//                    } else {
-//                        seekBar.setThumb(getResources().getDrawable((R.drawable.bg_popup_btn_thumb)));
-//                    }
-                    setLightValue(progress);
-                }
-
-                @Override
-                public void onStartTrackingTouch(SeekBar seekBar) {
-                    SitechDevLog.i(TAG, "lightSeekBar onStartTrackingTouch==========================================");
-
-                }
-
-                @Override
-                public void onStopTrackingTouch(SeekBar seekBar) {
-                    SitechDevLog.i(TAG, "lightSeekBar onStopTrackingTouch==========================================");
-
-                }
-            });
-        }
         carSpeedGroupView.setOnCheckedChangeListener((group, checkedId) -> {
             SitechDevLog.i(TAG, "carSpeedGroupView setOnCheckedChangeListener ==========checkedId==== " + checkedId);
             int currentCarSpeed = 0;
@@ -412,13 +310,107 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
         });
     }
 
+    /**
+     * 初始化SeekBar的按键监听事件
+     */
+    private void initSeekBarListener() {
+        if (ScreenUtils.isLandscape()) {
+            //横屏的view
+            volumeVerticalSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                    SitechDevLog.i(TAG, "volumeVerticalSeekBar onProgressChanged==========================================" + progress);
+                    setVolumeValue(progress);
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+                    SitechDevLog.i(TAG, "volumeVerticalSeekBar onStartTrackingTouch==========================================");
+
+                }
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+                    SitechDevLog.i(TAG, "volumeVerticalSeekBar onStopTrackingTouch==========================================");
+
+                }
+            });
+
+            lightVerticalSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                    SitechDevLog.i(TAG, "lightVerticalSeekBar onProgressChanged==========================================" + progress);
+                    setLightValue(progress);
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+                    SitechDevLog.i(TAG, "lightVerticalSeekBar onStartTrackingTouch==========================================");
+
+                }
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+                    SitechDevLog.i(TAG, "lightVerticalSeekBar onStopTrackingTouch==========================================");
+
+                }
+            });
+        } else {
+            //竖屏的view
+            volumeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                    SitechDevLog.i(TAG, "volumeSeekBar onProgressChanged==========================================" + progress);
+                    setVolumeValue(progress);
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+                    SitechDevLog.i(TAG, "volumeSeekBar onStartTrackingTouch==========================================");
+
+                }
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+                    SitechDevLog.i(TAG, "volumeSeekBar onStopTrackingTouch==========================================");
+
+                }
+            });
+
+            lightSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                    SitechDevLog.i(TAG, "lightSeekBar onProgressChanged==========================================" + progress);
+//                    if (progress == seekBar.getMax()) {
+//                        seekBar.setThumb(null);
+//                    } else {
+//                        seekBar.setThumb(getResources().getDrawable((R.drawable.bg_popup_btn_thumb)));
+//                    }
+                    setLightValue(progress);
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+                    SitechDevLog.i(TAG, "lightSeekBar onStartTrackingTouch==========================================");
+
+                }
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+                    SitechDevLog.i(TAG, "lightSeekBar onStopTrackingTouch==========================================");
+
+                }
+            });
+        }
+    }
+
     private void initData() {
         //wifi网络
         wifiControlView.setActivated(NetworkUtils.getWifiEnabled());
         //移动网络
         mobileNetControlView.setActivated(NetworkUtils.getMobileDataEnabled());
         //蓝牙是否开启
-        if (BluetoothAdapter.getDefaultAdapter()!=null) {
+        if (BluetoothAdapter.getDefaultAdapter() != null) {
             bluetoothControlView.setActivated(BluetoothAdapter.getDefaultAdapter().isEnabled());
         }
 
