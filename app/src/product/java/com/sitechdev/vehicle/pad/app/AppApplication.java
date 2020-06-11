@@ -17,6 +17,7 @@ import com.kaolafm.opensdk.log.Logging;
 import com.sitechdev.net.EnvironmentConfig;
 import com.sitechdev.net.HttpHelper;
 import com.sitechdev.pad.lib.aoplibrary.annotation.DebugTrace;
+import com.sitechdev.vehicle.lib.base.BaseApp;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.MarsXlogUtil;
 import com.sitechdev.vehicle.lib.util.ParamsUtil;
@@ -46,7 +47,7 @@ import org.greenrobot.eventbus.EventBus;
  * 修改时间：
  * 备注：
  */
-public class AppApplication extends Application {
+public class AppApplication extends BaseApp {
 
     private static AppApplication mApplication = null;
     private static AudioManager mAudioManager = null;
