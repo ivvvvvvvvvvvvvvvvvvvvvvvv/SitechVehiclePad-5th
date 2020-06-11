@@ -1,4 +1,5 @@
 {
+  "menu_version": 1,
   "apps": [
     {
       "index": 0,
@@ -20,7 +21,7 @@
       "index": 2,
       "appName": "听伴",
       "appIcon": 3,
-      "appRoute": "/subApp/musicPlayOnline",
+      "appRoute": "/subApp/musicPlayOnline?pageIndex=0",
       "jumpType": 0,
       "eventId": "btn_app_kaolaFM"
     },

@@ -25,9 +25,40 @@ public class AllModuleUtils {
 
     private static final String FILE_NAME = "modulename/main_all_app.json";
     /**
-     * 移动item动画结束状态
+     * 菜单数据版本
+     */
+    public static final String KEY_SAVE_MENU_VERSION = "KEY_SAVE_MENU_VERSION";
+    /**
+     * 菜单数据Data
      */
     public static final String KEY_SAVE_MENU_DATA = "KEY_SAVE_MENU_DATA";
+
+    /**
+     * 获取菜单保存的版本号
+     *
+     * @return
+     */
+    public static int getSavedMenuVersion() {
+        try {
+            //从持久化保存的数据中获取
+            int localMenuVersion = ParamsUtil.getIntData(KEY_SAVE_MENU_VERSION);
+            SitechDevLog.w(AppConst.TAG_APP, "读取的最新的菜单Version为=====" + localMenuVersion);
+            return localMenuVersion;
+        } catch (Exception e) {
+            SitechDevLog.exception(e);
+        }
+        return -1;
+    }
+
+    /**
+     * 保存菜单version
+     *
+     * @return 菜单version
+     */
+    public static void saveNewMenuVersion(int menuVersion) {
+        //持久化保存
+        ParamsUtil.setData(KEY_SAVE_MENU_VERSION, menuVersion);
+    }
 
     /**
      * 获取保存的菜单数据

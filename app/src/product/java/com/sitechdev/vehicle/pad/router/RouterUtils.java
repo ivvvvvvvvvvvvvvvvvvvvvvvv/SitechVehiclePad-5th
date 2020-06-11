@@ -2,6 +2,7 @@ package com.sitechdev.vehicle.pad.router;
 
 import android.app.Application;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -62,6 +63,20 @@ public class RouterUtils {
         }
         ARouter.getInstance()
                 .build(path)
+                .navigation();
+    }
+
+    /**
+     * 应用内简单的跳转
+     *
+     * @param pathUri 目标界面对应的路径
+     */
+    public void navigation(Uri pathUri) {
+        if (pathUri == null) {
+            return;
+        }
+        ARouter.getInstance()
+                .build(pathUri)
                 .navigation();
     }
 

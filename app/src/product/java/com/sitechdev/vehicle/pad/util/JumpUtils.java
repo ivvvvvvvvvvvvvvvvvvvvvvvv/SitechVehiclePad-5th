@@ -3,6 +3,7 @@ package com.sitechdev.vehicle.pad.util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.blankj.utilcode.util.ActivityUtils;
@@ -52,7 +53,7 @@ public class JumpUtils {
 //                return;
 //            }
 
-            if (checkIsDeveloping(bean.appRoute)){
+            if (checkIsDeveloping(bean.appRoute)) {
                 CommonUtil.showToast(R.string.app_developing);
                 return;
             }
@@ -91,15 +92,7 @@ public class JumpUtils {
      */
     private static void toJump(Context context, int jumpType, AllModuleBean.ModuleBean bean) {
         if (jumpType == 0) {
-//            GA10App.fromSetting = StringUtils.isEquals(RouterConstants.FRAGMENT_SETTING, bean.appRoute);
-//            if (StringUtils.isEquals(RouterConstants.FRAGMENT_PERSONAL, bean.appRoute)) {
-//                Bundle bundle1 = new Bundle();
-//                bundle1.putBoolean(AppConstants.KEY_FRAG_LAUNCHER_MODE, true);
-//                SubActivity.start(context, RouterConstants.FRAGMENT_PERSONAL, bundle1);
-//            } else {
-//                SubActivity.start(context, bean.appRoute);
-            RouterUtils.getInstance().navigation(bean.appRoute);
-//            }
+            RouterUtils.getInstance().navigation(Uri.parse(bean.appRoute));
         } else if (jumpType == 1) {
 //            switch (bean.appRoute) {
 //                case RouterConstants.FRAGMENT_CAR_CONTROL:
