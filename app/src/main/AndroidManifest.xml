@@ -16,9 +16,6 @@
         <activity android:name=".module.feedback.FeedbackHistoryActivity"
             android:screenOrientation="landscape"/>
         <activity
-            android:name=".module.music.MusicMainActivity"
-            android:screenOrientation="landscape" />
-        <activity
             android:name=".module.forshow.MusicKaolaForShowActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
@@ -33,7 +30,7 @@
             android:name=".module.taxi.TaximeterActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".module.setting.SettingSkinActivity"
+            android:name=".module.setting.activity.SettingSkinActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".module.member.MemberPreActivity"
@@ -116,10 +113,6 @@
             android:screenOrientation="landscape"
             android:theme="@style/NoTitleAppTheme" />
         <activity
-            android:name=".module.setting.activity.SettingBtActivity"
-            android:screenOrientation="landscape"
-            android:theme="@style/NoTitleAppTheme" />
-        <activity
             android:name=".module.setting.activity.SettingSystemActivity"
             android:screenOrientation="landscape"
             android:theme="@style/NoTitleAppTheme" />
@@ -127,11 +120,19 @@
             android:name=".module.setting.activity.SettingTeddyActivity"
             android:screenOrientation="landscape"
             android:theme="@style/NoTitleAppTheme" />
+        <activity android:name=".module.setting.activity.TestActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/NoTitleAppTheme" />
+        <activity
+            android:name=".module.setting.activity.SettingBtActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/NoTitleAppTheme" />
         <activity android:name=".module.online_audio.KaolaAudioActivity" />
         <activity android:name=".module.online_audio.MusicKaolaActivity" />
         <activity android:name=".module.online_audio.MusicKaolaBroadcastActivity" />
         <activity android:name=".module.feedback.FeedbackActivity" />
         <activity android:name=".module.main.DebugInfo" />
+        <activity android:name=".module.music.MusicMainActivity"/>
 
         <meta-data
             android:name="com.amap.api.v2.apikey"

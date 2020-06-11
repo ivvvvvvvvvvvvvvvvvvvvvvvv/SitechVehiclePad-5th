@@ -86,4 +86,8 @@
     <!--  功能未开发完的提示语  -->
     <string name="app_developing">努力开发中，敬请期待</string>
 
+    <!--setting模块-->
+    <string name="bt_pair_list_conn">未连接</string>
+    <string name="bt_pair_list_disc">已连接</string>
+
 </resources>

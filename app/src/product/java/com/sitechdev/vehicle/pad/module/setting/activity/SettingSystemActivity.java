@@ -1,49 +1,39 @@
-package com.sitechdev.vehicle.pad.module.setting;
+package com.sitechdev.vehicle.pad.module.setting.activity;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.sitechdev.vehicle.pad.BuildConfig;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 
-/**
- * 项目名称：SitechVehiclePad
- * 类名称：TaximeterActivity
- * 类描述：
- * 创建人：Administrator
- * 创建时间：2019/08/15 0015 21:09
- * 修改时间：
- * 备注：
- */
-@Route(path = RouterConstants.SETTING_SKIN_PAGE)
-public class SettingSkinActivity extends BaseActivity {
-
-
-    private TextView tvTitle;
-
+@Route(path = RouterConstants.SETTING_SYSTEM_PAGE)
+public class SettingSystemActivity extends BaseActivity {
+    private TextView mSoftVersion;
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_setting_skin;
+        return R.layout.activity_setting_system;
+    }
+
+    @Override
+    protected void initData() {
+        mSoftVersion.setText(String.format("v%s", BuildConfig.VERSION_NAME));
     }
 
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        tvTitle = findViewById(R.id.tv_sub_title);
+        ((TextView) findViewById(R.id.tv_sub_title)).setText("系统设置");
+        mSoftVersion = findViewById(R.id.tv_app_version);
     }
 
     @Override
     protected void initListener() {
         super.initListener();
         findViewById(R.id.iv_sub_back).setOnClickListener(this);
-    }
-
-    @Override
-    protected void initData() {
-        tvTitle.setText("皮肤设置");
     }
 
     @Override

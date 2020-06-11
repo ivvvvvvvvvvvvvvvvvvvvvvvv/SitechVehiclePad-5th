@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <com.sitechdev.vehicle.pad.view.ScrollTextView
+        android:id="@+id/music_usb_play_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="Bad Guy"
+        android:textColor="@color/color_music_usb_play_name"
+        android:textSize="@dimen/music_usb_play_name_textsize" />
+
+    <com.sitechdev.vehicle.pad.view.ScrollTextView
+        android:id="@+id/music_usb_play_singer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/music_usb_play_name"
+        android:layout_centerHorizontal="true"
+        android:alpha="0.5"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="Billie Eillish"
+        android:textColor="@color/color_music_usb_play_name"
+        android:textSize="@dimen/music_usb_play_singer_textsize" />
+
+    <ImageView
+        android:id="@+id/music_usb_play_icon"
+        android:layout_width="@dimen/music_usb_play_icon_size"
+        android:layout_height="@dimen/music_usb_play_icon_size"
+        android:layout_below="@id/music_usb_play_singer"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/music_usb_play_icon_marintop"
+        android:src="@drawable/img_song_card" />
+
+    <com.sitechdev.vehicle.pad.view.CustomPlaySeekBar
+        android:id="@+id/music_usb_play_ctr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/music_usb_play_icon"
+        android:layout_marginTop="30pt" />
+
+</RelativeLayout>

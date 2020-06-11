@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="112dp"
+    android:paddingLeft="40dp"
+    android:paddingRight="40dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true">
+
+        <TextView
+            android:id="@+id/tv_dev_name"
+            android:layout_width="600dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/colo_BFBFBF"
+            android:textSize="30sp" />
+
+        <ImageView
+            android:id="@+id/iv_delete"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:padding="8dp"
+            android:src="@drawable/ic_bluetooth_item_del" />
+
+        <TextView
+            android:id="@+id/tv_conn_disc"
+            android:layout_width="120dp"
+            android:layout_height="70dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="32dp"
+            android:layout_toLeftOf="@+id/iv_delete"
+            android:gravity="center"
+            android:textColor="@color/colo_BFBFBF"
+            android:textSize="28sp" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/common_line_white" />
+</RelativeLayout>

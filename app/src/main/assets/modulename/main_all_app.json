@@ -29,7 +29,7 @@
       "index": 3,
       "appName": "本地音乐",
       "appIcon": 4,
-      "appRoute": "/subApp/forShow/localMusic",
+      "appRoute": "/main/localMusic",
       "jumpType": 0,
       "eventId": "btn_app_local_music"
     },

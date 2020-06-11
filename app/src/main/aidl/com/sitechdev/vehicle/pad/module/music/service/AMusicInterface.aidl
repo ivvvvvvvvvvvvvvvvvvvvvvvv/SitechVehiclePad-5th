@@ -27,8 +27,12 @@ interface AMusicInterface {
 
     IPCResult toggle();
 
-    IPCResult next();
+    IPCResult next(boolean fromUser);
 
     IPCResult pre();
+
+    IPCResult seekTo(int position);
+
+    IPCResult changeMode(int mode);
 
 }

@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sitechdev.vehicle.pad.R;
+import com.sitechdev.vehicle.pad.module.music.MusicConfig;
 import com.sitechdev.vehicle.pad.module.music.MusicManager;
 import com.sitechdev.vehicle.pad.module.music.service.MusicInfo;
 import com.sitechdev.vehicle.pad.view.CommonToast;
@@ -67,11 +68,11 @@ public class LocalMusicAdapter2 extends
             return;
         }
         MusicInfo musicInfo = musicInfos.get(position);
-        if (checkedPositon == position){
-            holder.getIndex().setImageResource(R.drawable.list_icon_playing1);
+        if (checkedPositon == position) {
+            holder.getIndex().setImageResource(R.drawable.ic_music_play_gif);
             holder.getName().setTextColor(checkedColor);
             holder.getArt().setTextColor(checkedColor);
-        }else {
+        } else {
             holder.getIndex().setImageResource(R.drawable.list_icon_play);
             holder.getName().setTextColor(noramlColor);
             holder.getArt().setTextColor(noramlColor);
@@ -81,20 +82,21 @@ public class LocalMusicAdapter2 extends
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (checkedPositon == position){
+                if (checkedPositon == position) {
                     MusicManager.getInstance().toggle(new MusicManager.CallBack<String>() {
                         @Override
                         public void onCallBack(int code, String msg) {
-                            if (code != 0){
+                            if (code != 0) {
                                 CommonToast.showToast(msg);
                             }
                         }
                     });
-                }else {
-                    MusicManager.getInstance().play(musicInfo.songId, new MusicManager.CallBack<String>() {
+                } else {
+                    MusicManager.getInstance().play(musicInfo.songId,
+                            new MusicManager.CallBack<String>() {
                         @Override
                         public void onCallBack(int code, String msg) {
-                            if (code != 0){
+                            if (code != 0) {
                                 CommonToast.showToast(msg);
                             }
                         }
@@ -110,17 +112,28 @@ public class LocalMusicAdapter2 extends
     }
 
 
-
-    public void addDatas(List<MusicInfo> muscics){
-        if (null == muscics || muscics.size() == 0){
-            if (null != onCheckEmptyListener){
+    public void addDatas(List<MusicInfo> muscics) {
+        if (null == muscics || muscics.size() == 0) {
+            if (null != onCheckEmptyListener) {
                 onCheckEmptyListener.onCheckEmpty(true);
             }
-        }else {
-            if (null != onCheckEmptyListener){
-                onCheckEmptyListener.onCheckEmpty(false);
-            }
+        } else {
             musicInfos.addAll(muscics);
+            if (null != onCheckEmptyListener) {
+                onCheckEmptyListener.onCheckEmpty(false);
+                if (null == MusicConfig.getInstance().getCurrentMusicInfo()) {
+                    MusicConfig.getInstance().setCurrentMusicInfo(musicInfos.get(0));
+                    MusicManager.getInstance().play(musicInfos.get(0).songId,
+                            new MusicManager.CallBack<String>() {
+                        @Override
+                        public void onCallBack(int code, String msg) {
+                            if (code != 0) {
+                                CommonToast.showToast(msg);
+                            }
+                        }
+                    });
+                }
+            }
             notifyDataSetChanged();
         }
     }
@@ -132,13 +145,16 @@ public class LocalMusicAdapter2 extends
     @Override
     public void onMusciChange(MusicInfo current, int status) {
         checkedPositon = -1;
-        if (null != musicInfos && null != current){
+        if (null != musicInfos && null != current) {
             int len = musicInfos.size();
-            for (int i = 0; i < len; i++){
-                if (musicInfos.get(i).songId == current.songId){
+            for (int i = 0; i < len; i++) {
+                if (musicInfos.get(i).songId == current.songId) {
                     checkedPositon = i;
                 }
             }
+        }
+        if (null != musicItemSelectListener) {
+            musicItemSelectListener.onItemSelected(checkedPositon);
         }
         notifyDataSetChanged();
     }
@@ -146,15 +162,15 @@ public class LocalMusicAdapter2 extends
     @Override
     public void onMusicListUpdate(List<MusicInfo> infos, MusicInfo info,
                                   int status, int postion) {
-        if (null != info){
+        if (null != info) {
             int len = infos.size();
-            for (int i = 0; i < len; i++){
-                if (info.songId == infos.get(i).songId){
+            for (int i = 0; i < len; i++) {
+                if (info.songId == infos.get(i).songId) {
                     checkedPositon = i;
                     break;
                 }
             }
-        }else {
+        } else {
             checkedPositon = -1;
         }
         musicInfos.clear();
@@ -162,9 +178,9 @@ public class LocalMusicAdapter2 extends
         addDatas(infos);
     }
 
-    public static class LocalMusicHolder extends RecyclerView.ViewHolder{
+    public static class LocalMusicHolder extends RecyclerView.ViewHolder {
 
-        private ImageView vIndex;
+        private GifImageView vIndex;
         private TextView vName;
         private TextView art;
 
@@ -175,7 +191,7 @@ public class LocalMusicAdapter2 extends
             art = itemView.findViewById(R.id.item_locl_music_art);
         }
 
-        public ImageView getIndex() {
+        public GifImageView getIndex() {
             return vIndex;
         }
 
@@ -188,7 +204,17 @@ public class LocalMusicAdapter2 extends
         }
     }
 
-    public interface OnCheckEmptyListener{
+    public interface OnCheckEmptyListener {
         void onCheckEmpty(boolean isEmpty);
+    }
+
+    private OnMusicItemSelectListener musicItemSelectListener;
+
+    public void setOnMusicItemSelectListener(OnMusicItemSelectListener musicItemSelectListener) {
+        this.musicItemSelectListener = musicItemSelectListener;
+    }
+
+    public interface OnMusicItemSelectListener {
+        void onItemSelected(int position);
     }
 }

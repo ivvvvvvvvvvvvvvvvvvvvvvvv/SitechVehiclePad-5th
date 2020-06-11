@@ -36,7 +36,6 @@ import com.sitechdev.vehicle.pad.module.forshow.MusicKaolaForShowActivity;
 import com.sitechdev.vehicle.pad.module.forshow.MusicMainForShowActivity;
 import com.sitechdev.vehicle.pad.module.login.util.LoginUtils;
 import com.sitechdev.vehicle.pad.module.main.MainActivity;
-import com.sitechdev.vehicle.pad.module.music.MusicMainActivity;
 import com.sitechdev.vehicle.pad.module.music.MusicManager;
 import com.sitechdev.vehicle.pad.module.online_audio.KaolaAudioActivity;
 import com.sitechdev.vehicle.pad.module.online_audio.MusicKaolaActivity;

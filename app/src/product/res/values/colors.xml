@@ -111,6 +111,17 @@
     <color name="c_8f8f8f">#8F8F8F</color>
     <color name="wifi_txt">#05AEDB</color>
 
+    <!--设置界面提示类文言颜色-->
+    <color name="setting_tip_text">#8E8E8E</color>
+
+    <!--usb音乐界面-->
+    <color name="color_music_usb_play_name">@color/white</color>
+    <color name="color_music_usb_play_singer">@color/white</color>
+
+    <!--自定义播放进度条-->
+    <color name="custom_play_seekbar_time_color">#7D7E80</color>
+    <color name="custom_seekbar_progress_background">#82246992</color>
+
     <color name="color_bg_kaola_ai_item">#33000000</color>
 
 </resources>

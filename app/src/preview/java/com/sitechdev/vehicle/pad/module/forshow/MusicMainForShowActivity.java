@@ -14,7 +14,6 @@ import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.module.music.MusicManager;
 import com.sitechdev.vehicle.pad.module.music.adapter.MusicPagerAdapter;
-import com.sitechdev.vehicle.pad.module.music.fragment.LocalMusicFragment;
 import com.sitechdev.vehicle.pad.module.music.service.MusicInfo;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.view.CommonToast;

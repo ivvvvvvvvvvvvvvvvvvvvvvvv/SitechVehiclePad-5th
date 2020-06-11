@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/custom_switch_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/setting_padding_left_right"
+        android:layout_marginTop="@dimen/px_40"
+        android:layout_marginBottom="@dimen/px_40"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_main" />
+    <TextView
+        android:id="@+id/custom_switch_tip"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/custom_switch_title"
+        android:layout_marginLeft="32px"
+        android:textColor="@color/setting_tip_text"
+        android:textSize="28px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <RadioGroup
+        android:id="@+id/custom_radiogroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/setting_padding_left_right"
+        android:background="@drawable/car_set_radio_group_bg"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/custom_radiobutton_off"
+            style="@style/car_set_radiobutton"
+            android:text="OFF" />
+
+        <RadioButton
+            android:id="@+id/custom_radiobutton_on"
+            style="@style/car_set_radiobutton"
+            android:checked="true"
+            android:text="ON" />
+
+    </RadioGroup>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_below="@id/custom_switch_title"
+        android:background="@color/main_info_line" />
+
+</RelativeLayout>

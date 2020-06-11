@@ -215,7 +215,69 @@ public class MusicManager {
                 }
                 IPCResult result = new IPCResult(-1, "next error");
                 try {
-                    result = musicInterface.next();
+                    result = musicInterface.next(true);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                    emitter.onError(e);
+                }
+                emitter.onNext(result);
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<IPCResult>() {
+                    @Override
+                    public void accept(IPCResult result) {
+                        callBack.onCallBack(result.code, result.msg);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        callBack.onCallBack(-1, throwable.getMessage());
+                    }
+                });
+    }
+
+    public void seekTo(CallBack<String> callBack,int position){
+        Observable.create(new ObservableOnSubscribe<IPCResult>() {
+            @Override
+            public void subscribe(ObservableEmitter<IPCResult> emitter) {
+                if (null == musicInterface){
+                    emitter.onError(new Throwable("music server can not be use"));
+                }
+                IPCResult result = new IPCResult(-1, "next error");
+                try {
+                    result = musicInterface.seekTo(position);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                    emitter.onError(e);
+                }
+                emitter.onNext(result);
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<IPCResult>() {
+                    @Override
+                    public void accept(IPCResult result) {
+                        callBack.onCallBack(result.code, result.msg);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        callBack.onCallBack(-1, throwable.getMessage());
+                    }
+                });
+    }
+
+    public void changeMode(CallBack<String> callBack, int mode) {
+        Observable.create(new ObservableOnSubscribe<IPCResult>() {
+            @Override
+            public void subscribe(ObservableEmitter<IPCResult> emitter) {
+                if (null == musicInterface) {
+                    emitter.onError(new Throwable("music server can not be use"));
+                }
+                IPCResult result = new IPCResult(-1, "next error");
+                try {
+                    result = musicInterface.changeMode(mode);
                 } catch (RemoteException e) {
                     e.printStackTrace();
                     emitter.onError(e);
@@ -377,7 +439,7 @@ public class MusicManager {
     }
 
     public interface OnMusicPostionChangeListener{
-        void onPositionChange(int position);
+        void onPositionChange(MusicInfo currentInfo,int position);
     }
 
     public interface OnMusicListUpdateListener{
@@ -571,7 +633,42 @@ public class MusicManager {
 
         @Override
         public void onSeekTo(MusicInfo info, int position) throws RemoteException {
-
+            if (null != postionChangeListeners){
+                int len = postionChangeListeners.size();
+                if (len > 0){
+                    Observable.create(new ObservableOnSubscribe<OnMusicPostionChangeListener>() {
+                        @Override
+                        public void subscribe(ObservableEmitter<OnMusicPostionChangeListener> emitter) throws Exception {
+                            boolean[] removes = null;
+                            for (int i = 0; i < len; i++){
+                                WeakReference<OnMusicPostionChangeListener> ref = postionChangeListeners.get(i);
+                                if (null == ref || null == ref.get()){
+                                    if (null == removes){
+                                        removes = new boolean[len];
+                                        removes[i] = true;
+                                        continue;
+                                    }
+                                }
+                                emitter.onNext(ref.get());
+                            }
+                            if (null != removes){
+                                for (int i = 0; i < len; i++){
+                                    if (removes[i]){
+                                        musicChangeListeners.remove(i);
+                                    }
+                                }
+                            }
+                        }
+                    }).subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new Consumer<OnMusicPostionChangeListener>() {
+                                @Override
+                                public void accept(OnMusicPostionChangeListener listener) throws Exception {
+                                    listener.onPositionChange(current,position);
+                                }
+                            });
+                }
+            }
         }
 
         public void addMusicChangeListener(OnMusicChangeListener listener){

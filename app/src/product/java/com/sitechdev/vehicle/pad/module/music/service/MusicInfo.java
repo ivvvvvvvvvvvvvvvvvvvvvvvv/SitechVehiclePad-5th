@@ -60,7 +60,7 @@ public class MusicInfo implements Parcelable {
             music.albumName = bundle.getString(KEY_ALBUM_NAME);
             music.duration = bundle.getInt(KEY_DURATION);
             music.musicName = bundle.getString(KEY_MUSIC_NAME);
-            music.artist = bundle.getString(KEY_ARTIST);
+            music.artist = bundle.getString(KEY_ARTIST).toLowerCase().contains("unknow")?"未知":bundle.getString(KEY_ARTIST);
             music.artistId = bundle.getLong(KEY_ARTIST_ID);
             music.data = bundle.getString(KEY_DATA);
             music.folder = bundle.getString(KEY_FOLDER);

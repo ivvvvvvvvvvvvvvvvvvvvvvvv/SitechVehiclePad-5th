@@ -1,42 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".module.music.fragment.LocalMusicFragment">
-    <LinearLayout
-        android:id="@+id/local_music_empty_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textSize="49px"
-            android:text="你还没有本地音乐哦"/>
-        <TextView
-            android:id="@+id/local_music_scan"
-            android:layout_width="642px"
-            android:layout_height="140px"
-            android:layout_marginTop="255px"
-            android:textColor="@color/white"
-            android:textSize="49px"
-            android:gravity="center"
-            android:text="扫描歌曲"
-            android:background="@mipmap/bg_scan_music"/>
+    android:orientation="horizontal"
+    android:weightSum="1884">
 
-    </LinearLayout>
-    <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
-        android:id="@+id/local_music_refresh_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/local_music_list"
+    <include
+        layout="@layout/layout_music_play"
+        android:layout_width="0pt"
+        android:layout_height="wrap_content"
+        android:layout_weight="904" />
+
+    <LinearLayout
+        android:layout_width="0pt"
+        android:layout_height="wrap_content"
+        android:layout_weight="980"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/music_usb_list_padding_bottom"
+        android:paddingLeft="@dimen/music_usb_list_padding_left">
+
+        <LinearLayout
+            android:id="@+id/local_music_empty_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layerType="software"/>
-    </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
-</FrameLayout>
+            android:layout_marginTop="200pt"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+            <ImageView
+                android:src="@drawable/ic_usb_disconnect"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/music_usb_list_empty_tip"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="50pt"
+                android:layout_height="wrap_content"
+                android:text="请您插入带有歌曲的U盘哦"
+                android:textColor="@color/white"
+                android:textSize="32pt" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/music_usb_play_list_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/shape_wifi_list"
+            android:visibility="gone"
+            android:orientation="vertical"
+            android:paddingBottom="58pt"
+            android:paddingTop="58pt">
+
+            <TextView
+                android:id="@+id/music_usb_play_list_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="81pt"
+                android:drawableLeft="@drawable/usb_list_title"
+                android:drawablePadding="25pt"
+                android:text="播放列表"
+                android:layout_marginBottom="5pt"
+                android:textColor="@color/white"
+                android:textSize="38pt" />
+
+            <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+                android:id="@+id/local_music_refresh_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/local_music_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layerType="software"
+                    android:paddingLeft="81pt"
+                    android:paddingRight="81pt" />
+            </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -32,14 +32,10 @@ import com.sitechdev.vehicle.pad.event.VoiceEvent;
 import com.sitechdev.vehicle.pad.event.WindowEvent;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
-import com.sitechdev.vehicle.pad.module.forshow.MusicKaolaForShowActivity;
-import com.sitechdev.vehicle.pad.module.forshow.MusicMainForShowActivity;
 import com.sitechdev.vehicle.pad.module.login.util.LoginUtils;
 import com.sitechdev.vehicle.pad.module.main.MainActivity;
 import com.sitechdev.vehicle.pad.module.music.MusicMainActivity;
 import com.sitechdev.vehicle.pad.module.music.MusicManager;
-import com.sitechdev.vehicle.pad.module.online_audio.KaolaAudioActivity;
-import com.sitechdev.vehicle.pad.module.online_audio.MusicKaolaActivity;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppUtil;
@@ -930,7 +926,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                 case "本地音乐":
                                     if (null == AppVariants.currentActivity || !(AppVariants.currentActivity instanceof MusicMainActivity)) {
                                         Intent goMusicMain = new Intent();
-                                        goMusicMain.setClass(context, MusicMainForShowActivity.class);
+                                        goMusicMain.setClass(context, MusicMainActivity.class);
                                         goMusicMain.putExtra("index", 1);
                                         context.startActivity(goMusicMain);
                                         shut();

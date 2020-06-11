@@ -57,4 +57,22 @@
     <dimen name="text_size_main">32px</dimen>
     <dimen name="setting_padding_left_right">150px</dimen>
     <dimen name="main_menu_height">300px</dimen>
+
+    <!--usb音乐界面-->
+    <dimen name="music_usb_padding_left_right">60pt</dimen>
+    <dimen name="music_usb_play_name_textsize">48pt</dimen>
+    <dimen name="music_usb_play_singer_textsize">32pt</dimen>
+    <dimen name="music_usb_play_icon_marintop">37pt</dimen>
+    <dimen name="music_usb_play_icon_size">350pt</dimen>
+    <dimen name="music_usb_play_status_margintop">63pt</dimen>
+    <dimen name="music_usb_list_padding_bottom">290pt</dimen>
+    <dimen name="music_usb_list_padding_left">62pt</dimen>
+
+    <!--自定义播放进度条-->
+    <dimen name="custom_play_seekbar_time_textsize">24pt</dimen>
+    <dimen name="custom_play_seekbar_layout_margin">43pt</dimen>
+    <dimen name="custom_play_controll_button_size">60pt</dimen>
+    <dimen name="custom_play_controll_mode_paddingleft">70pt</dimen>
+    <dimen name="custom_play_controll_margin_top">30pt</dimen>
+
 </resources>
