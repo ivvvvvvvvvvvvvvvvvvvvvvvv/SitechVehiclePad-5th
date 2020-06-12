@@ -6,20 +6,23 @@ import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.sitechdev.vehicle.lib.imageloader.GlideApp;
 import com.sitechdev.vehicle.pad.R;
+import com.sitechdev.vehicle.pad.router.RouterConstants;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.VHolderAbs>   {
+public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.VHolderAbs> {
     private Context context;
     private List<VideoInfo> mLists = new ArrayList<>();
 
@@ -28,7 +31,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.VHol
         this.mLists = VideoManager.getLocalVideos(context);
     }
 
-    public void refreshData(){
+    public void refreshData() {
         this.mLists = VideoManager.getLocalVideos(context);
         notifyDataSetChanged();
     }
@@ -53,7 +56,11 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.VHol
     @Override
     public void onBindViewHolder(@NonNull VHolderAbs vh, @SuppressLint("RecyclerView") int i) {
         vh.des.setText(mLists.get(i).title);
-        GlideApp.with(context).load(Uri.fromFile(new File(mLists.get(i).data))).into(vh.img);
+        if (TextUtils.isEmpty(mLists.get(i).thumbnails)) {
+            GlideApp.with(context).load(Uri.fromFile(new File(mLists.get(i).data))).into(vh.img);
+        } else {
+            GlideApp.with(context).load(mLists.get(i).thumbnails).into(vh.img);
+        }
     }
 
     interface OnItemClick {

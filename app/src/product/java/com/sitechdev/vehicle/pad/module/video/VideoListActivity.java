@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Space;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -13,6 +14,8 @@ import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.util.MediaScanister;
+import com.sitechdev.vehicle.pad.view.SpaceItemDecoration;
+import com.sitechdev.vehicle.pad.view.VideoItemDecoration;
 
 /**
  * <pre>
@@ -42,8 +45,13 @@ public class VideoListActivity extends BaseActivity {
 
         TextView tv_title = findViewById(R.id.tv_sub_title);
         refreshLayout = findViewById(R.id.refresh_layout);
+        refreshLayout.setEnableLoadmore(false);
         recyclerView = findViewById(R.id.recyc_list);
-        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
+
+        layoutManager.setOrientation(isLandscape() ? GridLayoutManager.HORIZONTAL : GridLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.addItemDecoration(new VideoItemDecoration());
         refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {

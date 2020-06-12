@@ -85,7 +85,7 @@
       "index": 10,
       "appName": "视频",
       "appIcon": 11,
-      "appRoute": "/subApp/developing/video",
+      "appRoute": "/subApp/videoList",
       "jumpType": 0,
       "eventId": "btn_app_video"
     },
