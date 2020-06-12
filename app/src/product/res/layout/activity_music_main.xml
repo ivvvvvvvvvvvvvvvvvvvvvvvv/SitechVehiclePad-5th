@@ -5,18 +5,9 @@
     android:layout_height="match_parent"
     android:background="@drawable/ico_taxi_main_bg">
 
-    <include
-        android:id="@+id/play_detail_status"
-        layout="@layout/play_detail_status"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/px_151"
-        android:layout_alignParentBottom="true"
-        android:visibility="gone" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/play_detail_status"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/music_usb_padding_left_right"
         android:paddingTop="64dp"
@@ -48,7 +39,12 @@
                 app:tl_textSelectColor="@color/white"
                 app:tl_textUnselectColor="@color/music_main_tab_normal"
                 app:tl_textsize="24sp" />
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1pt"
+                android:layout_marginLeft="50pt"
+                android:layout_marginRight="50pt"
+                android:background="@color/main_info_line"/>
             <android.support.v4.view.ViewPager
                 android:id="@+id/music_main_viewpager"
                 android:layout_width="match_parent"
