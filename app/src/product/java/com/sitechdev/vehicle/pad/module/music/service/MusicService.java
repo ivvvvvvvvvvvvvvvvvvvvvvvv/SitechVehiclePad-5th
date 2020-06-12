@@ -267,6 +267,9 @@ public class MusicService extends Service {
         }
 
         private void onMusicListUpdate() {
+            if (isCallBackWorking) {
+                return;
+            }
             int n = callbackList.beginBroadcast();
             isCallBackWorking = true;
             try {
@@ -282,6 +285,9 @@ public class MusicService extends Service {
         }
 
         private void onPlay(MusicInfo info) {
+            if (isCallBackWorking) {
+                return;
+            }
             int n = callbackList.beginBroadcast();
             isCallBackWorking = true;
             try {
@@ -297,6 +303,9 @@ public class MusicService extends Service {
         }
 
         private void onPause(MusicInfo info) {
+            if (isCallBackWorking) {
+                return;
+            }
             int n = callbackList.beginBroadcast();
             isCallBackWorking = true;
             try {
@@ -312,6 +321,9 @@ public class MusicService extends Service {
         }
 
         private void onResume(MusicInfo info) {
+            if (isCallBackWorking) {
+                return;
+            }
             int n = callbackList.beginBroadcast();
             isCallBackWorking = true;
             try {
@@ -438,26 +450,28 @@ public class MusicService extends Service {
             if (null != musicInfos) {
                 int size = musicInfos.size();
                 if (size > 0) {
-                    int index;
+                    int index,playIndex;
                     if(modeType == MusicConfig.MusicModeType.MUSIC_MODE_RANDOM){
                         index = randomMusicInfos.indexOf(currentInfo);
                     } else {
                         index = musicInfos.indexOf(currentInfo);
                     }
-                    if (index < size - 1) {
-                        //默认是列表循环
-                        int playIndex = modeType == MusicConfig.MusicModeType.MUSIC_MODE_SINGLE && !fromUser ?
-                                index : (index + 1);
-                        if(modeType == MusicConfig.MusicModeType.MUSIC_MODE_RANDOM){
-                            play(randomMusicInfos.get(playIndex).songId);
-                        } else {
-                            play(musicInfos.get(playIndex).songId);
-                        }
-                        result.code = 0;
-                        result.msg = "toggle success";
+                    if(modeType == MusicConfig.MusicModeType.MUSIC_MODE_SINGLE && !fromUser){//单曲循环且自动播放
+                        playIndex = index;
                     } else {
-                        result.msg = "已经是最后一首啦";
+                        if (index < size - 1) {//有下一曲
+                            playIndex = index + 1;
+                        } else {//无下一曲，播放第一曲
+                            playIndex = 0;
+                        }
                     }
+                    if(modeType == MusicConfig.MusicModeType.MUSIC_MODE_RANDOM){
+                        play(randomMusicInfos.get(playIndex).songId);
+                    } else {
+                        play(musicInfos.get(playIndex).songId);
+                    }
+                    result.code = 0;
+                    result.msg = "toggle success";
                 }
             }
             return result;
@@ -469,24 +483,24 @@ public class MusicService extends Service {
             if (null != musicInfos) {
                 int size = musicInfos.size();
                 if (size > 0) {
-                    int index;
-                    if(modeType == MusicConfig.MusicModeType.MUSIC_MODE_RANDOM){
+                    int index, playIndex;//index为当前播放的index，playindex为将要播放的index
+                    if (modeType == MusicConfig.MusicModeType.MUSIC_MODE_RANDOM) {
                         index = randomMusicInfos.indexOf(currentInfo);
                     } else {
                         index = musicInfos.indexOf(currentInfo);
                     }
-                    if (index >= 1) {
-                        //默认是列表循环
-                        if(modeType == MusicConfig.MusicModeType.MUSIC_MODE_RANDOM){
-                            play(randomMusicInfos.get(index - 1).songId);
-                        } else {
-                            play(musicInfos.get(index - 1).songId);
-                        }
-                        result.code = 0;
-                        result.msg = "toggle success";
+                    if (index > 1) {
+                        playIndex = index - 1;
                     } else {
-                        result.msg = "已经是第一首啦";
+                        playIndex = size - 1;
                     }
+                    if (modeType == MusicConfig.MusicModeType.MUSIC_MODE_RANDOM) {
+                        play(randomMusicInfos.get(playIndex).songId);
+                    } else {
+                        play(musicInfos.get(playIndex).songId);
+                    }
+                    result.code = 0;
+                    result.msg = "toggle success";
                 }
             }
             return result;

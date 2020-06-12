@@ -148,6 +148,7 @@ public class LocalMusicFragment extends Fragment implements
             musicName.setText(MusicConfig.getInstance().getCurrentMusicInfo().musicName);
             singer.setText(MusicConfig.getInstance().getCurrentMusicInfo().artist);
             customPlaySeekBar.setProgress(MusicConfig.getInstance().getProgress());
+            musicIcon.setImageBitmap(MusicUtils.getArtwork(getActivity(),MusicConfig.getInstance().getCurrentMusicInfo().songId,MusicConfig.getInstance().getCurrentMusicInfo().albumId,true));
         } else {
             musicName.setText("- - -");
             singer.setText("- -");

@@ -226,7 +226,6 @@ public class MusicMainActivity extends BaseActivity {
 
         @Override
         public void onMusciChange(MusicInfo current, int status) {
-            Log.e("FUC","WOCAO NIMADE STATUS:"+status);
             if (null != current) {
                 tv_bottom_title.setText("");
                 tv_bottom_title.append(current.musicName);
