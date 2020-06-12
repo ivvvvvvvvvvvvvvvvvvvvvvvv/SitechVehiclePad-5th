@@ -23,21 +23,24 @@
         <LinearLayout
             android:id="@+id/local_music_empty_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="200pt"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/shape_wifi_list"
             android:layout_gravity="center"
             android:gravity="center"
             android:orientation="vertical">
             <ImageView
                 android:src="@drawable/ic_usb_disconnect"
                 android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_marginTop="150pt"
+                android:layout_width="210pt"
+                android:layout_height="189pt"/>
 
             <TextView
                 android:id="@+id/music_usb_list_empty_tip"
                 android:layout_width="wrap_content"
                 android:layout_marginTop="50pt"
+                android:layout_marginBottom="250pt"
                 android:layout_height="wrap_content"
                 android:text="请您插入带有歌曲的U盘哦"
                 android:textColor="@color/white"
