@@ -626,7 +626,7 @@ public class MusicService extends Service {
             }
         }
 
-        public boolean play(MusicInfo info) {
+        public synchronized boolean play(final MusicInfo info) {
             isPrepare = false;
             initIfNecessary();
             boolean exception = false;
