@@ -141,7 +141,9 @@ public class AppSignalWindowManager {
     }
 
     public void wifiIconShowOrHide(boolean flag) {
-        appSignalView.refreshWifiIconView(flag);
+        if (appSignalView!=null) {
+            appSignalView.refreshWifiIconView(flag);
+        }
     }
 
     public void bluetoothIconShowOrHide(boolean flag) {

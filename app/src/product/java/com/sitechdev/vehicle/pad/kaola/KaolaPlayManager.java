@@ -34,6 +34,8 @@ import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.event.AppEvent;
 import com.sitechdev.vehicle.pad.event.TeddyEvent;
+import com.sitechdev.vehicle.pad.manager.BaseMusicManager;
+import com.sitechdev.vehicle.pad.manager.SitechMusicNewManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.module.main.MainActivity;
 import com.sitechdev.vehicle.pad.module.online_audio.KaolaAudioActivity;
@@ -62,7 +64,7 @@ import static com.sitechdev.vehicle.pad.kaola.KaolaPlayManager.PlayType.SITEV_NE
  * @author Steve_qi
  * @date: 2019/8/22
  */
-public class KaolaPlayManager {
+public class KaolaPlayManager extends BaseMusicManager {
 
     public List<Column> mColumns = new ArrayList<>();
     public Column mCurrentColumn;
@@ -87,6 +89,13 @@ public class KaolaPlayManager {
 
     public void seekTo(Context context, int position) {
         PlayerManager.getInstance(context).seek(position);
+    }
+
+    @Override
+    public void registerPlayingManager() {
+        SitechDevLog.e("KaolaManager", "KaolaManager registerPlayingManager===" + this);
+        super.registerPlayingManager();
+        SitechMusicNewManager.getInstance().resetCurrentMusicChannel();
     }
 
     private String curPlayingAlbumTitle = "";
@@ -220,7 +229,7 @@ public class KaolaPlayManager {
     }
 
     public void toPlayListActivity(Context context, int index, int deepIndex) {
-
+        registerPlayingManager();
         if (null == mColumns || mColumns.size() == 0) {
 //            CommonToast.makeText(context, "当前数据异常~~~");
             acquireKaolaData();
@@ -358,7 +367,7 @@ public class KaolaPlayManager {
             if (BroadcastRadioListManager.getInstance().getCurPlayItem().getStatus() == 1) {  //1-直播中，2-回放，3-未开播
                 CommonToast.makeText(AppApplication.getContext(), "节目未开播");
                 hasNext = false;
-            }else{
+            } else {
                 hasNext = BroadcastRadioPlayerManager.getInstance().hasNext();
                 if (hasNext) {
                     BroadcastRadioPlayerManager.getInstance().playNext();
@@ -602,6 +611,7 @@ public class KaolaPlayManager {
 
     static long lastCoverPlayPauseAnimTime = 0;
     static long lastCoverPlayStartAnimTime = 0;
+
     public static void setCoverPlayStartAnim(View holder) {
         if (!checkCoverHolderNull(holder)) {
             long curInTime = System.currentTimeMillis();
@@ -656,7 +666,6 @@ public class KaolaPlayManager {
                     anim_imageBg.start();
                     viewAnimators.put(imageBg, new WeakReference<>(anim_imageBg));
                 }
-
 
 
                 //stick 动画
@@ -718,7 +727,7 @@ public class KaolaPlayManager {
     }
 
     public static void searchByKeyword(String keywords, HttpCallback<List<SearchProgramBean>> callback) {
-    ////旧逻辑   获取数据跟searchAll 相同
+        ////旧逻辑   获取数据跟searchAll 相同
         //        String voiceSource = "kedaxunfei";
 //        int qualityType = 0;
 //        String originJson = "";

@@ -11,6 +11,7 @@ import com.sitechdev.vehicle.lib.util.NetworkUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.bean.AllModuleBean;
+import com.sitechdev.vehicle.pad.manager.KuwoManager;
 import com.sitechdev.vehicle.pad.module.login.util.LoginUtils;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
@@ -101,7 +102,7 @@ public class JumpUtils {
                     break;
 
                 case RouterConstants.THIRD_APP_KUWO:
-                    KuwoUtil.startKuwoApp(true);
+                    KuwoManager.getInstance().startKuwoApp(true);
 //                    EventBusUtils.postEvent(new TeddyEvent(TeddyEvent.EB_TEDDY_SCENE_EVENT_CHANGE, TeddyEvent.TEDDY_SCENE_KU_WO));
                     break;
                 case RouterConstants.THIRD_APP_CARLIFE:

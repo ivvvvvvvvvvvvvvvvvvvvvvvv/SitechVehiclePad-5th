@@ -355,7 +355,7 @@
                 android:text="音乐"
                 android:textColor="@color/color_main_music_text" />
 
-            <ImageView
+            <com.sitechdev.vehicle.pad.view.MusicImageView
                 android:id="@+id/id_r_m_l_music_icon"
                 android:layout_width="120pt"
                 android:layout_height="120pt"

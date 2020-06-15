@@ -22,7 +22,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.kaolafm.opensdk.api.operation.model.column.Column;
@@ -30,9 +29,7 @@ import com.kaolafm.sdk.core.mediaplayer.BroadcastRadioPlayerManager;
 import com.kaolafm.sdk.core.mediaplayer.PlayerManager;
 import com.sitechdev.net.HttpCode;
 import com.sitechdev.vehicle.lib.event.BindEventBus;
-import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.imageloader.GlideApp;
-import com.sitechdev.vehicle.lib.util.Constant;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.StringUtils;
 import com.sitechdev.vehicle.lib.util.ThreadUtils;
@@ -40,11 +37,14 @@ import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.app.AppConst;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
+import com.sitechdev.vehicle.pad.bean.SitechMusicBean;
 import com.sitechdev.vehicle.pad.callback.BaseBribery;
 import com.sitechdev.vehicle.pad.event.AppEvent;
 import com.sitechdev.vehicle.pad.event.MapEvent;
+import com.sitechdev.vehicle.pad.event.MusicEvent;
 import com.sitechdev.vehicle.pad.event.SSOEvent;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
+import com.sitechdev.vehicle.pad.manager.SitechMusicNewManager;
 import com.sitechdev.vehicle.pad.manager.UserManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceType;
@@ -61,7 +61,7 @@ import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppVariants;
 import com.sitechdev.vehicle.pad.util.FontUtil;
-import com.sitechdev.vehicle.pad.view.CommonToast;
+import com.sitechdev.vehicle.pad.view.MusicImageView;
 import com.sitechdev.vehicle.pad.view.ReflectTextClock;
 import com.sitechdev.vehicle.pad.view.ScrollTextView;
 import com.sitechdev.vehicle.pad.window.manager.AppSignalWindowManager;
@@ -87,6 +87,7 @@ public class MainActivity extends BaseActivity
     private RelativeLayout mLoginRelativeView = null, rlWeather = null;
     private LinearLayout llMusic, llNews, llBook, llCar, llLife;
     private ImageView ivMusicBef, ivMusicStop, ivMusicNext;
+    private MusicImageView ivMusicIcon;
     private ScrollTextView tvMusicName;
     private TextView btn_child_papers, btn_sitev_news, btn_car_fun, btn_life_all;
     private ImageView mHomeImageView, mWorkImageView;
@@ -122,7 +123,6 @@ public class MainActivity extends BaseActivity
             }
         }
 
-//        NetManagerImpl.getInstance().initNetCallback();
         registerReceiver(receiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
 
@@ -156,6 +156,7 @@ public class MainActivity extends BaseActivity
 //        ivMusicList = (ImageView) findViewById(R.id.iv_music_list);
 
         tvMusicName = findViewById(R.id.tv_music_name);
+        ivMusicIcon = findViewById(R.id.id_r_m_l_music_icon);
 //        tvMusicAuthor = (TextView) findViewById(R.id.tv_music_author);
 
         carPowerInfoView = findViewById(R.id.ll_car_power_info);
@@ -308,7 +309,6 @@ public class MainActivity extends BaseActivity
     protected void onResume() {
         super.onResume();
         SitechDevLog.i(AppConst.TAG, "===MainActivity======================onResume=============================");
-        EventBusUtils.register(this);
         refreshUserView(LoginUtils.isLogin(), null);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -419,65 +419,14 @@ public class MainActivity extends BaseActivity
 //                EventBusUtils.postEvent(new WindowEvent(WindowEvent.EVENT_WINDOW_CONTROL_MENU, true));
                 break;
             case R.id.iv_music_bef:
-//                switch (musicSource){
-//                    case KAOLA:
-//                        KaolaPlayManager.SingletonHolder.INSTANCE.playPre();
-//                        break;
-//                    case LOCAL_MUSIC:
-//                        MusicManager.getInstance().pre(new MusicManager.CallBack<String>() {
-//                            @Override
-//                            public void onCallBack(int code, String s) {
-//                                if (0 != code){
-//                                    CommonToast.showToast(s);
-//                                }
-//                            }
-//                        });
-//                        break;
-//                    default:
-//                        CommonToast.showToast("当前无可用音源");
-//                        break;
-//                }
                 VoiceSourceManager.getInstance().pre(VoiceSourceManager.SCREEN);
                 break;
             case R.id.iv_music_stop:
-//                switch (musicSource){
-//                    case KAOLA:
-//                        PlayerManager.getInstance(this).switchPlayerStatus();                        break;
-//                    case LOCAL_MUSIC:
-//                        MusicManager.getInstance().toggle(new MusicManager.CallBack<String>() {
-//                            @Override
-//                            public void onCallBack(int code, String s) {
-//                                if (0 != code){
-//                                    CommonToast.showToast(s);
-//                                }
-//                            }
-//                        });
-//                        break;
-//                    default:
-//                        CommonToast.showToast("当前无可用音源");
-//                        break;
-//                }
                 VoiceSourceManager.getInstance().toggle(VoiceSourceManager.SCREEN);
                 break;
             case R.id.iv_music_next:
-//                switch (musicSource){
-//                    case KAOLA:
-//                        KaolaPlayManager.SingletonHolder.INSTANCE.playNext();                        break;
-//                    case LOCAL_MUSIC:
-//                        MusicManager.getInstance().next(new MusicManager.CallBack<String>() {
-//                            @Override
-//                            public void onCallBack(int code, String s) {
-//                                if (0 != code){
-//                                    CommonToast.showToast(s);
-//                                }
-//                            }
-//                        });
-//                        break;
-//                    default:
-//                        CommonToast.showToast("当前无可用音源");
-//                        break;
-//                }
                 VoiceSourceManager.getInstance().next(VoiceSourceManager.SCREEN);
+                SitechMusicNewManager.getInstance().onPlayNext();
                 break;
 //            case R.id.iv_music_list:
 //                VoiceSourceManager.getInstance().toDetailActivity();
@@ -609,29 +558,36 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onMusicChange(String name) {
+        SitechDevLog.i("Music", "MainActivity===>onMusicChange" + name);
         if (null != tvMusicName) {
             tvMusicName.setText(name);
+        }
+        if (null != ivMusicIcon) {
+            ivMusicIcon.resumeAnimation();
+            GlideApp.with(this).load(R.drawable.iv_music).into(ivMusicIcon);
         }
     }
 
     @Override
     public void pause() {
+        SitechDevLog.i("Music", "MainActivity===>pause");
         if (null != ivMusicStop) {
             ivMusicStop.setActivated(false);
+        }
+        if (null != ivMusicIcon) {
+            ivMusicIcon.pauseAnimation();
         }
     }
 
     @Override
     public void resume() {
+        SitechDevLog.i("Music", "MainActivity===>resume");
         if (null != ivMusicStop) {
             ivMusicStop.setActivated(true);
         }
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        EventBusUtils.unregister(this);
+        if (null != ivMusicIcon) {
+            ivMusicIcon.resumeAnimation();
+        }
     }
 
     private SpannableStringBuilder setBottomAlignment(String value, String unitStr) {
@@ -651,4 +607,93 @@ public class MainActivity extends BaseActivity
 
         return spanString;
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMusicEvent(MusicEvent event) {
+        SitechMusicBean musicBean = event.getBean();
+        SitechDevLog.i("MainActivity", "onMusicEvent====event.getKey()=" + event.getKey() + "===>" + musicBean.toString());
+        switch (event.getKey()) {
+            case MusicEvent.EVENT_UPD_MUSIC_INFO:
+                if (musicBean == null) {
+                    if (null != tvMusicName) {
+                        tvMusicName.setText("-- --");
+                    }
+                    if (null != ivMusicIcon) {
+                        ivMusicIcon.stopAnimation();
+                        GlideApp.with(this).load(R.drawable.iv_music).into(ivMusicIcon);
+                    }
+                } else {
+                    SitechDevLog.i("MainActivity", "onMusicInfo=====musicBean.getName()= " + musicBean.getName() + "===>" + tvMusicName.getText().toString());
+                    SitechDevLog.i("MainActivity", "equal==>" + (!musicBean.getName().equalsIgnoreCase(tvMusicName.getText().toString())));
+                    //当前播放的音乐名称
+                    if (null != tvMusicName) {
+                        tvMusicName.setText(musicBean.getName() + " -- " + musicBean.getAuthor());
+                    }
+                }
+                break;
+            case MusicEvent.EVENT_UPD_MUSIC_IMAGE:
+                //当前播放的音乐图片
+                SitechDevLog.i("MainActivity", "===> onMusicImage=====musicBean.getIconBitmap()= " + musicBean.getIconBitmap());
+                if (null != ivMusicIcon && musicBean.getIconBitmap() != null) {
+                    GlideApp.with(this).load(musicBean.getIconBitmap()).circleCrop().into(ivMusicIcon);
+                    ivMusicIcon.startAnimation();
+                }
+                break;
+            case MusicEvent.EVENT_UPD_MUSIC_PLAY_STATUS:
+                SitechDevLog.i("MainActivity", "===> (ivMusicStop==null) = " + (ivMusicStop == null) + "===> (musicBean == null) = " + (musicBean == null));
+                if (null != ivMusicStop && musicBean != null) {
+                    ivMusicStop.setActivated(musicBean.isPlayStatus());
+                    if (!musicBean.isPlayStatus() && null != ivMusicIcon) {
+                        ivMusicIcon.pauseAnimation();
+                    } else if (musicBean.isPlayStatus() && null != ivMusicIcon) {
+                        ivMusicIcon.resumeAnimation();
+                    }
+                }
+                break;
+            case MusicEvent.EVENT_UPD_MUSIC_PROGRESS:
+                break;
+            default:
+                break;
+        }
+    }
+
+//    /**
+//     * 当前播放的音乐图片
+//     *
+//     * @param musicBean 音乐Bean
+//     */
+//    @Override
+//    public void onMusicImage(SitechMusicBean musicBean) {
+//    }
+//
+//    /**
+//     * 当前播放的状态
+//     */
+//    @Override
+//    public void onMusicPlayStatus(SitechMusicBean musicBean) {
+//    }
+//
+//    /**
+//     * 当前播放的音乐进度
+//     */
+//    @Override
+//    public void onMusicProgress(SitechMusicBean musicBean) {
+//
+//    }
+//
+//    /**
+//     * 播放失败的回调
+//     */
+//    @Override
+//    public void onMusicPlayerFailed(SitechMusicBean musicBean) {
+//
+//    }
+//
+//    /**
+//     * 播放完成的回调
+//     */
+//    @Override
+//    public void onMusicPlayerFinish(SitechMusicBean musicBean) {
+//
+//    }
 }

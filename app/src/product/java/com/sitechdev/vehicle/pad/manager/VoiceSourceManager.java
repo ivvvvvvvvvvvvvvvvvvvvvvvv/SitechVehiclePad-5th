@@ -8,6 +8,7 @@ import com.kaolafm.sdk.core.mediaplayer.PlayItem;
 import com.kaolafm.sdk.core.mediaplayer.PlayerListManager;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.Constant;
+import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.event.TeddyEvent;
 import com.sitechdev.vehicle.pad.kaola.ColumnMemberMamager;
@@ -44,7 +45,7 @@ public class VoiceSourceManager {
      */
     public static final int CONTENT = SCREEN + 1;
     private List<WeakReference<MusicChangeListener>> listeners;
-    private boolean beContent = false;
+    private boolean isFromWakeUp = false;
     public static final String SUPPORT_TYPE_ALL = "all";
     public static final String SUPPORT_TYPE_KAOLA = "kaola";
     public static final String SUPPORT_TYPE_LOCAL = "local";
@@ -102,6 +103,7 @@ public class VoiceSourceManager {
                     MusicChangeListener listener = ref.get();
                     String value = listener.getClass().getAnnotation(
                             VoiceSourceType.class).value();
+                    SitechDevLog.i("onMusicChange", "MainActivty vourceManger=  onPlay  =value=" + value + "==title=" + title);
                     switch (value) {
                         case SUPPORT_TYPE_ALL:
                             listener.onMusicChange(title);
@@ -130,6 +132,9 @@ public class VoiceSourceManager {
 
         @Override
         public void onPause() {
+            if (SitechMusicNewManager.getInstance().getCurrentMusicChannel() != null) {
+                return;
+            }
             int len = listeners.size();
             boolean[] removes = null;
             for (int i = 0; i < len; i++) {
@@ -148,16 +153,20 @@ public class VoiceSourceManager {
                 } else {
                     curPlayItem = PlayerListManager.getInstance().getCurPlayItem();
                 }
+                SitechDevLog.i("music", "MainActivty vourceManger=  onPause  = curPlayItem == null=" + (curPlayItem == null));
                 if (curPlayItem == null) {
                     continue;
                 }
+                SitechDevLog.i("music", "MainActivty vourceManger=  onPause  =listener.getClass()=" + listener.getClass());
                 String value = listener.getClass().getAnnotation(
                         VoiceSourceType.class).value();
                 if (value.equals(SUPPORT_TYPE_ALL) || value.equals(SUPPORT_TYPE_KAOLA)) {
                     listener.pause();
                 }
+                SitechDevLog.i("onMusicChange", "MainActivty vourceManger=  onPause  =value=" + value);
                 if (curPlayItem != null) {
                     String title = curPlayItem.getTitle();
+                    SitechDevLog.i("onMusicChange", "MainActivty vourceManger=  onPause  ===title=" + title);
                     switch (value) {
                         case SUPPORT_TYPE_ALL:
                             listener.onMusicChange(title);
@@ -183,6 +192,9 @@ public class VoiceSourceManager {
             new MusicManager.OnMusicChangeListener() {
                 @Override
                 public void onMusciChange(MusicInfo current, int status) {
+                    if (SitechMusicNewManager.getInstance().getCurrentMusicChannel() != null) {
+                        return;
+                    }
                     if (null == current) {
                         musicSource = -1;
                     } else {
@@ -205,6 +217,7 @@ public class VoiceSourceManager {
                             MusicChangeListener listener = ref.get();
                             String value = listener.getClass().getAnnotation(
                                     VoiceSourceType.class).value();
+                            SitechDevLog.i("onMusicChange", "MainActivty vourceManger musicChangeListener=  onMusciChange  ===value=" + value + "==current=" + current);
                             switch (value) {
                                 case SUPPORT_TYPE_ALL:
                                 case SUPPORT_TYPE_LOCAL:
@@ -302,10 +315,17 @@ public class VoiceSourceManager {
                 });
                 break;
             default:
-                if (type == VOICE) {
-                    VUI.getInstance().shutAndTTS("当前无可用音源");
-                } else if (type == SCREEN) {
-                    CommonToast.showToast("当前无可用音源");
+                if (SitechMusicNewManager.getInstance().getCurrentMusicChannel() == null) {
+                    if (type == VOICE) {
+                        VUI.getInstance().shutAndTTS("当前无可用音源");
+                    } else if (type == SCREEN) {
+                        CommonToast.showToast("当前无可用音源");
+                    }
+                } else {
+                    SitechMusicNewManager.getInstance().onPlayPre();
+                    if (type == VOICE) {
+                        VUIWindow.getInstance().hide();
+                    }
                 }
                 break;
         }
@@ -347,13 +367,21 @@ public class VoiceSourceManager {
                 });
                 break;
             default:
-                if (type == VOICE) {
-                    VUI.getInstance().shutAndTTS("当前无可用音源");
-                } else if (type == SCREEN) {
-                    CommonToast.showToast("当前无可用音源");
+                if (SitechMusicNewManager.getInstance().getCurrentMusicChannel() == null) {
+                    if (type == VOICE) {
+                        VUI.getInstance().shutAndTTS("当前无可用音源");
+                    } else if (type == SCREEN) {
+                        CommonToast.showToast("当前无可用音源");
+                    }
+                } else {
+                    SitechMusicNewManager.getInstance().onPlayNext();
+                    if (type == VOICE) {
+                        VUIWindow.getInstance().hide();
+                    }
                 }
                 break;
         }
+
     }
 
     public void changeAnother(int type) {
@@ -395,18 +423,25 @@ public class VoiceSourceManager {
                 }
                 break;
             default:
-                if (type == VOICE) {
-                    VUI.getInstance().shutAndTTS("当前无可用音源");
-                } else if (type == SCREEN) {
-                    CommonToast.showToast("当前无可用音源");
+                if (SitechMusicNewManager.getInstance().getCurrentMusicChannel() == null) {
+                    if (type == VOICE) {
+                        VUI.getInstance().shutAndTTS("当前无可用音源");
+                    } else if (type == SCREEN) {
+                        CommonToast.showToast("当前无可用音源");
+                    }
+                } else {
+                    SitechMusicNewManager.getInstance().onPlayRandomMusic();
+                    if (type == VOICE) {
+                        VUIWindow.getInstance().hide();
+                    }
                 }
                 break;
         }
     }
 
     public void pause(int type) {
-        if (beContent) {
-            beContent = false;
+        if (isFromWakeUp) {
+            isFromWakeUp = false;
             VUI.getInstance().shut();
             return;
         }
@@ -418,7 +453,7 @@ public class VoiceSourceManager {
                         VUIWindow.getInstance().hide();
                     } else if (type == CONTENT) {
                         //do nothing
-                        beContent = true;
+                        isFromWakeUp = true;
                     }
                 } else {
                     if (type == VOICE) {
@@ -447,17 +482,27 @@ public class VoiceSourceManager {
                                 VUIWindow.getInstance().hide();
                             } else if (type == CONTENT) {
                                 //do nothing
-                                beContent = true;
+                                isFromWakeUp = true;
                             }
                         }
                     }
                 });
                 break;
             default:
-                if (type == VOICE) {
-                    VUI.getInstance().shutAndTTS("当前无可用音源");
-                } else if (type == SCREEN) {
-                    CommonToast.showToast("当前无可用音源");
+                if (SitechMusicNewManager.getInstance().getCurrentMusicChannel() == null) {
+                    if (type == VOICE) {
+                        VUI.getInstance().shutAndTTS("当前无可用音源");
+                    } else if (type == SCREEN) {
+                        CommonToast.showToast("当前无可用音源");
+                    }
+                } else {
+                    SitechMusicNewManager.getInstance().onPlayPause();
+                    if (type == VOICE) {
+                        VUIWindow.getInstance().hide();
+                    } else if (type == CONTENT) {
+                        //do nothing
+                        isFromWakeUp = true;
+                    }
                 }
                 break;
         }
@@ -465,10 +510,10 @@ public class VoiceSourceManager {
 
     public void resume(int type) {
         if (type == CONTENT) {
-            if (!beContent) {
+            if (!isFromWakeUp) {
                 return;
             }
-            beContent = false;
+            isFromWakeUp = false;
         }
         switch (musicSource) {
             case KAOLA:
@@ -504,10 +549,17 @@ public class VoiceSourceManager {
                 });
                 break;
             default:
-                if (type == VOICE) {
-                    VUI.getInstance().shutAndTTS("当前无可用音源");
-                } else if (type == SCREEN) {
-                    CommonToast.showToast("当前无可用音源");
+                if (SitechMusicNewManager.getInstance().getCurrentMusicChannel() == null) {
+                    if (type == VOICE) {
+                        VUI.getInstance().shutAndTTS("当前无可用音源");
+                    } else if (type == SCREEN) {
+                        CommonToast.showToast("当前无可用音源");
+                    }
+                } else {
+                    SitechMusicNewManager.getInstance().onPlayResume();
+                    if (type == VOICE) {
+                        VUIWindow.getInstance().hide();
+                    }
                 }
                 break;
         }
@@ -529,10 +581,21 @@ public class VoiceSourceManager {
                 });
                 break;
             default:
-                if (type == VOICE) {
-                    VUI.getInstance().shutAndTTS("当前无可用音源");
-                } else if (type == SCREEN) {
-                    CommonToast.showToast("当前无可用音源");
+                if (SitechMusicNewManager.getInstance().getCurrentMusicChannel() == null) {
+                    if (type == VOICE) {
+                        VUI.getInstance().shutAndTTS("当前无可用音源");
+                    } else if (type == SCREEN) {
+                        CommonToast.showToast("当前无可用音源");
+                    }
+                } else {
+                    if (SitechMusicNewManager.getInstance().hasMusicPlaying()) {
+                        SitechMusicNewManager.getInstance().onPlayPause();
+                    } else {
+                        SitechMusicNewManager.getInstance().onPlayResume();
+                    }
+                    if (type == VOICE) {
+                        VUIWindow.getInstance().hide();
+                    }
                 }
                 break;
         }
@@ -568,6 +631,7 @@ public class VoiceSourceManager {
                     }
                     break;
                 case LOCAL_MUSIC:
+                    SitechDevLog.i("onMusicChange", "MainActivty vourceManger addMusicChangeListener=  LOCAL_MUSIC  ==musicName==" + MusicManager.getInstance().getPlayInfo().musicName);
                     switch (value) {
                         case SUPPORT_TYPE_ALL:
                         case SUPPORT_TYPE_LOCAL:
@@ -597,6 +661,7 @@ public class VoiceSourceManager {
 
     private void notifyKaola(MusicChangeListener listener) {
         if (null != KaolaPlayManager.SingletonHolder.INSTANCE.getCurPlayingItem()) {
+            SitechDevLog.i("onMusicChange", "MainActivty vourceManger notifyKaola  ==getTitle==" + KaolaPlayManager.SingletonHolder.INSTANCE.getCurPlayingItem().getTitle());
             listener.onMusicChange(KaolaPlayManager.SingletonHolder.INSTANCE.getCurPlayingItem().getTitle());
             if (KaolaPlayManager.SingletonHolder.INSTANCE.isPlaying(context)) {
                 listener.resume();
@@ -711,6 +776,14 @@ public class VoiceSourceManager {
                 }
             }
         }
+    }
+
+    public int getMusicSource() {
+        return musicSource;
+    }
+
+    public void setMusicSource(int musicSource) {
+        this.musicSource = musicSource;
     }
 
     public interface MusicChangeListener {

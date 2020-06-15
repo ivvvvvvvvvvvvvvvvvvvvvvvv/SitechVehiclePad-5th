@@ -10,7 +10,9 @@ import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.NetworkUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.ThreadUtils;
+import com.sitechdev.vehicle.pad.callback.SitechMusicSource;
 import com.sitechdev.vehicle.pad.event.KuwoEvent;
+import com.sitechdev.vehicle.pad.manager.SitechMusicNewManager;
 
 import java.util.List;
 
@@ -54,9 +56,13 @@ public class KuwoUtil {
      */
     public static void startKuwoApp(boolean isAutoplay) {
         ThreadUtils.runOnUIThread(() -> {
+            if (mKwapi==null){
+                init(BaseApp.getApp().getApplicationContext());
+            }
             boolean networkAvailable = NetworkUtils.isNetworkAvailable(BaseApp.getApp().getApplicationContext());
             mKwapi.startAPP(networkAvailable);
             mKwapi.bindAutoSdkService(BaseApp.getApp().getApplicationContext());
+//            SitechMusicNewManager.getInstance().registerCurrentMusicChannel(SitechMusicSource.MusicChannel.CHANNEL_NET_MUSIC_KUWO);
         });
         //改变音源
 //        EventBusUtils.postEvent(new TeddyEvent(TeddyEvent.EB_TEDDY_SCENE_EVENT_CHANGE, TeddyEvent.TEDDY_SCENE_KU_WO));
