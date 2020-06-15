@@ -13,10 +13,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.alibaba.android.arouter.facade.annotation.Route;
 import com.sitechdev.vehicle.lib.imageloader.GlideApp;
 import com.sitechdev.vehicle.pad.R;
-import com.sitechdev.vehicle.pad.router.RouterConstants;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -61,6 +59,14 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.VHol
         } else {
             GlideApp.with(context).load(mLists.get(i).thumbnails).into(vh.img);
         }
+        vh.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onItemClick != null) {
+                    onItemClick.onClick(mLists.get(i));
+                }
+            }
+        });
     }
 
     interface OnItemClick {

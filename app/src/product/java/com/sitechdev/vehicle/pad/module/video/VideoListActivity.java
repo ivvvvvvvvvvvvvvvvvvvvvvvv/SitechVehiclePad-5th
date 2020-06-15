@@ -1,10 +1,11 @@
 package com.sitechdev.vehicle.pad.module.video;
 
+import android.content.ComponentName;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Space;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -14,7 +15,6 @@ import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.util.MediaScanister;
-import com.sitechdev.vehicle.pad.view.SpaceItemDecoration;
 import com.sitechdev.vehicle.pad.view.VideoItemDecoration;
 
 /**
@@ -37,7 +37,22 @@ public class VideoListActivity extends BaseActivity {
     protected void initData() {
         adapter = new VideoListAdapter(this);
         recyclerView.setAdapter(adapter);
+        adapter.setOnItemClick(new VideoListAdapter.OnItemClick() {
+            @Override
+            public void onClick(VideoInfo info) {
+                ComponentName com = new ComponentName("com.sitechdev.vehicle.video", "com.sitechdev.vehicle.video.app.VideoPlayMainActivity"); //package;class
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setComponent(com);
+                intent.putExtra("localPath", info.data);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
     }
+
+
 
     @Override
     protected void initView(Bundle savedInstanceState) {
