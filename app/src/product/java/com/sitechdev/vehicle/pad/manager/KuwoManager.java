@@ -36,6 +36,7 @@ import cn.kuwo.base.bean.Music;
  */
 public class KuwoManager extends BaseMusicManager {
     private static KWAPI mKwapi = null;
+    private boolean isServerConnected = false;
 
     private KuwoManager() {
         mKwapi = KWAPI.createKWAPI(BaseApp.getApp().getApplicationContext(), "auto");
@@ -69,6 +70,7 @@ public class KuwoManager extends BaseMusicManager {
                 getPlayResource();
             } else {
                 mKwapi.bindAutoSdkService(BaseApp.getApp().getApplicationContext());
+                isServerConnected = true;
             }
         });
     }
@@ -125,6 +127,7 @@ public class KuwoManager extends BaseMusicManager {
             mKwapi.bindAutoSdkService(BaseApp.getApp().getApplicationContext());
             setKuwoLoading(true);
             mKwapi.playClientMusics(musicName, musicSinger, "");
+            isServerConnected = true;
         });
     }
 
@@ -141,6 +144,7 @@ public class KuwoManager extends BaseMusicManager {
             mKwapi.bindAutoSdkService(BaseApp.getApp().getApplicationContext());
             setKuwoLoading(true);
             mKwapi.playMusic(list, index, isEntry, isExit);
+            isServerConnected = true;
         });
     }
 
@@ -152,6 +156,7 @@ public class KuwoManager extends BaseMusicManager {
     public void searchThemeMusic(String theme, OnSearchListener searchListener) {
         ThreadUtils.runOnUIThread(() -> {
             mKwapi.bindAutoSdkService(BaseApp.getApp().getApplicationContext());
+            isServerConnected = true;
 //            setKuwoLoading(true);
             mKwapi.searchOnlineMusicByTheme(theme, searchListener);
         });
@@ -169,6 +174,7 @@ public class KuwoManager extends BaseMusicManager {
     public void searchOnlineMusic(String musicName, String musicSinger, String album, OnSearchListener searchListener) {
         ThreadUtils.runOnUIThread(() -> {
             mKwapi.bindAutoSdkService(BaseApp.getApp().getApplicationContext());
+            isServerConnected = true;
             mKwapi.searchOnlineMusic(musicSinger, musicName, album, searchListener);
         });
     }
@@ -244,6 +250,9 @@ public class KuwoManager extends BaseMusicManager {
      * @return true=正在播放
      */
     public boolean getPlayStatus() {
+        if (!isServerConnected || mKwapi == null || !mKwapi.isKuwoRunning()) {
+            return false;
+        }
         return mKwapi.getPlayerStatus() == PlayerStatus.PLAYING;
     }
 
@@ -253,6 +262,9 @@ public class KuwoManager extends BaseMusicManager {
      * @return musicInfo
      */
     public Music getNowPlayingMusicInfo() {
+        if (mKwapi == null) {
+            return null;
+        }
         return mKwapi.getNowPlayingMusic();
     }
 
@@ -274,6 +286,9 @@ public class KuwoManager extends BaseMusicManager {
      * @param defaultResID 占位图
      */
     public void setMusicByImageView(Music music, ImageView imageView, int defaultResID) {
+        if (mKwapi == null) {
+            return;
+        }
         mKwapi.displayImage(music, imageView, defaultResID);
     }
 
@@ -285,6 +300,9 @@ public class KuwoManager extends BaseMusicManager {
      * @param music 当前播放的音乐
      */
     public void pullMusicBitmap(Music music, BaseBribery bribery) {
+        if (mKwapi == null) {
+            return;
+        }
         mKwapi.setMusicImg(music, new OnGetSongImgListener() {
             @Override
             public void sendSyncNotice_HeadPicStart(Music music) {
@@ -352,10 +370,14 @@ public class KuwoManager extends BaseMusicManager {
                     //EventBusUtils.postEvent(new KuwoEvent(KuwoEvent.EB_KUWO_EXIT));
                     //解除注册
                     mKwapi.unRegisterExitListener(AppApplication.getContext());
+                    isServerConnected = false;
                 });
         //播放状态的改变
         mKwapi.registerPlayerStatusListener(AppApplication.getContext(),
                 (playerStatus, music) -> {
+                    if (!isServerConnected) {
+                        return;
+                    }
                     SitechDevLog.e("music", "---------registerPlayerStatusListener---------music-" + music.name);
                     SitechDevLog.e("music", "---------registerPlayerStatusListener---------playerStatus-" + playerStatus);
 
@@ -440,7 +462,10 @@ public class KuwoManager extends BaseMusicManager {
                 setKuwoLoading(false);
 //                EventBusUtils.postEvent(new SysEvent(SysEvent.EB_SYS_SRC_SWITCTH, DataCenterConstants.CurrentSource.MODE_UNKNOWN));
                 mKwapi.unbindAutoSdkService(AppApplication.getContext());
+                isServerConnected = false;
                 mKwapi.exitAPP();
+                EventBusUtils.postEvent(new MusicEvent(MusicEvent.EVENT_UPD_MUSIC_IMAGE, null));
+                EventBusUtils.postEvent(new MusicEvent(MusicEvent.EVENT_UPD_MUSIC_INFO, null));
             }
         });
     }
@@ -499,8 +524,12 @@ public class KuwoManager extends BaseMusicManager {
      */
     @Override
     public void onMusicPlayResume() {
-        if (!getPlayStatus()) {
-            playControl(KuwoEvent.PlayControl.PLAY_PLAY);
+        try {
+            if (!getPlayStatus()) {
+                playControl(KuwoEvent.PlayControl.PLAY_PLAY);
+            }
+        } catch (Exception e) {
+            SitechDevLog.exception(e);
         }
     }
 

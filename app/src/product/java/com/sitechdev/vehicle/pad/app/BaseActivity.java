@@ -174,6 +174,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        SitechDevLog.i("onDestroy", this + "*****onDestroy*****");
         if (this.getClass().isAnnotationPresent(BindEventBus.class)) {
             EventBusUtils.unregister(this);
         }
@@ -185,7 +186,6 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        SitechDevLog.i("task", "*****onNewIntent()方法*****");
         SitechDevLog.i("task", "onNewIntent：" + getClass().getSimpleName() + " TaskId: " + getTaskId() + " hasCode:" + this.hashCode());
         dumpTaskAffinity();
     }
@@ -230,7 +230,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         CommonProgressDialog.getInstance().cancel(this);
     }
 
-    public boolean isLandscape(){
+    public boolean isLandscape() {
         return getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
     }
 

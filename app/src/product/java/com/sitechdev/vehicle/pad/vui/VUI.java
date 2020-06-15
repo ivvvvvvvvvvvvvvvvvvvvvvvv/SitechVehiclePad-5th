@@ -31,6 +31,7 @@ import com.sitechdev.vehicle.pad.event.TeddyEvent;
 import com.sitechdev.vehicle.pad.event.VoiceEvent;
 import com.sitechdev.vehicle.pad.event.WindowEvent;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
+import com.sitechdev.vehicle.pad.manager.KuwoManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.module.login.util.LoginUtils;
 import com.sitechdev.vehicle.pad.module.main.MainActivity;
@@ -955,8 +956,12 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                     shut();
                                     RouterUtils.getInstance().navigation(RouterConstants.SETTING_APP_LIST);
                                     break;
-                                case "导航":
                                 case "网络音乐":
+                                case "酷我音乐":
+                                case "酷我":
+                                    KuwoManager.getInstance().startKuwoApp(true);
+                                    break;
+                                case "导航":
                                 case "LED表情管理":
                                 case "表情管理":
                                 case "视频":
@@ -989,6 +994,12 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                     log("正在关闭控制中心");
                                     shut();
                                     EventBusUtils.postEvent(new WindowEvent(WindowEvent.EVENT_WINDOW_CONTROL_MENU, false));
+                                    break;
+                                case "网络音乐":
+                                case "酷我音乐":
+                                case "酷我":
+                                    KuwoManager.getInstance().exitKuwoApp();
+                                    shutAndTTS("已为您关闭");
                                     break;
                                 default:
                                     vuiAnr();

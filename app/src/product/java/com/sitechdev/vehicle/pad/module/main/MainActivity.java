@@ -611,7 +611,7 @@ public class MainActivity extends BaseActivity
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMusicEvent(MusicEvent event) {
         SitechMusicBean musicBean = event.getBean();
-        SitechDevLog.i("MainActivity", "onMusicEvent====event.getKey()=" + event.getKey() + "===>" + musicBean.toString());
+        SitechDevLog.i("MainActivity", "onMusicEvent====event.getKey()=" + event.getKey() + "===>" + (musicBean != null ? musicBean.toString() : "null"));
         switch (event.getKey()) {
             case MusicEvent.EVENT_UPD_MUSIC_INFO:
                 if (musicBean == null) {
@@ -633,21 +633,34 @@ public class MainActivity extends BaseActivity
                 break;
             case MusicEvent.EVENT_UPD_MUSIC_IMAGE:
                 //当前播放的音乐图片
-                SitechDevLog.i("MainActivity", "===> onMusicImage=====musicBean.getIconBitmap()= " + musicBean.getIconBitmap());
-                if (null != ivMusicIcon && musicBean.getIconBitmap() != null) {
+                SitechDevLog.i("MainActivity", "===> onMusicImage=====musicBean.getIconBitmap()= " + (musicBean != null ? musicBean.getIconBitmap() : "null"));
+                if (musicBean == null) {
+                    ivMusicIcon.stopAnimation();
+                    GlideApp.with(this).load(R.drawable.iv_music).into(ivMusicIcon);
+                    break;
+                }
+                if (null != ivMusicIcon) {
                     GlideApp.with(this).load(musicBean.getIconBitmap()).circleCrop().into(ivMusicIcon);
                     ivMusicIcon.startAnimation();
                 }
                 break;
             case MusicEvent.EVENT_UPD_MUSIC_PLAY_STATUS:
                 SitechDevLog.i("MainActivity", "===> (ivMusicStop==null) = " + (ivMusicStop == null) + "===> (musicBean == null) = " + (musicBean == null));
-                if (null != ivMusicStop && musicBean != null) {
+                if (musicBean == null) {
+                    ivMusicStop.setActivated(false);
+                    break;
+                }
+                if (null != ivMusicStop) {
                     ivMusicStop.setActivated(musicBean.isPlayStatus());
                     if (!musicBean.isPlayStatus() && null != ivMusicIcon) {
                         ivMusicIcon.pauseAnimation();
                     } else if (musicBean.isPlayStatus() && null != ivMusicIcon) {
                         ivMusicIcon.resumeAnimation();
                     }
+                }
+                //当前播放的音乐名称
+                if (null != tvMusicName && !(tvMusicName.getText().toString().contains(musicBean.getName()))) {
+                    tvMusicName.setText(musicBean.getName() + " -- " + musicBean.getAuthor());
                 }
                 break;
             case MusicEvent.EVENT_UPD_MUSIC_PROGRESS:
