@@ -61,7 +61,7 @@
       "index": 7,
       "appName": "导航",
       "appIcon": 8,
-      "appRoute": "/subApp/developing/navi",
+      "appRoute": "/subApp/navi",
       "jumpType": 1,
       "eventId": "btn_app_navi"
     },

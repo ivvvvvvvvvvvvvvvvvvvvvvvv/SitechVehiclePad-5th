@@ -12,6 +12,7 @@ import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.bean.AllModuleBean;
 import com.sitechdev.vehicle.pad.manager.KuwoManager;
+import com.sitechdev.vehicle.pad.manager.MapManager;
 import com.sitechdev.vehicle.pad.module.login.util.LoginUtils;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
@@ -116,7 +117,7 @@ public class JumpUtils {
 
                     break;
                 case RouterConstants.THIRD_APP_MAP:
-//                    MapDelegate.INSTANCE.startMap();
+                    MapManager.getInstance().startMap();
                     break;
                 default:
                     break;

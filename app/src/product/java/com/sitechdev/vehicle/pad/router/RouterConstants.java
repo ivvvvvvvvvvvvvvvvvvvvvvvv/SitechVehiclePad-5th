@@ -115,7 +115,7 @@ public interface RouterConstants {
     /**
      * 三方app跳转
      */
-    String THIRD_APP_MAP = "/main/map";
+    String THIRD_APP_MAP = "/subApp/navi";
     String THIRD_APP_CARLIFE = "/main/carLife";
 
     /**

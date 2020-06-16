@@ -17,9 +17,11 @@ import com.blankj.utilcode.util.AdaptScreenUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.lzy.okgo.OkGo;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
+import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.app.AppConst;
 import com.sitechdev.vehicle.pad.manager.UserManager;
 import com.sitechdev.vehicle.pad.module.login.LoginActivity;
+import com.sitechdev.vehicle.pad.module.main.MainActivity;
 import com.sitechdev.vehicle.pad.view.CommonToast;
 
 import java.io.ByteArrayInputStream;
@@ -173,5 +175,15 @@ public class AppUtil {
 //            return AdaptScreenUtils.adaptWidth(super.getResources(), 800);
             return AdaptScreenUtils.adaptWidth(currentResources, AppConst.ORI_SCAPE_DESIGN_WIDTH);
         }
+    }
+
+    /**
+     * 回到主页面
+     */
+    public static void startMainHome() {
+        Intent intent = new Intent(AppApplication.getContext(), MainActivity.class);
+        intent.setAction("com.sitechdev.vehicle");
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        AppApplication.getContext().startActivity(intent);
     }
 }
