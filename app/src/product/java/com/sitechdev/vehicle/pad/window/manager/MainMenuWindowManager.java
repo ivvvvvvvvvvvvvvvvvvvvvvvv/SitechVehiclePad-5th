@@ -8,6 +8,8 @@ import android.view.WindowManager;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
+import com.sitechdev.vehicle.pad.app.AppApplication;
+import com.sitechdev.vehicle.pad.app.BaseAppWindowManager;
 import com.sitechdev.vehicle.pad.app.BaseWindow;
 import com.sitechdev.vehicle.pad.event.ScreenEvent;
 import com.sitechdev.vehicle.pad.event.VoiceEvent;
@@ -61,8 +63,17 @@ public class MainMenuWindowManager {
 
     /**
      * 显示悬浮框
+     * 如果应用处于后台则不执行
      */
     public void show() {
+        if (BaseAppWindowManager.isBackground(AppApplication.getContext())) {
+            SitechDevLog.e(TAG, "-------------show() fail  now is in isBackground" );
+            return;
+        }
+        showForcibly();
+    }
+    //显示不判断应用是否在前台
+    public void showForcibly() {
         SitechDevLog.e(TAG, "-------------show()>");
         displayWidth = BaseWindow.getInstance().getDisplayWidth();
         displayHeight = BaseWindow.getInstance().getDisplayHeight();
@@ -80,7 +91,6 @@ public class MainMenuWindowManager {
         }
         TeddyWindowManager.getInstance().show();
     }
-
     /**
      * 隐藏悬浮框
      */

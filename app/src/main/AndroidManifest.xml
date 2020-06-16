@@ -164,6 +164,15 @@
         <service android:name="com.kaolafm.sdk.core.mediaplayer.PlayerService" />
         <service android:name="com.kaolafm.sdk.core.mediaplayer.VLCMediaPlayService" />
         <service android:name="com.amap.api.location.APSService" />
+        <service
+            android:name=".module.video.VideoPlayService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.sitechdev.vehicle.pad.module.video.service.IVideoPlayInterface" />
+            </intent-filter>
+
+        </service>
         <!--
         <meta-data
                     android:name="com.kaolafm.open.sdk.AppKey"

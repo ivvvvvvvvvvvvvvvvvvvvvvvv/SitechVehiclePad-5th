@@ -1,11 +1,15 @@
 package com.sitechdev.vehicle.pad.module.video;
 
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -15,6 +19,7 @@ import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.util.MediaScanister;
+import com.sitechdev.vehicle.pad.view.CommonToast;
 import com.sitechdev.vehicle.pad.view.VideoItemDecoration;
 
 /**
@@ -40,7 +45,12 @@ public class VideoListActivity extends BaseActivity {
         adapter.setOnItemClick(new VideoListAdapter.OnItemClick() {
             @Override
             public void onClick(VideoInfo info) {
-                ComponentName com = new ComponentName("com.sitechdev.vehicle.video", "com.sitechdev.vehicle.video.app.VideoPlayMainActivity"); //package;class
+                String vPag = "com.sitechdev.vehicle.video";
+                if (!checkApkExist(VideoListActivity.this, vPag)) {
+                    CommonToast.makeText(VideoListActivity.this, "暂时无法播放视频");
+                    return;
+                }
+                ComponentName com = new ComponentName(vPag, "com.sitechdev.vehicle.video.app.VideoPlayMainActivity"); //package;class
                 Intent intent = new Intent(Intent.ACTION_MAIN);
                 intent.addCategory(Intent.CATEGORY_LAUNCHER);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -52,7 +62,20 @@ public class VideoListActivity extends BaseActivity {
         });
     }
 
+    public static boolean checkApkExist(Context context, String packageName){
+        if (TextUtils.isEmpty(packageName))
+            return false;
+        try {
+            ApplicationInfo info = context.getPackageManager()
+                    .getApplicationInfo(packageName,
+                            PackageManager.GET_UNINSTALLED_PACKAGES);
 
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+
+            return false;
+        }
+    }
 
     @Override
     protected void initView(Bundle savedInstanceState) {

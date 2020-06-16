@@ -1,5 +1,7 @@
 package com.sitechdev.vehicle.pad.app;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.IntentFilter;
 
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
@@ -14,6 +16,8 @@ import com.sitechdev.vehicle.pad.window.view.PersonLoginWindow;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.List;
 
 /**
  * 项目名称：SitechVehiclePad-5th
@@ -80,6 +84,16 @@ public class BaseAppWindowManager {
                 }
                 break;
             case WindowEvent.EVENT_WINDOW_APP_FRONT:
+                //showForcibly = event.getEventObject()
+                if (event.getEventObject() instanceof Boolean) {
+                    boolean showForcibly = (boolean) event.getEventObject();
+                    if (showForcibly) {
+                        AppSignalWindowManager.getInstance().showForcibly();
+                        MainMenuWindowManager.getInstance().showForcibly();
+                        MainControlPanelWindowManager.getInstance().showForcibly();
+                        return;
+                    }
+                }
                 AppSignalWindowManager.getInstance().show();
                 MainMenuWindowManager.getInstance().show();
                 MainControlPanelWindowManager.getInstance().show();
@@ -102,6 +116,27 @@ public class BaseAppWindowManager {
             default:
                 break;
         }
+    }
+
+    public static boolean isBackground(Context context) {
+        ActivityManager activityManager = (ActivityManager) context
+                .getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> appProcesses = activityManager
+                .getRunningAppProcesses();
+        for (ActivityManager.RunningAppProcessInfo appProcess : appProcesses) {
+            if (appProcess.processName.equals(context.getPackageName())) {
+                /*
+                BACKGROUND=400 EMPTY=500 FOREGROUND=100
+                GONE=1000 PERCEPTIBLE=130 SERVICE=300 ISIBLE=200
+                 */
+                if (appProcess.importance != ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+        return false;
     }
 
 }
