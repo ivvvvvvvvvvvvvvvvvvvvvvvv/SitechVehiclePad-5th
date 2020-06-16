@@ -141,8 +141,7 @@ dependencies {
         exclude module: 'recyclerview-v7'
         exclude module: 'support-v4'
     }
-    //ali-arouter
-    implementation Config.depConfig.ali.arouter_api
+
     annotationProcessor Config.depConfig.ali.arouter_compiler
 
     //============高德地图sdk================

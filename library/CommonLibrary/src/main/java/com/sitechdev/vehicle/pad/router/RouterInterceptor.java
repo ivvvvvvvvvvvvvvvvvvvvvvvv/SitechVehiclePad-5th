@@ -19,9 +19,11 @@ import com.sitechdev.vehicle.lib.util.SitechDevLog;
  */
 @Interceptor(priority = 8, name = "处理跳转过程中的路由逻辑")
 public class RouterInterceptor implements IInterceptor {
+    private static final String TAG = "Router";
+
     @Override
     public void process(Postcard postcard, InterceptorCallback callback) {
-        SitechDevLog.i(RouterConstants.TAG, "[RouterInterceptor--process()]==>");
+        SitechDevLog.i(TAG, "[RouterInterceptor--process()]==>");
         if (RouterUtils.getInstance().isCurrentPage(postcard)) {
             callback.onInterrupt(new RuntimeException("the currentPage is Showing"));      // 觉得有问题，中断路由流程
         } else {
@@ -31,7 +33,7 @@ public class RouterInterceptor implements IInterceptor {
 
     @Override
     public void init(Context context) {
-        SitechDevLog.i(RouterConstants.TAG, "[RouterInterceptor--init()]==>");
+        SitechDevLog.i(TAG, "[RouterInterceptor--init()]==>");
         // 拦截器的初始化，会在sdk初始化的时候调用该方法，仅会调用一次
     }
 }

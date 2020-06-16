@@ -22,8 +22,7 @@ import com.sitechdev.vehicle.lib.util.StringUtils;
  * @date 2019/03/23
  */
 public class RouterUtils {
-
-    private static final String TAG = RouterUtils.class.getSimpleName();
+    private static final String TAG =  "Router";
 
     private RouterUtils() {
     }
@@ -165,8 +164,6 @@ public class RouterUtils {
 
     /**
      * @param path   fragment路径
-     * @param bundle 跳转传递的bundle参数
-     * @param flags  跳转所使用的N个flags
      */
     public Postcard getPostcard(String path) {
         if (TextUtils.isEmpty(path)) {
@@ -268,8 +265,8 @@ public class RouterUtils {
         try {
             String routerName = postcard.getDestination().getSimpleName();
             String currentPageName = (ActivityUtils.getTopActivity() != null ? (ActivityUtils.getTopActivity().getClass().getSimpleName()) : "");
-            SitechDevLog.i(RouterConstants.TAG, "[RouterUtil--isCurrentPage()]==>" + routerName);
-            SitechDevLog.i(RouterConstants.TAG, "[RouterUtil--isCurrentPage()]==>当前页面名称==>" + currentPageName);
+            SitechDevLog.i(TAG, "[RouterUtil--isCurrentPage()]==>" + routerName);
+            SitechDevLog.i(TAG, "[RouterUtil--isCurrentPage()]==>当前页面名称==>" + currentPageName);
             if (routerName.equalsIgnoreCase(currentPageName)) {
                 return true;
             }
