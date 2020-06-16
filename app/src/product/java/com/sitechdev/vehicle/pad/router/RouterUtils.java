@@ -2,6 +2,7 @@ package com.sitechdev.vehicle.pad.router;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -57,7 +58,7 @@ public class RouterUtils {
      *
      * @param path 目标界面对应的路径
      */
-    public void navigation(String path) {
+    public void navigationNoFlag(String path) {
         if (path == null) {
             return;
         }
@@ -71,12 +72,43 @@ public class RouterUtils {
      *
      * @param pathUri 目标界面对应的路径
      */
+    public void navigationNoFlag(Uri pathUri) {
+        if (pathUri == null) {
+            return;
+        }
+        ARouter.getInstance()
+                .build(pathUri)
+                .navigation();
+    }
+
+    /**
+     * 应用内简单的跳转
+     *
+     * @param path 目标界面对应的路径
+     */
+    public void navigation(String path) {
+        if (path == null) {
+            return;
+        }
+        ARouter.getInstance()
+                .build(path)
+                .withFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                .navigation();
+    }
+
+
+    /**
+     * 应用内简单的跳转
+     *
+     * @param pathUri 目标界面对应的路径
+     */
     public void navigation(Uri pathUri) {
         if (pathUri == null) {
             return;
         }
         ARouter.getInstance()
                 .build(pathUri)
+                .withFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 .navigation();
     }
 
@@ -132,8 +164,6 @@ public class RouterUtils {
     }
 
     /**
-     *
-     *
      * @param path   fragment路径
      * @param bundle 跳转传递的bundle参数
      * @param flags  跳转所使用的N个flags
