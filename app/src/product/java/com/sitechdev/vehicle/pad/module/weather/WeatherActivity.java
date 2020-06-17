@@ -242,8 +242,8 @@ public class WeatherActivity extends MvpActivity<WeatherPresenter> implements We
         Glide.with(this).asBitmap().apply(options).load(WeatherUtils.getInstance().getWeatherIcon(dataBean.getImg())).into(new SimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                Bitmap reflectionImageWithOrigin = createReflectionImageWithOrigin(resource);
-                ivWeatherIcon.setImageBitmap(reflectionImageWithOrigin);
+//                Bitmap reflectionImageWithOrigin = createReflectionImageWithOrigin(resource);
+                ivWeatherIcon.setImageBitmap(resource);
             }
         });
         // Temperature

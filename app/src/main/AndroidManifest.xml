@@ -17,8 +17,7 @@
             android:screenOrientation="landscape"/>
 
         <activity
-            android:name=".module.weather.WeatherActivity"
-            android:screenOrientation="landscape" />
+            android:name=".module.weather.WeatherActivity" />
         <activity
             android:name=".module.taxi.TaximeterActivity"
             android:screenOrientation="landscape" />
