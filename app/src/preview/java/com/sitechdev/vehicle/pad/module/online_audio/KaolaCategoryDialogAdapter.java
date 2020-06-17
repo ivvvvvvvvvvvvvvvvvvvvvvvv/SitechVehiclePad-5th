@@ -16,7 +16,6 @@ import com.kaolafm.opensdk.api.operation.model.ImageFile;
 import com.kaolafm.opensdk.api.operation.model.category.Category;
 import com.sitechdev.vehicle.lib.imageloader.GlideApp;
 import com.sitechdev.vehicle.pad.R;
-import com.sitechdev.vehicle.pad.kaola.NewsDetailsActivity;
 import com.sitechdev.vehicle.pad.model.kaola.KaolaCategoryDataWarpper;
 import com.sitechdev.vehicle.pad.view.IndexAdapter;
 import com.sitechdev.vehicle.pad.view.Indexable;

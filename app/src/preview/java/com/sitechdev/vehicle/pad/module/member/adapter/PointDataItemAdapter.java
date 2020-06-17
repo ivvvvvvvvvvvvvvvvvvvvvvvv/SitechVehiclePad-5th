@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.amap.api.services.core.PoiItem;
 import com.sitechdev.vehicle.lib.util.TimeUtils;
 import com.sitechdev.vehicle.pad.R;
-import com.sitechdev.vehicle.pad.kaola.PlayItemAdapter;
 import com.sitechdev.vehicle.pad.module.map.util.LocationData;
 import com.sitechdev.vehicle.pad.module.map.util.MapUtil;
 import com.sitechdev.vehicle.pad.module.member.bean.PointsInfoBean;

@@ -15,14 +15,7 @@
         tools:replace="android:allowBackup">
         <activity android:name=".module.feedback.FeedbackHistoryActivity"
             android:screenOrientation="landscape"/>
-        <activity
-            android:name=".module.forshow.MusicKaolaForShowActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="landscape" />
 
-        <activity
-            android:name=".kaola.NewsDetailsActivity"
-            android:screenOrientation="landscape" />
         <activity
             android:name=".module.weather.WeatherActivity"
             android:screenOrientation="landscape" />
@@ -37,10 +30,6 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".module.carstatus.CarStatusPreActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".kaola.KaolaListActivity"
-            android:launchMode="singleTop"
             android:screenOrientation="landscape" />
         <activity
             android:name=".module.apps.view.AppsListGridActivity" />

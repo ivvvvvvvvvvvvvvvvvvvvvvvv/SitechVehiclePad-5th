@@ -13,7 +13,6 @@ import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.event.TeddyEvent;
 import com.sitechdev.vehicle.pad.kaola.ColumnMemberMamager;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
-import com.sitechdev.vehicle.pad.kaola.NewsDetailsActivity;
 import com.sitechdev.vehicle.pad.module.music.MusicMainActivity;
 import com.sitechdev.vehicle.pad.module.music.MusicManager;
 import com.sitechdev.vehicle.pad.module.music.service.MusicInfo;
@@ -688,13 +687,13 @@ public class VoiceSourceManager {
     }
 
     private void toKaoLa() {
-        if (null == ColumnMemberMamager.SingltonHolder.INSTANCE.mColumnMember) {
-            CommonToast.makeText(context, "暂无播放的列表~~~~");
-            return;
-        }
-        Intent intent = new Intent(context, NewsDetailsActivity.class);
-        intent.putExtra(Constant.KEY_TYPE_KEY, Constant.TYPE.PLAYING);
-        context.startActivity(intent);
+//        if (null == ColumnMemberMamager.SingltonHolder.INSTANCE.mColumnMember) {
+//            CommonToast.makeText(context, "暂无播放的列表~~~~");
+//            return;
+//        }
+//        Intent intent = new Intent(context, NewsDetailsActivity.class);
+//        intent.putExtra(Constant.KEY_TYPE_KEY, Constant.TYPE.PLAYING);
+//        context.startActivity(intent);
 
     }
 

@@ -11,7 +11,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.sitechdev.vehicle.pad.kaola.PlayItemAdapter;
-import com.sitechdev.vehicle.pad.module.music.adapter.LocalMusicAdapter;
 
 /**
  * @author zhubaoqiang
