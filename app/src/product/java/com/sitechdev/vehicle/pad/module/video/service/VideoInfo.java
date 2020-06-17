@@ -1,4 +1,4 @@
-package com.sitechdev.vehicle.pad.module.video;
+package com.sitechdev.vehicle.pad.module.video.service;
 
 import android.os.Bundle;
 import android.os.Parcel;
@@ -12,12 +12,6 @@ public class VideoInfo implements Parcelable {
     public static final String KEY_DATA = "data";
     public static final String KEY_THUMBNAILS = "thumbnails";
 
-    public static final String KEY_ARTIST = "artist";
-    public static final String KEY_ARTIST_ID = "artist_id";
-    public static final String KEY_FOLDER = "folder";
-    public static final String KEY_LRC = "lrc";
-    public static final String KEY_ISLOCAL = "islocal";
-    public static final String KEY_SORT = "sort";
 
     /**
      * 数据库中的_id
@@ -40,14 +34,8 @@ public class VideoInfo implements Parcelable {
             videoInfo.id = bundle.getLong(KEY_ID);
             videoInfo.title = bundle.getString(KEY_TITLE);
             videoInfo.thumbnails = bundle.getString(KEY_THUMBNAILS);
-//            videoInfo.artist = bundle.getString(KEY_ARTIST);
-//            videoInfo.artistId = bundle.getLong(KEY_ARTIST_ID);
             videoInfo.data = bundle.getString(KEY_DATA);
-//            videoInfo.folder = bundle.getString(KEY_FOLDER);
             videoInfo.size = bundle.getInt(KEY_SIZE);
-//            videoInfo.lrc = bundle.getString(KEY_LRC);
-//            videoInfo.islocal = bundle.getBoolean(KEY_ISLOCAL);
-//            videoInfo.sort = bundle.getString(KEY_SORT);
             return videoInfo;
         }
 

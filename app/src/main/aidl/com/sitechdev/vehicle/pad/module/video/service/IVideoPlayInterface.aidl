@@ -1,7 +1,15 @@
-// IMusicCallBack.aidl
 package com.sitechdev.vehicle.pad.module.video.service;
 
+
 interface IVideoPlayInterface {
-    void showNavigation();
-    void hideNavigation();
+    void play();
+    void pause();
+    void next();
+    void pre();
+    void close();
+    void seekTo(int position);
+    void changeMode(int mode);
+    void playLocalSource(String path);
+
+
 }

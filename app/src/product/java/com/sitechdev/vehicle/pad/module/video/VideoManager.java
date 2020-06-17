@@ -1,13 +1,11 @@
 package com.sitechdev.vehicle.pad.module.video;
 
-import android.content.AsyncQueryHandler;
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.MediaStore;
 
-import com.github.promeg.pinyinhelper.Pinyin;
+import com.sitechdev.vehicle.pad.module.video.service.VideoInfo;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 

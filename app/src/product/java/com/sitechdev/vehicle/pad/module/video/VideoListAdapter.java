@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.sitechdev.vehicle.lib.imageloader.GlideApp;
 import com.sitechdev.vehicle.pad.R;
+import com.sitechdev.vehicle.pad.module.video.service.VideoInfo;
 
 import java.io.File;
 import java.util.ArrayList;
