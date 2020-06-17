@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.blankj.utilcode.util.BarUtils;
+import com.lky.toucheffectsmodule.factory.TouchEffectsFactory;
 import com.sitechdev.vehicle.lib.event.BindBus;
 import com.sitechdev.vehicle.lib.event.BindEventBus;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
@@ -66,6 +67,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         BarUtils.setStatusBarVisibility(this, false);
         BarUtils.setNavBarVisibility(this, false);
 
+        TouchEffectsFactory.initTouchEffects(this);
         super.onCreate(savedInstanceState);
         setFullScreen();
         initToolBarView();

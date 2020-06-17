@@ -197,6 +197,7 @@ dependencies {
     implementation Config.depConfig.rollingText
     //通用组件
     implementation project(':library:CommonLibrary')
+    implementation project(':library:ToucheffectsLib')
 
     //下拉刷新
     implementation Config.depConfig.smartrefresh

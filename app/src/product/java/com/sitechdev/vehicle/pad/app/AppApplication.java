@@ -14,6 +14,9 @@ import com.kaolafm.opensdk.OpenSDK;
 import com.kaolafm.opensdk.http.core.HttpCallback;
 import com.kaolafm.opensdk.http.error.ApiException;
 import com.kaolafm.opensdk.log.Logging;
+import com.lky.toucheffectsmodule.TouchEffectsManager;
+import com.lky.toucheffectsmodule.types.TouchEffectsViewType;
+import com.lky.toucheffectsmodule.types.TouchEffectsWholeType;
 import com.sitechdev.net.EnvironmentConfig;
 import com.sitechdev.net.HttpHelper;
 import com.sitechdev.pad.lib.aoplibrary.annotation.DebugTrace;
@@ -68,6 +71,10 @@ public class AppApplication extends BaseApp {
             e.printStackTrace();
         }
         AppManager.getInstance().init(this);
+        TouchEffectsManager.build(TouchEffectsWholeType.SCALE)
+                .addViewType(TouchEffectsViewType.ALL)
+                .setListWholeType(TouchEffectsWholeType.RIPPLE)
+                .setAspectRatioType(4f,TouchEffectsWholeType.RIPPLE);//宽高比大于4时启动水波纹
         //腾讯相关组件
         initTencentUtil();
         //工具初始化
