@@ -22,7 +22,7 @@ import com.sitechdev.vehicle.lib.util.StringUtils;
  * @date 2019/03/23
  */
 public class RouterUtils {
-    private static final String TAG =  "Router";
+    private static final String TAG = "Router";
 
     private RouterUtils() {
     }
@@ -63,7 +63,7 @@ public class RouterUtils {
         }
         ARouter.getInstance()
                 .build(path)
-                .navigation();
+                .navigation(ActivityUtils.getTopActivity());
     }
 
     /**
@@ -77,7 +77,7 @@ public class RouterUtils {
         }
         ARouter.getInstance()
                 .build(pathUri)
-                .navigation();
+                .navigation(ActivityUtils.getTopActivity());
     }
 
     /**
@@ -92,7 +92,7 @@ public class RouterUtils {
         ARouter.getInstance()
                 .build(path)
                 .withFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                .navigation();
+                .navigation(ActivityUtils.getTopActivity());
     }
 
 
@@ -108,7 +108,7 @@ public class RouterUtils {
         ARouter.getInstance()
                 .build(pathUri)
                 .withFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                .navigation();
+                .navigation(ActivityUtils.getTopActivity());
     }
 
     /**
@@ -123,7 +123,7 @@ public class RouterUtils {
             return (Fragment) ARouter.getInstance()
                     .build(path)
                     .with(bundle)
-                    .navigation();
+                    .navigation(ActivityUtils.getTopActivity());
         } catch (Exception e) {
             SitechDevLog.e(TAG, "");
         }
@@ -157,13 +157,13 @@ public class RouterUtils {
         }
         Postcard postcard = ARouter.getInstance().build(path);
         for (int i = 0; i < flags.length; i++) {
-            postcard.withFlags(flags[i]);
+            postcard.addFlags(flags[i]);
         }
         postcard.navigation();
     }
 
     /**
-     * @param path   fragment路径
+     * @param path fragment路径
      */
     public Postcard getPostcard(String path) {
         if (TextUtils.isEmpty(path)) {
@@ -186,7 +186,7 @@ public class RouterUtils {
         ARouter.getInstance()
                 .build(path)
                 .with(bundle)
-                .navigation();
+                .navigation(ActivityUtils.getTopActivity());
     }
 
     /**
@@ -229,7 +229,7 @@ public class RouterUtils {
         try {
             provider = (IProvider) ARouter.getInstance()
                     .build(path)
-                    .navigation();
+                    .navigation(ActivityUtils.getTopActivity());
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -266,6 +266,7 @@ public class RouterUtils {
             String routerName = postcard.getDestination().getSimpleName();
             String currentPageName = (ActivityUtils.getTopActivity() != null ? (ActivityUtils.getTopActivity().getClass().getSimpleName()) : "");
             SitechDevLog.i(TAG, "[RouterUtil--isCurrentPage()]==>" + routerName);
+            SitechDevLog.i(TAG, "[RouterUtil--getflag()]==>" + postcard.getFlags());
             SitechDevLog.i(TAG, "[RouterUtil--isCurrentPage()]==>当前页面名称==>" + currentPageName);
             if (routerName.equalsIgnoreCase(currentPageName)) {
                 return true;
