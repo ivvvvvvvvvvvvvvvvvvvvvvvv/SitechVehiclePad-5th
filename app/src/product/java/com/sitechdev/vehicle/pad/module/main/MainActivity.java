@@ -29,6 +29,7 @@ import com.kaolafm.sdk.core.mediaplayer.BroadcastRadioPlayerManager;
 import com.kaolafm.sdk.core.mediaplayer.PlayerManager;
 import com.sitechdev.net.HttpCode;
 import com.sitechdev.vehicle.lib.event.BindEventBus;
+import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.imageloader.GlideApp;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.StringUtils;
@@ -43,6 +44,7 @@ import com.sitechdev.vehicle.pad.event.AppEvent;
 import com.sitechdev.vehicle.pad.event.MapEvent;
 import com.sitechdev.vehicle.pad.event.MusicEvent;
 import com.sitechdev.vehicle.pad.event.SSOEvent;
+import com.sitechdev.vehicle.pad.event.VoiceEvent;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.manager.SitechMusicNewManager;
 import com.sitechdev.vehicle.pad.manager.UserManager;
@@ -64,6 +66,7 @@ import com.sitechdev.vehicle.pad.util.FontUtil;
 import com.sitechdev.vehicle.pad.view.MusicImageView;
 import com.sitechdev.vehicle.pad.view.ReflectTextClock;
 import com.sitechdev.vehicle.pad.view.ScrollTextView;
+import com.sitechdev.vehicle.pad.vui.VoiceConstants;
 import com.sitechdev.vehicle.pad.window.manager.AppSignalWindowManager;
 import com.sitechdev.vehicle.pad.window.manager.MainControlPanelWindowManager;
 import com.sitechdev.vehicle.pad.window.manager.MainMenuWindowManager;
@@ -370,15 +373,15 @@ public class MainActivity extends BaseActivity
             case R.id.id_img_home:
             case R.id.tv_home:
                 //回家
-//                EventBusUtils.postEvent(new MapEvent(MapEvent.EVENT_MAP_START_NAVI_HOME));
+                EventBusUtils.postEvent(new MapEvent(MapEvent.EVENT_MAP_START_NAVI_HOME));
                 break;
             case R.id.id_img_work:
             case R.id.tv_work:
                 //回公司
-//                EventBusUtils.postEvent(new MapEvent(MapEvent.EVENT_MAP_START_NAVI_COMPONY));
+                EventBusUtils.postEvent(new MapEvent(MapEvent.EVENT_MAP_START_NAVI_COMPONY));
                 break;
             case R.id.tv_what:
-//                EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_MVW_SUCCESS, VoiceConstants.TTS_RESPONSE_NAVI_TEXT));
+                EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_MVW_SUCCESS, VoiceConstants.TTS_RESPONSE_NAVI_TEXT));
                 break;
             case R.id.ll_music:
 //                Intent goMusic = new Intent();
