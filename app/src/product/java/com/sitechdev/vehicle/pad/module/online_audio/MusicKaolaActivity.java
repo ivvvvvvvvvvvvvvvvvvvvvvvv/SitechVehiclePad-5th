@@ -505,6 +505,10 @@ public class MusicKaolaActivity extends BaseActivity implements
             SitechDevLog.e(TAG, "onPlayerPlaying  flag_FIRST_PLAY = " + flag_FIRST_PLAY);
             flag_FIRST_PLAY = false;
         }
+        mCurPosition = PlayerListManager.getInstance().getCurPosition();
+        if (playListAdapter != null) {
+            playListAdapter.setSelected(mCurPosition);
+        }
         SitechDevLog.e(TAG, "====== onPlayerPlaying ======= mCurPosition = " + mCurPosition);
     }
 
