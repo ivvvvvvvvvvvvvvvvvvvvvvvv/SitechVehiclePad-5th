@@ -103,6 +103,13 @@ public class BtManager {
         }
     }
 
+    public boolean isBtEnable(){
+        if(null == mBtAdapter){
+            return false;
+        }
+        return mBtAdapter.isEnabled();
+    }
+
     public void registerReceiver(Context context, BtScanCallback callback) {
         mCallBack = callback;
         IntentFilter filter = new IntentFilter();

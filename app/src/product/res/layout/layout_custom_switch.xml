@@ -11,24 +11,24 @@
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/setting_padding_left_right"
-        android:layout_marginTop="@dimen/px_40"
-        android:layout_marginBottom="@dimen/px_40"
+        android:layout_marginTop="@dimen/pt_40"
+        android:layout_marginBottom="@dimen/pt_40"
         android:textColor="@color/white"
         android:textSize="@dimen/text_size_main" />
     <TextView
         android:id="@+id/custom_switch_tip"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@id/custom_switch_title"
-        android:layout_marginLeft="32px"
+        android:layout_marginLeft="32pt"
         android:textColor="@color/setting_tip_text"
-        android:textSize="28px"
+        android:textSize="28pt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
     <RadioGroup
         android:id="@+id/custom_radiogroup"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="82pt"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/setting_padding_left_right"
@@ -50,7 +50,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1px"
+        android:layout_height="1pt"
         android:layout_below="@id/custom_switch_title"
         android:background="@color/main_info_line" />
 

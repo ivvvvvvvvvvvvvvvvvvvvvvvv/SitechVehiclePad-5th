@@ -1,36 +1,54 @@
 package com.sitechdev.vehicle.pad.module.setting.activity;
 
 import android.bluetooth.BluetoothDevice;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.blankj.utilcode.util.ToastUtils;
+import com.my.hw.BtDeviceBean;
+import com.my.hw.OnBtConnecStatusChangedListener;
+import com.my.hw.OnBtPairListChangeListener;
+import com.my.hw.SettingConfig;
+import com.sitechdev.vehicle.lib.util.ParamsUtil;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.bean.MvpActivity;
+import com.sitechdev.vehicle.pad.manager.CommonTopWindowManager;
+import com.sitechdev.vehicle.pad.manager.UserManager;
 import com.sitechdev.vehicle.pad.model.contract.SettingBtContract;
+import com.sitechdev.vehicle.pad.module.login.util.LoginUtils;
+import com.sitechdev.vehicle.pad.module.setting.SettingConstant;
 import com.sitechdev.vehicle.pad.module.setting.bt.BtDeviceItem;
-import com.sitechdev.vehicle.pad.module.setting.bt.PairListAdapter;
+import com.sitechdev.vehicle.pad.module.setting.bt.BtListAdapter;
 import com.sitechdev.vehicle.pad.module.setting.presenter.SettingBtPresenter;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
+import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.view.BluetoothListView;
+import com.sitechdev.vehicle.pad.view.CommonProgressDialog;
 import com.sitechdev.vehicle.pad.view.CustomSwitchButton;
+import com.sitechdev.vehicle.pad.window.view.CommonLogoutDialog;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
 @Route(path = RouterConstants.SETTING_BT_PAGE)
-public class SettingBtActivity extends MvpActivity<SettingBtContract.BtPresenter> implements SettingBtContract.View, CustomSwitchButton.OnSwitchCheckChangeListener {
+public class SettingBtActivity extends MvpActivity<SettingBtContract.BtPresenter> implements SettingBtContract.View, CustomSwitchButton.OnSwitchCheckChangeListener, OnBtConnecStatusChangedListener, OnBtPairListChangeListener {
 
     private CustomSwitchButton mBtEnableSwitch, mDiscovereSwitch;
     private TextView mBtName;
     private BluetoothListView mListView;
     private View mListEmpty;
-    private List<BtDeviceItem> mBondList;
-    private PairListAdapter mBondAdapter;
+    private List<BtDeviceBean> mBondList;
+    private BtListAdapter mBondAdapter;
+    private View mListLayout;
+    private Handler mHandler;
 
     @Override
     protected int getLayoutId() {
@@ -39,27 +57,64 @@ public class SettingBtActivity extends MvpActivity<SettingBtContract.BtPresenter
 
     @Override
     protected void initData() {
-        mBtName.setText(mPresenter.getLocalName());
+        mPresenter.init();
+        mBtName.setText("CAR KIT-K");
         mBondList = new ArrayList<>();
-        mBondAdapter = new PairListAdapter(this);
+        mBondAdapter = new BtListAdapter(this,mBondList);
         mListView.setAdapter(mBondAdapter);
-        mBondAdapter.setOnClickListener(new PairListAdapter.OnClickListener() {
+        mPresenter.showBtPairList();
+        mBondAdapter.setOnBtClickListener(new BtListAdapter.OnBtItemClickListener() {
             @Override
-            public void onDelete(int pos) {
-                removeBond(mBondList.get(pos).getDevice());
+            public void onDelete(int pos, boolean isCurrent,BtDeviceBean btDeviceBean) {
+                mBondList.remove(pos);
+                mBondAdapter.notifyList(mBondList);
+                if(isCurrent){
+                    mPresenter.disconnectToDevice();
+                }
+                mPresenter.clearPairInfo(btDeviceBean.getBtAddress());
             }
 
             @Override
-            public void onConnect(int pos) {
-
+            public void onConnect(int pos, BtDeviceBean btDeviceBean) {
+                if(SettingConfig.getInstance().isBtConnected()){
+                    CommonLogoutDialog logoutDialog = new CommonLogoutDialog(SettingBtActivity.this);
+                    logoutDialog.setListener(() -> {
+                        //确定按钮被点击
+                        mPresenter.disconnectToDevice();
+                        if(null != mHandler) {
+                            Message message = new Message();
+                            message.what = 0;
+                            message.obj = btDeviceBean;
+                            mHandler.sendMessageDelayed(message,2000);
+                            CommonProgressDialog.getInstance().show(SettingBtActivity.this);
+                        }
+                    });
+                    logoutDialog.show();
+                } else {
+                    mPresenter.connectToDevice(btDeviceBean.getBtAddress());
+                    CommonProgressDialog.getInstance().show(SettingBtActivity.this);
+                }
             }
 
             @Override
-            public void onDisconnect() {
-
+            public void onDisconnect(int pos, BtDeviceBean btDeviceBean) {
+                mPresenter.disconnectToDevice();
             }
         });
-        mBtEnableSwitch.setEnabled(mPresenter.isBtConnected());
+        mDiscovereSwitch.setChecked(false);
+        mBtEnableSwitch.setChecked(ParamsUtil.getBooleanData(SettingConstant.SP_KEY_BT_SWITCH));
+        mHandler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                if(msg.what == 0){
+                    if(null != msg.obj && msg.obj instanceof BtDeviceBean){
+                        BtDeviceBean deviceBean = (BtDeviceBean) msg.obj;
+                        mPresenter.connectToDevice(deviceBean.getBtAddress());
+                    }
+                }
+            }
+        };
     }
 
     @Override
@@ -70,7 +125,9 @@ public class SettingBtActivity extends MvpActivity<SettingBtContract.BtPresenter
         mDiscovereSwitch = findViewById(R.id.setting_bt_discovered);
         mBtName = findViewById(R.id.setting_bt_name);
         mListView = findViewById(R.id.setting_bt_listview);
+        mListView.setLayoutManager(new LinearLayoutManager(this));
         mListEmpty = findViewById(R.id.setting_bt_list_empty);
+        mListLayout = findViewById(R.id.setting_bt_list_layout);
     }
 
     @Override
@@ -79,6 +136,8 @@ public class SettingBtActivity extends MvpActivity<SettingBtContract.BtPresenter
         findViewById(R.id.iv_sub_back).setOnClickListener(this);
         mBtEnableSwitch.setOnSwitchChangeListener(this);
         mDiscovereSwitch.setOnSwitchChangeListener(this);
+        mPresenter.registerPaireListCallback(this);
+        mPresenter.registerConnectCallback(this);
     }
 
     @Override
@@ -94,50 +153,35 @@ public class SettingBtActivity extends MvpActivity<SettingBtContract.BtPresenter
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        mPresenter.registerReceiver(this);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        mPresenter.unRegisterReceiver(this);
-    }
-
-    @Override
     protected SettingBtContract.BtPresenter createPresenter() {
         return new SettingBtPresenter();
     }
 
     @Override
     public void showBtList(List<BtDeviceItem> list) {
-        mBondList.clear();
-        mBondList.addAll(list);
-        mBondAdapter.notifList(mBondList);
     }
 
     private void logTest(String msg) {
         Log.e("TEST_SettingBtActivity", "-----" + msg);
-        ToastUtils.showShort(msg);
     }
 
     @Override
     public void onSwithChecked(int viewId, boolean isChecked) {
         if (viewId == R.id.setting_bt_enable) {
             mDiscovereSwitch.setEnabled(isChecked);
+            ParamsUtil.setBeanData(SettingConstant.SP_KEY_BT_SWITCH,isChecked);
             if (isChecked) {
                 mPresenter.openBt(this);
-                mPresenter.showBtPairList();
+                mListLayout.setVisibility(View.VISIBLE);
                 logTest("openBle activity");
             } else {
                 mPresenter.closeBt();
-                logTest("closeBle activity");
+                mListLayout.setVisibility(View.GONE);
                 mDiscovereSwitch.setChecked(false);
+                logTest("closeBle activity");
             }
         } else if (viewId == R.id.setting_bt_discovered) {
             mPresenter.enableDiscoverable(isChecked);
-            mPresenter.showBtPairList();
         }
     }
 
@@ -149,5 +193,58 @@ public class SettingBtActivity extends MvpActivity<SettingBtContract.BtPresenter
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        CommonProgressDialog.getInstance().cancel(SettingBtActivity.this);
+    }
+
+    @Override
+    public void onBtConnectedChanged(boolean isConnected) {
+        CommonProgressDialog.getInstance().cancel(SettingBtActivity.this);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (isConnected && !TextUtils.isEmpty(SettingConfig.getInstance().getConnectBtAdd())) {
+                    if (null != mBondList && mBondList.size() > 0) {
+                        for (int i = 0; i < mBondList.size(); i++) {
+                            BtDeviceBean deviceBean = mBondList.get(i);
+                            if (deviceBean.getBtAddress().equals(SettingConfig.getInstance().getConnectBtAdd())) {
+                                mBondList.remove(i);
+                                mBondList.add(0, deviceBean);
+                                continue;
+                            }
+                        }
+                        mBondAdapter.notifyList(mBondList);
+                    }
+                } else {
+                    mBondAdapter.notifyList(mBondList);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onBtPairListChanged(final BtDeviceBean btDeviceBean, final boolean isPlus) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                boolean isContains = false;
+                for (BtDeviceBean deviceBean : mBondList) {
+                    if (deviceBean.getBtAddress().equals(btDeviceBean.getBtAddress())) {
+                        isContains = true;
+                        continue;
+                    }
+                }
+                if (!isContains && isPlus) {
+                    mBondList.add(btDeviceBean);
+                } else if (!isPlus && isContains) {
+                    mBondList.remove(btDeviceBean);
+                }
+                mBondAdapter.notifyList(mBondList);
+            }
+        });
     }
 }

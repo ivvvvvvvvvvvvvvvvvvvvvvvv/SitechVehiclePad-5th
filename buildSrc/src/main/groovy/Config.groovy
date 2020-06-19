@@ -12,10 +12,10 @@ class Config {
     static targetCompatibilityVersion = JavaVersion.VERSION_1_8
 
     static signInfo = [
-            storeKey     : '../key/sitechdev_key.jks',
-            storePassword: 'Sitech!@Dev~#',
-            keyAlias     : 'Sitech',
-            keyPassword  : 'Sitech~#Dev!@'
+            storeKey     : '../key/platform.keystore',
+            storePassword: 'Xtev#123',
+            keyAlias     : 'sitechvehiclepad',
+            keyPassword  : 'Xtev#123'
     ]
 
     static depConfig = [

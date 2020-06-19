@@ -8,34 +8,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="150px"
-        android:layout_marginTop="@dimen/px_40"
-        android:layout_marginBottom="@dimen/px_40"
+        android:layout_marginLeft="150pt"
+        android:layout_marginTop="@dimen/pt_40"
+        android:layout_marginBottom="@dimen/pt_40"
         android:textColor="@color/white"
-        android:textSize="32px" />
+        android:textSize="32pt" />
 
     <TextView
         android:id="@+id/setting_home_item_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginRight="38px"
+        android:layout_marginRight="38pt"
         android:layout_toLeftOf="@+id/setting_home_item_arrow"
         android:textColor="@color/white"
-        android:textSize="32px" />
+        android:textSize="32pt" />
 
     <ImageView
         android:id="@+id/setting_home_item_arrow"
-        android:layout_width="21px"
-        android:layout_height="33px"
+        android:layout_width="21pt"
+        android:layout_height="33pt"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="150px"
+        android:layout_marginRight="150pt"
         android:src="@drawable/ico_mem_to" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1px"
+        android:layout_height="1pt"
         android:layout_below="@id/setting_home_item_title"
         android:background="@color/main_info_line" />
 

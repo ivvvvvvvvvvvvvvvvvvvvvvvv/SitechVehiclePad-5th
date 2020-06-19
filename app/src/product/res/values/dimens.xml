@@ -54,9 +54,10 @@
     <dimen name="margin_bottom_window">300px</dimen>
     <dimen name="content_padding_left_right">45px</dimen>
 
-    <dimen name="text_size_main">32px</dimen>
-    <dimen name="setting_padding_left_right">150px</dimen>
-    <dimen name="main_menu_height">300px</dimen>
+    <dimen name="text_size_main">32pt</dimen>
+    <dimen name="setting_padding_left_right">150pt</dimen>
+    <dimen name="main_menu_height">300pt</dimen>
+    <dimen name="pt_40">40pt</dimen>
 
     <!--usb音乐界面-->
     <dimen name="music_usb_padding_left_right">60pt</dimen>

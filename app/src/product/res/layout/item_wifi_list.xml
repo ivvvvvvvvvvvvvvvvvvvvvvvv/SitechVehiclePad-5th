@@ -2,59 +2,59 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="12dp"
+    android:layout_marginEnd="12pt"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="84dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp">
+        android:layout_height="84pt"
+        android:layout_marginTop="16pt"
+        android:layout_marginBottom="16pt">
 
         <ImageView
             android:id="@+id/iv_gou"
-            android:layout_width="21px"
-            android:layout_height="20px"
+            android:layout_width="21pt"
+            android:layout_height="20pt"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="20pt"
             android:src="@drawable/ic_wifi_selectedgou"
             android:visibility="gone" />
 
         <TextView
             android:id="@+id/wifi_item_name"
-            android:layout_width="450dp"
+            android:layout_width="450pt"
             android:layout_height="wrap_content"
-            android:layout_marginStart="75dp"
+            android:layout_marginStart="75pt"
             android:ellipsize="end"
             android:maxEms="15"
             android:maxLines="1"
             android:text="LESS"
-            android:textSize="34px" />
+            android:textSize="34pt" />
 
         <TextView
             android:id="@+id/item_wifi_connect_state_tv"
-            android:layout_width="850dp"
+            android:layout_width="850pt"
             android:layout_height="wrap_content"
             android:layout_below="@+id/wifi_item_name"
-            android:layout_marginStart="75dp"
+            android:layout_marginStart="75pt"
             android:text="通过WPA2-PSK进行保护"
-            android:textSize="28px" />
+            android:textSize="28pt" />
 
         <ImageView
             android:id="@+id/wifi_item_signal_strength_img"
-            android:layout_width="60px"
-            android:layout_height="41px"
+            android:layout_width="60pt"
+            android:layout_height="41pt"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="64dp"
+            android:layout_marginRight="64pt"
             android:background="@drawable/set_wifi_unlock_4" />
 
         <ImageView
             android:id="@+id/iv_lock"
-            android:layout_width="32px"
-            android:layout_height="42px"
+            android:layout_width="32pt"
+            android:layout_height="42pt"
             android:layout_centerVertical="true"
-            android:layout_marginRight="32dp"
+            android:layout_marginRight="32pt"
             android:layout_toLeftOf="@id/wifi_item_signal_strength_img"
             android:src="@drawable/lock_two" />
 

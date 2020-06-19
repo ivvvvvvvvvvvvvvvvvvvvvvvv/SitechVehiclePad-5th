@@ -10,4 +10,8 @@ public class SettingConstant {
     public static final String KEY_HOT_SWITCH = "key_hot_switch";
 
     public static final String key_wifi_switch = "wifi_switch";
+
+    public static final String SP_KEY_BT_SWITCH = "SP_KEY_BT_SWITCH";
+
+    public static final String SP_KEY_BT_DISCOVER_SWITCH = "SP_KEY_BT_DISCOVER_SWITCH";
 }

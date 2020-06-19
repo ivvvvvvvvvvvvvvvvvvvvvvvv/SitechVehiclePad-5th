@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/ico_taxi_main_bg"
     android:orientation="vertical"
-    android:paddingBottom="300px">
+    android:paddingBottom="300pt">
 
     <include layout="@layout/common_title_toolbar" />
 

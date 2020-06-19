@@ -29,7 +29,7 @@
                     android:layout_height="116px"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="150px"
-                    
+
                     android:gravity="center_vertical"
                     android:text="在线升级"
                     android:textColor="@color/white"

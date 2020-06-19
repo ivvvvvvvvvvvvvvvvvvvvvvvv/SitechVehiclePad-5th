@@ -134,12 +134,12 @@
         <item name="android:layout_marginLeft">50dp</item>
     </style>
     <style name="car_set_radiobutton">
-        <item name="android:layout_width">@dimen/px_144</item>
-        <item name="android:layout_height">62px</item>
+        <item name="android:layout_width">144pt</item>
+        <item name="android:layout_height">82pt</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:layout_weight">1</item>
         <item name="android:button">@null</item>
-        <item name="android:textSize">26px</item>
+        <item name="android:textSize">26pt</item>
         <item name="android:gravity">center</item>
         <item name="android:background">@drawable/selector_car_ctrl</item>
     </style>

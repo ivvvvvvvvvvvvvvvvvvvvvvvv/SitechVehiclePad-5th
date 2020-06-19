@@ -1,6 +1,5 @@
 package com.sitechdev.vehicle.pad.model.setting.utils;
 
-import java.util.Map;
 
 public class SettingConfig {
     private static SettingConfig INSTANCE;

@@ -1,96 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="640dp"
-    android:layout_height="400dp"
-    android:background="@drawable/shape_bg_dialog">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_bg_dialog"
+    android:paddingLeft="50pt"
+    android:paddingRight="50pt">
 
     <TextView
         android:id="@+id/wifi_dialog_name"
-        android:layout_width="600dp"
+        android:layout_width="600pt"
         android:layout_height="wrap_content"
-        android:singleLine="true"
+        android:layout_marginTop="70pt"
         android:ellipsize="end"
-        android:layout_alignStart="@+id/wifi_dialog_interrupt_or_connect_btn"
-        android:layout_marginTop="70dp"
+        android:singleLine="true"
         android:text="维亚纳酒店"
-        android:textSize="32sp" />
+        android:textSize="32pt" />
 
 
     <TextView
         android:id="@+id/wifi_dialog_state"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@id/wifi_dialog_name"
         android:layout_below="@id/wifi_dialog_name"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="30dp"
+        android:layout_alignStart="@id/wifi_dialog_name"
+        android:layout_marginTop="30pt"
+        android:layout_marginBottom="10pt"
         android:text="状态信息"
-        android:textSize="30sp" />
+        android:textSize="30pt" />
 
 
     <TextView
         android:id="@+id/wifi_dialog_connect_state"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/wifi_dialog_cancel_btn"
         android:layout_alignTop="@id/wifi_dialog_state"
+        android:layout_alignParentRight="true"
         android:text="已连接"
-        android:textSize="30sp" />
+        android:textSize="30pt" />
 
     <TextView
         android:id="@+id/wifi_dialog_rssi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@id/wifi_dialog_name"
         android:layout_below="@id/wifi_dialog_state"
+        android:layout_alignStart="@id/wifi_dialog_name"
         android:text="信号强度"
-        android:textSize="30sp" />
+        android:textSize="30pt" />
 
     <TextView
         android:id="@+id/wifi_dialog_rssi_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/wifi_dialog_cancel_btn"
         android:layout_alignTop="@id/wifi_dialog_rssi"
+        android:layout_alignParentRight="true"
         android:text="强"
-        android:textSize="30sp" />
+        android:textSize="30pt" />
 
-
-    <Button
-        android:id="@+id/wifi_dialog_interrupt_or_connect_btn"
-        android:layout_width="160dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="50dp"
-        android:layout_marginStart="50dp"
-        android:textColor="@android:color/white"
-        android:background="@drawable/selector_common_btn_positive"
-        android:text="@string/wifi_dialog_interrupt"
-        android:textSize="32sp" />
+        android:layout_below="@id/wifi_dialog_rssi_info"
+        android:layout_marginTop="80pt"
+        android:layout_marginBottom="20pt"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/wifi_dialog_cancel_save"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50dp"
-        android:textColor="@android:color/white"
-        android:background="@drawable/selector_common_btn_negative"
-        android:text="@string/wifi_dialog_cancel_save"
-        android:textSize="32sp" />
+        <FrameLayout
+            android:layout_width="0pt"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1">
 
-    <Button
-        android:id="@+id/wifi_dialog_cancel_btn"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="50dp"
-        android:layout_marginEnd="50dp"
-        android:textColor="@android:color/white"
-        android:background="@drawable/selector_common_btn_negative"
-        android:text="@string/wifi_dialog_cancel"
-        android:textSize="32sp" />
+            <Button
+                android:id="@+id/wifi_dialog_interrupt_or_connect_btn"
+                android:layout_width="160pt"
+                android:layout_height="88pt"
+                android:layout_gravity="center"
+                android:background="@drawable/selector_common_btn_positive"
+                android:text="@string/wifi_dialog_interrupt"
+                android:textColor="@android:color/white"
+                android:textSize="32pt" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0pt"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/wifi_dialog_cancel_save"
+                android:layout_width="wrap_content"
+                android:layout_height="88pt"
+                android:lines="1"
+                android:layout_gravity="center"
+                android:background="@drawable/selector_common_btn_negative"
+                android:gravity="center"
+                android:text="@string/wifi_dialog_cancel_save"
+                android:textColor="@android:color/white"
+                android:textSize="32pt" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0pt"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/wifi_dialog_cancel_btn"
+                android:layout_width="160pt"
+                android:layout_height="88pt"
+                android:layout_gravity="center"
+                android:background="@drawable/selector_common_btn_negative"
+                android:text="@string/wifi_dialog_cancel"
+                android:textColor="@android:color/white"
+                android:textSize="32pt" />
+        </FrameLayout>
+    </LinearLayout>
 
 </RelativeLayout>

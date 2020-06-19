@@ -1,10 +1,11 @@
 package com.sitechdev.vehicle.pad.view;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.widget.ListView;
 
-public class BluetoothListView extends ListView {
+public class BluetoothListView extends RecyclerView {
     public BluetoothListView(Context context) {
         super(context);
     }
