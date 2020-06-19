@@ -41,7 +41,10 @@ public class KaolaAudioCategoryPageFrag extends BaseFragment {
     private ListIndicatorRecycview indecator;
     private KaolaAICategoryListAdapter adapter;
     private TextView curSelectChannel;
-    ViewAllCategoryDialog dialog;
+    private ViewAllCategoryDialog dialog;
+    private List<KaolaDataWarpper> kaolaDataWarpperList = new ArrayList<>();
+    private List<Category> mCategories = new ArrayList<>();
+
     @Override
     protected int getLayoutId() {
         return R.layout.audio_kaola_category_frame;
@@ -82,8 +85,13 @@ public class KaolaAudioCategoryPageFrag extends BaseFragment {
         });
     }
 
-    List<KaolaDataWarpper> kaolaDataWarpperList = new ArrayList<>();
-    private List<Category> mCategories = new ArrayList<>();
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (null != dialog) {
+            dialog.cancel();
+        }
+    }
 
     @Override
     protected void initData() {

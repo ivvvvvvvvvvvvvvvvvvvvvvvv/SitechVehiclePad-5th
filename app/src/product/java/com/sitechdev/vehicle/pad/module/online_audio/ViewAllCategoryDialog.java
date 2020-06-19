@@ -15,6 +15,7 @@ import com.kaolafm.opensdk.http.core.HttpCallback;
 import com.kaolafm.opensdk.http.error.ApiException;
 import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.R;
+import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.model.kaola.KaolaCategoryDataWarpper;
 import com.sitechdev.vehicle.pad.view.SpaceItemKaolaDialogItemDecoration;
@@ -29,38 +30,55 @@ import java.util.List;
  * </pre>
  */
 class ViewAllCategoryDialog extends Dialog {
+    Context context;
     public ViewAllCategoryDialog(@NonNull Context context) {
         super(context);
+        this.context = context;
         init();
     }
 
     public ViewAllCategoryDialog(@NonNull Context context, int themeResId) {
         super(context, themeResId);
+        this.context = context;
         init();
     }
 
     protected ViewAllCategoryDialog(@NonNull Context context, boolean cancelable, @Nullable OnCancelListener cancelListener) {
         super(context, cancelable, cancelListener);
+        this.context = context;
         init();
     }
 
     @Override
     public void show() {
         super.show();
+        initSize();
+    }
+
+    private void initSize(){
         android.view.WindowManager.LayoutParams lpp = getWindow().getAttributes();
-        lpp.width = 1525;
-        lpp.height = 728;
+        if (isLand) {
+            lpp.width = 1525;
+            lpp.height = 728;
+        } else {
+            lpp.width = 941;
+            lpp.height = 1113;
+        }
         getWindow().setBackgroundDrawable(new ColorDrawable(0xff223D75));
         getWindow().setAttributes(lpp);
     }
 
     RecyclerView recyclerView;
-
+    boolean isLand = true;
     private void init() {
+        if (context instanceof BaseActivity) {
+            isLand = ((BaseActivity) context).isLandscape();
+        }
         View root = getLayoutInflater().inflate(R.layout.dialog_kaola_category, null);
         recyclerView = root.findViewById(R.id.recyclerView);
         recyclerView.addItemDecoration(new SpaceItemKaolaDialogItemDecoration(40));
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 5));
+        int spanCount = isLand ? 5 : 3;
+        recyclerView.setLayoutManager(new GridLayoutManager(context, spanCount));
         root.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,7 +103,7 @@ class ViewAllCategoryDialog extends Dialog {
         this.clickListener = clickListener;
         if (categories != null && categories.size() > 0) {
             callback.onSuccess(new ArrayList<>());
-            setData();
+            initAdapter();
             return;
         }
         KaolaPlayManager.SingletonHolder.INSTANCE.getkaolagetCategoryTree(type, new HttpCallback<List<Category>>() {
@@ -99,7 +117,7 @@ class ViewAllCategoryDialog extends Dialog {
                         }
                         categories.clear();
                         categories = KaolaBroadcastUtil.dealdata(c);
-                        setData();
+                        initAdapter();
                     }
                 });
             }
@@ -116,10 +134,16 @@ class ViewAllCategoryDialog extends Dialog {
     KaolaCategoryDialogAdapter adapter;
 
     private void setData() {
-        adapter = new KaolaCategoryDialogAdapter(getContext(), categories);
-        recyclerView.setAdapter(adapter);
-        if (clickListener != null) {
-            adapter.setOnItemClick(clickListener);
+        if (adapter != null) {
+            adapter.notifyDataSetChanged();
+            if (clickListener != null) {
+                adapter.setOnItemClick(clickListener);
+            }
         }
     }
+    private void initAdapter() {
+        adapter = new KaolaCategoryDialogAdapter(context, categories);
+        recyclerView.setAdapter(adapter);
+    }
+
 }

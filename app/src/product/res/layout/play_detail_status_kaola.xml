@@ -33,7 +33,7 @@
             android:layout_height="164px"
             android:layout_gravity="center"
             android:layout_marginTop="30px"
-            android:scaleType="center"
+            android:scaleType="fitCenter"
             android:src="@drawable/img_song_card" />
 
         <ImageView

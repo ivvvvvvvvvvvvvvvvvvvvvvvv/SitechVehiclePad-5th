@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.kaolafm.opensdk.api.operation.model.category.Category;
 import com.sitechdev.vehicle.pad.R;
+import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.model.kaola.KaolaCategoryDataWarpper;
 
 import java.util.ArrayList;
@@ -45,11 +46,16 @@ public class KaolaCategoryDialogAdapter extends RecyclerView.Adapter<KaolaCatego
         RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
         if (manager instanceof GridLayoutManager) {
             GridLayoutManager gridLayoutManager = (GridLayoutManager) manager;
+            int spanCount = 5;
+            if (context instanceof BaseActivity) {
+                spanCount = ((BaseActivity) context).isLandscape() ? 5 : 3;
+            }
+            int finalSpanCount = spanCount;
             gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override
                 public int getSpanSize(int position) {
                     if (mLists.get(position).category == null) {
-                        return 5;
+                        return finalSpanCount;
                     } else {
                         return 1;
                     }
