@@ -491,6 +491,10 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
         cancelProgressDialog();
 
         refreshPlayStatusView();
+
+        if (playListAdapter != null) {
+            playListAdapter.setSelected(mCurPosition);
+        }
     }
 
     @Override
