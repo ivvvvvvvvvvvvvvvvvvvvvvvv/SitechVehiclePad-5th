@@ -34,16 +34,23 @@ public class KaolaFragmentAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object o) {
-        return view == o;
+        return view == ((Fragment) o).getView();
     }
 
     @Override
     public void destroyItem(ViewGroup container, int position, @NonNull Object object) {
-        Fragment fragment = fragmentManager.findFragmentByTag(titles[position] + position);
+        Fragment fragment = (Fragment) object;
         if (fragment != null) {
             container.removeView(fragment.getView());
         }
+
+        if (mCurTransaction == null) {
+            mCurTransaction = fragmentManager.beginTransaction();
+        }
+        mCurTransaction.remove(fragment);
     }
+
+    FragmentTransaction mCurTransaction;
 
     @NonNull
     @Override
@@ -78,7 +85,7 @@ public class KaolaFragmentAdapter extends PagerAdapter {
             }
         }
 
-        return fragment.getView();
+        return fragment;
     }
 
     @Nullable
