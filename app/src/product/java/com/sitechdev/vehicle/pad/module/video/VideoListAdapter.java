@@ -64,14 +64,14 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.VHol
             @Override
             public void onClick(View v) {
                 if (onItemClick != null) {
-                    onItemClick.onClick(mLists.get(i));
+                    onItemClick.onClick(mLists, i);
                 }
             }
         });
     }
 
     interface OnItemClick {
-        void onClick(VideoInfo info);
+        void onClick(List<VideoInfo> videoInfos, int pos);
     }
 
     public void setOnItemClick(OnItemClick onItemClick) {

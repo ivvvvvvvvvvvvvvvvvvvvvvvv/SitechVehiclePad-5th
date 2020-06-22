@@ -21,7 +21,8 @@ import com.sitechdev.vehicle.pad.module.video.service.VideoInfo;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.util.MediaScanister;
 import com.sitechdev.vehicle.pad.view.CommonToast;
-import com.sitechdev.vehicle.pad.view.VideoItemDecoration;
+
+import java.util.List;
 
 /**
  * <pre>
@@ -45,7 +46,7 @@ public class VideoListActivity extends BaseActivity {
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClick(new VideoListAdapter.OnItemClick() {
             @Override
-            public void onClick(VideoInfo info) {
+            public void onClick(List<VideoInfo> infos, int pos) {
                 String vPag = "com.sitechdev.vehicle.video";
                 if (!checkApkExist(VideoListActivity.this, vPag)) {
                     CommonToast.makeText(VideoListActivity.this, "暂时无法播放视频");
@@ -56,7 +57,12 @@ public class VideoListActivity extends BaseActivity {
                 intent.addCategory(Intent.CATEGORY_LAUNCHER);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.setComponent(com);
-                intent.putExtra("localPath", info.data);
+                String[] paths = new String[infos.size()];
+                for (int i = 0; i < infos.size(); i++) {
+                    paths[i] = infos.get(i).data;
+                }
+                intent.putExtra("localPaths", paths);
+                intent.putExtra("index", pos);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
