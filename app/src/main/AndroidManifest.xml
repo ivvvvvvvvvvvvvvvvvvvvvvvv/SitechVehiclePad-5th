@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:sharedUserId="android.uid.system"
     package="com.sitechdev.vehicle.pad">
+    <!--    android:sharedUserId="android.uid.system"-->
 
     <application
         android:name=".app.AppApplication"
@@ -52,10 +52,6 @@
                 <action android:name="com.sitechdev.vehicle" />
             </intent-filter>
         </activity>
-<!--        <activity-->
-<!--            android:name=".module.login.LoginActivity"-->
-<!--            android:screenOrientation="landscape"-->
-<!--            android:theme="@style/NoTitleAppTheme" />-->
 
         <activity
             android:name=".module.map.MapActivity"

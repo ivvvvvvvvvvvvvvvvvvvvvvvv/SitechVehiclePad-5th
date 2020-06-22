@@ -29,6 +29,7 @@ import com.sitechdev.vehicle.lib.event.XtBusUtil;
 import com.sitechdev.vehicle.lib.util.ActivityManager;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.R;
+import com.sitechdev.vehicle.pad.module.map.util.MapUtil;
 import com.sitechdev.vehicle.pad.util.AppUtil;
 import com.sitechdev.vehicle.pad.view.CommonDialog;
 import com.sitechdev.vehicle.pad.view.CommonProgressDialog;
@@ -91,6 +92,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     @Override
     protected void onResume() {
         super.onResume();
+        MapUtil.sendAMapInitBroadcast();
         BarUtils.setNavBarVisibility(this, false);
     }
 

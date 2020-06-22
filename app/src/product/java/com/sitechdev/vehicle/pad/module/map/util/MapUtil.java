@@ -407,6 +407,20 @@ public class MapUtil {
         SitechDevLog.i(AppConst.TAG, "发送广播给高德保存家和公司地址===========>已发送==" + mIntent.toString());
     }
 
+    /**
+     * 发送给高德保存家和公司地址
+     *
+     * @param EXTRA_TYPE 0:表示 家,1:表示 公司
+     */
+    public static void sendAMapAddressView(int EXTRA_TYPE) {
+        SitechDevLog.i(AppConst.TAG, "发送广播给高德展示家和公司地址页面===========>EXTRA_TYPE==" + EXTRA_TYPE);
+        Intent mIntent = getAmapIntent();
+        mIntent.putExtra("KEY_TYPE", AMapConstant.BROADCAST_AMAP_TYPE_SET_HOME_WORK_ADDRESS_VIEW);
+        mIntent.putExtra("EXTRA_TYPE", EXTRA_TYPE);
+        AppApplication.getContext().sendBroadcast(mIntent);
+        SitechDevLog.i(AppConst.TAG, "发送广播给高德展示家和公司地址页面===========>已发送==" + mIntent.toString());
+    }
+
     public static void initAmapReceiver(Context context) {
 //        /高德地图车镜版本（后视镜）使用该包名/
 //                String pkgName = "com.autonavi.amapautolite";
@@ -435,7 +449,7 @@ public class MapUtil {
             poiIndex = 1;
         }
         if (poiIndex <= MapVariants.mPoiList.size()) {
-            ThreadUtils.runOnUIThread(()->{
+            ThreadUtils.runOnUIThread(() -> {
                 VUI.getInstance().shut();
                 if (AppVariants.currentActivity != null) {
                     AppVariants.currentActivity.finish();
@@ -447,8 +461,8 @@ public class MapUtil {
                     poiItem.getTitle()
             );
         } else {
-            ThreadUtils.runOnUIThread(()->{
-                VUI.getInstance().shutAndTTS(false,"选择错误。我仅有" + MapVariants.mPoiList.size() + "条信息，请重新选择");
+            ThreadUtils.runOnUIThread(() -> {
+                VUI.getInstance().shutAndTTS(false, "选择错误。我仅有" + MapVariants.mPoiList.size() + "条信息，请重新选择");
             });
         }
     }

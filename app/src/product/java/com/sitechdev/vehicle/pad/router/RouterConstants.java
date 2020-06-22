@@ -49,6 +49,11 @@ public interface RouterConstants {
      */
     String SETTING_BT_PAGE = "/setting/bt";
 
+    /**
+     * 设置家庭和公司地址页面
+     */
+    String SET_ADDRESS_PAGE = "/set/navi/address";
+
 
     /**
      * 应用列表页面

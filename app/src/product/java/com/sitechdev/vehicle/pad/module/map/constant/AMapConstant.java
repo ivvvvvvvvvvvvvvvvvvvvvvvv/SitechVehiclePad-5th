@@ -179,6 +179,16 @@ public interface AMapConstant {
     int BROADCAST_AMAP_TYPE_SET_HOME_WORK_ADDRESS_RESULT = 10059;
 
     /**
+     * auto启动/未启动时，允许第三方调用跳转到设置回家/公司界面。
+     * <code>
+     * Action："AUTONAVI_STANDARD_BROADCAST_RECV"
+     * KEY_TYPE:10070
+     * EXTRA_TYPE：附加参数类型 0 回家 1 回公司
+     * </code>
+     */
+    int BROADCAST_AMAP_TYPE_SET_HOME_WORK_ADDRESS_VIEW = 10070;
+
+    /**
      * 在未启动/启动auto的情况下，第三方可调用接口查看家和公司的信息。
      * <code>
      * Intent intent = new Intent();

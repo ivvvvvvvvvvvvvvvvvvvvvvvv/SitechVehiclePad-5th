@@ -332,7 +332,7 @@ public class MainActivity extends BaseActivity
         mWorkImageView.setOnClickListener(this);
         tvWork.setOnClickListener(this);
         tvWhat.setOnClickListener(this);
-        llMusic.setOnClickListener(this);
+//        llMusic.setOnClickListener(this);
         llNews.setOnClickListener(this);
         llBook.setOnClickListener(this);
         llCar.setOnClickListener(this);
@@ -342,7 +342,7 @@ public class MainActivity extends BaseActivity
         ivMusicNext.setOnClickListener(this);
 //        ivMusicList.setOnClickListener(this);
 //        flTeddy.setOnClickListener(this);
-        carPowerInfoView.setOnClickListener(this);
+//        carPowerInfoView.setOnClickListener(this);
         rlWeather.setOnClickListener(this);
 
 //        mHomeBtnImageView.setOnClickListener(this);

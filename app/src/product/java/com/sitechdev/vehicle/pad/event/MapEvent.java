@@ -21,6 +21,10 @@ public class MapEvent extends BaseEvent {
      */
     public static final String EVENT_LOCATION_SUCCESS = "EVENT_LOCATION_SUCCESS";
     /**
+     * 通知家庭和公司
+     */
+    public static final String EVENT_MAP_HOME_WORK_ADDRESS_RESULT = "EVENT_MAP_HOME_WORK_ADDRESS_RESULT";
+    /**
      * 地图事件--语音定位marker
      */
     public static final String EVENT_OPEN_MAP_SHOW_POI = "EVENT_OPEN_MAP_SHOW_POI";
@@ -34,17 +38,17 @@ public class MapEvent extends BaseEvent {
      */
     public static final String EVENT_MAP_START_NAVI = "EVENT_MAP_START_NAVI";
     /**
-     * 开始导航
+     * 关闭导航
      * new MapEvent(MapEvent.EVENT_MAP_START_NAVI,new LatLng(经度,纬度));
      */
     public static final String EVENT_MAP_CLOSE_NAVI = "EVENT_MAP_CLOSE_NAVI";
     /**
-     * 开始导航
+     * 开始导航回家
      * new MapEvent(MapEvent.EVENT_MAP_START_NAVI,new LatLng(经度,纬度));
      */
     public static final String EVENT_MAP_START_NAVI_HOME = "EVENT_MAP_START_NAVI_HOME";
     /**
-     * 开始导航
+     * 开始导航去公司
      * new MapEvent(MapEvent.EVENT_MAP_START_NAVI,locationData.componyaddress);
      */
     public static final String EVENT_MAP_START_NAVI_COMPONY = "EVENT_MAP_START_NAVI_COMPONY";

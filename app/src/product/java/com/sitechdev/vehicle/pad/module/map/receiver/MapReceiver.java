@@ -4,11 +4,14 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.StringUtils;
 import com.sitechdev.vehicle.pad.app.AppConst;
+import com.sitechdev.vehicle.pad.event.MapEvent;
 import com.sitechdev.vehicle.pad.module.map.constant.AMapConstant;
 import com.sitechdev.vehicle.pad.module.map.util.LocationData;
+import com.sitechdev.vehicle.pad.module.map.util.MapUtil;
 import com.sitechdev.vehicle.pad.module.map.util.MapVariants;
 
 /**
@@ -63,7 +66,7 @@ public class MapReceiver extends BroadcastReceiver {
                 String address = intent.getStringExtra("ADDRESS");
                 double addressLat = intent.getDoubleExtra("LAT", 0d);
                 double addressLong = intent.getDoubleExtra("LON", 0d);
-                boolean hasAddressOk = !StringUtils.isEmpty(poiName) && !StringUtils.isEmpty(address) && (addressLat != 0) && (addressLong != 0);
+                boolean hasAddressOk = (!StringUtils.isEmpty(poiName) || !StringUtils.isEmpty(address)) && (addressLat != 0) && (addressLong != 0);
                 SitechDevLog.i(AppConst.TAG, "广播数据解析===>cateoryCode=" + cateoryCode
                         + ", hasAddressOk=" + hasAddressOk
                         + ", POINAME=" + poiName
@@ -85,6 +88,7 @@ public class MapReceiver extends BroadcastReceiver {
                     LocationData.getInstance().setWorkLatitude(addressLat);
                     LocationData.getInstance().setWorkLongitude(addressLong);
                 }
+                EventBusUtils.postEvent(new MapEvent(MapEvent.EVENT_MAP_HOME_WORK_ADDRESS_RESULT));
                 break;
             case AMapConstant.BROADCAST_AMAP_TYPE_SET_HOME_WORK_ADDRESS_RESULT:
                 //在auto启动/未启动的情况下，第三方可调用该接口设置家/公司的地址。
@@ -127,6 +131,12 @@ public class MapReceiver extends BroadcastReceiver {
                     case 39:
                         //导航已成功完成中
                         MapVariants.isMapNavi_Over = true;
+                        break;
+                    case 26:
+                        //收藏夹家信息变更通知
+                    case 27:
+                        //收藏夹公司信息变更通知
+                        MapUtil.sendAMapInitBroadcast();
                         break;
                     default:
                         break;
