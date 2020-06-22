@@ -5,16 +5,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.database.ContentObserver;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.provider.MediaStore;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
+import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.module.video.service.VideoInfo;
@@ -34,7 +40,33 @@ import java.util.List;
 public class VideoListActivity extends BaseActivity {
     private TwinklingRefreshLayout refreshLayout;
     private RecyclerView recyclerView;
-    private VideoListAdapter adapter;
+    private static VideoListAdapter adapter;
+    private MediaStoreObserver mMediaStoreObserver;
+    private static class MediaStoreObserver extends ContentObserver {
+
+        private static final int REFRESH_DELAY = 3000;
+
+        public MediaStoreObserver(Handler handler) {
+            super(handler);
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            super.onChange(selfChange);
+            ThreadUtils.runOnUIThreadDelay(new Runnable() {
+                @Override
+                public void run() {
+                    adapter.refreshData();
+                }
+            }, REFRESH_DELAY);
+        }
+
+        @Override
+        public void onChange(boolean selfChange, Uri uri) {
+            super.onChange(selfChange, uri);
+        }
+    }
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_video_list;
@@ -42,6 +74,7 @@ public class VideoListActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        initObser();
         adapter = new VideoListAdapter(this);
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClick(new VideoListAdapter.OnItemClick() {
@@ -84,6 +117,16 @@ public class VideoListActivity extends BaseActivity {
         }
     }
 
+    private void initObser(){
+        mMediaStoreObserver = new MediaStoreObserver(new Handler());
+        getContentResolver().registerContentObserver(
+                MediaStore.Audio.Media.INTERNAL_CONTENT_URI,
+                true, mMediaStoreObserver);
+        getContentResolver().registerContentObserver(
+                MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                true, mMediaStoreObserver);
+    }
+
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
@@ -105,6 +148,12 @@ public class VideoListActivity extends BaseActivity {
             }
         });
         tv_title.setText("我的视频");
+        findViewById(R.id.iv_sub_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void refresh() {
