@@ -55,7 +55,7 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
 
     private View contentView = null;
 
-    private ImageView bluetoothControlView = null, wifiControlView = null, mobileNetControlView = null, ecoView = null, screenOriView = null;
+    private ImageView bluetoothControlView = null, wifiControlView = null, mobileNetControlView = null, mTeddySwitchControlView = null, ecoView = null, screenOriView = null;
 
     private VerticalSeekBarForSkin volumeVerticalSeekBar = null, lightVerticalSeekBar = null;
     private SeekBar volumeSeekBar = null, lightSeekBar = null;
@@ -132,7 +132,7 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
         bluetoothControlView = findViewById(R.id.id_bluetooth_Btn);
         wifiControlView = findViewById(R.id.id_wifi_Btn);
         mobileNetControlView = findViewById(R.id.id_mobile_net_Btn);
-        mobileNetControlView = findViewById(R.id.id_mobile_net_Btn);
+        mTeddySwitchControlView = findViewById(R.id.id_teddy_Btn);
 
         if (ScreenUtils.isLandscape()) {
             //横屏的view
@@ -194,6 +194,7 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
         bluetoothControlView.setOnClickListener(this);
         wifiControlView.setOnClickListener(this);
         mobileNetControlView.setOnClickListener(this);
+        mTeddySwitchControlView.setOnClickListener(this);
 
         ecoView.setOnClickListener(this);
         screenOriView.setOnClickListener(this);
@@ -258,29 +259,34 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        SitechDevLog.i(TAG, "ACTION_DOWN ==========产生了按下DOWN事件==== ");
+                        SitechDevLog.i(TAG, "ACTION_DOWN ==========产生了按下DOWN事件==== " + v);
                         preX = (int) event.getRawX();
                         preY = (int) event.getRawY();
                         lastX = (int) event.getRawX();
                         lastY = (int) event.getRawY();
 //                        SitechDevLog.i(TAG, "点击坐标prex==" + preX + "，点击坐标prey==" + preY + "，点击坐标lastX==" + lastX + "点击坐标lastY==" + lastY);
                         if (isInClickView(v, event)) {
+                            SitechDevLog.i(TAG, "ACTION_DOWN ==========按住了 popControlView  ==== ");
                             //点击区域
                             isPullDownView = true;
                         } else {
                             isPullDownView = false;
                         }
+                        isPullDownView = true;
                         break;
                     case MotionEvent.ACTION_MOVE:
                         SitechDevLog.i(TAG, "ACTION_MOVE ==========产生了滑动MOVE事件==== ");
                         x = (int) event.getRawX();
                         y = (int) event.getRawY();
                         if (isPullDownView) {
-                            if ((y - preY) != 0) {
+//                            if ((y - preY) != 0) {
+//                                isMove = true;
+//                            }
+                            if ((x - preX) != 0) {
                                 isMove = true;
                             }
-//                    SitechDevLog.i(TAG, "ACTION_MOVE (x - preX)==" + (x - preX) + "，点击坐标 (y - preY)==" + (y - preY));
-                            manager.move(x - preX, y - preY);
+                            SitechDevLog.i(TAG, "ACTION_MOVE (x - preX)==" + (x - preX) + "，点击坐标 (y - preY)==" + (y - preY));
+                            manager.moveH(x - preX, y - preY);
                         }
                         preX = x;
                         preY = y;
@@ -288,18 +294,18 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
                     case MotionEvent.ACTION_UP:
                         SitechDevLog.i(TAG, "ACTION_UP ========产生了抬起UP事件=======isPullDownView=" + isPullDownView + "  , isMove==" + isMove);
                         if (isPullDownView && isMove) {
-                            manager.resetView();
+                            manager.resetView(lastX, (int) event.getRawX());
                             isPullDownView = false;
                             isMove = false;
                             SitechDevLog.i(TAG, "ACTION_UP ========产生了抬起UP事件=======isPullDownView return true=");
                         } else {
 //                            isMove = false;
-                            SitechDevLog.i(TAG, "ACTION_UP ========产生了抬起UP事件=======isPullDownView return false,透传给Onclick=");
-                            if (isFullScreen) {
-                                manager.mustHiddenView();
-                            } else {
-//                                manager.mustShownView();
-                            }
+//                            SitechDevLog.i(TAG, "ACTION_UP ========产生了抬起UP事件=======isPullDownView return false,透传给Onclick=");
+//                            if (isFullScreen) {
+//                                manager.mustHiddenView();
+//                            } else {
+////                                manager.mustShownView();
+//                            }
                         }
                         return true;
                     default:
@@ -409,6 +415,8 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
         wifiControlView.setActivated(NetworkUtils.getWifiEnabled());
         //移动网络
         mobileNetControlView.setActivated(NetworkUtils.getMobileDataEnabled());
+        //TODO 使用Teddy开关
+        mTeddySwitchControlView.setActivated(true);
         //蓝牙是否开启
         if (BluetoothAdapter.getDefaultAdapter() != null) {
             bluetoothControlView.setActivated(BluetoothAdapter.getDefaultAdapter().isEnabled());
@@ -506,6 +514,18 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
                 }
                 mobileNetControlView.setActivated(!isActivated);
                 break;
+            case R.id.id_teddy_Btn:
+                //开启或关闭Teddy语音唤醒
+                isActivated = mTeddySwitchControlView.isActivated();
+                if (isActivated) {
+                    //todo 关闭Teddy语音唤醒
+//                    mTeddySwitchControlView.setActivated(NetworkUtils.getMobileDataEnabled());
+                } else {
+                    //todo 打开Teddy语音唤醒
+//                    mTeddySwitchControlView.setActivated(NetworkUtils.getMobileDataEnabled());
+                }
+                mTeddySwitchControlView.setActivated(!isActivated);
+                break;
             case R.id.id_eco_content:
                 isActivated = ecoView.isActivated();
                 if (isActivated) {
@@ -555,7 +575,7 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
      * @param alphaValue alphaValue透明值。0-255之间
      */
     public void resetViewAlpha(int alphaValue) {
-//        SitechDevLog.i(TAG, "*********************重设透明值==" + alphaValue);
+        SitechDevLog.i(TAG, "*********************重设透明值==" + alphaValue);
         if (alphaValue < 0 || alphaValue > 255) {
             return;
         }
@@ -589,9 +609,9 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
          *
          * FLAG_VIBRATE（是否进入振动振铃模式时是否振动）
          */
-        if(false) {
-            mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, value, AudioManager.FLAG_PLAY_SOUND);// | AudioManager.FLAG_SHOW_UI);
-        }
+//        if (false) {
+        mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, value, AudioManager.FLAG_PLAY_SOUND);// | AudioManager.FLAG_SHOW_UI);
+//        }
     }
 
     /**

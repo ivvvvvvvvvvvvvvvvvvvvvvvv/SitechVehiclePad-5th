@@ -132,4 +132,6 @@
     <color name="color_home_work_select_btn_text">#586C96</color>
     <color name="color_agree_content">#233660</color>
     <color name="color_save_text_content">#F1F3F6</color>
+
+    <color name="color_control_switch_bg">#CC0A1728</color>
 </resources>

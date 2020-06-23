@@ -5,10 +5,10 @@
         <clip>
             <shape>
                 <solid android:color="#0A1728" />
-                <corners android:radius="24px" />
+                <corners android:radius="24pt" />
                 <size
-                    android:width="130px"
-                    android:height="395px" />
+                    android:width="150pt"
+                    android:height="517pt" />
             </shape>
         </clip>
     </item>
@@ -21,14 +21,10 @@
                     android:startColor="#DEE7FA" />
                 <corners android:radius="16px" />
                 <size
-                    android:width="130px"
-                    android:height="395px" />
+                    android:width="150pt"
+                    android:height="517pt" />
             </shape>
         </clip>
     </item>
-    <!--<item android:id="@android:id/progress">-->
-    <!--<scale android:drawable="@drawable/shape_audio_temp_progress_bg"-->
-    <!--android:scaleWidth="100%"/>-->
-    <!--</item>-->
 
 </layer-list>

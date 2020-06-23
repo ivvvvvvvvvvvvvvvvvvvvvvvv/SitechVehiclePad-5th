@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -44,7 +45,7 @@ public class MainControlPanelWindowManager {
     private static int displayWidth;
     private static int displayHeight;
 
-    private static int minWindowY = 0, maxWindowY = 0, minHeight = 0;
+    private static int minWindowLength = 0, maxWindowLength = 0, minHeight = 0, startWindowY = 0, startWindowX = 0;
 
     private boolean isHiddenView = false;
 
@@ -89,38 +90,35 @@ public class MainControlPanelWindowManager {
             mainControlPanelView = new MainControlPanelView(context);
             SitechDevLog.i(TAG, "-------------getView()===mainControlPanelView==" + mainControlPanelView);
         }
-        minWindowY = AdaptScreenUtils.pt2Px(70);
         if (params == null) {
-//            params = new WindowManager.LayoutParams();
-//            params.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
-//            params.format = PixelFormat.RGBA_8888;
-//            params.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
-//                    | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS;
-//            params.gravity = Gravity.TOP;
-//            params.format = PixelFormat.TRANSPARENT;
-//
-//            // 须指定宽度高度信息
-//            params.width = WindowManager.LayoutParams.MATCH_PARENT;
-//            params.height = 519;
-//            SitechDevLog.i(TAG, "-------------params.width()>" + params.width);
-//            SitechDevLog.i(TAG, "-------------params.height()>" + params.height);
-//            //
-//            params.x = 0;
-//            params.y = displayHeight - 50;
-//            SitechDevLog.i(TAG, "-------------params.x()>" + params.x);
-//            SitechDevLog.i(TAG, "--displayHeight==" + displayHeight + "-----------params.y()>" + params.y);
-
             params = new WindowManager.LayoutParams();
-            params.width = WindowManager.LayoutParams.MATCH_PARENT;
+            params.height = WindowManager.LayoutParams.MATCH_PARENT;
+            params.gravity = Gravity.TOP | Gravity.LEFT;
+            displayHeight = BaseWindow.getInstance().getDisplayHeight();
+            displayWidth = BaseWindow.getInstance().getDisplayWidth();
             if (ScreenUtils.isLandscape()) {
                 //横屏
-                maxWindowY = AdaptScreenUtils.pt2Px(519);
-                params.height = AdaptScreenUtils.pt2Px(519);
+                maxWindowLength = AdaptScreenUtils.pt2Px(515);
+                params.width = AdaptScreenUtils.pt2Px(515);
+                minWindowLength = AdaptScreenUtils.pt2Px(50);
+                startWindowX = minWindowLength - params.width;
+                startWindowY = 0;
             } else {
-                maxWindowY = AdaptScreenUtils.pt2Px(1000);
-                params.height = AdaptScreenUtils.pt2Px(1000);
+                //竖屏
+                maxWindowLength = AdaptScreenUtils.pt2Px(1080);
+                params.width = AdaptScreenUtils.pt2Px(1080);
+                params.height = AdaptScreenUtils.pt2Px(500);
+                minWindowLength = AdaptScreenUtils.pt2Px(70);
+                startWindowX = minWindowLength - params.width;
+                //底部出现
+                startWindowY = displayHeight - params.height;
+//                //顶部出现
+//                startWindowY = 0;
+                //中部出现
+//                startWindowY = (displayHeight - params.height) / 2;
             }
-            displayHeight = BaseWindow.getInstance().getDisplayHeight();
+            params.x = startWindowX;
+            params.y = startWindowY;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 params.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
             } else {
@@ -129,9 +127,6 @@ public class MainControlPanelWindowManager {
             params.flags = getNewParams(false);
             params.format = PixelFormat.RGBA_8888;
             params.dimAmount = 0.8f;
-            params.gravity = Gravity.TOP;
-            params.x = 0;
-            params.y = displayHeight - minWindowY;
             SitechDevLog.i(TAG, "params==[params.width=" + params.width +
                     ", params.height=" + params.height +
                     ", params.x=" + params.x +
@@ -193,9 +188,9 @@ public class MainControlPanelWindowManager {
         if (params.y <= displayHeight - params.height) {
             params.flags = getNewParams(true);
             params.y = displayHeight - params.height;
-        } else if (params.y >= displayHeight - minWindowY) {
+        } else if (params.y >= displayHeight - minWindowLength) {
             params.flags = getNewParams(false);
-            params.y = displayHeight - minWindowY;
+            params.y = displayHeight - minWindowLength;
         } else {
             if (params.y >= (displayHeight - params.height / 2)) {
                 isHiddenView = true;
@@ -206,7 +201,7 @@ public class MainControlPanelWindowManager {
         if (deltaY < 0) {
             //上滑过程，背景逐渐不透明
             //已经滑动过的距离
-            int delY = (displayHeight - minWindowY) - params.y;
+            int delY = (displayHeight - minWindowLength) - params.y;
             int alphaValue = 255 * delY / displayHeight;
             mainControlPanelView.resetViewAlpha(alphaValue);
         } else {
@@ -223,6 +218,55 @@ public class MainControlPanelWindowManager {
         updateWindow();
     }
 
+    /**
+     * 从左往右滑动View的位置。左滑代表展示view，右滑代表关闭view
+     *
+     * @param delatX <0代表正在左滑,隐藏View，>0代表正在右滑,展示View
+     * @param deltaY deltaY
+     */
+    public void moveH(int delatX, int deltaY) {
+        if (delatX == 0) {
+            return;
+        }
+        params.x += delatX;
+        if (params.x > 0) {
+            params.flags = getNewParams(true);
+            params.x = 0;
+        } else if (params.x <= (minWindowLength - params.width)) {
+            params.flags = getNewParams(false);
+            params.x = minWindowLength - params.width;
+        } else {
+            if (delatX < 0) {
+                //<0代表正在左滑,隐藏View
+                if (params.x <= (-(params.width / 2))) {
+                    isHiddenView = true;
+                } else {
+                    isHiddenView = false;
+                }
+            } else {
+                //>0代表正在右滑,展示View
+                if (params.x <= (-(params.width / 2))) {
+                    isHiddenView = true;
+                } else {
+                    isHiddenView = false;
+                }
+            }
+        }
+        int delX = params.x;
+        int alphaValue = 255 * delX / params.width;
+        mainControlPanelView.resetViewAlpha(Math.abs(alphaValue));
+        SitechDevLog.i(TAG, "*********************移动后  move (params.x )==" + params.x
+                + "，【 (minWindowLength - params.width)=="
+                + (minWindowLength - params.width)
+                + "】， (params.width / 2)== -"
+                + (params.width / 2)
+                + "】， delX== "
+                + delX
+                + "】， (alphaValue)== -"
+                + (alphaValue));
+        updateWindow();
+    }
+
     private void updateWindow() {
         // 更新window
         winManager.updateViewLayout(mainControlPanelView, params);
@@ -235,7 +279,8 @@ public class MainControlPanelWindowManager {
     public void mustShownView() {
         SitechDevLog.i(TAG, "*********************   mustShownView==========");
         // 更新window
-        params.y = displayHeight - maxWindowY;
+        params.x = 0;
+        params.y = startWindowY;
         params.flags = getNewParams(true);
         mainControlPanelView.resetViewAlpha(255);
         mainControlPanelView.setFullScreen(true);
@@ -243,12 +288,13 @@ public class MainControlPanelWindowManager {
     }
 
     /**
-     * 强制隐藏Window。隐藏到底部，并没有从manager中移除
+     * 强制隐藏Window。隐藏到左边，并没有从manager中移除
      */
     public void mustHiddenView() {
         SitechDevLog.i(TAG, "*********************   mustHiddenView==========");
         // 更新window
-        params.y = displayHeight - minWindowY;
+        params.x = minWindowLength - params.width;
+        params.y = startWindowY;
         params.flags = getNewParams(false);
         mainControlPanelView.resetViewAlpha(0);
         mainControlPanelView.setFullScreen(false);
@@ -309,6 +355,36 @@ public class MainControlPanelWindowManager {
             mustHiddenView();
         } else {
             mustShownView();
+        }
+    }
+
+    /**
+     * 窗口归位。
+     * 规则：如果滑动距离超过View高度的一半，则上滑展示，下滑隐藏；反之亦然。
+     */
+    public void resetView(int startX, int endX) {
+        SitechDevLog.i(TAG, "*********************   resetView=========startX=" + startX + "==endX=" + endX);
+//        if (isHiddenView) {
+//            mustHiddenView();
+//        } else {
+//            mustShownView();
+//        }
+        if ((endX - startX) < 0) {
+            //右->左，view消失。
+            if (Math.abs(endX - startX) >= 100) {
+                //滑动的距离超过了100
+                mustHiddenView();
+            } else {
+                mustShownView();
+            }
+        } else {
+            //左->右，view展示。
+            if (Math.abs(endX - startX) >= 100) {
+                //滑动的距离超过了100
+                mustShownView();
+            } else {
+                mustHiddenView();
+            }
         }
     }
 
