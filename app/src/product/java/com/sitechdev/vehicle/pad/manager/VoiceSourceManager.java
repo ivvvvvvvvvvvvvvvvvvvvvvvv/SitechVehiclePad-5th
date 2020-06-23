@@ -7,12 +7,11 @@ import com.kaolafm.sdk.core.mediaplayer.BroadcastRadioListManager;
 import com.kaolafm.sdk.core.mediaplayer.PlayItem;
 import com.kaolafm.sdk.core.mediaplayer.PlayerListManager;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
-import com.sitechdev.vehicle.lib.util.Constant;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.event.TeddyEvent;
-import com.sitechdev.vehicle.pad.kaola.ColumnMemberMamager;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
+import com.sitechdev.vehicle.pad.module.music.BtMusicManager;
 import com.sitechdev.vehicle.pad.module.music.MusicMainActivity;
 import com.sitechdev.vehicle.pad.module.music.MusicManager;
 import com.sitechdev.vehicle.pad.module.music.service.MusicInfo;
@@ -37,7 +36,7 @@ public class VoiceSourceManager {
     private int musicSource = -1;
     private static final int KAOLA = 0;
     private static final int LOCAL_MUSIC = KAOLA + 1;
-    private static final int BT_MUSIC = LOCAL_MUSIC + 1;
+    public static final int BT_MUSIC = LOCAL_MUSIC + 1;
     public static final int VOICE = 0;
     public static final int SCREEN = VOICE + 1;
     /**
@@ -116,6 +115,8 @@ public class VoiceSourceManager {
                             break;
                         case SUPPORT_TYPE_LOCAL:
                             break;
+                        case SUPPORT_TYPE_BT:
+                            break;
                         default:
                             removes[i] = true;
                             break;
@@ -176,6 +177,8 @@ public class VoiceSourceManager {
                             listener.onMusicChange(title);
                             break;
                         case SUPPORT_TYPE_LOCAL:
+                            break;
+                        case SUPPORT_TYPE_BT:
                             break;
                     }
                 }
@@ -316,6 +319,7 @@ public class VoiceSourceManager {
                 });
                 break;
             case BT_MUSIC:
+                BtMusicManager.getInstance().btCtrlPre();
                 break;
             default:
                 if (SitechMusicNewManager.getInstance().getCurrentMusicChannel() == null) {
@@ -368,6 +372,9 @@ public class VoiceSourceManager {
                         }
                     }
                 });
+                break;
+            case BT_MUSIC:
+                BtMusicManager.getInstance().btCtrlNext();
                 break;
             default:
                 if (SitechMusicNewManager.getInstance().getCurrentMusicChannel() == null) {
@@ -426,6 +433,11 @@ public class VoiceSourceManager {
                 }
                 break;
             case BT_MUSIC:
+                if (type == VOICE) {
+                    VUI.getInstance().shutAndTTS("暂不支持");
+                } else if (type == SCREEN) {
+                    CommonToast.showToast("暂不支持");
+                }
                 break;
             default:
                 if (SitechMusicNewManager.getInstance().getCurrentMusicChannel() == null) {
@@ -494,6 +506,7 @@ public class VoiceSourceManager {
                 });
                 break;
             case BT_MUSIC:
+                BtMusicManager.getInstance().btCtrlPause();
                 break;
             default:
                 if (SitechMusicNewManager.getInstance().getCurrentMusicChannel() == null) {
@@ -556,6 +569,7 @@ public class VoiceSourceManager {
                 });
                 break;
             case BT_MUSIC:
+                BtMusicManager.getInstance().btCtrlPlay();
                 break;
             default:
                 if (SitechMusicNewManager.getInstance().getCurrentMusicChannel() == null) {
@@ -590,6 +604,7 @@ public class VoiceSourceManager {
                 });
                 break;
             case BT_MUSIC:
+
                 break;
             default:
                 if (SitechMusicNewManager.getInstance().getCurrentMusicChannel() == null) {

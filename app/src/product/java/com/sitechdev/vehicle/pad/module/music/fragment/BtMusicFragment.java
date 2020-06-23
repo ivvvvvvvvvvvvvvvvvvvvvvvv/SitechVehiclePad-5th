@@ -61,8 +61,6 @@ public class BtMusicFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        BtMusicManager.getInstance();//初始化
-        BtManagers.getInstance().init();//初始化
     }
 
     @Override
@@ -98,37 +96,14 @@ public class BtMusicFragment extends BaseFragment {
 
         customPlaySeekBar.setSeekBarVisible(false);
         customPlaySeekBar.setModeVisible(false);
-        customPlaySeekBar.setOnPlayCtrlListener(new CustomPlaySeekBar.OnPlayControlListener() {
-            @Override
-            public void onPre() {
-                BtMusicManager.getInstance().btCtrlPre();
-            }
-
-            @Override
-            public void onPlay() {
-                BtMusicManager.getInstance().btCtrlPlay();
-            }
-
-            @Override
-            public void onPause() {
-                BtMusicManager.getInstance().btCtrlPause();
-            }
-
-            @Override
-            public void onNext() {
-                BtMusicManager.getInstance().btCtrlNext();
-            }
-        });
         refreshConnectSt();
     }
 
     private void refreshConnectSt(){
-        Log.e("zyf","refreshConnectSt---------");
         if (SettingConfig.getInstance().isBtConnected()) {
             connectBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.e("zyf","refreshConnectSt---------connectBtn 1111");
                     BtManagers.getInstance().disConnectToDevice();
                     refreshConnectSt();
                 }
@@ -139,7 +114,6 @@ public class BtMusicFragment extends BaseFragment {
             connectBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.e("zyf","refreshConnectSt---------connectBtn 22222");
                     RouterUtils.getInstance().navigation(RouterConstants.SETTING_BT_PAGE);
                 }
             });
@@ -172,8 +146,6 @@ public class BtMusicFragment extends BaseFragment {
             customPlaySeekBar.setCurrentStatusPlaying(true);
         } else if (event.getTag().equals(BluetoothEvent.BT_EVENT_RECEIVE_PLAY_OFF)) {
             customPlaySeekBar.setCurrentStatusPlaying(false);
-        } else if (event.getTag().equals(BluetoothEvent.BT_EVENT_RECEIVE_PLAY_OFF)) {
-            btTip1.setText((String) event.getObject());
         }
     }
 

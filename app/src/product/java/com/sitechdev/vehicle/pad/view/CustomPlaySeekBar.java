@@ -115,7 +115,15 @@ public class CustomPlaySeekBar extends RelativeLayout implements View.OnClickLis
                         mPlayCtrlListener.onPause();
                     }
                 }
-                VoiceSourceManager.getInstance().toggle(VoiceSourceManager.SCREEN);
+                if (VoiceSourceManager.getInstance().getMusicSource() == VoiceSourceManager.BT_MUSIC) {
+                    if (isPlaying) {
+                        VoiceSourceManager.getInstance().pause(VoiceSourceManager.SCREEN);
+                    } else {
+                        VoiceSourceManager.getInstance().resume(VoiceSourceManager.SCREEN);
+                    }
+                } else {
+                    VoiceSourceManager.getInstance().toggle(VoiceSourceManager.SCREEN);
+                }
                 break;
             case R.id.custom_play_ctr_next:
                 if (null != mPlayCtrlListener) {

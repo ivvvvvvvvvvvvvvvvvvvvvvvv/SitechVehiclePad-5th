@@ -27,6 +27,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.kaolafm.opensdk.api.operation.model.column.Column;
 import com.kaolafm.sdk.core.mediaplayer.BroadcastRadioPlayerManager;
 import com.kaolafm.sdk.core.mediaplayer.PlayerManager;
+import com.my.hw.BluetoothEvent;
 import com.sitechdev.net.HttpCode;
 import com.sitechdev.vehicle.lib.event.BindEventBus;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
@@ -670,6 +671,19 @@ public class MainActivity extends BaseActivity
                 break;
             default:
                 break;
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(BluetoothEvent event) {
+        if (event.getTag().equals(BluetoothEvent.BT_EVENT_RECEIVE_TITLE)) {
+            tvMusicName.setText((String) event.getObject());
+        } else if (event.getTag().equals(BluetoothEvent.BT_EVENT_RECEIVE_PLAY_ON)) {
+            ivMusicStop.setActivated(true);
+            ivMusicIcon.startAnimation();
+        } else if (event.getTag().equals(BluetoothEvent.BT_EVENT_RECEIVE_PLAY_OFF)) {
+            ivMusicStop.setActivated(false);
+            ivMusicIcon.stopAnimation();
         }
     }
 

@@ -32,6 +32,8 @@ import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.manager.AppManager;
 import com.sitechdev.vehicle.pad.manager.SkinManager;
 import com.sitechdev.vehicle.pad.module.map.util.MapVoiceEventUtil;
+import com.sitechdev.vehicle.pad.module.music.BtMusicManager;
+import com.sitechdev.vehicle.pad.module.setting.bt.BtManagers;
 import com.sitechdev.vehicle.pad.net.interception.SitechRequestInterceptor;
 import com.sitechdev.vehicle.pad.net.interception.SitechResponseInterceptor;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
@@ -85,6 +87,13 @@ public class AppApplication extends BaseApp {
         initCustomWindow();
         //考拉SDK
         initKaolaSdk();
+
+        initBluetoothManager();
+    }
+
+    private void initBluetoothManager() {
+        BtMusicManager.getInstance();//初始化
+        BtManagers.getInstance().init();//初始化
     }
 
     @DebugTrace
