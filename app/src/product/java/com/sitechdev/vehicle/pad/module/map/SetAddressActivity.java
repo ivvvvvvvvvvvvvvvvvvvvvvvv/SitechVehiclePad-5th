@@ -20,6 +20,7 @@ import com.sitechdev.vehicle.pad.event.MapEvent;
 import com.sitechdev.vehicle.pad.module.map.util.LocationData;
 import com.sitechdev.vehicle.pad.module.map.util.MapUtil;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
+import com.sitechdev.vehicle.pad.window.dialog.SetAddressTipDialog;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -141,11 +142,20 @@ public class SetAddressActivity extends BaseActivity {
 //                //
 //                setAddressTypeBean(AppConst.HOME_ADDRESS_SET_INDEX);
 
-                finish();
+                showTipDialog();
                 break;
             default:
                 break;
         }
+    }
+
+    /**
+     * 展示提示窗口
+     */
+    private void showTipDialog() {
+        SetAddressTipDialog dialog = new SetAddressTipDialog(this);
+        dialog.setDialogCancelListener(v -> finish());
+        dialog.show();
     }
 
     /**

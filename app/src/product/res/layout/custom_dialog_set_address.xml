@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="965pt"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_dialog_set_address"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingTop="50pt">
+
+    <LinearLayout
+        android:id="@+id/tv_dialog_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tv_dialog_title1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="下次长按"
+            android:textColor="#F1F3F6"
+            android:textSize="30pt" />
+
+        <LinearLayout
+            android:id="@+id/tv_dialog_title2"
+            android:layout_width="344pt"
+            android:layout_height="68pt"
+            android:layout_marginLeft="10pt"
+            android:background="@drawable/bg_btn_set_address_dialog_info_border"
+            android:orientation="horizontal"
+            android:paddingTop="18pt"
+            android:paddingBottom="18pt">
+
+            <LinearLayout
+                android:layout_width="0pt"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/id_img_home"
+                    android:layout_width="30pt"
+                    android:layout_height="30pt"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/iv_map_home" />
+
+                <TextView
+                    android:id="@+id/tv_home"
+                    style="@style/style_tv_home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="11pt"
+                    android:text="回家"
+                    android:textColor="@color/color_main_come_home_company_text"
+                    android:textSize="16pt" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="1pt"
+                android:layout_height="match_parent"
+                android:background="@color/color_main_car_info_split_line" />
+
+            <LinearLayout
+                android:layout_width="0pt"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/id_img_work"
+                    android:layout_width="30pt"
+                    android:layout_height="30pt"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/iv_map_work" />
+
+                <TextView
+                    android:id="@+id/tv_work"
+                    style="@style/style_tv_home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="11pt"
+                    android:text="公司"
+                    android:textColor="@color/color_main_come_home_company_text"
+                    android:textSize="16pt" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_dialog_title3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10pt"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="可以再次修改常用地址哦"
+            android:textColor="#F1F3F6"
+            android:textSize="30pt" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_dialog_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35pt"
+        android:ellipsize="end"
+        android:gravity="center_horizontal"
+        android:maxLines="1"
+        android:text="您也可以直接对Teddy说“设置常用地址”进入当前页面"
+        android:textColor="#F1F3F6"
+        android:textSize="30pt" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1pt"
+        android:layout_marginLeft="40pt"
+        android:layout_marginTop="65pt"
+        android:layout_marginRight="40pt"
+        android:background="#33FFFFFF" />
+
+    <TextView
+        android:id="@+id/tv_sign_tip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30pt"
+        android:layout_marginBottom="30pt"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="我知道了"
+        android:textColor="#F1F3F6"
+        android:textSize="32pt" />
+</LinearLayout>
