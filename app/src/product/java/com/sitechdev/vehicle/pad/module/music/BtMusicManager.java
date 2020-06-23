@@ -34,11 +34,21 @@ public class BtMusicManager {
         mATBluetooth.write(ATBluetooth.REQUEST_A2DP_PAUSE);
     }
 
+    public void getInfo() {
+        mATBluetooth.write(ATBluetooth.RETURN_A2DP_AUDIO_INFO);
+    }
+
     public void btCtrlNext() {
         mATBluetooth.write(ATBluetooth.REQUEST_A2DP_NEXT);
+    }
+
+    public void btCtrlRequestStatus() {
+        mATBluetooth.write(ATBluetooth.REQUEST_A2DP_CONNECT_STATUS);
     }
 
     public void setOnBtConnecStatusChangedListener(OnBtConnecStatusChangedListener onBtConnecStatusChangedListener) {
         mATBluetooth.setOnBtConnectStatusChangedListener(onBtConnecStatusChangedListener);
     }
+
+
 }

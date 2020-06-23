@@ -37,6 +37,7 @@ public class VoiceSourceManager {
     private int musicSource = -1;
     private static final int KAOLA = 0;
     private static final int LOCAL_MUSIC = KAOLA + 1;
+    private static final int BT_MUSIC = LOCAL_MUSIC + 1;
     public static final int VOICE = 0;
     public static final int SCREEN = VOICE + 1;
     /**
@@ -48,6 +49,7 @@ public class VoiceSourceManager {
     public static final String SUPPORT_TYPE_ALL = "all";
     public static final String SUPPORT_TYPE_KAOLA = "kaola";
     public static final String SUPPORT_TYPE_LOCAL = "local";
+    public static final String SUPPORT_TYPE_BT = "bluetooth";
 
     private KaolaPlayManager.PlayCallback mPlayCallback = new KaolaPlayManager.PlayCallback() {
         @Override
@@ -313,6 +315,8 @@ public class VoiceSourceManager {
                     }
                 });
                 break;
+            case BT_MUSIC:
+                break;
             default:
                 if (SitechMusicNewManager.getInstance().getCurrentMusicChannel() == null) {
                     if (type == VOICE) {
@@ -421,6 +425,8 @@ public class VoiceSourceManager {
                     }
                 }
                 break;
+            case BT_MUSIC:
+                break;
             default:
                 if (SitechMusicNewManager.getInstance().getCurrentMusicChannel() == null) {
                     if (type == VOICE) {
@@ -487,6 +493,8 @@ public class VoiceSourceManager {
                     }
                 });
                 break;
+            case BT_MUSIC:
+                break;
             default:
                 if (SitechMusicNewManager.getInstance().getCurrentMusicChannel() == null) {
                     if (type == VOICE) {
@@ -547,6 +555,8 @@ public class VoiceSourceManager {
                     }
                 });
                 break;
+            case BT_MUSIC:
+                break;
             default:
                 if (SitechMusicNewManager.getInstance().getCurrentMusicChannel() == null) {
                     if (type == VOICE) {
@@ -578,6 +588,8 @@ public class VoiceSourceManager {
                         }
                     }
                 });
+                break;
+            case BT_MUSIC:
                 break;
             default:
                 if (SitechMusicNewManager.getInstance().getCurrentMusicChannel() == null) {
@@ -613,6 +625,8 @@ public class VoiceSourceManager {
                 case SUPPORT_TYPE_KAOLA:
                     break;
                 case SUPPORT_TYPE_LOCAL:
+                    break;
+                case SUPPORT_TYPE_BT:
                     break;
                 default:
                     return;
@@ -652,6 +666,8 @@ public class VoiceSourceManager {
                             break;
                     }
                     break;
+                case BT_MUSIC:
+                    break;
                 default:
                     break;
             }
@@ -680,6 +696,9 @@ public class VoiceSourceManager {
             case LOCAL_MUSIC:
                 toLocalMusic();
                 break;
+            case BT_MUSIC:
+                toBtMusic();
+                break;
             default:
                 CommonToast.showToast("当前无可用音源");
                 break;
@@ -701,6 +720,13 @@ public class VoiceSourceManager {
         Intent intent = new Intent();
         intent.setClass(context, MusicMainActivity.class);
         intent.putExtra("index", 1);
+        context.startActivity(intent);
+    }
+
+    private void toBtMusic() {
+        Intent intent = new Intent();
+        intent.setClass(context, MusicMainActivity.class);
+        intent.putExtra("index", 2);
         context.startActivity(intent);
     }
 

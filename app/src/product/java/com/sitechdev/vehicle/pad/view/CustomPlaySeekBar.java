@@ -186,6 +186,10 @@ public class CustomPlaySeekBar extends RelativeLayout implements View.OnClickLis
 
     }
 
+    public void setCurrentStatusPlaying(boolean isPlaying) {
+        mPlayPause.setActivated(isPlaying);
+    }
+
     @Override
     public void onMusciChange(MusicInfo current, int status) {
         if (null != current) {

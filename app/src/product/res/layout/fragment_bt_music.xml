@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <include
+        android:layout_weight="1"
+        layout="@layout/layout_music_play"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"  />
+
+    <LinearLayout
+        android:layout_marginRight="10pt"
+        android:layout_marginLeft="200pt"
+        android:id="@+id/bt_connect_st_view"
+        android:layout_width="803px"
+        android:layout_height="667px"
+        android:layout_marginTop="30pt"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/bg_action_view"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="80pt"
+            android:layout_height="143pt"
+            android:layout_gravity="center"
+            android:layout_marginTop="100pt"
+            android:src="@drawable/icon_bluetooth" />
+
+        <TextView
+            android:id="@+id/music_bt_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35pt"
+            android:text="请连接蓝牙设备"
+            android:textColor="@color/white"
+            android:textSize="30pt" />
+
+        <TextView
+            android:id="@+id/button_music_bt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_btn_new_enable"
+            android:paddingLeft="120pt"
+            android:paddingTop="20pt"
+            android:layout_marginTop="35pt"
+            android:paddingRight="120pt"
+            android:paddingBottom="20pt"
+            android:text="连接蓝牙"
+            android:textColor="@color/white"
+            android:textSize="30pt" />
+    </LinearLayout>
+</LinearLayout>

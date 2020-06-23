@@ -93,6 +93,10 @@ public class GOC extends BtCmd {
         this.addReceiveCmd(99, "MA");
         this.addReceiveCmd(113, "TS", 2);
         this.addReceiveCmd(88, "MW", 4);
+
+        this.addSendCmd(1001, "MK");
+
+
     }
 
     @Override

@@ -12,8 +12,8 @@ import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.module.music.adapter.MusicPagerAdapter;
+import com.sitechdev.vehicle.pad.module.music.fragment.BtMusicFragment;
 import com.sitechdev.vehicle.pad.module.music.fragment.LocalMusicFragment;
-import com.sitechdev.vehicle.pad.module.music.fragment.OtherMusicFragment;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 
 import java.util.ArrayList;
@@ -55,7 +55,7 @@ public class MusicMainActivity extends BaseActivity {
         vPager = findViewById(R.id.music_main_viewpager);
         List<Fragment> mFragments = new ArrayList<>();
         mFragments.add(LocalMusicFragment.newInstance());
-        mFragments.add(OtherMusicFragment.newInstance());
+        mFragments.add(BtMusicFragment.newInstance());
         MusicPagerAdapter mAdapter = new MusicPagerAdapter(getSupportFragmentManager(), mFragments);
         vPager.setAdapter(mAdapter);
         vTab.setViewPager(vPager, mTitles);
