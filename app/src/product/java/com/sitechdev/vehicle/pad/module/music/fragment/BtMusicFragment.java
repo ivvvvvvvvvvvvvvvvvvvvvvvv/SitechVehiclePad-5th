@@ -80,7 +80,7 @@ public class BtMusicFragment extends BaseFragment {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_bt_music;
+        return isLandscape() ? R.layout.fragment_bt_music_land : R.layout.fragment_bt_music;
     }
 
     @Override

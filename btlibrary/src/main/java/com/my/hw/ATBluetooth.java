@@ -13,6 +13,7 @@ import android.util.Log;
 
 import com.common.util.MachineConfig;
 import com.common.util.Util;
+import com.sitechdev.vehicle.lib.event.EventBusUtils;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -157,6 +158,7 @@ public class ATBluetooth {
     public static final int RETURN_A2DP_OFF = 99;
     public static final int RETURN_A2DP_ON = 98;
     public static final int RETURN_A2DP_TIME = 103;
+    public static final int RETURN_A2DP_AUDIO_INFO = 1001;
     public static final int RETURN_AUTOANSWER = 49;
     public static final int RETURN_AUTOCONNECT = 41;
     public static final int RETURN_AV = 15;
@@ -339,25 +341,39 @@ public class ATBluetooth {
     private void btCallback(int cmdId, int param2, String param3, String param4) {
         logTest("btCallback---param1:" + cmdId + " param2:" + param2 + " p3:" + param3 +
                 " p4:" + param4);
-        if (cmdId == RETURN_PAIR_INFO) {
-            if (null != mPairListChangedListener) {
-                BtDeviceBean btDeviceBean = new BtDeviceBean();
-                btDeviceBean.setBtAddress(param3);
-                btDeviceBean.setBtName(param4);
-                mPairListChangedListener.onBtPairListChanged(btDeviceBean, true);
-            }
-        } else if (cmdId == RETURN_A2DP_CONNECT_STATUS) {
-            SettingConfig.getInstance().setA2dpConnected(param2 == 3);
-        } else if (cmdId == RETURN_HFP_INFO) {
-            boolean connect = param2 == 3;
-            if (connect != SettingConfig.getInstance().isHFPConnected() && null != mConnecStatusListener) {
-                mConnecStatusListener.onBtConnectedChanged(connect);
-            }
-            SettingConfig.getInstance().setHFPConnected(param2 == 3);
-            if (!TextUtils.isEmpty(param3) && !param3.equals("null")) {
-                SettingConfig.getInstance().setConnectBtAdd(param3);
-            }
+        switch (cmdId) {
+            case RETURN_PAIR_INFO:
+                if (null != mPairListChangedListener) {
+                    BtDeviceBean btDeviceBean = new BtDeviceBean();
+                    btDeviceBean.setBtAddress(param3);
+                    btDeviceBean.setBtName(param4);
+                    mPairListChangedListener.onBtPairListChanged(btDeviceBean, true);
+                }
+                break;
+            case RETURN_A2DP_CONNECT_STATUS:
+                SettingConfig.getInstance().setA2dpConnected(param2 == 3);
+                break;
+            case RETURN_HFP_INFO:
+                boolean connect = param2 == 3;
+                if (connect != SettingConfig.getInstance().isHFPConnected() && null != mConnecStatusListener) {
+                    mConnecStatusListener.onBtConnectedChanged(connect);
+                }
+                SettingConfig.getInstance().setHFPConnected(param2 == 3);
+                if (!TextUtils.isEmpty(param3) && !param3.equals("null")) {
+                    SettingConfig.getInstance().setConnectBtAdd(param3);
+                }
+                break;
+            case RETURN_A2DP_ID3_NAME:
+                EventBusUtils.postEvent(new BluetoothEvent(BluetoothEvent.BT_EVENT_RECEIVE_TITLE, param3));
+                break;
+            case RETURN_A2DP_OFF:
+                EventBusUtils.postEvent(new BluetoothEvent(BluetoothEvent.BT_EVENT_RECEIVE_PLAY_OFF, null));
+                break;
+            case RETURN_A2DP_ON:
+                EventBusUtils.postEvent(new BluetoothEvent(BluetoothEvent.BT_EVENT_RECEIVE_PLAY_ON, null));
+                break;
         }
+
     }
 
     public static ATBluetooth create() {
