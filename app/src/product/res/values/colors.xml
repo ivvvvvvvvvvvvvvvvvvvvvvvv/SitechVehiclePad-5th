@@ -124,4 +124,12 @@
 
     <color name="color_bg_kaola_ai_item">#33000000</color>
 
+    <!--设置常用地址界面-->
+    <color name="color_home_work_title">#7883A6</color>
+    <color name="color_home_work_input_hint">#66475970</color>
+    <color name="color_home_work_input">#D9758FB0</color>
+    <color name="color_home_work_select_btn_bg">#1C2C4F</color>
+    <color name="color_home_work_select_btn_text">#586C96</color>
+    <color name="color_agree_content">#233660</color>
+    <color name="color_save_text_content">#F1F3F6</color>
 </resources>

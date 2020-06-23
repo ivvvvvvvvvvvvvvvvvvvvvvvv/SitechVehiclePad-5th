@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="家庭地址"
-                android:textColor="#7883A6"
+                android:textColor="@color/color_home_work_title"
                 android:textSize="32pt" />
 
             <EditText
@@ -45,8 +45,8 @@
                 android:background="@drawable/bg_navi_info_border"
                 android:hint="请输入家庭地址"
                 android:paddingLeft="53pt"
-                android:textColor="#D9758FB0"
-                android:textColorHint="#66475970"
+                android:textColor="@color/color_home_work_input"
+                android:textColorHint="@color/color_home_work_input_hint"
                 android:textCursorDrawable="@drawable/edit_cursor_color"
                 android:textSize="32pt" />
 
@@ -78,7 +78,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="23pt"
                         android:text="@string/string_my_location_title"
-                        android:textColor="#586C96"
+                        android:textColor="@color/color_home_work_select_btn_text"
                         android:textSize="32pt" />
                 </LinearLayout>
 
@@ -102,7 +102,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="23pt"
                         android:text="@string/string_map_select_location_btn_text"
-                        android:textColor="#586C96"
+                        android:textColor="@color/color_home_work_select_btn_text"
                         android:textSize="32pt" />
                 </LinearLayout>
             </LinearLayout>
@@ -120,7 +120,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="公司地址"
-                android:textColor="#7883A6"
+                android:textColor="@color/color_home_work_title"
                 android:textSize="32pt" />
 
             <EditText
@@ -132,8 +132,8 @@
                 android:background="@drawable/bg_navi_info_border"
                 android:hint="请输入公司地址"
                 android:paddingLeft="53pt"
-                android:textColor="#D9758FB0"
-                android:textColorHint="#66475970"
+                android:textColor="@color/color_home_work_input"
+                android:textColorHint="@color/color_home_work_input_hint"
                 android:textCursorDrawable="@drawable/edit_cursor_color"
                 android:textSize="32pt" />
 
@@ -165,7 +165,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="23pt"
                         android:text="@string/string_my_location_title"
-                        android:textColor="#586C96"
+                        android:textColor="@color/color_home_work_select_btn_text"
                         android:textSize="32pt" />
                 </LinearLayout>
 
@@ -189,7 +189,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="23pt"
                         android:text="@string/string_map_select_location_btn_text"
-                        android:textColor="#586C96"
+                        android:textColor="@color/color_home_work_select_btn_text"
                         android:textSize="32pt" />
                 </LinearLayout>
             </LinearLayout>
@@ -201,7 +201,7 @@
             android:layout_below="@id/id_home_area_rela"
             android:layout_marginTop="60pt"
             android:text="@string/string_map_private_map_text"
-            android:textColor="#233660"
+            android:textColor="@color/color_agree_content"
             android:textSize="30pt" />
     </RelativeLayout>
 
@@ -214,6 +214,6 @@
         android:background="@drawable/bg_btn_new_enable"
         android:gravity="center"
         android:text="保存"
-        android:textColor="#F1F3F6"
+        android:textColor="@color/color_save_text_content"
         android:textSize="32pt" />
 </LinearLayout>

@@ -27,6 +27,7 @@ import com.sitechdev.vehicle.pad.module.video.service.VideoInfo;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.util.MediaScanister;
 import com.sitechdev.vehicle.pad.view.CommonToast;
+import com.sitechdev.vehicle.pad.view.VideoItemDecoration;
 
 import java.util.List;
 
