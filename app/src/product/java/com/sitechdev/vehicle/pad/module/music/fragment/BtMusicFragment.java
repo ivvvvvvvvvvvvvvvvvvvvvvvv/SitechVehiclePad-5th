@@ -9,8 +9,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.my.hw.BluetoothEvent;
+import com.my.hw.OnBtConnecStatusChangedListener;
 import com.my.hw.SettingConfig;
 import com.sitechdev.vehicle.lib.event.BindEventBus;
+import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.bean.BaseFragment;
@@ -73,6 +75,22 @@ public class BtMusicFragment extends BaseFragment {
         BtMusicManager.getInstance().getInfo();
         BtMusicManager.getInstance().btCtrlRequestStatus();
         AppApplication.getAudioManager().requestAudioFocus((AudioManager.OnAudioFocusChangeListener) null, 0, 2);
+        BtMusicManager.getInstance().setOnBtConnecStatusChangedListener(new OnBtConnecStatusChangedListener() {
+            @Override
+            public void onBtConnectedChanged(boolean isConnected) {
+                ThreadUtils.runOnUIThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        refreshConnectSt();
+                        if (!isConnected) {
+                            customPlaySeekBar.setCurrentStatusPlaying(false);
+                            musicName.setText("--");
+                            singer.setText("");
+                        }
+                    }
+                });
+            }
+        });
     }
 
     @Override

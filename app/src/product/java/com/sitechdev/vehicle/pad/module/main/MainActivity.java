@@ -28,6 +28,7 @@ import com.kaolafm.opensdk.api.operation.model.column.Column;
 import com.kaolafm.sdk.core.mediaplayer.BroadcastRadioPlayerManager;
 import com.kaolafm.sdk.core.mediaplayer.PlayerManager;
 import com.my.hw.BluetoothEvent;
+import com.my.hw.OnBtConnecStatusChangedListener;
 import com.sitechdev.net.HttpCode;
 import com.sitechdev.vehicle.lib.event.BindEventBus;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
@@ -234,6 +235,25 @@ public class MainActivity extends BaseActivity
         mPowerPercentView.setText(setBottomAlignment("70", "%"));
         mKmView.setText(setBottomAlignment("238", "KM"));
         mRechargeCountView.setText(setBottomAlignment("48", "次"));
+
+        BtMusicManager.getInstance().setOnBtConnecStatusChangedListener(new OnBtConnecStatusChangedListener() {
+            @Override
+            public void onBtConnectedChanged(boolean isConnected) {
+                ThreadUtils.runOnUIThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (!isConnected) {
+                            tvMusicName.setText("--");
+                            ivMusicStop.setActivated(false);
+                            ivMusicIcon.stopAnimation();
+                        } else {
+                            BtMusicManager.getInstance().btCtrlRequestStatus();//获取蓝牙音乐播放状态
+                            BtMusicManager.getInstance().getInfo();
+                        }
+                    }
+                });
+            }
+        });
     }
 
     @Override
