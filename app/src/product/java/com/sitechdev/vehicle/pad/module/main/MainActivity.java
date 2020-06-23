@@ -59,6 +59,8 @@ import com.sitechdev.vehicle.pad.module.login.util.LoginUtils;
 import com.sitechdev.vehicle.pad.module.main.bean.WeatherInfoBean;
 import com.sitechdev.vehicle.pad.module.main.util.MainHttpUtils;
 import com.sitechdev.vehicle.pad.module.main.util.WeatherUtils;
+import com.sitechdev.vehicle.pad.module.music.BtMusicManager;
+import com.sitechdev.vehicle.pad.module.setting.bt.BtManager;
 import com.sitechdev.vehicle.pad.receiver.NetReceiver;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
@@ -128,6 +130,9 @@ public class MainActivity extends BaseActivity
         }
 
         registerReceiver(receiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        if (BtManager.getInstance().isBtEnable()) {
+            BtMusicManager.getInstance().btCtrlRequestStatus();//获取蓝牙音乐播放状态
+        }
     }
 
     @Override
@@ -677,10 +682,12 @@ public class MainActivity extends BaseActivity
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(BluetoothEvent event) {
         if (event.getTag().equals(BluetoothEvent.BT_EVENT_RECEIVE_TITLE)) {
-            tvMusicName.setText((String) event.getObject());
+            btn_music_title.setText((String) event.getObject());
+            tvMusicName.setText("");
         } else if (event.getTag().equals(BluetoothEvent.BT_EVENT_RECEIVE_PLAY_ON)) {
             ivMusicStop.setActivated(true);
             ivMusicIcon.startAnimation();
+            VoiceSourceManager.getInstance().setMusicSource(VoiceSourceManager.BT_MUSIC);
         } else if (event.getTag().equals(BluetoothEvent.BT_EVENT_RECEIVE_PLAY_OFF)) {
             ivMusicStop.setActivated(false);
             ivMusicIcon.stopAnimation();
