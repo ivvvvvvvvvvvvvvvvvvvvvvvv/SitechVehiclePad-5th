@@ -604,7 +604,7 @@ public class VoiceSourceManager {
                 });
                 break;
             case BT_MUSIC:
-
+                BtMusicManager.getInstance().btCtrlPlayPause();
                 break;
             default:
                 if (SitechMusicNewManager.getInstance().getCurrentMusicChannel() == null) {

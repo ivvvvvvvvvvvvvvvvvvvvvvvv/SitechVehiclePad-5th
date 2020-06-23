@@ -682,8 +682,7 @@ public class MainActivity extends BaseActivity
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(BluetoothEvent event) {
         if (event.getTag().equals(BluetoothEvent.BT_EVENT_RECEIVE_TITLE)) {
-            btn_music_title.setText((String) event.getObject());
-            tvMusicName.setText("");
+            tvMusicName.setText((String) event.getObject());
         } else if (event.getTag().equals(BluetoothEvent.BT_EVENT_RECEIVE_PLAY_ON)) {
             ivMusicStop.setActivated(true);
             ivMusicIcon.startAnimation();

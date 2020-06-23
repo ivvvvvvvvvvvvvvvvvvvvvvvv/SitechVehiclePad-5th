@@ -95,6 +95,7 @@ public class GOC extends BtCmd {
         this.addReceiveCmd(88, "MW", 4);
 
         this.addSendCmd(1001, "MK");
+        this.addSendCmd(1002, "MA");
 
 
     }

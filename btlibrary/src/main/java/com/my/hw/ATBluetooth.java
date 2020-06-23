@@ -67,6 +67,7 @@ public class ATBluetooth {
     public static final int REQUEST_A2DP_PLAY = 80;
     public static final int REQUEST_A2DP_PP = 79;
     public static final int REQUEST_A2DP_PREV = 82;
+    public static final int REQUEST__A2DP_AUDIO_PLAYPAUSE = 1002;
     public static final int REQUEST_A2DP_REPORT_ID3 = 107;
     public static final int REQUEST_A2DP_TIME = 102;
     public static final int REQUEST_ANSWER = 67;

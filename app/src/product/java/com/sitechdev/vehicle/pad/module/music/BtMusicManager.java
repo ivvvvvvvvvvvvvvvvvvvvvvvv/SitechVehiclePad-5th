@@ -46,6 +46,10 @@ public class BtMusicManager {
         mATBluetooth.write(ATBluetooth.REQUEST_A2DP_CONNECT_STATUS);
     }
 
+    public void btCtrlPlayPause() {
+        mATBluetooth.write(ATBluetooth.REQUEST__A2DP_AUDIO_PLAYPAUSE);
+    }
+
     public void setOnBtConnecStatusChangedListener(OnBtConnecStatusChangedListener onBtConnecStatusChangedListener) {
         mATBluetooth.setOnBtConnectStatusChangedListener(onBtConnecStatusChangedListener);
     }
