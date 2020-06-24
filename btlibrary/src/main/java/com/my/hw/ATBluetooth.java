@@ -357,9 +357,10 @@ public class ATBluetooth {
             case RETURN_HFP_INFO:
                 boolean connect = param2 == 3;
                 if (connect != SettingConfig.getInstance().isHFPConnected() && null != mConnecStatusListener) {
+                    SettingConfig.getInstance().setHFPConnected(connect);
                     mConnecStatusListener.onBtConnectedChanged(connect);
                 }
-                SettingConfig.getInstance().setHFPConnected(param2 == 3);
+
                 if (!TextUtils.isEmpty(param3) && !param3.equals("null")) {
                     SettingConfig.getInstance().setConnectBtAdd(param3);
                 }
