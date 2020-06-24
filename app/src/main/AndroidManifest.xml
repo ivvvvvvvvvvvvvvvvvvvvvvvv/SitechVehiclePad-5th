@@ -121,7 +121,7 @@
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="d022b05db57b4566ea7507d12cf5c1d2" />
+            android:value="aa1d0fc807f708cfd98c49b61ef03159" />
         <meta-data
             android:name="com.kaolafm.open.sdk.AppKey"
             android:value="901e93ac3c7fefb21aec26d5e1c199a0" />
