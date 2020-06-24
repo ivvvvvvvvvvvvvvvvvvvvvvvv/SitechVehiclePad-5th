@@ -31,6 +31,7 @@ import com.sitechdev.vehicle.pad.event.WindowEvent;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.manager.AppManager;
 import com.sitechdev.vehicle.pad.manager.SkinManager;
+import com.sitechdev.vehicle.pad.manager.VolumeControlManager;
 import com.sitechdev.vehicle.pad.module.map.util.MapVoiceEventUtil;
 import com.sitechdev.vehicle.pad.module.music.BtMusicManager;
 import com.sitechdev.vehicle.pad.module.setting.bt.BtManagers;
@@ -101,6 +102,8 @@ public class AppApplication extends BaseApp {
         ThreadManager.getInstance().addTask(() -> {
             //Activity 页面管理
             initLifecleActivity();
+            //
+            VolumeControlManager.getInstance().init();
             //路由组件
             RouterUtils.getInstance().init(BuildConfig.DEBUG, this);
             //网络

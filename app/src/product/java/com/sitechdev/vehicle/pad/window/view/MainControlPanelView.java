@@ -26,6 +26,8 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
+import com.sitechdev.vehicle.pad.manager.VolumeControlManager;
+import com.sitechdev.vehicle.pad.module.setting.bt.BtManagers;
 import com.sitechdev.vehicle.pad.util.AppUtil;
 import com.sitechdev.vehicle.pad.view.VerticalSeekBarForSkin;
 import com.sitechdev.vehicle.pad.window.manager.MainControlPanelWindowManager;
@@ -105,7 +107,7 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
         //音量控制,初始化定义
         mAudioManager = (AudioManager) AppApplication.getContext().getSystemService(Context.AUDIO_SERVICE);
         //最大音量
-        maxVolumeValue = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        maxVolumeValue = VolumeControlManager.getInstance().getMaxVolumeValue();// mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         SitechDevLog.i(TAG, "最大音量===" + maxVolumeValue);
 
         popControlView = findViewById(R.id.id_top_content);
@@ -182,7 +184,7 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
      */
     public void initVolumeLightData() {
         //当前音量
-        currentVolumeValue = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+        currentVolumeValue = VolumeControlManager.getInstance().getCurrentVolumeValue();// mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
         SitechDevLog.i(TAG, "当前音量===" + currentVolumeValue);
 
         currentScreenLightValue = maxScreenLightValue / 5 * 4;
@@ -485,20 +487,18 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
 //                break;
             case R.id.id_bluetooth_Btn:
                 isActivated = bluetoothControlView.isActivated();
-//                if (isActivated) {
-//                    //蓝牙是否开启
-//                    BluetoothAdapter.getDefaultAdapter().disable();
-//                } else {
-//                    //蓝牙是否开启
-//                    BluetoothAdapter.getDefaultAdapter().enable();
-//                }
+                if (isActivated) {
+                    //蓝牙是否开启
+                    BtManagers.getInstance().openBt();
+                } else {
+                    //蓝牙是否开启
+                    BtManagers.getInstance().closeBt();
+                }
                 bluetoothControlView.setActivated(!isActivated);
                 break;
             case R.id.id_wifi_Btn:
                 isActivated = wifiControlView.isActivated();
                 //wifi网络
-//                NetworkUtils.setWifiEnabled(!isActivated);
-
                 wifiControlView.setActivated(!isActivated);
                 break;
             case R.id.id_mobile_net_Btn:
@@ -610,8 +610,10 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
          * FLAG_VIBRATE（是否进入振动振铃模式时是否振动）
          */
 //        if (false) {
-        mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, value, AudioManager.FLAG_PLAY_SOUND);// | AudioManager.FLAG_SHOW_UI);
+//        mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, value, AudioManager.FLAG_PLAY_SOUND);// | AudioManager.FLAG_SHOW_UI);
 //        }
+        //设置音量
+        VolumeControlManager.getInstance().setCurrentVolume(value);
     }
 
     /**
