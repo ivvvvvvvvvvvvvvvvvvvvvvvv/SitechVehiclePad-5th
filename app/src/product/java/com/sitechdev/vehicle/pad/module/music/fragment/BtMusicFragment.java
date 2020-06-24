@@ -155,14 +155,16 @@ public class BtMusicFragment extends BaseFragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(BluetoothEvent event) {
-        if (event.getTag().equals(BluetoothEvent.BT_EVENT_RECEIVE_TITLE)) {
-            musicName.setText((String) event.getObject());
-        } else if (event.getTag().equals(BluetoothEvent.BT_EVENT_RECEIVE_ART)) {
-            singer.setText((String) event.getObject());
-        } else if (event.getTag().equals(BluetoothEvent.BT_EVENT_RECEIVE_PLAY_ON)) {
-            customPlaySeekBar.setCurrentStatusPlaying(true);
-        } else if (event.getTag().equals(BluetoothEvent.BT_EVENT_RECEIVE_PLAY_OFF)) {
-            customPlaySeekBar.setCurrentStatusPlaying(false);
+        if (SettingConfig.getInstance().isBtConnected()) {
+            if (event.getTag().equals(BluetoothEvent.BT_EVENT_RECEIVE_TITLE)) {
+                musicName.setText((String) event.getObject());
+            } else if (event.getTag().equals(BluetoothEvent.BT_EVENT_RECEIVE_ART)) {
+                singer.setText((String) event.getObject());
+            } else if (event.getTag().equals(BluetoothEvent.BT_EVENT_RECEIVE_PLAY_ON)) {
+                customPlaySeekBar.setCurrentStatusPlaying(true);
+            } else if (event.getTag().equals(BluetoothEvent.BT_EVENT_RECEIVE_PLAY_OFF)) {
+                customPlaySeekBar.setCurrentStatusPlaying(false);
+            }
         }
     }
 

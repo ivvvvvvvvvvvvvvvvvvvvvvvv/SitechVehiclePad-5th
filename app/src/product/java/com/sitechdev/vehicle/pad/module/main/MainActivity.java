@@ -29,6 +29,7 @@ import com.kaolafm.sdk.core.mediaplayer.BroadcastRadioPlayerManager;
 import com.kaolafm.sdk.core.mediaplayer.PlayerManager;
 import com.my.hw.BluetoothEvent;
 import com.my.hw.OnBtConnecStatusChangedListener;
+import com.my.hw.SettingConfig;
 import com.sitechdev.net.HttpCode;
 import com.sitechdev.vehicle.lib.event.BindEventBus;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
@@ -704,12 +705,16 @@ public class MainActivity extends BaseActivity
         if (event.getTag().equals(BluetoothEvent.BT_EVENT_RECEIVE_TITLE)) {
             tvMusicName.setText((String) event.getObject());
         } else if (event.getTag().equals(BluetoothEvent.BT_EVENT_RECEIVE_PLAY_ON)) {
-            ivMusicStop.setActivated(true);
-            ivMusicIcon.startAnimation();
-            VoiceSourceManager.getInstance().setMusicSource(VoiceSourceManager.BT_MUSIC);
+            if (SettingConfig.getInstance().isBtConnected()) {
+                ivMusicStop.setActivated(true);
+                ivMusicIcon.startAnimation();
+                VoiceSourceManager.getInstance().setMusicSource(VoiceSourceManager.BT_MUSIC);
+            }
         } else if (event.getTag().equals(BluetoothEvent.BT_EVENT_RECEIVE_PLAY_OFF)) {
-            ivMusicStop.setActivated(false);
-            ivMusicIcon.stopAnimation();
+            if (SettingConfig.getInstance().isBtConnected()) {
+                ivMusicStop.setActivated(false);
+                ivMusicIcon.stopAnimation();
+            }
         }
     }
 
