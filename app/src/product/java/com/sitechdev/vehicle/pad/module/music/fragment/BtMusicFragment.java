@@ -72,8 +72,7 @@ public class BtMusicFragment extends BaseFragment {
     @Override
     protected void initData() {
         super.initData();
-        BtMusicManager.getInstance().getInfo();
-        BtMusicManager.getInstance().btCtrlRequestStatus();
+        initBtInfoRequest();
         AppApplication.getAudioManager().requestAudioFocus((AudioManager.OnAudioFocusChangeListener) null, 0, 2);
         BtMusicManager.getInstance().setOnBtConnecStatusChangedListener(new OnBtConnecStatusChangedListener() {
             @Override
@@ -86,11 +85,18 @@ public class BtMusicFragment extends BaseFragment {
                             customPlaySeekBar.setCurrentStatusPlaying(false);
                             musicName.setText("--");
                             singer.setText("");
+                        } else {
+                            initBtInfoRequest();
                         }
                     }
                 });
             }
         });
+    }
+
+    private void initBtInfoRequest(){
+        BtMusicManager.getInstance().btCtrlRequestStatus();//获取蓝牙音乐播放状态
+        BtMusicManager.getInstance().getInfo();
     }
 
     @Override
