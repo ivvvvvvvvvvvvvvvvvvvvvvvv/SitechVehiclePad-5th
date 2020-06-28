@@ -1,18 +1,13 @@
 package com.sitechdev.vehicle.pad.manager;
 
-import android.app.job.JobScheduler;
-import android.app.job.JobService;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Handler;
 
 import com.blankj.utilcode.util.AppUtils;
-import com.sitechdev.vehicle.lib.util.PackageInfoUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.app.AppApplication;
-import com.sitechdev.vehicle.pad.util.AppUtil;
 
 /**
  * @author 邵志
@@ -44,13 +39,17 @@ public class VolumeControlManager {
      * APP发送给中间件的广播-action
      */
     private static final String APP_SEND_TO_MCU_SERVICE = "com.my.car.service.BROADCAST_CMD_TO_CAR_SERVICE";
+    /**
+     * 中间件的包名
+     */
+    private static final String MCU_SERVICE_PACKAGE = "com.my.out";
 
     /**
      * 设备音量的最大值
      */
     private final int MAX_VOLUME_VALUE = 30;
     /**
-     * 设备音量的最大值
+     * 设备音量的当前值
      */
     private int currentVolumeValue = 0;
 
@@ -91,11 +90,14 @@ public class VolumeControlManager {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
+//            SitechDevLog.i(TAG, "VolumeReceiver ==>" + action);
             if (MCU_SERVICE_SEND_TO_APP.equals(action)) {
                 int cmd = intent.getIntExtra("cmd", 0);
+//                SitechDevLog.i(TAG, "VolumeReceiver ==>cmd == " + cmd);
                 switch (cmd) {
                     case RETURN_CURRENT_VOLUME:
                         currentVolumeValue = intent.getIntExtra("data", -1);
+                        SitechDevLog.i(TAG, "VolumeReceiver ==> data==" + currentVolumeValue);
                         if (currentVolumeValue < 0) {
                             currentVolumeValue = 0;
                         }
@@ -156,11 +158,11 @@ public class VolumeControlManager {
      * @param data data
      */
     private void sendToCarService(int cmd, int data) {
-        Intent it;
-        it = new Intent(APP_SEND_TO_MCU_SERVICE);
+        SitechDevLog.i(TAG, "volume==>cmd=" + cmd + ", data=" + data);
+        Intent it = new Intent(APP_SEND_TO_MCU_SERVICE);
         it.putExtra("cmd", cmd);
         it.putExtra("data", data);
-        it.setPackage(AppUtils.getAppPackageName());
+        it.setPackage(MCU_SERVICE_PACKAGE);
         AppApplication.getContext().sendBroadcast(it);
     }
 
