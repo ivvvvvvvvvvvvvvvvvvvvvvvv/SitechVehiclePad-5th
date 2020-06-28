@@ -12,7 +12,6 @@ import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.app.BaseAppWindowManager;
 import com.sitechdev.vehicle.pad.app.BaseWindow;
 import com.sitechdev.vehicle.pad.event.ScreenEvent;
-import com.sitechdev.vehicle.pad.event.VoiceEvent;
 import com.sitechdev.vehicle.pad.window.view.MainMenuView;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -89,7 +88,6 @@ public class MainMenuWindowManager {
         if (mainMenuView != null && mainMenuView.getParent() == null && !mainMenuView.isShown()) {
             winManager.addView(mainMenuView, params);
         }
-        TeddyWindowManager.getInstance().show();
     }
     /**
      * 隐藏悬浮框
@@ -101,7 +99,6 @@ public class MainMenuWindowManager {
             mainMenuView = null;
             params = null;
         }
-        TeddyWindowManager.getInstance().hide();
     }
 
     public boolean isViewShow() {
@@ -124,7 +121,7 @@ public class MainMenuWindowManager {
             params.format = PixelFormat.RGBA_8888;
             params.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
                     | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM;
-            params.gravity = Gravity.TOP;
+            params.gravity = Gravity.TOP| Gravity.LEFT;
 //            params.flags = WindowManager.LayoutParams.FLAG_FULLSCREEN;
 //            params.format = PixelFormat.TRANSPARENT;
 //            Point point = new Point();
@@ -143,7 +140,7 @@ public class MainMenuWindowManager {
             params.x = 0;
             if (ScreenUtils.isLandscape()) {
                 //横屏
-                params.y = displayHeight - mainMenuView.mHeight + 30;
+                params.y = displayHeight - mainMenuView.mHeight;
             } else {
                 params.y = displayHeight - mainMenuView.mHeight;
             }
@@ -163,44 +160,5 @@ public class MainMenuWindowManager {
             default:
                 break;
         }
-    }
-
-    /**
-     * 监听语音事件，变换View
-     *
-     * @param event
-     */
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onTeddyVoiceEvent(VoiceEvent event) {
-        SitechDevLog.i(TAG, "onTeddyVoiceEvent============" + event.getEventKey());
-        mainMenuView.refreshTeddyView(event);
-//        switch (event.getEventKey()) {
-//            //唤醒成功
-//            case VoiceEvent.EVENT_VOICE_MVW_SUCCESS:
-//                mainMenuView.refreshTeddyView(event);
-//                break;
-//            //开始识别
-//            case VoiceEvent.EVENT_VOICE_START_SR:
-//                mainMenuView.refreshTeddyView(event);
-//                break;
-//            //结束识别，返回结果
-//            case VoiceEvent.EVENT_VOICE_SR_SUCCESS:
-//                mainMenuView.refreshTeddyView(event);
-//                break;
-//            //结束识别
-//            case VoiceEvent.EVENT_VOICE_SR_OVER:
-//                mainMenuView.refreshTeddyView(event);
-//                break;
-//            //停止语音
-//            case VoiceEvent.EVENT_VOICE_STOP_VOICE:
-//                mainMenuView.refreshTeddyView(event);
-//                break;
-//            //启用语音
-//            case VoiceEvent.EVENT_VOICE_RESUME_VOICE:
-//                mainMenuView.refreshTeddyView(event);
-//                break;
-//            default:
-//                break;
-//        }
     }
 }

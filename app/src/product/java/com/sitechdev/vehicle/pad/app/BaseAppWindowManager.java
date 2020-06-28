@@ -67,6 +67,7 @@ public class BaseAppWindowManager {
         switch (event.getEventKey()) {
             case WindowEvent.EVENT_WINDOW_MAIN_MENU:
                 MainMenuWindowManager.getInstance().show();
+                TeddyWindowManager.getInstance().show();
                 break;
             case WindowEvent.EVENT_WINDOW_STATUS_BAR_MENU:
                 AppSignalWindowManager.getInstance().show();
@@ -91,26 +92,31 @@ public class BaseAppWindowManager {
                         AppSignalWindowManager.getInstance().showForcibly();
                         MainMenuWindowManager.getInstance().showForcibly();
                         MainControlPanelWindowManager.getInstance().showForcibly();
+                        TeddyWindowManager.getInstance().show();
                         return;
                     }
                 }
                 AppSignalWindowManager.getInstance().show();
                 MainMenuWindowManager.getInstance().show();
+                TeddyWindowManager.getInstance().show();
                 MainControlPanelWindowManager.getInstance().show();
                 break;
             case WindowEvent.EVENT_WINDOW_APP_BACKGROUD:
                 AppSignalWindowManager.getInstance().hide();
                 MainMenuWindowManager.getInstance().hide();
+                TeddyWindowManager.getInstance().hide();
                 MainControlPanelWindowManager.getInstance().hide();
                 break;
             //输入法弹出时
             case WindowEvent.EVENT_WINDOW_INPUT_SHOW_STATE:
                 MainMenuWindowManager.getInstance().hide();
+                TeddyWindowManager.getInstance().hide();
                 MainControlPanelWindowManager.getInstance().mustHiddenView();
                 break;
             //输入法隐藏时
             case WindowEvent.EVENT_WINDOW_INPUT_HIDDEN_STATE:
                 MainMenuWindowManager.getInstance().show();
+                TeddyWindowManager.getInstance().show();
                 MainControlPanelWindowManager.getInstance().show();
                 break;
             default:

@@ -5,8 +5,6 @@
 
 package com.common.util;
 
-import android.os.FileUtils;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

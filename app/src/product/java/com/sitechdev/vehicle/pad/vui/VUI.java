@@ -133,24 +133,11 @@ public class VUI implements VUIWindow.OnWindowHideListener {
             VUI.log("AIUIAgent -> NOT READY");
             return;
         }
-//            if (null != topActivity && null != topActivity.get()){
-//                if (topActivity.get() instanceof FragmentActivity){
-//                    if (null == vuiDialog){
-//                        vuiDialog = VUIDialogFragment.newInstance(null);
-//                        setOnVolumeChangeListener(vuiDialog);
-//                    }
-//                    FragmentActivity activity = (FragmentActivity) topActivity.get();
-//                    if (null != vuiDialog && null != activity){
-//                        vuiDialog.show(activity.getSupportFragmentManager(), "");
-//                    }
-//                }
-//            }
         if (null == vuiWindow) {
             vuiWindow = VUIWindow.getInstance();
             vuiWindow.setOnWindowHideListener(VUI.this::onWindowHide);
         }
         VoiceSourceManager.getInstance().pause(VoiceSourceManager.CONTENT);
-//        vuiWindow.show();
         mWakeupEngine.stop();
         mAIUIEngine.ttsStart(StringUtils.isEmpty(ttsText) ? VoiceConstants.TTS_RESPONSE_DEFAULT_TEXT : ttsText);
         isWakeupTTS = true;

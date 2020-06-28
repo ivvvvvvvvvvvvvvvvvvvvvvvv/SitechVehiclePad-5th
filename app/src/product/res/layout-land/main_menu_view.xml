@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/id_main_menu_view"
-    android:layout_width="match_parent"
-    android:layout_height="300pt"
-    android:layout_marginRight="167pt"
-    android:layout_marginBottom="30pt"
+    android:layout_width="1062pt"
+    android:layout_height="160pt"
+    android:layout_marginBottom="5pt"
     android:paddingLeft="61pt"
     android:paddingRight="61pt">
 
@@ -52,112 +50,5 @@
         android:layout_marginLeft="110pt"
         android:layout_toRightOf="@id/id_btn_driver"
         android:src="@drawable/ico_btn_apps" />
-
-    <!--    <ImageView-->
-    <!--        android:id="@+id/id_btn_teddy"-->
-    <!--        android:layout_width="167px"-->
-    <!--        android:layout_height="243px"-->
-    <!--        android:layout_alignParentRight="true"-->
-    <!--        android:layout_alignParentBottom="true"-->
-    <!--        android:scaleType="centerCrop"-->
-    <!--        android:src="@drawable/iv_teddy" />-->
-
-    <RelativeLayout
-        android:id="@+id/id_Teddy_Content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginLeft="80pt"
-        android:layout_marginRight="10pt"
-        android:layout_toRightOf="@+id/id_btn_apps">
-
-        <RelativeLayout
-            android:id="@+id/id_teddy_default_content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="visible">
-
-            <com.sitechdev.vehicle.pad.view.SkinTextView
-                android:id="@+id/id_Teddy_Tip_1"
-                android:layout_width="311pt"
-                android:layout_height="92pt"
-                android:background="@drawable/bg_btn_teddy_ask_land"
-                android:gravity="center"
-                android:text="今天天气怎么样"
-                android:textColor="#499AC8"
-                android:textSize="32pt" />
-
-            <com.sitechdev.vehicle.pad.view.SkinTextView
-                android:id="@+id/id_Teddy_Tip_2"
-                android:layout_width="311pt"
-                android:layout_height="92pt"
-                android:layout_marginLeft="15pt"
-                android:layout_toRightOf="@id/id_Teddy_Tip_1"
-                android:background="@drawable/bg_btn_teddy_ask_land"
-                android:gravity="center"
-                android:text="导航回家"
-                android:textColor="#499AC8"
-                android:textSize="32pt" />
-        </RelativeLayout>
-
-        <!-- 识别的view 识别语句的应答-->
-        <RelativeLayout
-            android:id="@+id/id_teddy_sr_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone">
-
-            <com.sitechdev.vehicle.pad.view.VolumeView2
-                android:id="@+id/id_teddy_sr_volume_content"
-                android:layout_width="wrap_content"
-                android:layout_height="46pt"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="top" />
-
-            <com.sitechdev.vehicle.pad.view.SkinTextView
-                android:id="@+id/id_teddy_sr_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/id_teddy_sr_volume_content"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10pt"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:maxLines="1"
-                android:paddingLeft="50pt"
-                android:paddingRight="50pt"
-                android:textColor="#499AC8"
-                android:textSize="30pt"
-                android:visibility="gone"
-                tools:text="打开车窗透气" />
-        </RelativeLayout>
-
-        <!-- tts的view 包含唤醒的应答-->
-        <RelativeLayout
-            android:id="@+id/id_teddy_tts_content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:visibility="gone">
-
-            <com.sitechdev.vehicle.pad.view.SkinTextView
-                android:id="@+id/id_teddy_tts_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_btn_teddy_ask_land"
-                android:ellipsize="end"
-                android:gravity="left"
-                android:maxLines="2"
-                android:paddingLeft="30pt"
-                android:paddingTop="20pt"
-                android:paddingRight="30pt"
-                android:paddingBottom="20pt"
-                android:textColor="#499AC8"
-                android:textSize="30pt"
-                tools:text="好的" />
-        </RelativeLayout>
-    </RelativeLayout>
 
 </RelativeLayout>

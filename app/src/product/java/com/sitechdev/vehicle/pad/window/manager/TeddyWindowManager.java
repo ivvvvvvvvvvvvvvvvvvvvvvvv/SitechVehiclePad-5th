@@ -6,10 +6,12 @@ import android.view.Gravity;
 import android.view.WindowManager;
 
 import com.blankj.utilcode.util.ScreenUtils;
+import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.app.BaseWindow;
 import com.sitechdev.vehicle.pad.event.ScreenEvent;
+import com.sitechdev.vehicle.pad.event.VoiceEvent;
 import com.sitechdev.vehicle.pad.window.view.FloatTeddyView;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -48,6 +50,7 @@ public class TeddyWindowManager {
     }
 
     private TeddyWindowManager() {
+        EventBusUtils.register(this);
     }
 
     public void init(Context context) {
@@ -98,14 +101,18 @@ public class TeddyWindowManager {
 
             if (ScreenUtils.isLandscape()) {
                 //横屏
-                params.gravity = Gravity.TOP;
+                params.gravity = Gravity.CENTER;
                 params.x = displayWidth - floatView.mWidth - 50;
                 params.y = displayHeight - floatView.mHeight;
             } else {
                 params.gravity = Gravity.TOP | Gravity.LEFT;
                 params.x = 60;
-                params.y = displayHeight - floatView.mHeight - 150;
+                params.y = displayHeight - floatView.mHeight - 120;
             }
+            SitechDevLog.i(TAG, "-------------params.width()>" + params.width);
+            SitechDevLog.i(TAG, "-------------params.height()>" + params.height);
+            SitechDevLog.i(TAG, "-------------params.x()>" + params.x);
+            SitechDevLog.i(TAG, "-------------params.y()>" + params.y);
 
         }
         return floatView;
@@ -138,5 +145,16 @@ public class TeddyWindowManager {
             floatView = null;
             params = null;
         }
+    }
+
+    /**
+     * 监听语音事件，变换View
+     *
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onTeddyVoiceEvent(VoiceEvent event) {
+        SitechDevLog.i(TAG, "onTeddyVoiceEvent============" + event.getEventKey());
+        floatView.refreshTeddyView(event);
     }
 }

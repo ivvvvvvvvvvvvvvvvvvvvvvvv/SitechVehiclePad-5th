@@ -75,6 +75,7 @@ import com.sitechdev.vehicle.pad.vui.VoiceConstants;
 import com.sitechdev.vehicle.pad.window.manager.AppSignalWindowManager;
 import com.sitechdev.vehicle.pad.window.manager.MainControlPanelWindowManager;
 import com.sitechdev.vehicle.pad.window.manager.MainMenuWindowManager;
+import com.sitechdev.vehicle.pad.window.manager.TeddyWindowManager;
 import com.sitechdev.vehicle.pad.window.view.PersonLoginWindow;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -345,6 +346,7 @@ public class MainActivity extends BaseActivity
             if (Settings.canDrawOverlays(AppApplication.getContext())) {
                 AppSignalWindowManager.getInstance().show();
                 MainMenuWindowManager.getInstance().show();
+                TeddyWindowManager.getInstance().show();
                 MainControlPanelWindowManager.getInstance().show();
             }
         }
