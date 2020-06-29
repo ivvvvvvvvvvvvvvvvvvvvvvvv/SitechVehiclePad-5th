@@ -278,3 +278,9 @@
 #----------   droidsonroids  -------------
 -keep public class pl.droidsonroids.gif.GifIOException{<init>(int);}
 -keep class pl.droidsonroids.gif.GifInfoHandle{<init>(long,int,int,int);}
+
+#----------蓝牙相关SDK-------------
+-dontwarn com.my.hw.**
+-dontwarn com.common.**
+-keep class com.my.hw.** { *; }
+-keep class com.common.** { *; }
