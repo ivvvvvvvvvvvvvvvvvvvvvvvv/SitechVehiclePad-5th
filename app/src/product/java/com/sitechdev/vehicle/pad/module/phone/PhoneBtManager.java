@@ -25,7 +25,7 @@ import com.sitechdev.vehicle.pad.module.phone.utils.PinyinComparator;
 import java.util.Collections;
 import java.util.List;
 
-import static com.sitechdev.vehicle.pad.event.SysEvent.EB_SYS_DEV_STATE;
+import static com.sitechdev.vehicle.pad.event.SysEvent.EB_SYS_BT_STATE;
 
 public class PhoneBtManager {
     private static PhoneBtManager INSTANCE;
@@ -85,7 +85,7 @@ public class PhoneBtManager {
                             queryBtInfo();
                             if (!connect) {
                                 logTest("woaini ---:duankai");
-                                EventBusUtils.postEvent(new SysEvent(EB_SYS_DEV_STATE, false));
+                                EventBusUtils.postEvent(new SysEvent(EB_SYS_BT_STATE, false));
                             }
                         }
                         if (!TextUtils.isEmpty(param3) && !param3.equals("null")) {
@@ -96,7 +96,7 @@ public class PhoneBtManager {
                     case ATBluetooth.RETURN_HFP_CONNECT_NAME: {
                         SettingConfig.getInstance().setConnectBtName(param3);
                         logTest("woaini ---:lianjie:"+param3);
-                        EventBusUtils.postEvent(new SysEvent(EB_SYS_DEV_STATE, true));
+                        EventBusUtils.postEvent(new SysEvent(EB_SYS_BT_STATE, true));
                     }
                     break;
                     default:

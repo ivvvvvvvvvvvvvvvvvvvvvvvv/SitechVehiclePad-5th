@@ -57,7 +57,7 @@ public class SysEvent extends BaseEvent<String> {
      * 参   数：DEV_
      * 响应时间：异步执行
      */
-    public static final String EB_SYS_DEV_STATE = "EB_SYS_DEV_STATE";
+    public static final String EB_SYS_BT_STATE = "EB_SYS_BT_STATE";
 
     /**
      * 再次加载通话记录
