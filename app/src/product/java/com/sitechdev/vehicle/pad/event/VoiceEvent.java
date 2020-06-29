@@ -53,6 +53,10 @@ public class VoiceEvent extends BaseEvent {
      * 上传词典事件
      */
     public static final String EVENT_VOICE_UPLOAD = "EVENT_VOICE_UPLOAD";
+    /**
+     * 开启/关闭语音唤醒
+     */
+    public static final String EVENT_VOICE_AUTO_MVW_SWITCH = "EVENT_VOICE_AUTO_MVW_SWITCH";
 
     private String eventKey = "";
     private Object eventValue = null;

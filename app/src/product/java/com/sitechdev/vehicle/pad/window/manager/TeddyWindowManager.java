@@ -12,6 +12,8 @@ import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.app.BaseWindow;
 import com.sitechdev.vehicle.pad.event.ScreenEvent;
 import com.sitechdev.vehicle.pad.event.VoiceEvent;
+import com.sitechdev.vehicle.pad.module.setting.teddy.TeddyConfig;
+import com.sitechdev.vehicle.pad.vui.VoiceConstants;
 import com.sitechdev.vehicle.pad.window.view.FloatTeddyView;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -23,7 +25,7 @@ import org.greenrobot.eventbus.ThreadMode;
  */
 public class TeddyWindowManager {
 
-    private static final String TAG = TeddyWindowManager.class.getSimpleName();
+    private static final String TAG = VoiceConstants.TEDDY_TAG;
 
     private static TeddyWindowManager manager;
 
@@ -156,5 +158,20 @@ public class TeddyWindowManager {
     public void onTeddyVoiceEvent(VoiceEvent event) {
         SitechDevLog.i(TAG, "onTeddyVoiceEvent============" + event.getEventKey());
         floatView.refreshTeddyView(event);
+        switch (event.getEventKey()) {
+            //停止语音
+            case VoiceEvent.EVENT_VOICE_STOP_VOICE:
+                break;
+            //启用语音
+            case VoiceEvent.EVENT_VOICE_RESUME_VOICE:
+                break;
+            case VoiceEvent.EVENT_VOICE_AUTO_MVW_SWITCH:
+                boolean autoSwitch = (boolean) event.getEventValue();
+                SitechDevLog.i(TAG, "EVENT_VOICE_AUTO_MVW_SWITCH=========autoSwitch===" + autoSwitch);
+                TeddyConfig.setAutoMvwStatus(autoSwitch);
+                break;
+            default:
+                break;
+        }
     }
 }

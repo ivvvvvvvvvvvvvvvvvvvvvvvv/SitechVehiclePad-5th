@@ -158,7 +158,7 @@ public class StringUtils {
     }
 
     public static boolean isEmpty(String input) {
-        return TextUtils.isEmpty(input);
+        return TextUtils.isEmpty(input) || "null".equalsIgnoreCase(input);
     }
 
     /**

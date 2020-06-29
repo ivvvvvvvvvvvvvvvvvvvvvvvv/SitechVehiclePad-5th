@@ -1,10 +1,13 @@
 package com.sitechdev.vehicle.pad.module.setting.teddy;
 
-import android.content.Context;
 import android.text.TextUtils;
 
+import com.sitechdev.vehicle.lib.util.ParamsUtil;
 import com.sitechdev.vehicle.lib.util.SPUtils;
+import com.sitechdev.vehicle.lib.util.SitechDevLog;
+import com.sitechdev.vehicle.lib.util.StringUtils;
 import com.sitechdev.vehicle.pad.app.AppApplication;
+import com.sitechdev.vehicle.pad.vui.VoiceConstants;
 
 
 /**
@@ -72,6 +75,11 @@ public class TeddyConfig {
     public static TEDDY_ERROR_TYPE teddyErrorType = TEDDY_ERROR_TYPE.NORMAL;
 
     /**
+     * 是否允许语音被声音唤醒。true=允许
+     */
+    public static boolean isEnableTeddyWakeUp = true;
+
+    /**
      * 语音功能错误类型
      */
     public enum TEDDY_ERROR_TYPE {
@@ -117,15 +125,32 @@ public class TeddyConfig {
         MIC_BY_OTHER_DEVICE;
     }
 
-
-
     /**
      * 获取当前自动唤醒开关
      *
      * @return true==当前为开启状态
      */
-    public static boolean getAutoMVWStatus(Context context) {
-        return Boolean.parseBoolean((String) SPUtils.getData(context, TeddyConstants.TEDDY_SPKEY_MVW_AUTOOPEN, TeddyConstants.TEDDY_AUTOMVW_OPEN));
+    public static boolean getAutoMVWStatus() {
+        String isAutoMvwStatus = ParamsUtil.getStringData(TeddyConstants.TEDDY_SPKEY_MVW_AUTOOPEN);
+        SitechDevLog.i(VoiceConstants.TEDDY_TAG, "初始唤醒开关状态==>" + isAutoMvwStatus);
+        if (StringUtils.isEmpty(isAutoMvwStatus)) {
+            isEnableTeddyWakeUp = true;
+        } else {
+            isEnableTeddyWakeUp = Boolean.parseBoolean(isAutoMvwStatus);
+        }
+        SitechDevLog.i(VoiceConstants.TEDDY_TAG, "唤醒开关状态==>" + isEnableTeddyWakeUp);
+        return isEnableTeddyWakeUp;
+    }
+
+    /**
+     * 保存当前自动唤醒开关状态
+     *
+     * @return true==当前为开启状态
+     */
+    public static void setAutoMvwStatus(boolean autoMvw) {
+        isEnableTeddyWakeUp = autoMvw;
+        SitechDevLog.i(VoiceConstants.TEDDY_TAG, "重置唤醒开关状态==>" + isEnableTeddyWakeUp);
+        ParamsUtil.setData(TeddyConstants.TEDDY_SPKEY_MVW_AUTOOPEN, String.valueOf(autoMvw));
     }
 
     /**

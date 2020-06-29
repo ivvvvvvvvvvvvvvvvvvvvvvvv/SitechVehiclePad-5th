@@ -22,12 +22,15 @@ import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.BrightnessUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.NetworkUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
+import com.sitechdev.vehicle.pad.event.VoiceEvent;
 import com.sitechdev.vehicle.pad.manager.VolumeControlManager;
 import com.sitechdev.vehicle.pad.module.setting.bt.BtManagers;
+import com.sitechdev.vehicle.pad.module.setting.teddy.TeddyConfig;
 import com.sitechdev.vehicle.pad.util.AppUtil;
 import com.sitechdev.vehicle.pad.view.VerticalSeekBarForSkin;
 import com.sitechdev.vehicle.pad.window.manager.MainControlPanelWindowManager;
@@ -418,7 +421,7 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
         //移动网络
         mobileNetControlView.setActivated(NetworkUtils.getMobileDataEnabled());
         //TODO 使用Teddy开关
-        mTeddySwitchControlView.setActivated(true);
+        mTeddySwitchControlView.setActivated(TeddyConfig.getAutoMVWStatus());
         //蓝牙是否开启
         if (BluetoothAdapter.getDefaultAdapter() != null) {
             bluetoothControlView.setActivated(BluetoothAdapter.getDefaultAdapter().isEnabled());
@@ -518,14 +521,9 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
             case R.id.id_teddy_Btn:
                 //开启或关闭Teddy语音唤醒
                 isActivated = mTeddySwitchControlView.isActivated();
-                if (isActivated) {
-                    //todo 关闭Teddy语音唤醒
-//                    mTeddySwitchControlView.setActivated(NetworkUtils.getMobileDataEnabled());
-                } else {
-                    //todo 打开Teddy语音唤醒
-//                    mTeddySwitchControlView.setActivated(NetworkUtils.getMobileDataEnabled());
-                }
+                SitechDevLog.i(TAG, "语音开关状态=========isActivated===" + isActivated);
                 mTeddySwitchControlView.setActivated(!isActivated);
+                EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_AUTO_MVW_SWITCH, !isActivated));
                 break;
             case R.id.id_eco_content:
                 isActivated = ecoView.isActivated();

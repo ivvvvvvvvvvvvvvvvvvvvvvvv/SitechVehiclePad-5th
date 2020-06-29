@@ -15,10 +15,10 @@ import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.event.VoiceEvent;
 import com.sitechdev.vehicle.pad.util.AppUtil;
-import com.sitechdev.vehicle.pad.vui.VUI;
-import com.sitechdev.vehicle.pad.vui.VoiceConstants;
 import com.sitechdev.vehicle.pad.view.SkinTextView;
 import com.sitechdev.vehicle.pad.view.VolumeView2;
+import com.sitechdev.vehicle.pad.vui.VUI;
+import com.sitechdev.vehicle.pad.vui.VoiceConstants;
 import com.sitechdev.vehicle.pad.window.manager.TeddyWindowManager;
 
 
@@ -28,7 +28,7 @@ import com.sitechdev.vehicle.pad.window.manager.TeddyWindowManager;
  */
 public class FloatTeddyView extends RelativeLayout implements View.OnClickListener {
 
-    private final String TAG = FloatTeddyView.class.getSimpleName();
+    private final String TAG = VoiceConstants.TEDDY_TAG;
     private TeddyWindowManager manager;
     private ImageView voiceIconIv;
 
@@ -195,11 +195,9 @@ public class FloatTeddyView extends RelativeLayout implements View.OnClickListen
                 break;
             //停止语音
             case VoiceEvent.EVENT_VOICE_STOP_VOICE:
-                SitechDevLog.i(VoiceConstants.TEDDY_TAG, "VoiceEvent.EVENT_VOICE_STOP_VOICE===");
                 break;
             //启用语音
             case VoiceEvent.EVENT_VOICE_RESUME_VOICE:
-                SitechDevLog.i(VoiceConstants.TEDDY_TAG, "VoiceEvent.EVENT_VOICE_RESUME_VOICE===");
                 break;
             default:
                 break;

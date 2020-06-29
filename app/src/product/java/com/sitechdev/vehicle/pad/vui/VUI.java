@@ -37,6 +37,7 @@ import com.sitechdev.vehicle.pad.module.login.util.LoginUtils;
 import com.sitechdev.vehicle.pad.module.main.MainActivity;
 import com.sitechdev.vehicle.pad.module.music.MusicMainActivity;
 import com.sitechdev.vehicle.pad.module.music.MusicManager;
+import com.sitechdev.vehicle.pad.module.setting.teddy.TeddyConfig;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppUtil;
@@ -85,6 +86,10 @@ public class VUI implements VUIWindow.OnWindowHideListener {
         @Override
         public void onResult(WakeuperResult result) {
             log("WakeuperListener onResult");
+            if (!TeddyConfig.getAutoMVWStatus()) {
+                VUI.log("onVoiceWakeup-->不允许通过语音唤醒");
+                return;
+            }
             EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_MVW_SUCCESS, VoiceConstants.TTS_RESPONSE_DEFAULT_TEXT));
 //            onVoiceWakeup();
         }
