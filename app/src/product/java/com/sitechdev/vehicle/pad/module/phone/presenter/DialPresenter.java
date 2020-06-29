@@ -66,13 +66,13 @@ public class DialPresenter extends DialContract.Presenter {
         if (null == event) {
             return;
         }
-        boolean isBtEvent = SysEvent.EB_SYS_RESTORE_FACTORY.equals(event.getEvent()) || SysEvent.EB_SYS_DEV_STATE.equals(event.getEvent());
+        boolean isBtEvent = SysEvent.EB_SYS_RESTORE_FACTORY.equals(event.getEvent()) || SysEvent.EB_SYS_BT_STATE.equals(event.getEvent());
         if (!isBtEvent) {
             return;
         }
         if (SysEvent.EB_SYS_RESTORE_FACTORY.equals(event.getEvent())) {
             //TODO cold 恢复出厂设置所需动作
-        } else if (SysEvent.EB_SYS_DEV_STATE.equals(event.getEvent())) {
+        } else if (SysEvent.EB_SYS_BT_STATE.equals(event.getEvent())) {
             //TODO cold 蓝牙连接状态变化所需动作
 //            if (event.getDataCtrlMask() == SysEvent.DEV_BT) {
 //                if (!DataFactory.produceMemData().getDeviceState().isBTConn) {

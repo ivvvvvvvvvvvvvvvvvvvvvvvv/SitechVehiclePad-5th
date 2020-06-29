@@ -14,6 +14,7 @@ import com.sitechdev.vehicle.pad.event.BTEvent;
 import com.sitechdev.vehicle.pad.event.SysEvent;
 import com.sitechdev.vehicle.pad.model.contract.PhoneCallContract;
 import com.sitechdev.vehicle.pad.model.phone.BTModel;
+import com.sitechdev.vehicle.pad.model.phone.CallingInfo;
 import com.sitechdev.vehicle.pad.model.phone.Contact;
 import com.sitechdev.vehicle.pad.module.phone.BtGlobalRef;
 import com.sitechdev.vehicle.pad.module.phone.PhoneBtManager;
@@ -114,9 +115,14 @@ public class PhoneCallPresenter implements PhoneCallContract,
 
         switch (event.getEvent()) {
             case BTEvent.PHONE_CALL_STATE:
+                CallingInfo info = (CallingInfo) event.getData();
                 String phoneNumber = "null";
+                @BTEvent.PhoneState int state = 0;
+                if(null != info){
+                    phoneNumber = info.getPhoneNum();
+                    state = info.getState();
+                }
                 int which = 0;
-                @BTEvent.PhoneState int state = (int) event.getData();
                 logTest("onBTEvent-----state:" + state);
                 switch (state) {
                     case BTEvent.INCOMING:

@@ -18,6 +18,7 @@ import com.sitechdev.vehicle.pad.event.BTEvent;
 import com.sitechdev.vehicle.pad.event.SysEvent;
 import com.sitechdev.vehicle.pad.event.TeddyEvent;
 import com.sitechdev.vehicle.pad.model.phone.CallLog;
+import com.sitechdev.vehicle.pad.model.phone.CallingInfo;
 import com.sitechdev.vehicle.pad.model.phone.Contact;
 import com.sitechdev.vehicle.pad.module.phone.utils.IndexUtils;
 import com.sitechdev.vehicle.pad.module.phone.utils.PinyinComparator;
@@ -58,24 +59,35 @@ public class PhoneBtManager {
                     }
                     break;
                     case ATBluetooth.RETURN_CALLING: {//拨出
+                        CallingInfo info = new CallingInfo();
+                        info.setPhoneNum(param3);
+                        info.setState(BTEvent.ACTIVE);
                         EventBusUtils.postEvent(new BTEvent(BTEvent.PHONE_CALL_STATE,
-                                BTEvent.ACTIVE));
+                                info));
                     }
                     break;
                     case ATBluetooth.RETURN_CALL_INCOMING: {//打进电话
+                        CallingInfo info = new CallingInfo();
+                        info.setPhoneNum(param3);
+                        info.setState(BTEvent.INCOMING);
                         EventBusUtils.postEvent(new BTEvent(BTEvent.PHONE_CALL_STATE,
-                                BTEvent.INCOMING));
+                                info));
                     }
                     break;
                     case ATBluetooth.RETURN_CALL_OUT: {//拨出
+                        CallingInfo info = new CallingInfo();
+                        info.setPhoneNum(param3);
+                        info.setState(BTEvent.DIALING);
                         EventBusUtils.postEvent(new BTEvent(BTEvent.PHONE_CALL_STATE,
-                                BTEvent.DIALING));
+                                info));
                     }
                     break;
                     case ATBluetooth.RETURN_CALL_END: {//通话结束
+                        CallingInfo info = new CallingInfo();
+                        info.setPhoneNum(param3);
+                        info.setState(BTEvent.HANGUP);
                         EventBusUtils.postEvent(new BTEvent(BTEvent.PHONE_CALL_STATE,
-                                BTEvent.HANGUP));
-                        logTest("");
+                                info));
                     }
                     break;
                     case ATBluetooth.RETURN_HFP_INFO: {//连接状态
