@@ -113,7 +113,7 @@ public class ATBluetooth {
     public static final int REQUEST_DISCOVERABLE = 119;
     public static final int REQUEST_DSCD = 149;
     public static final int REQUEST_DTMF = 68;
-    public static final int REQUEST_EJECT = 65;
+    public static final int REQUEST_REJECT = 65;
     public static final int REQUEST_HANG = 66;
     public static final int REQUEST_HFP = 6;
     public static final int REQUEST_IF_AUTO_CONNECT = 109;

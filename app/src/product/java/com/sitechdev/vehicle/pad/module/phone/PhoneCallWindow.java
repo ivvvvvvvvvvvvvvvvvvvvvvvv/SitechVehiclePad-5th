@@ -91,7 +91,7 @@ public class PhoneCallWindow implements PhoneCallPresenter.UICallback, View.OnCl
         phoneWindowParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
         phoneWindowParams.format = PixelFormat.RGBA_8888;
         phoneWindowParams.width = 510;
-        phoneWindowParams.height = 590;
+        phoneWindowParams.height = 890;
         phoneWindowParams.windowAnimations = R.style.phoneCallAnimStyle;
         phoneWindowParams.gravity = Gravity.CENTER;
         phoneWindowParams.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;

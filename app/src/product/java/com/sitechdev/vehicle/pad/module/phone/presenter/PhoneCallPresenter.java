@@ -87,6 +87,10 @@ public class PhoneCallPresenter implements PhoneCallContract,
         PhoneBtManager.getInstance().hangup();
     }
 
+    public void reject(){
+        PhoneBtManager.getInstance().reject();
+    }
+
     public void micMute() {
         PhoneBtManager.getInstance().micMute();
     }

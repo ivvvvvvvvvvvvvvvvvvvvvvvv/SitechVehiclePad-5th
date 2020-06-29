@@ -163,20 +163,22 @@ public class PhoneBtManager {
      * 接听电话
      */
     public void answer() {
-
+        logTest("wocaonima AT#");
+        mATBluetooth.write(ATBluetooth.REQUEST_ANSWER);
     }
 
     /**
      * 挂断电话
      */
     public void hangup() {
-
+        mATBluetooth.write(ATBluetooth.REQUEST_HANG);
     }
 
     /**
      * 静音
      */
     public void micMute() {
+        mATBluetooth.write(ATBluetooth.REQUEST_MIC);
     }
 
     private void handleCallLogCallback(int type, String dateAndTime, String nameAndNum) {
@@ -261,8 +263,13 @@ public class PhoneBtManager {
      * 拨打分机号
      */
     public void adtSwitch() {
+        mATBluetooth.write(ATBluetooth.REQUEST_DTMF);
     }
 
     public void sendDtmf(char code) {
+    }
+
+    public void reject() {
+        mATBluetooth.write(ATBluetooth.REQUEST_REJECT);
     }
 }
