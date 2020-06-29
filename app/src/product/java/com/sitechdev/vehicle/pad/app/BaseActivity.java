@@ -64,6 +64,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         //屏幕常亮
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         //
         BarUtils.setStatusBarVisibility(this, false);
         BarUtils.setNavBarVisibility(this, false);

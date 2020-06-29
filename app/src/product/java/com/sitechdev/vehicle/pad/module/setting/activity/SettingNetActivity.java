@@ -17,7 +17,6 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -48,12 +47,10 @@ import com.sitechdev.vehicle.pad.util.PermissionHelper;
 import com.sitechdev.vehicle.pad.view.CustomSwitchButton;
 
 import java.lang.ref.WeakReference;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Scanner;
 
 import static android.net.NetworkInfo.DetailedState.CONNECTED;
 import static android.net.NetworkInfo.DetailedState.DISCONNECTED;
@@ -165,7 +162,7 @@ public class SettingNetActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onSwithChecked(int viewId, boolean isChecked) {
         if (viewId == R.id.setting_net_gprs_swith) {
-            setSwitch(isChecked);
+            NetworkUtils.setMobileDataEnabled(isChecked);
         }
     }
 
@@ -760,31 +757,6 @@ public class SettingNetActivity extends BaseActivity implements View.OnClickList
             PermissionHelper.requestPermissons(this, rPermissionsList,
                     AppConst.PERMISSION_REQ_CODE);
             return true;
-        }
-    }
-
-    /**
-     * 流量开关，需要系统权限
-     *
-     * @param enable
-     */
-    public void setSwitch(boolean enable) {
-        TelephonyManager teleManager =
-                (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        Class[] getArgArray = null;
-        Class[] setArgArray = new Class[]{boolean.class};
-        Object[] getArgInvoke = null;
-        try {
-            Method mGetMethod = teleManager.getClass().getMethod("getDataEnabled", getArgArray);
-            Method mSetMethod = teleManager.getClass().getMethod("setDataEnabled", setArgArray);
-            boolean isOpen = (Boolean) mGetMethod.invoke(teleManager, getArgInvoke);
-            if (isOpen) {
-                mSetMethod.invoke(teleManager, false);
-            } else {
-                mSetMethod.invoke(teleManager, true);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 

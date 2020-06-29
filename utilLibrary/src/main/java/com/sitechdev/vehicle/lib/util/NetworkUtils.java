@@ -11,6 +11,8 @@ import android.support.annotation.RequiresPermission;
 import android.telephony.TelephonyManager;
 import android.text.format.Formatter;
 
+import com.blankj.utilcode.util.Utils;
+
 import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.InterfaceAddress;
@@ -542,5 +544,19 @@ public class NetworkUtils {
             sWifiManager = (WifiManager) AppUtils.getApp().getApplicationContext().getSystemService(WIFI_SERVICE);
         }
         return sWifiManager;
+    }
+
+    /**
+     * Return whether wifi is enabled.
+     * <p>Must hold {@code <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />}</p>
+     *
+     * @return {@code true}: enabled<br>{@code false}: disabled
+     */
+    @RequiresPermission(ACCESS_WIFI_STATE)
+    public static boolean getWifiEnabled() {
+        @SuppressLint("WifiManagerLeak")
+        WifiManager manager = (WifiManager) Utils.getApp().getSystemService(WIFI_SERVICE);
+        if (manager == null) return false;
+        return manager.isWifiEnabled();
     }
 }

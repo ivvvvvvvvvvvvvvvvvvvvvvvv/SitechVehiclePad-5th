@@ -20,9 +20,9 @@ import android.widget.SeekBar;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.BrightnessUtils;
-import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.sitechdev.vehicle.lib.util.NetworkUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
@@ -513,6 +513,7 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
 //                    mobileNetControlView.setActivated(NetworkUtils.getMobileDataEnabled());
                 }
                 mobileNetControlView.setActivated(!isActivated);
+                NetworkUtils.setMobileDataEnabled(!isActivated);
                 break;
             case R.id.id_teddy_Btn:
                 //开启或关闭Teddy语音唤醒

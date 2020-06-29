@@ -1,7 +1,6 @@
 package com.sitechdev.vehicle.pad.app;
 
 import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
 import android.media.AudioManager;
 import android.os.Bundle;
