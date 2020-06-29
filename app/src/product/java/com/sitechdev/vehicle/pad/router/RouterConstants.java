@@ -174,4 +174,9 @@ public interface RouterConstants {
 
     String MALL_SERVICE = "/mall_service/mall";
 
+    /**
+     * 电话界面
+     */
+    String PHONE_MAIN_PAGE = "/main/phone";
+
 }

@@ -143,4 +143,29 @@
         <item name="android:gravity">center</item>
         <item name="android:background">@drawable/selector_car_ctrl</item>
     </style>
+
+    <!--拨号键盘样式-->
+    <style name="DialNumStyle">
+        <item name="android:layout_width">@dimen/width_dial_num</item>
+        <item name="android:layout_height">@dimen/height_dial_num</item>
+        <item name="android:background">@drawable/shape_dial_num</item>
+        <item name="android:textColor">@drawable/select_dial_number</item>
+        <item name="android:textSize">@dimen/text_dial_num</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="BtImageButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@null</item>
+        <item name="android:contentDescription">@null</item>
+    </style>
+
+    <style name="DialIngStyle">
+        <item name="android:layout_width">97pt</item>
+        <item name="android:layout_height">97pt</item>
+        <item name="android:background">@null</item>
+        <item name="android:contentDescription">@null</item>
+    </style>
+
 </resources>

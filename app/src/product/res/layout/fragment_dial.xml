@@ -1,0 +1,130 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/phone_dial_edit_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/phone_dial_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@null"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="48pt" />
+    </RelativeLayout>
+
+    <TableLayout
+        android:id="@+id/tl_dial_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/phone_dial_edit_layout">
+
+        <TableRow>
+
+            <com.sitechdev.vehicle.pad.view.DialNumTextView
+                android:id="@+id/dialpad_key_one"
+                style="@style/DialNumStyle"
+                android:text="1" />
+
+            <com.sitechdev.vehicle.pad.view.DialNumTextView
+                android:id="@+id/dialpad_key_two"
+                style="@style/DialNumStyle"
+                android:layout_marginStart="12pt"
+                android:text="2" />
+
+            <com.sitechdev.vehicle.pad.view.DialNumTextView
+                android:id="@+id/dialpad_key_three"
+                style="@style/DialNumStyle"
+                android:layout_marginStart="12pt"
+                android:text="3" />
+        </TableRow>
+
+        <TableRow android:layout_marginTop="12pt">
+
+            <com.sitechdev.vehicle.pad.view.DialNumTextView
+                android:id="@+id/dialpad_key_four"
+                style="@style/DialNumStyle"
+                android:text="4" />
+
+            <com.sitechdev.vehicle.pad.view.DialNumTextView
+                android:id="@+id/dialpad_key_five"
+                style="@style/DialNumStyle"
+                android:layout_marginStart="12pt"
+                android:text="5" />
+
+            <com.sitechdev.vehicle.pad.view.DialNumTextView
+                android:id="@+id/dialpad_key_six"
+                style="@style/DialNumStyle"
+                android:layout_marginStart="12pt"
+                android:text="6" />
+        </TableRow>
+
+        <TableRow android:layout_marginTop="12pt">
+
+            <com.sitechdev.vehicle.pad.view.DialNumTextView
+                android:id="@+id/dialpad_key_seven"
+                style="@style/DialNumStyle"
+                android:text="7" />
+
+            <com.sitechdev.vehicle.pad.view.DialNumTextView
+                android:id="@+id/dialpad_key_eight"
+                style="@style/DialNumStyle"
+                android:layout_marginStart="12pt"
+                android:text="8" />
+
+            <com.sitechdev.vehicle.pad.view.DialNumTextView
+                android:id="@+id/dialpad_key_nine"
+                style="@style/DialNumStyle"
+                android:layout_marginStart="12pt"
+                android:text="9" />
+        </TableRow>
+
+        <TableRow android:layout_marginTop="12pt">
+
+            <com.sitechdev.vehicle.pad.view.DialNumTextView
+                android:id="@+id/dialpad_key_star"
+                style="@style/DialNumStyle"
+                android:includeFontPadding="false"
+                android:text="*"
+                android:textStyle="bold" />
+
+            <com.sitechdev.vehicle.pad.view.DialNumTextView
+                android:id="@+id/dialpad_key_zero"
+                style="@style/DialNumStyle"
+                android:layout_marginStart="12pt"
+                android:text="0" />
+
+            <com.sitechdev.vehicle.pad.view.DialNumTextView
+                android:id="@+id/dialpad_key_hash"
+                style="@style/DialNumStyle"
+                android:layout_marginStart="12pt"
+                android:includeFontPadding="false"
+                android:text="#"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow android:layout_marginTop="12pt">
+
+            <ImageView
+                android:id="@+id/dialpad_key_dial"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_dial_num"
+                android:layout_span="3"
+                android:background="@drawable/shape_dial_num"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_phone_dial" />
+        </TableRow>
+    </TableLayout>
+</android.support.constraint.ConstraintLayout>

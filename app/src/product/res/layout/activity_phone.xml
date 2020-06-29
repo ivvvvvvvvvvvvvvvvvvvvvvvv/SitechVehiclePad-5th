@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_kaola_play"
+    android:orientation="vertical"
+    android:paddingBottom="300pt"
+    tools:ignore="PxUsage">
+
+    <include
+        layout="@layout/common_phonel_title_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="45px" />
+
+    <LinearLayout
+        android:id="@+id/phone_content_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/phone_content_padding_left_right"
+        android:paddingRight="@dimen/phone_content_padding_left_right"
+        android:orientation="horizontal"
+        android:weightSum="959"
+        android:paddingTop="32pt">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/phone_view_pager"
+            android:layout_width="0pt"
+            android:layout_height="match_parent"
+            android:layout_weight="486"/>
+
+        <TextView
+            android:layout_width="0.5pt"
+            android:layout_height="match_parent"
+            android:background="@color/phone_line_color" />
+
+        <FrameLayout
+            android:id="@+id/phone_dialog"
+            android:layout_width="0pt"
+            android:layout_height="match_parent"
+            android:layout_weight="473" />
+
+    </LinearLayout>
+
+</LinearLayout>

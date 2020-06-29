@@ -15,10 +15,10 @@
     <dimen name="margin_back_left">25dp</dimen>
     <dimen name="margin_dialog_top">37dp</dimen>
 
-    <dimen name="width_dial_num">164dp</dimen>
-    <dimen name="height_dial_num">100dp</dimen>
-    <dimen name="padding_dial_num">12dp</dimen>
-    <dimen name="height_dial_contact">96dp</dimen>
+    <dimen name="width_dial_num">164pt</dimen>
+    <dimen name="height_dial_num">100pt</dimen>
+    <dimen name="padding_dial_num">12pt</dimen>
+    <dimen name="height_dial_contact">96pt</dimen>
     <dimen name="height_group_title">91dp</dimen>
     <dimen name="width_under_line">87dp</dimen>
     <dimen name="height_under_line">3dp</dimen>
@@ -26,10 +26,10 @@
     <dimen name="kaola_half_left_margin">82dp</dimen>
     <dimen name="controller_width">1151dp</dimen>
 
-    <dimen name="text_dial_num">51sp</dimen>
+    <dimen name="text_dial_num">51pt</dimen>
     <dimen name="text_dial_phone">32sp</dimen>
     <dimen name="text_sub_title">34pt</dimen>
-    <dimen name="text_phone_call">34sp</dimen>
+    <dimen name="text_phone_call">12pt</dimen>
     <dimen name="sub_title_size">17sp</dimen>
     <dimen name="text_ota_version">32sp</dimen>
     <dimen name="text_ota_title">36sp</dimen>

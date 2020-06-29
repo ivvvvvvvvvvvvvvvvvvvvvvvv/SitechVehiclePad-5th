@@ -233,7 +233,6 @@ public abstract class BtCmd {
             }
 
             if (var4 != 0) {
-                logTest("diao yong caooback 1");
                 this.mCallBack.callback(var4, var3, var10, var12);
             }
 

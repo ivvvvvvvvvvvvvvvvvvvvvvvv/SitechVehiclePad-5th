@@ -78,6 +78,7 @@ class Config {
             rxandroid          : 'io.reactivex.rxjava2:rxandroid:2.0.1',
             //sitech maven
             dataStatistics     : 'com.sitechdev.vehicle:datastatistics:1.0.10',
+            jpinyin                : 'com.sitechdev.vehicle:jpinyin:1.0.0',
             //androidUtilCode
             utilCode           : 'com.blankj:utilcode:1.29.0',
             FlycoTabLayout     : 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar',

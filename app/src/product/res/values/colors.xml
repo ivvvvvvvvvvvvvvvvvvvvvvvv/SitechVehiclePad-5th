@@ -134,4 +134,7 @@
     <color name="color_save_text_content">#F1F3F6</color>
 
     <color name="color_control_switch_bg">#CC0A1728</color>
+    <!--电话界面-->
+    <color name="phone_line_color">#6E6E80</color>
+
 </resources>

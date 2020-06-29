@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0f0"
+    android:paddingLeft="20pt"
+    android:paddingTop="11pt"
+    android:paddingRight="20pt"
+    android:paddingBottom="11pt">
+
+    <ImageView
+        android:id="@+id/iv_dial_bg"
+        android:layout_width="462pt"
+        android:layout_height="89pt"
+        android:src="@drawable/shape_dial_input"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/tv_dial_back"
+        android:layout_width="92pt"
+        android:layout_height="0pt"
+        android:layout_marginRight="28pt"
+        android:clickable="true"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_input_delete"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_dial_bg"
+        app:layout_constraintRight_toRightOf="@id/iv_dial_bg"
+        app:layout_constraintTop_toTopOf="@id/iv_dial_bg" />
+
+    <TextView
+        android:id="@+id/tv_dial_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="39pt"
+        android:text="17600111763"
+        android:textSize="32pt"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_dial_bg"
+        app:layout_constraintLeft_toLeftOf="@id/iv_dial_bg"
+        app:layout_constraintTop_toTopOf="@id/iv_dial_bg" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_contacts_list"
+        android:layout_width="0pt"
+        android:layout_marginTop="10pt"
+        android:layout_height="464pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/iv_dial_bg"
+        app:layout_constraintRight_toRightOf="@id/iv_dial_bg"
+        app:layout_constraintTop_toBottomOf="@+id/iv_dial_bg" />
+</android.support.constraint.ConstraintLayout>

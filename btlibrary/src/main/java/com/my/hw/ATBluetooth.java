@@ -37,6 +37,7 @@ public class ATBluetooth {
     public static final int GET_AV_INFO = 16;
     public static final int GET_HFP_INFO = 8;
     public static final int GET_HFP_INFO2 = 126;
+    public static final int GET_HFP_CONNECT_NAME = 127;
     public static final int GET_PAIR_INFO = 3;
     public static final int HFP_INFO_CALLED = 4;
     public static final int HFP_INFO_CALLING = 6;
@@ -86,6 +87,10 @@ public class ATBluetooth {
     public static final int REQUEST_BT_MUSIC_UNMUTE = 166;
     public static final int REQUEST_CALL = 10;
     public static final int REQUEST_CALL_LOG = 26;
+    public static final int REQUEST_CALL_LOG_ALL = 221;
+    public static final int REQUEST_CALL_LOG_DIAL = 222;
+    public static final int REQUEST_CALL_LOG_CONNECT = 223;
+    public static final int REQUEST_CALL_LOG_MISS = 224;
     public static final int REQUEST_CLMS = 148;
     public static final int REQUEST_CMD_AADC = 154;
     public static final int REQUEST_CMD_ALAC = 155;
@@ -186,6 +191,7 @@ public class ATBluetooth {
     public static final int RETURN_GOC_UNMUTE = 92;
     public static final int RETURN_HFP = 7;
     public static final int RETURN_HFP_INFO = 9;
+    public static final int RETURN_HFP_CONNECT_NAME = 777;
     public static final int RETURN_LANGUAGE = 128;
     public static final int RETURN_MIC_STATUS = 169;
     public static final int RETURN_MSG_MAX = 1048576;
@@ -201,6 +207,7 @@ public class ATBluetooth {
     public static final int RETURN_PHONE_BOOK_CONNECT_STATUS = 97;
     public static final int RETURN_PHONE_BOOK_DATA = 24;
     public static final int RETURN_PHONE_BOOK_START = 89;
+    public static final int RETURN_PHONE_CALLLOG_END = 999;
     public static final int RETURN_PIN = 33;
     public static final int RETURN_PPBU = 143;
     public static final int RETURN_PPDS = 145;
@@ -243,6 +250,12 @@ public class ATBluetooth {
     public String mBtPin = "";
     private OnBtPairListChangeListener mPairListChangedListener;
     private OnBtConnecStatusChangedListener mConnecStatusListener;
+    private BtCallBack mBtCallback;
+
+    public void setBtCallback(BtCallBack mBtCallback) {
+        logTest("setBtCallback");
+        this.mBtCallback = mBtCallback;
+    }
     IBtCallback mCallBack = new IBtCallback() {
         @Override
         public void callback(int var1, int var2, String var3, String var4) {
@@ -342,6 +355,9 @@ public class ATBluetooth {
     private void btCallback(int cmdId, int param2, String param3, String param4) {
         logTest("btCallback---param1:" + cmdId + " param2:" + param2 + " p3:" + param3 +
                 " p4:" + param4);
+        if(null != mBtCallback){
+            mBtCallback.onBtCallback(cmdId,param2,param3,param4);
+        }
         switch (cmdId) {
             case RETURN_PAIR_INFO:
                 if (null != mPairListChangedListener) {

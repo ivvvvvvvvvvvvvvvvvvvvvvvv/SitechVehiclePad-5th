@@ -1,0 +1,60 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/call_log_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbarTrackVertical="@drawable/phonebook_scrollbar_vertical_track"
+        android:scrollbars="vertical"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:gravity="center_horizontal"
+        android:layout_marginTop="@dimen/height_all_toolbar"
+        android:id="@+id/call_log_down_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+
+        <TextView
+            android:id="@+id/call_log_hint_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:lineSpacingExtra="5dp"
+            android:text="通话记录列表为空,请加载重试!"
+            android:textSize="30pt" />
+
+        <ImageView
+            android:id="@+id/iv_call_logs_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/call_log_hint_txt"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="22dp"
+            android:src="@drawable/ic_phone_empty"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/call_log_down_btn"
+            android:layout_width="248dp"
+            android:layout_height="78dp"
+            android:layout_below="@+id/call_log_hint_txt"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/shape_connect_bt"
+            android:padding="10dp"
+            android:paddingLeft="62dp"
+            android:paddingTop="24dp"
+            android:visibility="gone"
+            android:paddingRight="62dp"
+            android:paddingBottom="24dp"
+            android:text="点击加载"
+            android:textSize="30sp" />
+    </RelativeLayout>
+</LinearLayout>

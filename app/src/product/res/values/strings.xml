@@ -90,4 +90,13 @@
     <string name="bt_pair_list_conn">未连接</string>
     <string name="bt_pair_list_disc">已连接</string>
 
+    <!--电话模块-->
+    <string name="text_time_elapsed1">%1$02d:%2$02d</string>
+    <string name="text_time_elapsed2">%1$02d:%2$02d:%3$02d</string>
+    <string name="mini_time_elapsed1">%1$02d:%2$02d</string>
+    <string name="mini_time_elapsed2">%1$02d:%2$02d:%3$02d</string>
+    <string name="text_incoming">来电…</string>
+    <string name="text_dialing">正在呼叫…</string>
+    <string name="car_answer_save_key">hazens.bluetooth.car.answer</string>
+
 </resources>

@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/phone_call_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+
+        <com.sitechdev.vehicle.pad.view.ScrollTextView
+            android:id="@+id/tv_converse_number01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="42pt"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="13889562689"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_phone_call"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.sitechdev.vehicle.pad.view.ScrollTextView
+            android:id="@+id/tv_converse_name01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28pt"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="上海"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_phone_call"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_converse_number01" />
+
+        <TextView
+            android:id="@+id/tv_converse_state01"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10pt"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="正在呼叫"
+            android:textColor="@color/white"
+            android:textSize="12pt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_converse_name01" />
+
+        <ImageButton
+            android:id="@+id/btn_phone_answer"
+            style="@style/BtImageButton"
+            android:layout_marginStart="85pt"
+            android:layout_marginTop="10pt"
+            android:src="@drawable/phone_answer_a"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_converse_state01" />
+
+        <ImageButton
+            android:id="@+id/btn_hangup"
+            style="@style/BtImageButton"
+            android:layout_marginTop="10pt"
+            android:src="@drawable/phone_hangup_a"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_phone_answer"
+            app:layout_constraintTop_toBottomOf="@+id/tv_converse_state01" />
+
+        <ImageButton
+            android:id="@+id/btn_phone_secret"
+            style="@style/DialIngStyle"
+            android:layout_marginEnd="50pt"
+            android:layout_marginBottom="100pt"
+            android:background="@color/transparent"
+            android:src="@drawable/selector_phone_private"
+            app:layout_constraintEnd_toStartOf="@id/btn_numpad"
+            app:layout_constraintTop_toTopOf="@+id/btn_numpad" />
+
+        <ImageButton
+            android:id="@+id/btn_numpad"
+            style="@style/DialIngStyle"
+            android:layout_marginBottom="34pt"
+            android:src="@drawable/selector_phone_numpad"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="60pt"
+            app:layout_constraintTop_toBottomOf="@+id/btn_hangup"
+            app:layout_constraintVertical_bias="0.5" />
+
+        <ImageButton
+            android:id="@+id/btn_phone_silence"
+            style="@style/DialIngStyle"
+            android:layout_marginStart="50pt"
+            android:src="@drawable/selector_phone_micmute"
+            app:layout_constraintStart_toEndOf="@id/btn_numpad"
+            app:layout_constraintTop_toTopOf="@+id/btn_numpad" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/area_numpad"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TableLayout
+            android:id="@+id/tl_dial_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true">
+
+            <TableRow>
+
+                <TextView
+                    android:id="@+id/tv_dtmf_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_span="3"
+                    android:gravity="center"
+                    android:textSize="60pt"
+                    android:textStyle="italic" />
+            </TableRow>
+
+            <TableRow>
+
+                <com.sitechdev.vehicle.pad.view.DialNumTextView
+                    android:id="@+id/numpad_key_one"
+                    android:layout_width="120pt"
+                    android:layout_height="80pt"
+                    android:background="@drawable/selector_blutooth_number_btn"
+                    android:gravity="center"
+                    android:text="1"
+                    android:textSize="32pt" />
+
+                <com.sitechdev.vehicle.pad.view.DialNumTextView
+                    android:id="@+id/numpad_key_two"
+                    android:layout_width="120pt"
+                    android:layout_height="80pt"
+                    android:layout_marginStart="10pt"
+                    android:background="@drawable/selector_blutooth_number_btn"
+                    android:gravity="center"
+                    android:text="2"
+                    android:textSize="32pt" />
+
+                <com.sitechdev.vehicle.pad.view.DialNumTextView
+                    android:id="@+id/numpad_key_three"
+                    android:layout_width="120pt"
+                    android:layout_height="80pt"
+                    android:layout_marginStart="10pt"
+                    android:background="@drawable/selector_blutooth_number_btn"
+                    android:gravity="center"
+                    android:text="3"
+                    android:textSize="32pt" />
+            </TableRow>
+
+            <TableRow android:layout_marginTop="5pt">
+
+                <com.sitechdev.vehicle.pad.view.DialNumTextView
+                    android:id="@+id/numpad_key_four"
+                    android:layout_width="120pt"
+                    android:layout_height="80pt"
+                    android:background="@drawable/selector_blutooth_number_btn"
+                    android:gravity="center"
+                    android:text="4"
+                    android:textSize="32pt" />
+
+                <com.sitechdev.vehicle.pad.view.DialNumTextView
+                    android:id="@+id/numpad_key_five"
+                    android:layout_width="120pt"
+                    android:layout_height="80pt"
+                    android:layout_marginStart="10pt"
+                    android:background="@drawable/selector_blutooth_number_btn"
+                    android:gravity="center"
+                    android:text="5"
+                    android:textSize="32pt" />
+
+                <com.sitechdev.vehicle.pad.view.DialNumTextView
+                    android:id="@+id/numpad_key_six"
+                    android:layout_width="120pt"
+                    android:layout_height="80pt"
+                    android:layout_marginStart="10pt"
+                    android:background="@drawable/selector_blutooth_number_btn"
+                    android:gravity="center"
+                    android:text="6"
+                    android:textSize="32pt" />
+            </TableRow>
+
+            <TableRow android:layout_marginTop="5pt">
+
+                <com.sitechdev.vehicle.pad.view.DialNumTextView
+                    android:id="@+id/numpad_key_seven"
+                    android:layout_width="120pt"
+                    android:layout_height="80pt"
+                    android:background="@drawable/selector_blutooth_number_btn"
+                    android:gravity="center"
+                    android:text="7"
+                    android:textSize="32pt" />
+
+                <com.sitechdev.vehicle.pad.view.DialNumTextView
+                    android:id="@+id/numpad_key_eight"
+                    android:layout_width="120pt"
+                    android:layout_height="80pt"
+                    android:layout_marginStart="10pt"
+                    android:background="@drawable/selector_blutooth_number_btn"
+                    android:gravity="center"
+                    android:text="8"
+                    android:textSize="32pt" />
+
+                <com.sitechdev.vehicle.pad.view.DialNumTextView
+                    android:id="@+id/numpad_key_nine"
+                    android:layout_width="120pt"
+                    android:layout_height="80pt"
+                    android:layout_marginStart="10pt"
+                    android:background="@drawable/selector_blutooth_number_btn"
+                    android:gravity="center"
+                    android:text="9"
+                    android:textSize="32pt" />
+            </TableRow>
+
+            <TableRow android:layout_marginTop="5pt">
+
+                <com.sitechdev.vehicle.pad.view.DialNumTextView
+                    android:id="@+id/numpad_key_star"
+                    android:layout_width="120pt"
+                    android:layout_height="80pt"
+                    android:background="@drawable/selector_blutooth_number_btn"
+                    android:gravity="center"
+                    android:text="*"
+                    android:textSize="32pt" />
+
+                <com.sitechdev.vehicle.pad.view.DialNumTextView
+                    android:id="@+id/numpad_key_zero"
+                    android:layout_width="120pt"
+                    android:layout_height="80pt"
+                    android:layout_marginStart="10pt"
+                    android:background="@drawable/selector_blutooth_number_btn"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textSize="32pt" />
+
+                <com.sitechdev.vehicle.pad.view.DialNumTextView
+                    android:id="@+id/numpad_key_hash"
+                    android:layout_width="120pt"
+                    android:layout_height="80pt"
+                    android:layout_marginStart="10pt"
+                    android:background="@drawable/selector_blutooth_number_btn"
+                    android:gravity="center"
+                    android:text="#"
+                    android:textSize="32pt" />
+            </TableRow>
+        </TableLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20pt">
+
+            <ImageButton
+                android:id="@+id/numpad_key_hangup"
+                android:layout_width="116pt"
+                android:layout_height="116pt"
+                android:layout_centerInParent="true"
+                android:background="@null"
+                android:src="@drawable/selector_phone_hangup" />
+
+            <Button
+                android:id="@+id/btn_hide_numpad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="80pt"
+                android:background="@null"
+                android:text="隐藏"
+                android:textSize="32pt" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

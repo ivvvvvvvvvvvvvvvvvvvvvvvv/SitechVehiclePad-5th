@@ -144,10 +144,15 @@ public class BroadcastUtil {
         var0.sendBroadcast(var3);
     }
 
-    public static final void sendToCarService(Context var0, int var1, int var2) {
+    public static final void sendToCarService(Context var0, int cmd, int data) {
+        if (data == MyCmd.PhoneStatus.PHONE_ON){
+            Util.setProperty("ak.af.btphone.on", "1");
+        } else if (data == MyCmd.PhoneStatus.PHONE_OFF){
+            Util.setProperty("ak.af.btphone.on", "0");
+        }
         Intent var3 = new Intent("com.my.car.service.BROADCAST_CMD_TO_CAR_SERVICE");
-        var3.putExtra("cmd", var1);
-        var3.putExtra("data", var2);
+        var3.putExtra("cmd", cmd);
+        var3.putExtra("data", data);
         var3.setPackage("com.my.out");
         sendToCarService(var0, var3);
     }

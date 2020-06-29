@@ -25,10 +25,15 @@ public class GOC extends BtCmd {
         this.addSendCmd(166, "VB");//
         this.addSendCmd(50, "P1");//开启蓝牙
         this.addSendCmd(51, "P0");//关闭蓝牙
+        this.addSendCmd(221,"PB");//所有通话记录
+        this.addSendCmd(222,"PH");//已拨通记录
+        this.addSendCmd(223,"PI");//已接通记录
+        this.addSendCmd(224,"PJ");//未接通记录
         this.addSendCmd(93, "CZ");
         this.addSendCmd(94, "IU");
         this.addSendCmd(8, "CY");
         this.addSendCmd(126, "QA");
+        this.addSendCmd(127,"QB");
         this.addSendCmd(28, "SD");
         this.addSendCmd(39, "ST");
         this.addSendCmd(38, "CD");
@@ -60,6 +65,7 @@ public class GOC extends BtCmd {
         this.addReceiveCmd(91, "HA");
         this.addReceiveCmd(92, "HB");
         this.addReceiveCmd(168, "PS", 4);
+        this.addReceiveCmd(999,"PD");
         this.addSendCmd(109, "BA");
         this.addSendCmd(73, "MG");
         this.addSendCmd(74, "MH");
@@ -81,6 +87,7 @@ public class GOC extends BtCmd {
 
         this.addReceiveCmd(86, "IF");
         this.addReceiveCmd(23, "PC");
+        this.addReceiveCmd(444,"PE");//通话记录下载结束
         this.addReceiveCmd(105, "ML", 2);
         this.addReceiveCmd(105, "MU", 2);
         this.addReceiveCmd(31, "MM", 4);
@@ -93,6 +100,7 @@ public class GOC extends BtCmd {
         this.addReceiveCmd(99, "MA");
         this.addReceiveCmd(113, "TS", 2);
         this.addReceiveCmd(88, "MW", 4);
+        this.addReceiveCmd(777,"SA");
 
         this.addSendCmd(1001, "MK");
         this.addSendCmd(1002, "MA");
@@ -196,7 +204,7 @@ public class GOC extends BtCmd {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        logTest("dataCallback2---diao yong--LEN:"+var2+" value:"+var1[var1.length-1]+" string:"+s);
+        logTest("dataCallback2--var49-diao yong--LEN:"+var2+" value:"+var1[var1.length-1]+" string:"+s+" var1[0]:"+var1[0]+" var1[1]:"+var1[1]);
         int var6;
         if (var1[var2 - 1] == 10) {
             var6 = var2 - 1;
@@ -270,7 +278,6 @@ public class GOC extends BtCmd {
                                         var12 = (String)var15;
 
                                         try {
-                                            logTest("diao yong caooback 9");
                                             this.mCallBack.callback(var4, var52, (String)null, var13);
                                         } catch (Exception var20) {
                                             var10000 = var20;
@@ -374,8 +381,6 @@ public class GOC extends BtCmd {
                                 } else {
                                     var4 = 0;
                                 }
-                                logTest("dataCallback2--3--var4:"+var4);
-
                                 var49 = var7;
                                 var3 = var4;
                                 var11 = (String)var16;
@@ -501,7 +506,6 @@ public class GOC extends BtCmd {
                         } else if (var1[0] == 73 && var1[1] == 68) {
                             label557: {
                                 var4 = 85;
-                                logTest("dataCallback2--6--var4:"+var4);
                                 var49 = var4;
                                 var3 = var8;
                                 var11 = (String)var16;
@@ -531,7 +535,6 @@ public class GOC extends BtCmd {
                                 }
 
                                 var4 = 87;
-                                logTest("dataCallback2--7--var4:"+var4);
                                 var49 = var4;
                                 var3 = var8;
                                 var11 = (String)var16;
@@ -554,7 +557,6 @@ public class GOC extends BtCmd {
                             label559: {
                                 var5 = 9;
                                 var4 = 3;
-                                logTest("dataCallback2--8--var4:"+var4);
                                 var49 = var5;
                                 var3 = var4;
                                 var11 = (String)var16;
@@ -647,7 +649,6 @@ public class GOC extends BtCmd {
                                 if (var6 >= 3 && var1[0] == 82 && var1[1] == 79 && var1[2] == 80) {
                                     label561: {
                                         var4 = 104;
-                                        logTest("dataCallback2--10--var4:"+var4);
                                         var49 = var4;
                                         var3 = var8;
                                         var11 = (String)var16;
@@ -662,7 +663,6 @@ public class GOC extends BtCmd {
                                         }
 
                                         var49 = var4;
-                                        logTest("dataCallback2--12--var4:"+var4);
                                         var3 = var5;
                                         var11 = var14;
                                         var12 = var13;
@@ -733,6 +733,148 @@ public class GOC extends BtCmd {
 
                                         var49 = 24;
                                         var3 = var5;
+                                        var11 = var13;
+                                        var12 = var14;
+                                    }
+                                } else if (var1[0] == 83 && var1[1] == 65) {
+                                    label562: {
+                                        var49 = var7;
+                                        var3 = var8;
+                                        var11 = (String)var16;
+                                        var12 = (String)var15;
+
+                                        try {
+                                            var50 = var1.length - 1;
+                                        } catch (Exception var38) {
+                                            var10000 = var38;
+                                            var10001 = false;
+                                            break label562;
+                                        }
+
+                                        while(var50 > 2 && var1[var50] != 59) {
+                                            --var50;
+                                        }
+
+                                        var49 = var7;
+                                        var3 = var8;
+                                        var11 = (String)var16;
+                                        var12 = (String)var15;
+                                        var13 = (String)var18;
+                                        var14 = (String)var17;
+
+                                        label564: {
+                                            try {
+                                                if (var50 >= var1.length) {
+                                                    break label564;
+                                                }
+                                            } catch (Exception var37) {
+                                                var10000 = var37;
+                                                var10001 = false;
+                                                break label562;
+                                            }
+
+                                            var49 = var7;
+                                            var3 = var8;
+                                            var11 = (String)var16;
+                                            var12 = (String)var15;
+
+                                            try {
+                                                var14 = new String(var1, 2, var50 - 2);
+                                            } catch (Exception var36) {
+                                                var10000 = var36;
+                                                var10001 = false;
+                                                break label562;
+                                            }
+
+                                            var49 = var7;
+                                            var3 = var8;
+                                            var11 = (String)var16;
+                                            var12 = var14;
+
+                                            try {
+                                                var13 = new String(var1, var50, var6 - 1 - var50);
+                                            } catch (Exception var35) {
+                                                var10000 = var35;
+                                                var10001 = false;
+                                                break label562;
+                                            }
+                                        }
+
+                                        var49 = 777;
+                                        var11 = var13;
+                                        var12 = var14;
+                                    }
+                                } else if (var1[0] == 80 && var1[1] == 68) {
+                                    label562: {
+                                        var49 = var7;
+                                        var3 = var8;
+                                        var11 = (String)var16;
+                                        var12 = (String)var15;
+
+                                        try {
+                                            var50 = var1.length - 1;
+                                        } catch (Exception var38) {
+                                            var10000 = var38;
+                                            var10001 = false;
+                                            break label562;
+                                        }
+
+                                        while(var50 > 2 && var1[var50] != 59) {
+                                            --var50;
+                                        }
+
+                                        var49 = var7;
+                                        var3 = var8;
+                                        var11 = (String)var16;
+                                        var12 = (String)var15;
+                                        var13 = (String)var18;
+                                        var14 = (String)var17;
+
+                                        label564: {
+                                            try {
+                                                if (var50 >= var1.length) {
+                                                    break label564;
+                                                }
+                                            } catch (Exception var37) {
+                                                var10000 = var37;
+                                                var10001 = false;
+                                                break label562;
+                                            }
+
+                                            var49 = var7;
+                                            var3 = var8;
+                                            var11 = (String)var16;
+                                            var12 = (String)var15;
+
+                                            try {
+                                                var14 = new String(var1, 2, var50 - 2);
+                                            } catch (Exception var36) {
+                                                var10000 = var36;
+                                                var10001 = false;
+                                                break label562;
+                                            }
+
+                                            var49 = var7;
+                                            var3 = var8;
+                                            var11 = (String)var16;
+                                            var12 = var14;
+
+                                            try {
+                                                var13 = new String(var1, var50 + 1, var6 - 1 - var50);
+                                            } catch (Exception var35) {
+                                                var10000 = var35;
+                                                var10001 = false;
+                                                break label562;
+                                            }
+                                        }
+
+                                        var49 = 999;
+                                        if (var14.length() > 0) {
+                                            var3 = Integer.valueOf(var14.charAt(0)) - 48;
+                                            var14 = var14.substring(1,var14.length());
+                                        } else {
+                                            var3 = 0;
+                                        }
                                         var11 = var13;
                                         var12 = var14;
                                     }
@@ -999,7 +1141,6 @@ public class GOC extends BtCmd {
 
             logTest("dataCallback2-----befor callback 2 var49:"+var49);
             if (var49 != 0 && this.mCallBack != null) {
-                logTest("diao yong caooback 2");
                 this.mCallBack.callback(var49, var3, var11, var12);
                 return 0;
             } else {

@@ -76,4 +76,9 @@
     <dimen name="custom_play_controll_mode_paddingleft">70pt</dimen>
     <dimen name="custom_play_controll_margin_top">30pt</dimen>
 
+    <!--电话界面-->
+    <dimen name="phone_content_padding_left_right">28pt</dimen>
+
+    <dimen name="pt_30">30pt</dimen>
+
 </resources>

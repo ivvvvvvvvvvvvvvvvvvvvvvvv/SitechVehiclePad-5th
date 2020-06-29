@@ -33,6 +33,8 @@ import com.sitechdev.vehicle.pad.manager.SkinManager;
 import com.sitechdev.vehicle.pad.manager.VolumeControlManager;
 import com.sitechdev.vehicle.pad.module.map.util.MapVoiceEventUtil;
 import com.sitechdev.vehicle.pad.module.music.BtMusicManager;
+import com.sitechdev.vehicle.pad.module.phone.PhoneBtManager;
+import com.sitechdev.vehicle.pad.module.phone.PhoneCallWindow;
 import com.sitechdev.vehicle.pad.module.setting.bt.BtManagers;
 import com.sitechdev.vehicle.pad.net.interception.SitechRequestInterceptor;
 import com.sitechdev.vehicle.pad.net.interception.SitechResponseInterceptor;
@@ -89,6 +91,13 @@ public class AppApplication extends BaseApp {
         initKaolaSdk();
 
         initBluetoothManager();
+
+        initPhone();
+    }
+
+    private void initPhone() {
+        PhoneCallWindow.getInstance().init(this);
+        PhoneBtManager.getInstance().initPhone();
     }
 
     private void initBluetoothManager() {

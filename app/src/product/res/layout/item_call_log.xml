@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="110pt"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="109pt"
+        android:layout_marginLeft="@dimen/pt_30"
+        android:background="@drawable/select_bluetooth_phonebook_item"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/pt_30"
+        android:paddingRight="@dimen/pt_30">
+
+        <ImageView
+            android:id="@+id/img_type"
+            android:layout_width="34pt"
+            android:layout_height="34pt"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@null"
+            android:scaleType="fitCenter" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="22pt"
+            android:layout_toRightOf="@+id/img_type"
+            android:layout_toLeftOf="@+id/tv_phonenum"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text="111"
+            android:textSize="32pt" />
+
+        <TextView
+            android:id="@+id/tv_phonenum"
+            android:layout_width="180pt"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:singleLine="true"
+            android:text="111"
+            android:textSize="32pt" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1pt"
+        android:layout_marginLeft="@dimen/pt_30"
+        android:layout_marginRight="50pt"
+        android:background="@color/phone_line_color" />
+
+</LinearLayout>

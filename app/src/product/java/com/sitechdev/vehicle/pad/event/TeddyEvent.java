@@ -33,6 +33,11 @@ public class TeddyEvent extends BaseEvent {
      */
     public static final String EB_TEDDY_EVENT_SETTING_TEDDY_MVW_SUCCESS = "EB_TEDDY_EVENT_SETTING_TEDDY_MVW_SUCCESS";
 
+    /**
+     * 识别词典--联系人
+     */
+    public static final String EB_TEDDY_EVENT_SR_CONTACT_DICT = "EB_EVENT_TEDDY_SR_CONTACT_DICT";
+
 
     private String eventKey = "";
     private Object eventValue = null;

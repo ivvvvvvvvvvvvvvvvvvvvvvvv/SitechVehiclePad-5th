@@ -44,35 +44,33 @@ public class FormatUtils {
     }
 
 
-    public String formatCallTime(String data, String time) {
-        if (data.equals("") || time.equals("")) {
+    public String formatCallTime(String date, String time) {
+        if (date.equals("") || time.equals("")) {
             return "";
         }
-        Date d1 = null;//定义起始日期
-        try {
-            d1 = new SimpleDateFormat("yyyy/MM/dd").parse(data);
-        } catch (ParseException e) {
-            e.printStackTrace();
+        String timeResult = time;
+        String dateResult = date;
+        if (time.length() == 6) {
+            timeResult = time.substring(0, 2).concat(":").concat(time.substring(2, 4));
         }
-        SimpleDateFormat sdf0 = new SimpleDateFormat("yyyy");
-        SimpleDateFormat sdf1 = new SimpleDateFormat("MM");
-        SimpleDateFormat sdf2 = new SimpleDateFormat("dd");
-        int year = Integer.parseInt(sdf0.format(d1));
-        int month = Integer.parseInt(sdf1.format(d1));
-        int day = Integer.parseInt(sdf2.format(d1));
-
+        int year = 0, month = 0, day = 0;
+        if (date.length() == 8) {
+            year = Integer.parseInt(date.substring(0, 4));
+            month = Integer.parseInt(date.substring(4, 6));
+            day = Integer.parseInt(date.substring(6, 8));
+        }
         if (year == mYear) {
             if (month == month) {
                 if (day == mDay) {
-                    return time;
+                    return timeResult;
                 } else {
-                    return month + "/" + day;
+                    return (month < 10 ? "0" + month : month) + "/" + day;
                 }
             } else {
-                return month + "/" + day;
+                return (month < 10 ? "0" + month : month) + "/" + day;
             }
         } else {
-            return data;
+            return year + "/" + (month < 10 ? "0" + month : month) + "/" + day;
         }
     }
 
