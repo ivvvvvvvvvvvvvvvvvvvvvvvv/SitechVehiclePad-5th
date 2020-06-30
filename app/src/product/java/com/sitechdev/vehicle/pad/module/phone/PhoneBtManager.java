@@ -38,6 +38,7 @@ public class PhoneBtManager {
     public void initPhone() {
         mATBluetooth = ATBluetooth.create();
         mATBluetooth.setBtCallback(btCallBack);
+        mATBluetooth.write(8);
     }
 
     private BtCallBack btCallBack = new BtCallBack() {
