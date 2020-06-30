@@ -16,6 +16,7 @@ import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.app.AppConst;
 import com.sitechdev.vehicle.pad.event.AppEvent;
 import com.sitechdev.vehicle.pad.event.TeddyEvent;
+import com.sitechdev.vehicle.pad.module.setting.teddy.TeddyConfig;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -128,8 +129,7 @@ public class AIUIEngine {
 //        if (!TextUtils.isEmpty(ttsPeopleParams)) {
 //            return ttsPeopleParams;
 //        }
-        boolean isTtsManPeople = ParamsUtil.getBooleanData("key_tts_people_man");
-        if (isTtsManPeople) {
+        if (TeddyConfig.getSexIsMale()) {
             ttsPeopleParams = getXiaofengVoice();
         } else {
             ttsPeopleParams = getXiaoyanVoice();
