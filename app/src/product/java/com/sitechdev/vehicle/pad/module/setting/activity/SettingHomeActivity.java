@@ -52,7 +52,7 @@ public class SettingHomeActivity extends BaseActivity {
                 startActivity(new Intent(this, SettingSkinActivity.class));
                 break;
             case R.id.setting_home_item_teddy:
-                startActivity(new Intent(this, TestActivity.class));
+                startActivity(new Intent(this, SettingTeddyActivity.class));
                 break;
             case R.id.setting_home_item_bt:
                 startActivity(new Intent(this, SettingBtActivity.class));

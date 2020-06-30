@@ -104,11 +104,7 @@
             android:name=".module.setting.activity.SettingSystemActivity"
             android:screenOrientation="landscape"
             android:theme="@style/NoTitleAppTheme" />
-        <activity
-            android:name=".module.setting.activity.SettingTeddyActivity"
-            android:screenOrientation="landscape"
-            android:theme="@style/NoTitleAppTheme" />
-        <activity android:name=".module.setting.activity.TestActivity"
+        <activity android:name=".module.setting.activity.SettingTeddyActivity"
             android:screenOrientation="landscape"
             android:theme="@style/NoTitleAppTheme" />
         <activity
