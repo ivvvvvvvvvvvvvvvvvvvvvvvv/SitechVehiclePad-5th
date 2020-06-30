@@ -127,6 +127,12 @@ public class PhoneBtManager {
                         EventBusUtils.postEvent(new SysEvent(EB_SYS_BT_STATE, true));
                     }
                     break;
+                    case ATBluetooth.RETURN_NAME:{//本地蓝牙名称
+                        if(!StringUtils.isEmpty(param3)) {
+                            SettingConfig.getInstance().setLocalBtName(param3);
+                        }
+                    }
+                    break;
                     case ATBluetooth.RETURN_A2DP_ID3_NAME:
                         EventBusUtils.postEvent(new BluetoothEvent(BluetoothEvent.BT_EVENT_RECEIVE_TITLE, param3));
                         break;

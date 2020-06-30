@@ -21,6 +21,10 @@ public class SettingConfig {
     private boolean isA2dpConnected = false;
     private boolean isHFPConnected = false;
     /**
+     * 本地蓝牙模块名称
+     */
+    private String localBtName = "CAR KIT-K";
+    /**
      * 已连接蓝牙设备的MAC地址
      */
     private String connectBtAdd = "";
@@ -28,6 +32,14 @@ public class SettingConfig {
      * 已连接蓝牙设备的名称
      */
     private String connectBtName = "";
+
+    public String getLocalBtName() {
+        return localBtName;
+    }
+
+    public void setLocalBtName(String localBtName) {
+        this.localBtName = localBtName;
+    }
 
     public boolean isA2dpConnected() {
         return isA2dpConnected;

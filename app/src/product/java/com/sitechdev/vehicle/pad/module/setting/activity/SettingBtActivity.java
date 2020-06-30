@@ -58,7 +58,7 @@ public class SettingBtActivity extends MvpActivity<SettingBtContract.BtPresenter
     @Override
     protected void initData() {
         mPresenter.init();
-        mBtName.setText("CAR KIT-K");
+        mBtName.setText(SettingConfig.getInstance().getLocalBtName());
         mBondList = new ArrayList<>();
         mBondAdapter = new BtListAdapter(this,mBondList);
         mListView.setAdapter(mBondAdapter);
