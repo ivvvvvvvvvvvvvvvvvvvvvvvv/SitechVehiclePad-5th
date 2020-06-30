@@ -207,7 +207,8 @@ public class ATBluetooth {
     public static final int RETURN_PHONE_BOOK_CONNECT_STATUS = 97;
     public static final int RETURN_PHONE_BOOK_DATA = 24;
     public static final int RETURN_PHONE_BOOK_START = 89;
-    public static final int RETURN_PHONE_CALLLOG_END = 999;
+    public static final int RETURN_PHONE_CALLLOG = 999;
+    public static final int RETURN_PHONE_CALLLOG_END = 444;
     public static final int RETURN_PIN = 33;
     public static final int RETURN_PPBU = 143;
     public static final int RETURN_PPDS = 145;

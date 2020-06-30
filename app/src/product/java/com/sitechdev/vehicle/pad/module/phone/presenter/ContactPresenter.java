@@ -27,60 +27,10 @@ import java.util.List;
  * @author liuhe
  */
 public class ContactPresenter extends ContactContract.Presenter {
-    private BtCallBack btCallBack = new BtCallBack() {
-        @Override
-        public void onBtCallback(int cmdId, int param2, String param3, String param4) {
-            ThreadUtils.runOnUIThread(() -> {
-                if(cmdId == ATBluetooth.RETURN_PHONE_BOOK_DATA){//回调联系人信息
-                    logTest("RETURN_PHONE_BOOK_DATA-----param3:"+param3+" param4:"+param4);
-                    String number = param3.replace("-", "");
-                    String name = param4;
-                    String abbr;
-                    String contactName = number;
-                    //&& !FormatUtils.isStartWithNumber(name)
-                    if (!name.isEmpty()) {
-                        try {
-                            contactName = name;
-                            String tempName = name.replace(" ", "");
-                            abbr = PinyinHelper.convertToPinyinString(tempName, "_").toUpperCase();
-                        } catch (PinyinException e) {
-                            abbr = "#";
-                            e.printStackTrace();
-                        }
-                    } else {
-                        abbr = "#";
-                    }
-                    number = number.replace(" ", "");
-                    BtGlobalRef.contacts.add(new Contact(abbr, contactName, number));
-                } else if(cmdId == ATBluetooth.RETURN_PHONE_BOOK){//联系人回调结束
-                    logTest("RETURN_PHONE_BOOK_OVER-----param3:"+param3+" param4:"+param4+" size:"+BtGlobalRef.contacts.size());
-                    EventBusUtils.postEvent(new BTEvent(BTEvent.PB_DOWN_COUNT, BtGlobalRef.contacts.size()));
-                    ThreadUtils.executeByIo(new ThreadUtils.SimpleTask<Void>() {
-                        @Nullable
-                        @Override
-                        public Void doInBackground() {
-                            Collections.sort(BtGlobalRef.contacts, PinyinComparator.getDefault());
-                            List<Contact> tmpContacts = IndexUtils.sortContacts(BtGlobalRef.contacts);
-                            BtGlobalRef.contactSorts.clear();
-                            BtGlobalRef.contactSorts.addAll(tmpContacts);
-                            return null;
-                        }
-
-                        @Override
-                        public void onSuccess(@Nullable Void result) {
-                            super.onSuccess(result);
-                            EventBusUtils.postEvent(new TeddyEvent(TeddyEvent.EB_TEDDY_EVENT_SR_CONTACT_DICT));
-                        }
-                    });
-                }
-            });
-        }
-    };
 
     public static final String TAG = ContactPresenter.class.getSimpleName();
 
     public ContactPresenter() {
-//        PhoneBtManager.getInstance().setBtCallback(btCallBack);
     }
 
     @Override

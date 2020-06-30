@@ -46,8 +46,12 @@ public class PhoneBtManager {
             logTest("onBtCallback-----cmdId:" + cmdId + " param2:" + param2 + " param3:" + param3 + " param4:" + param4);
             ThreadUtils.runOnUIThread(() -> {
                 switch (cmdId) {
-                    case ATBluetooth.RETURN_PHONE_CALLLOG_END: {//通话记录
+                    case ATBluetooth.RETURN_PHONE_CALLLOG: {//通话记录
                         handleCallLogCallback(param2, param3, param4);
+                    }
+                    break;
+                    case ATBluetooth.RETURN_PHONE_CALLLOG_END: {//通话记录下载结束
+                        EventBusUtils.postEvent(new BTEvent(BTEvent.PB_OR_CL_UPDATE_SUCCESS, false));
                     }
                     break;
                     case ATBluetooth.RETURN_PHONE_BOOK_DATA: {//下载通讯录
@@ -162,7 +166,6 @@ public class PhoneBtManager {
      * 接听电话
      */
     public void answer() {
-        logTest("wocaonima AT#");
         mATBluetooth.write(ATBluetooth.REQUEST_ANSWER);
     }
 

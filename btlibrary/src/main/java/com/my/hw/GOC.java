@@ -484,7 +484,6 @@ public class GOC extends BtCmd {
                         } else if (var1[0] == 73 && var1[1] == 67) {
                             label556: {
                                 var4 = 84;
-                                logTest("dataCallback2--5--var4:"+var4);
                                 var49 = var4;
                                 var3 = var8;
                                 var11 = (String)var16;
@@ -732,6 +731,74 @@ public class GOC extends BtCmd {
                                         }
 
                                         var49 = 24;
+                                        var3 = var5;
+                                        var11 = var13;
+                                        var12 = var14;
+                                    }
+                                }  else if (var1[0] == 80 && var1[1] == 76) {//通话记录下载结束
+                                    label562: {
+                                        var49 = var7;
+                                        var3 = var8;
+                                        var11 = (String)var16;
+                                        var12 = (String)var15;
+
+                                        try {
+                                            var50 = var1.length - 1;
+                                        } catch (Exception var38) {
+                                            var10000 = var38;
+                                            var10001 = false;
+                                            break label562;
+                                        }
+
+                                        while(var50 > 2 && var1[var50] != 59) {
+                                            --var50;
+                                        }
+
+                                        var49 = var7;
+                                        var3 = var8;
+                                        var11 = (String)var16;
+                                        var12 = (String)var15;
+                                        var13 = (String)var18;
+                                        var14 = (String)var17;
+
+                                        label564: {
+                                            try {
+                                                if (var50 >= var1.length) {
+                                                    break label564;
+                                                }
+                                            } catch (Exception var37) {
+                                                var10000 = var37;
+                                                var10001 = false;
+                                                break label562;
+                                            }
+
+                                            var49 = var7;
+                                            var3 = var8;
+                                            var11 = (String)var16;
+                                            var12 = (String)var15;
+
+                                            try {
+                                                var14 = new String(var1, 0, var1.length);
+                                            } catch (Exception var36) {
+                                                var10000 = var36;
+                                                var10001 = false;
+                                                break label562;
+                                            }
+
+                                            var49 = var7;
+                                            var3 = var8;
+                                            var11 = (String)var16;
+                                            var12 = var14;
+
+                                            try {
+                                                var13 = new String(var1, var50 + 1, var6 - 1 - var50);
+                                            } catch (Exception var35) {
+                                                var10000 = var35;
+                                                var10001 = false;
+                                                break label562;
+                                            }
+                                        }
+                                        var49 = 444;
                                         var3 = var5;
                                         var11 = var13;
                                         var12 = var14;
