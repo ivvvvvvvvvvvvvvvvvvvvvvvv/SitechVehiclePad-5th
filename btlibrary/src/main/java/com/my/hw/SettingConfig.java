@@ -20,7 +20,13 @@ public class SettingConfig {
     private boolean isBtConnected = false;
     private boolean isA2dpConnected = false;
     private boolean isHFPConnected = false;
+    /**
+     * 已连接蓝牙设备的MAC地址
+     */
     private String connectBtAdd = "";
+    /**
+     * 已连接蓝牙设备的名称
+     */
     private String connectBtName = "";
 
     public boolean isA2dpConnected() {
@@ -58,6 +64,9 @@ public class SettingConfig {
         this.connectBtAdd = connectBtAdd;
     }
 
+    /**
+     * 返回当前连接的蓝牙设备名称。
+     */
     public String getConnectBtName() {
         return connectBtName;
     }

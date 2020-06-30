@@ -15,6 +15,7 @@ import com.sitechdev.vehicle.pad.app.BaseAppWindowManager;
 import com.sitechdev.vehicle.pad.app.BaseWindow;
 import com.sitechdev.vehicle.pad.event.AppSignalEvent;
 import com.sitechdev.vehicle.pad.event.ScreenEvent;
+import com.sitechdev.vehicle.pad.event.SysEvent;
 import com.sitechdev.vehicle.pad.window.view.AppSignalView;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -153,13 +154,15 @@ public class AppSignalWindowManager {
     }
 
     public void wifiIconShowOrHide(boolean flag) {
-        if (appSignalView!=null) {
+        if (appSignalView != null) {
             appSignalView.refreshWifiIconView(flag);
         }
     }
 
     public void bluetoothIconShowOrHide(boolean flag) {
-        appSignalView.refreshBtIconView(flag);
+        if (appSignalView != null) {
+            appSignalView.refreshBtIconView(flag);
+        }
     }
 
     public void tBoxIconChange(int netRssi) {
@@ -209,6 +212,22 @@ public class AppSignalWindowManager {
                 break;
         }
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onSysEventChange(SysEvent event) {
+        SitechDevLog.i(TAG, this + "==消息==" + event.getEvent());
+        switch (event.getEvent()) {
+            case SysEvent.EB_SYS_BT_STATE:
+                if (event.getObj()!=null){
+                    boolean status= (boolean) event.getObj();
+                    bluetoothIconShowOrHide(status);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
 
     /**
      * 初始化逻辑

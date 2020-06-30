@@ -89,6 +89,8 @@
     <!--setting模块-->
     <string name="bt_pair_list_conn">未连接</string>
     <string name="bt_pair_list_disc">已连接</string>
+    <string name="bt_pair_unlink_tip">请连接蓝牙设备</string>
+
 
     <!--电话模块-->
     <string name="text_time_elapsed1">%1$02d:%2$02d</string>

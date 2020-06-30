@@ -1,6 +1,7 @@
 package com.sitechdev.vehicle.pad.util;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -151,5 +152,19 @@ public class JumpUtils {
      */
     public static boolean checkIsDeveloping(String appRoute) {
         return appRoute.contains("/developing");
+    }
+
+    /**
+     * 跳往AndroidLauncher3
+     */
+    public static void jumpAndroidLauncher() {
+        String pkg = "com.android.launcher3";
+        String cls = "com.android.launcher3.Launcher";
+        ComponentName componet = new ComponentName(pkg, cls);
+        Intent intent = new Intent();
+        intent.setComponent(componet);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        ActivityUtils.startActivity(intent);
+        ActivityUtils.getTopActivity().startActivity(intent);
     }
 }

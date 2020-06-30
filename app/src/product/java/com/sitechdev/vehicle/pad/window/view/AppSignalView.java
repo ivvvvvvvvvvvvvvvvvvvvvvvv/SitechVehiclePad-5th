@@ -17,6 +17,7 @@ import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.module.setting.bt.BtManagers;
 import com.sitechdev.vehicle.pad.util.AppUtil;
 import com.sitechdev.vehicle.pad.util.FontUtil;
+import com.sitechdev.vehicle.pad.util.JumpUtils;
 
 /**
  * 项目名称：SitechVehiclePad-5th
@@ -37,6 +38,7 @@ public class AppSignalView extends LinearLayout {
     public int mWidth;
     public int mHeight;
     private LinearLayout rl;
+    private int clickCount = 0;
 
 
     public AppSignalView(Context context) {
@@ -66,6 +68,15 @@ public class AppSignalView extends LinearLayout {
 
         mWidth = rl.getLayoutParams().width;
         mHeight = rl.getLayoutParams().height;
+
+        rl.setOnClickListener(v -> {
+            clickCount++;
+            if (clickCount >= 10) {
+                //跳转原生桌面
+                JumpUtils.jumpAndroidLauncher();
+                clickCount = 0;
+            }
+        });
 
         initData();
     }

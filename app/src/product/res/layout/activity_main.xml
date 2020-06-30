@@ -218,7 +218,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20pt"
                     android:layout_toRightOf="@id/iv_bluetooth_icon"
-                    android:text="请连接蓝牙设备"
+                    android:text="@string/bt_pair_unlink_tip"
                     android:textColor="@color/color_main_bluetooth_text"
                     android:textSize="30pt" />
             </RelativeLayout>

@@ -47,6 +47,7 @@ import com.sitechdev.vehicle.pad.event.AppEvent;
 import com.sitechdev.vehicle.pad.event.MapEvent;
 import com.sitechdev.vehicle.pad.event.MusicEvent;
 import com.sitechdev.vehicle.pad.event.SSOEvent;
+import com.sitechdev.vehicle.pad.event.SysEvent;
 import com.sitechdev.vehicle.pad.event.VoiceEvent;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.manager.SitechMusicNewManager;
@@ -93,6 +94,7 @@ public class MainActivity extends BaseActivity
     private TextView tvLogin;
     private TextView tvHome, tvWork, tvWhat;
     private TextView tvLocation, tvTemperatureDay, tvTemperature, tvWeather, tvWindow;
+    private TextView tvBtPhoneName;
     private RelativeLayout mLoginRelativeView = null, rlWeather = null;
     private LinearLayout llMusic, llNews, llBook, llCar, llLife;
     private ImageView ivMusicBef, ivMusicStop, ivMusicNext;
@@ -196,6 +198,9 @@ public class MainActivity extends BaseActivity
         tcTime.setTypeface(FontUtil.getInstance().getMainFont());
         tvTemperature.setTypeface(FontUtil.getInstance().getMainFont());
         FeedBackUtils.deleteVoiceCache();
+
+        //蓝牙设备名称
+        tvBtPhoneName = findViewById(R.id.iv_bluetooth_phone_name);
     }
 
     @Override
@@ -341,6 +346,12 @@ public class MainActivity extends BaseActivity
         super.onResume();
         SitechDevLog.i(AppConst.TAG, "===MainActivity======================onResume=============================");
         refreshUserView(LoginUtils.isLogin(), null);
+
+        if (!StringUtils.isEmpty(SettingConfig.getInstance().getConnectBtName())) {
+            tvBtPhoneName.setText(SettingConfig.getInstance().getConnectBtName());
+        } else {
+            tvBtPhoneName.setText(R.string.bt_pair_unlink_tip);
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             if (Settings.canDrawOverlays(AppApplication.getContext())) {
@@ -536,6 +547,26 @@ public class MainActivity extends BaseActivity
                 ThreadUtils.runOnUIThread(() -> {
                     refreshCityView();
                 });
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onSysEventChange(SysEvent event) {
+        SitechDevLog.i(AppConst.TAG, this + "==消息==" + event.getEvent());
+        switch (event.getEvent()) {
+            case SysEvent.EB_SYS_BT_STATE:
+                //接收蓝牙连接或断开事件
+                if (event.getObj() != null) {
+                    boolean status = (boolean) event.getObj();
+                    if (status) {
+                        tvBtPhoneName.setText(SettingConfig.getInstance().getConnectBtName());
+                    } else {
+                        tvBtPhoneName.setText(R.string.bt_pair_unlink_tip);
+                    }
+                }
                 break;
             default:
                 break;
