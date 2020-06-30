@@ -52,7 +52,41 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_converse_name01" />
 
-        <ImageButton
+        <LinearLayout
+            android:id="@+id/incomming_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10pt"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_converse_state01">
+
+            <FrameLayout
+                android:id="@+id/btn_phone_answer_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <ImageButton
+                    android:id="@+id/btn_phone_answer"
+                    style="@style/BtImageButton"
+                    android:src="@drawable/phone_answer_a"
+                    android:visibility="visible" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <ImageButton
+                    android:id="@+id/btn_hangup"
+                    style="@style/BtImageButton"
+                    android:src="@drawable/phone_hangup_a" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <!--<ImageButton
             android:id="@+id/btn_phone_answer"
             style="@style/BtImageButton"
             android:layout_marginStart="85pt"
@@ -69,7 +103,7 @@
             android:src="@drawable/phone_hangup_a"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btn_phone_answer"
-            app:layout_constraintTop_toBottomOf="@+id/tv_converse_state01" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_converse_state01" />-->
 
         <ImageButton
             android:id="@+id/btn_phone_secret"
@@ -84,13 +118,13 @@
         <ImageButton
             android:id="@+id/btn_numpad"
             style="@style/DialIngStyle"
+            android:layout_marginTop="60pt"
             android:layout_marginBottom="34pt"
             android:src="@drawable/selector_phone_numpad"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="60pt"
-            app:layout_constraintTop_toBottomOf="@+id/btn_hangup"
+            app:layout_constraintTop_toBottomOf="@id/incomming_layout"
             app:layout_constraintVertical_bias="0.5" />
 
         <ImageButton
@@ -125,7 +159,7 @@
                     android:layout_height="wrap_content"
                     android:layout_span="3"
                     android:gravity="center"
-                    android:textSize="60pt"
+                    android:textSize="15pt"
                     android:textStyle="italic" />
             </TableRow>
 
@@ -133,128 +167,74 @@
 
                 <com.sitechdev.vehicle.pad.view.DialNumTextView
                     android:id="@+id/numpad_key_one"
-                    android:layout_width="120pt"
-                    android:layout_height="80pt"
-                    android:background="@drawable/selector_blutooth_number_btn"
-                    android:gravity="center"
-                    android:text="1"
-                    android:textSize="32pt" />
+                    style="@style/phone_window_dia"
+                    android:text="1" />
 
                 <com.sitechdev.vehicle.pad.view.DialNumTextView
                     android:id="@+id/numpad_key_two"
-                    android:layout_width="120pt"
-                    android:layout_height="80pt"
-                    android:layout_marginStart="10pt"
-                    android:background="@drawable/selector_blutooth_number_btn"
-                    android:gravity="center"
-                    android:text="2"
-                    android:textSize="32pt" />
+                    style="@style/phone_window_dia"
+                    android:text="2" />
 
                 <com.sitechdev.vehicle.pad.view.DialNumTextView
                     android:id="@+id/numpad_key_three"
-                    android:layout_width="120pt"
-                    android:layout_height="80pt"
-                    android:layout_marginStart="10pt"
-                    android:background="@drawable/selector_blutooth_number_btn"
+                    style="@style/phone_window_dia"
                     android:gravity="center"
-                    android:text="3"
-                    android:textSize="32pt" />
+                    android:text="3" />
             </TableRow>
 
             <TableRow android:layout_marginTop="5pt">
 
                 <com.sitechdev.vehicle.pad.view.DialNumTextView
                     android:id="@+id/numpad_key_four"
-                    android:layout_width="120pt"
-                    android:layout_height="80pt"
-                    android:background="@drawable/selector_blutooth_number_btn"
+                    style="@style/phone_window_dia"
                     android:gravity="center"
-                    android:text="4"
-                    android:textSize="32pt" />
+                    android:text="4" />
 
                 <com.sitechdev.vehicle.pad.view.DialNumTextView
                     android:id="@+id/numpad_key_five"
-                    android:layout_width="120pt"
-                    android:layout_height="80pt"
-                    android:layout_marginStart="10pt"
-                    android:background="@drawable/selector_blutooth_number_btn"
-                    android:gravity="center"
-                    android:text="5"
-                    android:textSize="32pt" />
+                    style="@style/phone_window_dia"
+                    android:text="5" />
 
                 <com.sitechdev.vehicle.pad.view.DialNumTextView
                     android:id="@+id/numpad_key_six"
-                    android:layout_width="120pt"
-                    android:layout_height="80pt"
-                    android:layout_marginStart="10pt"
-                    android:background="@drawable/selector_blutooth_number_btn"
-                    android:gravity="center"
-                    android:text="6"
-                    android:textSize="32pt" />
+                    style="@style/phone_window_dia"
+                    android:text="6" />
             </TableRow>
 
             <TableRow android:layout_marginTop="5pt">
 
                 <com.sitechdev.vehicle.pad.view.DialNumTextView
                     android:id="@+id/numpad_key_seven"
-                    android:layout_width="120pt"
-                    android:layout_height="80pt"
-                    android:background="@drawable/selector_blutooth_number_btn"
-                    android:gravity="center"
-                    android:text="7"
-                    android:textSize="32pt" />
+                    style="@style/phone_window_dia"
+                    android:text="7" />
 
                 <com.sitechdev.vehicle.pad.view.DialNumTextView
                     android:id="@+id/numpad_key_eight"
-                    android:layout_width="120pt"
-                    android:layout_height="80pt"
-                    android:layout_marginStart="10pt"
-                    android:background="@drawable/selector_blutooth_number_btn"
-                    android:gravity="center"
-                    android:text="8"
-                    android:textSize="32pt" />
+                    style="@style/phone_window_dia"
+                    android:text="8" />
 
                 <com.sitechdev.vehicle.pad.view.DialNumTextView
                     android:id="@+id/numpad_key_nine"
-                    android:layout_width="120pt"
-                    android:layout_height="80pt"
-                    android:layout_marginStart="10pt"
-                    android:background="@drawable/selector_blutooth_number_btn"
-                    android:gravity="center"
-                    android:text="9"
-                    android:textSize="32pt" />
+                    style="@style/phone_window_dia"
+                    android:text="9" />
             </TableRow>
 
             <TableRow android:layout_marginTop="5pt">
 
                 <com.sitechdev.vehicle.pad.view.DialNumTextView
                     android:id="@+id/numpad_key_star"
-                    android:layout_width="120pt"
-                    android:layout_height="80pt"
-                    android:background="@drawable/selector_blutooth_number_btn"
-                    android:gravity="center"
-                    android:text="*"
-                    android:textSize="32pt" />
+                    style="@style/phone_window_dia"
+                    android:text="*" />
 
                 <com.sitechdev.vehicle.pad.view.DialNumTextView
                     android:id="@+id/numpad_key_zero"
-                    android:layout_width="120pt"
-                    android:layout_height="80pt"
-                    android:layout_marginStart="10pt"
-                    android:background="@drawable/selector_blutooth_number_btn"
-                    android:gravity="center"
-                    android:text="0"
-                    android:textSize="32pt" />
+                    style="@style/phone_window_dia"
+                    android:text="0" />
 
                 <com.sitechdev.vehicle.pad.view.DialNumTextView
                     android:id="@+id/numpad_key_hash"
-                    android:layout_width="120pt"
-                    android:layout_height="80pt"
-                    android:layout_marginStart="10pt"
-                    android:background="@drawable/selector_blutooth_number_btn"
-                    android:gravity="center"
-                    android:text="#"
-                    android:textSize="32pt" />
+                    style="@style/phone_window_dia"
+                    android:text="#" />
             </TableRow>
         </TableLayout>
 
@@ -280,7 +260,7 @@
                 android:layout_marginRight="80pt"
                 android:background="@null"
                 android:text="隐藏"
-                android:textSize="32pt" />
+                android:textSize="12pt" />
         </RelativeLayout>
     </LinearLayout>
 

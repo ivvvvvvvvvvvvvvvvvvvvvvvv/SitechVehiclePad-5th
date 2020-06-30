@@ -93,7 +93,7 @@
       "index": 11,
       "appName": "电话",
       "appIcon": 12,
-      "appRoute": "/subApp/developing/phone",
+      "appRoute": "/main/phone",
       "jumpType": 0,
       "eventId": "btn_app_phone"
     },

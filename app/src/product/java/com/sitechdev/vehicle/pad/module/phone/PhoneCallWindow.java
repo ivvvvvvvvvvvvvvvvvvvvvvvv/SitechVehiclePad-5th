@@ -110,7 +110,7 @@ public class PhoneCallWindow implements PhoneCallPresenter.UICallback, View.OnCl
         mPriBtn = phoneView.findViewById(R.id.btn_phone_secret);
 
         for (View v : phoneViewGroup = new View[]{
-                mAnswerIbt,
+                phoneView.findViewById(R.id.btn_phone_answer_layout),
                 mHangupIbt,
                 mMuteBtn,
                 mPriBtn,

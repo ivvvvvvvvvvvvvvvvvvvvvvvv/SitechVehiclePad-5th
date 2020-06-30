@@ -267,6 +267,7 @@ public class PhoneBtManager {
     }
 
     public void sendDtmf(char code) {
+        mATBluetooth.write(ATBluetooth.REQUEST_DTMF);
     }
 
     public void reject() {
