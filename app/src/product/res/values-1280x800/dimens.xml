@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="dp_144">144dp</dimen>
+    <dimen name="dp_48">48dp</dimen>
+    <dimen name="dp_151">151dp</dimen>
+    <dimen name="dp_76">76dp</dimen>
+    <dimen name="dp_209">209dp</dimen>
+    <dimen name="dp_66">66dp</dimen>
+    <dimen name="px_151">151pt</dimen>
+    <dimen name="px_135">135pt</dimen>
+    <dimen name="px_766">766pt</dimen>
+    <dimen name="px_132">132pt</dimen>
+    <dimen name="px_209">209pt</dimen>
+    <dimen name="px_254">254pt</dimen>
+    <dimen name="px_50">50pt</dimen>
+    <dimen name="px_353">353pt</dimen>
+    <dimen name="px_46">46pt</dimen>
+    <dimen name="px_196">196pt</dimen>
+    <dimen name="px_55">55pt</dimen>
+    <dimen name="px_101">101pt</dimen>
+    <dimen name="px_118">118pt</dimen>
+    <dimen name="px_48">48pt</dimen>
+    <dimen name="px_800">800pt</dimen>
+    <dimen name="px_30">30pt</dimen>
+    <dimen name="px_70">70pt</dimen>
+    <dimen name="px_100">100pt</dimen>
+    <dimen name="px_144">144pt</dimen>
+    <dimen name="px_45">45pt</dimen>
+    <dimen name="px_35">35pt</dimen>
+    <dimen name="px_160">160pt</dimen>
+    <dimen name="px_10">10pt</dimen>
+    <dimen name="px_387">387pt</dimen>
+    <dimen name="px_22">22pt</dimen>
+    <dimen name="px_263">263pt</dimen>
+    <dimen name="px_403">403pt</dimen>
+    <dimen name="px_67">67pt</dimen>
+    <dimen name="px_238">238pt</dimen>
+    <dimen name="px_280">280pt</dimen>
+    <dimen name="px_19">19pt</dimen>
+    <dimen name="px_40">40pt</dimen>
+    <dimen name="px_285">285pt</dimen>
+    <dimen name="px_200">200pt</dimen>
+    <dimen name="px_20">20pt</dimen>
+    <dimen name="px_290">290pt</dimen>
+    <dimen name="px_500">500pt</dimen>
+    <dimen name="px_190">190pt</dimen>
+    <dimen name="px_31">31pt</dimen>
+    <dimen name="common_bg_width">390dp</dimen>
+    <dimen name="mainmenu_margin_left_right">27dp</dimen>
+    <dimen name="mainmenu_gridview_versplit">21dp</dimen>
+    <dimen name="mainmenu_gridview_horsplit">36dp</dimen>
+    <dimen name="main_menu_size">60dp</dimen>
+    <dimen name="margin_top_toolbar">140px</dimen>
+    <dimen name="margin_bottom_window">300pt</dimen>
+    <dimen name="content_padding_left_right">45pt</dimen>
+
+    <dimen name="text_size_main">32pt</dimen>
+    <dimen name="setting_padding_left_right">150pt</dimen>
+    <dimen name="main_menu_height">300pt</dimen>
+    <dimen name="pt_40">40pt</dimen>
+
+    <!--usb音乐界面-->
+    <dimen name="music_usb_padding_left_right">60pt</dimen>
+    <dimen name="music_usb_play_name_textsize">48pt</dimen>
+    <dimen name="music_usb_play_singer_textsize">32pt</dimen>
+    <dimen name="music_usb_play_icon_marintop">37pt</dimen>
+    <dimen name="music_usb_play_icon_size">350pt</dimen>
+    <dimen name="music_usb_play_status_margintop">63pt</dimen>
+    <dimen name="music_usb_list_padding_bottom">290pt</dimen>
+    <dimen name="music_usb_list_padding_left">62pt</dimen>
+
+    <!--自定义播放进度条-->
+    <dimen name="custom_play_seekbar_time_textsize">24pt</dimen>
+    <dimen name="custom_play_seekbar_layout_margin">43pt</dimen>
+    <dimen name="custom_play_controll_button_size">60pt</dimen>
+    <dimen name="custom_play_controll_mode_paddingleft">70pt</dimen>
+    <dimen name="custom_play_controll_margin_top">30pt</dimen>
+
+    <!--电话界面-->
+    <dimen name="phone_content_padding_left_right">28pt</dimen>
+
+    <dimen name="pt_30">30pt</dimen>
+
+</resources>

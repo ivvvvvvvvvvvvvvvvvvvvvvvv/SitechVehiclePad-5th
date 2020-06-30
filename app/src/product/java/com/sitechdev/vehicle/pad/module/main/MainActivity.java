@@ -206,7 +206,10 @@ public class MainActivity extends BaseActivity
     @Override
     protected void initData() {
         try {
-            if (!StringUtils.isEmpty(UserManager.getInstance().getLoginUserBean().getCredential().getAccessToken())) {
+            if (UserManager.getInstance() != null &&
+                    UserManager.getInstance().getLoginUserBean() != null &&
+                    UserManager.getInstance().getLoginUserBean().getCredential() != null &&
+                    !StringUtils.isEmpty(UserManager.getInstance().getLoginUserBean().getCredential().getAccessToken())) {
                 LoginUserBean userBean = UserManager.getInstance().getLoginUserBean();
                 if (userBean != null) {
                     //存在用户token
