@@ -11,20 +11,20 @@
         android:id="@+id/id_top_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="170px"
-        android:paddingLeft="72px"
-        android:paddingRight="72px">
+        android:layout_marginTop="170pt"
+        android:paddingLeft="72pt"
+        android:paddingRight="72pt">
 
         <ImageView
             android:id="@+id/id_img_member_logo"
-            android:layout_width="125px"
-            android:layout_height="125px"
+            android:layout_width="125pt"
+            android:layout_height="125pt"
             android:scaleType="centerInside"
             android:src="@drawable/ico_default_member_logo" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="130px"
+            android:layout_height="130pt"
             android:layout_toRightOf="@id/id_img_member_logo"
             android:gravity="center_vertical">
 
@@ -32,27 +32,27 @@
                 android:id="@+id/id_tv_member_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30px"
+                android:layout_marginLeft="30pt"
                 android:text="Hi,A欢欢"
                 android:textColor="@color/white"
-                android:textSize="42px" />
+                android:textSize="42pt" />
 
             <TextView
                 android:id="@+id/id_tv_member_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/id_tv_member_name"
-                android:layout_marginLeft="30px"
-                android:layout_marginTop="10px"
+                android:layout_marginLeft="30pt"
+                android:layout_marginTop="10pt"
                 android:text="车友会会员"
                 android:textColor="@color/color_setting_skin_second_text"
-                android:textSize="28px" />
+                android:textSize="28pt" />
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/id_sign_btn"
-            android:layout_width="338px"
-            android:layout_height="100px"
+            android:layout_width="338pt"
+            android:layout_height="100pt"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:background="@drawable/bg_btn_new_enable"
@@ -64,15 +64,15 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="20px"
+                android:layout_marginLeft="20pt"
                 android:text="点击签到"
                 android:textColor="@color/white"
-                android:textSize="30px" />
+                android:textSize="30pt" />
 
             <ImageView
                 android:id="@+id/id_img_sign"
-                android:layout_width="43px"
-                android:layout_height="43px"
+                android:layout_width="43pt"
+                android:layout_height="43pt"
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@id/id_tv_sign"
                 android:scaleType="fitXY"
@@ -81,15 +81,15 @@
 
         <TextView
             android:id="@+id/id_tv_sign_ed"
-            android:layout_width="338px"
-            android:layout_height="100px"
+            android:layout_width="338pt"
+            android:layout_height="100pt"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:background="@drawable/ico_btn_disable"
             android:gravity="center"
             android:text="已签到"
             android:textColor="@color/white"
-            android:textSize="30px"
+            android:textSize="30pt"
             android:visibility="gone" />
     </RelativeLayout>
 
@@ -98,18 +98,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/id_top_content"
-        android:layout_marginTop="36px"
-        android:paddingLeft="72px"
-        android:paddingRight="72px">
+        android:layout_marginTop="36pt"
+        android:paddingLeft="72pt"
+        android:paddingRight="72pt">
 
         <RelativeLayout
             android:id="@+id/id_sign_count_content"
-            android:layout_width="563px"
-            android:layout_height="494px"
+            android:layout_width="563pt"
+            android:layout_height="494pt"
             android:background="@drawable/bg_member_info_border"
-            android:paddingLeft="102px"
-            android:paddingTop="78px"
-            android:paddingRight="102px">
+            android:paddingLeft="102pt"
+            android:paddingTop="78pt"
+            android:paddingRight="102pt">
 
             <RelativeLayout
                 android:id="@+id/id_sign_count_top_content"
@@ -118,8 +118,8 @@
 
                 <ImageView
                     android:id="@+id/id_sign_tag"
-                    android:layout_width="41px"
-                    android:layout_height="41px"
+                    android:layout_width="41pt"
+                    android:layout_height="41pt"
                     android:layout_centerVertical="true"
                     android:scaleType="fitXY"
                     android:src="@drawable/ico_my_sign" />
@@ -129,15 +129,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="20px"
+                    android:layout_marginLeft="20pt"
                     android:layout_toRightOf="@id/id_sign_tag"
                     android:text="可用积分（个）"
                     android:textColor="#99FFFFFF"
-                    android:textSize="32px" />
+                    android:textSize="32pt" />
 
                 <ImageView
-                    android:layout_width="13px"
-                    android:layout_height="27px"
+                    android:layout_width="13pt"
+                    android:layout_height="27pt"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:scaleType="fitXY"
@@ -150,33 +150,33 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/id_sign_count_top_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="70px"
+                android:layout_marginTop="70pt"
                 android:text="0"
                 android:textColor="#ffffff"
-                android:textSize="68px"
+                android:textSize="68pt"
                 tools:text="1122" />
 
             <TextView
                 android:id="@+id/id_tv_sign_change"
-                android:layout_width="364px"
-                android:layout_height="88px"
+                android:layout_width="364pt"
+                android:layout_height="88pt"
                 android:layout_below="@id/id_tv_sign_count_number"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:layout_marginTop="10px"
+                android:layout_marginTop="10pt"
                 android:background="@drawable/bg_btn_new_enable"
                 android:gravity="center"
                 android:text="积分兑换"
                 android:textColor="@color/white"
-                android:textSize="30px" />
+                android:textSize="30pt" />
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/id_feedback"
-            android:layout_width="581px"
-            android:layout_height="230px"
+            android:layout_width="581pt"
+            android:layout_height="230pt"
             android:layout_alignParentRight="true"
-            android:layout_marginLeft="30px"
+            android:layout_marginLeft="30pt"
             android:background="@drawable/bg_feedback"
             android:gravity="center_horizontal">
 
@@ -186,15 +186,15 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="20px"
+                android:layout_marginLeft="20pt"
                 android:text="意见反馈"
                 android:textColor="#99FFFFFF"
-                android:textSize="36px" />
+                android:textSize="36pt" />
 
             <ImageView
                 android:id="@+id/id_feedback_img"
-                android:layout_width="43px"
-                android:layout_height="43px"
+                android:layout_width="43pt"
+                android:layout_height="43pt"
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@id/id_feedback_tv"
                 android:scaleType="fitXY"
@@ -203,9 +203,9 @@
 
         <RelativeLayout
             android:id="@+id/id_best_orders"
-            android:layout_width="581px"
-            android:layout_height="230px"
-            android:layout_marginLeft="24px"
+            android:layout_width="581pt"
+            android:layout_height="230pt"
+            android:layout_marginLeft="24pt"
             android:layout_toLeftOf="@id/id_feedback"
             android:layout_toRightOf="@id/id_second_content"
             android:background="@drawable/bg_best_orders"
@@ -217,15 +217,15 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="20px"
+                android:layout_marginLeft="20pt"
                 android:text="精品订单"
                 android:textColor="#99FFFFFF"
-                android:textSize="36px" />
+                android:textSize="36pt" />
 
             <ImageView
                 android:id="@+id/id_best_orders_img"
-                android:layout_width="43px"
-                android:layout_height="43px"
+                android:layout_width="43pt"
+                android:layout_height="43pt"
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@id/id_best_orders_tv"
                 android:scaleType="fitXY"
@@ -234,11 +234,11 @@
 
         <RelativeLayout
             android:id="@+id/id_car_error"
-            android:layout_width="581px"
-            android:layout_height="230px"
+            android:layout_width="581pt"
+            android:layout_height="230pt"
             android:layout_below="@id/id_best_orders"
-            android:layout_marginLeft="24px"
-            android:layout_marginTop="24px"
+            android:layout_marginLeft="24pt"
+            android:layout_marginTop="24pt"
             android:layout_toLeftOf="@id/id_logout"
             android:layout_toRightOf="@id/id_second_content"
             android:background="@drawable/bg_car_error"
@@ -250,15 +250,15 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="20px"
+                android:layout_marginLeft="20pt"
                 android:text="违章查询"
                 android:textColor="#99FFFFFF"
-                android:textSize="36px" />
+                android:textSize="36pt" />
 
             <ImageView
                 android:id="@+id/id_car_error_img"
-                android:layout_width="43px"
-                android:layout_height="43px"
+                android:layout_width="43pt"
+                android:layout_height="43pt"
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@id/id_car_error_tv"
                 android:scaleType="fitXY"
@@ -267,12 +267,12 @@
 
         <RelativeLayout
             android:id="@+id/id_logout"
-            android:layout_width="581px"
-            android:layout_height="230px"
+            android:layout_width="581pt"
+            android:layout_height="230pt"
             android:layout_below="@id/id_feedback"
             android:layout_alignParentRight="true"
-            android:layout_marginLeft="30px"
-            android:layout_marginTop="24px"
+            android:layout_marginLeft="30pt"
+            android:layout_marginTop="24pt"
             android:background="@drawable/bg_window_logout"
             android:gravity="center_horizontal">
 
@@ -282,15 +282,15 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="20px"
+                android:layout_marginLeft="20pt"
                 android:text="退出登录"
                 android:textColor="#99FFFFFF"
-                android:textSize="36px" />
+                android:textSize="36pt" />
 
             <ImageView
                 android:id="@+id/id_logout_img"
-                android:layout_width="43px"
-                android:layout_height="43px"
+                android:layout_width="43pt"
+                android:layout_height="43pt"
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@id/id_logout_tv"
                 android:scaleType="fitXY"

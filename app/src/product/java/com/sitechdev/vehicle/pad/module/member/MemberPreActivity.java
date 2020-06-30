@@ -13,11 +13,15 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
+import com.sitechdev.vehicle.lib.event.BindEventBus;
+import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.StringUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.callback.BaseBribery;
+import com.sitechdev.vehicle.pad.event.AppEvent;
+import com.sitechdev.vehicle.pad.event.TeddyEvent;
 import com.sitechdev.vehicle.pad.manager.UserManager;
 import com.sitechdev.vehicle.pad.module.feedback.FeedbackActivity;
 import com.sitechdev.vehicle.pad.module.login.util.LoginUtils;
@@ -32,6 +36,9 @@ import com.sitechdev.vehicle.pad.view.ReflectTextView;
 import com.sitechdev.vehicle.pad.window.dialog.SignDialog;
 import com.sitechdev.vehicle.pad.window.view.CommonLogoutDialog;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 /**
  * 项目名称：SitechVehiclePad
  * 类名称：MemberActivity
@@ -41,6 +48,7 @@ import com.sitechdev.vehicle.pad.window.view.CommonLogoutDialog;
  * 修改时间：
  * 备注：
  */
+@BindEventBus
 @Route(path = RouterConstants.SUB_APP_MEMBER)
 public class MemberPreActivity extends BaseActivity {
     private static final String TAG = "MemberPreActivity";
@@ -250,7 +258,7 @@ public class MemberPreActivity extends BaseActivity {
                     return;
                 }
                 //确定按钮被点击
-                requestSignAccount();
+                requestSignAccount(false);
                 break;
             case R.id.id_tv_sign_count_number:
                 //我的积分
@@ -285,8 +293,15 @@ public class MemberPreActivity extends BaseActivity {
         }
     }
 
-    private void requestSignAccount() {
-        showProgressDialog();
+    /**
+     * 签到逻辑
+     *
+     * @param isTeddyControl true=语音调用
+     */
+    private void requestSignAccount(final boolean isTeddyControl) {
+        runOnUiThread(() -> {
+            showProgressDialog();
+        });
         MemberHttpUtil.requestSignInAccount(new BaseBribery() {
             @Override
             public void onSuccess(Object successObj) {
@@ -303,6 +318,10 @@ public class MemberPreActivity extends BaseActivity {
                     tvSignedView.setVisibility(View.VISIBLE);
                     if ("-1".equals(mSigninBean.getData().getIntegral())) {
                         CommonUtil.showToast("今日已完成签到，记得明天再来哦");
+                        if (isTeddyControl) {
+                            EventBusUtils.postEvent(new TeddyEvent(TeddyEvent.EB_TEDDY_TTS_PLAY_CONTENT,
+                                    "今日已完成签到，记得明天再来哦"));
+                        }
                         return;
                     }
                     if (mSignDialog != null && mSignDialog.isShowing()) {
@@ -328,5 +347,26 @@ public class MemberPreActivity extends BaseActivity {
 
     private void toFeedback() {
         startActivity(new Intent(this, FeedbackActivity.class));
+    }
+
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    public void onEventListener(AppEvent event) {
+        switch (event.getEventKey()) {
+            case AppEvent.EB_MEMBER_SIGN:
+                SitechDevLog.i(TAG, "今日已完成签到");
+                if (mSigninBean != null && "1".equalsIgnoreCase(mSigninBean.getData().getStatus())) {
+                    //已签到，return
+                    SitechDevLog.i(TAG, "已经签到过，本次不再响应");
+                    EventBusUtils.postEvent(new TeddyEvent(TeddyEvent.EB_TEDDY_TTS_PLAY_CONTENT,
+                            "今日已完成签到，记得明天再来哦"));
+                    return;
+                }
+                //签到
+                requestSignAccount(true);
+                break;
+            default:
+                break;
+        }
+
     }
 }

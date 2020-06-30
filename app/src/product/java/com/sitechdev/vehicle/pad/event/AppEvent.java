@@ -46,6 +46,10 @@ public class AppEvent extends BaseEvent {
      */
     public static final String EVENT_APP_OPEN_MEMBER_INFO_PAGE = "EVENT_APP_OPEN_MEMBER_INFO_PAGE";
     /**
+     * 跳转我的积分页面
+     */
+    public static final String EVENT_APP_MY_POINT_PAGE = "EVENT_APP_MY_POINT_PAGE";
+    /**
      * 跳转车辆状态页面
      */
     public static final String EVENT_APP_OPEN_CAR_STATUS_PAGE = "EVENT_APP_OPEN_CAR_STATUS_PAGE";
@@ -66,6 +70,11 @@ public class AppEvent extends BaseEvent {
      */
     public static final String EVENT_APP_TAXI_STOP_PRICE = "EVENT_APP_TAXI_STOP_PRICE";
     public static final String EVENT_APP_KAOLA_UPDATE = "EVENT_APP_KAOLA_UPDATE";
+
+    /**
+     * 个人中心签到
+     */
+    public static final String EB_MEMBER_SIGN = "EB_MEMBER_SIGN";
 
     private String eventKey = "";
     private Object eventValue = null;

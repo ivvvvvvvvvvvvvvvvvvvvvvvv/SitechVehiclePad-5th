@@ -68,6 +68,10 @@ public class AppManager {
             case AppEvent.EVENT_APP_OPEN_MEMBER_INFO_PAGE:
                 RouterUtils.getInstance().navigation(RouterConstants.SUB_APP_MEMBER);
                 break;
+            //我的积分
+            case AppEvent.EVENT_APP_MY_POINT_PAGE:
+                RouterUtils.getInstance().navigation(RouterConstants.SUB_APP_MY_POINTS);
+                break;
             //车辆状态
             case AppEvent.EVENT_APP_OPEN_CAR_STATUS_PAGE:
                 RouterUtils.getInstance().navigation(RouterConstants.SUB_APP_CAR_STATUS);
