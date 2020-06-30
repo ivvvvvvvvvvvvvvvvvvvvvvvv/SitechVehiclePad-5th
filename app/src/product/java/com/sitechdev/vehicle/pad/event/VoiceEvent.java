@@ -58,6 +58,12 @@ public class VoiceEvent extends BaseEvent {
      */
     public static final String EVENT_VOICE_AUTO_MVW_SWITCH = "EVENT_VOICE_AUTO_MVW_SWITCH";
 
+    /**
+     * 语音发音人
+     * true 男 ；false 女
+     */
+    public static final String EVENT_VOICE_SEX_SWITCH = "EVENT_VOICE_SEX_SWITCH";
+
     private String eventKey = "";
     private Object eventValue = null;
 

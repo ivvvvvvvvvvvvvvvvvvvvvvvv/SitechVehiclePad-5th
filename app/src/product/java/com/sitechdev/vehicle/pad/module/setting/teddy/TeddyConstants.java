@@ -76,6 +76,10 @@ public class TeddyConstants {
      */
     public static final String TEDDY_AUTOMVW_CLOSE = "false";
     /**
+     * 发音人性别
+     */
+    public static final String TEDDY_SEX_IS_MALE = "TEDDY_SEX_IS_MALE";
+    /**
      * 自动唤醒开关--配置key
      */
     public static final String TEDDY_SPKEY_MVW_AUTOOPEN = "TEDDY_SPKEY_MVW_AUTOOPEN";

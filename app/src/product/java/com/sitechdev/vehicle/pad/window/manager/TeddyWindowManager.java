@@ -170,6 +170,11 @@ public class TeddyWindowManager {
                 SitechDevLog.i(TAG, "EVENT_VOICE_AUTO_MVW_SWITCH=========autoSwitch===" + autoSwitch);
                 TeddyConfig.setAutoMvwStatus(autoSwitch);
                 break;
+            case VoiceEvent.EVENT_VOICE_SEX_SWITCH:
+                boolean isMale = (boolean) event.getEventValue();
+                SitechDevLog.i(TAG, "EVENT_VOICE_IS MALE=========autoSwitch===" + isMale);
+                TeddyConfig.setSexSwitch(isMale);
+                break;
             default:
                 break;
         }

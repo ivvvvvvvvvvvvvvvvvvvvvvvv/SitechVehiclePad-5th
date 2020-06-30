@@ -80,6 +80,11 @@ public class TeddyConfig {
     public static boolean isEnableTeddyWakeUp = true;
 
     /**
+     * 发音人是否为男性
+     */
+    public static boolean isSexMale = false;
+
+    /**
      * 语音功能错误类型
      */
     public enum TEDDY_ERROR_TYPE {
@@ -143,6 +148,23 @@ public class TeddyConfig {
     }
 
     /**
+     * 获取当前发音人是否是男性
+     *
+     * @return true==当前为男性
+     */
+    public static boolean getSexIsMale() {
+        String isMale = ParamsUtil.getStringData(TeddyConstants.TEDDY_SEX_IS_MALE);
+        SitechDevLog.i(VoiceConstants.TEDDY_TAG, "初始发音人是男性？" + isMale);
+        if (StringUtils.isEmpty(isMale)) {
+            isSexMale = false;
+        } else {
+            isSexMale = Boolean.parseBoolean(isMale);
+        }
+        SitechDevLog.i(VoiceConstants.TEDDY_TAG, "初始发音人是男性？" + isSexMale);
+        return isSexMale;
+    }
+
+    /**
      * 保存当前自动唤醒开关状态
      *
      * @return true==当前为开启状态
@@ -151,6 +173,17 @@ public class TeddyConfig {
         isEnableTeddyWakeUp = autoMvw;
         SitechDevLog.i(VoiceConstants.TEDDY_TAG, "重置唤醒开关状态==>" + isEnableTeddyWakeUp);
         ParamsUtil.setData(TeddyConstants.TEDDY_SPKEY_MVW_AUTOOPEN, String.valueOf(autoMvw));
+    }
+
+    /**
+     * 保存当前发音人性别
+     *
+     * true=男 false=女
+     */
+    public static void setSexSwitch(boolean isMale) {
+        SitechDevLog.i(VoiceConstants.TEDDY_TAG, "设置发音人性别为男？" + isMale);
+        isSexMale = isMale;
+        ParamsUtil.setData(TeddyConstants.TEDDY_SEX_IS_MALE, String.valueOf(isMale));
     }
 
     /**
