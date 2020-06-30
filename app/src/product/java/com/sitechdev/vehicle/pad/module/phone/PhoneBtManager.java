@@ -96,7 +96,7 @@ public class PhoneBtManager {
                             SettingConfig.getInstance().setHFPConnected(connect);
                             queryBtInfo();
                             if (!connect) {
-                                logTest("woaini ---:duankai");
+                                SettingConfig.getInstance().setConnectBtName("");
                                 EventBusUtils.postEvent(new SysEvent(EB_SYS_BT_STATE, false));
                             }
                         }
@@ -107,7 +107,6 @@ public class PhoneBtManager {
                     break;
                     case ATBluetooth.RETURN_HFP_CONNECT_NAME: {
                         SettingConfig.getInstance().setConnectBtName(param3);
-                        logTest("woaini ---:lianjie:"+param3);
                         EventBusUtils.postEvent(new SysEvent(EB_SYS_BT_STATE, true));
                     }
                     break;
