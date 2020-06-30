@@ -41,6 +41,7 @@ public class DialFragment extends MvpFragment<DialPresenter> implements View.OnC
     private TableLayout mDialTagLayout;
     private EditText mEdittext;
     private PhoneDialWindow mPhoneDialWindow;
+    private View mDelete;
 
     public DialFragment() {
     }
@@ -66,6 +67,7 @@ public class DialFragment extends MvpFragment<DialPresenter> implements View.OnC
     protected void initView(Bundle savedInstanceState) {
         mDialTagLayout = mContentView.findViewById(R.id.tl_dial_container);
         mEdittext = mContentView.findViewById(R.id.phone_dial_edit);
+        mDelete = mContentView.findViewById(R.id.dialpad_key_delete);
         mEdittext.setRawInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
         mEdittext.setTextIsSelectable(true);
 
@@ -91,6 +93,7 @@ public class DialFragment extends MvpFragment<DialPresenter> implements View.OnC
 
     @Override
     protected void initListener() {
+        mDelete.setOnClickListener(this);
         for (int i = 0; i < viewList.size(); i++) {
             viewList.get(i).setOnClickListener(this);
             if (i == viewList.size() - 1 || i == viewList.size() - 2) {
@@ -132,6 +135,9 @@ public class DialFragment extends MvpFragment<DialPresenter> implements View.OnC
                 return;
             }
             mPresenter.dial();
+            mEdittext.setText("");
+        } else if (i == R.id.dialpad_key_delete) {
+            mPresenter.delete();
         }
     }
 

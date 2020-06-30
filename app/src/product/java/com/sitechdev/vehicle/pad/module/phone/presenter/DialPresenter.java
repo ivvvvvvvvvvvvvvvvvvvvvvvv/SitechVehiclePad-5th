@@ -62,6 +62,14 @@ public class DialPresenter extends DialContract.Presenter {
     }
 
     @Override
+    public void delete() {
+        if (dialPadPhoneNumStr.length() > 0) {
+            dialPadPhoneNumStr = dialPadPhoneNumStr.substring(0,dialPadPhoneNumStr.length()-1);
+            getView().onDialNumber(dialPadPhoneNumStr);
+        }
+    }
+
+    @Override
     public void onSysEvent(SysEvent event) {
         if (null == event) {
             return;

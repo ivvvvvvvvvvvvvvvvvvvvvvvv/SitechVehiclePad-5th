@@ -19,6 +19,8 @@ public interface DialContract {
         public abstract void refreshPhoneNumStr(DialEvent dialEvent);
 
         public abstract void onSysEvent(SysEvent event);
+
+        public abstract void delete();
     }
 
     interface View extends IContract.IView {
