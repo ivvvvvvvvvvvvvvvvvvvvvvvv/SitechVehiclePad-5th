@@ -122,6 +122,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener,
         mMapView.onCreate(savedInstanceState);
 
         comView = findViewById(R.id.id_title_view);
+        comView.setVisibility(View.GONE);
         comView.setOnClickListener(this);
         mBackView = findViewById(R.id.id_img_back);
         mBackView.setOnClickListener(this);

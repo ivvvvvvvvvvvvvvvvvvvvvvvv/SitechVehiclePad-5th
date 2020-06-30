@@ -26,7 +26,10 @@ import com.sitechdev.vehicle.lib.util.StringUtils;
 import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
+import com.sitechdev.vehicle.pad.app.AppConst;
 import com.sitechdev.vehicle.pad.event.AppEvent;
+import com.sitechdev.vehicle.pad.event.MapEvent;
+import com.sitechdev.vehicle.pad.event.PoiEvent;
 import com.sitechdev.vehicle.pad.event.TeddyEvent;
 import com.sitechdev.vehicle.pad.event.VoiceEvent;
 import com.sitechdev.vehicle.pad.event.WindowEvent;
@@ -35,6 +38,9 @@ import com.sitechdev.vehicle.pad.manager.KuwoManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.module.login.util.LoginUtils;
 import com.sitechdev.vehicle.pad.module.main.MainActivity;
+import com.sitechdev.vehicle.pad.module.map.SetAddressActivity;
+import com.sitechdev.vehicle.pad.module.map.util.LocationData;
+import com.sitechdev.vehicle.pad.module.map.util.MapUtil;
 import com.sitechdev.vehicle.pad.module.music.MusicMainActivity;
 import com.sitechdev.vehicle.pad.module.music.MusicManager;
 import com.sitechdev.vehicle.pad.module.setting.teddy.TeddyConfig;
@@ -43,6 +49,7 @@ import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppUtil;
 import com.sitechdev.vehicle.pad.util.AppVariants;
 import com.sitechdev.vehicle.pad.util.AudioUtil;
+import com.sitechdev.vehicle.pad.window.manager.TeddyWindowManager;
 import com.sitechdev.vehicle.pad.window.view.PersonLoginWindow;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -133,6 +140,14 @@ public class VUI implements VUIWindow.OnWindowHideListener {
      * 唤醒
      */
     private void onVoiceWakeup(String ttsText) {
+        if (!TeddyWindowManager.getInstance().isViewShow()) {
+            TeddyWindowManager.getInstance().show();
+        }
+//        try {
+//            Thread.sleep(500);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         if (AIUIConstant.STATE_READY != mAIUIState) {
             //TODO
             VUI.log("AIUIAgent -> NOT READY");
@@ -470,51 +485,51 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                         }
                     }
                 } else if (TextUtils.equals("SITECHAI.sitechList", service)) {
-//                    String index = null;
-//                    JSONArray semantics = intent.optJSONArray("semantic");
-//                    if (null != semantics && semantics.length() > 0) {
-//                        JSONObject semantic = semantics.optJSONObject(0);
-//                        switch (semantic.optString("intent")) {
-//                            case "listSelect":
-//                                JSONArray slots = semantic.optJSONArray("slots");
-//                                int len = slots.length();
-//                                if (null != slots && len > 0) {
-//                                    JSONObject slot = slots.optJSONObject(0);
-//                                    if (null != slot) {
-//                                        index = slot.optString("value");
-//                                    }
-//                                }
-//                                break;
-//                        }
-//                    }
-//                    if (MapUtil.isSelectPoiScene()) {
-//                        if (!TextUtils.isEmpty(index))
-//                            EventBusUtils.postEvent(new PoiEvent(
-//                                    PoiEvent.EVENT_QUERY_POI_INDEX,
-//                                    index));
-//                        return;
-//                    } else {
-//                        if (vuiWindow.getCurrentHolder() instanceof ContactsHolder) {
-//                            ContactsHolder holder = vuiWindow.getCurrentHolder();
-//                            if (null != holder.getContacts()) {
-//                                if (holder.getContacts().size() > 0) {
-//                                    int i = Integer.valueOf(index);
-//                                    if (holder.getContacts().size() >= i) {
-//                                        i--;
-//                                        String phoneNumber = holder.getContacts().get(i).getPhoneNumber();
-//                                        if (!TextUtils.isEmpty(phoneNumber)) {
-//                                            vuiWindow.hide();
-//                                            VUIUtils.callPhone(phoneNumber);
-//                                        }
-//                                    } else {
-//                                        shutAndTTS("找不到您要的联系人");
-//                                    }
-//                                    return;
-//                                }
-//                            }
-//                        }
-                    shutAndTTS("Teddy正在努力学习中，敬请期待");
-//                    }
+                    String index = null;
+                    JSONArray semantics = intent.optJSONArray("semantic");
+                    if (null != semantics && semantics.length() > 0) {
+                        JSONObject semantic = semantics.optJSONObject(0);
+                        switch (semantic.optString("intent")) {
+                            case "listSelect":
+                                JSONArray slots = semantic.optJSONArray("slots");
+                                int len = slots.length();
+                                if (null != slots && len > 0) {
+                                    JSONObject slot = slots.optJSONObject(0);
+                                    if (null != slot) {
+                                        index = slot.optString("value");
+                                    }
+                                }
+                                break;
+                        }
+                    }
+                    if (MapUtil.isSelectPoiScene()) {
+                        if (!TextUtils.isEmpty(index))
+                            EventBusUtils.postEvent(new PoiEvent(
+                                    PoiEvent.EVENT_QUERY_POI_INDEX,
+                                    index));
+                        return;
+                    } else {
+                        if (vuiWindow.getCurrentHolder() instanceof ContactsHolder) {
+                            ContactsHolder holder = vuiWindow.getCurrentHolder();
+                            if (null != holder.getContacts()) {
+                                if (holder.getContacts().size() > 0) {
+                                    int i = Integer.valueOf(index);
+                                    if (holder.getContacts().size() >= i) {
+                                        i--;
+                                        String phoneNumber = holder.getContacts().get(i).getPhoneNumber();
+                                        if (!TextUtils.isEmpty(phoneNumber)) {
+                                            vuiWindow.hide();
+                                            VUIUtils.callPhone(phoneNumber);
+                                        }
+                                    } else {
+                                        shutAndTTS("找不到您要的联系人");
+                                    }
+                                    return;
+                                }
+                            }
+                        }
+//                    shutAndTTS("Teddy正在努力学习中，敬请期待");
+                    }
                 } else if (TextUtils.equals("SITECHAI.AIradio", service) ||
                         TextUtils.equals("musicX", service)) {
                     JSONArray semantics = intent.optJSONArray("semantic");
@@ -559,78 +574,77 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                     return;
                 } else {
                     if (TextUtils.equals("mapU", service)) {
-//                        JSONArray semantics = intent.optJSONArray("semantic");
-//                        if (null != semantics && semantics.length() > 0) {
-//                            JSONObject semantic = semantics.optJSONObject(0);
-//                            switch (semantic.optString("intent")) {
-//                                case "LOCATE":
-                        vuiAnr();
-                        return;
-//                                case "QUERY":
-//                                    JSONArray slots = semantic.optJSONArray("slots");
-//                                    int len = slots.length();
-//                                    if (null != slots && len > 0) {
-//                                        for (int i = 0; i < len; i++) {
-//                                            JSONObject object = slots.optJSONObject(i);
-//                                            if (null != object) {
-//                                                if (TextUtils.equals(object.optString("name"),
-//                                                        "endLoc.ori_loc")) {
-//                                                    String value = object.optString("value");
-//                                                    if (!TextUtils.isEmpty(value)) {
-//                                                        if (TextUtils.equals(value, "家")) {
-//                                                            if (!LocationData.getInstance().isHasHomeAddress()) {
-//                                                                Intent goHome = new Intent(AppVariants.currentActivity, SetAddressActivity.class);
-//                                                                goHome.putExtra(AppConst.ADDRESS_SET_TYPE, AppConst.HOME_ADDRESS_SET_INDEX);
-//                                                                if (AppVariants.currentActivity != null) {
-//                                                                    AppVariants.currentActivity.startActivity(goHome);
-//                                                                }
-//                                                                shutAndTTS("请先设置家的地址");
-//                                                                return;
-//                                                            } else {
-//                                                                //导航回家
-//                                                                vuiWindow.hide();
-//                                                                EventBusUtils.postEvent(new MapEvent(MapEvent.EVENT_MAP_START_NAVI_HOME));
-//                                                                return;
-//                                                            }
-//                                                        } else if (TextUtils.equals(value, "公司")) {
-//                                                            if (!LocationData.getInstance().isHasWorkAddress()) {
-//                                                                Intent goCompony = new Intent(AppVariants.currentActivity, SetAddressActivity.class);
-//                                                                goCompony.putExtra(AppConst.ADDRESS_SET_TYPE, AppConst.COMPONY_ADDRESS_SET_INDEX);
-//                                                                if (AppVariants.currentActivity != null) {
-//                                                                    AppVariants.currentActivity.startActivity(goCompony);
-//                                                                }
-//                                                                shutAndTTS("请先设置公司的地址");
-//                                                                return;
-//                                                            } else {
-//                                                                //导航回公司
-//                                                                vuiWindow.hide();
-//                                                                EventBusUtils.postEvent(new MapEvent(MapEvent.EVENT_MAP_START_NAVI_COMPONY));
-//                                                                return;
-//                                                            }
-//                                                        } else {
-////                                                            vuiWindow.hide();
-//                                                            EventBusUtils.postEvent(new PoiEvent(PoiEvent.EVENT_QUERY_POI_KEYWORD, value));
-//                                                            return;
-//                                                        }
-//                                                    }
-//                                                }
-//                                            }
-//                                        }
-//                                    }
-//                                    break;
-//                                case "OPEN_MAP":
-//                                    EventBusUtils.postEvent(new MapEvent(MapEvent.EVENT_OPEN_MAP));
-//                                    vuiWindow.hide();
-//                                    break;
-//                                case "CLOSE_MAP":
-//                                    vuiWindow.hide();
-//                                    break;
-//                                default:
-//                                    break;
-//                            }
-                    }
-//                    } else
-                    if (TextUtils.equals("weather", service)) {
+                        JSONArray semantics = intent.optJSONArray("semantic");
+                        if (null != semantics && semantics.length() > 0) {
+                            JSONObject semantic = semantics.optJSONObject(0);
+                            switch (semantic.optString("intent")) {
+                                case "LOCATE":
+//                        vuiAnr();
+                                    return;
+                                case "QUERY":
+                                    JSONArray slots = semantic.optJSONArray("slots");
+                                    int len = slots.length();
+                                    if (null != slots && len > 0) {
+                                        for (int i = 0; i < len; i++) {
+                                            JSONObject object = slots.optJSONObject(i);
+                                            if (null != object) {
+                                                if (TextUtils.equals(object.optString("name"),
+                                                        "endLoc.ori_loc")) {
+                                                    String value = object.optString("value");
+                                                    if (!TextUtils.isEmpty(value)) {
+                                                        if (TextUtils.equals(value, "家")) {
+                                                            if (!LocationData.getInstance().isHasHomeAddress()) {
+                                                                Intent goHome = new Intent(AppVariants.currentActivity, SetAddressActivity.class);
+                                                                goHome.putExtra(AppConst.ADDRESS_SET_TYPE, AppConst.HOME_ADDRESS_SET_INDEX);
+                                                                if (AppVariants.currentActivity != null) {
+                                                                    AppVariants.currentActivity.startActivity(goHome);
+                                                                }
+                                                                shutAndTTS("请先设置家的地址");
+                                                                return;
+                                                            } else {
+                                                                //导航回家
+                                                                vuiWindow.hide();
+                                                                EventBusUtils.postEvent(new MapEvent(MapEvent.EVENT_MAP_START_NAVI_HOME));
+                                                                return;
+                                                            }
+                                                        } else if (TextUtils.equals(value, "公司")) {
+                                                            if (!LocationData.getInstance().isHasWorkAddress()) {
+                                                                Intent goCompony = new Intent(AppVariants.currentActivity, SetAddressActivity.class);
+                                                                goCompony.putExtra(AppConst.ADDRESS_SET_TYPE, AppConst.COMPONY_ADDRESS_SET_INDEX);
+                                                                if (AppVariants.currentActivity != null) {
+                                                                    AppVariants.currentActivity.startActivity(goCompony);
+                                                                }
+                                                                shutAndTTS("请先设置公司的地址");
+                                                                return;
+                                                            } else {
+                                                                //导航回公司
+                                                                vuiWindow.hide();
+                                                                EventBusUtils.postEvent(new MapEvent(MapEvent.EVENT_MAP_START_NAVI_COMPONY));
+                                                                return;
+                                                            }
+                                                        } else {
+//                                                            vuiWindow.hide();
+                                                            EventBusUtils.postEvent(new PoiEvent(PoiEvent.EVENT_QUERY_POI_KEYWORD, value));
+                                                            return;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    break;
+                                case "OPEN_MAP":
+                                    EventBusUtils.postEvent(new MapEvent(MapEvent.EVENT_OPEN_MAP));
+                                    vuiWindow.hide();
+                                    break;
+                                case "CLOSE_MAP":
+                                    vuiWindow.hide();
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    } else if (TextUtils.equals("weather", service)) {
 //                        JSONObject data = intent.optJSONObject("data");
 //                        if (null != data) {
 //                            JSONArray semantics = intent.optJSONArray("semantic");
@@ -678,34 +692,34 @@ public class VUI implements VUIWindow.OnWindowHideListener {
 //                            }
 //                        }
                     } else if (TextUtils.equals(VoiceConstants.VOICE_CUSTOM_SERVICE_NAVI, service)) {
-//                        JSONArray semantics = intent.optJSONArray("semantic");
-//                        if (null != semantics && semantics.length() > 0) {
-//                            JSONObject semantic = semantics.optJSONObject(0);
-//                            if (null != semantic) {
-//                                switch (semantic.optString("intent")) {
-//                                    //设置为家
-//                                    case VoiceConstants.VOICE_CUSTOM_INTENT_NAVI_SETHOME:
+                        JSONArray semantics = intent.optJSONArray("semantic");
+                        if (null != semantics && semantics.length() > 0) {
+                            JSONObject semantic = semantics.optJSONObject(0);
+                            if (null != semantic) {
+                                switch (semantic.optString("intent")) {
+                                    //设置为家
+                                    case VoiceConstants.VOICE_CUSTOM_INTENT_NAVI_SETHOME:
+                                        EventBusUtils.postEvent(new MapEvent(MapEvent.EVENT_MAP_NAVI_SET_HOME_ADDR));
+                                        return;
+                                    //设置为公司
+                                    case VoiceConstants.VOICE_CUSTOM_INTENT_NAVI_SETWORK:
+                                        EventBusUtils.postEvent(new MapEvent(MapEvent.EVENT_MAP_NAVI_SET_WORK_ADDR));
+                                        return;
+                                    //开始导航
+                                    case VoiceConstants.VOICE_CUSTOM_INTENT_START_NAVI:
 //                                        EventBusUtils.postEvent(new MapEvent(MapEvent.EVENT_MAP_NAVI_SET_HOME_ADDR));
-//                                        return;
-//                                    //设置为公司
-//                                    case VoiceConstants.VOICE_CUSTOM_INTENT_NAVI_SETWORK:
-//                                        EventBusUtils.postEvent(new MapEvent(MapEvent.EVENT_MAP_NAVI_SET_WORK_ADDR));
-//                                        return;
-//                                    //开始导航
-//                                    case VoiceConstants.VOICE_CUSTOM_INTENT_START_NAVI:
-////                                        EventBusUtils.postEvent(new MapEvent(MapEvent.EVENT_MAP_NAVI_SET_HOME_ADDR));
-//                                        return;
-//                                    //关闭导航
-//                                    case VoiceConstants.VOICE_CUSTOM_INTENT_CLOSE_NAVI:
-//                                        EventBusUtils.postEvent(new MapEvent(MapEvent.EVENT_MAP_CLOSE_NAVI));
-//                                        return;
-//                                    default:
-//                                        vuiAnr();
-//                                        break;
-//
-//                                }
-//                            }
-//                        }
+                                        return;
+                                    //关闭导航
+                                    case VoiceConstants.VOICE_CUSTOM_INTENT_CLOSE_NAVI:
+                                        EventBusUtils.postEvent(new MapEvent(MapEvent.EVENT_MAP_CLOSE_NAVI));
+                                        return;
+                                    default:
+                                        vuiAnr();
+                                        break;
+
+                                }
+                            }
+                        }
                     } else if (TextUtils.equals("telephone", service)) {
 //                        JSONArray semantics = intent.optJSONArray("semantic");
 //                        if (null != semantics && semantics.length() > 0) {
@@ -781,6 +795,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                         String template = semantic.optString("template");
                                         if ("{sitechaction}{appname}".equals(template)
                                                 || "{sitechaction}{pricecounter}".equals(template)
+                                                || "{sitechaction}".equalsIgnoreCase(template)
                                                 || "{sitechaction}{page}".equals(template)) {
                                             doSitechactionWithAppName(semantic);
                                         } else {
@@ -840,6 +855,14 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                             continue;
                         }
                     }
+                }
+                if ("sign".equalsIgnoreCase(sitechaction)) {
+                    //个人中心，签到功能
+                    log("个人中心，签到功能");
+                    shutdown = true;
+                    shut();
+                    EventBusUtils.postEvent(new AppEvent(AppEvent.EB_MEMBER_SIGN));
+                    return;
                 }
                 if (TextUtils.isEmpty(sitechaction) || (TextUtils.isEmpty(appname) && TextUtils.isEmpty(priceCounter))) {
                     vuiAnr();
@@ -913,6 +936,18 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                     } else {
                                         PersonLoginWindow.getInstance().showWnd(() -> EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_OPEN_MEMBER_INFO_PAGE)));
                                         shutAndTTS("我还没有权限打开个人中心，请您登录授权。");
+                                        shut();
+                                    }
+                                    break;
+                                case "我的积分":
+                                    if (LoginUtils.isLogin()) {
+                                        log("正在打开我的积分");
+                                        EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_MY_POINT_PAGE));
+                                        shutAndTTS("好的，已为您打开我的积分");
+                                        shut();
+                                    } else {
+                                        PersonLoginWindow.getInstance().showWnd(() -> EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_MY_POINT_PAGE)));
+                                        shutAndTTS("我还没有权限打开我的积分，请您登录授权。");
                                         shut();
                                     }
                                     break;
@@ -997,6 +1032,8 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                     vuiAnr();
                                     break;
                             }
+                            break;
+                        default:
                             break;
                     }
                 }

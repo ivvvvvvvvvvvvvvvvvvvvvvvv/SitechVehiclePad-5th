@@ -40,9 +40,7 @@ import static com.blankj.utilcode.util.ActivityUtils.startActivity;
 public class MapVoiceEventUtil {
 
     private MapVoiceEventUtil() {
-        if (!EventBus.getDefault().isRegistered(this)) {
-            EventBusUtils.register(this);
-        }
+        EventBusUtils.register(this);
         registerMapReceiver();
     }
 

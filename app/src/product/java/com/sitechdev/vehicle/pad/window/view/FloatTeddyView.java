@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
@@ -192,6 +193,10 @@ public class FloatTeddyView extends RelativeLayout implements View.OnClickListen
                     mSrTextView.setVisibility(View.GONE);
                 }
                 resetTeddyViewDefault();
+                if (!AppUtils.isAppForeground()) {
+                    //如果app当前被切到后台，则隐藏teddy窗口
+                    TeddyWindowManager.getInstance().hide();
+                }
                 break;
             //停止语音
             case VoiceEvent.EVENT_VOICE_STOP_VOICE:

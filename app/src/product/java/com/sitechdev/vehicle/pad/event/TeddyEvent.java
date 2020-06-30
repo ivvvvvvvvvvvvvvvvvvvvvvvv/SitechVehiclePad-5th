@@ -38,6 +38,12 @@ public class TeddyEvent extends BaseEvent {
      */
     public static final String EB_TEDDY_EVENT_SR_CONTACT_DICT = "EB_EVENT_TEDDY_SR_CONTACT_DICT";
 
+    /**
+     * 通知TTS播报话术
+     */
+    public static final String EB_TEDDY_TTS_PLAY_CONTENT = "EB_TEDDY_TTS_PLAY_CONTENT";
+
+
 
     private String eventKey = "";
     private Object eventValue = null;

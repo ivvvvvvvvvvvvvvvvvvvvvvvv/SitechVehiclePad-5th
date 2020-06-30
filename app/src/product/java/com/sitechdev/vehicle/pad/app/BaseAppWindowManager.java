@@ -85,6 +85,7 @@ public class BaseAppWindowManager {
                 }
                 break;
             case WindowEvent.EVENT_WINDOW_APP_FRONT:
+                //显示必须的所有窗口--APP切换到前台
                 //showForcibly = event.getEventObject()
                 if (event.getEventObject() instanceof Boolean) {
                     boolean showForcibly = (boolean) event.getEventObject();
@@ -102,6 +103,7 @@ public class BaseAppWindowManager {
                 MainControlPanelWindowManager.getInstance().show();
                 break;
             case WindowEvent.EVENT_WINDOW_APP_BACKGROUD:
+                //隐藏必须的所有窗口--APP切换到后台
                 AppSignalWindowManager.getInstance().hide();
                 MainMenuWindowManager.getInstance().hide();
                 TeddyWindowManager.getInstance().hide();

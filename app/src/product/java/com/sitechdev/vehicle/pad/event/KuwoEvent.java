@@ -69,7 +69,7 @@ public class KuwoEvent extends BaseEvent<String> {
          */
         PLAY_PLAY,
         /**
-         * 播放
+         * 暂停
          */
         PLAY_PAUSE,
         /**

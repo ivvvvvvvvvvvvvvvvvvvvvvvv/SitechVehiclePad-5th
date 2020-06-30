@@ -8,10 +8,17 @@ import com.iflytek.aiui.AIUIAgent;
 import com.iflytek.aiui.AIUIConstant;
 import com.iflytek.aiui.AIUIListener;
 import com.iflytek.aiui.AIUIMessage;
+import com.sitechdev.vehicle.lib.event.EventBusUtils;
+import com.sitechdev.vehicle.lib.util.ParamsUtil;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
+import com.sitechdev.vehicle.lib.util.StringUtils;
 import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.app.AppConst;
+import com.sitechdev.vehicle.pad.event.AppEvent;
+import com.sitechdev.vehicle.pad.event.TeddyEvent;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -34,6 +41,7 @@ public class AIUIEngine {
 
     private AIUIEngine() {
         context = AppApplication.getContext();
+        EventBusUtils.register(this);
         createAgent();
     }
 
@@ -88,6 +96,21 @@ public class AIUIEngine {
         mAIUIAgent.sendMessage(stopRecord);
     }
 
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    public void onEventListener(TeddyEvent event) {
+        switch (event.getEventKey()) {
+            case TeddyEvent.EB_TEDDY_TTS_PLAY_CONTENT:
+                String tts_text = (String) event.getEventValue();
+                if (!StringUtils.isEmpty(tts_text)) {
+                    ttsStart(tts_text);
+                }
+                break;
+            default:
+                break;
+        }
+
+    }
+
     public void ttsStart(String ttsStr) {
         if (TextUtils.isEmpty(ttsStr.trim())) {
             return;
@@ -102,10 +125,15 @@ public class AIUIEngine {
     }
 
     public String getTtsPeopleParams() {
-        if (!TextUtils.isEmpty(ttsPeopleParams)) {
-            return ttsPeopleParams;
+//        if (!TextUtils.isEmpty(ttsPeopleParams)) {
+//            return ttsPeopleParams;
+//        }
+        boolean isTtsManPeople = ParamsUtil.getBooleanData("key_tts_people_man");
+        if (isTtsManPeople) {
+            ttsPeopleParams = getXiaofengVoice();
+        } else {
+            ttsPeopleParams = getXiaoyanVoice();
         }
-        ttsPeopleParams = getXiaoyanVoice();
         return ttsPeopleParams;
     }
 
