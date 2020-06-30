@@ -3,8 +3,6 @@ package com.sitechdev.vehicle.pad.module.phone.fragment;
 
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TableLayout;
@@ -104,7 +102,6 @@ public class DialFragment extends MvpFragment<DialPresenter> implements View.OnC
 
     @Override
     public void onClick(View v) {
-        logTest("ON CLICK 111");
         int i = v.getId();
         if (i == R.id.dialpad_key_one) {
             mPresenter.passKey('1');
@@ -182,7 +179,4 @@ public class DialFragment extends MvpFragment<DialPresenter> implements View.OnC
         }
     }
 
-    private void logTest(String msg){
-        Log.e("Test_Phone_Dial","-----"+msg);
-    }
 }

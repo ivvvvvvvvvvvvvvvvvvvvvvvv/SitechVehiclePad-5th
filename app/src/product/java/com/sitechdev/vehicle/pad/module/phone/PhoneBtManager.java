@@ -6,7 +6,6 @@ import android.util.Log;
 
 import com.my.hw.ATBluetooth;
 import com.my.hw.BtCallBack;
-import com.my.hw.BtDeviceBean;
 import com.my.hw.SettingConfig;
 import com.sitechdev.jpinyin.PinyinException;
 import com.sitechdev.jpinyin.PinyinHelper;
@@ -106,7 +105,7 @@ public class PhoneBtManager {
                         }
                     }
                     break;
-                    case ATBluetooth.RETURN_HFP_CONNECT_NAME: {
+                    case ATBluetooth.RETURN_HFP_CONNECT_NAME: {//返回连接的蓝牙设备名称
                         SettingConfig.getInstance().setConnectBtName(param3);
                         EventBusUtils.postEvent(new SysEvent(EB_SYS_BT_STATE, true));
                     }
@@ -250,6 +249,7 @@ public class PhoneBtManager {
                 public void onSuccess(@Nullable Void result) {
                     super.onSuccess(result);
                     EventBusUtils.postEvent(new TeddyEvent(TeddyEvent.EB_TEDDY_EVENT_SR_CONTACT_DICT));
+                    EventBusUtils.postEvent(new BTEvent(BTEvent.PB_OR_CL_UPDATE_SUCCESS, true));
                 }
             });
         }
