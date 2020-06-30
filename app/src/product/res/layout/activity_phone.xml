@@ -9,39 +9,97 @@
     android:paddingBottom="300pt"
     tools:ignore="PxUsage">
 
-    <include
-        layout="@layout/common_phonel_title_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="45px" />
-
     <LinearLayout
-        android:id="@+id/phone_content_layout"
+        android:orientation="vertical"
+        android:id="@+id/phone_bt_connect_content_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            layout="@layout/common_phonel_title_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="45px" />
+
+        <LinearLayout
+            android:id="@+id/phone_content_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/phone_content_padding_left_right"
+            android:paddingTop="32pt"
+            android:paddingRight="@dimen/phone_content_padding_left_right"
+            android:weightSum="959">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/phone_view_pager"
+                android:layout_width="0pt"
+                android:layout_height="match_parent"
+                android:layout_weight="486" />
+
+            <TextView
+                android:layout_width="0.5pt"
+                android:layout_height="match_parent"
+                android:background="@color/phone_line_color" />
+
+            <FrameLayout
+                android:id="@+id/phone_dialog"
+                android:layout_width="0pt"
+                android:layout_height="match_parent"
+                android:layout_weight="473" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/phone_bt_dis_content_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingLeft="@dimen/phone_content_padding_left_right"
-        android:paddingRight="@dimen/phone_content_padding_left_right"
-        android:orientation="horizontal"
-        android:weightSum="959"
-        android:paddingTop="32pt">
+        android:visibility="gone">
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/phone_view_pager"
-            android:layout_width="0pt"
-            android:layout_height="match_parent"
-            android:layout_weight="486"/>
+        <include layout="@layout/common_title_toolbar" />
+
+        <ImageView
+            android:id="@+id/iv_connect_teddy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="242pt"
+            android:layout_marginBottom="@dimen/dp_17"
+            android:src="@drawable/ic_bt_disconnect"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_sub_back" />
 
         <TextView
-            android:layout_width="0.5pt"
-            android:layout_height="match_parent"
-            android:background="@color/phone_line_color" />
+            android:id="@+id/tv_connect_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="17pt"
+            android:text="蓝牙未连接"
+            android:textColor="@color/white"
+            android:textSize="29pt"
+            app:layout_constraintLeft_toLeftOf="@id/iv_connect_teddy"
+            app:layout_constraintRight_toRightOf="@id/iv_connect_teddy"
+            app:layout_constraintTop_toBottomOf="@+id/iv_connect_teddy" />
 
-        <FrameLayout
-            android:id="@+id/phone_dialog"
-            android:layout_width="0pt"
-            android:layout_height="match_parent"
-            android:layout_weight="473" />
+        <Button
+            android:id="@+id/btn_phone_bluetooth"
+            android:layout_width="248pt"
+            android:layout_height="78pt"
+            android:layout_marginTop="39pt"
+            android:background="@drawable/shape_connect_bt"
+            android:padding="10pt"
+            android:paddingLeft="62pt"
+            android:paddingTop="24pt"
+            android:paddingRight="62pt"
+            android:paddingBottom="24pt"
+            android:text="点击连接"
+            android:textSize="29pt"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_connect_tip"
+            app:layout_constraintRight_toRightOf="@+id/tv_connect_tip"
+            app:layout_constraintTop_toBottomOf="@+id/tv_connect_tip" />
 
-    </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
 
 </LinearLayout>

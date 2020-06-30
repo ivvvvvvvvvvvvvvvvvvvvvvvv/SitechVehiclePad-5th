@@ -6,26 +6,32 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.blankj.utilcode.util.FragmentUtils;
+import com.my.hw.SettingConfig;
+import com.sitechdev.vehicle.lib.event.BindEventBus;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.bean.MvpActivity;
+import com.sitechdev.vehicle.pad.event.SysEvent;
 import com.sitechdev.vehicle.pad.model.contract.PhoneContract;
 import com.sitechdev.vehicle.pad.module.music.adapter.MusicPagerAdapter;
-import com.sitechdev.vehicle.pad.module.music.fragment.LocalMusicFragment;
-import com.sitechdev.vehicle.pad.module.music.fragment.OtherMusicFragment;
 import com.sitechdev.vehicle.pad.module.phone.fragment.CallLogFragment;
 import com.sitechdev.vehicle.pad.module.phone.fragment.ContactFragment;
 import com.sitechdev.vehicle.pad.module.phone.fragment.DialFragment;
 import com.sitechdev.vehicle.pad.module.phone.presenter.PhonePresenter;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
+import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.view.TabLayout;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Route(path = RouterConstants.PHONE_MAIN_PAGE)
+@BindEventBus
 public class PhoneActivity extends MvpActivity<PhoneContract.Presenter> implements PhoneContract.View {
     private TabLayout mTabLayout;
     private ViewPager mPager;
@@ -43,7 +49,44 @@ public class PhoneActivity extends MvpActivity<PhoneContract.Presenter> implemen
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        mTabLayout = findViewById(R.id.tv_sub_title);
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_phone;
+    }
+
+    @Override
+    protected void initData() {
+    }
+
+    @Override
+    protected void initListener() {
+        super.initListener();
+        findViewById(R.id.iv_sub_back).setOnClickListener(this);
+        findViewById(R.id.iv_phone_sub_back).setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()) {
+            case R.id.iv_sub_back:
+            case R.id.iv_phone_sub_back:
+                finish();
+                break;
+            case R.id.btn_phone_bluetooth:
+                RouterUtils.getInstance().navigation(RouterConstants.SETTING_BT_PAGE);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void showBtConnectContent() {
+        findViewById(R.id.phone_bt_connect_content_layout).setVisibility(View.VISIBLE);
+        findViewById(R.id.phone_bt_dis_content_layout).setVisibility(View.GONE);
+        mTabLayout = findViewById(R.id.tv_sub_title_tab);
         mPager = findViewById(R.id.phone_view_pager);
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(ContactFragment.newInstance());
@@ -73,32 +116,39 @@ public class PhoneActivity extends MvpActivity<PhoneContract.Presenter> implemen
         manager.beginTransaction().add(R.id.phone_dialog, DialFragment.newInstance()).commit();
     }
 
-    @Override
-    protected int getLayoutId() {
-        return R.layout.activity_phone;
-    }
-
-    @Override
-    protected void initData() {
-    }
-
-    @Override
-    protected void initListener() {
-        super.initListener();
+    private void showBtDisConnectContent() {
+        findViewById(R.id.phone_bt_connect_content_layout).setVisibility(View.GONE);
+        findViewById(R.id.phone_bt_dis_content_layout).setVisibility(View.VISIBLE);
+        findViewById(R.id.btn_phone_bluetooth).setOnClickListener(this);
+        ((TextView) findViewById(R.id.tv_sub_title)).setText("电话");
         findViewById(R.id.iv_sub_back).setOnClickListener(this);
     }
 
     @Override
-    public void onClick(View v) {
-        super.onClick(v);
-        switch (v.getId()) {
-            case R.id.iv_sub_back: {
-                finish();
-            }
-            break;
+    protected void onResume() {
+        super.onResume();
+        if (SettingConfig.getInstance().isBtConnected()) {
+            showBtConnectContent();
+        } else {
+            showBtDisConnectContent();
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onSysEventChange(SysEvent event) {
+        switch (event.getEvent()) {
+            case SysEvent.EB_SYS_BT_STATE:
+                if (event.getObj() != null) {
+                    boolean status = (boolean) event.getObj();
+                    if (status) {
+                        showBtConnectContent();
+                    } else {
+                        showBtDisConnectContent();
+                    }
+                }
+                break;
             default:
                 break;
         }
     }
-
 }

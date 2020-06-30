@@ -7,7 +7,7 @@
 
     <!--返回-->
     <ImageView
-        android:id="@+id/iv_sub_back"
+        android:id="@+id/iv_phone_sub_back"
         style="@style/SubBackStyle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -15,14 +15,14 @@
 
     <!--标题-->
     <com.sitechdev.vehicle.pad.view.TabLayout
-        android:id="@+id/tv_sub_title"
+        android:id="@+id/tv_sub_title_tab"
         style="@style/RadioButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="74px"
         android:layout_marginLeft="25px"
         android:clipChildren="false"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/iv_sub_back"
+        app:layout_constraintLeft_toRightOf="@id/iv_phone_sub_back"
         app:layout_constraintTop_toTopOf="parent"
         app:tabIndicatorColor="@color/white"
         app:tabIndicatorHeight="3px"
@@ -37,14 +37,12 @@
         <android.support.design.widget.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#ff0"
             android:paddingBottom="25px"
             android:text="通讯录" />
 
         <android.support.design.widget.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#f00"
             android:text="最近通话" />
 
     </com.sitechdev.vehicle.pad.view.TabLayout>
@@ -57,6 +55,6 @@
         android:background="#FF6E6E80"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_sub_title" />
+        app:layout_constraintTop_toBottomOf="@id/iv_phone_sub_back" />
 
 </android.support.constraint.ConstraintLayout>
