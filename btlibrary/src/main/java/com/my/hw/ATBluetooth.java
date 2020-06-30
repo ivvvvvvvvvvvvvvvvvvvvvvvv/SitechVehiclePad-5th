@@ -382,15 +382,6 @@ public class ATBluetooth {
                     SettingConfig.getInstance().setConnectBtAdd(param3);
                 }
                 break;
-            case RETURN_A2DP_ID3_NAME:
-                EventBusUtils.postEvent(new BluetoothEvent(BluetoothEvent.BT_EVENT_RECEIVE_TITLE, param3));
-                break;
-            case RETURN_A2DP_OFF:
-                EventBusUtils.postEvent(new BluetoothEvent(BluetoothEvent.BT_EVENT_RECEIVE_PLAY_OFF, null));
-                break;
-            case RETURN_A2DP_ON:
-                EventBusUtils.postEvent(new BluetoothEvent(BluetoothEvent.BT_EVENT_RECEIVE_PLAY_ON, null));
-                break;
         }
 
     }
@@ -409,22 +400,17 @@ public class ATBluetooth {
     }
 
     private void dataCallback(byte[] var1, int var2) {
-        logTest("dataCallback---  NALAIDE");
         String s = null;
         try {
             s = new String(var1, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        logTest("dataCallback-----LEN:" + var2 + " value:" + var1[var1.length - 1] + " string:" + s);
         String var3 = new String(var1);
         StringBuilder var4 = new StringBuilder();
-        var4.append("dataCallback:");
         var4.append(var3);
-        Log.e(TAG, "dataCallback-----" + var4.toString());
         this.mCrashIVTLetdTime = System.currentTimeMillis();
         this.mCrashIVTLetd = 0;
-        logTest("dataCallback---111");
         this.mBtCmd.dataCallback(var1, var2);
     }
 

@@ -91,6 +91,7 @@ public class LocalMusicFragment extends Fragment implements
     private void initView(View root) {
         emptyView = root.findViewById(R.id.local_music_empty_view);
         customPlaySeekBar = root.findViewById(R.id.music_usb_play_ctr);
+        customPlaySeekBar.setMusicSource(VoiceSourceManager.LOCAL_MUSIC);
         vLocalMusicList = root.findViewById(R.id.local_music_list);
         refreshLayout = root.findViewById(R.id.local_music_refresh_layout);
         musicName = root.findViewById(R.id.music_usb_play_name);

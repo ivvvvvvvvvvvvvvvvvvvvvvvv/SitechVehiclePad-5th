@@ -1,10 +1,14 @@
 package com.sitechdev.vehicle.pad.module.phone;
 
+import android.media.AudioManager;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.common.util.BroadcastUtil;
+import com.common.util.MyCmd;
 import com.my.hw.ATBluetooth;
+import com.my.hw.BluetoothEvent;
 import com.my.hw.BtCallBack;
 import com.my.hw.SettingConfig;
 import com.sitechdev.jpinyin.PinyinException;
@@ -13,12 +17,14 @@ import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.CollectionUtils;
 import com.sitechdev.vehicle.lib.util.StringUtils;
 import com.sitechdev.vehicle.lib.util.ThreadUtils;
+import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.event.BTEvent;
 import com.sitechdev.vehicle.pad.event.SysEvent;
 import com.sitechdev.vehicle.pad.event.TeddyEvent;
 import com.sitechdev.vehicle.pad.model.phone.CallLog;
 import com.sitechdev.vehicle.pad.model.phone.CallingInfo;
 import com.sitechdev.vehicle.pad.model.phone.Contact;
+import com.sitechdev.vehicle.pad.module.music.BtMusicManager;
 import com.sitechdev.vehicle.pad.module.phone.utils.IndexUtils;
 import com.sitechdev.vehicle.pad.module.phone.utils.PinyinComparator;
 
@@ -30,7 +36,14 @@ import static com.sitechdev.vehicle.pad.event.SysEvent.EB_SYS_BT_STATE;
 public class PhoneBtManager {
     private static PhoneBtManager INSTANCE;
     private ATBluetooth mATBluetooth;
-
+    private AudioManager.OnAudioFocusChangeListener audioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
+        @Override
+        public void onAudioFocusChange(int focusChange) {
+            if (AudioManager.AUDIOFOCUS_LOSS == focusChange) {
+                BtMusicManager.getInstance().btCtrlPause();
+            }
+        }
+    };
     private PhoneBtManager() {
     }
 
@@ -114,6 +127,22 @@ public class PhoneBtManager {
                         EventBusUtils.postEvent(new SysEvent(EB_SYS_BT_STATE, true));
                     }
                     break;
+                    case ATBluetooth.RETURN_A2DP_ID3_NAME:
+                        EventBusUtils.postEvent(new BluetoothEvent(BluetoothEvent.BT_EVENT_RECEIVE_TITLE, param3));
+                        break;
+                    case ATBluetooth.RETURN_A2DP_ID3_ARTIST:
+                        EventBusUtils.postEvent(new BluetoothEvent(BluetoothEvent.BT_EVENT_RECEIVE_ART, param3));
+                        break;
+                    case ATBluetooth.RETURN_A2DP_OFF:
+                        EventBusUtils.postEvent(new BluetoothEvent(BluetoothEvent.BT_EVENT_RECEIVE_PLAY_OFF, null));
+                        break;
+                    case ATBluetooth.RETURN_A2DP_ON:
+                        BroadcastUtil.sendToCarServiceSetSource(AppApplication.getContext(),
+                                MyCmd.SOURCE_BT_MUSIC);
+                        int result = AppApplication.getAudioManager().requestAudioFocus(audioFocusChangeListener, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
+                        Log.e("zyf", "RETURN_A2DP_ON focusChange kaola result = " + result);
+                        EventBusUtils.postEvent(new BluetoothEvent(BluetoothEvent.BT_EVENT_RECEIVE_PLAY_ON, null));
+                        break;
                     default:
                         break;
                 }

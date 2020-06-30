@@ -29,6 +29,11 @@ public class CustomPlaySeekBar extends RelativeLayout implements View.OnClickLis
     private OnPlayControlListener mPlayCtrlListener;
     private OnPlaySeekChangedListener mSeekChangedListener;
     private OnMusicInfoChangedListener mMusicInfoChangedListener;
+    private int musicSource;
+
+    public void setMusicSource(int musicSource) {
+        this.musicSource = musicSource;
+    }
 
     public void setOnPlayCtrlListener(OnPlayControlListener mPlayCtrlListener) {
         this.mPlayCtrlListener = mPlayCtrlListener;
@@ -105,6 +110,7 @@ public class CustomPlaySeekBar extends RelativeLayout implements View.OnClickLis
                 if (null != mPlayCtrlListener) {
                     mPlayCtrlListener.onPre();
                 }
+                VoiceSourceManager.getInstance().setMusicSource(musicSource);
                 VoiceSourceManager.getInstance().pre(VoiceSourceManager.SCREEN);
                 break;
             case R.id.custom_play_ctr_playpause:
@@ -115,20 +121,14 @@ public class CustomPlaySeekBar extends RelativeLayout implements View.OnClickLis
                         mPlayCtrlListener.onPause();
                     }
                 }
-                if (VoiceSourceManager.getInstance().getMusicSource() == VoiceSourceManager.BT_MUSIC) {
-                    if (isPlaying) {
-                        VoiceSourceManager.getInstance().pause(VoiceSourceManager.SCREEN);
-                    } else {
-                        VoiceSourceManager.getInstance().resume(VoiceSourceManager.SCREEN);
-                    }
-                } else {
-                    VoiceSourceManager.getInstance().toggle(VoiceSourceManager.SCREEN);
-                }
+                VoiceSourceManager.getInstance().setMusicSource(musicSource);
+                VoiceSourceManager.getInstance().toggle(VoiceSourceManager.SCREEN);
                 break;
             case R.id.custom_play_ctr_next:
                 if (null != mPlayCtrlListener) {
                     mPlayCtrlListener.onNext();
                 }
+                VoiceSourceManager.getInstance().setMusicSource(musicSource);
                 VoiceSourceManager.getInstance().next(VoiceSourceManager.SCREEN);
                 break;
             case R.id.custom_play_ctr_mode:

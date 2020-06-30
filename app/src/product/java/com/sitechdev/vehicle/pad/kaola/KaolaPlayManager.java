@@ -70,6 +70,7 @@ public class KaolaPlayManager extends BaseMusicManager {
     public Column mCurrentColumn;
 
     private KaolaPlayManager() {
+        PlayerManager.getInstance(AppApplication.getContext()).setCanContinuePlayInBackground(true);
     }
 
 

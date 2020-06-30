@@ -35,7 +35,7 @@ public class VoiceSourceManager {
     private static VoiceSourceManager INSTANCE;
     private int musicSource = -1;
     private static final int KAOLA = 0;
-    private static final int LOCAL_MUSIC = KAOLA + 1;
+    public static final int LOCAL_MUSIC = KAOLA + 1;
     public static final int BT_MUSIC = LOCAL_MUSIC + 1;
     public static final int VOICE = 0;
     public static final int SCREEN = VOICE + 1;

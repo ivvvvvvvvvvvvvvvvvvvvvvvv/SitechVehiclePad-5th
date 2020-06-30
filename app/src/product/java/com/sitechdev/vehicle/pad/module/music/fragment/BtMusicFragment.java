@@ -1,9 +1,7 @@
 package com.sitechdev.vehicle.pad.module.music.fragment;
 
 import android.content.Context;
-import android.media.AudioManager;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,19 +12,19 @@ import com.my.hw.SettingConfig;
 import com.sitechdev.vehicle.lib.event.BindEventBus;
 import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.R;
-import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.bean.BaseFragment;
+import com.sitechdev.vehicle.pad.event.SysEvent;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceType;
 import com.sitechdev.vehicle.pad.module.music.BtMusicManager;
 import com.sitechdev.vehicle.pad.module.setting.bt.BtManagers;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
-import com.sitechdev.vehicle.pad.util.MediaScanister;
 import com.sitechdev.vehicle.pad.view.CustomPlaySeekBar;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
 
 /**
  * 蓝牙音乐
@@ -73,7 +71,6 @@ public class BtMusicFragment extends BaseFragment {
     protected void initData() {
         super.initData();
         initBtInfoRequest();
-        AppApplication.getAudioManager().requestAudioFocus((AudioManager.OnAudioFocusChangeListener) null, 0, 2);
         BtMusicManager.getInstance().setOnBtConnecStatusChangedListener(new OnBtConnecStatusChangedListener() {
             @Override
             public void onBtConnectedChanged(boolean isConnected) {
@@ -108,6 +105,7 @@ public class BtMusicFragment extends BaseFragment {
     protected void initView(Bundle savedInstanceState) {
         View root = mContentView;
         customPlaySeekBar = root.findViewById(R.id.music_usb_play_ctr);
+        customPlaySeekBar.setMusicSource(VoiceSourceManager.BT_MUSIC);
         stView = root.findViewById(R.id.bt_connect_st_view);
 
         musicName = root.findViewById(R.id.music_usb_play_name);
@@ -120,6 +118,7 @@ public class BtMusicFragment extends BaseFragment {
         customPlaySeekBar.setSeekBarVisible(false);
         customPlaySeekBar.setModeVisible(false);
         refreshConnectSt();
+
     }
 
     private void refreshConnectSt(){
@@ -145,31 +144,25 @@ public class BtMusicFragment extends BaseFragment {
         }
     }
 
-    private void refresh() {
-        if (!MediaScanister.getInstance().isScaing()) {
-            MediaScanister.getInstance().scan(context,
-                    Environment.getExternalStorageDirectory().getAbsolutePath(),
-                    "audio/*",
-                    new MediaScanister.OnScanCompleteListener() {
-                        @Override
-                        public void onScanComplete() {
-                        }
-                    });
-        } else {
-        }
-    }
-
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEvent(BluetoothEvent event) {
-        if (SettingConfig.getInstance().isBtConnected()) {
-            if (event.getTag().equals(BluetoothEvent.BT_EVENT_RECEIVE_TITLE)) {
-                musicName.setText((String) event.getObject());
-            } else if (event.getTag().equals(BluetoothEvent.BT_EVENT_RECEIVE_ART)) {
-                singer.setText((String) event.getObject());
-            } else if (event.getTag().equals(BluetoothEvent.BT_EVENT_RECEIVE_PLAY_ON)) {
-                customPlaySeekBar.setCurrentStatusPlaying(true);
-            } else if (event.getTag().equals(BluetoothEvent.BT_EVENT_RECEIVE_PLAY_OFF)) {
-                customPlaySeekBar.setCurrentStatusPlaying(false);
+    public void onEvent(Object o) {
+        if (o instanceof BluetoothEvent) {
+            if (SettingConfig.getInstance().isBtConnected()) {
+                BluetoothEvent event = (BluetoothEvent) o;
+                if (event.getTag().equals(BluetoothEvent.BT_EVENT_RECEIVE_TITLE)) {
+                    musicName.setText((String) event.getObject());
+                } else if (event.getTag().equals(BluetoothEvent.BT_EVENT_RECEIVE_ART)) {
+                    singer.setText((String) event.getObject());
+                } else if (event.getTag().equals(BluetoothEvent.BT_EVENT_RECEIVE_PLAY_ON)) {
+                    customPlaySeekBar.setCurrentStatusPlaying(true);
+                } else if (event.getTag().equals(BluetoothEvent.BT_EVENT_RECEIVE_PLAY_OFF)) {
+                    customPlaySeekBar.setCurrentStatusPlaying(false);
+                }
+            }
+        } else if (o instanceof SysEvent) {
+            SysEvent event = (SysEvent) o;
+            if (event.eventKey.equals(SysEvent.EB_SYS_BT_STATE)) {
+                refreshConnectSt();
             }
         }
     }
