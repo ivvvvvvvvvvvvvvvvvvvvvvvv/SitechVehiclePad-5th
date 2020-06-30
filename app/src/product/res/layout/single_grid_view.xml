@@ -5,14 +5,14 @@
     android:layout_gravity="center_horizontal"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="10pt">
 
     <ImageView
         android:id="@+id/menu_icon"
-        android:layout_width="160px"
-        android:layout_height="160px"
+        android:layout_width="160pt"
+        android:layout_height="160pt"
         android:layout_centerHorizontal="true"
-        android:padding="5px"/>
+        android:padding="5pt"/>
 
     <TextView
         android:id="@+id/menu_name"
@@ -20,10 +20,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/menu_icon"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40px"
+        android:layout_marginTop="40pt"
         android:maxLines="1"
         android:text="LED表情管理"
         android:textColor="@color/color_all_app_title_text"
-        android:textSize="32px" />
+        android:textSize="32pt" />
 
 </LinearLayout>

@@ -8,15 +8,15 @@
         android:id="@+id/id_all_apps_vp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="140px"
-        android:layout_marginBottom="200px" />
+        android:layout_marginTop="140pt"
+        android:layout_marginBottom="200pt" />
 
     <LinearLayout
         android:id="@+id/id_main_tag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="220px"
+        android:layout_marginBottom="260pt"
         android:orientation="horizontal" />
 
 </FrameLayout>
