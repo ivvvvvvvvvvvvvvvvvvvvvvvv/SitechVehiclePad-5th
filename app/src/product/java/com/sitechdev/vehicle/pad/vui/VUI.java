@@ -1077,10 +1077,12 @@ public class VUI implements VUIWindow.OnWindowHideListener {
 
     public void shutAndTTS(boolean shutdown, @NotNull String tts) {
         this.shutdown = shutdown;
-        mAIUIEngine.ttsStart(tts);
-        EventBusUtils.postEvent(new VoiceEvent(
-                VoiceEvent.EVENT_VOICE_TTS_PLAYIING,
-                tts));
+        if (!TextUtils.isEmpty(tts)) {
+            mAIUIEngine.ttsStart(tts);
+            EventBusUtils.postEvent(new VoiceEvent(
+                    VoiceEvent.EVENT_VOICE_TTS_PLAYIING,
+                    tts));
+        }
     }
 
     public void shut() {
