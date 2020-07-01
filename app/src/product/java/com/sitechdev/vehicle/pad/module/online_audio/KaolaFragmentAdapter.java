@@ -16,6 +16,7 @@ public class KaolaFragmentAdapter extends PagerAdapter {
     private String[] titles;
     private String[] tags = new String[]{KaolaAudioSubPageFrag.class.getSimpleName(), KaolaAudioSubPageFrag.class.getSimpleName(), KaolaAudioSubPageFrag.class.getSimpleName(), KaolaAudioSubPageFrag.class.getSimpleName()};
     int defaultIndex; int subIndex;boolean playIfSuspend;
+    String queryString;
     // 构造方法
     public KaolaFragmentAdapter(FragmentManager fragmentManager,  String[] titles,Object... args) {
         this.fragmentManager = fragmentManager;
@@ -24,6 +25,7 @@ public class KaolaFragmentAdapter extends PagerAdapter {
             defaultIndex = (int) args[0];
             subIndex = (int) args[1];
             playIfSuspend = (boolean) args[2];
+            queryString = (String) args[3];
         }
     }
 
@@ -68,7 +70,7 @@ public class KaolaFragmentAdapter extends PagerAdapter {
                     fragment = new KaolaAudioBroadcastPageFrag();
                     break;
                 case 3:
-                    fragment = new KaolaAudioSearchPageFrag();
+                    fragment = new KaolaAudioSearchPageFrag(queryString);
                     break;
             }
         }

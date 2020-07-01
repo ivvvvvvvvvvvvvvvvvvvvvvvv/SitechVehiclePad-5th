@@ -1,5 +1,6 @@
 package com.sitechdev.vehicle.pad.module.online_audio;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -16,16 +17,22 @@ import com.kaolafm.opensdk.ResType;
 import com.kaolafm.opensdk.api.search.model.SearchProgramBean;
 import com.kaolafm.opensdk.http.core.HttpCallback;
 import com.kaolafm.opensdk.http.error.ApiException;
+import com.sitechdev.vehicle.lib.event.BindEventBus;
 import com.sitechdev.vehicle.lib.util.Constant;
+import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.bean.BaseFragment;
+import com.sitechdev.vehicle.pad.event.TeddyEvent;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppVariants;
 import com.sitechdev.vehicle.pad.view.CommonToast;
 import com.sitechdev.vehicle.pad.view.KaolaAiListSpaceItemDecoration;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -35,9 +42,20 @@ import java.util.List;
  *      time   : 2020/5/20
  * </pre>
  */
+@BindEventBus
 public class KaolaAudioSearchPageFrag extends BaseFragment {
     private RecyclerView recyclerView;
     private KaolaSearchAdapter adapter;
+    String quertString;
+
+    public KaolaAudioSearchPageFrag() {
+    }
+
+    @SuppressLint("ValidFragment")
+    public KaolaAudioSearchPageFrag(String quertString) {
+        this.quertString = quertString;
+    }
+
     @Override
     protected int getLayoutId() {
         return R.layout.audio_kaola_search_frame;
@@ -66,6 +84,18 @@ public class KaolaAudioSearchPageFrag extends BaseFragment {
                 return true;
             }
         });
+        if (!TextUtils.isEmpty(quertString)) {
+            edit.setText(quertString);
+            edit.clearFocus();
+            goSearch();
+            ThreadUtils.runOnUIThreadDelay(new Runnable() {
+                @Override
+                public void run() {
+                    hideInput();
+                }
+            }, 300);
+        }
+
     }
     /**
      * 隐藏键盘
@@ -168,4 +198,23 @@ public class KaolaAudioSearchPageFrag extends BaseFragment {
         bundle.putString(Constant.KEY_TITLE, title);
         RouterUtils.getInstance().navigation(RouterConstants.MUSIC_PLAY_ONLINE, bundle);
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(TeddyEvent event) {
+        if (event.getEventKey().equals(TeddyEvent.EVENT_TEDDY_KAOLA_QUERY_KEYWORDS)) {
+            if (event.getEventValue() instanceof String && !TextUtils.isEmpty((String) event.getEventValue())) {
+                edit.setText((String) event.getEventValue());
+                edit.clearFocus();
+                goSearch();
+                ThreadUtils.runOnUIThreadDelay(new Runnable() {
+                    @Override
+                    public void run() {
+                        hideInput();
+                    }
+                }, 300);
+            }
+        }
+
+    }
+
 }
