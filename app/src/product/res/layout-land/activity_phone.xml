@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_kaola_play"
     android:orientation="vertical"
-    android:paddingBottom="480pt"
+    android:paddingBottom="300pt"
     tools:ignore="PxUsage">
 
     <LinearLayout
@@ -25,31 +25,28 @@
             android:id="@+id/phone_content_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#0f0"
-            android:layout_marginTop="10pt"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:paddingLeft="@dimen/phone_content_padding_left_right"
+            android:paddingTop="32pt"
             android:paddingRight="@dimen/phone_content_padding_left_right"
-            android:weightSum="1275">
+            android:weightSum="959">
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/phone_view_pager"
-                android:background="#f00"
-                android:layout_width="match_parent"
-                android:layout_height="0pt"
-                android:layout_weight="640" />
+                android:layout_width="0pt"
+                android:layout_height="match_parent"
+                android:layout_weight="486" />
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0.5pt"
+                android:layout_width="0.5pt"
+                android:layout_height="match_parent"
                 android:background="@color/phone_line_color" />
 
             <FrameLayout
                 android:id="@+id/phone_dialog"
-                android:layout_width="match_parent"
-                android:background="#ff0"
-                android:layout_height="0pt"
-                android:layout_weight="635" />
+                android:layout_width="0pt"
+                android:layout_height="match_parent"
+                android:layout_weight="473" />
 
         </LinearLayout>
     </LinearLayout>
