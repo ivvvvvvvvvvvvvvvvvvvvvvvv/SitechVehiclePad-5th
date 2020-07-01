@@ -45,6 +45,8 @@ public class KaolaAudioActivity extends BaseActivity implements
     @Autowired
     public int deepIndex = -1;
     @Autowired
+    public String queryString = "";
+    @Autowired
     public int pageIndex = -1;
     @Autowired
     public boolean playIfSuspend = false;
