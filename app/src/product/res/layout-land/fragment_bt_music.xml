@@ -14,8 +14,8 @@
         android:layout_marginRight="10pt"
         android:layout_marginLeft="200pt"
         android:id="@+id/bt_connect_st_view"
-        android:layout_width="803px"
-        android:layout_height="667px"
+        android:layout_width="@dimen/bt_music_connect_info_frame_w"
+        android:layout_height="@dimen/bt_music_connect_info_frame_h"
         android:layout_marginTop="30pt"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/bg_action_view"
@@ -23,10 +23,10 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="80pt"
-            android:layout_height="143pt"
+            android:layout_width="@dimen/bt_music_connect_info_img_w"
+            android:layout_height="@dimen/bt_music_connect_info_img_h"
             android:layout_gravity="center"
-            android:layout_marginTop="100pt"
+            android:layout_marginTop="@dimen/bt_music_connect_info_img_margintop"
             android:src="@drawable/icon_bluetooth" />
 
         <TextView

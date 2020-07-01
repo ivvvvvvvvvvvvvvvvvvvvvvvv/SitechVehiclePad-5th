@@ -193,6 +193,12 @@
     <dimen name="kaola_allcategory_dialog_h">740pt</dimen>
     <dimen name="kaola_allcategory_dialog_padding">30pt</dimen>
     <dimen name="kaola_allcategory_dialog_close_size">43pt</dimen>
+    <dimen name="bt_music_connect_info_frame_w">803pt</dimen>
+    <dimen name="bt_music_connect_info_frame_h">667pt</dimen>
+    <dimen name="bt_music_connect_info_img_w">80pt</dimen>
+    <dimen name="bt_music_connect_info_img_h">143pt</dimen>
+    <dimen name="bt_music_connect_info_img_margintop">100pt</dimen>
+    <dimen name="bt_connect_st_h">446pt</dimen>
 
     <integer name="kaola_all_category_dialog_w_land">1017</integer>
     <integer name="kaola_all_category_dialog_h_land">485</integer>

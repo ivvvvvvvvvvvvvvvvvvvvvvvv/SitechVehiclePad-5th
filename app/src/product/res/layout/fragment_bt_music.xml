@@ -7,23 +7,23 @@
     <include
         layout="@layout/layout_music_play"
         android:layout_width="wrap_content"
-        android:layout_height="657px" />
+        android:layout_height="657pt" />
 
     <LinearLayout
         android:id="@+id/bt_connect_st_view"
-        android:layout_width="988px"
-        android:layout_height="491px"
+        android:layout_width="988pt"
+        android:layout_height="491pt"
         android:layout_gravity="center"
-        android:layout_marginTop="70px"
+        android:layout_marginTop="70pt"
         android:background="@drawable/bg_action_view"
         android:gravity="center"
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="66px"
-            android:layout_height="119px"
+            android:layout_width="66pt"
+            android:layout_height="119pt"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="25px"
+            android:layout_marginTop="25pt"
             android:src="@drawable/icon_bluetooth" />
 
         <TextView
@@ -33,7 +33,7 @@
             android:layout_marginTop="25pt"
             android:text="请连接蓝牙设备"
             android:textColor="@color/white"
-            android:textSize="30px" />
+            android:textSize="30pt" />
 
         <TextView
             android:id="@+id/button_music_bt"
@@ -47,6 +47,6 @@
             android:paddingBottom="20pt"
             android:text="连接蓝牙"
             android:textColor="@color/white"
-            android:textSize="30px" />
+            android:textSize="30pt" />
     </LinearLayout>
 </LinearLayout>

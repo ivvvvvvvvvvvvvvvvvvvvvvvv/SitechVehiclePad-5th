@@ -98,7 +98,7 @@ public class BtMusicFragment extends BaseFragment {
 
     @Override
     protected int getLayoutId() {
-        return isLandscape() ? R.layout.fragment_bt_music_land : R.layout.fragment_bt_music;
+        return  R.layout.fragment_bt_music;
     }
 
     @Override
