@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/kaola_ai_item_common_h">
+
+    <ImageView
+        android:id="@+id/image_bg"
+        android:layout_width="@dimen/kaola_ai_item_common_w"
+        android:layout_height="@dimen/kaola_ai_item_common_h" />
+
+    <ImageView
+        android:src="@drawable/bg_kaola_audioitem_common"
+        android:alpha="0.5"
+        android:layout_width="@dimen/kaola_ai_item_common_w"
+        android:layout_height="@dimen/kaola_ai_item_common_h" />
+
+    <RelativeLayout
+        android:layout_width="@dimen/kaola_ai_item_common_w"
+        android:layout_height="@dimen/kaola_ai_item_common_h"
+        android:background="@color/transparent"
+        android:gravity="center">
+
+        <com.gcssloop.widget.RCImageView
+            android:id="@+id/image"
+            android:layout_width="@dimen/kaola_ai_item_common_img_w"
+            android:layout_height="@dimen/kaola_ai_item_common_img_w"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/kaola_ai_item_common_img_marginstart"
+            app:round_as_circle="true" />
+
+        <TextView
+            android:id="@+id/des"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/kaola_ai_item_common_title_margin_left"
+            android:layout_marginTop="@dimen/kaola_ai_item_common_title_margin"
+            android:layout_marginRight="@dimen/kaola_ai_item_common_title_margin"
+            android:layout_marginBottom="@dimen/kaola_ai_item_common_title_margin"
+            android:layout_toEndOf="@+id/image"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐"
+            android:textColor="#fff"
+            android:textSize="@dimen/kaola_ai_item_common_title_textsize"
+            android:textStyle="bold" />
+    </RelativeLayout>
+</FrameLayout>
+

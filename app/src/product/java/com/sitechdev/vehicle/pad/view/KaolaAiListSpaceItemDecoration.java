@@ -36,12 +36,12 @@ public class KaolaAiListSpaceItemDecoration extends RecyclerView.ItemDecoration 
                 int position = parent.getChildLayoutPosition(view);
                 int lookupsize = ((GridLayoutManager) parent.getLayoutManager()).getSpanSizeLookup().getSpanSize(position);
                 if (lookupsize == 2) {
-                    if (position % 3 == 2) {
-                        outRect.left = 37;
-                    } else if (position % 3 == 1) {
-                        outRect.left = 40;
-                    } else if (position % 3 == 0) {
-                        outRect.left = 45;
+                            if (position % 3 == 2) {
+                                outRect.left = 37;
+                            } else if (position % 3 == 1) {
+                                outRect.left = 40;
+                            } else if (position % 3 == 0) {
+                                outRect.left = 45;
                     }
                 }
                 if (lookupsize == 3) {

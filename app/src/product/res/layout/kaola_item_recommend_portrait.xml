@@ -7,16 +7,16 @@
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="301px"
-        android:layout_height="301px"
+        android:layout_width="@dimen/kaola_ai_recommend_img_w_protrait"
+        android:layout_height="@dimen/kaola_ai_recommend_img_w_protrait"
         android:gravity="center"
         tools:background="@color/colorPrimary_red_tip">
 
         <com.gcssloop.widget.RCImageView
-            app:round_corner="8px"
+            app:round_corner="8pt"
             android:id="@+id/image"
-            android:layout_width="301px"
-            android:layout_height="301px" />
+            android:layout_width="@dimen/kaola_ai_recommend_img_w_protrait"
+            android:layout_height="@dimen/kaola_ai_recommend_img_w_protrait" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -31,19 +31,19 @@
             android:text="推荐"
             android:background="@drawable/bg_kaola_item_recommend_tag"
             android:textColor="#000"
-            android:textSize="24px" />
+            android:textSize="@dimen/kaola_ai_recommend_tag_textsize" />
 
         <TextView
             android:id="@+id/des"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/image"
-            android:layout_margin="10px"
+            android:layout_margin="10pt"
             android:ellipsize="end"
             android:singleLine="true"
             android:text="推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐"
             android:textColor="#fff"
-            android:textSize="26px" />
+            android:textSize="@dimen/kaola_ai_recommend_title_textsize" />
     </RelativeLayout>
 </FrameLayout>
 
