@@ -530,45 +530,66 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                         }
 //                    shutAndTTS("Teddy正在努力学习中，敬请期待");
                     }
-                } else if (TextUtils.equals("SITECHAI.AIradio", service) ||
-                        TextUtils.equals("musicX", service)) {
+                } else if (TextUtils.equals("musicX", service) ||
+                        TextUtils.equals("crossTalk", service) ||
+                        TextUtils.equals("drama", service) ||
+                        TextUtils.equals("nurseryRhyme", service) ||
+                        TextUtils.equals("storyTelling", service) ||
+                        TextUtils.equals("SITECHAI.AIradio", service)) {
                     JSONArray semantics = intent.optJSONArray("semantic");
                     if (null != semantics && semantics.length() > 0) {
                         JSONObject semantic = semantics.optJSONObject(0);
-                        switch (semantic.optString("intent")) {
-                            //新特速报
-                            case "AIradio_news":
-                                playKaoLa(semantic, 1);
-                                break;
+                        String s = semantic.optString("intent").toLowerCase();
+                        //新特速报
+                        if ("AIradio_news".toLowerCase().equals(s)) {
+                            playKaoLa(semantic, 1);
                             //少儿读物
-                            case "AIradio_kid":
-                                playKaoLa(semantic, 2);
-                                break;
+                        } else if ("AIradio_kid".toLowerCase().equals(s)) {
+                            playKaoLa(semantic, 2);
                             //车嗨娱乐
-                            case "AIradio_joke":
-                                playKaoLa(semantic, 3);
-                                break;
+                        } else if ("AIradio_joke".toLowerCase().equals(s)) {
+                            playKaoLa(semantic, 3);
                             //生活一点通
-                            case "AIradio_life":
-                                playKaoLa(semantic, 4);
-                                break;
+                        } else if ("AIradio_life".toLowerCase().equals(s)) {
+                            playKaoLa(semantic, 4);
                             //随机音频
-                            case "AIradio_random":
-                                gotoPlay(new Random().nextInt(4), new Random().nextInt(6));
-                                break;
-//                            case "AIradio_broadcast":
+                        } else if ("AIradio_random".toLowerCase().equals(s)) {
+                            gotoPlay(new Random().nextInt(4), new Random().nextInt(6));
+                            //                            case "AIradio_broadcast":
 //                                analysisBroadcast(semantic);
 //                                break;
-                            case "INSTRUCTION":
-                                doMusicControl(semantic);
-                                break;
-                            case "RANDOM_SEARCH":
-                                VoiceSourceManager.getInstance().changeAnother(VoiceSourceManager.VOICE);
-                                shut();
-                                break;
-                            default:
+                        } else if ("INSTRUCTION".toLowerCase().equals(s)) {
+                            doMusicControl(semantic);
+                        } else if ("RANDOM_SEARCH".toLowerCase().equals(s)) {
+                            VoiceSourceManager.getInstance().changeAnother(VoiceSourceManager.VOICE);
+                            shut();
+                        } else if ("PLAY".toLowerCase().equals(s) || "QUERY".toLowerCase().equals(s)) {
+                            JSONArray slots = semantic.optJSONArray("slots");
+                            String artistOrActor = "";
+                            String audioName = "";
+                            for (int i = 0; i < slots.length(); i++) {
+                                JSONObject slot = slots.optJSONObject(i);
+                                String name = slot.optString("name");
+                                String value = slot.optString("value");
+                                if (name.equals("artist") || name.equals("actor")) {
+                                    artistOrActor = value;
+                                }
+                                if (name.equals("name") || name.equals("song")) {
+                                    audioName = value;
+                                }
+                            }
+                            if (!TextUtils.isEmpty(artistOrActor) || !TextUtils.isEmpty(audioName)) {
+                                if ("musicX".equals(service)) {//识别是音乐 走酷我搜索
+                                    shutAndTTS("");
+                                    VUIUtils.openThirdAppByMusic(audioName, artistOrActor);
+                                } else {//其他走听伴搜索
+                                    //听伴搜索
+                                }
+                            } else {
                                 vuiAnr();
-                                break;
+                            }
+                        } else {
+                            vuiAnr();
                         }
                     }
                     return;

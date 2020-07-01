@@ -169,7 +169,7 @@ public class VUIUtils {
      */
     public static void openThirdAppByMusic(String musicName, String singer) {
         SitechDevLog.i(AppConst.TAG, "openThirdAppByMusic=====>musicName=" + musicName + "====>singer=" + singer);
-        EventBusUtils.postEvent(new WindowEvent(WindowEvent.EVENT_WINDOW_APP_BACKGROUD));
+//        EventBusUtils.postEvent(new WindowEvent(WindowEvent.EVENT_WINDOW_APP_BACKGROUD));
         KuwoManager.getInstance().playMusic(musicName, singer);
     }
 }
