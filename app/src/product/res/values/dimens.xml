@@ -11,4 +11,125 @@
     <dimen name="category_left_space">80px</dimen>
     <dimen name="category_top_space">15px</dimen>
     <dimen name="category_bottom_space">15px</dimen>
+    <dimen name="dp_144">144dp</dimen>
+    <dimen name="dp_48">48dp</dimen>
+    <dimen name="dp_151">151dp</dimen>
+    <dimen name="dp_76">76dp</dimen>
+    <dimen name="dp_209">209dp</dimen>
+    <dimen name="dp_66">66dp</dimen>
+    <dimen name="px_151">151pt</dimen>
+    <dimen name="px_135">135pt</dimen>
+    <dimen name="px_766">766pt</dimen>
+    <dimen name="px_132">132pt</dimen>
+    <dimen name="px_209">209pt</dimen>
+    <dimen name="px_254">254pt</dimen>
+    <dimen name="px_50">50pt</dimen>
+    <dimen name="px_353">353pt</dimen>
+    <dimen name="px_46">46pt</dimen>
+    <dimen name="px_196">196pt</dimen>
+    <dimen name="px_55">55pt</dimen>
+    <dimen name="px_101">101pt</dimen>
+    <dimen name="px_118">118pt</dimen>
+    <dimen name="px_48">48pt</dimen>
+    <dimen name="px_800">800pt</dimen>
+    <dimen name="px_30">30pt</dimen>
+    <dimen name="px_70">70pt</dimen>
+    <dimen name="px_100">100pt</dimen>
+    <dimen name="px_144">144pt</dimen>
+    <dimen name="px_45">45pt</dimen>
+    <dimen name="px_35">35pt</dimen>
+    <dimen name="px_160">160pt</dimen>
+    <dimen name="px_10">10pt</dimen>
+    <dimen name="px_387">387pt</dimen>
+    <dimen name="px_22">22pt</dimen>
+    <dimen name="px_263">263pt</dimen>
+    <dimen name="px_403">403pt</dimen>
+    <dimen name="px_67">67pt</dimen>
+    <dimen name="px_238">238pt</dimen>
+    <dimen name="px_280">280pt</dimen>
+    <dimen name="px_19">19pt</dimen>
+    <dimen name="px_40">40pt</dimen>
+    <dimen name="px_285">285pt</dimen>
+    <dimen name="px_200">200pt</dimen>
+    <dimen name="px_20">20pt</dimen>
+    <dimen name="px_290">290pt</dimen>
+    <dimen name="px_500">500pt</dimen>
+    <dimen name="px_190">190pt</dimen>
+    <dimen name="px_31">31pt</dimen>
+    <dimen name="common_bg_width">390dp</dimen>
+    <dimen name="mainmenu_margin_left_right">27dp</dimen>
+    <dimen name="mainmenu_gridview_versplit">21dp</dimen>
+    <dimen name="mainmenu_gridview_horsplit">36dp</dimen>
+    <dimen name="main_menu_size">60dp</dimen>
+    <dimen name="margin_top_toolbar">140px</dimen>
+    <dimen name="margin_bottom_window">300pt</dimen>
+    <dimen name="content_padding_left_right">45pt</dimen>
+
+    <dimen name="text_size_main">32pt</dimen>
+    <dimen name="setting_padding_left_right">150pt</dimen>
+    <dimen name="main_menu_height">300pt</dimen>
+    <dimen name="pt_40">40pt</dimen>
+
+    <!--usb音乐界面-->
+    <dimen name="music_usb_padding_left_right">60pt</dimen>
+    <dimen name="music_usb_play_name_textsize">48pt</dimen>
+    <dimen name="music_usb_play_singer_textsize">32pt</dimen>
+    <dimen name="music_usb_play_icon_marintop">37pt</dimen>
+    <dimen name="music_usb_play_icon_size">350pt</dimen>
+    <dimen name="music_usb_play_status_margintop">63pt</dimen>
+    <dimen name="music_usb_list_padding_bottom">290pt</dimen>
+    <dimen name="music_usb_list_padding_left">62pt</dimen>
+
+    <!--自定义播放进度条-->
+    <dimen name="custom_play_seekbar_time_textsize">24pt</dimen>
+    <dimen name="custom_play_seekbar_layout_margin">43pt</dimen>
+    <dimen name="custom_play_controll_button_size">60pt</dimen>
+    <dimen name="custom_play_controll_mode_paddingleft">70pt</dimen>
+    <dimen name="custom_play_controll_margin_top">30pt</dimen>
+
+    <!--电话界面-->
+    <dimen name="phone_content_padding_left_right">28pt</dimen>
+
+    <dimen name="pt_30">30pt</dimen>
+    <dimen name="mutil_title_toolbar_margin_top">45pt</dimen>
+    <dimen name="kaola_content_viewpager_heght_land">570pt</dimen>
+    <dimen name="kaola_playerholder_height_land">140pt</dimen>
+    <dimen name="kaola_playerholder_margin_top_land">10pt</dimen>
+    <dimen name="kaola_playerholder_margin_left_land">60pt</dimen>
+    <dimen name="kaola_playerholder_margin_right_land">60pt</dimen>
+    <dimen name="kaola_margin_bottom_land">300pt</dimen>
+    <dimen name="toolbar_tablayout_height">74pt</dimen>
+    <dimen name="toolbar_tablayout_margin_left">25pt</dimen>
+    <dimen name="toolbar_tablayout_tab_padding_start">15pt</dimen>
+    <dimen name="toolbar_tablayout_tab_padding_end">15pt</dimen>
+    <dimen name="kaola_title_indicator_w">6pt</dimen>
+    <dimen name="kaola_title_indicator_h">41pt</dimen>
+    <dimen name="kaola_category_topfame_margin_left">60pt</dimen>
+    <dimen name="kaola_category_topfame_margin_top">40pt</dimen>
+    <dimen name="kaola_category_topfame_margin_right">60pt</dimen>
+    <dimen name="kaola_category_topfame_margin_bottom">40pt</dimen>
+    <dimen name="kaola_category_listindecator_frame_padding_left">20pt</dimen>
+    <dimen name="kaola_category_listindecator_frame_padding_right">20pt</dimen>
+    <dimen name="kaola_category_all_btn_w">36pt</dimen>
+    <dimen name="kaola_category_all_btn_margin">20pt</dimen>
+    <dimen name="kaola_player_holder_h">140pt</dimen>
+    <dimen name="kaola_player_holder_img_margin_left">30pt</dimen>
+    <dimen name="kaola_player_holder_img_margin_right">40pt</dimen>
+    <dimen name="kaola_player_holder_title_frame_w">550pt</dimen>
+    <dimen name="kaola_player_holder_title_frame_margin_right">130pt</dimen>
+    <dimen name="kaola_player_holder_title_size">32pt</dimen>
+    <dimen name="kaola_player_holder_img_h">90pt</dimen>
+    <dimen name="kaola_player_holder_sub_title_size">36pt</dimen>
+    <dimen name="kaola_player_holder_control_margin_right">180pt</dimen>
+    <dimen name="kaola_player_holder_control_pre_h">55pt</dimen>
+    <dimen name="kaola_player_holder_control_btn_space">170pt</dimen>
+    <dimen name="kaola_player_holder_control_btn_margin_right">120pt</dimen>
+    <dimen name="kaola_player_holder_control_small_h">50pt</dimen>
+
+
+    <dimen name="tablayout_title_padingleft">30pt</dimen>
+    <dimen name="tablayout_title_padingright">30pt</dimen>
+    <dimen name="tablayout_title_padingbottom">25pt</dimen>
+    <dimen name="tablayout_title_textsize">36pt</dimen>
+    <dimen name="tablayout_title_bottom_space">25pt</dimen>
 </resources>
