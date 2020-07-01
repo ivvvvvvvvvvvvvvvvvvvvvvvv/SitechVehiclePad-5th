@@ -11,24 +11,24 @@
         android:id="@+id/id_top_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="180px"
-        android:paddingLeft="72px"
-        android:paddingRight="72px">
+        android:layout_marginTop="180pt"
+        android:paddingLeft="72pt"
+        android:paddingRight="72pt">
 
         <ImageView
             android:id="@+id/id_taxi_history"
-            android:layout_width="50px"
-            android:layout_height="50px"
+            android:layout_width="50pt"
+            android:layout_height="50pt"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@drawable/ico_taxi_history" />
 
         <ImageView
             android:id="@+id/id_taxi_setting"
-            android:layout_width="50px"
-            android:layout_height="50px"
+            android:layout_width="50pt"
+            android:layout_height="50pt"
             android:layout_centerVertical="true"
-            android:layout_marginRight="90px"
+            android:layout_marginRight="90pt"
             android:layout_toLeftOf="@id/id_taxi_history"
             android:src="@drawable/ico_taxi_setting" />
     </RelativeLayout>
@@ -36,16 +36,16 @@
     <LinearLayout
         android:id="@+id/id_second_content"
         android:layout_width="match_parent"
-        android:layout_height="565px"
+        android:layout_height="565pt"
         android:layout_below="@id/id_top_content"
-        android:layout_marginTop="28px"
+        android:layout_marginTop="28pt"
         android:orientation="horizontal"
-        android:paddingLeft="46px"
-        android:paddingRight="46px">
+        android:paddingLeft="46pt"
+        android:paddingRight="46pt">
 
         <RelativeLayout
             android:id="@+id/id_left_content"
-            android:layout_width="0px"
+            android:layout_width="0pt"
             android:layout_height="match_parent"
             android:layout_weight="1">
 
@@ -54,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:layout_marginTop="40px"
+                android:layout_marginTop="40pt"
                 android:orientation="horizontal">
 
                 <com.sitechdev.vehicle.pad.view.SkinRollingTextView
@@ -64,7 +64,7 @@
                     android:layout_centerHorizontal="true"
                     android:textColor="@color/color_taxi_main_text"
                     android:includeFontPadding="false"
-                    android:textSize="180px"
+                    android:textSize="180pt"
                     android:textStyle="bold"
                     tools:text="0.00" />
 
@@ -74,28 +74,28 @@
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@id/id_taxi_full_price"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="20px"
+                    android:layout_marginLeft="20pt"
                     android:layout_toRightOf="@id/id_taxi_full_price"
                     android:text="元"
                     android:textColor="@color/color_taxi_main_text"
-                    android:textSize="50px"
+                    android:textSize="50pt"
                     android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/id_linear_taxi_price_start_calc"
-                android:layout_width="594px"
-                android:layout_height="126px"
+                android:layout_width="594pt"
+                android:layout_height="126pt"
                 android:layout_below="@id/id_taxi_price_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="100px"
+                android:layout_marginTop="100pt"
                 android:background="@drawable/ico_taxi_price_btn_bg"
                 android:gravity="center">
 
                 <ImageView
                     android:id="@+id/id_taxi_price"
-                    android:layout_width="50px"
-                    android:layout_height="50px"
+                    android:layout_width="50pt"
+                    android:layout_height="50pt"
                     android:layout_centerVertical="true"
                     android:scaleType="centerInside"
                     android:src="@drawable/ico_taxi_start_cal_price" />
@@ -104,36 +104,36 @@
                     android:id="@+id/id_tv_taxi_price_start_calc_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20px"
+                    android:layout_marginLeft="20pt"
                     android:includeFontPadding="false"
                     android:text="开始计价"
                     android:textColor="@color/color_taxi_main_text"
-                    android:textSize="34px" />
+                    android:textSize="34pt" />
             </LinearLayout>
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/id_right_content"
-            android:layout_width="0px"
+            android:layout_width="0pt"
             android:layout_height="match_parent"
-            android:layout_marginLeft="46px"
+            android:layout_marginLeft="46pt"
             android:layout_weight="1">
 
             <RelativeLayout
                 android:id="@+id/id_taxi_single_unit"
-                android:layout_width="373px"
-                android:layout_height="264px"
+                android:layout_width="373pt"
+                android:layout_height="264pt"
                 android:background="@drawable/weather_info_day_bg"
                 android:gravity="center"
-                android:paddingLeft="40px"
-                android:paddingRight="40px">
+                android:paddingLeft="40pt"
+                android:paddingRight="40pt">
 
                 <ImageView
                     android:id="@+id/id_taxi_single_unit_img"
-                    android:layout_width="49px"
+                    android:layout_width="49pt"
                     android:layout_height="match_parent"
                     android:layout_alignParentLeft="true"
-                    android:layout_marginTop="80px"
+                    android:layout_marginTop="80pt"
                     android:scaleType="fitStart"
                     android:src="@drawable/ico_taxi_unit_price" />
 
@@ -148,44 +148,44 @@
                         android:id="@+id/id_taxi_single_unit_desc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="30px"
+                        android:layout_marginLeft="30pt"
                         android:includeFontPadding="false"
                         android:text="里程价"
                         android:textColor="@color/color_taxi_second_text"
-                        android:textSize="38px" />
+                        android:textSize="38pt" />
 
                     <com.sitechdev.vehicle.pad.view.SkinTextView
                         android:id="@+id/id_taxi_single_unit_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="30px"
-                        android:layout_marginTop="30px"
+                        android:layout_marginLeft="30pt"
+                        android:layout_marginTop="30pt"
                         android:includeFontPadding="false"
                         android:text="3元/公里"
                         android:textColor="@color/color_taxi_main_text"
-                        android:textSize="38px"
+                        android:textSize="38pt"
                         android:textStyle="bold" />
                 </LinearLayout>
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/id_taxi_start_price"
-                android:layout_width="429px"
-                android:layout_height="264px"
+                android:layout_width="429pt"
+                android:layout_height="264pt"
                 android:layout_alignParentRight="true"
-                android:layout_marginLeft="20px"
+                android:layout_marginLeft="20pt"
                 android:layout_toRightOf="@id/id_taxi_single_unit"
                 android:background="@drawable/weather_info_day_bg"
                 android:gravity="center"
-                android:paddingLeft="40px"
-                android:paddingRight="40px">
+                android:paddingLeft="40pt"
+                android:paddingRight="40pt">
 
                 <ImageView
                     android:id="@+id/id_taxi_start_price_img"
-                    android:layout_width="49px"
+                    android:layout_width="49pt"
                     android:layout_height="match_parent"
                     android:layout_alignParentLeft="true"
-                    android:layout_marginTop="70px"
+                    android:layout_marginTop="70pt"
                     android:scaleType="fitStart"
                     android:src="@drawable/ico_taxi_start_price" />
 
@@ -200,22 +200,22 @@
                         android:id="@+id/id_taxi_start_price_desc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="30px"
+                        android:layout_marginLeft="30pt"
                         android:includeFontPadding="false"
                         android:text="起步价"
                         android:textColor="@color/color_taxi_second_text"
-                        android:textSize="38px" />
+                        android:textSize="38pt" />
 
                     <com.sitechdev.vehicle.pad.view.SkinTextView
                         android:id="@+id/id_taxi_start_price_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="30px"
-                        android:layout_marginTop="30px"
+                        android:layout_marginLeft="30pt"
+                        android:layout_marginTop="30pt"
                         android:includeFontPadding="false"
                         android:text="5.00元/3公里内"
                         android:textColor="@color/color_taxi_main_text"
-                        android:textSize="38px"
+                        android:textSize="38pt"
                         android:textStyle="bold" />
                 </LinearLayout>
             </RelativeLayout>
@@ -224,22 +224,22 @@
             <RelativeLayout
                 android:id="@+id/id_taxi_full_km"
                 android:layout_width="match_parent"
-                android:layout_height="281px"
+                android:layout_height="281pt"
                 android:layout_below="@id/id_taxi_single_unit"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="20px"
+                android:layout_marginTop="20pt"
                 android:background="@drawable/weather_info_day_bg"
                 android:gravity="center"
-                android:paddingLeft="40px"
-                android:paddingRight="80px">
+                android:paddingLeft="40pt"
+                android:paddingRight="80pt">
 
                 <ImageView
                     android:id="@+id/id_taxi_full_km_img"
-                    android:layout_width="49px"
+                    android:layout_width="49pt"
                     android:layout_height="match_parent"
                     android:layout_alignParentLeft="true"
-                    android:layout_marginLeft="32px"
-                    android:layout_marginTop="55px"
+                    android:layout_marginLeft="32pt"
+                    android:layout_marginTop="55pt"
                     android:scaleType="fitStart"
                     android:src="@drawable/ico_taxi_all_km" />
 
@@ -247,24 +247,24 @@
                     android:id="@+id/id_taxi_full_km_desc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="30px"
-                    android:layout_marginTop="60px"
+                    android:layout_marginLeft="30pt"
+                    android:layout_marginTop="60pt"
                     android:layout_toRightOf="@id/id_taxi_full_km_img"
                     android:includeFontPadding="false"
                     android:text="计程"
                     android:textColor="@color/color_taxi_second_text"
-                    android:textSize="38px" />
+                    android:textSize="38pt" />
 
                 <com.sitechdev.vehicle.pad.view.SkinTextView
                     android:id="@+id/id_taxi_full_km_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="80px"
+                    android:layout_marginTop="80pt"
                     android:includeFontPadding="false"
                     android:text="0.0"
                     android:textColor="@color/color_taxi_main_text"
-                    android:textSize="120px"
+                    android:textSize="120pt"
                     android:textStyle="bold" />
 
                 <com.sitechdev.vehicle.pad.view.SkinTextView
@@ -276,7 +276,7 @@
                     android:includeFontPadding="false"
                     android:text="公里"
                     android:textColor="@color/color_taxi_main_text"
-                    android:textSize="38px" />
+                    android:textSize="38pt" />
 
             </RelativeLayout>
 

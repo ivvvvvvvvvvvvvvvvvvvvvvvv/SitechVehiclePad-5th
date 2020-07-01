@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="704px"
+    android:layout_width="704pt"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_dialog_base"
-    android:padding="40px"
+    android:padding="40pt"
     android:orientation="vertical">
 
     <TextView
@@ -16,60 +16,60 @@
         android:maxLines="1"
         android:text="签到成功"
         android:textColor="@android:color/white"
-        android:textSize="38px" />
+        android:textSize="38pt" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_marginLeft="40px"
-        android:layout_marginTop="30px"
-        android:layout_marginRight="40px"
+        android:layout_height="1pt"
+        android:layout_marginLeft="40pt"
+        android:layout_marginTop="30pt"
+        android:layout_marginRight="40pt"
         android:background="#33FFFFFF" />
 
     <ImageView
-        android:layout_width="252px"
-        android:layout_height="149px"
+        android:layout_width="252pt"
+        android:layout_height="149pt"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30px"
+        android:layout_marginTop="30pt"
         android:src="@drawable/ico_sign_success" />
 
     <TextView
         android:id="@+id/tv_sign_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30px"
+        android:layout_marginTop="30pt"
         android:ellipsize="end"
         android:gravity="center"
         android:maxLines="1"
         android:text="0积分"
         android:textColor="#13C2F4"
-        android:textSize="38px" />
+        android:textSize="38pt" />
 
     <TextView
         android:id="@+id/tv_sign_tip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20px"
+        android:layout_marginTop="20pt"
         android:ellipsize="end"
         android:gravity="center"
         android:maxLines="2"
-        android:paddingLeft="10px"
-        android:paddingRight="10px"
+        android:paddingLeft="10pt"
+        android:paddingRight="10pt"
         android:text="已连续签到0天，明天可领0积分"
         android:textColor="@android:color/white"
-        android:textSize="30px" />
+        android:textSize="30pt" />
 
     <TextView
         android:id="@+id/tv_sign_count_down_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40px"
+        android:layout_marginTop="40pt"
         android:ellipsize="end"
         android:gravity="center"
         android:maxLines="2"
-        android:paddingLeft="10px"
-        android:paddingRight="10px"
+        android:paddingLeft="10pt"
+        android:paddingRight="10pt"
         android:text="0秒后自动关闭"
         android:textColor="#4DFFFFFF"
-        android:textSize="30px" />
+        android:textSize="30pt" />
 </LinearLayout>

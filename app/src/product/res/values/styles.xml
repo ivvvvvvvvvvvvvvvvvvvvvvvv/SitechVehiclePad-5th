@@ -9,7 +9,7 @@
 
     <style name="NoTitleAppTheme" parent="AppTheme">
         <item name="android:windowNoTitle">true</item>
-<!--        <item name="android:windowIsTranslucent">true</item>-->
+        <item name="android:windowIsTranslucent">true</item>
     </style>
 <!--    <style name="SplashAppTheme" parent="NoTitleAppTheme">-->
 <!--        <item name="android:windowBackground">@drawable/ico_logo</item>-->

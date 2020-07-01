@@ -11,14 +11,14 @@
         android:id="@+id/id_skin_top_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="56px"
-        android:layout_marginTop="180px"
-        android:layout_marginRight="58px">
+        android:layout_marginLeft="56pt"
+        android:layout_marginTop="180pt"
+        android:layout_marginRight="58pt">
 
         <ImageView
             android:id="@+id/id_img_current_skin_preview"
-            android:layout_width="525px"
-            android:layout_height="311px"
+            android:layout_width="525pt"
+            android:layout_height="311pt"
             android:src="@drawable/icon_default_skin" />
 
         <RelativeLayout
@@ -26,15 +26,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="78px"
-            android:layout_marginRight="78px"
+            android:layout_marginLeft="78pt"
+            android:layout_marginRight="78pt"
             android:layout_toRightOf="@id/id_img_current_skin_preview"
             android:gravity="center_vertical">
 
             <ImageView
                 android:id="@+id/id_img_current_skin_title"
-                android:layout_width="397px"
-                android:layout_height="32px"
+                android:layout_width="397pt"
+                android:layout_height="32pt"
                 android:src="@drawable/icon_default_skin_title" />
 
             <com.sitechdev.vehicle.pad.view.SkinTextView
@@ -42,23 +42,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/id_img_current_skin_title"
-                android:layout_marginTop="60px"
+                android:layout_marginTop="60pt"
                 android:text="新特炫彩主题皮肤"
                 android:textColor="@color/color_setting_skin_main_text"
-                android:textSize="38px" />
+                android:textSize="38pt" />
 
             <com.sitechdev.vehicle.pad.view.SkinTextView
                 android:id="@+id/id_tv_current_skin_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/id_tv_current_skin_title"
-                android:layout_marginTop="44px"
+                android:layout_marginTop="44pt"
                 android:ellipsize="end"
-                android:lineSpacingExtra="10px"
+                android:lineSpacingExtra="10pt"
                 android:maxLines="2"
                 android:text="黑色皮肤模式说明文字主题黑色皮黑色皮肤模式说明文字主题黑色皮黑色皮肤模式说明文字主题黑色皮黑色皮肤模式说明文字"
                 android:textColor="@color/color_setting_skin_second_text"
-                android:textSize="30px" />
+                android:textSize="30pt" />
         </RelativeLayout>
     </RelativeLayout>
 
@@ -67,29 +67,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/id_skin_top_content"
-        android:layout_marginLeft="56px"
-        android:layout_marginTop="47px"
-        android:layout_marginRight="56px"
+        android:layout_marginLeft="56pt"
+        android:layout_marginTop="47pt"
+        android:layout_marginRight="56pt"
         android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/id_img_skin_preview_1"
-            android:layout_width="560px"
-            android:layout_height="320px"
+            android:layout_width="560pt"
+            android:layout_height="320pt"
             android:src="@drawable/icon_whiteorange_skin" />
 
         <ImageView
             android:id="@+id/id_img_skin_preview_2"
-            android:layout_width="560px"
-            android:layout_height="320px"
-            android:layout_marginLeft="64px"
+            android:layout_width="560pt"
+            android:layout_height="320pt"
+            android:layout_marginLeft="64pt"
             android:src="@drawable/icon_blueorange_skin" />
 
         <ImageView
             android:id="@+id/id_img_skin_preview_3"
-            android:layout_width="560px"
-            android:layout_height="320px"
-            android:layout_marginLeft="64px"
+            android:layout_width="560pt"
+            android:layout_height="320pt"
+            android:layout_marginLeft="64pt"
             android:src="@drawable/icon_unkown_skin" />
     </LinearLayout>
 </RelativeLayout>
