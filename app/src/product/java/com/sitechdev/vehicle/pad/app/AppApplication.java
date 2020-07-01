@@ -18,7 +18,6 @@ import com.lky.toucheffectsmodule.types.TouchEffectsViewType;
 import com.lky.toucheffectsmodule.types.TouchEffectsWholeType;
 import com.sitechdev.net.EnvironmentConfig;
 import com.sitechdev.net.HttpHelper;
-import com.sitechdev.pad.lib.aoplibrary.annotation.DebugTrace;
 import com.sitechdev.vehicle.lib.base.BaseApp;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.MarsXlogUtil;
@@ -31,8 +30,10 @@ import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.manager.AppManager;
 import com.sitechdev.vehicle.pad.manager.SkinManager;
 import com.sitechdev.vehicle.pad.manager.VolumeControlManager;
+import com.sitechdev.vehicle.pad.module.main.MainActivity;
 import com.sitechdev.vehicle.pad.module.map.util.MapVoiceEventUtil;
 import com.sitechdev.vehicle.pad.module.music.BtMusicManager;
+import com.sitechdev.vehicle.pad.module.online_audio.KaolaAudioActivity;
 import com.sitechdev.vehicle.pad.module.phone.PhoneBtManager;
 import com.sitechdev.vehicle.pad.module.phone.PhoneCallWindow;
 import com.sitechdev.vehicle.pad.module.setting.bt.BtManagers;
@@ -60,7 +61,6 @@ public class AppApplication extends BaseApp {
     private static AudioManager mAudioManager = null;
 
     @Override
-    @DebugTrace
     public void onCreate() {
         super.onCreate();
         if (!ProcessUtil.isMainProcess(this)) {
@@ -78,7 +78,7 @@ public class AppApplication extends BaseApp {
         TouchEffectsManager.build(TouchEffectsWholeType.SCALE)
                 .addViewType(TouchEffectsViewType.ALL)
                 .setListWholeType(TouchEffectsWholeType.RIPPLE)
-                .setAspectRatioType(4f,TouchEffectsWholeType.RIPPLE);//宽高比大于4时启动水波纹
+                .setAspectRatioType(4f, TouchEffectsWholeType.RIPPLE);//宽高比大于4时启动水波纹
         //腾讯相关组件
         initTencentUtil();
         //工具初始化
@@ -105,7 +105,6 @@ public class AppApplication extends BaseApp {
         BtManagers.getInstance().init();//初始化
     }
 
-    @DebugTrace
     private void initUtils() {
         ThreadManager.getInstance().addTask(() -> {
             //Activity 页面管理
@@ -114,6 +113,7 @@ public class AppApplication extends BaseApp {
             VolumeControlManager.getInstance().init();
             //路由组件
             RouterUtils.getInstance().init(BuildConfig.DEBUG, this);
+            RouterUtils.getInstance().addOutClassName(MainActivity.class.getSimpleName(), KaolaAudioActivity.class.getSimpleName());
             //网络
             initNet();
             //地图事件注册
@@ -123,12 +123,10 @@ public class AppApplication extends BaseApp {
         });
     }
 
-    @DebugTrace
     private void initCustomWindow() {
         BaseAppWindowManager.getInstance().init(this);
     }
 
-    @DebugTrace
     private void initTencentUtil() {
         //日志组件
         MarsXlogUtil.initXlog(this, true);
@@ -139,7 +137,6 @@ public class AppApplication extends BaseApp {
     /**
      * 网络模块初始化
      */
-    @DebugTrace
     private void initNet() {
         EnvironmentConfig.init(!BuildConfig.DEBUG);
         //自定义拦截器
@@ -161,7 +158,6 @@ public class AppApplication extends BaseApp {
     /**
      * Activity 页面管理
      */
-    @DebugTrace
     private void initLifecleActivity() {
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override
@@ -223,7 +219,6 @@ public class AppApplication extends BaseApp {
     /**
      * 考拉SDK
      */
-    @DebugTrace
     private void initKaolaSdk() {
         Logging.setDebug(true);
         OpenSDK.getInstance().initSDK(this, new HttpCallback<Boolean>() {
@@ -246,7 +241,6 @@ public class AppApplication extends BaseApp {
     /**
      * 换肤组件初始化
      */
-    @DebugTrace
     private void initSkinManager() {
         SkinManager.getInstance().initSkinManager(this);
     }

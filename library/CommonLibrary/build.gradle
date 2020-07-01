@@ -33,7 +33,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     //AOP工具组件
-    api project(':library:AopLibrary')
+//    api project(':library:AopLibrary')
     //ali-arouter
     api Config.depConfig.ali.arouter_api
     annotationProcessor Config.depConfig.ali.arouter_compiler

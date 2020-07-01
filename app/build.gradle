@@ -1,7 +1,7 @@
 import java.text.SimpleDateFormat
 
 apply plugin: 'com.android.application'
-apply plugin: 'android-aspectjx'
+//apply plugin: 'android-aspectjx'
 apply plugin: 'com.alibaba.arouter'
 
 String getCurrentTime(String formatString) {
@@ -45,10 +45,10 @@ android {
         }
     }
 
-    aspectjx {
-        //排除所有package路径中包含`android.support`的class文件及库（jar文件）
-        exclude 'android.support', 'androidx', 'com.google', 'com.squareup', 'com.alipay', 'org.apache'
-    }
+//    aspectjx {
+//        //排除所有package路径中包含`android.support`的class文件及库（jar文件）
+//        exclude 'android.support', 'androidx', 'com.google', 'com.squareup', 'com.alipay', 'org.apache'
+//    }
     /*
     * 渠道Flavors配置
     * */

@@ -15,6 +15,9 @@ import com.blankj.utilcode.util.ActivityUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.StringUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * router工具类
  *
@@ -23,8 +26,10 @@ import com.sitechdev.vehicle.lib.util.StringUtils;
  */
 public class RouterUtils {
     private static final String TAG = "Router";
+    private List<String> classOutArray = null;
 
     private RouterUtils() {
+        classOutArray = new ArrayList<>();
     }
 
     private static final class Holder {
@@ -33,6 +38,21 @@ public class RouterUtils {
 
     public static RouterUtils getInstance() {
         return Holder.INSTANCE;
+    }
+
+    public void addOutClassName(String... outClassName) {
+        if (outClassName != null && outClassName.length > 0) {
+            for (int i = 0; i < outClassName.length; i++) {
+                classOutArray.add(outClassName[i]);
+            }
+        }
+    }
+
+    public void clearOutClassList() {
+        if (classOutArray != null) {
+            classOutArray.clear();
+        }
+
     }
 
     /**
@@ -138,6 +158,17 @@ public class RouterUtils {
      */
     public void navigationWithFlags(String path, int... flags) {
         navigationWithFlags(path, null, flags);
+    }
+
+    /**
+     * 跳往首页的单独封装
+     *
+     * @param homePath homePath
+     */
+    public void navigationHomePage(String homePath) {
+        navigationWithFlags(homePath,
+                Intent.FLAG_ACTIVITY_NEW_TASK, Intent.FLAG_ACTIVITY_CLEAR_TASK, Intent.FLAG_ACTIVITY_CLEAR_TOP
+        );
     }
 
     /**
@@ -268,7 +299,8 @@ public class RouterUtils {
             SitechDevLog.i(TAG, "[RouterUtil--isCurrentPage()]==>" + routerName);
             SitechDevLog.i(TAG, "[RouterUtil--getflag()]==>" + postcard.getFlags());
             SitechDevLog.i(TAG, "[RouterUtil--isCurrentPage()]==>当前页面名称==>" + currentPageName);
-            if (routerName.equalsIgnoreCase(currentPageName)) {
+            SitechDevLog.i(TAG, "[RouterUtil--currentPage()是否在例外]==>" + classOutArray.contains(routerName));
+            if (routerName.equalsIgnoreCase(currentPageName) && !this.classOutArray.contains(routerName)) {
                 return true;
             }
         } catch (Exception e) {

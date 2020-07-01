@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.sitechdev.pad.lib.aoplibrary.annotation.DebugTrace;
 import com.sitechdev.vehicle.lib.imageloader.GlideUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.R;
@@ -169,7 +168,6 @@ public class MainMenuAdapater extends BaseAdapter implements MoveMenuCallback {
     }
 
     @Override
-    @DebugTrace
     public void reorderItems(int oldPosition, int newPosition) {
         SitechDevLog.w(AppConst.TAG_APP, "reorderItems    开始位置=" + (startIndex));
         SitechDevLog.w(AppConst.TAG_APP, "reorderItems   oldPosition=" + oldPosition + ",newPosition=" + newPosition);

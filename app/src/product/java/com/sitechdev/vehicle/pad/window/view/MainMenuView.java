@@ -1,7 +1,6 @@
 package com.sitechdev.vehicle.pad.window.view;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -11,17 +10,11 @@ import android.widget.RelativeLayout;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.ImageUtils;
-import com.sitechdev.vehicle.lib.util.SitechDevLog;
-import com.sitechdev.vehicle.lib.util.StringUtils;
 import com.sitechdev.vehicle.pad.R;
-import com.sitechdev.vehicle.pad.event.VoiceEvent;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppUtil;
 import com.sitechdev.vehicle.pad.util.CommonUtil;
-import com.sitechdev.vehicle.pad.view.SkinTextView;
-import com.sitechdev.vehicle.pad.view.VolumeView2;
-import com.sitechdev.vehicle.pad.vui.VoiceConstants;
 
 public class MainMenuView extends RelativeLayout implements View.OnClickListener {
 
@@ -114,9 +107,7 @@ public class MainMenuView extends RelativeLayout implements View.OnClickListener
         switch (v.getId()) {
             case R.id.id_btn_home:
 //                ToastUtils.showShort("主页按钮被点击了。。。");
-                RouterUtils.getInstance().navigationWithFlags(RouterConstants.HOME_MAIN,
-                        Intent.FLAG_ACTIVITY_NEW_TASK, Intent.FLAG_ACTIVITY_CLEAR_TASK, Intent.FLAG_ACTIVITY_CLEAR_TOP
-                );
+                RouterUtils.getInstance().navigationHomePage(RouterConstants.HOME_MAIN);
                 break;
             case R.id.id_btn_location:
 //                ToastUtils.showShort("导航按钮被点击了。。。");

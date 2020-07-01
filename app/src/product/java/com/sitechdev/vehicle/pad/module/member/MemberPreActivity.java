@@ -282,9 +282,7 @@ public class MemberPreActivity extends BaseActivity {
                     //确定按钮被点击
                     UserManager.getInstance().logoutUser();
                     LoginUtils.handleLogout();
-                    RouterUtils.getInstance().navigationWithFlags(RouterConstants.HOME_MAIN,
-                            Intent.FLAG_ACTIVITY_NEW_TASK, Intent.FLAG_ACTIVITY_CLEAR_TASK, Intent.FLAG_ACTIVITY_CLEAR_TOP
-                    );
+                    RouterUtils.getInstance().navigationHomePage(RouterConstants.HOME_MAIN);
                 });
                 logoutDialog.show();
                 break;

@@ -157,7 +157,9 @@ public class TeddyWindowManager {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onTeddyVoiceEvent(VoiceEvent event) {
         SitechDevLog.i(TAG, "onTeddyVoiceEvent============" + event.getEventKey());
-        floatView.refreshTeddyView(event);
+        if (floatView != null) {
+            floatView.refreshTeddyView(event);
+        }
         switch (event.getEventKey()) {
             //停止语音
             case VoiceEvent.EVENT_VOICE_STOP_VOICE:

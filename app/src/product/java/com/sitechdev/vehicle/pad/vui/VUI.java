@@ -922,9 +922,10 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                 case "首页":
                                 case "主页":
                                     if (null == AppVariants.currentActivity || !(AppVariants.currentActivity instanceof MainActivity)) {
-                                        Intent goMain = new Intent();
-                                        goMain.setClass(context, MainActivity.class);
-                                        context.startActivity(goMain);
+//                                        Intent goMain = new Intent();
+//                                        goMain.setClass(context, MainActivity.class);
+//                                        context.startActivity(goMain);
+                                        RouterUtils.getInstance().navigationHomePage(RouterConstants.HOME_MAIN);
                                         shut();
                                     } else {
                                         shutAndTTS("您当前已在首页");

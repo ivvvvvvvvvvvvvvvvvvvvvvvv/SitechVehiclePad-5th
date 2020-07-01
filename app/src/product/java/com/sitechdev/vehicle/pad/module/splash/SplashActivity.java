@@ -1,7 +1,6 @@
 package com.sitechdev.vehicle.pad.module.splash;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,7 +14,6 @@ import com.sitechdev.vehicle.pad.app.AppConst;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.module.location.LocationUtil;
-import com.sitechdev.vehicle.pad.module.main.MainActivity;
 import com.sitechdev.vehicle.pad.module.map.util.MapUtil;
 import com.sitechdev.vehicle.pad.module.music.MusicManager;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
@@ -110,8 +108,6 @@ public class SplashActivity extends BaseActivity {
             //发送地图广播，获取一些初始化参数
             MapUtil.sendAMapInitBroadcast();
             //页面跳转
-//            Intent mIntent = new Intent(SplashActivity.this, MainActivity.class);
-//            startActivity(mIntent);
             RouterUtils.getInstance().navigation(RouterConstants.HOME_MAIN);
             finish();
         }, 1500);
