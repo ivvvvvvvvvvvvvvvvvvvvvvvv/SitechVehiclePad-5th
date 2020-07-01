@@ -110,10 +110,10 @@ public class KaolaAIListAdapter extends KaolaBaseAdapter<KaolaAIListAdapter.VHol
             root = LayoutInflater.from(context).inflate(isLandscape() ? R.layout.kaola_item_recommend : R.layout.kaola_item_recommend_portrait, viewGroup, false);
             return new VHolder(root);
         } else if (mLists.get(i).column == null) {
-            root = LayoutInflater.from(context).inflate( R.layout.kaola_item_group, viewGroup, false);
+            root = LayoutInflater.from(context).inflate(R.layout.kaola_item_group, viewGroup, false);
             return new VHolderGroup(root);
         } else {
-            root = LayoutInflater.from(context).inflate(R.layout.kaola_item_common, viewGroup, false);
+            root = LayoutInflater.from(context).inflate(isLandscape() ? R.layout.kaola_item_common : R.layout.kaola_item_common_protrait, viewGroup, false);
             return new VHolder2(root);
         }
 

@@ -92,12 +92,12 @@
 
     <dimen name="pt_30">30pt</dimen>
     <dimen name="mutil_title_toolbar_margin_top">45pt</dimen>
-    <dimen name="kaola_content_viewpager_heght_land">570pt</dimen>
+    <dimen name="kaola_content_viewpager_heght_land">600pt</dimen>
     <dimen name="kaola_playerholder_height_land">140pt</dimen>
     <dimen name="kaola_playerholder_margin_top_land">10pt</dimen>
     <dimen name="kaola_playerholder_margin_left_land">60pt</dimen>
     <dimen name="kaola_playerholder_margin_right_land">60pt</dimen>
-    <dimen name="kaola_margin_bottom_land">300pt</dimen>
+    <dimen name="kaola_margin_bottom_land">260pt</dimen>
     <dimen name="toolbar_tablayout_height">74pt</dimen>
     <dimen name="toolbar_tablayout_margin_left">25pt</dimen>
     <dimen name="toolbar_tablayout_tab_padding_start">15pt</dimen>
@@ -137,6 +137,7 @@
     <dimen name="kaola_ai_indicator_paddingleft">40pt</dimen>
     <dimen name="kaola_ai_indicator_space_top">30pt</dimen>
     <dimen name="kaola_ai_recommend_img_w">362pt</dimen>
+    <dimen name="kaola_ai_recommend_img_w_protrait">301pt</dimen>
     <dimen name="kaola_ai_recommend_tag_textsize">24pt</dimen>
     <dimen name="kaola_ai_recommend_title_textsize">26pt</dimen>
     <dimen name="kaola_ai_group_marginleft">45pt</dimen>
@@ -154,4 +155,56 @@
     <integer name="kaola_ai_list_land_item_space_top">15</integer>
     <dimen name="kaola_ai_indicator_space_bottom">20pt</dimen>
     <dimen name="kaola_search_edit_textsize">32pt</dimen>
+    <dimen name="kaola_playpage_bottom_space">300pt</dimen>
+    <dimen name="common_title_h">138pt</dimen>
+    <dimen name="kaola_playpage_list_w">1094pt</dimen>
+    <dimen name="kaola_playpage_list_margintop">35pt</dimen>
+    <dimen name="kaola_playpage_list_marginright">48pt</dimen>
+    <dimen name="kaola_playpage_list_paddingtop">30pt</dimen>
+    <dimen name="kaola_playpage_list_paddingbottom">48pt</dimen>
+    <dimen name="kaola_playpage_playinfo_margintop">40pt</dimen>
+    <dimen name="kaola_playpage_playinfo_marginstart">61pt</dimen>
+    <dimen name="kaola_playpage_playinfo_marginend">54pt</dimen>
+    <dimen name="kaola_playpage_playprogress_marginleft">60pt</dimen>
+    <dimen name="kaola_playpage_playinfo_cover_h">415pt</dimen>
+    <dimen name="kaola_playpage_playinfo_cover_bg_w">358pt</dimen>
+    <dimen name="kaola_playpage_playinfo_cover_margintop">10pt</dimen>
+    <dimen name="kaola_playpage_playinfo_cover_bg_margintop">20pt</dimen>
+    <dimen name="kaola_playpage_playinfo_cover_img_w">164pt</dimen>
+    <dimen name="kaola_playpage_playinfo_cover_img_margintop">20pt</dimen>
+    <dimen name="kaola_playpage_playinfo_cover_tag_w">120pt</dimen>
+    <dimen name="kaola_playpage_playinfo_cover_tag_h">46pt</dimen>
+    <dimen name="kaola_playpage_playinfo_cover_tag_marginleft">80pt</dimen>
+    <dimen name="kaola_playpage_playinfo_play_stick_marginend">100pt</dimen>
+    <dimen name="kaola_playpage_title_marginleft">100pt</dimen>
+    <dimen name="kaola_playpage_title_margintop">10pt</dimen>
+    <dimen name="kaola_playpage_title_marginright">100pt</dimen>
+    <dimen name="kaola_playpage_title_textsize">37pt</dimen>
+    <dimen name="kaola_playpage_subtitle_textsize">32pt</dimen>
+    <dimen name="kaola_playpage_playcontrol_margintop">30pt</dimen>
+    <dimen name="kaola_playpage_playcontrol_buttonsize">60pt</dimen>
+    <dimen name="kaola_playpage_curplay_time">24pt</dimen>
+    <dimen name="kaola_all_category_item_w">160pt</dimen>
+    <dimen name="kaola_all_category_textsize">25pt</dimen>
+    <dimen name="kaola_all_category_item_paddingtop">17pt</dimen>
+    <dimen name="kaola_all_category_item_h">57pt</dimen>
+    <dimen name="kaola_all_category_group_h">80pt</dimen>
+    <dimen name="kaola_all_category_group_textsize">24pt</dimen>
+    <dimen name="kaola_allcategory_dialog_h">740pt</dimen>
+    <dimen name="kaola_allcategory_dialog_padding">30pt</dimen>
+    <dimen name="kaola_allcategory_dialog_close_size">43pt</dimen>
+    <dimen name="bt_music_connect_info_frame_w">803pt</dimen>
+    <dimen name="bt_music_connect_info_frame_h">667pt</dimen>
+    <dimen name="bt_music_connect_info_img_w">80pt</dimen>
+    <dimen name="bt_music_connect_info_img_h">143pt</dimen>
+    <dimen name="bt_music_connect_info_img_margintop">100pt</dimen>
+    <dimen name="bt_connect_st_h">446pt</dimen>
+
+    <integer name="kaola_all_category_dialog_w_land">1017</integer>
+    <integer name="kaola_all_category_dialog_h_land">485</integer>
+
+    <integer name="kaola_all_category_dialog_w">941</integer>
+    <integer name="kaola_all_category_dialog_h">1113</integer>
+    <integer name="kaola_all_category_dialog_item_space">29</integer>
+
 </resources>

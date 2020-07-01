@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:text="00:00"
             android:textColor="#7D7E80"
-            android:textSize="24px" />
+            android:textSize="@dimen/kaola_playpage_curplay_time" />
 
         <SeekBar
             android:id="@+id/music_seek_bar"
@@ -32,8 +32,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:maxHeight="4px"
-            android:minHeight="4px"
+            android:maxHeight="4pt"
+            android:minHeight="4pt"
             android:progressDrawable="@drawable/bg_play_seek_all"
             android:splitTrack="false"
             android:thumb="@drawable/play_seekbar_thumb"
@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:text="00:00"
             android:textColor="#7D7E80"
-            android:textSize="24px" />
+            android:textSize="@dimen/kaola_playpage_curplay_time" />
 
     </LinearLayout>
 

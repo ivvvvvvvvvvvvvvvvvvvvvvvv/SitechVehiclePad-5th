@@ -2,14 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="740px"
-    android:padding="30px"
+    android:layout_height="@dimen/kaola_allcategory_dialog_h"
+    android:padding="@dimen/kaola_allcategory_dialog_padding"
     tools:ignore="PxUsage">
 
     <ImageView
         android:id="@+id/close"
-        android:layout_width="43px"
-        android:layout_height="43px"
+        android:layout_width="@dimen/kaola_allcategory_dialog_close_size"
+        android:layout_height="@dimen/kaola_allcategory_dialog_close_size"
         android:src="@drawable/ic_close_dialog"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true" />

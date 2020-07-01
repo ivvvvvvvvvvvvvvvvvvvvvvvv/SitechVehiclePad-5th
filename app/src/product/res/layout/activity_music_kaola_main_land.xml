@@ -5,24 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_kaola_play"
-    android:paddingBottom="300px"
+    android:paddingBottom="@dimen/kaola_playpage_bottom_space"
     tools:ignore="PxUsage">
 
     <include
         layout="@layout/common_title_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="138px"
+        android:layout_height="@dimen/common_title_h"
         android:layout_alignParentTop="true" />
 
     <RelativeLayout
         android:id="@+id/list_frame"
-        android:layout_width="1094px"
+        android:layout_width="@dimen/kaola_playpage_list_w"
         android:layout_height="match_parent"
         android:layout_above="@+id/play_bar_root"
         android:layout_below="@+id/toolbar_sub"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="35px"
-        android:layout_marginRight="48px"
+        android:layout_marginTop="@dimen/kaola_playpage_list_margintop"
+        android:layout_marginRight="@dimen/kaola_playpage_list_marginright"
         android:background="@drawable/bg_playlist">
 
         <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
@@ -30,8 +30,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/tip_img"
-            android:paddingTop="30px"
-            android:paddingBottom="48px">
+            android:paddingTop="@dimen/kaola_playpage_list_paddingtop"
+            android:paddingBottom="@dimen/kaola_playpage_list_paddingbottom">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/music_kaola_list"
@@ -49,9 +49,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar_sub"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="40px"
-        android:layout_marginStart="61px"
-        android:layout_marginEnd="54px"
+        android:layout_marginTop="@dimen/kaola_playpage_playinfo_margintop"
+        android:layout_marginStart="@dimen/kaola_playpage_playinfo_marginstart"
+        android:layout_marginEnd="@dimen/kaola_playpage_playinfo_marginend"
         android:layout_toStartOf="@+id/list_frame" />
 
     <include
@@ -59,7 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="60px"
-        android:layout_marginTop="60px"
-        android:layout_marginRight="60px" />
+        android:layout_marginLeft="@dimen/kaola_playpage_playprogress_marginleft"
+        android:layout_marginTop="@dimen/kaola_playpage_playprogress_marginleft"
+        android:layout_marginRight="@dimen/kaola_playpage_playprogress_marginleft" />
 </RelativeLayout>
