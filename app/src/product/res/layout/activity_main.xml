@@ -234,11 +234,10 @@
         android:layout_below="@id/id_main_first_content"
         android:layout_marginTop="24pt"
         android:background="@drawable/shape_main_map_item_bg"
-        android:orientation="horizontal"
-        android:paddingTop="36pt"
-        android:paddingBottom="36pt">
+        android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/id_main_top_home_content"
             android:layout_width="0pt"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -272,6 +271,7 @@
             android:background="@color/color_main_car_info_split_line" />
 
         <LinearLayout
+            android:id="@+id/id_main_top_work_content"
             android:layout_width="0pt"
             android:layout_height="match_parent"
             android:layout_weight="1"

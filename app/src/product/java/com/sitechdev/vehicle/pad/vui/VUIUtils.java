@@ -9,8 +9,12 @@ import android.util.Base64;
 import com.amap.api.services.core.PoiItem;
 import com.iflytek.aiui.AIUIConstant;
 import com.iflytek.aiui.AIUIMessage;
+import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.app.AppApplication;
+import com.sitechdev.vehicle.pad.app.AppConst;
+import com.sitechdev.vehicle.pad.event.WindowEvent;
+import com.sitechdev.vehicle.pad.manager.KuwoManager;
 import com.sitechdev.vehicle.pad.vui.bean.SpeakableSyncData;
 
 import org.json.JSONArray;
@@ -155,5 +159,17 @@ public class VUIUtils {
             SitechDevLog.exception(e);
             return null;
         }
+    }
+
+    /**
+     * 打开第三方APP搜索歌曲并播放
+     *
+     * @param musicName 歌曲名称
+     * @param singer    歌手名称
+     */
+    public static void openThirdAppByMusic(String musicName, String singer) {
+        SitechDevLog.i(AppConst.TAG, "openThirdAppByMusic=====>musicName=" + musicName + "====>singer=" + singer);
+        EventBusUtils.postEvent(new WindowEvent(WindowEvent.EVENT_WINDOW_APP_BACKGROUD));
+        KuwoManager.getInstance().playMusic(musicName, singer);
     }
 }
