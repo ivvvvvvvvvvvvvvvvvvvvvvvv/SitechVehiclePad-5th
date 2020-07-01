@@ -4,6 +4,9 @@ import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.blankj.utilcode.util.AdaptScreenUtils;
+import com.sitechdev.vehicle.pad.R;
+
 /**
  * <pre>
  *      author : zyf
@@ -18,9 +21,9 @@ public class KaolaCategorySpaceItemDecoration extends RecyclerView.ItemDecoratio
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-        outRect.left = 80;
-        outRect.bottom = 15;
-        outRect.top = 15;
+        outRect.left = AdaptScreenUtils.px2Pt(view.getContext().getResources().getDimension(R.dimen.category_left_space));
+        outRect.bottom = AdaptScreenUtils.px2Pt(view.getContext().getResources().getDimension(R.dimen.category_bottom_space));
+        outRect.top = AdaptScreenUtils.px2Pt(view.getContext().getResources().getDimension(R.dimen.category_top_space));;
     }
 
 }

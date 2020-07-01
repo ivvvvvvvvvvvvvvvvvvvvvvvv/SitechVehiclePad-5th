@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <dimen name="kaola_category_topfame_title_size">36pt</dimen>
+    <dimen name="kaola_indicatior_content_title_size">32pt</dimen>
+    <dimen name="category_item_size">251pt</dimen>
+    <dimen name="category_item_title_margin_top">30pt</dimen>
+    <dimen name="category_item_title_text_size">32pt</dimen>
+    <dimen name="category_item_sub_title_text_size">28pt</dimen>
+    <dimen name="category_left_space">80px</dimen>
+    <dimen name="category_top_space">15px</dimen>
+    <dimen name="category_bottom_space">15px</dimen>
+</resources>

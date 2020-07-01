@@ -80,43 +80,5 @@
     <dimen name="phone_content_padding_left_right">28pt</dimen>
 
     <dimen name="pt_30">30pt</dimen>
-    <dimen name="mutil_title_toolbar_margin_top">45pt</dimen>
-    <dimen name="kaola_content_viewpager_heght_land">570pt</dimen>
-    <dimen name="kaola_playerholder_height_land">140pt</dimen>
-    <dimen name="kaola_playerholder_margin_top_land">10pt</dimen>
-    <dimen name="kaola_playerholder_margin_left_land">60pt</dimen>
-    <dimen name="kaola_playerholder_margin_right_land">60pt</dimen>
-    <dimen name="kaola_margin_bottom_land">300pt</dimen>
-    <dimen name="toolbar_tablayout_height">74pt</dimen>
-    <dimen name="toolbar_tablayout_margin_left">25pt</dimen>
-    <dimen name="toolbar_tablayout_tab_padding_start">15pt</dimen>
-    <dimen name="toolbar_tablayout_tab_padding_end">15pt</dimen>
-    <dimen name="kaola_title_indicator_w">6pt</dimen>
-    <dimen name="kaola_title_indicator_h">41pt</dimen>
-    <dimen name="kaola_category_topfame_margin_left">60pt</dimen>
-    <dimen name="kaola_category_topfame_margin_top">40pt</dimen>
-    <dimen name="kaola_category_topfame_margin_right">60pt</dimen>
-    <dimen name="kaola_category_topfame_margin_bottom">40pt</dimen>
-    <dimen name="kaola_category_listindecator_frame_padding_left">20pt</dimen>
-    <dimen name="kaola_category_listindecator_frame_padding_right">20pt</dimen>
-    <dimen name="kaola_category_all_btn_w">36pt</dimen>
-    <dimen name="kaola_category_all_btn_margin">20pt</dimen>
-    <dimen name="kaola_player_holder_h">140pt</dimen>
-    <dimen name="kaola_player_holder_img_margin_left">30pt</dimen>
-    <dimen name="kaola_player_holder_img_margin_right">40pt</dimen>
-    <dimen name="kaola_player_holder_title_frame_w">550pt</dimen>
-    <dimen name="kaola_player_holder_title_frame_margin_right">130pt</dimen>
-    <dimen name="kaola_player_holder_title_size">32pt</dimen>
-    <dimen name="kaola_player_holder_img_h">90pt</dimen>
-    <dimen name="kaola_player_holder_sub_title_size">36pt</dimen>
-    <dimen name="kaola_player_holder_control_margin_right">180pt</dimen>
-    <dimen name="kaola_player_holder_control_pre_h">55pt</dimen>
-    <dimen name="kaola_player_holder_control_btn_space">170pt</dimen>
-    <dimen name="kaola_player_holder_control_btn_margin_right">120pt</dimen>
-    <dimen name="kaola_player_holder_control_small_h">50pt</dimen>
-    <dimen name="tablayout_title_padingleft">30pt</dimen>
-    <dimen name="tablayout_title_padingright">30pt</dimen>
-    <dimen name="tablayout_title_padingbottom">25pt</dimen>
-    <dimen name="tablayout_title_textsize">36pt</dimen>
-    <dimen name="tablayout_title_bottom_space">25pt</dimen>
+
 </resources>

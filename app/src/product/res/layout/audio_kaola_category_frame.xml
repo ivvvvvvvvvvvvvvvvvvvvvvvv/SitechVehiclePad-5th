@@ -11,10 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginLeft="60px"
-        android:layout_marginTop="40px"
-        android:layout_marginRight="60px"
-        android:layout_marginBottom="40px"
+        android:layout_marginLeft="@dimen/kaola_category_topfame_margin_left"
+        android:layout_marginTop="@dimen/kaola_category_topfame_margin_top"
+        android:layout_marginRight="@dimen/kaola_category_topfame_margin_right"
+        android:layout_marginBottom="@dimen/kaola_category_topfame_margin_bottom"
         tools:layout_height="70px"
         tools:layout_width="1100px">
 
@@ -24,9 +24,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:drawableLeft="@drawable/icon_kaola_category_cur_select_tag"
-            android:drawablePadding="10px"
+            android:drawablePadding="10pt"
             android:textColor="#469DF7"
-            android:textSize="36px"
+            android:textSize="@dimen/kaola_category_topfame_title_size"
             tools:text="推荐" />
 
         <LinearLayout
@@ -35,8 +35,8 @@
             android:layout_gravity="right"
             android:background="@drawable/bg_kaola_category_indicator"
             android:orientation="horizontal"
-            android:paddingLeft="20px"
-            android:paddingRight="20px">
+            android:paddingLeft="@dimen/kaola_category_listindecator_frame_padding_left"
+            android:paddingRight="@dimen/kaola_category_listindecator_frame_padding_right">
 
             <com.sitechdev.vehicle.pad.view.ListIndicatorRecycview
                 android:id="@+id/indicator"
@@ -47,11 +47,11 @@
 
             <ImageView
                 android:id="@+id/btn_all_categroy"
-                android:layout_width="36px"
-                android:layout_height="36px"
+                android:layout_width="@dimen/kaola_category_all_btn_w"
+                android:layout_height="@dimen/kaola_category_all_btn_w"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20px"
-                android:layout_marginRight="20px"
+                android:layout_marginLeft="@dimen/kaola_category_all_btn_margin"
+                android:layout_marginRight="@dimen/kaola_category_all_btn_margin"
                 android:src="@drawable/all_category" />
         </LinearLayout>
 
