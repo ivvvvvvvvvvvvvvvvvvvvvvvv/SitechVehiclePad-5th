@@ -75,7 +75,7 @@ public class PhoneBtManager {
                         handleContactCallback(param2, param3, param4, true);
                     }
                     break;
-                    case ATBluetooth.RETURN_CALLING: {//拨出
+                    case ATBluetooth.RETURN_CALLING: {//接通
                         CallingInfo info = new CallingInfo();
                         info.setPhoneNum(param3);
                         info.setState(BTEvent.ACTIVE);

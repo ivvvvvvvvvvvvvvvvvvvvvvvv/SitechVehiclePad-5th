@@ -2,6 +2,8 @@ package com.sitechdev.vehicle.pad.module.phone;
 
 import android.content.Context;
 import android.graphics.PixelFormat;
+import android.os.Handler;
+import android.os.Message;
 import android.support.constraint.ConstraintLayout;
 import android.util.Log;
 import android.view.Gravity;
@@ -18,6 +20,7 @@ import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseWindow;
 import com.sitechdev.vehicle.pad.module.phone.presenter.PhoneCallPresenter;
 import com.sitechdev.vehicle.pad.view.ScrollTextView;
+
 
 /**
  * 通话window
@@ -56,10 +59,13 @@ public class PhoneCallWindow implements PhoneCallPresenter.UICallback, View.OnCl
      * key micmute group id is 4
      */
     private static final int KEY_MICMUTE = 4;
+    private static final int MSG_START_SHOW_TIME = 0;
     private ImageButton mPriBtn;
     private ImageButton mMuteBtn;
     private ImageButton mHangupIbt;
     private ImageButton mAnswerIbt;
+    private Handler mHandler;
+    private int mTime;
 
     public static PhoneCallWindow getInstance() {
         if (instance == null) {
@@ -160,7 +166,24 @@ public class PhoneCallWindow implements PhoneCallPresenter.UICallback, View.OnCl
 
     @Override
     public void setElapsedTime(int seconds, int which) {
-        stateTxt.setText(getFormattedTime(seconds, 0));
+        if(null != mHandler){
+            mHandler.postDelayed(mTimeTask,500);
+        }
+    }
+
+    private Runnable mTimeTask = new Runnable() {
+        @Override
+        public void run() {
+            mTime++;
+            if(null != mHandler){
+                mHandler.sendEmptyMessage(MSG_START_SHOW_TIME);
+                mHandler.postDelayed(this,1000);
+            }
+        }
+    };
+
+    private void showTime() {
+
     }
 
     @Override
@@ -338,6 +361,21 @@ public class PhoneCallWindow implements PhoneCallPresenter.UICallback, View.OnCl
                 phoneView.setBackgroundResource(R.drawable.shape_phone_call);
                 windowManager.addView(phoneView, phoneWindowParams);
             }
+            if(null == mHandler){
+                mTime = 0;
+                mHandler = new Handler(){
+                    @Override
+                    public void handleMessage(Message msg) {
+                        super.handleMessage(msg);
+                        switch (msg.what){
+                            case MSG_START_SHOW_TIME:{
+                                stateTxt.setText(getFormattedTime(mTime, 0));
+                            }
+                            break;
+                        }
+                    }
+                };
+            }
         } else {
             if (phoneView.isShown()) {
                 windowManager.removeViewImmediate(phoneView);
@@ -345,6 +383,10 @@ public class PhoneCallWindow implements PhoneCallPresenter.UICallback, View.OnCl
                 if (BtGlobalRef.isMicMute) {
                     presenter.micMute();
                 }
+            }
+            if(null != mHandler){
+                mHandler.removeCallbacksAndMessages(null);
+                mHandler = null;
             }
         }
     }

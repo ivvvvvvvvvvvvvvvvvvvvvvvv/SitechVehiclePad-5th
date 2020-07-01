@@ -159,6 +159,7 @@ public class PhoneCallPresenter implements PhoneCallContract,
                         callback.setButtonGroup(GROUP_ACTIVE);
                         callback.onPhoneNumber(phoneNumber, which);
                         callback.onPhoneName(getNameFromPhoneBook(phoneNumber), which);
+                        callback.setElapsedTime(0,0);
                         callback.showPhoneCall();
                         break;
                     case BTEvent.HANGUP:
