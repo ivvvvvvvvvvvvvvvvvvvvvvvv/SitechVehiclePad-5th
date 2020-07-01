@@ -34,6 +34,7 @@
             <com.sitechdev.vehicle.pad.view.CustomSwitchButton
                 android:id="@+id/setting_teddy_session"
                 android:layout_width="match_parent"
+                android:visibility="gone"
                 android:layout_height="wrap_content"
                 app:tip="非多媒体播放场景时，在与您进行对话后，会自动等待8S与您持续对话"
                 app:title="持续对话" />
