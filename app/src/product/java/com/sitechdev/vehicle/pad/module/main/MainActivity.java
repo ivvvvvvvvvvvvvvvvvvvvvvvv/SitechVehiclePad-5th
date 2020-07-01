@@ -106,7 +106,7 @@ public class MainActivity extends BaseActivity
     private RelativeLayout flTeddy;
     private static final String TEMP_DATA = "一 一";
     private TextView mPowerPercentView = null, mKmView = null, mRechargeCountView = null;
-    private LinearLayout carPowerInfoView = null;
+    private LinearLayout carPowerInfoView = null,mLinearHomeWorkView=null,mLinearHomeView=null,mLinearWorkView=null;
 
     //    List<Column> mColumns = new ArrayList<>();
 //    Column mCurrentColumn;
@@ -118,6 +118,12 @@ public class MainActivity extends BaseActivity
 //    private static final int LOCAL_MUSIC = 1;
 
     NetReceiver receiver = new NetReceiver();
+
+    //长按跳往设置地址页面
+    private View.OnLongClickListener addressSetListener= v -> {
+        RouterUtils.getInstance().navigation(RouterConstants.SET_ADDRESS_PAGE);
+        return true;
+    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -152,6 +158,10 @@ public class MainActivity extends BaseActivity
         ivLogin = (ImageView) findViewById(R.id.iv_login);
         tvLogin = (TextView) findViewById(R.id.tv_login);
         rlWeather = (RelativeLayout) findViewById(R.id.fl_weather);
+
+        mLinearHomeWorkView=findViewById(R.id.id_main_right_top_left_content);
+        mLinearHomeView=findViewById(R.id.id_main_top_home_content);
+        mLinearWorkView=findViewById(R.id.id_main_top_work_content);
         mHomeImageView = findViewById(R.id.id_img_home);
         tvHome = (TextView) findViewById(R.id.tv_home);
         mWorkImageView = findViewById(R.id.id_img_work);
@@ -373,6 +383,10 @@ public class MainActivity extends BaseActivity
         tvHome.setOnClickListener(this);
         mHomeImageView.setOnClickListener(this);
         mWorkImageView.setOnClickListener(this);
+        //长按跳往设置地址页面
+        mLinearHomeWorkView.setOnLongClickListener(addressSetListener);
+        mLinearHomeView.setOnLongClickListener(addressSetListener);
+        mLinearWorkView.setOnLongClickListener(addressSetListener);
         tvWork.setOnClickListener(this);
         tvWhat.setOnClickListener(this);
 //        llMusic.setOnClickListener(this);
