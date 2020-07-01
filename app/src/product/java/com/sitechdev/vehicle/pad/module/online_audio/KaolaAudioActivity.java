@@ -7,7 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
@@ -19,6 +19,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.kaolafm.sdk.core.mediaplayer.PlayItem;
 import com.sitechdev.vehicle.lib.event.BindEventBus;
+import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.imageloader.GlideApp;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
@@ -80,7 +81,7 @@ public class KaolaAudioActivity extends BaseActivity implements
         @Override
         public void onMusicPlaying(PlayItem item) {
             title.setText(item.getTitle());
-            subTitle.setText(" - "+item.getAlbumName());
+            subTitle.setText(" - " + item.getAlbumName());
             GlideApp.with(KaolaAudioActivity.this).load(item.getAlbumPic()).into(icon);
             play.setImageResource(R.drawable.pc_pause);
         }
@@ -95,6 +96,7 @@ public class KaolaAudioActivity extends BaseActivity implements
 
         }
     };
+
     // 初始化页面集合的方法
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,7 +115,14 @@ public class KaolaAudioActivity extends BaseActivity implements
 
     @Override
     protected void onNewIntent(Intent intent) {
+        setIntent(intent);
+        ARouter.getInstance().inject(this);
         super.onNewIntent(intent);
+        if (!TextUtils.isEmpty(queryString)) {
+            pager.setCurrentItem(3);
+            EventBusUtils.postEvent(new TeddyEvent(TeddyEvent.EVENT_TEDDY_KAOLA_QUERY_KEYWORDS, queryString));
+            queryString = "";
+        }
     }
 
     @Override
@@ -185,7 +194,7 @@ public class KaolaAudioActivity extends BaseActivity implements
         }
     }
 
-//    private void initFrags() {
+    //    private void initFrags() {
 //        fragmentlist.clear();
 //        fragmentlist.add(new KaolaAudioSubPageFrag(pageIndex, deepIndex, playIfSuspend));
 //        fragmentlist.add(new KaolaAudioCategoryPageFrag());
@@ -193,6 +202,7 @@ public class KaolaAudioActivity extends BaseActivity implements
 //        fragmentlist.add(new KaolaAudioSearchPageFrag());
 //    }
     KaolaFragmentAdapter adapter;
+
     private void initTabLayout() {
         tabLayout = findViewById(R.id.tv_sub_title);
 
@@ -221,7 +231,7 @@ public class KaolaAudioActivity extends BaseActivity implements
         });
         tabLayout.setupWithViewPager(pager);
 
-        adapter = new KaolaFragmentAdapter(getSupportFragmentManager(), titleArr, pageIndex, deepIndex, playIfSuspend);
+        adapter = new KaolaFragmentAdapter(getSupportFragmentManager(), titleArr, pageIndex, deepIndex, playIfSuspend, queryString);
         pager.setAdapter(adapter);
         for (int i = 0; i < tabLayout.getTabCount(); i++) {
             TabLayout.Tab tab = tabLayout.getTabAt(i);
@@ -254,12 +264,18 @@ public class KaolaAudioActivity extends BaseActivity implements
 
             }
         });
-        View text = tabLayout.getTabAt(0).getCustomView().findViewById(android.R.id.text1);
-        selectTabAni(text);
-        text.setAlpha(1f);
+        int defaultIndex = 0;
+        if (!TextUtils.isEmpty(queryString)) {
+            defaultIndex = 3;
+        }
+//        View text = tabLayout.getTabAt(defaultIndex).getCustomView().findViewById(android.R.id.text1);
+//        selectTabAni(text);
+//        text.setAlpha(1f);
+        if (defaultIndex > 0) {
+            pager.setCurrentItem(defaultIndex);
+        }
+        queryString = "";
     }
-
-
 
     @Override
     public void onMusicChange(String name) {
@@ -315,6 +331,7 @@ public class KaolaAudioActivity extends BaseActivity implements
             set.start();
         }
     }
+
     private void unselectTabAni(View view) {
         if (null != view) {
             ValueAnimator animx = ObjectAnimator

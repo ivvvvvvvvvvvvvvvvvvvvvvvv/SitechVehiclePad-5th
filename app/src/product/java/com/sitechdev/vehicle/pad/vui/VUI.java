@@ -580,11 +580,14 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                             }
                             if (!TextUtils.isEmpty(artistOrActor) || !TextUtils.isEmpty(audioName)) {
                                 if ("musicX".equals(service)) {//识别是音乐 走酷我搜索
-                                    shutAndTTS("");
                                     VUIUtils.openThirdAppByMusic(audioName, artistOrActor);
                                 } else {//其他走听伴搜索
                                     //听伴搜索
+                                    RouterUtils.getInstance().getPostcard(RouterConstants.MUSIC_PLAY_ONLINE_MAIN)
+                                            .withString("queryString", audioName + " " + artistOrActor)
+                                            .navigation();
                                 }
+                                shutAndTTS("");
                             } else {
                                 vuiAnr();
                             }
@@ -1082,6 +1085,8 @@ public class VUI implements VUIWindow.OnWindowHideListener {
             EventBusUtils.postEvent(new VoiceEvent(
                     VoiceEvent.EVENT_VOICE_TTS_PLAYIING,
                     tts));
+        }else{
+            shut();
         }
     }
 

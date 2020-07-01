@@ -111,7 +111,8 @@
             android:name=".module.setting.activity.SettingBtActivity"
             android:screenOrientation="landscape"
             android:theme="@style/NoTitleAppTheme" />
-        <activity android:name=".module.online_audio.KaolaAudioActivity" />
+        <activity android:name=".module.online_audio.KaolaAudioActivity"
+            android:launchMode="singleTask"/>
         <activity android:name=".module.online_audio.MusicKaolaActivity" />
         <activity android:name=".module.online_audio.MusicKaolaBroadcastActivity" />
         <activity android:name=".module.feedback.FeedbackActivity" />
