@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="5px"
-    android:paddingBottom="5px"
-    android:paddingEnd="48px"
-    android:paddingStart="48px"
+    android:paddingTop="5pt"
+    android:paddingBottom="5pt"
+    android:paddingEnd="48pt"
+    android:paddingStart="48pt"
     tools:ignore="PxUsage">
 
     <ImageView
@@ -22,14 +22,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="32px"
-        android:layout_marginTop="12px"
-        android:layout_marginBottom="12px"
+        android:layout_marginLeft="32pt"
+        android:layout_marginTop="12pt"
+        android:layout_marginBottom="12pt"
         android:layout_toStartOf="@+id/item_locl_music_art"
         android:layout_toEndOf="@+id/item_locl_music_index"
         android:ellipsize="end"
         android:maxLines="1"
-        android:textSize="30px" />
+        android:textSize="30pt" />
 
     <TextView
         android:id="@+id/item_locl_music_art"
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:layout_marginStart="20px"
+        android:layout_marginStart="20pt"
         android:alpha="0.5"
-        android:textSize="30px" />
+        android:textSize="30pt" />
 </RelativeLayout>
