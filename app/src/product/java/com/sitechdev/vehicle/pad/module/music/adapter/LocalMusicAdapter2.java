@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sitechdev.vehicle.pad.R;
+import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.module.music.MusicConfig;
 import com.sitechdev.vehicle.pad.module.music.MusicManager;
 import com.sitechdev.vehicle.pad.module.music.service.MusicInfo;
@@ -73,9 +74,13 @@ public class LocalMusicAdapter2 extends
             holder.getIndex().setImageResource(R.drawable.ic_music_play_gif);
             holder.getName().setTextColor(checkedColor);
             holder.getArt().setTextColor(checkedColor);
-            AnimationDrawable mAnimationDrawable = (AnimationDrawable) holder.getIndex()
-                    .getDrawable();
-            mAnimationDrawable.start();
+            if(MusicManager.getInstance().isLocalPlaying()) {
+                AnimationDrawable mAnimationDrawable = (AnimationDrawable) holder.getIndex()
+                        .getDrawable();
+                mAnimationDrawable.start();
+            } else {
+                holder.getIndex().setImageResource(R.drawable.list_icon_playing1);
+            }
         } else {
             holder.getIndex().setImageResource(R.drawable.list_icon_play);
             holder.getName().setTextColor(noramlColor);

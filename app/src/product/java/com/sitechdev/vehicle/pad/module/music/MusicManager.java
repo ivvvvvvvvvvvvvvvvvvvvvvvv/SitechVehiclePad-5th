@@ -147,6 +147,17 @@ public class MusicManager {
         }
     }
 
+    public boolean isLocalPlaying(){
+        if(null != musicInterface){
+            try {
+                return musicInterface.getStatus() == 1;
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
     public void play(long id, CallBack<String> callBack) {
         Observable.create(new ObservableOnSubscribe<IPCResult>() {
             @Override
