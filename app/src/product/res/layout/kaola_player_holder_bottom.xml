@@ -3,28 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="140px"
+    android:layout_height="@dimen/kaola_player_holder_h"
     android:background="@drawable/bg_kaola_player"
     android:orientation="horizontal"
     tools:ignore="PxUsage">
 
     <com.gcssloop.widget.RCImageView
         android:id="@+id/icon"
-        android:layout_width="90px"
-        android:layout_height="90px"
+        android:layout_width="@dimen/kaola_player_holder_img_h"
+        android:layout_height="@dimen/kaola_player_holder_img_h"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:layout_gravity="center_vertical"
-        android:layout_marginLeft="30px"
-        android:layout_marginRight="40px"
-        app:round_corner="4px" />
+        android:layout_marginLeft="@dimen/kaola_player_holder_img_margin_left"
+        android:layout_marginRight="@dimen/kaola_player_holder_img_margin_right"
+        app:round_corner="4pt" />
 
     <LinearLayout
-        android:layout_width="550px"
+        android:layout_width="@dimen/kaola_player_holder_title_frame_w"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@+id/playcontrol"
-        android:layout_marginRight="130px"
+        android:layout_marginRight="@dimen/kaola_player_holder_title_frame_margin_right"
         android:layout_toRightOf="@+id/icon">
 
         <TextView
@@ -36,7 +36,7 @@
             android:ellipsize="end"
             android:singleLine="true"
             android:textColor="@color/white"
-            android:textSize="32px"
+            android:textSize="@dimen/kaola_player_holder_title_size"
             tools:text="zsdasdasd" />
 
         <TextView
@@ -48,7 +48,7 @@
             android:ellipsize="end"
             android:singleLine="true"
             android:textColor="#6073B5"
-            android:textSize="36px"
+            android:textSize="@dimen/kaola_player_holder_sub_title_size"
             tools:text="11111" />
     </LinearLayout>
 
@@ -58,33 +58,33 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginRight="180px"
+        android:layout_marginRight="@dimen/kaola_player_holder_control_margin_right"
         android:layout_toLeftOf="@+id/list"
         android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/pre"
-            android:layout_width="55px"
-            android:layout_height="55px"
+            android:layout_width="@dimen/kaola_player_holder_control_pre_h"
+            android:layout_height="@dimen/kaola_player_holder_control_pre_h"
             android:layout_gravity="center_vertical"
             android:scaleType="centerInside"
             android:src="@drawable/pc_pre" />
 
         <ImageView
             android:id="@+id/playpause"
-            android:layout_width="55px"
-            android:layout_height="55px"
+            android:layout_width="@dimen/kaola_player_holder_control_pre_h"
+            android:layout_height="@dimen/kaola_player_holder_control_pre_h"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="170px"
+            android:layout_marginLeft="@dimen/kaola_player_holder_control_btn_space"
             android:scaleType="centerInside"
             android:src="@drawable/pc_play" />
 
         <ImageView
             android:id="@+id/next"
-            android:layout_width="55px"
-            android:layout_height="55px"
+            android:layout_width="@dimen/kaola_player_holder_control_pre_h"
+            android:layout_height="@dimen/kaola_player_holder_control_pre_h"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="170px"
+            android:layout_marginLeft="@dimen/kaola_player_holder_control_btn_space"
             android:scaleType="centerInside"
             android:src="@drawable/pc_next" />
     </LinearLayout>
@@ -92,11 +92,11 @@
 
     <ImageView
         android:id="@+id/list"
-        android:layout_width="50px"
-        android:layout_height="50px"
+        android:layout_width="@dimen/kaola_player_holder_control_small_h"
+        android:layout_height="@dimen/kaola_player_holder_control_small_h"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_gravity="center_vertical"
-        android:layout_marginRight="120px"
+        android:layout_marginRight="@dimen/kaola_player_holder_control_btn_margin_right"
         android:src="@drawable/pc_playlist" />
 </RelativeLayout>

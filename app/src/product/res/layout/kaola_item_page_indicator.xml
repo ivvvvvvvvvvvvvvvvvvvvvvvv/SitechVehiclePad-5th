@@ -10,6 +10,6 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:minEms="5"
-        android:textSize="32px" />
+        android:textSize="@dimen/kaola_indicatior_content_title_size" />
 </FrameLayout>
 
