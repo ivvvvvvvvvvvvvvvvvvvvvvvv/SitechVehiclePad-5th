@@ -1,11 +1,12 @@
 package com.sitechdev.vehicle.pad.view;
 
+import android.annotation.SuppressLint;
 import android.graphics.Rect;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
+import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
 
 /**
@@ -14,22 +15,23 @@ import com.sitechdev.vehicle.pad.app.BaseActivity;
  *      time   : 2020/5/26
  * </pre>
  */
-public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
+public class KaolaAiListSpaceItemDecoration extends RecyclerView.ItemDecoration {
     private int space;
 
-    public SpaceItemDecoration(int space) {
+    public KaolaAiListSpaceItemDecoration(int space) {
         this.space = space;
     }
 
 
+    @SuppressLint("ResourceType")
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         if (parent.getLayoutManager() instanceof GridLayoutManager && view.getContext() instanceof BaseActivity) {
             GridLayoutManager gridLayoutManager = (GridLayoutManager) parent.getLayoutManager();
             if (((BaseActivity) view.getContext()).isLandscape()) {
-                outRect.left = 60;
-                outRect.bottom = 15;
-                outRect.top = 15;
+                outRect.left = view.getContext().getResources().getInteger(R.integer.kaola_ai_list_land_item_space_left);
+                outRect.bottom = view.getContext().getResources().getInteger(R.integer.kaola_ai_list_land_item_space_top);
+                outRect.top = view.getContext().getResources().getInteger(R.integer.kaola_ai_list_land_item_space_top);
             } else {
                 int position = parent.getChildLayoutPosition(view);
                 int lookupsize = ((GridLayoutManager) parent.getLayoutManager()).getSpanSizeLookup().getSpanSize(position);

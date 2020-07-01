@@ -21,9 +21,9 @@ public class KaolaCategorySpaceItemDecoration extends RecyclerView.ItemDecoratio
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-        outRect.left = AdaptScreenUtils.px2Pt(view.getContext().getResources().getDimension(R.dimen.category_left_space));
-        outRect.bottom = AdaptScreenUtils.px2Pt(view.getContext().getResources().getDimension(R.dimen.category_bottom_space));
-        outRect.top = AdaptScreenUtils.px2Pt(view.getContext().getResources().getDimension(R.dimen.category_top_space));;
+        outRect.left = view.getContext().getResources().getInteger(R.integer.category_left_space);
+        outRect.bottom = view.getContext().getResources().getInteger(R.integer.category_bottom_space);
+        outRect.top = view.getContext().getResources().getInteger(R.integer.category_bottom_space);;
     }
 
 }

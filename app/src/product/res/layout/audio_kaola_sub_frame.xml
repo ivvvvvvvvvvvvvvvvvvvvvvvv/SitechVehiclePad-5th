@@ -12,12 +12,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="40px"
-        android:layout_marginBottom="40px"
+        android:layout_marginTop="@dimen/kaola_ai_indicator_space_top"
+        android:layout_marginBottom="@dimen/kaola_ai_indicator_space_bottom"
         android:background="@drawable/bg_kaola_ai_indicator"
-        android:minWidth="1100px"
-        android:paddingLeft="40px"
-        android:paddingRight="40px"
+        android:minWidth="@dimen/kaola_ai_indicator_minw"
+        android:paddingLeft="@dimen/kaola_ai_indicator_paddingleft"
+        android:paddingRight="@dimen/kaola_ai_indicator_paddingleft"
         tools:layout_height="70px"
         tools:layout_width="1100px">
 

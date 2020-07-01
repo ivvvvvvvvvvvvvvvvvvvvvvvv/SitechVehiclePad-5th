@@ -6,13 +6,13 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:layout_marginLeft="45px"
+        android:layout_marginLeft="@dimen/kaola_ai_group_marginleft"
         android:id="@+id/group_name"
-        android:textSize="36px"
+        android:textSize="@dimen/kaola_ai_group_title_textsize"
         android:textColor="#FFFFFF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/icon_kaola_category_cur_select_tag"
-        android:drawablePadding="10px" />
+        android:drawablePadding="@dimen/kaola_ai_group_title_drawablepadding" />
 </FrameLayout>
 

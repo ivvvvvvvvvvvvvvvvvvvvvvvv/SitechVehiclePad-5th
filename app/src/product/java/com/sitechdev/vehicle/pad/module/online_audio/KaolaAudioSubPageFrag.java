@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import com.kaolafm.opensdk.api.operation.model.column.AlbumDetailColumnMember;
@@ -25,8 +24,8 @@ import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppVariants;
 import com.sitechdev.vehicle.pad.view.Indexable;
+import com.sitechdev.vehicle.pad.view.KaolaAiListSpaceItemDecoration;
 import com.sitechdev.vehicle.pad.view.ListIndicatorRecycview;
-import com.sitechdev.vehicle.pad.view.SpaceItemDecoration;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -96,7 +95,7 @@ public class KaolaAudioSubPageFrag extends BaseFragment {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 6);
         gridLayoutManager.setOrientation(isLandscape() ? GridLayoutManager.HORIZONTAL : GridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(gridLayoutManager);
-        recyclerView.addItemDecoration(new SpaceItemDecoration(60));
+        recyclerView.addItemDecoration(new KaolaAiListSpaceItemDecoration(60));
         adapter = new KaolaAIListAdapter(mContext, new ArrayList());
         recyclerView.setAdapter(adapter);
         indecator.setupWithRecycler(recyclerView);

@@ -3,8 +3,8 @@
     android:shape="rectangle">
     <solid android:color="#ff161b2a" />
     <corners
-        android:bottomLeftRadius="40px"
-        android:bottomRightRadius="40px"
-        android:topLeftRadius="40px"
-        android:topRightRadius="40px" />
+        android:bottomLeftRadius="@dimen/kaola_indicator_corner"
+        android:bottomRightRadius="@dimen/kaola_indicator_corner"
+        android:topLeftRadius="@dimen/kaola_indicator_corner"
+        android:topRightRadius="@dimen/kaola_indicator_corner" />
 </shape>

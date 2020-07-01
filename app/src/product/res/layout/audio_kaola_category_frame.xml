@@ -22,7 +22,7 @@
             android:id="@+id/cur_select_channel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
+            android:layout_gravity="left|center_vertical"
             android:drawableLeft="@drawable/icon_kaola_category_cur_select_tag"
             android:drawablePadding="10pt"
             android:textColor="#469DF7"

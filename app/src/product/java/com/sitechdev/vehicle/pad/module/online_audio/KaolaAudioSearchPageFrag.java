@@ -25,7 +25,7 @@ import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppVariants;
 import com.sitechdev.vehicle.pad.view.CommonToast;
-import com.sitechdev.vehicle.pad.view.SpaceItemDecoration;
+import com.sitechdev.vehicle.pad.view.KaolaAiListSpaceItemDecoration;
 
 import java.util.List;
 
@@ -52,7 +52,7 @@ public class KaolaAudioSearchPageFrag extends BaseFragment {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 1);
         gridLayoutManager.setOrientation(GridLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(gridLayoutManager);
-        recyclerView.addItemDecoration(new SpaceItemDecoration(60));
+        recyclerView.addItemDecoration(new KaolaAiListSpaceItemDecoration(60));
         mContentView.findViewById(R.id.search_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
