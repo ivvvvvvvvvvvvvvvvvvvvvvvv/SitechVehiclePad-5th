@@ -51,9 +51,9 @@
     },
     {
       "index": 6,
-      "appName": "皮肤设置",
+      "appName": "设置",
       "appIcon": 7,
-      "appRoute": "/setting/skin",
+      "appRoute": "/setting/home",
       "jumpType": 0,
       "eventId": "btn_app_setting_skin"
     },
