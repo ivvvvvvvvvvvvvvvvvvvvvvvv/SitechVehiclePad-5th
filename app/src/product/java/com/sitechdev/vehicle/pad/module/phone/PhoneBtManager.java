@@ -36,6 +36,7 @@ import static com.sitechdev.vehicle.pad.event.SysEvent.EB_SYS_BT_STATE;
 public class PhoneBtManager {
     private static PhoneBtManager INSTANCE;
     private ATBluetooth mATBluetooth;
+    private boolean isPullNewCalllog = false;
     private AudioManager.OnAudioFocusChangeListener audioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
         @Override
         public void onAudioFocusChange(int focusChange) {
@@ -65,6 +66,7 @@ public class PhoneBtManager {
                     break;
                     case ATBluetooth.RETURN_PHONE_CALLLOG_END: {//通话记录下载结束
                         EventBusUtils.postEvent(new BTEvent(BTEvent.PB_OR_CL_UPDATE_SUCCESS, false));
+                        isPullNewCalllog = false;
                     }
                     break;
                     case ATBluetooth.RETURN_PHONE_BOOK_DATA: {//下载通讯录
@@ -105,6 +107,7 @@ public class PhoneBtManager {
                         info.setState(BTEvent.HANGUP);
                         EventBusUtils.postEvent(new BTEvent(BTEvent.PHONE_CALL_STATE,
                                 info));
+                        reqNewCalllog();
                     }
                     break;
                     case ATBluetooth.RETURN_HFP_INFO: {//连接状态
@@ -191,10 +194,19 @@ public class PhoneBtManager {
     }
 
     /**
+     * 下载最新一次的通话记录，每次通话结束时执行
+     */
+    private void reqNewCalllog(){
+        mATBluetooth.write(ATBluetooth.REQUEST_CALL_LOG_ALL,"1");
+        isPullNewCalllog = true;
+    }
+
+    /**
      * 下载通讯记录
      */
     public void reqCallLogs() {
         mATBluetooth.write(ATBluetooth.REQUEST_CALL_LOG_ALL);
+        isPullNewCalllog = false;
     }
 
     /**
@@ -241,7 +253,13 @@ public class PhoneBtManager {
             }
         }
         logTest("handleCallLogCallback-----type:" + type + " name:" + name + " number:" + number + " date:" + date + " time:" + time);
-        BtGlobalRef.callLogs.add(new CallLog(type, name, number, date, time));
+        if(isPullNewCalllog){
+                if(BtGlobalRef.callLogs.size()<0 || !BtGlobalRef.callLogs.get(0).getPhoneNumber().equals(number) || !BtGlobalRef.callLogs.get(0).getName().equals(name) || !BtGlobalRef.callLogs.get(0).getDate().equals(date) || !BtGlobalRef.callLogs.get(0).getTime().equals(time)){
+                    BtGlobalRef.callLogs.add(0, new CallLog(type, name, number, date, time));
+                }
+        } else {
+            BtGlobalRef.callLogs.add(new CallLog(type, name, number, date, time));
+        }
     }
 
     private void handleContactCallback(int param2, String param3, String param4, boolean isFinish) {
