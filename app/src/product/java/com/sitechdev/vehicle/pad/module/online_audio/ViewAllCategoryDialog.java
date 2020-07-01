@@ -58,11 +58,11 @@ class ViewAllCategoryDialog extends Dialog {
     private void initSize(){
         android.view.WindowManager.LayoutParams lpp = getWindow().getAttributes();
         if (isLand) {
-            lpp.width = 1525;
-            lpp.height = 728;
+            lpp.width = context.getResources().getInteger(R.integer.kaola_all_category_dialog_w_land);
+            lpp.height = context.getResources().getInteger(R.integer.kaola_all_category_dialog_h_land);
         } else {
-            lpp.width = 941;
-            lpp.height = 1113;
+            lpp.width = context.getResources().getInteger(R.integer.kaola_all_category_dialog_w);
+            lpp.height = context.getResources().getInteger(R.integer.kaola_all_category_dialog_h);
         }
         getWindow().setBackgroundDrawable(new ColorDrawable(0xff223D75));
         getWindow().setAttributes(lpp);
@@ -76,7 +76,7 @@ class ViewAllCategoryDialog extends Dialog {
         }
         View root = getLayoutInflater().inflate(R.layout.dialog_kaola_category, null);
         recyclerView = root.findViewById(R.id.recyclerView);
-        recyclerView.addItemDecoration(new SpaceItemKaolaDialogItemDecoration(40));
+        recyclerView.addItemDecoration(new SpaceItemKaolaDialogItemDecoration(context.getResources().getInteger(R.integer.kaola_all_category_dialog_item_space)));
         int spanCount = isLand ? 5 : 3;
         recyclerView.setLayoutManager(new GridLayoutManager(context, spanCount));
         root.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {

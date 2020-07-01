@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="80px"
+    android:layout_height="@dimen/kaola_all_category_group_h"
     tools:ignore="PxUsage">
 
     <TextView
@@ -13,7 +13,7 @@
         android:drawableLeft="@drawable/icon_kaola_category_cur_select_tag"
         android:drawablePadding="10px"
         android:textColor="#37ABEC"
-        android:textSize="36px"
+        android:textSize="@dimen/kaola_all_category_group_textsize"
         tools:text="推荐" />
 
 </FrameLayout>

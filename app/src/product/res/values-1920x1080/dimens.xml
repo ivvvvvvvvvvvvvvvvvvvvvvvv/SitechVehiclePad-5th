@@ -138,11 +138,55 @@
     <dimen name="kaola_ai_item_common_title_textsize">32pt</dimen>
     <dimen name="kaola_ai_indicator_space_bottom">20pt</dimen>
     <dimen name="kaola_search_edit_textsize">32pt</dimen>
-
+    <dimen name="kaola_playpage_bottom_space">300pt</dimen>
+    <dimen name="common_title_h">138pt</dimen>
+    <dimen name="kaola_playpage_list_w">1094pt</dimen>
+    <dimen name="kaola_playpage_list_margintop">35pt</dimen>
+    <dimen name="kaola_playpage_list_marginright">48pt</dimen>
+    <dimen name="kaola_playpage_list_paddingtop">30pt</dimen>
+    <dimen name="kaola_playpage_list_paddingbottom">48pt</dimen>
+    <dimen name="kaola_playpage_playinfo_margintop">40pt</dimen>
+    <dimen name="kaola_playpage_playinfo_marginstart">61pt</dimen>
+    <dimen name="kaola_playpage_playinfo_marginend">54pt</dimen>
+    <dimen name="kaola_playpage_playprogress_marginleft">60pt</dimen>
+    <dimen name="kaola_playpage_playinfo_cover_h">415pt</dimen>
+    <dimen name="kaola_playpage_playinfo_cover_bg_w">358pt</dimen>
+    <dimen name="kaola_playpage_playinfo_cover_margintop">10pt</dimen>
+    <dimen name="kaola_playpage_playinfo_cover_bg_margintop">20pt</dimen>
     <integer name="kaola_ai_list_land_item_space_left">80</integer>
     <integer name="kaola_ai_list_land_item_space_top">15</integer>
+    <dimen name="kaola_playpage_playinfo_cover_img_w">164pt</dimen>
+    <dimen name="kaola_playpage_playinfo_cover_img_margintop">30pt</dimen>
+    <dimen name="kaola_playpage_playinfo_cover_tag_w">120pt</dimen>
+    <dimen name="kaola_playpage_playinfo_cover_tag_h">46pt</dimen>
+    <dimen name="kaola_playpage_playinfo_cover_tag_marginleft">80pt</dimen>
+    <dimen name="kaola_playpage_playinfo_play_stick_marginend">100pt</dimen>
+    <dimen name="kaola_playpage_title_marginleft">100pt</dimen>
+    <dimen name="kaola_playpage_title_margintop">10pt</dimen>
+    <dimen name="kaola_playpage_title_marginright">100pt</dimen>
+    <dimen name="kaola_playpage_title_textsize">37pt</dimen>
+    <dimen name="kaola_playpage_subtitle_textsize">32pt</dimen>
+    <dimen name="kaola_playpage_playcontrol_margintop">30pt</dimen>
+    <dimen name="kaola_playpage_playcontrol_buttonsize">60pt</dimen>
+    <dimen name="kaola_playpage_curplay_time">24pt</dimen>
+    <dimen name="kaola_all_category_item_w">240pt</dimen>
+    <dimen name="kaola_all_category_textsize">34pt</dimen>
+    <dimen name="kaola_all_category_item_paddingtop">22pt</dimen>
+    <dimen name="kaola_all_category_item_h">100pt</dimen>
+    <dimen name="kaola_all_category_group_h">80pt</dimen>
+    <dimen name="kaola_all_category_group_textsize">36pt</dimen>
+    <dimen name="kaola_allcategory_dialog_h">740pt</dimen>
+    <dimen name="kaola_allcategory_dialog_padding">30pt</dimen>
+    <dimen name="kaola_allcategory_dialog_close_size">43pt</dimen>
 
     <integer name="category_left_space">80</integer>
     <integer name="category_top_space">15</integer>
     <integer name="category_bottom_space">15</integer>
+
+    <integer name="kaola_all_category_dialog_w_land">1525</integer>
+    <integer name="kaola_all_category_dialog_h_land">728</integer>
+
+    <integer name="kaola_all_category_dialog_w">941</integer>
+    <integer name="kaola_all_category_dialog_h">1113</integer>
+    <integer name="kaola_all_category_dialog_item_space">40</integer>
 </resources>
