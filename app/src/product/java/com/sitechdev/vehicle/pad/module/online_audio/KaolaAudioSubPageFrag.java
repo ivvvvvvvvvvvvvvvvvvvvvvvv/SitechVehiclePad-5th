@@ -113,6 +113,7 @@ public class KaolaAudioSubPageFrag extends BaseFragment {
         bundle.putSerializable(Constant.KEY_TYPE_KEY, Constant.TYPE.FIRST_ENTERED);
         if (column instanceof RadioDetailColumnMember) {
             bundle.putLong(Constant.KEY_MEMBER_CODE, ((RadioDetailColumnMember) column).getRadioId());
+            bundle.putInt(Constant.KEY_AUDIO_TYPE, ResType.TYPE_RADIO);
         } else if (column instanceof AlbumDetailColumnMember) {
             bundle.putLong(Constant.KEY_MEMBER_CODE, ((AlbumDetailColumnMember) column).getAlbumId());
             bundle.putInt(Constant.KEY_AUDIO_TYPE, ResType.TYPE_ALBUM);

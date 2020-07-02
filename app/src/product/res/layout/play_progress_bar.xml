@@ -37,7 +37,7 @@
             android:progressDrawable="@drawable/bg_play_seek_all"
             android:splitTrack="false"
             android:thumb="@drawable/play_seekbar_thumb"
-            android:thumbOffset="0dp" />
+            android:thumbOffset="0pt" />
 
         <TextView
             android:id="@+id/end_time"
