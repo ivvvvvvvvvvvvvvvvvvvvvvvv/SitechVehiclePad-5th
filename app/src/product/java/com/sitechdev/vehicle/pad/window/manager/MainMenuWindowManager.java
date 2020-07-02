@@ -66,11 +66,12 @@ public class MainMenuWindowManager {
      */
     public void show() {
         if (BaseAppWindowManager.isBackground(AppApplication.getContext())) {
-            SitechDevLog.e(TAG, "-------------show() fail  now is in isBackground" );
+            SitechDevLog.e(TAG, "-------------show() fail  now is in isBackground");
             return;
         }
         showForcibly();
     }
+
     //显示不判断应用是否在前台
     public void showForcibly() {
         SitechDevLog.e(TAG, "-------------show()>");
@@ -89,6 +90,7 @@ public class MainMenuWindowManager {
             winManager.addView(mainMenuView, params);
         }
     }
+
     /**
      * 隐藏悬浮框
      */
@@ -119,9 +121,9 @@ public class MainMenuWindowManager {
             params = new WindowManager.LayoutParams();
             params.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
             params.format = PixelFormat.RGBA_8888;
-            params.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+            params.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
                     | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM;
-            params.gravity = Gravity.TOP| Gravity.LEFT;
+            params.gravity = Gravity.TOP | Gravity.LEFT;
 //            params.flags = WindowManager.LayoutParams.FLAG_FULLSCREEN;
 //            params.format = PixelFormat.TRANSPARENT;
 //            Point point = new Point();

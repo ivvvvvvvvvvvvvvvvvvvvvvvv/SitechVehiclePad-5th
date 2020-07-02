@@ -95,7 +95,7 @@ public class TeddyWindowManager {
             params.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
             params.format = PixelFormat.RGBA_8888;
             params.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
-                    | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+                    | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM;
 
             // 须指定宽度高度信息
             params.width = floatView.mWidth;
