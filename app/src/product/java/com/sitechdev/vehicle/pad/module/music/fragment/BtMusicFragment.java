@@ -17,7 +17,7 @@ import com.sitechdev.vehicle.pad.event.SysEvent;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceType;
 import com.sitechdev.vehicle.pad.module.music.BtMusicManager;
-import com.sitechdev.vehicle.pad.module.setting.bt.BtManagers;
+import com.sitechdev.vehicle.pad.module.setting.bt.BtManager;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.view.CustomPlaySeekBar;
@@ -126,7 +126,7 @@ public class BtMusicFragment extends BaseFragment {
             connectBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    BtManagers.getInstance().disConnectToDevice();
+                    BtManager.getInstance().disConnectToDevice();
                     refreshConnectSt();
                 }
             });

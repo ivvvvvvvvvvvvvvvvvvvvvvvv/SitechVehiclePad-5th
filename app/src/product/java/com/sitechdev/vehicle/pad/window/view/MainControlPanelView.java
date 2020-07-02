@@ -1,6 +1,5 @@
 package com.sitechdev.vehicle.pad.window.view;
 
-import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Rect;
@@ -29,7 +28,7 @@ import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.event.VoiceEvent;
 import com.sitechdev.vehicle.pad.manager.VolumeControlManager;
-import com.sitechdev.vehicle.pad.module.setting.bt.BtManagers;
+import com.sitechdev.vehicle.pad.module.setting.bt.BtManager;
 import com.sitechdev.vehicle.pad.module.setting.teddy.TeddyConfig;
 import com.sitechdev.vehicle.pad.util.AppUtil;
 import com.sitechdev.vehicle.pad.view.VerticalSeekBarForSkin;
@@ -490,10 +489,10 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
                 isActivated = bluetoothControlView.isActivated();
                 if (isActivated) {
                     //蓝牙是否开启
-                    BtManagers.getInstance().openBt();
+                    BtManager.getInstance().openBt();
                 } else {
                     //蓝牙是否开启
-                    BtManagers.getInstance().closeBt();
+                    BtManager.getInstance().closeBt();
                 }
                 bluetoothControlView.setActivated(!isActivated);
                 break;
@@ -631,8 +630,8 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
      * 刷新蓝牙状态
      */
     public void refreshBtSwitchView() {
-        SitechDevLog.i(TAG, "当前蓝牙状态===>" + BtManagers.getInstance().isBtEnable());
-        bluetoothControlView.setActivated(BtManagers.getInstance().isBtEnable());
+        SitechDevLog.i(TAG, "当前蓝牙状态===>" + BtManager.getInstance().isBtEnable());
+        bluetoothControlView.setActivated(BtManager.getInstance().isBtEnable());
     }
 
     /**

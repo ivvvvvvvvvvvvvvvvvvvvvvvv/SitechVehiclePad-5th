@@ -19,6 +19,8 @@ import com.my.hw.SettingConfig;
 import com.sitechdev.vehicle.lib.util.ParamsUtil;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.bean.MvpActivity;
+import com.sitechdev.vehicle.pad.event.SysEvent;
+import com.sitechdev.vehicle.pad.event.VoiceEvent;
 import com.sitechdev.vehicle.pad.manager.CommonTopWindowManager;
 import com.sitechdev.vehicle.pad.manager.UserManager;
 import com.sitechdev.vehicle.pad.model.contract.SettingBtContract;
@@ -33,6 +35,9 @@ import com.sitechdev.vehicle.pad.view.BluetoothListView;
 import com.sitechdev.vehicle.pad.view.CommonProgressDialog;
 import com.sitechdev.vehicle.pad.view.CustomSwitchButton;
 import com.sitechdev.vehicle.pad.window.view.CommonLogoutDialog;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -60,15 +65,15 @@ public class SettingBtActivity extends MvpActivity<SettingBtContract.BtPresenter
         mPresenter.init();
         mBtName.setText(SettingConfig.getInstance().getLocalBtName());
         mBondList = new ArrayList<>();
-        mBondAdapter = new BtListAdapter(this,mBondList);
+        mBondAdapter = new BtListAdapter(this, mBondList);
         mListView.setAdapter(mBondAdapter);
         mPresenter.showBtPairList();
         mBondAdapter.setOnBtClickListener(new BtListAdapter.OnBtItemClickListener() {
             @Override
-            public void onDelete(int pos, boolean isCurrent,BtDeviceBean btDeviceBean) {
+            public void onDelete(int pos, boolean isCurrent, BtDeviceBean btDeviceBean) {
                 mBondList.remove(pos);
                 mBondAdapter.notifyList(mBondList);
-                if(isCurrent){
+                if (isCurrent) {
                     mPresenter.disconnectToDevice();
                 }
                 mPresenter.clearPairInfo(btDeviceBean.getBtAddress());
@@ -76,16 +81,17 @@ public class SettingBtActivity extends MvpActivity<SettingBtContract.BtPresenter
 
             @Override
             public void onConnect(int pos, BtDeviceBean btDeviceBean) {
-                if(SettingConfig.getInstance().isBtConnected()){
-                    CommonLogoutDialog logoutDialog = new CommonLogoutDialog(SettingBtActivity.this);
+                if (SettingConfig.getInstance().isBtConnected()) {
+                    CommonLogoutDialog logoutDialog =
+                            new CommonLogoutDialog(SettingBtActivity.this);
                     logoutDialog.setListener(() -> {
                         //确定按钮被点击
                         mPresenter.disconnectToDevice();
-                        if(null != mHandler) {
+                        if (null != mHandler) {
                             Message message = new Message();
                             message.what = 0;
                             message.obj = btDeviceBean;
-                            mHandler.sendMessageDelayed(message,2000);
+                            mHandler.sendMessageDelayed(message, 2000);
                             CommonProgressDialog.getInstance().show(SettingBtActivity.this);
                         }
                     });
@@ -102,13 +108,13 @@ public class SettingBtActivity extends MvpActivity<SettingBtContract.BtPresenter
             }
         });
         mDiscovereSwitch.setChecked(false);
-        mBtEnableSwitch.setChecked(SettingConfig.getInstance().isBtEnable());
-        mHandler = new Handler(){
+        mBtEnableSwitch.setChecked(mPresenter.isBtEnable());
+        mHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                if(msg.what == 0){
-                    if(null != msg.obj && msg.obj instanceof BtDeviceBean){
+                if (msg.what == 0) {
+                    if (null != msg.obj && msg.obj instanceof BtDeviceBean) {
                         BtDeviceBean deviceBean = (BtDeviceBean) msg.obj;
                         mPresenter.connectToDevice(deviceBean.getBtAddress());
                     }
@@ -246,5 +252,17 @@ public class SettingBtActivity extends MvpActivity<SettingBtContract.BtPresenter
                 mBondAdapter.notifyList(mBondList);
             }
         });
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onBtEvent(SysEvent event) {
+        switch (event.getEvent()) {
+            case SysEvent.EB_SYS_BT_ENABLE:
+                boolean open = (boolean) event.getObj();
+                mBtEnableSwitch.setChecked(open);
+                break;
+            default:
+                break;
+        }
     }
 }

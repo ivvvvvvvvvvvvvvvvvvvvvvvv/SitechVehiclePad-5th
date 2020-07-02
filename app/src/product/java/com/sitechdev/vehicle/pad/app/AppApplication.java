@@ -36,7 +36,7 @@ import com.sitechdev.vehicle.pad.module.music.BtMusicManager;
 import com.sitechdev.vehicle.pad.module.online_audio.KaolaAudioActivity;
 import com.sitechdev.vehicle.pad.module.phone.PhoneBtManager;
 import com.sitechdev.vehicle.pad.module.phone.PhoneCallWindow;
-import com.sitechdev.vehicle.pad.module.setting.bt.BtManagers;
+import com.sitechdev.vehicle.pad.module.setting.bt.BtManager;
 import com.sitechdev.vehicle.pad.net.interception.SitechRequestInterceptor;
 import com.sitechdev.vehicle.pad.net.interception.SitechResponseInterceptor;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
@@ -102,7 +102,7 @@ public class AppApplication extends BaseApp {
 
     private void initBluetoothManager() {
         BtMusicManager.getInstance();//初始化
-        BtManagers.getInstance().init();//初始化
+        BtManager.getInstance().init();//初始化
     }
 
     private void initUtils() {

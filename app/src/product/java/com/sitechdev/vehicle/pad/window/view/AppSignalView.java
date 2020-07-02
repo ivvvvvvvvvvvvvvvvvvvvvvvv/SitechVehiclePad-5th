@@ -1,6 +1,5 @@
 package com.sitechdev.vehicle.pad.window.view;
 
-import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.res.Resources;
 import android.util.AttributeSet;
@@ -14,7 +13,7 @@ import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.NetworkUtils;
 import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.R;
-import com.sitechdev.vehicle.pad.module.setting.bt.BtManagers;
+import com.sitechdev.vehicle.pad.module.setting.bt.BtManager;
 import com.sitechdev.vehicle.pad.util.AppUtil;
 import com.sitechdev.vehicle.pad.util.FontUtil;
 import com.sitechdev.vehicle.pad.util.JumpUtils;
@@ -87,7 +86,7 @@ public class AppSignalView extends LinearLayout {
         //WIFI
         refreshWifiIconView(NetworkUtils.getWifiEnabled());
         //蓝牙
-        refreshBtIconView(BtManagers.getInstance().isBtEnable());
+        refreshBtIconView(BtManager.getInstance().isBtEnable());
     }
 
     /**
