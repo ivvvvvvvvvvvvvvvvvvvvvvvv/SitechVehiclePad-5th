@@ -8,7 +8,7 @@ import com.my.hw.OnBtConnecStatusChangedListener;
 import com.my.hw.OnBtPairListChangeListener;
 import com.my.hw.SettingConfig;
 
-public class BtManagers{
+public class BtManagers {
     private static BtManagers INSTANCE;
     private OnBtConnecStatusChangedListener onBtConnecStatusChangedListener;
     private OnBtPairListChangeListener mPairListChangeListener;
@@ -24,7 +24,7 @@ public class BtManagers{
     private BtManagers() {
     }
 
-    public void init(){
+    public void init() {
         mATBluetooth = ATBluetooth.create();
     }
 
@@ -71,7 +71,12 @@ public class BtManagers{
         mATBluetooth.write(ATBluetooth.STOP_MODULE);
     }
 
-    public boolean isBtEnable(){
+    /**
+     * 蓝牙是否连接
+     *
+     * @return true=已连接
+     */
+    public boolean isBtEnable() {
         return SettingConfig.getInstance().isBtConnected();
     }
 
@@ -85,10 +90,10 @@ public class BtManagers{
     }
 
     public void clearPairInfo(String mac) {
-        mATBluetooth.write(ATBluetooth.CLEAR_PAIR_INFO,mac);
+        mATBluetooth.write(ATBluetooth.CLEAR_PAIR_INFO, mac);
     }
 
     public void setDiscovered(boolean enable) {
-        mATBluetooth.write(enable?ATBluetooth.REQUEST_BT_DISCOVERABLE:ATBluetooth.REQUEST_BT_UN_DISCOVERABLE);
+        mATBluetooth.write(enable ? ATBluetooth.REQUEST_BT_DISCOVERABLE : ATBluetooth.REQUEST_BT_UN_DISCOVERABLE);
     }
 }

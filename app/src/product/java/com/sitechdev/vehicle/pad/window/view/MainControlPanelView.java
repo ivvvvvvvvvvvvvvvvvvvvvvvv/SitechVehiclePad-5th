@@ -417,15 +417,13 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
 
     private void initData() {
         //wifi网络
-        wifiControlView.setActivated(NetworkUtils.getWifiEnabled());
+        refreshWifiSwitchView();
         //移动网络
-        mobileNetControlView.setActivated(NetworkUtils.getMobileDataEnabled());
-        //TODO 使用Teddy开关
-        mTeddySwitchControlView.setActivated(TeddyConfig.getAutoMVWStatus());
+        refreshMobileNetSwitchView();
+        //使用Teddy开关
+        refreshTeddySwitchView();
         //蓝牙是否开启
-        if (BluetoothAdapter.getDefaultAdapter() != null) {
-            bluetoothControlView.setActivated(BluetoothAdapter.getDefaultAdapter().isEnabled());
-        }
+        refreshBtSwitchView();
 
         if (ScreenUtils.isLandscape()) {
             volumeVerticalSeekBar.setMax(maxVolumeValue);
@@ -627,5 +625,39 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
         } catch (Exception e) {
             SitechDevLog.exception(e);
         }
+    }
+
+    /**
+     * 刷新蓝牙状态
+     */
+    public void refreshBtSwitchView() {
+        SitechDevLog.i(TAG, "当前蓝牙状态===>" + BtManagers.getInstance().isBtEnable());
+        bluetoothControlView.setActivated(BtManagers.getInstance().isBtEnable());
+    }
+
+    /**
+     * 刷新wifi网络状态
+     */
+    public void refreshWifiSwitchView() {
+        SitechDevLog.i(TAG, "当前wifi网络状态===>" + NetworkUtils.getWifiEnabled());
+        wifiControlView.setActivated(NetworkUtils.getWifiEnabled());
+    }
+
+    /**
+     * 刷新移动网络状态
+     */
+    public void refreshMobileNetSwitchView() {
+        SitechDevLog.i(TAG, "当前移动网络状态===>" + NetworkUtils.getMobileDataEnabled());
+        //移动网络
+        mobileNetControlView.setActivated(NetworkUtils.getMobileDataEnabled());
+    }
+
+    /**
+     * 刷新Teddy开关状态
+     */
+    public void refreshTeddySwitchView() {
+        SitechDevLog.i(TAG, "当前Teddy状态===>" + TeddyConfig.getAutoMVWStatus());
+        //使用Teddy开关
+        mTeddySwitchControlView.setActivated(TeddyConfig.getAutoMVWStatus());
     }
 }

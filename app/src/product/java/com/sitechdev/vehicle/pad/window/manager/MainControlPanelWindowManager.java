@@ -19,6 +19,7 @@ import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.app.BaseAppWindowManager;
 import com.sitechdev.vehicle.pad.app.BaseWindow;
 import com.sitechdev.vehicle.pad.event.ScreenEvent;
+import com.sitechdev.vehicle.pad.event.SysEvent;
 import com.sitechdev.vehicle.pad.event.VoiceEvent;
 import com.sitechdev.vehicle.pad.window.view.MainControlPanelView;
 
@@ -155,6 +156,39 @@ public class MainControlPanelWindowManager {
     @Subscribe(threadMode = ThreadMode.ASYNC)
     public void onTeddyVoiceEvent(VoiceEvent event) {
         SitechDevLog.i(TAG, "onTeddyVoiceEvent============" + event.getEventKey());
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onSysEventChange(SysEvent event) {
+        SitechDevLog.i(TAG, this + "==SysEvent 消息==" + event.getEvent());
+        switch (event.getEvent()) {
+            case SysEvent.EB_SYS_BT_STATE:
+                if (mainControlPanelView != null) {
+                    //蓝牙变化消息
+                    mainControlPanelView.refreshBtSwitchView();
+                }
+                break;
+            case SysEvent.EB_SYS_WIFI_STATE:
+                if (mainControlPanelView != null) {
+                    //wifi变化消息
+                    mainControlPanelView.refreshWifiSwitchView();
+                }
+                break;
+            case SysEvent.EB_SYS_TEDDY_SWITCH_STATE:
+                if (mainControlPanelView != null) {
+                    //Teddy变化消息
+                    mainControlPanelView.refreshTeddySwitchView();
+                }
+                break;
+            case SysEvent.EB_SYS_MOBILE_NET_SWITCH_STATE:
+                if (mainControlPanelView != null) {
+                    //移动网络变化消息
+                    mainControlPanelView.refreshMobileNetSwitchView();
+                }
+                break;
+            default:
+                break;
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

@@ -51,11 +51,7 @@ public class SysEvent extends BaseEvent<String> {
     public static final String EB_SYS_RESTORE_FACTORY = "com.hazens.EB_SYS_RESTORE_FACTORY";
 
     /**
-     * 系统设备连接状态更新 [OUT]
-     * 应用场景：关注设备连接信息模块
-     * 数据来源：数据中心USB、SD、IPOD、BT、PHONE
-     * 参   数：DEV_
-     * 响应时间：异步执行
+     * BT设备连接状态更新 [OUT]
      */
     public static final String EB_SYS_BT_STATE = "EB_SYS_BT_STATE";
 
@@ -63,7 +59,18 @@ public class SysEvent extends BaseEvent<String> {
      * 再次加载通话记录
      */
     public static final String EB_AGAIN_CONTACTS_HISTORY = "EB_AGAIN_CONTACTS_HISTORY";
-
+    /**
+     * 系统设备连接状态更新 [wifi]
+     */
+    public static final String EB_SYS_WIFI_STATE = "EB_SYS_WIFI_STATE";
+    /**
+     * 系统设备连接状态更新 [Teddy]
+     */
+    public static final String EB_SYS_TEDDY_SWITCH_STATE = "EB_SYS_TEDDY_SWITCH_STATE";
+    /**
+     * 系统设备连接状态更新 [移动网络]
+     */
+    public static final String EB_SYS_MOBILE_NET_SWITCH_STATE = "EB_SYS_MOBILE_NET_SWITCH_STATE";
 
 
     public static final int CALLLOG_RECORDS = 0;
