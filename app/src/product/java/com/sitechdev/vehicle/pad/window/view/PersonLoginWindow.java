@@ -161,6 +161,9 @@ public class PersonLoginWindow extends BasicWindow implements View.OnClickListen
         super.hideWnd();
         handler.removeMessages(0);
         EventBusUtils.unregister(mInstance);
+        if (LoginIntent.getInstance().getOnLoginIntent() != null) {
+            LoginIntent.getInstance().setOnLoginIntent(null);
+        }
     }
 
     @Override
