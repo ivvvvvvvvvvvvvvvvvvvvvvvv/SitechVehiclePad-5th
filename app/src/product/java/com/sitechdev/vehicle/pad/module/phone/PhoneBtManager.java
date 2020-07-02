@@ -117,6 +117,8 @@ public class PhoneBtManager {
                             queryBtInfo();
                             if (!connect) {
                                 SettingConfig.getInstance().setConnectBtName("");
+                                SettingConfig.getInstance().setHFPConnected(false);
+                                SettingConfig.getInstance().setA2dpConnected(false);
                                 EventBusUtils.postEvent(new SysEvent(EB_SYS_BT_STATE, false));
                             }
                         }
@@ -127,6 +129,8 @@ public class PhoneBtManager {
                     break;
                     case ATBluetooth.RETURN_HFP_CONNECT_NAME: {//返回连接的蓝牙设备名称
                         SettingConfig.getInstance().setConnectBtName(param3);
+                        SettingConfig.getInstance().setHFPConnected(true);
+                        SettingConfig.getInstance().setA2dpConnected(true);
                         EventBusUtils.postEvent(new SysEvent(EB_SYS_BT_STATE, true));
                     }
                     break;
