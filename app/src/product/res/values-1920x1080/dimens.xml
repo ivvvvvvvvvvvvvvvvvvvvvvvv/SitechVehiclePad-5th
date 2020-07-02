@@ -194,4 +194,5 @@
     <dimen name="bt_music_connect_info_img_h">143pt</dimen>
     <dimen name="bt_music_connect_info_img_margintop">100pt</dimen>
     <dimen name="bt_connect_st_h">491pt</dimen>
+    <dimen name="kaola_main_contentframe_h">1200pt</dimen>
 </resources>

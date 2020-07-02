@@ -199,12 +199,13 @@
     <dimen name="bt_music_connect_info_img_h">143pt</dimen>
     <dimen name="bt_music_connect_info_img_margintop">100pt</dimen>
     <dimen name="bt_connect_st_h">446pt</dimen>
+    <dimen name="kaola_main_contentframe_h">1200pt</dimen>
 
     <integer name="kaola_all_category_dialog_w_land">1017</integer>
     <integer name="kaola_all_category_dialog_h_land">485</integer>
 
-    <integer name="kaola_all_category_dialog_w">941</integer>
-    <integer name="kaola_all_category_dialog_h">1113</integer>
+    <integer name="kaola_all_category_dialog_w">697</integer>
+    <integer name="kaola_all_category_dialog_h">824</integer>
     <integer name="kaola_all_category_dialog_item_space">29</integer>
 
 </resources>

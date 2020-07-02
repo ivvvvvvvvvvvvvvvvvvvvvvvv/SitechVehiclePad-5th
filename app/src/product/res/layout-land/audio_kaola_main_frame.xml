@@ -9,7 +9,7 @@
     tools:ignore="PxUsage">
 
     <include
-        android:layout_marginTop="40px"
+        android:layout_marginTop="@dimen/mutil_title_toolbar_margin_top"
         layout="@layout/common_kaola_mutil_title_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -17,18 +17,18 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/vp"
         android:layout_width="match_parent"
-        android:layout_height="1200px" />
+        android:layout_height="@dimen/kaola_content_viewpager_heght_land" />
 
     <include
         android:id="@+id/player_holder"
-        layout="@layout/kaola_player_holder_bottom_portrait"
+        layout="@layout/kaola_player_holder_bottom"
         android:layout_width="match_parent"
-        android:layout_height="140px"
-        android:layout_marginTop="10px"
-        android:layout_marginLeft="45px"
-        android:layout_marginRight="45px" />
+        android:layout_height="@dimen/kaola_playerholder_height_land"
+        android:layout_marginTop="@dimen/kaola_playerholder_margin_top_land"
+        android:layout_marginLeft="@dimen/kaola_playerholder_margin_left_land"
+        android:layout_marginRight="@dimen/kaola_playerholder_margin_right_land" />
 
     <Space
         android:layout_width="wrap_content"
-        android:layout_height="300px" />
+        android:layout_height="@dimen/kaola_margin_bottom_land" />
 </LinearLayout>

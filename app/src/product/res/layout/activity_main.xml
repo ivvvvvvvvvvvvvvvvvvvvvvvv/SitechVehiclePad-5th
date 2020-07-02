@@ -308,7 +308,7 @@
         android:layout_below="@id/id_main_first_content"
         android:layout_marginLeft="16pt"
         android:layout_marginTop="24pt"
-        android:layout_toRightOf="@id/id_main_second_left_content"
+        android:layout_toRightOf="@id/id_main_right_top_left_content"
         android:background="@drawable/shape_main_map_item_bg"
         android:gravity="center"
         android:orientation="horizontal">
@@ -334,7 +334,7 @@
         android:id="@+id/id_main_third_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/id_main_second_left_content"
+        android:layout_below="@id/id_main_right_top_left_content"
         android:layout_marginTop="21pt">
 
         <LinearLayout
