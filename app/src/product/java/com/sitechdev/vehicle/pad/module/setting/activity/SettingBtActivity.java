@@ -16,6 +16,7 @@ import com.my.hw.BtDeviceBean;
 import com.my.hw.OnBtConnecStatusChangedListener;
 import com.my.hw.OnBtPairListChangeListener;
 import com.my.hw.SettingConfig;
+import com.sitechdev.vehicle.lib.event.BindEventBus;
 import com.sitechdev.vehicle.lib.util.ParamsUtil;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.bean.MvpActivity;
@@ -43,6 +44,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+@BindEventBus
 @Route(path = RouterConstants.SETTING_BT_PAGE)
 public class SettingBtActivity extends MvpActivity<SettingBtContract.BtPresenter> implements SettingBtContract.View, CustomSwitchButton.OnSwitchCheckChangeListener, OnBtConnecStatusChangedListener, OnBtPairListChangeListener {
 
