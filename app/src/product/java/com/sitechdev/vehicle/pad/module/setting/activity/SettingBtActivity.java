@@ -102,7 +102,7 @@ public class SettingBtActivity extends MvpActivity<SettingBtContract.BtPresenter
             }
         });
         mDiscovereSwitch.setChecked(false);
-        mBtEnableSwitch.setChecked(ParamsUtil.getBooleanData(SettingConstant.SP_KEY_BT_SWITCH));
+        mBtEnableSwitch.setChecked(SettingConfig.getInstance().isBtEnable());
         mHandler = new Handler(){
             @Override
             public void handleMessage(Message msg) {
@@ -169,7 +169,7 @@ public class SettingBtActivity extends MvpActivity<SettingBtContract.BtPresenter
     public void onSwithChecked(int viewId, boolean isChecked) {
         if (viewId == R.id.setting_bt_enable) {
             mDiscovereSwitch.setEnabled(isChecked);
-            ParamsUtil.setBeanData(SettingConstant.SP_KEY_BT_SWITCH,isChecked);
+            SettingConfig.getInstance().setBtEnable(isChecked);
             if (isChecked) {
                 mPresenter.openBt(this);
                 mListLayout.setVisibility(View.VISIBLE);
