@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.kaolafm.opensdk.ResType;
 import com.kaolafm.opensdk.api.BasePageResult;
 import com.kaolafm.opensdk.api.operation.OperationRequest;
 import com.kaolafm.opensdk.api.operation.model.category.AlbumCategoryMember;
@@ -191,7 +192,7 @@ public class KaolaAudioCategoryPageFrag extends BaseFragment {
         bundle.putSerializable(Constant.KEY_TYPE_KEY, Constant.TYPE.FIRST_ENTERED);
         bundle.putLong(Constant.KEY_MEMBER_CODE, id);
         bundle.putString(Constant.KEY_IMG_URL, url);
-        bundle.putBoolean(Constant.KEY_IS_ALBUM, true);
+        bundle.putInt(Constant.KEY_AUDIO_TYPE, ResType.TYPE_ALBUM);
         bundle.putString(Constant.KEY_TITLE, title);
         RouterUtils.getInstance().navigation(RouterConstants.MUSIC_PLAY_ONLINE, bundle);
     }

@@ -14,6 +14,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.kaolafm.opensdk.ResType;
 import com.kaolafm.opensdk.api.operation.model.column.AlbumDetailColumnMember;
 import com.kaolafm.opensdk.api.operation.model.column.Column;
 import com.kaolafm.opensdk.api.operation.model.column.ColumnMember;
@@ -63,7 +64,7 @@ public class MusicKaolaActivity extends BaseActivity implements
     //new
     private Constant.TYPE TYPE_CODE;
     private long id;
-    private boolean isAlbum;
+    private int audioType;
     private String imageUrl;
     private int mCurPosition = 0;
 
@@ -145,7 +146,7 @@ public class MusicKaolaActivity extends BaseActivity implements
         if (TYPE_CODE == Constant.TYPE.FIRST_ENTERED) {
             SitechDevLog.e(TAG, "======== FIRST_ENT1ERED ");
             id = intent.getLongExtra(Constant.KEY_MEMBER_CODE, -1);
-            isAlbum = intent.getBooleanExtra(Constant.KEY_IS_ALBUM, false);
+            audioType = intent.getIntExtra(Constant.KEY_AUDIO_TYPE, 0);
             imageUrl = intent.getStringExtra(Constant.KEY_IMG_URL);
             title = intent.getStringExtra(Constant.KEY_TITLE);
             mCurPosition = PlayerListManager.getInstance().getCurPosition();
@@ -441,10 +442,12 @@ public class MusicKaolaActivity extends BaseActivity implements
      * 请求数据信息
      */
     private void requestKaoLaInfo() {
-        if (isAlbum) {
+        if (audioType == ResType.TYPE_ALBUM) {
             KaolaPlayManager.SingletonHolder.INSTANCE.playAlbum(this, id);
-        } else {
+        } else if (audioType == ResType.TYPE_RADIO) {
             KaolaPlayManager.SingletonHolder.INSTANCE.playPgc(this, id);
+        } else {
+            KaolaPlayManager.SingletonHolder.INSTANCE.playAudio(this, id);
         }
     }
 

@@ -603,6 +603,10 @@ public class KaolaPlayManager extends BaseMusicManager {
         PlayerManager.getInstance(context).playPgc(id);
         setCurPlayingBroadcast(false);
     }
+    public void playAudio(Context context, long id) {
+        PlayerManager.getInstance(context).playAudio(id);
+        setCurPlayingBroadcast(false);
+    }
 
     private static HashMap<View, WeakReference<ValueAnimator>> viewAnimators = new HashMap<>();
 

@@ -8,6 +8,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.kaolafm.opensdk.ResType;
 import com.kaolafm.opensdk.api.operation.model.column.AlbumDetailColumnMember;
 import com.kaolafm.opensdk.api.operation.model.column.Column;
 import com.kaolafm.opensdk.api.operation.model.column.ColumnMember;
@@ -114,7 +115,7 @@ public class KaolaAudioSubPageFrag extends BaseFragment {
             bundle.putLong(Constant.KEY_MEMBER_CODE, ((RadioDetailColumnMember) column).getRadioId());
         } else if (column instanceof AlbumDetailColumnMember) {
             bundle.putLong(Constant.KEY_MEMBER_CODE, ((AlbumDetailColumnMember) column).getAlbumId());
-            bundle.putBoolean(Constant.KEY_IS_ALBUM, true);
+            bundle.putInt(Constant.KEY_AUDIO_TYPE, ResType.TYPE_ALBUM);
         }
         if(column.getImageFiles() != null){
             if(column.getImageFiles().containsKey("cover")){

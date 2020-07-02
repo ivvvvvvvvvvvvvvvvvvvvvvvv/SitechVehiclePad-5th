@@ -148,11 +148,8 @@ public class KaolaAudioSearchPageFrag extends BaseFragment {
                                 if (warpper.getType() == ResType.TYPE_BROADCAST) {
                                     jump2PlayBroadcast(warpper.getId(), warpper.getName(), warpper.getImg());
                                 }
-                                if (warpper.getType() == ResType.TYPE_RADIO || warpper.getType() == ResType.TYPE_AUDIO) {
-                                    jump2Play(warpper.getId(), warpper.getName(), warpper.getImg(), false);
-                                }
-                                if (warpper.getType() == ResType.TYPE_ALBUM) {
-                                    jump2Play(warpper.getId(), warpper.getName(), warpper.getImg(), true);
+                                if (warpper.getType() == ResType.TYPE_RADIO || warpper.getType() == ResType.TYPE_AUDIO || warpper.getType() == ResType.TYPE_ALBUM) {
+                                    jump2Play(warpper.getId(), warpper.getName(), warpper.getImg(), warpper.getType());
                                 }
                             }
                         });
@@ -189,12 +186,12 @@ public class KaolaAudioSearchPageFrag extends BaseFragment {
         RouterUtils.getInstance().navigation(RouterConstants.MUSIC_PLAY_ONLINE_BROADCAST, bundle);
     }
 
-    private void jump2Play(long id, String title, String url, boolean isAlbum) {
+    private void jump2Play(long id, String title, String url, int type) {
         Bundle bundle = new Bundle();
         bundle.putSerializable(Constant.KEY_TYPE_KEY, Constant.TYPE.FIRST_ENTERED);
         bundle.putLong(Constant.KEY_MEMBER_CODE, id);
         bundle.putString(Constant.KEY_IMG_URL, url);
-        bundle.putBoolean(Constant.KEY_IS_ALBUM, isAlbum);
+        bundle.putInt(Constant.KEY_AUDIO_TYPE, type);
         bundle.putString(Constant.KEY_TITLE, title);
         RouterUtils.getInstance().navigation(RouterConstants.MUSIC_PLAY_ONLINE, bundle);
     }
