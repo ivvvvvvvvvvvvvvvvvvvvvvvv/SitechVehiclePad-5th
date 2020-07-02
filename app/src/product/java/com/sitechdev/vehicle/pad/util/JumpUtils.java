@@ -10,10 +10,12 @@ import android.os.Bundle;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.sitechdev.vehicle.lib.util.NetworkUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
+import com.sitechdev.vehicle.lib.util.StringUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.bean.AllModuleBean;
 import com.sitechdev.vehicle.pad.manager.KuwoManager;
 import com.sitechdev.vehicle.pad.manager.MapManager;
+import com.sitechdev.vehicle.pad.module.apps.util.AppsMenuConfig;
 import com.sitechdev.vehicle.pad.module.login.util.LoginUtils;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
@@ -43,6 +45,26 @@ public class JumpUtils {
                 mIntent.putExtras(bundle);
             }
             currentActivity.startActivity(mIntent);
+        }
+    }
+
+    /**
+     * 指定path跳转
+     *
+     * @param context
+     * @param path
+     */
+    public static void jumpFromActivity(Context context, String path) {
+        if (StringUtils.isEmpty(path) || AppsMenuConfig.mAllMenuBean == null || AppsMenuConfig.mAllMenuBean.apps == null || AppsMenuConfig.mAllMenuBean.apps.isEmpty()) {
+            return;
+        }
+
+        for (int i = 0; i < AppsMenuConfig.mAllMenuBean.apps.size(); i++) {
+            AllModuleBean.ModuleBean bean = AppsMenuConfig.mAllMenuBean.apps.get(i);
+            if (path.equalsIgnoreCase(bean.appRoute)) {
+                jump(context, bean);
+                break;
+            }
         }
     }
 
