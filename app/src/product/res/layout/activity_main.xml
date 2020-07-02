@@ -228,7 +228,7 @@
 
     <!-- 二、导航左界面、回家、回公司-->
     <LinearLayout
-        android:id="@+id/id_main_second_left_content"
+        android:id="@+id/id_main_right_top_left_content"
         android:layout_width="565pt"
         android:layout_height="131pt"
         android:layout_below="@id/id_main_first_content"
