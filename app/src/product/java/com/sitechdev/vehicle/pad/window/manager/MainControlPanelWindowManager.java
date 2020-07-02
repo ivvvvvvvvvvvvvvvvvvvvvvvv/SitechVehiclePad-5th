@@ -162,7 +162,7 @@ public class MainControlPanelWindowManager {
     public void onSysEventChange(SysEvent event) {
         SitechDevLog.i(TAG, this + "==SysEvent 消息==" + event.getEvent());
         switch (event.getEvent()) {
-            case SysEvent.EB_SYS_BT_STATE:
+            case SysEvent.EB_SYS_BT_ENABLE:
                 if (mainControlPanelView != null) {
                     //蓝牙变化消息
                     mainControlPanelView.refreshBtSwitchView();

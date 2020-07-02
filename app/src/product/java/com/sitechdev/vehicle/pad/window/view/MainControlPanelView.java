@@ -494,24 +494,16 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
                     //蓝牙是否开启
                     BtManager.getInstance().closeBt();
                 }
-                bluetoothControlView.setActivated(!isActivated);
+//                bluetoothControlView.setActivated(!isActivated);
                 break;
             case R.id.id_wifi_Btn:
                 isActivated = wifiControlView.isActivated();
                 //wifi网络
                 wifiControlView.setActivated(!isActivated);
+                NetworkUtils.setWifiEnabled(!isActivated);
                 break;
             case R.id.id_mobile_net_Btn:
                 isActivated = mobileNetControlView.isActivated();
-                if (isActivated) {
-                    //todo 关闭移动网络
-                    //移动网络
-//                    mobileNetControlView.setActivated(NetworkUtils.getMobileDataEnabled());
-                } else {
-                    //todo 打开移动网络
-                    //移动网络
-//                    mobileNetControlView.setActivated(NetworkUtils.getMobileDataEnabled());
-                }
                 mobileNetControlView.setActivated(!isActivated);
                 NetworkUtils.setMobileDataEnabled(!isActivated);
                 break;
