@@ -489,10 +489,10 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
                 isActivated = bluetoothControlView.isActivated();
                 if (isActivated) {
                     //蓝牙是否开启
-                    BtManager.getInstance().openBt();
+                    BtManager.getInstance().closeBt();
                 } else {
                     //蓝牙是否开启
-                    BtManager.getInstance().closeBt();
+                    BtManager.getInstance().openBt();
                 }
 //                bluetoothControlView.setActivated(!isActivated);
                 break;

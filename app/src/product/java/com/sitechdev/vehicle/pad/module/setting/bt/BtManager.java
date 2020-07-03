@@ -61,6 +61,7 @@ public class BtManager {
      */
     public void openBt() {
         mATBluetooth.write(ATBluetooth.START_MODULE);
+        SettingConfig.getInstance().setBtEnable(true);
         EventBusUtils.postEvent(new SysEvent(SysEvent.EB_SYS_BT_ENABLE,true));
     }
 
@@ -69,6 +70,7 @@ public class BtManager {
      */
     public void closeBt() {
         mATBluetooth.write(ATBluetooth.STOP_MODULE);
+        SettingConfig.getInstance().setBtEnable(false);
         EventBusUtils.postEvent(new SysEvent(SysEvent.EB_SYS_BT_ENABLE,false));
     }
 
