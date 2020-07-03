@@ -144,6 +144,9 @@ class ViewAllCategoryDialog extends Dialog {
     private void initAdapter() {
         adapter = new KaolaCategoryDialogAdapter(context, categories);
         recyclerView.setAdapter(adapter);
+        if (clickListener != null) {
+            adapter.setOnItemClick(clickListener);
+        }
     }
 
 }
