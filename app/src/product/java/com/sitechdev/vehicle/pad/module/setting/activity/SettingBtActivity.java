@@ -177,7 +177,6 @@ public class SettingBtActivity extends MvpActivity<SettingBtContract.BtPresenter
     public void onSwithChecked(int viewId, boolean isChecked) {
         if (viewId == R.id.setting_bt_enable) {
             mDiscovereSwitch.setEnabled(isChecked);
-            SettingConfig.getInstance().setBtEnable(isChecked);
             if (isChecked) {
                 mPresenter.openBt(this);
                 mListLayout.setVisibility(View.VISIBLE);
