@@ -67,7 +67,7 @@ public class WeatherActivity extends MvpActivity<WeatherPresenter> implements We
             tvKongtiao, tvError, tv_city;
 
     private Chronometer mChronometer;
-    private ImageView ivWeatherIcon, ivAlarm, ivAqi, ivError, btn_backk;
+    private ImageView ivWeatherIcon, ivAlarm, ivAqi, ivError, btn_backk, refreshWeatherImg = null;
     //private View viewGray;
     private LinearLayout llError, llAQI, linearWarnInfo, weatherDayInfo;
     private RelativeLayout clLayout, btnUpdate;
@@ -103,6 +103,7 @@ public class WeatherActivity extends MvpActivity<WeatherPresenter> implements We
         //更新时间
         mChronometer = findViewById(R.id.tv_update_time_desc);
         btnUpdate = findViewById(R.id.id_rl_update_time);
+        refreshWeatherImg = findViewById(R.id.iv_update_img);
 
 
 //        llLoading = findViewById(R.id.ll_loading);
@@ -140,7 +141,9 @@ public class WeatherActivity extends MvpActivity<WeatherPresenter> implements We
     protected void initListener() {
         super.initListener();
         btn_backk.setOnClickListener(this);
-//        mChronometer.setOnClickListener(this);
+        mChronometer.setOnClickListener(this);
+        refreshWeatherImg.setOnClickListener(this);
+        btnUpdate.setOnClickListener(this);
 //
 //        tv_city.setOnClickListener(this);       //定位
 //        tvAlarm.setOnClickListener(this);       //天气预警
@@ -168,9 +171,11 @@ public class WeatherActivity extends MvpActivity<WeatherPresenter> implements We
             case R.id.iv_sub_back:
                 finish();
                 break;
-//            case R.id.btn_update:
-//                loadLocalCityWeather();
-//                break;
+            case R.id.id_rl_update_time:
+            case R.id.tv_update_time_desc:
+            case R.id.iv_update_img:
+                loadLocalCityWeather();
+                break;
 //            case R.id.tv_city:
 ////                TraceManager.getInstance().traceClick(WeatherFragment.class, WeatherTraceEnum.BTN_WEATHER_LOCATION.getPoint(), WeatherTraceEvj.getLocation(mPresenter.loadCityDataWithLocation()));
 //                break;
