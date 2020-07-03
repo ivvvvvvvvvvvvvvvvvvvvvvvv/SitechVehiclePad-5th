@@ -1,5 +1,6 @@
 package com.sitechdev.vehicle.pad.vui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.ContactsContract;
@@ -9,16 +10,17 @@ import android.util.Base64;
 import com.amap.api.services.core.PoiItem;
 import com.iflytek.aiui.AIUIConstant;
 import com.iflytek.aiui.AIUIMessage;
-import com.sitechdev.vehicle.lib.event.EventBusUtils;
+import com.iflytek.cloud.LexiconListener;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.SpeechRecognizer;
+import com.iflytek.cloud.util.UserWords;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.app.AppConst;
-import com.sitechdev.vehicle.pad.event.WindowEvent;
 import com.sitechdev.vehicle.pad.manager.KuwoManager;
 import com.sitechdev.vehicle.pad.vui.bean.SpeakableSyncData;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -171,5 +173,47 @@ public class VUIUtils {
         SitechDevLog.i(AppConst.TAG, "openThirdAppByMusic=====>musicName=" + musicName + "====>singer=" + singer);
 //        EventBusUtils.postEvent(new WindowEvent(WindowEvent.EVENT_WINDOW_APP_BACKGROUD));
         KuwoManager.getInstance().playMusic(musicName, singer);
+    }
+
+    /**
+     * @param  lexiconName - 词典名称，{ "userword", "contact" }。
+     *
+     * @param  lexiconContent - 词典内容，联系人列表：以换行符"\n"分隔的词语字符串，如"张三，李四，王五"; 用户热词：满足一定格式的json字符串，格式如下：
+     *                        {
+     *   "userword": [
+     *     {
+     *       "name": "default",
+     *       "words": [
+     *         "默认词条1",
+     *         "默认词条2"
+     *       ]
+     *     },
+     *     {
+     *       "name": "词表名称1",
+     *       "words": [
+     *         "词条1的第一个词",
+     *         "词条1的第二个词"
+     *       ]
+     *     },
+     *     {
+     *       "name": "词表名称2",
+     *       "words": [
+     *         "词条2的第一个词",
+     *         "词条2的第二个词"
+     *       ]
+     *     }
+     *   ]
+     * }
+     */
+    public static void updataUserWordsContact(Context context, ArrayList<String> lexiconContent) {
+        UserWords userWords = new UserWords();
+        userWords.putWords("contact", lexiconContent);
+        SpeechRecognizer speechRecognizer = SpeechRecognizer.createRecognizer(context, null);
+        speechRecognizer.updateLexicon("{ \"userword\" }", userWords.toString(), new LexiconListener() {
+            @Override
+            public void onLexiconUpdated(String s, SpeechError speechError) {
+
+            }
+        });
     }
 }
