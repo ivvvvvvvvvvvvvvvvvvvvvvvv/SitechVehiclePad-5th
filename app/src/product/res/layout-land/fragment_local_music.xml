@@ -3,19 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="300pt"
-    android:orientation="vertical">
+    android:orientation="horizontal"
+    android:weightSum="1884">
 
     <include
         layout="@layout/layout_music_play"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_width="0pt"
+        android:layout_height="wrap_content"
+        android:layout_weight="904" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_marginTop="20pt"
+        android:layout_width="0pt"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_weight="980"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/music_usb_list_padding_bottom"
+        android:paddingLeft="@dimen/music_usb_list_padding_left">
 
         <LinearLayout
             android:id="@+id/local_music_empty_view"
