@@ -450,7 +450,7 @@ public class MusicManager {
         int PAUSE = 0;
         int RESUME = 1;
 
-        void onMusciChange(MusicInfo current, int status);
+        void onMusicChange(MusicInfo current, int status);
     }
 
     public interface OnMusicPostionChangeListener {
@@ -554,7 +554,7 @@ public class MusicManager {
                                 @Override
                                 public void accept(OnMusicChangeListener listener) throws Exception {
                                     SitechDevLog.i("onMusicChange", "333333333 ===info,====" + info);
-                                    listener.onMusciChange(info, 1);
+                                    listener.onMusicChange(info, 1);
                                 }
                             });
                 }
@@ -598,7 +598,7 @@ public class MusicManager {
                                 @Override
                                 public void accept(OnMusicChangeListener listener) throws Exception {
                                     SitechDevLog.i("onMusicChange", "2222222222222222 ===info,====" + info);
-                                    listener.onMusciChange(info, 0);
+                                    listener.onMusicChange(info, 0);
                                 }
                             });
                 }
@@ -642,7 +642,7 @@ public class MusicManager {
                                 @Override
                                 public void accept(OnMusicChangeListener listener) throws Exception {
                                     SitechDevLog.i("onMusicChange", "444444444 ===info,====" + info);
-                                    listener.onMusciChange(info, 1);
+                                    listener.onMusicChange(info, 1);
                                 }
                             });
                 }
@@ -695,7 +695,7 @@ public class MusicManager {
             }
             addListener(listener, musicChangeListeners);
             SitechDevLog.i("onMusicChange", "1111111111 ===current,====" + current + "====" + status);
-            listener.onMusciChange(current, status);
+            listener.onMusicChange(current, status);
         }
 
         public void removeMusicChangeListener(OnMusicChangeListener listener) {

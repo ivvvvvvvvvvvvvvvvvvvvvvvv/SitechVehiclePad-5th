@@ -213,7 +213,7 @@ public class VoiceSourceManager {
     private MusicManager.OnMusicChangeListener musicChangeListener =
             new MusicManager.OnMusicChangeListener() {
                 @Override
-                public void onMusciChange(MusicInfo current, int status) {
+                public void onMusicChange(MusicInfo current, int status) {
                     if (null == current) {
                         musicSource = -1;
                     } else {
@@ -236,7 +236,7 @@ public class VoiceSourceManager {
                             MusicChangeListener listener = ref.get();
                             String value = listener.getClass().getAnnotation(
                                     VoiceSourceType.class).value();
-                            SitechDevLog.i("onMusicChange", "MainActivty vourceManger musicChangeListener=  onMusciChange  ===value=" + value + "==current=" + current);
+                            SitechDevLog.i("onMusicChange", "MainActivty vourceManger musicChangeListener=  onMusicChange  ===value=" + value + "==current=" + current);
                             switch (value) {
                                 case SUPPORT_TYPE_ALL:
                                 case SUPPORT_TYPE_LOCAL:
@@ -393,6 +393,9 @@ public class VoiceSourceManager {
                 break;
             case KUWO_MUSIC:
                 KuwoManager.getInstance().onMusicPlayNext();
+                if (type == VOICE) {
+                    VUIWindow.getInstance().hide();
+                }
                 break;
             default:
                 if (type == VOICE) {

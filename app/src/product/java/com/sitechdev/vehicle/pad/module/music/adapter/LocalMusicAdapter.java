@@ -131,7 +131,7 @@ public class LocalMusicAdapter extends
     }
 
     @Override
-    public void onMusciChange(MusicInfo current, int status) {
+    public void onMusicChange(MusicInfo current, int status) {
         checkedPositon = -1;
         if (null != musicInfos && null != current){
             int len = musicInfos.size();

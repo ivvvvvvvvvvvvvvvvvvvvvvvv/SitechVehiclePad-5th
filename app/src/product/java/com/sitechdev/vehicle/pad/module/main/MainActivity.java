@@ -292,7 +292,7 @@ public class MainActivity extends BaseActivity
 //    private MusicManager.OnMusicChangeListener musicChangeListener =
 //            new MusicManager.OnMusicChangeListener() {
 //        @Override
-//        public void onMusciChange(MusicInfo current, int status) {
+//        public void onMusicChange(MusicInfo current, int status) {
 //            musicSource = LOCAL_MUSIC;
 //            tvMusicName.setText(current.musicName);
 //            switch (status){

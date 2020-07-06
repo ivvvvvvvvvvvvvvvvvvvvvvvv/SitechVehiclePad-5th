@@ -199,7 +199,7 @@ public class CustomPlaySeekBar extends RelativeLayout implements View.OnClickLis
     }
 
     @Override
-    public void onMusciChange(MusicInfo current, int status) {
+    public void onMusicChange(MusicInfo current, int status) {
         if (null != current) {
             switch (status) {
                 case MusicManager.OnMusicChangeListener.PAUSE:
