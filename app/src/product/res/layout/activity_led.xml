@@ -1,0 +1,80 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ico_taxi_main_bg"
+    android:orientation="vertical"
+    android:paddingBottom="300pt">
+
+    <include layout="@layout/common_title_toolbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/setting_padding_left_right"
+        android:paddingRight="@dimen/setting_padding_left_right">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/led_connect_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:drawableLeft="@drawable/selector_led_connect_state"
+                android:drawablePadding="8pt"
+                android:gravity="center"
+                android:text="未连接"
+                android:textColor="@drawable/selector_led_connect_color"
+                android:textSize="@dimen/text_size_main" />
+
+            <com.sitechdev.vehicle.pad.view.TabLayout
+                android:id="@+id/led_tablayout"
+                style="@style/RadioButtonStyle"
+                android:layout_width="867pt"
+                android:layout_height="80pt"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/bg_led_tablayout"
+                android:clipChildren="false"
+                app:tabIndicatorColor="@color/white"
+                app:tabMode="fixed"
+                app:tabPaddingEnd="15pt"
+                app:tabPaddingStart="15pt"
+                app:tabSelectedTextColor="@color/white"
+                app:tabTextAppearance="@style/TabLayoutTextStyle"
+                app:tabTextColor="@color/colo_80ffffff">
+
+            </com.sitechdev.vehicle.pad.view.TabLayout>
+
+            <FrameLayout
+                android:id="@+id/led_edit_layout"
+                android:layout_width="186pt"
+                android:layout_height="82pt"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/bg_led_edit">
+
+                <TextView
+                    android:id="@+id/led_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:drawableLeft="@drawable/selector_led_edit_state"
+                    android:drawablePadding="15pt"
+                    android:gravity="center"
+                    android:text="编辑"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_main" />
+            </FrameLayout>
+        </RelativeLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/led_vp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</LinearLayout>
