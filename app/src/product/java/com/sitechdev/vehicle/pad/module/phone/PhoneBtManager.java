@@ -258,7 +258,7 @@ public class PhoneBtManager {
         }
         logTest("handleCallLogCallback-----type:" + type + " name:" + name + " number:" + number + " date:" + date + " time:" + time);
         if (isPullNewCalllog) {
-            if (BtGlobalRef.callLogs.size() < 0 || !BtGlobalRef.callLogs.get(0).getPhoneNumber().equals(number) || !BtGlobalRef.callLogs.get(0).getName().equals(name) || !BtGlobalRef.callLogs.get(0).getDate().equals(date) || !BtGlobalRef.callLogs.get(0).getTime().equals(time)) {
+            if (BtGlobalRef.callLogs.size() < 0 || (BtGlobalRef.callLogs.size()>0 && !BtGlobalRef.callLogs.get(0).getPhoneNumber().equals(number)) || (BtGlobalRef.callLogs.size()>0 && !BtGlobalRef.callLogs.get(0).getName().equals(name)) || (BtGlobalRef.callLogs.size()>0 && !BtGlobalRef.callLogs.get(0).getDate().equals(date)) || (BtGlobalRef.callLogs.size()>0 && !BtGlobalRef.callLogs.get(0).getTime().equals(time))) {
                 BtGlobalRef.callLogs.add(0, new CallLog(type, name, number, date, time));
             }
         } else {
