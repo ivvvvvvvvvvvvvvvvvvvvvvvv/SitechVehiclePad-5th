@@ -32,7 +32,7 @@ import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
-import com.sitechdev.vehicle.pad.event.AppEvent;
+import com.sitechdev.vehicle.lib.event.AppEvent;
 import com.sitechdev.vehicle.pad.event.TeddyEvent;
 import com.sitechdev.vehicle.pad.manager.BaseMusicManager;
 import com.sitechdev.vehicle.pad.manager.SitechMusicNewManager;

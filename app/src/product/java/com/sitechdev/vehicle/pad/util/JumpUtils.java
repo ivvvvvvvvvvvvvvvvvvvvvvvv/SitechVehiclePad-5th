@@ -71,6 +71,7 @@ public class JumpUtils {
     public static void jump(Context context, AllModuleBean.ModuleBean bean) {
         try {
             int jumpType = bean.jumpType;
+            Uri pathUri = Uri.parse(bean.appRoute);
 
             //对酷我单独做处理，逻辑如下：判断是否登录，若登录直接进入酷我；若未登录，走正常的下面的逻辑。
 //            if (RouterConstants.THIRD_APP_KUWO.equals(bean.appRoute) && LoginUtils.isLogin()) {
@@ -79,13 +80,13 @@ public class JumpUtils {
 //                return;
 //            }
 
-            if (checkIsDeveloping(bean.appRoute)) {
+            if (checkIsDeveloping(pathUri)) {
                 CommonUtil.showToast(R.string.app_developing);
                 return;
             }
 
 //            判断是否需要网络
-            if (checkNetGroup(bean.appRoute) && !(NetworkUtils.isNetworkAvailable(context))) {
+            if (checkNetGroup(pathUri) && !(NetworkUtils.isNetworkAvailable(context))) {
 //                Bundle bundle = new Bundle();
 //                bundle.putString(TITLE_NAME, bean.appName);
 //                SubActivity.start(context, RouterConstants.NO_NET, bundle);
@@ -94,7 +95,7 @@ public class JumpUtils {
             }
 
             // 判断是否需要登录
-            if (checkLoginGroup(bean.appRoute)) {
+            if (checkLoginGroup(pathUri)) {
                 PersonLoginWindow.getInstance().showWnd(() -> toJump(context, jumpType, bean));
                 return;
             }
@@ -154,16 +155,17 @@ public class JumpUtils {
         }
     }
 
-    private static boolean checkNetGroup(String appRoute) {
-        return appRoute.contains("/needNet");
+    private static boolean checkNetGroup(Uri appRoute) {
+        String isNetParam = appRoute.getQueryParameter("needNet");
+        return !StringUtils.isEmpty(isNetParam) && Boolean.parseBoolean(isNetParam);
     }
 
     /**
      * 判断登录组是否登录
      */
-    public static boolean checkLoginGroup(String appRoute) {
-        boolean shouldLogin = appRoute.contains("/needLogin");
-        return shouldLogin && !LoginUtils.isLogin();
+    public static boolean checkLoginGroup(Uri appRoute) {
+        String isLoginParam = appRoute.getQueryParameter("needLogin");
+        return !StringUtils.isEmpty(isLoginParam) && Boolean.parseBoolean(isLoginParam) && !LoginUtils.isLogin();
     }
 
     /**
@@ -172,8 +174,9 @@ public class JumpUtils {
      * @param appRoute
      * @return
      */
-    public static boolean checkIsDeveloping(String appRoute) {
-        return appRoute.contains("/developing");
+    public static boolean checkIsDeveloping(Uri appRoute) {
+        String isDeveloppingParam = appRoute.getQueryParameter("developing");
+        return !StringUtils.isEmpty(isDeveloppingParam) && Boolean.parseBoolean(isDeveloppingParam);
     }
 
     /**

@@ -3,6 +3,7 @@ package com.sitechdev.vehicle.lib.util;
 import android.app.Activity;
 import android.content.Context;
 
+import java.util.HashMap;
 import java.util.Stack;
 
 /**
@@ -16,6 +17,8 @@ public class ActivityManager {
     private static Stack<Activity> activityStack;
 
     private static ActivityManager instance;
+
+    private HashMap<String,Activity> activityHashMap=null;
 
     private ActivityManager() {
     }

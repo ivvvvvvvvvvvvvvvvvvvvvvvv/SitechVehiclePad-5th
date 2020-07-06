@@ -19,7 +19,7 @@ import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppConst;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
-import com.sitechdev.vehicle.pad.event.AppEvent;
+import com.sitechdev.vehicle.lib.event.AppEvent;
 import com.sitechdev.vehicle.pad.event.WindowEvent;
 import com.sitechdev.vehicle.pad.module.taxi.enums.TaxiDataModel;
 import com.sitechdev.vehicle.pad.module.taxi.enums.TaxiParamsModel;

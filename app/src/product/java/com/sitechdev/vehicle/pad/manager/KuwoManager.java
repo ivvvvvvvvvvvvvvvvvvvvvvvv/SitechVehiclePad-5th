@@ -541,6 +541,7 @@ public class KuwoManager extends BaseMusicManager {
      */
     @Override
     public void onMusicPlayResume() {
+        registerPlayingManager();
         try {
             if (!getPlayStatus()) {
                 playControl(KuwoEvent.PlayControl.PLAY_PLAY);
@@ -576,6 +577,7 @@ public class KuwoManager extends BaseMusicManager {
      */
     @Override
     public void onMusicRandomPlay() {
+        registerPlayingManager();
         if (mKwapi != null) {
             mKwapi.randomPlayMusic();
         }

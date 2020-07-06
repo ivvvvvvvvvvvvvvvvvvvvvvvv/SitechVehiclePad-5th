@@ -3,11 +3,11 @@ package com.sitechdev.vehicle.pad.manager;
 import android.view.Gravity;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.sitechdev.vehicle.lib.event.AppEvent;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.StringUtils;
 import com.sitechdev.vehicle.pad.app.AppApplication;
-import com.sitechdev.vehicle.pad.event.AppEvent;
 import com.sitechdev.vehicle.pad.model.SkinModel;
 
 import org.greenrobot.eventbus.Subscribe;

@@ -215,7 +215,7 @@ public class RouterUtils {
             return;
         }
         ARouter.getInstance()
-                .build(path)
+                .build(path, path.split("/")[3])
                 .with(bundle)
                 .navigation(ActivityUtils.getTopActivity());
     }

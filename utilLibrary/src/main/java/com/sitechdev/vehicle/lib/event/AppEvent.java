@@ -1,4 +1,4 @@
-package com.sitechdev.vehicle.pad.event;
+package com.sitechdev.vehicle.lib.event;
 
 import android.os.IBinder;
 
@@ -76,6 +76,11 @@ public class AppEvent extends BaseEvent {
      */
     public static final String EB_MEMBER_SIGN = "EB_MEMBER_SIGN";
 
+    /**
+     * 页面切换事件
+     */
+    public static final String EB_ACTIVITY_START_EVENT = "EB_ACTIVITY_START_EVENT";
+
     private String eventKey = "";
     private Object eventValue = null;
 
@@ -87,6 +92,11 @@ public class AppEvent extends BaseEvent {
 
     public AppEvent(String key) {
         eventKey = key;
+    }
+
+    public AppEvent(String key, Object obj) {
+        eventKey = key;
+        eventValue = obj;
     }
 
     public AppEvent(String key, Object obj, Object obj2) {

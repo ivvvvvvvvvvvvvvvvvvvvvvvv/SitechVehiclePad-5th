@@ -10,20 +10,16 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
-import com.sitechdev.net.HttpCode;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.NetworkUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
-import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
-import com.sitechdev.vehicle.pad.callback.BaseBribery;
-import com.sitechdev.vehicle.pad.event.AppEvent;
+import com.sitechdev.vehicle.lib.event.AppEvent;
 import com.sitechdev.vehicle.pad.manager.CommonTopWindowManager;
 import com.sitechdev.vehicle.pad.manager.UserManager;
 import com.sitechdev.vehicle.pad.module.main.MainActivity;
-import com.sitechdev.vehicle.pad.module.member.bean.PointsSigninBean;
 import com.sitechdev.vehicle.pad.view.CommonToast;
 
 /**

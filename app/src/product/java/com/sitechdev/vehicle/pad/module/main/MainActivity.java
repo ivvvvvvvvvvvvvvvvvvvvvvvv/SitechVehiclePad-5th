@@ -43,7 +43,7 @@ import com.sitechdev.vehicle.pad.app.AppConst;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.bean.SitechMusicBean;
 import com.sitechdev.vehicle.pad.callback.BaseBribery;
-import com.sitechdev.vehicle.pad.event.AppEvent;
+import com.sitechdev.vehicle.lib.event.AppEvent;
 import com.sitechdev.vehicle.pad.event.MapEvent;
 import com.sitechdev.vehicle.pad.event.MusicEvent;
 import com.sitechdev.vehicle.pad.event.SSOEvent;

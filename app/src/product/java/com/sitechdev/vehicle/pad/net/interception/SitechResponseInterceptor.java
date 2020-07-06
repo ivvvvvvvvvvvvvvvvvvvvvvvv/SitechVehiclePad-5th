@@ -2,14 +2,11 @@ package com.sitechdev.vehicle.pad.net.interception;
 
 import com.lzy.okgo.OkGo;
 import com.sitechdev.net.GsonUtils;
-import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.StringUtils;
 import com.sitechdev.vehicle.pad.app.AppConst;
 import com.sitechdev.vehicle.pad.app.AppUrlConst;
 import com.sitechdev.vehicle.pad.bean.RefreshTokenBean;
-import com.sitechdev.vehicle.pad.bean.UserBean;
-import com.sitechdev.vehicle.pad.event.AppEvent;
 import com.sitechdev.vehicle.pad.manager.UserManager;
 import com.sitechdev.vehicle.pad.module.login.bean.LoginUserBean;
 import com.sitechdev.vehicle.pad.net.util.HttpUtil;

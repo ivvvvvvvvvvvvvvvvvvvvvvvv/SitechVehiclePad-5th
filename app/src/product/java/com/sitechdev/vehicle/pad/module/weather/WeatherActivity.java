@@ -41,8 +41,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import static com.sitechdev.vehicle.pad.view.ReflectImageView.createReflectionImageWithOrigin;
-
 /**
  * 项目名称：SitechVehiclePad
  * 类名称：MemberActivity

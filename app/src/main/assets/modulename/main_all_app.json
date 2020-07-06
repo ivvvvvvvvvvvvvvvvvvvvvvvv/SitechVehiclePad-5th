@@ -5,7 +5,7 @@
       "index": 0,
       "appName": "天气",
       "appIcon": 1,
-      "appRoute": "/subApp/needNet/weather",
+      "appRoute": "/m_main/thirdPage/g_weather/weather?needNet=true",
       "jumpType": 0,
       "eventId": "btn_app_weather"
     },
@@ -13,7 +13,7 @@
       "index": 1,
       "appName": "出行计价器",
       "appIcon": 2,
-      "appRoute": "/subApp/taxi",
+      "appRoute": "/m_main/thirdPage/g_tax/taxi",
       "jumpType": 0,
       "eventId": "btn_app_taxi"
     },
@@ -21,7 +21,7 @@
       "index": 2,
       "appName": "听伴",
       "appIcon": 3,
-      "appRoute": "/subApp/musicPlayOnline?pageIndex=0",
+      "appRoute": "/m_main/thirdPage/g_kaolaFM/musicPlayOnline?pageIndex=0",
       "jumpType": 0,
       "eventId": "btn_app_kaolaFM"
     },
@@ -29,7 +29,7 @@
       "index": 3,
       "appName": "本地音乐",
       "appIcon": 4,
-      "appRoute": "/main/localMusic",
+      "appRoute": "/m_main/thirdPage/g_localMusic/localMusic",
       "jumpType": 0,
       "eventId": "btn_app_local_music"
     },
@@ -37,7 +37,7 @@
       "index": 4,
       "appName": "个人中心",
       "appIcon": 5,
-      "appRoute": "/needLogin/subApp/member",
+      "appRoute": "/m_main/thirdPage/g_member/member?needLogin=true",
       "jumpType": 0,
       "eventId": "btn_app_member"
     },
@@ -45,7 +45,7 @@
       "index": 5,
       "appName": "车辆状态",
       "appIcon": 6,
-      "appRoute": "/subApp/carstatus",
+      "appRoute": "/m_main/thirdPage/g_car/carStatus",
       "jumpType": 0,
       "eventId": "btn_app_car_status"
     },
@@ -53,7 +53,7 @@
       "index": 6,
       "appName": "设置",
       "appIcon": 7,
-      "appRoute": "/setting/home",
+      "appRoute": "/m_main/thirdPage/g_setting/home",
       "jumpType": 0,
       "eventId": "btn_app_setting_skin"
     },
@@ -61,7 +61,7 @@
       "index": 7,
       "appName": "导航",
       "appIcon": 8,
-      "appRoute": "/subApp/navi",
+      "appRoute": "/m_main/thirdPage/g_navi/navi",
       "jumpType": 1,
       "eventId": "btn_app_navi"
     },
@@ -69,7 +69,7 @@
       "index": 8,
       "appName": "网络音乐",
       "appIcon": 9,
-      "appRoute": "/subApp/needLogin/needNet/netMusic",
+      "appRoute": "/m_main/thirdPage/g_third_app/netMusic?needLogin=true&needNet=true",
       "jumpType": 1,
       "eventId": "btn_app_net_music"
     },
@@ -77,7 +77,7 @@
       "index": 9,
       "appName": "LED表情管理",
       "appIcon": 10,
-      "appRoute": "/subApp/developing/led",
+      "appRoute": "/m_main/thirdPage/g_led/led?developing=true",
       "jumpType": 0,
       "eventId": "btn_app_led"
     },
@@ -85,7 +85,7 @@
       "index": 10,
       "appName": "视频",
       "appIcon": 11,
-      "appRoute": "/subApp/videoList",
+      "appRoute": "/m_main/thirdPage/g_video/videoList",
       "jumpType": 0,
       "eventId": "btn_app_video"
     },
@@ -93,7 +93,7 @@
       "index": 11,
       "appName": "电话",
       "appIcon": 12,
-      "appRoute": "/main/phone",
+      "appRoute": "/m_main/thirdPage/g_phone/phone",
       "jumpType": 0,
       "eventId": "btn_app_phone"
     },
@@ -101,7 +101,7 @@
       "index": 12,
       "appName": "饭聊",
       "appIcon": 13,
-      "appRoute": "/subApp/developing/funChat",
+      "appRoute": "/m_main/thirdPage/g_funChat/funChat?developing=true",
       "jumpType": 0,
       "eventId": "btn_app_funChat"
     },
@@ -109,7 +109,7 @@
       "index": 13,
       "appName": "商城",
       "appIcon": 14,
-      "appRoute": "/needLogin/developing/needNet/mall",
+      "appRoute": "/m_main/thirdPage/g_mall/mall?developing=true&needLogin=true&needNet=true",
       "jumpType": 0,
       "eventId": "btn_app_mall"
     }

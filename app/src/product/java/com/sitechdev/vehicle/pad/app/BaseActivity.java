@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.app.SkinAppCompatDelegateImpl;
@@ -20,20 +21,30 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.alibaba.android.arouter.facade.model.RouteMeta;
+import com.alibaba.android.arouter.routes.ARouter$$Group$$m_main;
 import com.blankj.utilcode.util.BarUtils;
 import com.lky.toucheffectsmodule.factory.TouchEffectsFactory;
-import com.sitechdev.vehicle.lib.event.BindBus;
-import com.sitechdev.vehicle.lib.event.BindEventBus;
+import com.sitechdev.vehicle.lib.event.AppEvent;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
-import com.sitechdev.vehicle.lib.event.XtBusUtil;
 import com.sitechdev.vehicle.lib.util.ActivityManager;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
+import com.sitechdev.vehicle.lib.util.StringUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.module.map.util.MapUtil;
+import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.util.AppUtil;
 import com.sitechdev.vehicle.pad.view.CommonDialog;
 import com.sitechdev.vehicle.pad.view.CommonProgressDialog;
 import com.sitechdev.vehicle.pad.view.ToolbarView;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * 项目名称：SitechVehiclePad
@@ -48,6 +59,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     private CommonDialog.Builder mDialogBuilder;
     public ToolbarView mToolBarView;
+    private static Map<String, String> activityPathHashMap = new HashMap<>();
 
     @Override
     public Resources getResources() {
@@ -74,12 +86,12 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         setFullScreen();
         initToolBarView();
         setContentView(getLayoutId());
-        if (this.getClass().isAnnotationPresent(BindEventBus.class)) {
-            EventBusUtils.register(this);
-        }
-        if (this.getClass().isAnnotationPresent(BindBus.class)) {
-            XtBusUtil.register(this);
-        }
+//        if (this.getClass().isAnnotationPresent(BindEventBus.class)) {
+        EventBusUtils.register(this);
+//        }
+//        if (this.getClass().isAnnotationPresent(BindBus.class)) {
+//            XtBusUtil.register(this);
+//        }
         ActivityManager.getInstance().addActivity(this);
         initViewBefore();
         //无需检查权限
@@ -180,12 +192,12 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     protected void onDestroy() {
         super.onDestroy();
         SitechDevLog.i("onDestroy", this + "*****onDestroy*****");
-        if (this.getClass().isAnnotationPresent(BindEventBus.class)) {
-            EventBusUtils.unregister(this);
-        }
-        if (this.getClass().isAnnotationPresent(BindBus.class)) {
-            XtBusUtil.unregister(this);
-        }
+//        if (this.getClass().isAnnotationPresent(BindEventBus.class)) {
+        EventBusUtils.unregister(this);
+//        }
+//        if (this.getClass().isAnnotationPresent(BindBus.class)) {
+//            XtBusUtil.unregister(this);
+//        }
     }
 
     @Override
@@ -237,6 +249,115 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     public boolean isLandscape() {
         return getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Subscribe(threadMode = ThreadMode.ASYNC)
+    public void onAppEvent(AppEvent event) {
+        SitechDevLog.i(AppConst.TAG, "onAppEvent===>消息==" + event.getEventKey());
+        switch (event.getEventKey()) {
+            case AppEvent.EB_ACTIVITY_START_EVENT:
+                SitechDevLog.i(AppConst.TAG, "onAppEvent===>消息Value==" + event.getEventValue());
+                //{"module":"m_main","level":"subPage","group":"appList"}
+                String pathParams = (String) event.getEventValue();
+                if (StringUtils.isEmpty(pathParams)) {
+                    return;
+                }
+                try {
+                    JSONObject pathObject = new JSONObject(pathParams);
+                    //取Path中的group
+                    String group = pathObject.optString("group");
+                    SitechDevLog.i(AppConst.TAG, "onAppEvent===>group==" + group);
+
+                    //取当前页面中的path
+                    String curPagePath = getActivityPath(this.getClass().getSimpleName());
+                    SitechDevLog.i(AppConst.TAG, "onAppEvent===>当前页面 curPagePath==" + curPagePath + ", 匹配：className=" + this.getClass().getSimpleName());
+
+                    if (StringUtils.isEmpty(curPagePath)) {
+                        return;
+                    }
+
+                    //取当前页面中的group
+                    String curPageGroup = getCurGroupName(curPagePath);
+                    SitechDevLog.i(AppConst.TAG, "onAppEvent===>当前页面Group==" + curPageGroup + ", 匹配：className=" + this.getClass().getSimpleName());
+
+                    //取当前页面的level
+                    String level = getCurLevelName(curPagePath);
+                    SitechDevLog.i(AppConst.TAG, "onAppEvent===>当前页面level==" + level + ", 匹配：className=" + this.getClass().getSimpleName());
+
+                    if (!group.equalsIgnoreCase(curPageGroup) && RouterConstants.LEVEL_THIRD.equalsIgnoreCase("/" + level)) {
+                        SitechDevLog.i(AppConst.TAG, "onAppEvent===>当前页面 为三级页面，且不同组，finish");
+                        //不是同一组的，finish
+                        finish();
+                    }
+                } catch (Exception e) {
+                    SitechDevLog.exception(e);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    /**
+     * 获取路由表
+     *
+     * @return Map<activityName, path>
+     */
+    private Map<String, String> getRouteMap() {
+        if (!activityPathHashMap.isEmpty()) {
+            return activityPathHashMap;
+        }
+        ARouter$$Group$$m_main c = new ARouter$$Group$$m_main();
+        Map<String, RouteMeta> atlas = new HashMap<>();
+        c.loadInto(atlas);
+        Iterator<Map.Entry<String, RouteMeta>> routeMetaIterator = atlas.entrySet().iterator();
+        SitechDevLog.e("zyf", "this getSimpleName() = " + this.getClass().getSimpleName());
+        while (routeMetaIterator.hasNext()) {
+            Map.Entry<String, RouteMeta> routeMetaEntry = routeMetaIterator.next();
+            activityPathHashMap.put(((RouteMeta) routeMetaEntry.getValue()).getDestination().getSimpleName(), routeMetaEntry.getKey());
+        }
+        return activityPathHashMap;
+    }
+
+    private String getActivityPath(String aName) {
+        if (activityPathHashMap.isEmpty()) {
+            getRouteMap();
+        }
+
+        return activityPathHashMap.get(aName);
+    }
+
+    /**
+     * 取出当前Class的group
+     *
+     * @return class group
+     */
+    private String getCurGroupName(String path) {
+        if (StringUtils.isEmpty(path)) {
+            return "";
+        }
+        String[] pathParams = path.split("/");
+        if (pathParams.length > 3) {
+            return pathParams[3];
+        }
+        return "";
+    }
+
+    /**
+     * 取出当前Class的level
+     *
+     * @return class level
+     */
+    private String getCurLevelName(String path) {
+        if (StringUtils.isEmpty(path)) {
+            return "";
+        }
+        String[] pathParams = path.split("/");
+        if (pathParams.length > 2) {
+            return pathParams[2];
+        }
+        return "";
     }
 
 }
