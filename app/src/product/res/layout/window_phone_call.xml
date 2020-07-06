@@ -14,7 +14,7 @@
             android:id="@+id/tv_converse_number01"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="42pt"
+            android:layout_marginTop="10pt"
             android:gravity="center"
             android:maxLines="1"
             android:text="13889562689"
@@ -28,7 +28,7 @@
             android:id="@+id/tv_converse_name01"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28pt"
+            android:layout_marginTop="10pt"
             android:gravity="center"
             android:maxLines="1"
             android:text="上海"
@@ -46,8 +46,8 @@
             android:gravity="center"
             android:maxLines="1"
             android:text="正在呼叫"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_phone_call"
+            android:textColor="#B8B8B8"
+            android:textSize="6pt"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_converse_name01" />
@@ -85,25 +85,6 @@
                     android:src="@drawable/phone_hangup_a" />
             </FrameLayout>
         </LinearLayout>
-
-        <!--<ImageButton
-            android:id="@+id/btn_phone_answer"
-            style="@style/BtImageButton"
-            android:layout_marginStart="85pt"
-            android:layout_marginTop="10pt"
-            android:src="@drawable/phone_answer_a"
-            android:visibility="visible"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_converse_state01" />
-
-        <ImageButton
-            android:id="@+id/btn_hangup"
-            style="@style/BtImageButton"
-            android:layout_marginTop="10pt"
-            android:src="@drawable/phone_hangup_a"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/btn_phone_answer"
-            app:layout_constraintTop_toBottomOf="@+id/tv_converse_state01" />-->
 
         <ImageButton
             android:id="@+id/btn_phone_secret"
@@ -156,10 +137,13 @@
                 <TextView
                     android:id="@+id/tv_dtmf_number"
                     android:layout_width="match_parent"
+                    android:layout_marginRight="5pt"
                     android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:ellipsize="start"
                     android:layout_span="3"
                     android:textColor="@color/white"
-                    android:gravity="center"
+                    android:gravity="center_vertical"
                     android:textSize="15pt"
                     android:textStyle="italic" />
             </TableRow>
@@ -242,7 +226,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20pt">
+            android:layout_marginTop="10pt">
 
             <ImageButton
                 android:id="@+id/numpad_key_hangup"

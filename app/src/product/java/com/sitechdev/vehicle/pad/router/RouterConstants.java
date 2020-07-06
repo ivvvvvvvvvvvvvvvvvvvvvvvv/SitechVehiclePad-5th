@@ -212,4 +212,8 @@ public interface RouterConstants extends IRouterConstants {
     String FRAGMENT_CAR_CONTROL = MODULE_MAIN + LEVEL_THIRD + GROUP_CAR_CONTROL + "/carControl";
     //====================  车辆控制    =============================================
 
+    /**
+     * led管理界面
+     */
+    String SETTING_LED_MANAGER = "subApp/ledManager";
 }
