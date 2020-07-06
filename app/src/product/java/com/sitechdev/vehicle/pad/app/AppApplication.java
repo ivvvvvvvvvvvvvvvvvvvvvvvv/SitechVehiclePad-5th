@@ -33,6 +33,7 @@ import com.sitechdev.vehicle.pad.manager.VolumeControlManager;
 import com.sitechdev.vehicle.pad.module.main.MainActivity;
 import com.sitechdev.vehicle.pad.module.map.util.MapVoiceEventUtil;
 import com.sitechdev.vehicle.pad.module.music.BtMusicManager;
+import com.sitechdev.vehicle.pad.module.music.MusicMainActivity;
 import com.sitechdev.vehicle.pad.module.online_audio.KaolaAudioActivity;
 import com.sitechdev.vehicle.pad.module.phone.PhoneBtManager;
 import com.sitechdev.vehicle.pad.module.phone.PhoneCallWindow;
@@ -113,7 +114,7 @@ public class AppApplication extends BaseApp {
             VolumeControlManager.getInstance().init();
             //路由组件
             RouterUtils.getInstance().init(BuildConfig.DEBUG, this);
-            RouterUtils.getInstance().addOutClassName(MainActivity.class.getSimpleName(), KaolaAudioActivity.class.getSimpleName());
+            RouterUtils.getInstance().addOutClassName(MainActivity.class.getSimpleName(), KaolaAudioActivity.class.getSimpleName(), MusicMainActivity.class.getSimpleName());
             //网络
             initNet();
             //地图事件注册

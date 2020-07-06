@@ -20,6 +20,7 @@ import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechEvent;
 import com.iflytek.cloud.WakeuperListener;
 import com.iflytek.cloud.WakeuperResult;
+import com.my.hw.SettingConfig;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.StringUtils;
@@ -61,6 +62,14 @@ import org.json.JSONObject;
 
 import java.util.LinkedList;
 import java.util.Random;
+
+import static com.sitechdev.vehicle.pad.module.setting.teddy.TeddyConstants.XF_SKILL_TAG_AUDIOBOOK;
+import static com.sitechdev.vehicle.pad.module.setting.teddy.TeddyConstants.XF_SKILL_TAG_CROSSTALK;
+import static com.sitechdev.vehicle.pad.module.setting.teddy.TeddyConstants.XF_SKILL_TAG_DRAMA;
+import static com.sitechdev.vehicle.pad.module.setting.teddy.TeddyConstants.XF_SKILL_TAG_NOVEL;
+import static com.sitechdev.vehicle.pad.module.setting.teddy.TeddyConstants.XF_SKILL_TAG_NURSERYRHYME;
+import static com.sitechdev.vehicle.pad.module.setting.teddy.TeddyConstants.XF_SKILL_TAG_STORY;
+import static com.sitechdev.vehicle.pad.module.setting.teddy.TeddyConstants.XF_SKILL_TAG_STORYTELLING;
 
 /**
  * @author zhubaoqiang
@@ -531,10 +540,13 @@ public class VUI implements VUIWindow.OnWindowHideListener {
 //                    shutAndTTS("Teddy正在努力学习中，敬请期待");
                     }
                 } else if (TextUtils.equals("musicX", service) ||
-                        TextUtils.equals("crossTalk", service) ||
-                        TextUtils.equals("drama", service) ||
-                        TextUtils.equals("nurseryRhyme", service) ||
-                        TextUtils.equals("storyTelling", service) ||
+                        TextUtils.equals(XF_SKILL_TAG_CROSSTALK, service) ||
+                        TextUtils.equals(XF_SKILL_TAG_DRAMA, service) ||
+                        TextUtils.equals(XF_SKILL_TAG_NURSERYRHYME, service) ||
+                        TextUtils.equals(XF_SKILL_TAG_STORYTELLING, service) ||
+                        TextUtils.equals(XF_SKILL_TAG_AUDIOBOOK, service) ||
+                        TextUtils.equals(XF_SKILL_TAG_STORY, service) ||
+                        TextUtils.equals(XF_SKILL_TAG_NOVEL, service) ||
                         TextUtils.equals("SITECHAI.AIradio", service)) {
                     JSONArray semantics = intent.optJSONArray("semantic");
                     if (null != semantics && semantics.length() > 0) {
@@ -560,36 +572,95 @@ public class VUI implements VUIWindow.OnWindowHideListener {
 //                                break;
                         } else if ("INSTRUCTION".toLowerCase().equals(s)) {
                             doMusicControl(semantic);
-                        } else if ("RANDOM_SEARCH".toLowerCase().equals(s)) {
-                            VoiceSourceManager.getInstance().changeAnother(VoiceSourceManager.VOICE);
-                            shut();
-                        } else if ("PLAY".toLowerCase().equals(s) || "QUERY".toLowerCase().equals(s)) {
+                        } else if ("PLAY".toLowerCase().equals(s) || "QUERY".toLowerCase().equals(s) || "RANDOM_SEARCH".toLowerCase().equals(s) || "RANDOM_QUERY".toLowerCase().equals(s)) {
                             JSONArray slots = semantic.optJSONArray("slots");
                             String artistOrActor = "";
                             String audioName = "";
-                            for (int i = 0; i < slots.length(); i++) {
-                                JSONObject slot = slots.optJSONObject(i);
-                                String name = slot.optString("name");
-                                String value = slot.optString("value");
-                                if (name.equals("artist") || name.equals("actor")) {
-                                    artistOrActor = value;
+                            if (slots.length() == 0 || "RANDOM_QUERY".toLowerCase().equals(s)) {
+                                // slots 为空  根据service做意图判断
+                                //儿歌中 随机播放解析成  音频的随机播放 
+                                boolean randomInNurseryrhyme = "RANDOM_QUERY".toLowerCase().equals(s) && XF_SKILL_TAG_NURSERYRHYME.equals(service);
+                                if ("musicX".equals(service) || randomInNurseryrhyme) {
+                                    //随机播放一首歌   本地 蓝牙 酷我 情况 播放下一首
+                                    if (VoiceSourceManager.getInstance().getMusicSource() != VoiceSourceManager.KAOLA) {
+                                        if (VoiceSourceManager.getInstance().getMusicSource() == VoiceSourceManager.LOCAL_MUSIC) {
+                                            if (VUIUtils.isUdiskExist()) {
+                                                VoiceSourceManager.getInstance().next(VoiceSourceManager.VOICE);
+                                            }
+                                        } else if (VoiceSourceManager.getInstance().getMusicSource() == VoiceSourceManager.BT_MUSIC) {
+                                            if (SettingConfig.getInstance().isBtConnected()) {
+                                                VoiceSourceManager.getInstance().next(VoiceSourceManager.VOICE);
+                                            }
+                                        } else if (VoiceSourceManager.getInstance().getMusicSource() == VoiceSourceManager.KUWO_MUSIC) {
+                                            VoiceSourceManager.getInstance().next(VoiceSourceManager.VOICE);
+                                        }
+                                    }
+                                    //考拉情况 或者未开始播放情况    启用播放音频逻辑（ 本地 蓝牙 酷我顺序）
+                                    if (VUIUtils.isUdiskExist()) {
+                                        RouterUtils.getInstance().navigation(RouterConstants.FRAGMENT_LOCAL_MUSIC);
+                                    } else if (SettingConfig.getInstance().isBtConnected()) {
+                                        RouterUtils.getInstance().getPostcard(RouterConstants.FRAGMENT_LOCAL_MUSIC)
+                                                .withInt("index", 1)
+                                                .navigation();
+                                    } else {
+                                        VUIUtils.openThirdAppByMusic("", "");
+                                    }
+                                    shutAndTTS("");
+                                } else {
+                                    if (XF_SKILL_TAG_NOVEL.equals(service)) {
+                                        audioName = "小说";
+                                    } else if (XF_SKILL_TAG_NURSERYRHYME.equals(service)) {
+                                        audioName = "儿歌";
+                                    } else if (XF_SKILL_TAG_AUDIOBOOK.equals(service)) {
+                                        audioName = "有声读物";
+                                    } else if (XF_SKILL_TAG_CROSSTALK.equals(service)) {
+                                        audioName = "相声";
+                                    } else if (XF_SKILL_TAG_DRAMA.equals(service)) {
+                                        audioName = "戏曲";
+                                    } else if (XF_SKILL_TAG_STORY.equals(service)) {
+                                        audioName = "故事";
+                                    } else if (XF_SKILL_TAG_STORYTELLING.equals(service)) {
+                                        audioName = "评书";
+                                    }
+                                    if (!TextUtils.isEmpty(audioName)) {
+                                        //听伴搜索
+                                        RouterUtils.getInstance().getPostcard(RouterConstants.MUSIC_PLAY_ONLINE_MAIN)
+                                                .withString("queryString", audioName + " " + artistOrActor)
+                                                .navigation();
+                                        shutAndTTS("");
+                                    } else {
+                                        vuiAnr();
+                                    }
                                 }
-                                if (name.equals("name") || name.equals("song")) {
-                                    audioName = value;
-                                }
-                            }
-                            if (!TextUtils.isEmpty(artistOrActor) || !TextUtils.isEmpty(audioName)) {
-                                if ("musicX".equals(service)) {//识别是音乐 走酷我搜索
-                                    VUIUtils.openThirdAppByMusic(audioName, artistOrActor);
-                                } else {//其他走听伴搜索
-                                    //听伴搜索
-                                    RouterUtils.getInstance().getPostcard(RouterConstants.MUSIC_PLAY_ONLINE_MAIN)
-                                            .withString("queryString", audioName + " " + artistOrActor)
-                                            .navigation();
-                                }
-                                shutAndTTS("");
                             } else {
-                                vuiAnr();
+                                for (int i = 0; i < slots.length(); i++) {
+                                    JSONObject slot = slots.optJSONObject(i);
+                                    String name = slot.optString("name");
+                                    String value = slot.optString("value");
+                                    if (name.equals("artist") || name.equals("actor") || "author".equals(name)) {
+                                        artistOrActor = value;
+                                    }
+                                    if ("name".equals(name) ||
+                                            "song".equals(name) ||
+                                            "category".equals(name) ||
+                                            "bookname".equals(name) ||
+                                            "ambookname".equals(name)) {
+                                        audioName = value;
+                                    }
+                                }
+                                if (!TextUtils.isEmpty(artistOrActor) || !TextUtils.isEmpty(audioName)) {
+                                    if ("musicX".equals(service)) {//识别是音乐 走酷我搜索
+                                        VUIUtils.openThirdAppByMusic(audioName, artistOrActor);
+                                    } else {//其他走听伴搜索
+                                        //听伴搜索
+                                        RouterUtils.getInstance().getPostcard(RouterConstants.MUSIC_PLAY_ONLINE_MAIN)
+                                                .withString("queryString", audioName + " " + artistOrActor)
+                                                .navigation();
+                                    }
+                                    shutAndTTS("");
+                                } else {
+                                    vuiAnr();
+                                }
                             }
                         } else {
                             vuiAnr();
@@ -745,6 +816,10 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                             }
                         }
                     } else if (TextUtils.equals("telephone", service)) {
+//                        if (!SettingConfig.getInstance().isBtConnected()) {
+//                            shutAndTTS("当前蓝牙未连接，无法使用通讯录功能");
+//                            return;
+//                        }
 //                        JSONArray semantics = intent.optJSONArray("semantic");
 //                        if (null != semantics && semantics.length() > 0) {
 //                            JSONObject semantic = semantics.optJSONObject(0);
@@ -787,7 +862,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
 //                                                                VUIUtils.callPhone(phoneNumber);
 //                                                            }
 //                                                        } else {
-                        shutAndTTS("找不到您要的联系人");
+                                                            shutAndTTS("找不到您要的联系人");
 //                                                        }
 //                                                        break;
 //                                                    case "QUIT":

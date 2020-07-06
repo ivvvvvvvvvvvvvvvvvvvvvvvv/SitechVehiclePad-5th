@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:sharedUserId="android.uid.system"
+
     package="com.sitechdev.vehicle.pad">
     <!--    android:sharedUserId="android.uid.system"-->
 
@@ -122,7 +122,8 @@
         <activity android:name=".module.online_audio.MusicKaolaBroadcastActivity" />
         <activity android:name=".module.feedback.FeedbackActivity" />
         <activity android:name=".module.main.DebugInfo" />
-        <activity android:name=".module.music.MusicMainActivity" />
+        <activity android:name=".module.music.MusicMainActivity"
+            android:launchMode="singleTask"/>
         <activity android:name=".module.video.VideoListActivity" />
         <activity android:name=".module.phone.PhoneActivity" />
 

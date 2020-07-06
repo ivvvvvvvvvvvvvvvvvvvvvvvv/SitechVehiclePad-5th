@@ -18,11 +18,16 @@ import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.app.AppConst;
 import com.sitechdev.vehicle.pad.manager.KuwoManager;
+import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.vui.bean.SpeakableSyncData;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -174,9 +179,16 @@ public class VUIUtils {
 //        EventBusUtils.postEvent(new WindowEvent(WindowEvent.EVENT_WINDOW_APP_BACKGROUD));
         KuwoManager.getInstance().playMusic(musicName, singer);
     }
+    /**
+     * 打开第三方APP搜索歌曲并播放
+     *
+     */
+    public static void playRandomMusic() {
+        VoiceSourceManager.getInstance().changeAnother(VoiceSourceManager.VOICE);
+    }
 
     /**
-     * @param  lexiconName - 词典名称，{ "userword", "contact" }。
+     * @param  context - 词典名称，{ "userword", "contact" }。
      *
      * @param  lexiconContent - 词典内容，联系人列表：以换行符"\n"分隔的词语字符串，如"张三，李四，王五"; 用户热词：满足一定格式的json字符串，格式如下：
      *                        {
@@ -209,11 +221,50 @@ public class VUIUtils {
         UserWords userWords = new UserWords();
         userWords.putWords("contact", lexiconContent);
         SpeechRecognizer speechRecognizer = SpeechRecognizer.createRecognizer(context, null);
+        /**
+         *  updateLexicon (词典名称,词典内容)
+         *  UserWords toString 固定词典名称 userword
+         *
+         */
         speechRecognizer.updateLexicon("{ \"userword\" }", userWords.toString(), new LexiconListener() {
             @Override
             public void onLexiconUpdated(String s, SpeechError speechError) {
 
             }
         });
+    }
+
+    public static boolean isUdiskExist() {
+
+        String path = "/proc/mounts";
+
+        boolean ret = false;
+        try {
+            String encoding = "GBK";
+            File file = new File(path);
+            if ((file.isFile()) && (file.exists())) {
+                InputStreamReader read = new InputStreamReader(
+                        new FileInputStream(file), encoding);
+                BufferedReader bufferedReader = new BufferedReader(read);
+                String lineTxt = null;
+                while (((lineTxt = bufferedReader.readLine()) != null) && (!ret)) {
+                    String[] a = lineTxt.split(" ");//将读出来的一行字符串用 空格 来分割成字符串数组并存储进数组a里面
+                    String str = a[0];//取出位置0处的字符串
+
+                    if ((str.contains("/dev/block/vold")) &&
+                            (a[1].contains("udisk"))) {
+                        ret = true;
+                    }
+                }
+
+                read.close();
+            } else {
+// Log.d("StorageDeviceManager", "can't find file: " + path);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return ret;
     }
 }

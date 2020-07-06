@@ -37,6 +37,7 @@ public class PhoneBtManager {
     private static PhoneBtManager INSTANCE;
     private ATBluetooth mATBluetooth;
     private boolean isPullNewCalllog = false;
+    public boolean isPlayingMusic = false;
     private AudioManager.OnAudioFocusChangeListener audioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
         @Override
         public void onAudioFocusChange(int focusChange) {
@@ -147,13 +148,16 @@ public class PhoneBtManager {
                         EventBusUtils.postEvent(new BluetoothEvent(BluetoothEvent.BT_EVENT_RECEIVE_ART, param3));
                         break;
                     case ATBluetooth.RETURN_A2DP_OFF:
+                        isPlayingMusic = false;
+                        Log.e("zyf","RETURN_A2DP_OFF ");
                         EventBusUtils.postEvent(new BluetoothEvent(BluetoothEvent.BT_EVENT_RECEIVE_PLAY_OFF, null));
                         break;
                     case ATBluetooth.RETURN_A2DP_ON:
+                        isPlayingMusic = true;
+                        Log.e("zyf","RETURN_A2DP_ON ");
                         BroadcastUtil.sendToCarServiceSetSource(AppApplication.getContext(),
                                 MyCmd.SOURCE_BT_MUSIC);
                         int result = AppApplication.getAudioManager().requestAudioFocus(audioFocusChangeListener, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
-                        Log.e("zyf", "RETURN_A2DP_ON focusChange kaola result = " + result);
                         EventBusUtils.postEvent(new BluetoothEvent(BluetoothEvent.BT_EVENT_RECEIVE_PLAY_ON, null));
                         break;
                     default:

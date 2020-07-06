@@ -8,19 +8,19 @@ import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
+import com.sitechdev.vehicle.lib.event.BindEventBus;
 import com.sitechdev.vehicle.pad.R;
+import com.sitechdev.vehicle.pad.bean.BaseFragment;
+import com.sitechdev.vehicle.pad.event.MusicControlEvent;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceType;
 import com.sitechdev.vehicle.pad.module.music.MusicConfig;
@@ -31,12 +31,16 @@ import com.sitechdev.vehicle.pad.module.music.service.MusicInfo;
 import com.sitechdev.vehicle.pad.util.MediaScanister;
 import com.sitechdev.vehicle.pad.view.CustomPlaySeekBar;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 /**
  * 本地音乐
  */
 
+@BindEventBus
 @VoiceSourceType(VoiceSourceManager.SUPPORT_TYPE_LOCAL)
-public class LocalMusicFragment extends Fragment implements
+public class LocalMusicFragment extends BaseFragment implements
         LocalMusicAdapter2.OnCheckEmptyListener, View.OnClickListener,
         CustomPlaySeekBar.OnMusicInfoChangedListener {
 
@@ -79,25 +83,45 @@ public class LocalMusicFragment extends Fragment implements
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_local_music,
-                container, false);
-        initView(root);
-        initData();
-        return root;
+    public void onDestroy() {
+        MusicManager.getInstance().removeMusicChangeListener(adapter);
+        MusicManager.getInstance().removeMusicListUpdateListener(adapter);
+        MusicManager.getInstance().removeMusicChangeListener(customPlaySeekBar);
+        MusicManager.getInstance().removeMusicListUpdateListener(customPlaySeekBar);
+        MusicManager.getInstance().removeMusicPositionChangeListener(customPlaySeekBar);
+        super.onDestroy();
     }
 
-    private void initView(View root) {
-        emptyView = root.findViewById(R.id.local_music_empty_view);
-        customPlaySeekBar = root.findViewById(R.id.music_usb_play_ctr);
+    @Override
+    protected void initData() {
+        super.initData();
+        if (null != MusicConfig.getInstance().getCurrentMusicInfo()) {
+            musicName.setText(MusicConfig.getInstance().getCurrentMusicInfo().musicName);
+            singer.setText(MusicConfig.getInstance().getCurrentMusicInfo().artist);
+            customPlaySeekBar.setProgress(MusicConfig.getInstance().getProgress());
+            musicIcon.setImageBitmap(MusicUtils.getArtwork(getActivity(),MusicConfig.getInstance().getCurrentMusicInfo().songId,MusicConfig.getInstance().getCurrentMusicInfo().albumId,true));
+        } else {
+            musicName.setText("- - -");
+            singer.setText("- -");
+        }
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_local_music;
+    }
+
+    @Override
+    protected void initView(Bundle savedInstanceState) {
+        emptyView = mContentView.findViewById(R.id.local_music_empty_view);
+        customPlaySeekBar = mContentView.findViewById(R.id.music_usb_play_ctr);
         customPlaySeekBar.setMusicSource(VoiceSourceManager.LOCAL_MUSIC);
-        vLocalMusicList = root.findViewById(R.id.local_music_list);
-        refreshLayout = root.findViewById(R.id.local_music_refresh_layout);
-        musicName = root.findViewById(R.id.music_usb_play_name);
-        singer = root.findViewById(R.id.music_usb_play_singer);
-        musicIcon = root.findViewById(R.id.music_usb_play_icon);
-        listLayout = root.findViewById(R.id.music_usb_play_list_layout);
+        vLocalMusicList = mContentView.findViewById(R.id.local_music_list);
+        refreshLayout = mContentView.findViewById(R.id.local_music_refresh_layout);
+        musicName = mContentView.findViewById(R.id.music_usb_play_name);
+        singer = mContentView.findViewById(R.id.music_usb_play_singer);
+        musicIcon = mContentView.findViewById(R.id.music_usb_play_icon);
+        listLayout = mContentView.findViewById(R.id.music_usb_play_list_layout);
         refreshLayout.setEnableRefresh(true);
         refreshLayout.setEnableLoadmore(false);
         MusicManager.getInstance().addMusicChangeListener(customPlaySeekBar);
@@ -132,28 +156,6 @@ public class LocalMusicFragment extends Fragment implements
         MusicManager.getInstance().addMusicListUpdateListener(adapter);
         MusicManager.getInstance().addMusicChangeListener(adapter);
         customPlaySeekBar.setOnMusicInfoChangedListener(this);
-    }
-
-    @Override
-    public void onDestroy() {
-        MusicManager.getInstance().removeMusicChangeListener(adapter);
-        MusicManager.getInstance().removeMusicListUpdateListener(adapter);
-        MusicManager.getInstance().removeMusicChangeListener(customPlaySeekBar);
-        MusicManager.getInstance().removeMusicListUpdateListener(customPlaySeekBar);
-        MusicManager.getInstance().removeMusicPositionChangeListener(customPlaySeekBar);
-        super.onDestroy();
-    }
-
-    private void initData() {
-        if (null != MusicConfig.getInstance().getCurrentMusicInfo()) {
-            musicName.setText(MusicConfig.getInstance().getCurrentMusicInfo().musicName);
-            singer.setText(MusicConfig.getInstance().getCurrentMusicInfo().artist);
-            customPlaySeekBar.setProgress(MusicConfig.getInstance().getProgress());
-            musicIcon.setImageBitmap(MusicUtils.getArtwork(getActivity(),MusicConfig.getInstance().getCurrentMusicInfo().songId,MusicConfig.getInstance().getCurrentMusicInfo().albumId,true));
-        } else {
-            musicName.setText("- - -");
-            singer.setText("- -");
-        }
     }
 
     private void refresh() {
@@ -240,4 +242,17 @@ public class LocalMusicFragment extends Fragment implements
             }
         }
     };
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(Object o) {
+        if (o instanceof MusicControlEvent) {
+            MusicControlEvent event = (MusicControlEvent) o;
+            if (MusicControlEvent.EVENT_CONTROL_MUSIC_PLAY_IF_ON_TOP.equals(event.getKey()) && getUserVisibleHint()) {
+                if (null != adapter.musicInfos && adapter.musicInfos.size() > 0) {
+                    MusicConfig.getInstance().setCurrentMusicInfo(adapter.musicInfos.get(0));
+                    MusicManager.getInstance().play(adapter.musicInfos.get(0).songId, null);
+                }
+            }
+        }
+    }
 }

@@ -33,7 +33,7 @@ public class LocalMusicAdapter2 extends
 
     private Context context;
 
-    private List<MusicInfo> musicInfos;
+    public List<MusicInfo> musicInfos;
 
     private int checkedPositon = -1;
 

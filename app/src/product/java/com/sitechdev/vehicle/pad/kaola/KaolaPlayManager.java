@@ -447,8 +447,10 @@ public class KaolaPlayManager extends BaseMusicManager {
 
         @Override
         public void onPlayerPreparing(PlayItem playItem) {
-            SitechDevLog.e(KaolaPlayManager.class.getSimpleName(), " ============== onPlayerPreparing =============");
-            mPlayCallback.onPrepare(playItem);
+            if (mPlayCallback != null) {
+                SitechDevLog.e(KaolaPlayManager.class.getSimpleName(), " ============== onPlayerPreparing =============");
+                mPlayCallback.onPrepare(playItem);
+            }
         }
 
         @Override

@@ -13,6 +13,7 @@ import com.sitechdev.vehicle.lib.event.BindEventBus;
 import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.bean.BaseFragment;
+import com.sitechdev.vehicle.pad.event.MusicControlEvent;
 import com.sitechdev.vehicle.pad.event.SysEvent;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceType;
@@ -164,7 +165,11 @@ public class BtMusicFragment extends BaseFragment {
             if (event.eventKey.equals(SysEvent.EB_SYS_BT_STATE)) {
                 refreshConnectSt();
             }
+        } else if (o instanceof MusicControlEvent) {
+            MusicControlEvent event = (MusicControlEvent) o;
+            if (MusicControlEvent.EVENT_CONTROL_MUSIC_PLAY_IF_ON_TOP.equals(event.getKey()) && getUserVisibleHint()) {
+                BtMusicManager.getInstance().btCtrlPlay();
+            }
         }
     }
-
 }

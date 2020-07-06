@@ -178,12 +178,16 @@ public class MusicManager {
                 .subscribe(new Consumer<IPCResult>() {
                     @Override
                     public void accept(IPCResult result) throws Exception {
-                        callBack.onCallBack(result.code, result.msg);
+                        if (null != callBack) {
+                            callBack.onCallBack(result.code, result.msg);
+                        }
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        callBack.onCallBack(-1, throwable.getMessage());
+                        if (null != callBack) {
+                            callBack.onCallBack(-1, throwable.getMessage());
+                        }
                     }
                 });
     }

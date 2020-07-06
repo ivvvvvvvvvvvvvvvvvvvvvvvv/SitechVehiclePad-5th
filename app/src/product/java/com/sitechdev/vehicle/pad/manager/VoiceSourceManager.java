@@ -18,6 +18,7 @@ import com.sitechdev.vehicle.pad.module.music.BtMusicManager;
 import com.sitechdev.vehicle.pad.module.music.MusicMainActivity;
 import com.sitechdev.vehicle.pad.module.music.MusicManager;
 import com.sitechdev.vehicle.pad.module.music.service.MusicInfo;
+import com.sitechdev.vehicle.pad.module.phone.PhoneBtManager;
 import com.sitechdev.vehicle.pad.util.AppUtil;
 import com.sitechdev.vehicle.pad.view.CommonToast;
 import com.sitechdev.vehicle.pad.vui.VUI;
@@ -42,7 +43,7 @@ public class VoiceSourceManager {
 
     //==== 音乐音源类型 ====
     private int musicSource = -1;
-    private static final int KAOLA = 0;
+    public static final int KAOLA = 0;
     public static final int LOCAL_MUSIC = KAOLA + 1;
     public static final int BT_MUSIC = LOCAL_MUSIC + 1;
     public static final int KUWO_MUSIC = BT_MUSIC + 1;
@@ -939,7 +940,7 @@ public class VoiceSourceManager {
             case LOCAL_MUSIC:
                 return MusicPlayerManager.getInstance().isPlaying();
             case BT_MUSIC:
-                return false;
+                return PhoneBtManager.getInstance().isPlayingMusic;
             case KAOLA:
                 return KaolaPlayManager.SingletonHolder.INSTANCE.isPlaying(ActivityUtils.getTopActivity());
             case KUWO_MUSIC:

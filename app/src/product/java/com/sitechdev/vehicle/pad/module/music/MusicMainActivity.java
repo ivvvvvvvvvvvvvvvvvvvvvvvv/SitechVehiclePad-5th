@@ -9,8 +9,11 @@ import android.view.View;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.sitechdev.vehicle.lib.event.EventBusUtils;
+import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
+import com.sitechdev.vehicle.pad.event.MusicControlEvent;
 import com.sitechdev.vehicle.pad.module.music.adapter.MusicPagerAdapter;
 import com.sitechdev.vehicle.pad.module.music.fragment.BtMusicFragment;
 import com.sitechdev.vehicle.pad.module.music.fragment.LocalMusicFragment;
@@ -40,6 +43,12 @@ public class MusicMainActivity extends BaseActivity {
         if (null != vPager) {
             vPager.setCurrentItem(index);
         }
+        ThreadUtils.runOnUIThreadDelay(new Runnable() {
+            @Override
+            public void run() {
+                EventBusUtils.postEvent(new MusicControlEvent(MusicControlEvent.EVENT_CONTROL_MUSIC_PLAY_IF_ON_TOP));
+            }
+        },500);//页面加载完成发送事件
     }
 
 
@@ -86,6 +95,7 @@ public class MusicMainActivity extends BaseActivity {
                     vTab.getTitleView(i).setTextSize(24);
                 }
                 vTab.getTitleView(position).setTextSize(27);
+                EventBusUtils.postEvent(new MusicControlEvent(MusicControlEvent.EVENT_CONTROL_MUSIC_PLAY_IF_ON_TOP));
             }
 
             @Override

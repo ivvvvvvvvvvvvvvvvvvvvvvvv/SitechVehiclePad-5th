@@ -20,6 +20,11 @@ public class MusicControlEvent extends BaseEvent<String> {
      */
     public static final String EVENT_CONTROL_MUSIC_NEXT = "EVENT_CONTROL_MUSIC_NEXT";
     /**
+     * 如果UI显示在最上层   执行播放
+     */
+    public static final String EVENT_CONTROL_MUSIC_PLAY_IF_ON_TOP = "EVENT_CONTROL_MUSIC_PLAY_IF_ON_TOP";
+
+    /**
      * 停止播放
      */
     public static final String EVENT_CONTROL_MUSIC_PLAY_STOP = "EVENT_CONTROL_MUSIC_PLAY_STOP";
@@ -44,6 +49,7 @@ public class MusicControlEvent extends BaseEvent<String> {
      * 更改播放模式--顺序、随机、单曲等
      */
     public static final String EVENT_CONTROL_MUSIC_PLAY_BY_INFO = "EVENT_CONTROL_MUSIC_PLAY_BY_INFO";
+
 
     private String key = "";
     private Object bean = null;

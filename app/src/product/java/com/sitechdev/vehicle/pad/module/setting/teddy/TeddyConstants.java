@@ -225,4 +225,32 @@ public class TeddyConstants {
      * SP是否允许开机问候语-key
      */
     public static final String SP_KEY_WELCOME_SWITCH = "SITECH_SP_KEY_VOICE_SWITCH";
+    /**
+     * 讯飞技能 标记  有声小说
+     */
+    public static final String XF_SKILL_TAG_NOVEL = "novel";
+    /**
+     * 讯飞技能 标记  故事
+     */
+    public static final String XF_SKILL_TAG_STORY = "story";
+    /**
+     * 讯飞技能 标记  有声书
+     */
+    public static final String XF_SKILL_TAG_AUDIOBOOK = "audioBook";
+    /**
+     * 讯飞技能 标记 评书
+     */
+    public static final String XF_SKILL_TAG_STORYTELLING = "storyTelling";
+    /**
+     *  儿歌
+     */
+    public static final String XF_SKILL_TAG_NURSERYRHYME = "AIUI.nurseryRhyme";
+    /**
+     * 讯飞技能 标记  戏曲
+     */
+    public static final String XF_SKILL_TAG_DRAMA = "drama";
+    /**
+     * 相声
+     */
+    public static final String XF_SKILL_TAG_CROSSTALK = "crossTalk";
 }
