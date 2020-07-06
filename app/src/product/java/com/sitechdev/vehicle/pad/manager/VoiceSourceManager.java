@@ -3,12 +3,15 @@ package com.sitechdev.vehicle.pad.manager;
 import android.content.Context;
 import android.content.Intent;
 
+import com.blankj.utilcode.util.ActivityUtils;
+import com.kaolafm.opensdk.player.MusicPlayerManager;
 import com.kaolafm.sdk.core.mediaplayer.BroadcastRadioListManager;
 import com.kaolafm.sdk.core.mediaplayer.PlayItem;
 import com.kaolafm.sdk.core.mediaplayer.PlayerListManager;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.app.AppApplication;
+import com.sitechdev.vehicle.pad.event.MusicControlEvent;
 import com.sitechdev.vehicle.pad.event.TeddyEvent;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.module.music.BtMusicManager;
@@ -19,6 +22,9 @@ import com.sitechdev.vehicle.pad.util.AppUtil;
 import com.sitechdev.vehicle.pad.view.CommonToast;
 import com.sitechdev.vehicle.pad.vui.VUI;
 import com.sitechdev.vehicle.pad.vui.VUIWindow;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -33,22 +39,31 @@ public class VoiceSourceManager {
 
     private Context context;
     private static VoiceSourceManager INSTANCE;
+
+    //==== 音乐音源类型 ====
     private int musicSource = -1;
     private static final int KAOLA = 0;
     public static final int LOCAL_MUSIC = KAOLA + 1;
     public static final int BT_MUSIC = LOCAL_MUSIC + 1;
+    public static final int KUWO_MUSIC = BT_MUSIC + 1;
+
+    //==== 音乐音源类型--名称 ====
+    public static final String SUPPORT_TYPE_ALL = "all";
+    public static final String SUPPORT_TYPE_KAOLA = "kaola";
+    public static final String SUPPORT_TYPE_LOCAL = "local";
+    public static final String SUPPORT_TYPE_BT = "bluetooth";
+    public static final String SUPPORT_TYPE_KUWO = "kuwo";
+
+    //==== 音乐音源 交互来源 ====
     public static final int VOICE = 0;
     public static final int SCREEN = VOICE + 1;
     /**
      * 语音交互暂停音乐
      */
     public static final int CONTENT = SCREEN + 1;
+
     private List<WeakReference<MusicChangeListener>> listeners;
     private boolean isFromWakeUp = false;
-    public static final String SUPPORT_TYPE_ALL = "all";
-    public static final String SUPPORT_TYPE_KAOLA = "kaola";
-    public static final String SUPPORT_TYPE_LOCAL = "local";
-    public static final String SUPPORT_TYPE_BT = "bluetooth";
 
     private KaolaPlayManager.PlayCallback mPlayCallback = new KaolaPlayManager.PlayCallback() {
         @Override
@@ -117,6 +132,8 @@ public class VoiceSourceManager {
                             break;
                         case SUPPORT_TYPE_BT:
                             break;
+                        case SUPPORT_TYPE_KUWO:
+                            break;
                         default:
                             removes[i] = true;
                             break;
@@ -134,9 +151,6 @@ public class VoiceSourceManager {
 
         @Override
         public void onPause() {
-            if (SitechMusicNewManager.getInstance().getCurrentMusicChannel() != null) {
-                return;
-            }
             int len = listeners.size();
             boolean[] removes = null;
             for (int i = 0; i < len; i++) {
@@ -180,6 +194,10 @@ public class VoiceSourceManager {
                             break;
                         case SUPPORT_TYPE_BT:
                             break;
+                        case SUPPORT_TYPE_KUWO:
+                            break;
+                        default:
+                            break;
                     }
                 }
             }
@@ -196,9 +214,6 @@ public class VoiceSourceManager {
             new MusicManager.OnMusicChangeListener() {
                 @Override
                 public void onMusciChange(MusicInfo current, int status) {
-                    if (SitechMusicNewManager.getInstance().getCurrentMusicChannel() != null) {
-                        return;
-                    }
                     if (null == current) {
                         musicSource = -1;
                     } else {
@@ -261,6 +276,7 @@ public class VoiceSourceManager {
 
     private VoiceSourceManager() {
         context = AppApplication.getContext();
+        EventBusUtils.register(this);
     }
 
     public static VoiceSourceManager getInstance() {
@@ -321,18 +337,17 @@ public class VoiceSourceManager {
             case BT_MUSIC:
                 BtMusicManager.getInstance().btCtrlPre();
                 break;
+            case KUWO_MUSIC:
+                KuwoManager.getInstance().onMusicPlayPre();
+                if (type == VOICE) {
+                    VUIWindow.getInstance().hide();
+                }
+                break;
             default:
-                if (SitechMusicNewManager.getInstance().getCurrentMusicChannel() == null) {
-                    if (type == VOICE) {
-                        VUI.getInstance().shutAndTTS("当前无可用音源");
-                    } else if (type == SCREEN) {
-                        CommonToast.showToast("当前无可用音源");
-                    }
-                } else {
-                    SitechMusicNewManager.getInstance().onPlayPre();
-                    if (type == VOICE) {
-                        VUIWindow.getInstance().hide();
-                    }
+                if (type == VOICE) {
+                    VUI.getInstance().shutAndTTS("当前无可用音源");
+                } else if (type == SCREEN) {
+                    CommonToast.showToast("当前无可用音源");
                 }
                 break;
         }
@@ -376,24 +391,25 @@ public class VoiceSourceManager {
             case BT_MUSIC:
                 BtMusicManager.getInstance().btCtrlNext();
                 break;
+            case KUWO_MUSIC:
+                KuwoManager.getInstance().onMusicPlayNext();
+                break;
             default:
-                if (SitechMusicNewManager.getInstance().getCurrentMusicChannel() == null) {
-                    if (type == VOICE) {
-                        VUI.getInstance().shutAndTTS("当前无可用音源");
-                    } else if (type == SCREEN) {
-                        CommonToast.showToast("当前无可用音源");
-                    }
-                } else {
-                    SitechMusicNewManager.getInstance().onPlayNext();
-                    if (type == VOICE) {
-                        VUIWindow.getInstance().hide();
-                    }
+                if (type == VOICE) {
+                    VUI.getInstance().shutAndTTS("当前无可用音源");
+                } else if (type == SCREEN) {
+                    CommonToast.showToast("当前无可用音源");
                 }
                 break;
         }
 
     }
 
+    /**
+     * 随便播放一首哦
+     *
+     * @param type
+     */
     public void changeAnother(int type) {
         switch (musicSource) {
             case KAOLA:
@@ -439,18 +455,17 @@ public class VoiceSourceManager {
                     CommonToast.showToast("暂不支持");
                 }
                 break;
+            case KUWO_MUSIC:
+                KuwoManager.getInstance().onMusicRandomPlay();
+                if (type == VOICE) {
+                    VUIWindow.getInstance().hide();
+                }
+                break;
             default:
-                if (SitechMusicNewManager.getInstance().getCurrentMusicChannel() == null) {
-                    if (type == VOICE) {
-                        VUI.getInstance().shutAndTTS("当前无可用音源");
-                    } else if (type == SCREEN) {
-                        CommonToast.showToast("当前无可用音源");
-                    }
-                } else {
-                    SitechMusicNewManager.getInstance().onPlayRandomMusic();
-                    if (type == VOICE) {
-                        VUIWindow.getInstance().hide();
-                    }
+                if (type == VOICE) {
+                    VUI.getInstance().shutAndTTS("当前无可用音源");
+                } else if (type == SCREEN) {
+                    CommonToast.showToast("当前无可用音源");
                 }
                 break;
         }
@@ -508,21 +523,20 @@ public class VoiceSourceManager {
             case BT_MUSIC:
                 BtMusicManager.getInstance().btCtrlPause();
                 break;
+            case KUWO_MUSIC:
+                KuwoManager.getInstance().onMusicPlayPause();
+                if (type == VOICE) {
+                    VUIWindow.getInstance().hide();
+                } else if (type == CONTENT) {
+                    //do nothing
+                    isFromWakeUp = true;
+                }
+                break;
             default:
-                if (SitechMusicNewManager.getInstance().getCurrentMusicChannel() == null) {
-                    if (type == VOICE) {
-                        VUI.getInstance().shutAndTTS("当前无可用音源");
-                    } else if (type == SCREEN) {
-                        CommonToast.showToast("当前无可用音源");
-                    }
-                } else {
-                    SitechMusicNewManager.getInstance().onPlayPause();
-                    if (type == VOICE) {
-                        VUIWindow.getInstance().hide();
-                    } else if (type == CONTENT) {
-                        //do nothing
-                        isFromWakeUp = true;
-                    }
+                if (type == VOICE) {
+                    VUI.getInstance().shutAndTTS("当前无可用音源");
+                } else if (type == SCREEN) {
+                    CommonToast.showToast("当前无可用音源");
                 }
                 break;
         }
@@ -571,18 +585,17 @@ public class VoiceSourceManager {
             case BT_MUSIC:
                 BtMusicManager.getInstance().btCtrlPlay();
                 break;
+            case KUWO_MUSIC:
+                KuwoManager.getInstance().onMusicPlayResume();
+                if (type == VOICE) {
+                    VUIWindow.getInstance().hide();
+                }
+                break;
             default:
-                if (SitechMusicNewManager.getInstance().getCurrentMusicChannel() == null) {
-                    if (type == VOICE) {
-                        VUI.getInstance().shutAndTTS("当前无可用音源");
-                    } else if (type == SCREEN) {
-                        CommonToast.showToast("当前无可用音源");
-                    }
-                } else {
-                    SitechMusicNewManager.getInstance().onPlayResume();
-                    if (type == VOICE) {
-                        VUIWindow.getInstance().hide();
-                    }
+                if (type == VOICE) {
+                    VUI.getInstance().shutAndTTS("当前无可用音源");
+                } else if (type == SCREEN) {
+                    CommonToast.showToast("当前无可用音源");
                 }
                 break;
         }
@@ -606,22 +619,21 @@ public class VoiceSourceManager {
             case BT_MUSIC:
                 BtMusicManager.getInstance().btCtrlPlayPause();
                 break;
-            default:
-                if (SitechMusicNewManager.getInstance().getCurrentMusicChannel() == null) {
-                    if (type == VOICE) {
-                        VUI.getInstance().shutAndTTS("当前无可用音源");
-                    } else if (type == SCREEN) {
-                        CommonToast.showToast("当前无可用音源");
-                    }
+            case KUWO_MUSIC:
+                if (KuwoManager.getInstance().isRunning()) {
+                    KuwoManager.getInstance().onMusicPlayPause();
                 } else {
-                    if (SitechMusicNewManager.getInstance().hasMusicPlaying()) {
-                        SitechMusicNewManager.getInstance().onPlayPause();
-                    } else {
-                        SitechMusicNewManager.getInstance().onPlayResume();
-                    }
-                    if (type == VOICE) {
-                        VUIWindow.getInstance().hide();
-                    }
+                    KuwoManager.getInstance().onMusicPlayResume();
+                }
+                if (type == VOICE) {
+                    VUIWindow.getInstance().hide();
+                }
+                break;
+            default:
+                if (type == VOICE) {
+                    VUI.getInstance().shutAndTTS("当前无可用音源");
+                } else if (type == SCREEN) {
+                    CommonToast.showToast("当前无可用音源");
                 }
                 break;
         }
@@ -872,5 +884,65 @@ public class VoiceSourceManager {
          * 播放进度
          */
         void onMusicPlayProgress(String s, int i, int i1, boolean b);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMusicEvent(MusicControlEvent event) {
+        SitechDevLog.i("MainActivity", "onMusicEvent==MusicControlEvent==event.getKey()=" + event.getKey());
+        switch (event.getKey()) {
+            case MusicControlEvent.EVENT_CONTROL_MUSIC_NEXT:
+                //下一首
+                next(SCREEN);
+                break;
+            case MusicControlEvent.EVENT_CONTROL_MUSIC_PRE:
+                //上一首
+                pre(SCREEN);
+                break;
+            case MusicControlEvent.EVENT_CONTROL_MUSIC_CHANGE_MODE:
+                //更改播放模式--参数
+//                changeAnother(SCREEN);
+                break;
+            case MusicControlEvent.EVENT_CONTROL_MUSIC_PLAY_PAUSE:
+                //暂停播放
+                pause(SCREEN);
+                break;
+            case MusicControlEvent.EVENT_CONTROL_MUSIC_PLAY_RESUME:
+                //继续播放
+                resume(SCREEN);
+                break;
+            case MusicControlEvent.EVENT_CONTROL_MUSIC_PLAY_RANDOM:
+                //随机播放一首歌曲
+                changeAnother(SCREEN);
+                break;
+            case MusicControlEvent.EVENT_CONTROL_MUSIC_PLAY_STOP:
+                //停止播放
+//                stop(SCREEN);
+                break;
+            case MusicControlEvent.EVENT_CONTROL_MUSIC_PLAY_BY_INFO:
+                //指定歌曲信息播放--如"播放周杰伦的稻香"
+
+                break;
+            default:
+                break;
+        }
+    }
+
+    /**
+     * 返回当前是否有音乐正在播放
+     * @return true=正在播放，false=没有正在播放的音乐
+     */
+    public boolean isMusicPlaying() {
+        switch (musicSource) {
+            case LOCAL_MUSIC:
+                return MusicPlayerManager.getInstance().isPlaying();
+            case BT_MUSIC:
+                return false;
+            case KAOLA:
+                return KaolaPlayManager.SingletonHolder.INSTANCE.isPlaying(ActivityUtils.getTopActivity());
+            case KUWO_MUSIC:
+                return KuwoManager.getInstance().isMusicPlaying();
+            default:
+                return false;
+        }
     }
 }

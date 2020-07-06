@@ -92,12 +92,12 @@ public class KaolaPlayManager extends BaseMusicManager {
         PlayerManager.getInstance(context).seek(position);
     }
 
-    @Override
-    public void registerPlayingManager() {
-        SitechDevLog.e("KaolaManager", "KaolaManager registerPlayingManager===" + this);
-        super.registerPlayingManager();
-        SitechMusicNewManager.getInstance().resetCurrentMusicChannel();
-    }
+//    @Override
+//    public void registerPlayingManager() {
+//        SitechDevLog.e("KaolaManager", "KaolaManager registerPlayingManager===" + this);
+//        super.registerPlayingManager();
+//        SitechMusicNewManager.getInstance().resetCurrentMusicChannel();
+//    }
 
     private String curPlayingAlbumTitle = "";
     private Map<String, ImageFile> curPlayingAlbumCover = null;
@@ -230,7 +230,7 @@ public class KaolaPlayManager extends BaseMusicManager {
     }
 
     public void toPlayListActivity(Context context, int index, int deepIndex) {
-        registerPlayingManager();
+//        registerPlayingManager();
         if (null == mColumns || mColumns.size() == 0) {
 //            CommonToast.makeText(context, "当前数据异常~~~");
             acquireKaolaData();

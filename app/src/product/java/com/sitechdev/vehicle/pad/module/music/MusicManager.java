@@ -8,7 +8,6 @@ import android.os.IBinder;
 import android.os.RemoteException;
 
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
-import com.sitechdev.vehicle.pad.manager.SitechMusicNewManager;
 import com.sitechdev.vehicle.pad.module.music.service.AMusicInterface;
 import com.sitechdev.vehicle.pad.module.music.service.IMusicCallBack;
 import com.sitechdev.vehicle.pad.module.music.service.IPCResult;
@@ -111,7 +110,7 @@ public class MusicManager {
     }
 
     public void addMusicChangeListener(OnMusicChangeListener listener) {
-        SitechMusicNewManager.getInstance().resetCurrentMusicChannel();
+//        SitechMusicNewManager.getInstance().resetCurrentMusicChannel();
         if (null != callBack) {
             callBack.addMusicChangeListener(listener);
         }

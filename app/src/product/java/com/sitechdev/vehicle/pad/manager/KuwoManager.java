@@ -9,11 +9,10 @@ import com.sitechdev.vehicle.lib.util.NetworkUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.app.AppApplication;
-import com.sitechdev.vehicle.pad.bean.SitechMusicBean;
 import com.sitechdev.vehicle.pad.callback.BaseBribery;
 import com.sitechdev.vehicle.pad.callback.SitechMusicSource;
 import com.sitechdev.vehicle.pad.event.KuwoEvent;
-import com.sitechdev.vehicle.pad.event.MusicEvent;
+import com.sitechdev.vehicle.pad.event.MusicStatusEvent;
 
 import java.util.List;
 
@@ -59,17 +58,12 @@ public class KuwoManager extends BaseMusicManager {
      */
     public void startKuwoApp(boolean isAutoplay) {
         ThreadUtils.runOnUIThread(() -> {
-            boolean isResumePlay = false;
-            if (SitechMusicNewManager.getInstance().getCurrentMusicChannel() == SingleKuwoManager.SINGLE) {
-                isResumePlay = true;
-            }
-            registerPlayingManager();
             boolean networkAvailable = NetworkUtils.isNetworkAvailable(BaseApp.getApp().getApplicationContext());
             mKwapi.startAPP(networkAvailable);
-            if (isResumePlay) {
+            registerKuwoService();
+            if (isServerConnected) {
                 getPlayResource();
             } else {
-                registerKuwoService();
                 isServerConnected = true;
             }
         });
@@ -79,17 +73,19 @@ public class KuwoManager extends BaseMusicManager {
      * 注册酷我服务
      */
     public void registerKuwoService() {
-        registerPlayingManager();
+        //注册
+        registerPlayingManager(VoiceSourceManager.KUWO_MUSIC);
+
         if (mKwapi != null) {
             mKwapi.bindAutoSdkService(BaseApp.getApp().getApplicationContext());
         }
     }
 
     public void unRegisterKuwoService() {
+        registerPlayingManager(-1);
         if (mKwapi != null) {
             mKwapi.unbindAutoSdkService(BaseApp.getApp().getApplicationContext());
         }
-
     }
 
     /**
@@ -101,23 +97,18 @@ public class KuwoManager extends BaseMusicManager {
             if (music == null) {
                 return;
             }
-            SitechMusicBean musicBean = new SitechMusicBean();
-            musicBean.setName(music.name);
-            musicBean.setAuthor(music.artist);
-            musicBean.setIconBitmapUrl(music.imageURL);
-            musicBean.setPlayStatus(getPlayStatus());
-            SitechDevLog.e("music", "---------getPlayResource----------" + musicBean.toString());
+            SitechDevLog.e("music", "---------getPlayResource----------");
             pullMusicBitmap(music, new BaseBribery() {
                 @Override
                 public void onSuccess(Object successObj) {
-                    musicBean.setIconBitmap((Bitmap) successObj);
+//                    musicBean.setIconBitmap((Bitmap) successObj);
                     SitechDevLog.e("music", "-----getPlayResource----pullMusicBitmap---------setIconBitmap-" + successObj);
-                    EventBusUtils.postEvent(new MusicEvent(MusicEvent.EVENT_UPD_MUSIC_IMAGE, musicBean));
+                    EventBusUtils.postEvent(new MusicStatusEvent(MusicStatusEvent.EVENT_UPD_MUSIC_IMAGE, (Bitmap) successObj));
                 }
             });
 
-            EventBusUtils.postEvent(new MusicEvent(MusicEvent.EVENT_UPD_MUSIC_INFO, musicBean));
-            EventBusUtils.postEvent(new MusicEvent(MusicEvent.EVENT_UPD_MUSIC_PLAY_STATUS, musicBean));
+            EventBusUtils.postEvent(new MusicStatusEvent(MusicStatusEvent.EVENT_UPD_MUSIC_TITLE_INFO, music.name + " -- " + music.artist));
+            EventBusUtils.postEvent(new MusicStatusEvent(MusicStatusEvent.EVENT_UPD_MUSIC_PLAY_STATUS, getPlayStatus()));
         }
     }
 
@@ -158,7 +149,6 @@ public class KuwoManager extends BaseMusicManager {
      */
     public void playMusic(List<Music> list, int index, boolean isEntry, boolean isExit) {
         ThreadUtils.runOnUIThread(() -> {
-            registerKuwoService();
             setKuwoLoading(true);
             mKwapi.playMusic(list, index, isEntry, isExit);
             isServerConnected = true;
@@ -172,7 +162,6 @@ public class KuwoManager extends BaseMusicManager {
      */
     public void searchThemeMusic(String theme, OnSearchListener searchListener) {
         ThreadUtils.runOnUIThread(() -> {
-            registerKuwoService();
             isServerConnected = true;
 //            setKuwoLoading(true);
             mKwapi.searchOnlineMusicByTheme(theme, searchListener);
@@ -190,7 +179,6 @@ public class KuwoManager extends BaseMusicManager {
      */
     public void searchOnlineMusic(String musicName, String musicSinger, String album, OnSearchListener searchListener) {
         ThreadUtils.runOnUIThread(() -> {
-            registerKuwoService();
             isServerConnected = true;
             mKwapi.searchOnlineMusic(musicSinger, musicName, album, searchListener);
         });
@@ -398,29 +386,24 @@ public class KuwoManager extends BaseMusicManager {
                     SitechDevLog.e("music", "---------registerPlayerStatusListener---------music-" + music.name);
                     SitechDevLog.e("music", "---------registerPlayerStatusListener---------playerStatus-" + playerStatus);
 
-                    SitechMusicBean musicBean = new SitechMusicBean();
-                    musicBean.setName(music.name);
-                    musicBean.setAuthor(music.artist);
                     switch (playerStatus) {
                         case INIT:
                             pullMusicBitmap(music, new BaseBribery() {
                                 @Override
                                 public void onSuccess(Object successObj) {
-                                    musicBean.setIconBitmap((Bitmap) successObj);
                                     SitechDevLog.e("music", "---------pullMusicBitmap---------setIconBitmap-" + successObj);
-                                    EventBusUtils.postEvent(new MusicEvent(MusicEvent.EVENT_UPD_MUSIC_IMAGE, musicBean));
+                                    EventBusUtils.postEvent(new MusicStatusEvent(MusicStatusEvent.EVENT_UPD_MUSIC_IMAGE, (Bitmap) successObj));
                                 }
                             });
-                            EventBusUtils.postEvent(new MusicEvent(MusicEvent.EVENT_UPD_MUSIC_INFO, musicBean));
+                            EventBusUtils.postEvent(new MusicStatusEvent(MusicStatusEvent.EVENT_UPD_MUSIC_TITLE_INFO, music.name + " -- " + music.artist));
                         case BUFFERING:
                             setKuwoLoading(true);
                             break;
                         case PLAYING:
                         case STOP:
                         case PAUSE:
-                            musicBean.setPlayStatus(playerStatus == PlayerStatus.PLAYING);
                             setKuwoLoading(false);
-                            EventBusUtils.postEvent(new MusicEvent(MusicEvent.EVENT_UPD_MUSIC_PLAY_STATUS, musicBean));
+                            EventBusUtils.postEvent(new MusicStatusEvent(MusicStatusEvent.EVENT_UPD_MUSIC_PLAY_STATUS, playerStatus == PlayerStatus.PLAYING));
                             break;
                         default:
                             break;
@@ -477,12 +460,12 @@ public class KuwoManager extends BaseMusicManager {
         ThreadUtils.runOnUIThread(() -> {
             if (isRunning()) {
                 setKuwoLoading(false);
-//                EventBusUtils.postEvent(new SysEvent(SysEvent.EB_SYS_SRC_SWITCTH, DataCenterConstants.CurrentSource.MODE_UNKNOWN));
                 unRegisterKuwoService();
                 isServerConnected = false;
                 mKwapi.exitAPP();
-                EventBusUtils.postEvent(new MusicEvent(MusicEvent.EVENT_UPD_MUSIC_IMAGE, null));
-                EventBusUtils.postEvent(new MusicEvent(MusicEvent.EVENT_UPD_MUSIC_INFO, null));
+                EventBusUtils.postEvent(new MusicStatusEvent(MusicStatusEvent.EVENT_UPD_MUSIC_IMAGE, null));
+                EventBusUtils.postEvent(new MusicStatusEvent(MusicStatusEvent.EVENT_UPD_MUSIC_TITLE_INFO, null));
+                EventBusUtils.postEvent(new MusicStatusEvent(MusicStatusEvent.EVENT_UPD_MUSIC_PLAY_STATUS, false));
             }
         });
     }
@@ -502,18 +485,8 @@ public class KuwoManager extends BaseMusicManager {
     }
 
     /**
-     * 注册当前音频管理的对象
-     */
-    @Override
-    public void registerPlayingManager() {
-        SitechDevLog.e("MusicManager", "kuwoManager registerPlayingManager===" + this);
-        super.registerPlayingManager();
-    }
-
-    /**
      * 下一首
      */
-    @Override
     public void onMusicPlayNext() {
         playControl(KuwoEvent.PlayControl.PLAY_NEXT);
     }
@@ -521,7 +494,6 @@ public class KuwoManager extends BaseMusicManager {
     /**
      * 上一首
      */
-    @Override
     public void onMusicPlayPre() {
         playControl(KuwoEvent.PlayControl.PLAY_PRE);
     }
@@ -529,7 +501,6 @@ public class KuwoManager extends BaseMusicManager {
     /**
      * 暂停/继续播放
      */
-    @Override
     public void onMusicPlayPause() {
         if (getPlayStatus()) {
             playControl(KuwoEvent.PlayControl.PLAY_PAUSE);
@@ -539,9 +510,7 @@ public class KuwoManager extends BaseMusicManager {
     /**
      * 继续播放
      */
-    @Override
     public void onMusicPlayResume() {
-        registerPlayingManager();
         try {
             if (!getPlayStatus()) {
                 playControl(KuwoEvent.PlayControl.PLAY_PLAY);
@@ -556,7 +525,6 @@ public class KuwoManager extends BaseMusicManager {
      *
      * @param playModel
      */
-    @Override
     public void onMusicChangePlayModel(SitechMusicSource.MusicPlayModels playModel) {
         switch (playModel) {
             default:
@@ -575,9 +543,7 @@ public class KuwoManager extends BaseMusicManager {
     /**
      * 随机播放一首歌曲
      */
-    @Override
     public void onMusicRandomPlay() {
-        registerPlayingManager();
         if (mKwapi != null) {
             mKwapi.randomPlayMusic();
         }
@@ -586,7 +552,6 @@ public class KuwoManager extends BaseMusicManager {
     /**
      * 当前是否有音频正在播放
      */
-    @Override
     public boolean isMusicPlaying() {
         if (mKwapi == null) {
             return false;
@@ -597,11 +562,9 @@ public class KuwoManager extends BaseMusicManager {
     /**
      * 清除音频资源
      */
-    @Override
     public void releaseMusicSource() {
-        SitechDevLog.e("Music", this.getClass().getSimpleName() + "---------releaseMusicSource----------= ");
+        SitechDevLog.e("Music", this.getClass().getSimpleName() + "---------releaseMusicSource----------= 退出酷我");
         //界面展示为空
-        onChangeUiMusicInfo(null);
-//        exitKuwoApp();
+        exitKuwoApp();
     }
 }

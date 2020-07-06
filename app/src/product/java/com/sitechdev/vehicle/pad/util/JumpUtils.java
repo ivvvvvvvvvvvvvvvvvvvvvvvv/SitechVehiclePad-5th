@@ -121,7 +121,7 @@ public class JumpUtils {
         if (jumpType == 0) {
             RouterUtils.getInstance().navigation(Uri.parse(bean.appRoute));
         } else if (jumpType == 1) {
-            switch (bean.appRoute) {
+            switch (Uri.parse(bean.appRoute).getPath()) {
                 case RouterConstants.FRAGMENT_CAR_CONTROL:
 //                    CarControlWindow.getInstance().showCarSetWnd(false);
                     break;
