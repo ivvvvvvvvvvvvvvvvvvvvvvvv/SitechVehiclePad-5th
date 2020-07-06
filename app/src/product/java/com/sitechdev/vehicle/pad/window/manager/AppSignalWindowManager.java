@@ -90,7 +90,7 @@ public class AppSignalWindowManager {
         displayWidth = BaseWindow.getInstance().getDisplayWidth();
         displayHeight = BaseWindow.getInstance().getDisplayHeight();
         if (isAppSignalViewShow()) {
-            hide();
+            return;
         }
         if (appSignalView == null) {
             appSignalView = getView();
@@ -218,8 +218,8 @@ public class AppSignalWindowManager {
         SitechDevLog.i(TAG, this + "==消息==" + event.getEvent());
         switch (event.getEvent()) {
             case SysEvent.EB_SYS_BT_STATE:
-                if (event.getObj()!=null){
-                    boolean status= (boolean) event.getObj();
+                if (event.getObj() != null) {
+                    boolean status = (boolean) event.getObj();
                     bluetoothIconShowOrHide(status);
                 }
                 break;

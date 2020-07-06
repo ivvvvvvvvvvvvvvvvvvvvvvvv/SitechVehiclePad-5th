@@ -66,7 +66,7 @@ public class TeddyWindowManager {
         displayWidth = BaseWindow.getInstance().getDisplayWidth();
         displayHeight = BaseWindow.getInstance().getDisplayHeight();
         if (isViewShow()) {
-            hide();
+            return;
         }
         if (floatView == null) {
             getView();
