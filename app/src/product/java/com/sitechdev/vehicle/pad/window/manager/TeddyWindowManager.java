@@ -1,6 +1,5 @@
 package com.sitechdev.vehicle.pad.window.manager;
 
-import android.content.Context;
 import android.graphics.PixelFormat;
 import android.view.Gravity;
 import android.view.WindowManager;
@@ -9,6 +8,7 @@ import com.blankj.utilcode.util.ScreenUtils;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.ThreadUtils;
+import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.app.BaseWindow;
 import com.sitechdev.vehicle.pad.event.ScreenEvent;
 import com.sitechdev.vehicle.pad.event.VoiceEvent;
@@ -30,7 +30,6 @@ public class TeddyWindowManager {
     private static TeddyWindowManager manager;
 
     private WindowManager winManager;
-    private Context context;
     private WindowManager.LayoutParams params;
 
     /**
@@ -55,11 +54,11 @@ public class TeddyWindowManager {
         EventBusUtils.register(this);
     }
 
-    public void init(Context context) {
-        SitechDevLog.e(TAG, "-->init");
-        this.context = context;
-        winManager = BaseWindow.getInstance().getWinManager();
-    }
+//    public void init(Context context) {
+//        SitechDevLog.e(TAG, "-->init");
+//        this.context = context;
+//        winManager = BaseWindow.getInstance().getWinManager();
+//    }
 
     public void show() {
         SitechDevLog.e(TAG, "-------------show()>");
@@ -67,6 +66,9 @@ public class TeddyWindowManager {
         displayHeight = BaseWindow.getInstance().getDisplayHeight();
         if (isViewShow()) {
             return;
+        }
+        if (winManager == null) {
+            winManager = BaseWindow.getInstance().getWinManager();
         }
         if (floatView == null) {
             getView();
@@ -88,7 +90,7 @@ public class TeddyWindowManager {
      */
     public FloatTeddyView getView() {
         if (floatView == null) {
-            floatView = new FloatTeddyView(context);
+            floatView = new FloatTeddyView(AppApplication.getContext());
         }
         if (params == null) {
             params = new WindowManager.LayoutParams();

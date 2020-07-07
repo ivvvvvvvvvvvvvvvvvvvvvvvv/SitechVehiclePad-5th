@@ -36,7 +36,6 @@ public class AppSignalWindowManager {
     private static final String TAG = AppSignalWindowManager.class.getSimpleName();
 
     private WindowManager winManager;
-    private Context context;
     private WindowManager.LayoutParams params;
 
     /**
@@ -66,12 +65,6 @@ public class AppSignalWindowManager {
         EventBusUtils.register(this);
     }
 
-    public void init(Context context) {
-        SitechDevLog.e(TAG, "-->init");
-        this.context = context;
-        winManager = BaseWindow.getInstance().getWinManager();
-    }
-
     /**
      * 显示悬浮框
      * 如果应用处于后台则不执行
@@ -91,6 +84,9 @@ public class AppSignalWindowManager {
         displayHeight = BaseWindow.getInstance().getDisplayHeight();
         if (isAppSignalViewShow()) {
             return;
+        }
+        if (winManager == null) {
+            winManager = BaseWindow.getInstance().getWinManager();
         }
         if (appSignalView == null) {
             appSignalView = getView();
@@ -127,7 +123,7 @@ public class AppSignalWindowManager {
     public AppSignalView getView() {
         SitechDevLog.i(TAG, "-------------getView()>");
         if (appSignalView == null) {
-            appSignalView = new AppSignalView(context);
+            appSignalView = new AppSignalView(AppApplication.getContext());
         }
         if (params == null) {
             params = new WindowManager.LayoutParams();
@@ -234,7 +230,7 @@ public class AppSignalWindowManager {
      */
     private void initData() {
         try {
-            TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            TelephonyManager tm = (TelephonyManager) AppApplication.getContext().getSystemService(Context.TELEPHONY_SERVICE);
             tm.listen(new PhoneStateListener() {
                 @Override
                 public void onSignalStrengthsChanged(SignalStrength signalStrength) {

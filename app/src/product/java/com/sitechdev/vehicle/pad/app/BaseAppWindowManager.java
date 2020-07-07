@@ -45,19 +45,19 @@ public class BaseAppWindowManager {
 
     public void init(AppApplication appApplication) {
         //右上角状态window
-        AppSignalWindowManager.getInstance().init(appApplication);
+//        AppSignalWindowManager.getInstance().init(appApplication);
         //底部主菜单
-        MainMenuWindowManager.getInstance().init(appApplication);
+//        MainMenuWindowManager.getInstance().init(appApplication);
         //底部主菜单--Teddy图标
-        TeddyWindowManager.getInstance().init(appApplication);
+//        TeddyWindowManager.getInstance().init(appApplication);
         //底部控制菜单
-        MainControlPanelWindowManager.getInstance().init(appApplication);
+//        MainControlPanelWindowManager.getInstance().init(appApplication);
         //登录、普通Toast弹窗
-        CommonTipWindowManager.getInstance().init(appApplication);
+//        CommonTipWindowManager.getInstance().init(appApplication);
         //登录window
         PersonLoginWindow.getInstance().init(appApplication);
         //电话window
-        PhoneCallWindow.getInstance().init(appApplication);
+//        PhoneCallWindow.getInstance().init(appApplication);
 
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("android.intent.action.CONFIGURATION_CHANGED");

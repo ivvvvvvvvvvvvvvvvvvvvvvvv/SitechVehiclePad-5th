@@ -1,6 +1,5 @@
 package com.sitechdev.vehicle.pad.window.manager;
 
-import android.content.Context;
 import android.graphics.PixelFormat;
 import android.view.Gravity;
 import android.view.WindowManager;
@@ -24,7 +23,6 @@ public class MainMenuWindowManager {
     private static final String TAG = MainMenuWindowManager.class.getSimpleName();
 
     private WindowManager winManager;
-    private Context context;
     private WindowManager.LayoutParams params;
 
     /**
@@ -54,12 +52,6 @@ public class MainMenuWindowManager {
         EventBusUtils.register(this);
     }
 
-    public void init(Context context) {
-        SitechDevLog.e(TAG, "-->init");
-        this.context = context;
-        winManager = BaseWindow.getInstance().getWinManager();
-    }
-
     /**
      * 显示悬浮框
      * 如果应用处于后台则不执行
@@ -79,6 +71,9 @@ public class MainMenuWindowManager {
         displayHeight = BaseWindow.getInstance().getDisplayHeight();
         if (isViewShow()) {
             return;
+        }
+        if (winManager == null) {
+            winManager = BaseWindow.getInstance().getWinManager();
         }
         if (mainMenuView == null) {
             getView();
@@ -115,7 +110,7 @@ public class MainMenuWindowManager {
     public void getView() {
         SitechDevLog.i(TAG, "-------------getView()>");
         if (mainMenuView == null) {
-            mainMenuView = new MainMenuView(context);
+            mainMenuView = new MainMenuView(AppApplication.getContext());
         }
         if (params == null) {
             params = new WindowManager.LayoutParams();

@@ -1,13 +1,13 @@
 package com.sitechdev.vehicle.pad.manager;
 
-import android.content.Context;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 
-import com.sitechdev.vehicle.lib.util.SitechDevLog;
+import com.sitechdev.vehicle.pad.app.AppApplication;
+import com.sitechdev.vehicle.pad.app.BaseWindow;
 import com.sitechdev.vehicle.pad.view.CommonTipView;
 
 public class CommonTipWindowManager {
@@ -16,7 +16,6 @@ public class CommonTipWindowManager {
     private static CommonTipWindowManager manager;
 
     private WindowManager winManager;
-    private Context context;
     private WindowManager.LayoutParams params;
 
     /**
@@ -45,19 +44,18 @@ public class CommonTipWindowManager {
     private CommonTipWindowManager() {
     }
 
-    public void init(Context context) {
-        SitechDevLog.e(TAG, "-->init");
-        this.context = context;
-        winManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        displayWidth = winManager.getDefaultDisplay().getWidth();
-        displayHeight = winManager.getDefaultDisplay().getHeight();
-        commonTipView = getView();
-    }
-
     /**
      * 显示悬浮框
      */
     public void show() {
+        displayWidth = BaseWindow.getInstance().getDisplayWidth();
+        displayHeight = BaseWindow.getInstance().getDisplayHeight();
+        if (winManager == null) {
+            winManager = BaseWindow.getInstance().getWinManager();
+        }
+        if (commonTipView == null) {
+            commonTipView = getView();
+        }
         if (commonTipView.getParent() != null) {
             winManager.removeView(commonTipView);
         }
@@ -86,7 +84,7 @@ public class CommonTipWindowManager {
      */
     public CommonTipView getView() {
         if (commonTipView == null) {
-            commonTipView = new CommonTipView(context);
+            commonTipView = new CommonTipView(AppApplication.getContext());
         }
         if (params == null) {
             params = new WindowManager.LayoutParams();

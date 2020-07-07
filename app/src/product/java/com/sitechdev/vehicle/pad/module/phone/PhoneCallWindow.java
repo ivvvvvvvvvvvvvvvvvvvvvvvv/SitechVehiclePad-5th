@@ -17,6 +17,7 @@ import com.sitechdev.vehicle.lib.base.BaseApp;
 import com.sitechdev.vehicle.lib.util.ForbidClickEnable;
 import com.sitechdev.vehicle.lib.util.StringUtils;
 import com.sitechdev.vehicle.pad.R;
+import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.app.BaseWindow;
 import com.sitechdev.vehicle.pad.module.phone.presenter.PhoneCallPresenter;
 import com.sitechdev.vehicle.pad.view.ScrollTextView;
@@ -66,6 +67,7 @@ public class PhoneCallWindow implements PhoneCallPresenter.UICallback, View.OnCl
     private ImageButton mAnswerIbt;
     private Handler mHandler;
     private int mTime;
+    private static volatile boolean isInitPhoneWindow = false;
 
     public static PhoneCallWindow getInstance() {
         if (instance == null) {
@@ -78,7 +80,7 @@ public class PhoneCallWindow implements PhoneCallPresenter.UICallback, View.OnCl
         return instance;
     }
 
-    public void init(Context context) {
+    private void init(Context context) {
         Context appContext = context.getApplicationContext();
         this.windowManager = BaseWindow.getInstance().getWinManager();
         initWindowParams();
@@ -86,6 +88,7 @@ public class PhoneCallWindow implements PhoneCallPresenter.UICallback, View.OnCl
         PhoneCallPresenter.initialize(appContext);
         presenter = PhoneCallPresenter.getInstance();
         presenter.registerPresenter(this);
+        isInitPhoneWindow = true;
     }
 
     private PhoneCallWindow() {
@@ -100,7 +103,7 @@ public class PhoneCallWindow implements PhoneCallPresenter.UICallback, View.OnCl
         phoneWindowParams.height = 590;
         phoneWindowParams.x = 50;
         phoneWindowParams.windowAnimations = R.style.phoneCallAnimStyle;
-        phoneWindowParams.gravity = Gravity.LEFT|Gravity.CENTER_VERTICAL;
+        phoneWindowParams.gravity = Gravity.LEFT | Gravity.CENTER_VERTICAL;
         phoneWindowParams.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
         phoneWindowParams.dimAmount = (float) 0.8;
     }
@@ -147,6 +150,9 @@ public class PhoneCallWindow implements PhoneCallPresenter.UICallback, View.OnCl
 
     @Override
     public void showPhoneCall() {
+        if (!isInitPhoneWindow) {
+            init(AppApplication.getContext());
+        }
         areaPhoneCall.setVisibility(View.VISIBLE);
         areaNumPad.setVisibility(View.GONE);
         showPhoneCallWindow(true);
@@ -154,20 +160,24 @@ public class PhoneCallWindow implements PhoneCallPresenter.UICallback, View.OnCl
 
     @Override
     public void onPhoneNumber(String number, int whichSide) {
-        logTest("onPhoneNumber-----number:"+number+" whichSide:"+whichSide);
-        numberTxt.setText(number);
+        logTest("onPhoneNumber-----number:" + number + " whichSide:" + whichSide);
+        if (numberTxt != null) {
+            numberTxt.setText(number);
+        }
     }
 
     @Override
     public void onPhoneName(String name, int whichSide) {
-        logTest("onPhoneName-----name:"+name);
-        nameTxt.setText(name);
+        logTest("onPhoneName-----name:" + name);
+        if (nameTxt != null) {
+            nameTxt.setText(name);
+        }
     }
 
     @Override
     public void setElapsedTime(int seconds, int which) {
-        if(null != mHandler){
-            mHandler.postDelayed(mTimeTask,500);
+        if (null != mHandler) {
+            mHandler.postDelayed(mTimeTask, 500);
         }
     }
 
@@ -175,9 +185,9 @@ public class PhoneCallWindow implements PhoneCallPresenter.UICallback, View.OnCl
         @Override
         public void run() {
             mTime++;
-            if(null != mHandler){
+            if (null != mHandler) {
                 mHandler.sendEmptyMessage(MSG_START_SHOW_TIME);
-                mHandler.postDelayed(this,1000);
+                mHandler.postDelayed(this, 1000);
             }
         }
     };
@@ -361,14 +371,14 @@ public class PhoneCallWindow implements PhoneCallPresenter.UICallback, View.OnCl
                 phoneView.setBackgroundResource(R.drawable.shape_phone_call);
                 windowManager.addView(phoneView, phoneWindowParams);
             }
-            if(null == mHandler){
+            if (null == mHandler) {
                 mTime = 0;
-                mHandler = new Handler(){
+                mHandler = new Handler() {
                     @Override
                     public void handleMessage(Message msg) {
                         super.handleMessage(msg);
-                        switch (msg.what){
-                            case MSG_START_SHOW_TIME:{
+                        switch (msg.what) {
+                            case MSG_START_SHOW_TIME: {
                                 stateTxt.setText(getFormattedTime(mTime, 0));
                             }
                             break;
@@ -384,7 +394,7 @@ public class PhoneCallWindow implements PhoneCallPresenter.UICallback, View.OnCl
                     presenter.micMute();
                 }
             }
-            if(null != mHandler){
+            if (null != mHandler) {
                 mHandler.removeCallbacksAndMessages(null);
                 mHandler = null;
             }

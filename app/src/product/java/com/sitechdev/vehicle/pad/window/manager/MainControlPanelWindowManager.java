@@ -1,11 +1,8 @@
 package com.sitechdev.vehicle.pad.window.manager;
 
-import android.content.Context;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.view.Gravity;
-import android.view.MotionEvent;
-import android.view.View;
 import android.view.WindowManager;
 
 import com.blankj.utilcode.util.ActivityUtils;
@@ -33,14 +30,12 @@ public class MainControlPanelWindowManager {
     private static final String TAG = MainControlPanelWindowManager.class.getSimpleName();
 
     private WindowManager winManager;
-    private Context context;
     private WindowManager.LayoutParams params;
 
     /**
      * 显示的浮动窗体
      */
     public MainControlPanelView mainControlPanelView;
-    public View mainControlContentView;
 
     // 屏幕的尺寸
     private static int displayWidth;
@@ -68,14 +63,6 @@ public class MainControlPanelWindowManager {
         EventBusUtils.register(this);
     }
 
-    public void init(Context context) {
-        SitechDevLog.e(TAG, "-->init");
-        this.context = context;
-        winManager = BaseWindow.getInstance().getWinManager();
-        displayWidth = BaseWindow.getInstance().getDisplayWidth();
-        displayHeight = BaseWindow.getInstance().getDisplayHeight();
-    }
-
     public boolean isViewShow() {
         return mainControlPanelView != null && mainControlPanelView.isShown();
     }
@@ -88,7 +75,7 @@ public class MainControlPanelWindowManager {
     public void getView() {
         SitechDevLog.i(TAG, "-------------getView()===========" + (ScreenUtils.isLandscape() ? "横屏" : "竖屏"));
         if (mainControlPanelView == null) {
-            mainControlPanelView = new MainControlPanelView(context);
+            mainControlPanelView = new MainControlPanelView(AppApplication.getContext());
             SitechDevLog.i(TAG, "-------------getView()===mainControlPanelView==" + mainControlPanelView);
         }
         if (params == null) {
@@ -350,8 +337,13 @@ public class MainControlPanelWindowManager {
     //显示不判断应用是否在前台
     public void showForcibly() {
         SitechDevLog.e(TAG, "-------------show()=====" + mainControlPanelView);
+        displayWidth = BaseWindow.getInstance().getDisplayWidth();
+        displayHeight = BaseWindow.getInstance().getDisplayHeight();
         if (isViewShow()) {
             return;
+        }
+        if (winManager == null) {
+            winManager = BaseWindow.getInstance().getWinManager();
         }
         if (mainControlPanelView == null) {
             SitechDevLog.e(TAG, "-------------show()  new view ");

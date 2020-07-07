@@ -3,6 +3,7 @@ package com.sitechdev.vehicle.pad.module.splash;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.widget.ImageView;
 
@@ -104,7 +105,7 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void initData() {
         initlogic();
-        ThreadUtils.runOnUIThreadDelay(() -> {
+        runOnUiThread(() -> {
             //初始化定位
             LocationUtil.getInstance().init(AppApplication.getContext(), true);
             //发送地图广播，获取一些初始化参数
@@ -114,13 +115,15 @@ public class SplashActivity extends BaseActivity {
             RouterUtils.getInstance().navigation(RouterConstants.HOME_MAIN);
 //            startActivity(new Intent(SplashActivity.this, MainActivity.class));
             finish();
-        }, 0);
+        });
     }
 
     private void initlogic() {
         //语音
         ThreadManager.getInstance().addTask(()->{
+            Looper.prepare();
             VUI.getInstance().start();
+            Looper.loop();
         });
         MusicManager.getInstance().init(AppApplication.getContext());
         VoiceSourceManager.getInstance().init();
