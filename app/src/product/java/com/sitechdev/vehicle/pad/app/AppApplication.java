@@ -97,13 +97,15 @@ public class AppApplication extends BaseApp {
     }
 
     private void initPhone() {
-        PhoneCallWindow.getInstance().init(this);
-        PhoneBtManager.getInstance().initPhone();
+
     }
 
     private void initBluetoothManager() {
-        BtMusicManager.getInstance();//初始化
-        BtManager.getInstance().init();//初始化
+        ThreadManager.getInstance().addTask(() -> {
+            BtMusicManager.getInstance();//初始化
+            BtManager.getInstance().init();//初始化
+            PhoneBtManager.getInstance().initPhone();
+        });
     }
 
     private void initUtils() {
@@ -221,21 +223,23 @@ public class AppApplication extends BaseApp {
      * 考拉SDK
      */
     private void initKaolaSdk() {
-        Logging.setDebug(true);
-        OpenSDK.getInstance().initSDK(this, new HttpCallback<Boolean>() {
-            @Override
-            public void onSuccess(Boolean isSuccess) {
-                Log.i("考拉APPDemo", isSuccess ? "初始化SDK成功" : "初始化SDK失败");
-                AppVariants.initSuccess = isSuccess;
-                if (isSuccess) {
-                    KaolaPlayManager.SingletonHolder.INSTANCE.activeKaola();
+        ThreadManager.getInstance().addTask(() -> {
+            Logging.setDebug(true);
+            OpenSDK.getInstance().initSDK(this, new HttpCallback<Boolean>() {
+                @Override
+                public void onSuccess(Boolean isSuccess) {
+                    Log.i("考拉APPDemo", isSuccess ? "初始化SDK成功" : "初始化SDK失败");
+                    AppVariants.initSuccess = isSuccess;
+                    if (isSuccess) {
+                        KaolaPlayManager.SingletonHolder.INSTANCE.activeKaola();
+                    }
                 }
-            }
 
-            @Override
-            public void onError(ApiException exception) {
-                Log.w("考拉APPDemo", "初始化SDK失败，错误码=" + exception.getCode() + ",错误信息=" + exception.getMessage());
-            }
+                @Override
+                public void onError(ApiException exception) {
+                    Log.w("考拉APPDemo", "初始化SDK失败，错误码=" + exception.getCode() + ",错误信息=" + exception.getMessage());
+                }
+            });
         });
     }
 

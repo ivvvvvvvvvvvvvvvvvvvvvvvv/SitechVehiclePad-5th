@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.pad.event.WindowEvent;
 import com.sitechdev.vehicle.pad.manager.CommonTipWindowManager;
+import com.sitechdev.vehicle.pad.module.phone.PhoneCallWindow;
 import com.sitechdev.vehicle.pad.receiver.OrientationReceiver;
 import com.sitechdev.vehicle.pad.window.manager.AppSignalWindowManager;
 import com.sitechdev.vehicle.pad.window.manager.MainControlPanelWindowManager;
@@ -53,7 +54,10 @@ public class BaseAppWindowManager {
         MainControlPanelWindowManager.getInstance().init(appApplication);
         //登录、普通Toast弹窗
         CommonTipWindowManager.getInstance().init(appApplication);
+        //登录window
         PersonLoginWindow.getInstance().init(appApplication);
+        //电话window
+        PhoneCallWindow.getInstance().init(appApplication);
 
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("android.intent.action.CONFIGURATION_CHANGED");

@@ -83,7 +83,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
         TouchEffectsFactory.initTouchEffects(this);
         super.onCreate(savedInstanceState);
-        setFullScreen();
+//        setFullScreen();
         initToolBarView();
         setContentView(getLayoutId());
 //        if (this.getClass().isAnnotationPresent(BindEventBus.class)) {

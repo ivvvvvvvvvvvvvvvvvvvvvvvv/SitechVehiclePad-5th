@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.widget.ImageView;
 
 import com.sitechdev.vehicle.lib.imageloader.GlideApp;
+import com.sitechdev.vehicle.lib.util.ThreadManager;
 import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
@@ -118,7 +119,9 @@ public class SplashActivity extends BaseActivity {
 
     private void initlogic() {
         //语音
-        VUI.getInstance().start();
+        ThreadManager.getInstance().addTask(()->{
+            VUI.getInstance().start();
+        });
         MusicManager.getInstance().init(AppApplication.getContext());
         VoiceSourceManager.getInstance().init();
     }
