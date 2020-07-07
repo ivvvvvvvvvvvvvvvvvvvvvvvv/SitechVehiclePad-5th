@@ -42,6 +42,8 @@ import java.util.List;
  */
 public class AppUtil {
 
+    public static long clickTime = 0l;
+
     public static AnimationSet getAnimationSet() {
         AnimationSet animationSet = new AnimationSet(true);
 

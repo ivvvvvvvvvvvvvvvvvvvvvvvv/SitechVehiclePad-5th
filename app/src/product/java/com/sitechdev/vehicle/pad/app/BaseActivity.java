@@ -79,7 +79,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 //        getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         //
         BarUtils.setStatusBarVisibility(this, false);
-        BarUtils.setNavBarVisibility(this, false);
+//        BarUtils.setNavBarVisibility(this, false);
 
         TouchEffectsFactory.initTouchEffects(this);
         super.onCreate(savedInstanceState);
@@ -107,6 +107,8 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         super.onResume();
         MapUtil.sendAMapInitBroadcast();
         BarUtils.setNavBarVisibility(this, false);
+
+        SitechDevLog.i("changeTime", this.getClass().getSimpleName() + "===view time====>" + (System.currentTimeMillis() - AppUtil.clickTime));
     }
 
     @SuppressLint("NewApi")

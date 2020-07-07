@@ -18,6 +18,7 @@ import com.sitechdev.vehicle.pad.module.map.util.MapUtil;
 import com.sitechdev.vehicle.pad.module.music.MusicManager;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
+import com.sitechdev.vehicle.pad.util.AppUtil;
 import com.sitechdev.vehicle.pad.util.PermissionHelper;
 import com.sitechdev.vehicle.pad.vui.VUI;
 
@@ -108,9 +109,11 @@ public class SplashActivity extends BaseActivity {
             //发送地图广播，获取一些初始化参数
             MapUtil.sendAMapInitBroadcast();
             //页面跳转
+            AppUtil.clickTime = System.currentTimeMillis();
             RouterUtils.getInstance().navigation(RouterConstants.HOME_MAIN);
+//            startActivity(new Intent(SplashActivity.this, MainActivity.class));
             finish();
-        }, 1500);
+        }, 0);
     }
 
     private void initlogic() {

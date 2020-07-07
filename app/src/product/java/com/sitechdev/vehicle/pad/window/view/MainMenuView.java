@@ -75,6 +75,7 @@ public class MainMenuView extends RelativeLayout implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
+        AppUtil.clickTime=System.currentTimeMillis();
         switch (v.getId()) {
             case R.id.id_btn_home:
                 //主页按钮
@@ -87,14 +88,17 @@ public class MainMenuView extends RelativeLayout implements View.OnClickListener
             case R.id.id_btn_music:
                 //音乐按钮
                 RouterUtils.getInstance().navigation(RouterConstants.FRAGMENT_LOCAL_MUSIC);
+//                ActivityUtils.getTopActivity().startActivity(new Intent(ActivityUtils.getTopActivity(), MusicMainActivity.class));
                 break;
             case R.id.id_btn_driver:
                 //驾驶按钮
                 RouterUtils.getInstance().navigation(RouterConstants.SUB_APP_CAR_STATUS);
+//                ActivityUtils.getTopActivity().startActivity(new Intent(ActivityUtils.getTopActivity(), CarStatusPreActivity.class));
                 break;
             case R.id.id_btn_apps:
                 //应用按钮
                 RouterUtils.getInstance().navigation(RouterConstants.SETTING_APP_LIST);
+//                ActivityUtils.getTopActivity().startActivity(new Intent(ActivityUtils.getTopActivity(), AppsListGridActivity.class));
                 break;
             default:
                 break;
