@@ -53,7 +53,7 @@ public class SettingConfig {
 
     public void setBtEnable(boolean btEnable) {
         isBtEnable = btEnable;
-        ParamsUtil.setBeanData(SP_KEY_SETTING_BT_ENABLE, String.valueOf(btEnable));
+        ParamsUtil.setData(SP_KEY_SETTING_BT_ENABLE, String.valueOf(btEnable));
     }
 
     public String getLocalBtName() {
