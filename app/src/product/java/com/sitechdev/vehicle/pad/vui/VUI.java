@@ -729,9 +729,8 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                             shutAndTTS("当前蓝牙未连接，无法使用通讯录功能");
                             return;
                         }
-                        JSONArray semanticss = intent.optJSONArray("semantic");
-                        if (null != semanticss && semanticss.length() > 0) {
-                            JSONObject semantic = semanticss.optJSONObject(0);
+                        if (null != semantics && semantics.length() > 0) {
+                            JSONObject semantic = semantics.optJSONObject(0);
                             if (null != semantic) {
                                 switch (semantic.optString("intent")) {
                                     case "DIAL":
@@ -740,6 +739,32 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                             calls = data.optJSONArray("result");
                                             if (calls.length() > 1) {
                                                 vuiWindow.showContacts(calls);
+                                            }
+                                        } else {
+                                            JSONArray slots = semantic.optJSONArray("slots");
+                                            calls = new JSONArray();
+                                            for (int i = 0; i < slots.length(); i++) {
+                                                if (TextUtils.equals(slots.getJSONObject(i).optString("name"), "code")) {
+                                                    JSONObject jsonObject = new JSONObject();
+                                                    String phone = slots.getJSONObject(i).optString("value");
+                                                    jsonObject.put("phoneNumber", phone);
+                                                    calls.put(jsonObject);
+                                                }
+                                            }
+                                            if (calls.length() <= 0) {
+                                                vuiAnr();
+                                            }
+                                        }
+                                        JSONObject answer = intent.optJSONObject("answer");
+                                        if (null != answer) {
+                                            String text = answer.optString("text");
+                                            if (!TextUtils.isEmpty(text)) {
+                                                mAIUIEngine.ttsStart(text);
+                                                EventBusUtils.postEvent(new VoiceEvent(
+                                                        VoiceEvent.EVENT_VOICE_TTS_PLAYIING,
+                                                        text));
+                                                //不调用shut 进行连续对话
+                                                return;
                                             }
                                         }
                                         break;
