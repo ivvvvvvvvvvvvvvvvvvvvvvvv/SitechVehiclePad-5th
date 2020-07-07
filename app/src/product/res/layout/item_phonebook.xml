@@ -15,7 +15,7 @@
         <TextView
             android:textColor="@color/white"
             android:id="@+id/tv_contact_name"
-            android:layout_width="550pt"
+            android:layout_width="450pt"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
@@ -25,6 +25,7 @@
             android:textColor="@color/white"
             android:id="@+id/tv_contact_phonenum"
             android:layout_width="550pt"
+            android:layout_marginRight="100pt"
             android:layout_height="wrap_content"
             android:layout_marginStart="20pt"
             android:maxLines="1"
