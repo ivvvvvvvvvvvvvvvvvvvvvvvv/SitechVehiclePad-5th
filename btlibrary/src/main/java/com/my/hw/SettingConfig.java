@@ -44,7 +44,7 @@ public class SettingConfig {
     public boolean isBtEnable() {
         String enable = ParamsUtil.getStringData(SP_KEY_SETTING_BT_ENABLE);
         if (StringUtils.isEmpty(enable)) {
-            isBtEnable = false;
+            isBtEnable = true;
         } else {
             isBtEnable = Boolean.parseBoolean(enable);
         }
