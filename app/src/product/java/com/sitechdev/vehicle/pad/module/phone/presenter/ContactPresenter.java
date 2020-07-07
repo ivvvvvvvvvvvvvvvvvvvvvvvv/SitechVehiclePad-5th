@@ -1,27 +1,20 @@
 package com.sitechdev.vehicle.pad.module.phone.presenter;
 
-import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.my.hw.ATBluetooth;
-import com.my.hw.BtCallBack;
 import com.sitechdev.jpinyin.PinyinException;
 import com.sitechdev.jpinyin.PinyinHelper;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.CollectionUtils;
 import com.sitechdev.vehicle.lib.util.ThreadManager;
-import com.sitechdev.vehicle.lib.util.ThreadUtils;
+import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.event.BTEvent;
 import com.sitechdev.vehicle.pad.event.TeddyEvent;
 import com.sitechdev.vehicle.pad.model.contract.ContactContract;
 import com.sitechdev.vehicle.pad.model.phone.Contact;
 import com.sitechdev.vehicle.pad.module.phone.BtGlobalRef;
 import com.sitechdev.vehicle.pad.module.phone.PhoneBtManager;
-import com.sitechdev.vehicle.pad.module.phone.utils.IndexUtils;
-import com.sitechdev.vehicle.pad.module.phone.utils.PinyinComparator;
-
-import java.util.Collections;
-import java.util.List;
+import com.sitechdev.vehicle.pad.vui.VUIUtils;
 
 /**
  * @author liuhe
@@ -76,6 +69,12 @@ public class ContactPresenter extends ContactContract.Presenter {
                         } else {
                             getView().showLoadSuccessView();
                         }
+                    }
+                    if (BtGlobalRef.contactName.size() > 0) {
+                        ThreadManager.getInstance().addTask(() -> {
+                            VUIUtils.updataUserWordsContact(AppApplication.getContext(),
+                                    BtGlobalRef.contactName);
+                        });
                     }
                 }
                 break;

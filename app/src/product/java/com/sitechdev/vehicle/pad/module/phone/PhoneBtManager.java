@@ -306,6 +306,7 @@ public class PhoneBtManager {
             }
             number = number.replace(" ", "");
             BtGlobalRef.contacts.add(new Contact(abbr, contactName, number));
+            BtGlobalRef.contactName.add(name);
         } else { //通讯录下载结束
             EventBusUtils.postEvent(new BTEvent(BTEvent.PB_DOWN_COUNT,
                     BtGlobalRef.contacts.size()));

@@ -10,6 +10,8 @@ import android.util.Base64;
 import com.amap.api.services.core.PoiItem;
 import com.iflytek.aiui.AIUIConstant;
 import com.iflytek.aiui.AIUIMessage;
+import com.iflytek.cloud.ErrorCode;
+import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.LexiconListener;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
@@ -220,16 +222,20 @@ public class VUIUtils {
     public static void updataUserWordsContact(Context context, ArrayList<String> lexiconContent) {
         UserWords userWords = new UserWords();
         userWords.putWords("contact", lexiconContent);
-        SpeechRecognizer speechRecognizer = SpeechRecognizer.createRecognizer(context, null);
+        SpeechRecognizer speechRecognizer = SpeechRecognizer.createRecognizer(context, i -> {
+            if(i != ErrorCode.SUCCESS){
+                SitechDevLog.i("updataUserWordsContact onInit not success");
+            }
+        });
         /**
          *  updateLexicon (词典名称,词典内容)
          *  UserWords toString 固定词典名称 userword
          *
          */
-        speechRecognizer.updateLexicon("{ \"userword\" }", userWords.toString(), new LexiconListener() {
-            @Override
-            public void onLexiconUpdated(String s, SpeechError speechError) {
-
+        if(null != speechRecognizer)
+        speechRecognizer.updateLexicon("userword", userWords.toString(), (s, speechError) -> {
+            if(null != speechError) {
+                SitechDevLog.i("updataUserWordsContact onInit not success, code:"+speechError.getErrorCode()+" des:"+speechError.getErrorDescription());
             }
         });
     }

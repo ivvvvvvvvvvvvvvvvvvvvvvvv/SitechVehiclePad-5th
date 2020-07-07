@@ -53,6 +53,11 @@ public class BtGlobalRef {
      */
     public static ArrayList<Contact> contactSorts = new ArrayList<>();
 
+    /**
+     * 通讯录名字集合，用以上传热词
+     */
+    public static ArrayList<String> contactName = new ArrayList<>();
+
     public static JSONArray contactsArray = new JSONArray();
 
 
