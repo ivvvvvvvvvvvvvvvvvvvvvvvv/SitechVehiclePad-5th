@@ -29,7 +29,7 @@
     <dimen name="text_dial_num">36pt</dimen>
     <dimen name="text_dial_phone">32sp</dimen>
     <dimen name="text_sub_title">34pt</dimen>
-    <dimen name="text_phone_call">8pt</dimen>
+    <dimen name="text_phone_call">32pt</dimen>
     <dimen name="sub_title_size">17sp</dimen>
     <dimen name="text_ota_version">32sp</dimen>
     <dimen name="text_ota_title">36sp</dimen>

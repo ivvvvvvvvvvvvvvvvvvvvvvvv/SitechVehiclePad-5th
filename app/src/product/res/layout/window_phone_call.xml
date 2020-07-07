@@ -14,7 +14,7 @@
             android:id="@+id/tv_converse_number01"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10pt"
+            android:layout_marginTop="62pt"
             android:gravity="center"
             android:maxLines="1"
             android:text="13889562689"
@@ -28,7 +28,7 @@
             android:id="@+id/tv_converse_name01"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10pt"
+            android:layout_marginTop="28pt"
             android:gravity="center"
             android:maxLines="1"
             android:text="上海"
@@ -42,12 +42,12 @@
             android:id="@+id/tv_converse_state01"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10pt"
+            android:layout_marginTop="44pt"
             android:gravity="center"
             android:maxLines="1"
             android:text="正在呼叫"
             android:textColor="#B8B8B8"
-            android:textSize="6pt"
+            android:textSize="@dimen/text_phone_call"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_converse_name01" />
@@ -56,7 +56,7 @@
             android:id="@+id/incomming_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10pt"
+            android:layout_marginTop="54pt"
             android:orientation="horizontal"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_converse_state01">
@@ -89,7 +89,7 @@
         <ImageButton
             android:id="@+id/btn_phone_secret"
             style="@style/DialIngStyle"
-            android:layout_marginEnd="20pt"
+            android:layout_marginEnd="40pt"
             android:layout_marginBottom="100pt"
             android:background="@color/transparent"
             android:src="@drawable/selector_phone_private"
@@ -111,7 +111,7 @@
         <ImageButton
             android:id="@+id/btn_phone_silence"
             style="@style/DialIngStyle"
-            android:layout_marginStart="20pt"
+            android:layout_marginStart="40pt"
             android:src="@drawable/selector_phone_micmute"
             app:layout_constraintStart_toEndOf="@id/btn_numpad"
             app:layout_constraintTop_toTopOf="@+id/btn_numpad" />
@@ -144,7 +144,7 @@
                     android:layout_span="3"
                     android:textColor="@color/white"
                     android:gravity="center_vertical"
-                    android:textSize="15pt"
+                    android:textSize="38pt"
                     android:textStyle="italic" />
             </TableRow>
 
@@ -243,7 +243,7 @@
                 android:layout_toRightOf="@id/numpad_key_hangup"
                 android:layout_centerVertical="true"
                 android:textColor="@color/white"
-                android:layout_marginLeft="5pt"
+                android:layout_marginLeft="20pt"
                 android:background="@null"
                 android:text="隐藏"
                 android:textSize="@dimen/text_phone_call" />

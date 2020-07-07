@@ -37,6 +37,7 @@ import com.sitechdev.vehicle.pad.module.music.BtMusicManager;
 import com.sitechdev.vehicle.pad.module.music.MusicMainActivity;
 import com.sitechdev.vehicle.pad.module.online_audio.KaolaAudioActivity;
 import com.sitechdev.vehicle.pad.module.phone.PhoneBtManager;
+import com.sitechdev.vehicle.pad.module.phone.PhoneCallWindow;
 import com.sitechdev.vehicle.pad.module.setting.bt.BtManager;
 import com.sitechdev.vehicle.pad.net.interception.SitechRequestInterceptor;
 import com.sitechdev.vehicle.pad.net.interception.SitechResponseInterceptor;
@@ -97,7 +98,7 @@ public class AppApplication extends BaseApp {
     }
 
     private void initPhone() {
-
+        PhoneCallWindow.getInstance().initPhone(this);
     }
 
     private void initBluetoothManager() {

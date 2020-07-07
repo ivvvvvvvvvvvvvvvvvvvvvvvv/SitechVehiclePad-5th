@@ -134,33 +134,33 @@ public class PhoneCallPresenter implements PhoneCallContract,
                         BroadcastUtil.sendToCarService(AppApplication.getContext(),
                                 MyCmd.Cmd.BT_PHONE_STATUS, MyCmd.PhoneStatus.PHONE_ON);
                         handler.removeCallbacks(elapsedTimeRunnable);
+                        callback.showPhoneCall();
                         callback.setButtonGroup(GROUP_INCOMING);
                         callback.onPhoneNumber(phoneNumber, which);
                         callback.onPhoneName(getNameFromPhoneBook(phoneNumber), which);
                         callback.setConverseState(STATE_INCOMING, which);
-                        callback.showPhoneCall();
                         break;
                     case BTEvent.DIALING:
                         BroadcastUtil.sendToCarService(AppApplication.getContext(),
                                 MyCmd.Cmd.BT_PHONE_STATUS, MyCmd.PhoneStatus.PHONE_ON);
                         timeCount[0] = timeCount[1] = 0;
                         handler.removeCallbacks(elapsedTimeRunnable);
+                        callback.showPhoneCall();
                         callback.setButtonGroup(GROUP_DIAL);
                         callback.onPhoneNumber(phoneNumber, which);
                         callback.onPhoneName(getNameFromPhoneBook(phoneNumber), which);
                         callback.setConverseState(STATE_DIALING, which);
-                        callback.showPhoneCall();
                         break;
                     case BTEvent.ACTIVE:
                         BroadcastUtil.sendToCarService(AppApplication.getContext(),
                                 MyCmd.Cmd.BT_PHONE_STATUS, MyCmd.PhoneStatus.PHONE_ON);
                         handler.removeCallbacks(elapsedTimeRunnable);
                         handler.post(elapsedTimeRunnable);
+                        callback.showPhoneCall();
                         callback.setButtonGroup(GROUP_ACTIVE);
                         callback.onPhoneNumber(phoneNumber, which);
                         callback.onPhoneName(getNameFromPhoneBook(phoneNumber), which);
                         callback.setElapsedTime(0,0);
-                        callback.showPhoneCall();
                         break;
                     case BTEvent.HANGUP:
                         BroadcastUtil.sendToCarService(AppApplication.getContext(),
@@ -181,24 +181,24 @@ public class PhoneCallPresenter implements PhoneCallContract,
                         break;
                     case BTEvent.HELD_WAITING:
                     case BTEvent.TRI_WAITING:
+                        callback.showPhoneCall();
                         callback.setButtonGroup(GROUP_WAITING);
                         callback.onPhoneNumber(phoneNumber, which);
                         callback.onPhoneName(getNameFromPhoneBook(phoneNumber), which);
                         callback.setConverseState(STATE_INCOMING, which);
-                        callback.showPhoneCall();
                         break;
                     case BTEvent.TRI_DIALING:
+                        callback.showPhoneCall();
                         callback.setButtonGroup(GROUP_DIAL);
                         callback.onPhoneNumber(phoneNumber, which);
                         callback.onPhoneName(getNameFromPhoneBook(phoneNumber), which);
                         callback.setConverseState(STATE_DIALING, which);
-                        callback.showPhoneCall();
                         break;
                     case BTEvent.TRI_ACTIVE:
+                        callback.showPhoneCall();
                         callback.setButtonGroup(GROUP_TRI);
                         callback.onPhoneNumber(phoneNumber, which);
                         callback.onPhoneName(getNameFromPhoneBook(phoneNumber), which);
-                        callback.showPhoneCall();
                         break;
                     case BTEvent.TRI_HELD:
                         callback.setConverseState(STATE_HELD, which);

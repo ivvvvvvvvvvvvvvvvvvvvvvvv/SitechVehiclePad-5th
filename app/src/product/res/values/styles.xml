@@ -170,10 +170,10 @@
     </style>
 
     <style name="phone_window_dia">
-        <item name="android:layout_width">40pt</item>
-        <item name="height">20pt</item>
+        <item name="android:layout_width">120pt</item>
+        <item name="height">80pt</item>
         <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">10pt</item>
+        <item name="android:textSize">@dimen/text_phone_call</item>
         <item name="background">@drawable/selector_blutooth_number_btn</item>
         <item name="android:gravity">center</item>
     </style>

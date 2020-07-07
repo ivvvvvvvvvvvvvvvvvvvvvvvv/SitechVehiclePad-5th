@@ -80,14 +80,19 @@ public class PhoneCallWindow implements PhoneCallPresenter.UICallback, View.OnCl
         return instance;
     }
 
-    private void init(Context context) {
+
+    public void initPhone(Context context){
         Context appContext = context.getApplicationContext();
-        this.windowManager = BaseWindow.getInstance().getWinManager();
-        initWindowParams();
-        createPhoneCallWindow(appContext);
         PhoneCallPresenter.initialize(appContext);
         presenter = PhoneCallPresenter.getInstance();
         presenter.registerPresenter(this);
+    }
+
+    private void initPhoneWindow(Context context) {
+        Context appContext = context.getApplicationContext();
+        createPhoneCallWindow(appContext);
+        this.windowManager = BaseWindow.getInstance().getWinManager();
+        initWindowParams();
         isInitPhoneWindow = true;
     }
 
@@ -151,7 +156,7 @@ public class PhoneCallWindow implements PhoneCallPresenter.UICallback, View.OnCl
     @Override
     public void showPhoneCall() {
         if (!isInitPhoneWindow) {
-            init(AppApplication.getContext());
+            initPhoneWindow(AppApplication.getContext());
         }
         areaPhoneCall.setVisibility(View.VISIBLE);
         areaNumPad.setVisibility(View.GONE);
