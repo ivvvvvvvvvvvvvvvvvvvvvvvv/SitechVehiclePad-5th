@@ -481,9 +481,9 @@ public class VUI implements VUIWindow.OnWindowHideListener {
             log(intent.toString());
             if (0 == rc || 3 == rc) {
                 String service = intent.optString("service");
+                JSONArray semantics = intent.optJSONArray("semantic");
                 if (TextUtils.equals("SITECHAI.sitechVoiceCmd", service)) {
                     String index = null;
-                    JSONArray semantics = intent.optJSONArray("semantic");
                     if (null != semantics && semantics.length() > 0) {
                         JSONObject semantic = semantics.optJSONObject(0);
                         switch (semantic.optString("intent")) {
@@ -495,7 +495,6 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                     }
                 } else if (TextUtils.equals("SITECHAI.sitechList", service)) {
                     String index = null;
-                    JSONArray semantics = intent.optJSONArray("semantic");
                     if (null != semantics && semantics.length() > 0) {
                         JSONObject semantic = semantics.optJSONObject(0);
                         switch (semantic.optString("intent")) {
@@ -539,16 +538,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                         }
 //                    shutAndTTS("Teddy正在努力学习中，敬请期待");
                     }
-                } else if (TextUtils.equals("musicX", service) ||
-                        TextUtils.equals(XF_SKILL_TAG_CROSSTALK, service) ||
-                        TextUtils.equals(XF_SKILL_TAG_DRAMA, service) ||
-                        TextUtils.equals(XF_SKILL_TAG_NURSERYRHYME, service) ||
-                        TextUtils.equals(XF_SKILL_TAG_STORYTELLING, service) ||
-                        TextUtils.equals(XF_SKILL_TAG_AUDIOBOOK, service) ||
-                        TextUtils.equals(XF_SKILL_TAG_STORY, service) ||
-                        TextUtils.equals(XF_SKILL_TAG_NOVEL, service) ||
-                        TextUtils.equals("SITECHAI.AIradio", service)) {
-                    JSONArray semantics = intent.optJSONArray("semantic");
+                } else if (TextUtils.equals("SITECHAI.AIradio", service)) {
                     if (null != semantics && semantics.length() > 0) {
                         JSONObject semantic = semantics.optJSONObject(0);
                         String s = semantic.optString("intent").toLowerCase();
@@ -570,106 +560,24 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                             //                            case "AIradio_broadcast":
 //                                analysisBroadcast(semantic);
 //                                break;
-                        } else if ("INSTRUCTION".toLowerCase().equals(s)) {
-                            doMusicControl(semantic);
-                        } else if ("PLAY".toLowerCase().equals(s) || "QUERY".toLowerCase().equals(s) || "RANDOM_SEARCH".toLowerCase().equals(s) || "RANDOM_QUERY".toLowerCase().equals(s)) {
-                            JSONArray slots = semantic.optJSONArray("slots");
-                            String artistOrActor = "";
-                            String audioName = "";
-                            if (slots.length() == 0 || "RANDOM_QUERY".toLowerCase().equals(s)) {
-                                // slots 为空  根据service做意图判断
-                                //儿歌中 随机播放解析成  音频的随机播放 
-                                boolean randomInNurseryrhyme = "RANDOM_QUERY".toLowerCase().equals(s) && XF_SKILL_TAG_NURSERYRHYME.equals(service);
-                                if ("musicX".equals(service) || randomInNurseryrhyme) {
-                                    //随机播放一首歌   本地 蓝牙 酷我 情况 播放下一首
-                                    if (VoiceSourceManager.getInstance().getMusicSource() != VoiceSourceManager.KAOLA) {
-                                        if (VoiceSourceManager.getInstance().getMusicSource() == VoiceSourceManager.LOCAL_MUSIC) {
-                                            if (VUIUtils.isUdiskExist()) {
-                                                VoiceSourceManager.getInstance().next(VoiceSourceManager.VOICE);
-                                            }
-                                        } else if (VoiceSourceManager.getInstance().getMusicSource() == VoiceSourceManager.BT_MUSIC) {
-                                            if (SettingConfig.getInstance().isBtConnected()) {
-                                                VoiceSourceManager.getInstance().next(VoiceSourceManager.VOICE);
-                                            }
-                                        } else if (VoiceSourceManager.getInstance().getMusicSource() == VoiceSourceManager.KUWO_MUSIC) {
-                                            VoiceSourceManager.getInstance().next(VoiceSourceManager.VOICE);
-                                        }
-                                    }
-                                    //考拉情况 或者未开始播放情况    启用播放音频逻辑（ 本地 蓝牙 酷我顺序）
-                                    if (VUIUtils.isUdiskExist()) {
-                                        RouterUtils.getInstance().navigation(RouterConstants.FRAGMENT_LOCAL_MUSIC);
-                                    } else if (SettingConfig.getInstance().isBtConnected()) {
-                                        RouterUtils.getInstance().getPostcard(RouterConstants.FRAGMENT_LOCAL_MUSIC)
-                                                .withInt("index", 1)
-                                                .navigation();
-                                    } else {
-                                        VUIUtils.openThirdAppByMusic("", "");
-                                    }
-                                    shutAndTTS("");
-                                } else {
-                                    if (XF_SKILL_TAG_NOVEL.equals(service)) {
-                                        audioName = "小说";
-                                    } else if (XF_SKILL_TAG_NURSERYRHYME.equals(service)) {
-                                        audioName = "儿歌";
-                                    } else if (XF_SKILL_TAG_AUDIOBOOK.equals(service)) {
-                                        audioName = "有声读物";
-                                    } else if (XF_SKILL_TAG_CROSSTALK.equals(service)) {
-                                        audioName = "相声";
-                                    } else if (XF_SKILL_TAG_DRAMA.equals(service)) {
-                                        audioName = "戏曲";
-                                    } else if (XF_SKILL_TAG_STORY.equals(service)) {
-                                        audioName = "故事";
-                                    } else if (XF_SKILL_TAG_STORYTELLING.equals(service)) {
-                                        audioName = "评书";
-                                    }
-                                    if (!TextUtils.isEmpty(audioName)) {
-                                        //听伴搜索
-                                        RouterUtils.getInstance().getPostcard(RouterConstants.MUSIC_PLAY_ONLINE_MAIN)
-                                                .withString("queryString", audioName + " " + artistOrActor)
-                                                .navigation();
-                                        shutAndTTS("");
-                                    } else {
-                                        vuiAnr();
-                                    }
-                                }
-                            } else {
-                                for (int i = 0; i < slots.length(); i++) {
-                                    JSONObject slot = slots.optJSONObject(i);
-                                    String name = slot.optString("name");
-                                    String value = slot.optString("value");
-                                    if (name.equals("artist") || name.equals("actor") || "author".equals(name)) {
-                                        artistOrActor = value;
-                                    }
-                                    if ("name".equals(name) ||
-                                            "song".equals(name) ||
-                                            "category".equals(name) ||
-                                            "bookname".equals(name) ||
-                                            "ambookname".equals(name)) {
-                                        audioName = value;
-                                    }
-                                }
-                                if (!TextUtils.isEmpty(artistOrActor) || !TextUtils.isEmpty(audioName)) {
-                                    if ("musicX".equals(service)) {//识别是音乐 走酷我搜索
-                                        VUIUtils.openThirdAppByMusic(audioName, artistOrActor);
-                                    } else {//其他走听伴搜索
-                                        //听伴搜索
-                                        RouterUtils.getInstance().getPostcard(RouterConstants.MUSIC_PLAY_ONLINE_MAIN)
-                                                .withString("queryString", audioName + " " + artistOrActor)
-                                                .navigation();
-                                    }
-                                    shutAndTTS("");
-                                } else {
-                                    vuiAnr();
-                                }
-                            }
                         } else {
                             vuiAnr();
                         }
+                        return;
                     }
-                    return;
+                    vuiAnr();
+                } else if (TextUtils.equals("musicX", service)) {
+                    musicXServiceLogic(service, semantics);
+                } else if (TextUtils.equals(XF_SKILL_TAG_CROSSTALK, service) ||
+                        TextUtils.equals(XF_SKILL_TAG_DRAMA, service) ||
+                        TextUtils.equals(XF_SKILL_TAG_NURSERYRHYME, service) ||
+                        TextUtils.equals(XF_SKILL_TAG_STORYTELLING, service) ||
+                        TextUtils.equals(XF_SKILL_TAG_AUDIOBOOK, service) ||
+                        TextUtils.equals(XF_SKILL_TAG_STORY, service) ||
+                        TextUtils.equals(XF_SKILL_TAG_NOVEL, service)) {
+                    audioSkillServiceLogic(service, semantics);
                 } else {
                     if (TextUtils.equals("mapU", service)) {
-                        JSONArray semantics = intent.optJSONArray("semantic");
                         if (null != semantics && semantics.length() > 0) {
                             JSONObject semantic = semantics.optJSONObject(0);
                             switch (semantic.optString("intent")) {
@@ -787,7 +695,6 @@ public class VUI implements VUIWindow.OnWindowHideListener {
 //                            }
 //                        }
                     } else if (TextUtils.equals(VoiceConstants.VOICE_CUSTOM_SERVICE_NAVI, service)) {
-                        JSONArray semantics = intent.optJSONArray("semantic");
                         if (null != semantics && semantics.length() > 0) {
                             JSONObject semantic = semantics.optJSONObject(0);
                             if (null != semantic) {
@@ -862,7 +769,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
 //                                                                VUIUtils.callPhone(phoneNumber);
 //                                                            }
 //                                                        } else {
-                                                            shutAndTTS("找不到您要的联系人");
+                        shutAndTTS("找不到您要的联系人");
 //                                                        }
 //                                                        break;
 //                                                    case "QUIT":
@@ -885,7 +792,6 @@ public class VUI implements VUIWindow.OnWindowHideListener {
 //                            }
 //                        }
                     } else if (TextUtils.equals("SITECHAI.SitechControl", service)) {
-                        JSONArray semantics = intent.optJSONArray("semantic");
                         if (null != semantics && semantics.length() > 0) {
                             JSONObject semantic = semantics.optJSONObject(0);
                             if (null != semantic) {
@@ -1161,7 +1067,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
             EventBusUtils.postEvent(new VoiceEvent(
                     VoiceEvent.EVENT_VOICE_TTS_PLAYIING,
                     tts));
-        }else{
+        } else {
             shut();
         }
     }
@@ -1691,6 +1597,193 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                         shutdown = true;
                         vuiAnr();
                         break;
+                }
+            }
+        }
+    }
+
+    private void audioSkillServiceLogic(String service, JSONArray semantics) {
+        if (null != semantics && semantics.length() > 0) {
+            JSONObject semantic = semantics.optJSONObject(0);
+            String intent = semantic.optString("intent").toLowerCase();
+            JSONArray slots = semantic.optJSONArray("slots");
+            String artistOrActor = "";
+            String audioName = "";
+            boolean isAudioBookIntent = "QUERY_ACTOR".toLowerCase().equals(intent) || "QUERY_CATEGORY".toLowerCase().equals(intent) || "NAME_AUTHOR".toLowerCase().equals(intent) || "QUERY_NAME".toLowerCase().equals(intent) || "QUERY_AUTHOR".toLowerCase().equals(intent) || "NAME_ACTOR".toLowerCase().equals(intent) || "QUERY_AUDIOBOOK".toLowerCase().equals(intent) || "NAME_CHAPTER".toLowerCase().equals(intent);
+            boolean isNovelIntent = "QUERY".toLowerCase().equals(intent);
+            boolean isDramaIntent = "QUERY".toLowerCase().equals(intent);
+            boolean isCrossTalkIntent = "QUERY".toLowerCase().equals(intent);
+            boolean isStoryTellingIntent = "QUERY".toLowerCase().equals(intent);
+            boolean isStoryIntent = "QUERY".toLowerCase().equals(intent) || "RANDOM_QUERY".toLowerCase().equals(intent) || "QUERY_CATEGORY".toLowerCase().equals(intent);
+            if (isAudioBookIntent || isStoryIntent || isNovelIntent || isDramaIntent || isCrossTalkIntent || isStoryTellingIntent) {
+                if (XF_SKILL_TAG_AUDIOBOOK.equals(service)) {
+                    for (int i = 0; i < slots.length(); i++) {
+                        JSONObject slot = slots.optJSONObject(i);
+                        String name = slot.optString("name");
+                        String value = slot.optString("value");
+                        if ("artist".equals(name) ||
+                                "actor".equals(name) ||
+                                "author".equals(name)) {
+                            artistOrActor = value;
+                        }
+                        if ("bookname".equals(name) ||
+                                "category".equals(name) ||
+                                "ambookname".equals(name)) {
+                            audioName = audioName + value;
+                        }
+                    }
+                }else{
+                    for (int i = 0; i < slots.length(); i++) {
+                        JSONObject slot = slots.optJSONObject(i);
+                        String name = slot.optString("name");
+                        String value = slot.optString("value");
+                        if ("artist".equals(name) ||//drama storyTelling nurseryRhyme
+                                "actor".equals(name) || //crossTalk
+                                "author".equals(name)) {//novel story
+                            artistOrActor = value;
+                        }
+                        if ("name".equals(name) || //drama novel crossTalk  storyTelling story
+                                "category".equals(name) ||//drama  novel crossTalk
+                                "selections".equals(name) ||//drama
+                                "song".equals(name) ||//  nurseryRhyme
+                                "category".equals(name) ||//story
+                                "album".equals(name)  //nurseryRhyme
+                        ) {
+                            audioName = audioName + value;
+                        }
+                    }
+                }
+                if (!TextUtils.isEmpty(audioName) || !TextUtils.isEmpty(artistOrActor)) {
+                    // 按照解析结果搜索
+                    //听伴搜索
+                    RouterUtils.getInstance().getPostcard(RouterConstants.MUSIC_PLAY_ONLINE_MAIN)
+                            .withString("queryString", audioName + " " + artistOrActor)
+                            .navigation();
+                    log("queryString = " + audioName + " " + artistOrActor);
+                    shutAndTTS("");
+                } else {
+                    // slots 为空
+                    //儿歌中 随机播放解析成  音频的随机播放
+                    if (intent.contains("random")) {
+                        //随机播放一首歌   本地 蓝牙 酷我 情况 播放下一首
+                        if (VoiceSourceManager.getInstance().getMusicSource() != VoiceSourceManager.KAOLA) {
+                            if (VoiceSourceManager.getInstance().getMusicSource() == VoiceSourceManager.LOCAL_MUSIC) {
+                                if (VUIUtils.isUdiskExist()) {
+                                    VoiceSourceManager.getInstance().next(VoiceSourceManager.VOICE);
+                                    shutAndTTS("");
+                                    return;
+                                }
+                            } else if (VoiceSourceManager.getInstance().getMusicSource() == VoiceSourceManager.BT_MUSIC) {
+                                if (SettingConfig.getInstance().isBtConnected()) {
+                                    VoiceSourceManager.getInstance().next(VoiceSourceManager.VOICE);
+                                    shutAndTTS("");
+                                    return;
+                                }
+                            } else if (VoiceSourceManager.getInstance().getMusicSource() == VoiceSourceManager.KUWO_MUSIC) {
+                                VoiceSourceManager.getInstance().next(VoiceSourceManager.VOICE);
+                                shutAndTTS("");
+                                return;
+                            }
+                        }
+                        //考拉情况 或者未开始播放情况    启用播放音频逻辑（ 本地 蓝牙 酷我顺序）
+                        if (VUIUtils.isUdiskExist()) {
+                            RouterUtils.getInstance().navigation(RouterConstants.FRAGMENT_LOCAL_MUSIC);
+                        } else if (SettingConfig.getInstance().isBtConnected()) {
+                            RouterUtils.getInstance().getPostcard(RouterConstants.FRAGMENT_LOCAL_MUSIC)
+                                    .withInt("index", 1)
+                                    .navigation();
+                        } else {
+                            VUIUtils.openThirdAppByMusic("", "");
+                        }
+                        shutAndTTS("");
+                    } else {
+                        if (XF_SKILL_TAG_NOVEL.equals(service)) {
+                            audioName = "小说";
+                        } else if (XF_SKILL_TAG_NURSERYRHYME.equals(service)) {
+                            audioName = "儿歌";
+                        } else if (XF_SKILL_TAG_AUDIOBOOK.equals(service)) {
+                            audioName = "有声书";
+                        } else if (XF_SKILL_TAG_CROSSTALK.equals(service)) {
+                            audioName = "相声";
+                        } else if (XF_SKILL_TAG_DRAMA.equals(service)) {
+                            audioName = "戏曲";
+                        } else if (XF_SKILL_TAG_STORY.equals(service)) {
+                            audioName = "故事";
+                        } else if (XF_SKILL_TAG_STORYTELLING.equals(service)) {
+                            audioName = "评书";
+                        }
+                        if (!TextUtils.isEmpty(audioName)) {
+                            //听伴搜索
+                            RouterUtils.getInstance().getPostcard(RouterConstants.MUSIC_PLAY_ONLINE_MAIN)
+                                    .withString("queryString", audioName + " " + artistOrActor)
+                                    .navigation();
+                            log("queryString = " + audioName + " " + artistOrActor);
+                            shutAndTTS("");
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private void musicXServiceLogic(String service, JSONArray semantics) {
+        if (null != semantics && semantics.length() > 0) {
+            JSONObject semantic = semantics.optJSONObject(0);
+            String intent = semantic.optString("intent").toLowerCase();
+            if ("INSTRUCTION".toLowerCase().equals(intent)) {
+                doMusicControl(semantic);
+            } else {/**PLAY  点歌   RANDOM_SEARCH  随机放一首、放首歌、换首歌  ADVICE 询问某位歌手有哪些歌曲*/
+                JSONArray slots = semantic.optJSONArray("slots");
+                String artistOrActor = "";
+                String audioName = "";
+                for (int i = 0; i < slots.length(); i++) {
+                    JSONObject slot = slots.optJSONObject(i);
+                    String name = slot.optString("name");
+                    String value = slot.optString("value");
+                    if (name.equals("artist")) {
+                        artistOrActor = value;
+                    }
+                    if ("song".equals(name) || "source".equals(name) || "album".equals(name)) {
+                        audioName = audioName + " " + value;
+                    }
+                }
+                if (TextUtils.isEmpty(audioName) && TextUtils.isEmpty(artistOrActor)) {
+                    // slots 为空  根据service做意图判断
+                    //随机播放一首歌   本地 蓝牙 酷我 情况 播放下一首
+                    if (VoiceSourceManager.getInstance().getMusicSource() != VoiceSourceManager.KAOLA) {
+                        if (VoiceSourceManager.getInstance().getMusicSource() == VoiceSourceManager.LOCAL_MUSIC) {
+                            if (VUIUtils.isUdiskExist()) {
+                                VoiceSourceManager.getInstance().next(VoiceSourceManager.VOICE);
+                                shutAndTTS("");
+                                return;
+                            }
+                        } else if (VoiceSourceManager.getInstance().getMusicSource() == VoiceSourceManager.BT_MUSIC) {
+                            if (SettingConfig.getInstance().isBtConnected()) {
+                                VoiceSourceManager.getInstance().next(VoiceSourceManager.VOICE);
+                                shutAndTTS("");
+                                return;
+                            }
+                        } else if (VoiceSourceManager.getInstance().getMusicSource() == VoiceSourceManager.KUWO_MUSIC) {
+                            VoiceSourceManager.getInstance().next(VoiceSourceManager.VOICE);
+                            shutAndTTS("");
+                            return;
+                        }
+                    }
+                    //考拉情况 或者未开始播放情况    启用播放音频逻辑（ 本地 蓝牙 酷我顺序）
+                    if (VUIUtils.isUdiskExist()) {
+                        RouterUtils.getInstance().navigation(RouterConstants.FRAGMENT_LOCAL_MUSIC);
+                    } else if (SettingConfig.getInstance().isBtConnected()) {
+                        RouterUtils.getInstance().getPostcard(RouterConstants.FRAGMENT_LOCAL_MUSIC)
+                                .withInt("index", 1)
+                                .navigation();
+                    } else {
+                        VUIUtils.openThirdAppByMusic("", "");
+                    }
+                    shutAndTTS("");
+                } else {
+                    VUIUtils.openThirdAppByMusic(audioName, artistOrActor);
+                    log("music search = " + audioName + " " + artistOrActor);
+                    shutAndTTS("");
                 }
             }
         }
