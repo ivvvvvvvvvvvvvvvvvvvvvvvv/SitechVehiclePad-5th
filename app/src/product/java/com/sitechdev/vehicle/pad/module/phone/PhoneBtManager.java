@@ -195,6 +195,20 @@ public class PhoneBtManager {
     }
 
     /**
+     * 根据姓名拨打电话（有通讯录的前提下）
+     * @param contactName
+     */
+    public void diaToName(String contactName) {
+        if (BtGlobalRef.contactSorts.size() > 0 && StringUtils.isEmpty(contactName)) {
+            for (Contact contact : BtGlobalRef.contacts) {
+                if (contact.getName().equals(contactName) && StringUtils.isEmpty(contact.getPhoneNumber())) {
+                    mATBluetooth.write(ATBluetooth.REQUEST_CALL, contact.getPhoneNumber());
+                }
+            }
+        }
+    }
+
+    /**
      * 下载通讯录
      */
     public void reqPhoneBook() {

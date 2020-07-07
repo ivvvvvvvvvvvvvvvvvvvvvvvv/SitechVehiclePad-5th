@@ -1,7 +1,11 @@
 package com.my.hw;
 
+import com.sitechdev.vehicle.lib.util.ParamsUtil;
+import com.sitechdev.vehicle.lib.util.StringUtils;
+
 public class SettingConfig {
     private static SettingConfig INSTANCE;
+    private static final String SP_KEY_SETTING_BT_ENABLE = "SP_KEY_SETTING_BT_ENABLE";
 
     private SettingConfig() {
     }
@@ -38,11 +42,18 @@ public class SettingConfig {
     private String connectBtName = "";
 
     public boolean isBtEnable() {
+        String enable = ParamsUtil.getStringData(SP_KEY_SETTING_BT_ENABLE);
+        if (StringUtils.isEmpty(enable)) {
+            isBtEnable = false;
+        } else {
+            isBtEnable = Boolean.parseBoolean(enable);
+        }
         return isBtEnable;
     }
 
     public void setBtEnable(boolean btEnable) {
         isBtEnable = btEnable;
+        ParamsUtil.setBeanData(SP_KEY_SETTING_BT_ENABLE, String.valueOf(btEnable));
     }
 
     public String getLocalBtName() {

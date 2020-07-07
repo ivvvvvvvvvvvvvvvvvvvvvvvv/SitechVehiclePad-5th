@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.my.hw.OnBtConnecStatusChangedListener;
 import com.my.hw.OnBtPairListChangeListener;
+import com.my.hw.SettingConfig;
 import com.sitechdev.vehicle.pad.model.contract.SettingBtContract;
 import com.sitechdev.vehicle.pad.module.setting.bt.BtManager;
 
@@ -42,7 +43,7 @@ public class SettingBtPresenter extends SettingBtContract.BtPresenter {
 
     @Override
     public boolean isBtConnected() {
-        return BtManager.getInstance().isBtEnable();
+        return SettingConfig.getInstance().isBtConnected();
     }
 
     @Override
