@@ -14,6 +14,7 @@ import com.sitechdev.vehicle.pad.R;
 public class SettingHomeItemView extends RelativeLayout {
     private TextView mTitle;
     private TextView mContent;
+    private View mArrow;
 
     public SettingHomeItemView(Context context) {
         this(context, null);
@@ -32,6 +33,7 @@ public class SettingHomeItemView extends RelativeLayout {
         View view = LayoutInflater.from(context).inflate(R.layout.layout_setting_home_item, this);
         mTitle = view.findViewById(R.id.setting_home_item_title);
         mContent = view.findViewById(R.id.setting_home_item_content);
+        mArrow = view.findViewById(R.id.setting_home_item_arrow);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.setting_home_item);
         String title = a.getString(R.styleable.setting_home_item_title_name);
         String content = a.getString(R.styleable.setting_home_item_title_content);
@@ -40,6 +42,9 @@ public class SettingHomeItemView extends RelativeLayout {
         }
         if (!TextUtils.isEmpty(content)) {
             mContent.setText(content);
+        }
+        if(View.VISIBLE != a.getInt(R.styleable.setting_home_item_arrow_visibility,View.VISIBLE)){
+            mArrow.setVisibility(INVISIBLE);
         }
     }
 }
