@@ -730,8 +730,8 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                             return;
                         }
                         JSONArray semanticss = intent.optJSONArray("semantic");
-                        if (null != semantics && semantics.length() > 0) {
-                            JSONObject semantic = semantics.optJSONObject(0);
+                        if (null != semanticss && semanticss.length() > 0) {
+                            JSONObject semantic = semanticss.optJSONObject(0);
                             if (null != semantic) {
                                 switch (semantic.optString("intent")) {
                                     case "DIAL":
