@@ -91,7 +91,7 @@ class Config {
                     bugly_version          : 'com.tencent.bugly:crashreport:latest.release',
                     bugly_nativecrashreport: 'com.tencent.bugly:nativecrashreport:latest.release',
                     //腾讯-MMKV
-                    mmkv                   : 'com.tencent:mmkv:1.1.1',
+                    mmkv                   : 'com.tencent:mmkv:1.2.1',
                     //腾讯-xlog
                     xlog                   : 'com.tencent.mars:mars-xlog:1.2.3',
             ],
