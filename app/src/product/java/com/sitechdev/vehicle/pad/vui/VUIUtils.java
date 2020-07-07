@@ -33,6 +33,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author zhubaoqiang
@@ -219,9 +220,14 @@ public class VUIUtils {
      *   ]
      * }
      */
-    public static void updataUserWordsContact(Context context, ArrayList<String> lexiconContent) {
+    public static void updataUserWordsContact(Context context, Map<String, ArrayList<String>> lexiconContent) {
         UserWords userWords = new UserWords();
-        userWords.putWords("contact", lexiconContent);
+        Iterator<String> key = lexiconContent.keySet().iterator();
+        while (key.hasNext()) {
+            String keyStr = key.next();
+            ArrayList<String> values = lexiconContent.get(keyStr);
+            userWords.putWords(keyStr, values);
+        }
         SpeechRecognizer speechRecognizer = SpeechRecognizer.createRecognizer(context, i -> {
             if(i != ErrorCode.SUCCESS){
                 SitechDevLog.i("updataUserWordsContact onInit not success");

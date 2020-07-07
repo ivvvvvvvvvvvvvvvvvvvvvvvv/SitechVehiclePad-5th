@@ -72,8 +72,8 @@ public class ContactPresenter extends ContactContract.Presenter {
                     }
                     if (BtGlobalRef.contactName.size() > 0) {
                         ThreadManager.getInstance().addTask(() -> {
-                            VUIUtils.updataUserWordsContact(AppApplication.getContext(),
-                                    BtGlobalRef.contactName);
+//                            VUIUtils.updataUserWordsContact(AppApplication.getContext(),
+//                                    BtGlobalRef.contactName);
                         });
                     }
                 }
