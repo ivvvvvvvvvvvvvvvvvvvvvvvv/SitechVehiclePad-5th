@@ -5,6 +5,7 @@
         <item name="colorPrimary">@color/colorMainBg</item>
         <item name="colorPrimaryDark">@color/colorMainBg</item>
         <item name="colorAccent">@color/colorMainBg</item>
+        <item name="android:windowBackground">@color/colorMainBg</item>
     </style>
 
     <style name="WhiteAppTheme" parent="BaseAppTheme">

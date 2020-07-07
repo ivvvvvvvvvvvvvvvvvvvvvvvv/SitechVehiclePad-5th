@@ -1,10 +1,10 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="BaseAppTheme">
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="colorPrimary">@color/colorMainBg</item>
-        <item name="colorPrimaryDark">@color/colorMainBg</item>
-        <item name="colorAccent">@color/colorMainBg</item>
-    </style>
+<!--    <style name="AppTheme" parent="BaseAppTheme">-->
+<!--        <item name="android:windowTranslucentStatus">true</item>-->
+<!--        <item name="colorPrimary">@color/colorMainBg</item>-->
+<!--        <item name="colorPrimaryDark">@color/colorMainBg</item>-->
+<!--        <item name="colorAccent">@color/colorMainBg</item>-->
+<!--    </style>-->
 
 </resources>
