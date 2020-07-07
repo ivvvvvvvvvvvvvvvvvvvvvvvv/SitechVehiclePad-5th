@@ -37,6 +37,7 @@ import com.sitechdev.vehicle.pad.event.WindowEvent;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.manager.KuwoManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
+import com.sitechdev.vehicle.pad.model.phone.Contact;
 import com.sitechdev.vehicle.pad.module.login.util.LoginUtils;
 import com.sitechdev.vehicle.pad.module.main.MainActivity;
 import com.sitechdev.vehicle.pad.module.map.SetAddressActivity;
@@ -44,6 +45,7 @@ import com.sitechdev.vehicle.pad.module.map.util.LocationData;
 import com.sitechdev.vehicle.pad.module.map.util.MapUtil;
 import com.sitechdev.vehicle.pad.module.music.MusicMainActivity;
 import com.sitechdev.vehicle.pad.module.music.MusicManager;
+import com.sitechdev.vehicle.pad.module.phone.BtGlobalRef;
 import com.sitechdev.vehicle.pad.module.setting.teddy.TeddyConfig;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
@@ -723,74 +725,74 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                             }
                         }
                     } else if (TextUtils.equals("telephone", service)) {
-//                        if (!SettingConfig.getInstance().isBtConnected()) {
-//                            shutAndTTS("当前蓝牙未连接，无法使用通讯录功能");
-//                            return;
-//                        }
-//                        JSONArray semantics = intent.optJSONArray("semantic");
-//                        if (null != semantics && semantics.length() > 0) {
-//                            JSONObject semantic = semantics.optJSONObject(0);
-//                            if (null != semantic) {
-//                                switch (semantic.optString("intent")) {
-//                                    case "DIAL":
-//                                        JSONObject data = intent.optJSONObject("data");
-//                                        if (null != data) {
-//                                            calls = data.optJSONArray("result");
-//                                            if (calls.length() > 1) {
-//                                                vuiWindow.showContacts(calls);
-//                                            }
-//                                        }
-//                                        break;
-//                                    case "INSTRUCTION":
-//                                        JSONArray slots = semantic.optJSONArray("slots");
-//                                        if (null != slots && slots.length() > 0) {
-//                                            JSONObject slot = slots.optJSONObject(0);
-//                                            if (null != slot) {
-//                                                switch (slot.optString("value")) {
-//                                                    case "CONFIRM":
-//                                                    case "SEQUENCE":
-//                                                        int index = 1;
-//                                                        int len = slots.length();
-//                                                        for (int i = 1; i < len; i++) {
-//                                                            JSONObject object = slots.optJSONObject(i);
-//                                                            if (null != object) {
-//                                                                String name = object.optString("name");
-//                                                                if (TextUtils.equals("posRank.offset", name)) {
-//                                                                    index = Integer.valueOf(object.optString("normValue"));
-//                                                                }
-//                                                            }
-//                                                        }
-//                                                        if (null != calls && calls.length() >= index) {
-//                                                            index--;
-//                                                            JSONObject call = calls.optJSONObject(index);
-//                                                            String phoneNumber = call.optString("phoneNumber");
-//                                                            if (!TextUtils.isEmpty(phoneNumber)) {
-//                                                                vuiWindow.hide();
-//                                                                VUIUtils.callPhone(phoneNumber);
-//                                                            }
-//                                                        } else {
-                        shutAndTTS("找不到您要的联系人");
-//                                                        }
-//                                                        break;
-//                                                    case "QUIT":
-//                                                        shutAndTTS("好的");
-//                                                        break;
-//                                                    case "CONTACTS":
-//                                                        vuiWindow.hide();
-//                                                        VUIUtils.goContacts();
-//                                                        break;
-//                                                    default:
-//                                                        vuiAnr();
-//                                                        break;
-//                                                }
-//                                            }
-//                                        }
-//                                        break;
-//                                    default:
-//                                        break;
-//                                }
-//                            }
-//                        }
+                        if (!SettingConfig.getInstance().isBtConnected()) {
+                            shutAndTTS("当前蓝牙未连接，无法使用通讯录功能");
+                            return;
+                        }
+                        JSONArray semanticss = intent.optJSONArray("semantic");
+                        if (null != semantics && semantics.length() > 0) {
+                            JSONObject semantic = semantics.optJSONObject(0);
+                            if (null != semantic) {
+                                switch (semantic.optString("intent")) {
+                                    case "DIAL":
+                                        JSONObject data = intent.optJSONObject("data");
+                                        if (null != data) {
+                                            calls = data.optJSONArray("result");
+                                            if (calls.length() > 1) {
+                                                vuiWindow.showContacts(calls);
+                                            }
+                                        }
+                                        break;
+                                    case "INSTRUCTION":
+                                        JSONArray slots = semantic.optJSONArray("slots");
+                                        if (null != slots && slots.length() > 0) {
+                                            JSONObject slot = slots.optJSONObject(0);
+                                            if (null != slot) {
+                                                switch (slot.optString("value")) {
+                                                    case "CONFIRM":
+                                                    case "SEQUENCE":
+                                                        int index = 1;
+                                                        int len = slots.length();
+                                                        for (int i = 1; i < len; i++) {
+                                                            JSONObject object = slots.optJSONObject(i);
+                                                            if (null != object) {
+                                                                String name = object.optString("name");
+                                                                if (TextUtils.equals("posRank.offset", name)) {
+                                                                    index = Integer.valueOf(object.optString("normValue"));
+                                                                }
+                                                            }
+                                                        }
+                                                        if (null != calls && calls.length() >= index) {
+                                                            index--;
+                                                            JSONObject call = calls.optJSONObject(index);
+                                                            String phoneNumber = call.optString("phoneNumber");
+                                                            if (!TextUtils.isEmpty(phoneNumber)) {
+                                                                vuiWindow.hide();
+                                                                VUIUtils.callPhone(phoneNumber);
+                                                            }
+                                                        } else {
+                                                            shutAndTTS("找不到您要的联系人");
+                                                        }
+                                                        break;
+                                                    case "QUIT":
+                                                        shutAndTTS("好的");
+                                                        break;
+                                                    case "CONTACTS":
+                                                        vuiWindow.hide();
+                                                        VUIUtils.goContacts();
+                                                        break;
+                                                    default:
+                                                        vuiAnr();
+                                                        break;
+                                                }
+                                            }
+                                        }
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                        }
                     } else if (TextUtils.equals("SITECHAI.SitechControl", service)) {
                         if (null != semantics && semantics.length() > 0) {
                             JSONObject semantic = semantics.optJSONObject(0);
@@ -1148,7 +1150,6 @@ public class VUI implements VUIWindow.OnWindowHideListener {
         }
         if (null != mWakeupEngine) {
             int ret = mWakeupEngine.startListening();
-            syncContacts();
             log("VUI start wakeup -> " + ret);
         } else {
             log("VUI WakeupEngine -> null");
@@ -1199,19 +1200,12 @@ public class VUI implements VUIWindow.OnWindowHideListener {
     }
 
     private void syncContacts() {
-        Cursor cursor = null;
-        cursor = context.getContentResolver().query(
-                ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                null, null, null, null);
-        if (null != cursor && cursor.getCount() > 0) {
+        if (BtGlobalRef.contacts.size()>0) {
             StringBuilder contacts = new StringBuilder();
             JSONObject contact = new JSONObject();
-            cursor.moveToFirst();
-            do {
-                String displayName = cursor.getString(cursor.getColumnIndex(
-                        ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-                String number = cursor.getString(cursor.getColumnIndex(
-                        ContactsContract.CommonDataKinds.Phone.NUMBER));
+            for (Contact con:BtGlobalRef.contacts){
+                String displayName = con.getName();
+                String number = con.getPhoneNumber();
                 if (!TextUtils.isEmpty(displayName) && !TextUtils.isEmpty(number)) {
                     try {
                         contact.put("name", displayName.trim());
@@ -1221,8 +1215,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                         e.printStackTrace();
                     }
                 }
-            } while (cursor.moveToNext());
-            cursor.close();
+            }
             if (contacts.length() > 0) {
                 String data = contacts.toString();
                 syncContacts(data);
@@ -1333,6 +1326,16 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                 break;
             default:
                 break;
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    public void onTeddyEvent(TeddyEvent event) {
+        switch (event.getEventKey()){
+            case TeddyEvent.EB_TEDDY_EVENT_SR_CONTACT_DICT:{
+                syncContacts();
+            }
+            break;
         }
     }
 

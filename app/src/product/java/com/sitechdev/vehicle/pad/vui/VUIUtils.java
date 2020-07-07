@@ -21,6 +21,7 @@ import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.app.AppConst;
 import com.sitechdev.vehicle.pad.manager.KuwoManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
+import com.sitechdev.vehicle.pad.module.phone.PhoneBtManager;
 import com.sitechdev.vehicle.pad.vui.bean.SpeakableSyncData;
 
 import org.json.JSONArray;
@@ -41,10 +42,7 @@ import java.util.Map;
  */
 public class VUIUtils {
     public static void callPhone(String phoneUumber) {
-        Intent intent = new Intent(Intent.ACTION_CALL);
-        Uri data = Uri.parse("tel:" + phoneUumber);
-        intent.setData(data);
-        AppApplication.getContext().startActivity(intent);
+        PhoneBtManager.getInstance().diaTo(phoneUumber);
     }
 
     public static void goContacts() {

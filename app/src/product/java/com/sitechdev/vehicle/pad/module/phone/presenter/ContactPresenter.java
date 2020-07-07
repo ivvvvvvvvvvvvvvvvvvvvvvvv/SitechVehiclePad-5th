@@ -62,7 +62,6 @@ public class ContactPresenter extends ContactContract.Presenter {
             case BTEvent.PB_OR_CL_UPDATE_SUCCESS:
                 boolean isPhoneBook = (boolean) event.getData();
                 if (isPhoneBook) {
-                    EventBusUtils.postEvent(new TeddyEvent(TeddyEvent.EB_TEDDY_EVENT_SR_CONTACT_DICT));
                     if (getView() != null) {
                         if (CollectionUtils.isEmpty(BtGlobalRef.contactSorts)) {
                             getView().showEmptyView();
