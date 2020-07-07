@@ -21,6 +21,7 @@ import com.iflytek.cloud.SpeechEvent;
 import com.iflytek.cloud.WakeuperListener;
 import com.iflytek.cloud.WakeuperResult;
 import com.my.hw.SettingConfig;
+import com.sitechdev.vehicle.lib.event.AppEvent;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.StringUtils;
@@ -28,7 +29,6 @@ import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.app.AppConst;
-import com.sitechdev.vehicle.lib.event.AppEvent;
 import com.sitechdev.vehicle.pad.event.MapEvent;
 import com.sitechdev.vehicle.pad.event.PoiEvent;
 import com.sitechdev.vehicle.pad.event.TeddyEvent;
@@ -1193,7 +1193,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
     }
 
     public boolean isTeddyWorking() {
-        boolean isWorking = isWakeupTTS || AIUIConstant.STATE_WORKING == mAIUIState || isInTTS;
+        boolean isWorking = isWakeupTTS || (AIUIConstant.STATE_WORKING == mAIUIState) || isInTTS;
         SitechDevLog.i(TAG, "isTeddyWorking====" + isWorking);
         return isWorking;
     }
@@ -1632,7 +1632,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                             audioName = audioName + value;
                         }
                     }
-                }else{
+                } else {
                     for (int i = 0; i < slots.length(); i++) {
                         JSONObject slot = slots.optJSONObject(i);
                         String name = slot.optString("name");

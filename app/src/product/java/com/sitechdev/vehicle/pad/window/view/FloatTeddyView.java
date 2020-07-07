@@ -116,7 +116,7 @@ public class FloatTeddyView extends RelativeLayout implements View.OnClickListen
         switch (v.getId()) {
             case R.id.id_btn_teddy:
                 SitechDevLog.i(VoiceConstants.TEDDY_TAG, this.getClass().getSimpleName() + "=====>手动点击Teddy启动图标===");
-                if (VUI.getInstance().isTeddyWorking()) {
+                if (VUI.getInstance().isTeddyWorking() || (!mTeddyDefaultContentView.isShown())) {
                     SitechDevLog.i(VoiceConstants.TEDDY_TAG, this.getClass().getSimpleName() + "=====>Teddy正在工作中===发出SR_OVER事件");
                     EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_SR_OVER));
                 } else {
