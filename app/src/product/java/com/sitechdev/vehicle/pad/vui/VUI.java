@@ -1803,8 +1803,6 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                             value = "亲热";
                         } else if (value.contains("咖啡")) {
                             value = "咖啡店";
-                        } else if (value.contains("年代")) {
-                            value = value.replace("年代", "后");
                         } else if ("说唱".equals(value)) {
                             value = "嘻哈";
                         } else if ("欢快".equals(value)) {
