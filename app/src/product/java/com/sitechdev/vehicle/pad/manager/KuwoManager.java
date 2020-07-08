@@ -601,7 +601,7 @@ public class KuwoManager extends BaseMusicManager {
                 finalSongKey = "热歌";
             }
             SitechDevLog.i("Music", "--------匹配到的“热歌或新歌”Name为：----------songKey= " + songKey);
-            if (StringUtils.isEmpty(finalSongKey)) {
+            if (!StringUtils.isEmpty(finalSongKey)) {
                 playTopSongList(songKey, bribery);
                 return;
             }
