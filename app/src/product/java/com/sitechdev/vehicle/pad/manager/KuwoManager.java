@@ -649,7 +649,7 @@ public class KuwoManager extends BaseMusicManager {
                                             }
                                         }
                                 );
-                                break;
+                                return;
                             }
                         }
                     }
