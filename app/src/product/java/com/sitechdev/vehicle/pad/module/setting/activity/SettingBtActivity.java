@@ -111,6 +111,7 @@ public class SettingBtActivity extends MvpActivity<SettingBtContract.BtPresenter
         });
         mDiscovereSwitch.setChecked(false);
         mBtEnableSwitch.setChecked(mPresenter.isBtEnable());
+        mListLayout.setVisibility(mBtEnableSwitch.isChecked()?View.VISIBLE:View.GONE);
         mHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
