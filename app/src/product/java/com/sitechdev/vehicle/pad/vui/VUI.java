@@ -29,6 +29,7 @@ import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.app.AppConst;
+import com.sitechdev.vehicle.pad.callback.BaseBribery;
 import com.sitechdev.vehicle.pad.event.MapEvent;
 import com.sitechdev.vehicle.pad.event.PoiEvent;
 import com.sitechdev.vehicle.pad.event.TeddyEvent;
@@ -62,7 +63,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 import static com.sitechdev.vehicle.pad.module.setting.teddy.TeddyConstants.XF_SKILL_TAG_AUDIOBOOK;
@@ -1764,6 +1767,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                 JSONArray slots = semantic.optJSONArray("slots");
                 String artistOrActor = "";
                 String audioName = "";
+                List<String> tags = new ArrayList<>();
                 for (int i = 0; i < slots.length(); i++) {
                     JSONObject slot = slots.optJSONObject(i);
                     String name = slot.optString("name");
@@ -1774,40 +1778,90 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                     if ("song".equals(name) || "source".equals(name) || "album".equals(name)) {
                         audioName = audioName + " " + value;
                     }
-                }
-                if (TextUtils.isEmpty(audioName) && TextUtils.isEmpty(artistOrActor)) {
-                    // slots 为空  根据service做意图判断
-                    //随机播放一首歌   本地 蓝牙 酷我 情况 播放下一首
-                    if (VoiceSourceManager.getInstance().getMusicSource() != VoiceSourceManager.KAOLA) {
-                        if (VoiceSourceManager.getInstance().getMusicSource() == VoiceSourceManager.LOCAL_MUSIC) {
-                            if (VUIUtils.isUdiskExist()) {
-                                VoiceSourceManager.getInstance().next(VoiceSourceManager.VOICE);
-                                shutAndTTS("");
-                                return;
-                            }
-                        } else if (VoiceSourceManager.getInstance().getMusicSource() == VoiceSourceManager.BT_MUSIC) {
-                            if (SettingConfig.getInstance().isBtConnected()) {
-                                VoiceSourceManager.getInstance().next(VoiceSourceManager.VOICE);
-                                shutAndTTS("");
-                                return;
-                            }
-                        } else if (VoiceSourceManager.getInstance().getMusicSource() == VoiceSourceManager.KUWO_MUSIC) {
-                            VoiceSourceManager.getInstance().next(VoiceSourceManager.VOICE);
-                            shutAndTTS("");
-                            return;
+                    if ("tags".equals(name) ||
+                            "theme".equals(name) ||
+                            "genre".equals(name) ||
+                            "list".equals(name) ||
+                            "emotion".equals(name) ||
+                            "source".equals(name) ||
+                            "song".equals(name) ||
+                            "scene".equals(name) ||
+                            "age".equals(name) ||
+                            "lang".equals(name) ||
+                            "area".equals(name) ||
+                            "toplist".equals(name)) {
+                        //讯飞文字解析 跟酷我类型做对应
+                        if ("中国风".equals(value)) {
+                            value = "古风";
+                        } else if ("影视原声".equals(value)) {
+                            value = "影视";
+                        } else if ("KTV热歌".equals(value)) {
+                            value = "KTV";
+                        } else if ("驾车".equals(value)) {
+                            value = "开车";
+                        } else if ("热恋".equals(value)) {
+                            value = "亲热";
+                        } else if (value.contains("咖啡")) {
+                            value = "咖啡店";
+                        } else if (value.contains("年代")) {
+                            value = value.replace("年代", "后");
+                        } else if ("说唱".equals(value)) {
+                            value = "嘻哈";
+                        } else if ("欢快".equals(value)) {
+                            value = "开心";
                         }
+                        tags.add(value);
                     }
-                    //考拉情况 或者未开始播放情况    启用播放音频逻辑（ 本地 蓝牙 酷我顺序）
-                    if (VUIUtils.isUdiskExist()) {
-                        RouterUtils.getInstance().navigation(RouterConstants.FRAGMENT_LOCAL_MUSIC);
-                    } else if (SettingConfig.getInstance().isBtConnected()) {
-                        RouterUtils.getInstance().getPostcard(RouterConstants.FRAGMENT_LOCAL_MUSIC)
-                                .withInt("index", 1)
-                                .navigation();
+                }
+
+                if (TextUtils.isEmpty(audioName) && TextUtils.isEmpty(artistOrActor)) {
+                    // audioName && artistOrActor为空  判断tag做跳转
+                    if (tags.size() > 0) {
+                        KuwoManager.getInstance().playSongList(tags, new BaseBribery() {
+                            @Override
+                            public void onSuccess(Object successObj) {
+                                shut();
+                            }
+
+                            @Override
+                            public void onFailure(Object failObj) {
+                                shutAndTTS("没有匹配的歌曲");
+                            }
+                        });
                     } else {
-                        VUIUtils.openThirdAppByMusic("", "");
+                        // 根据service做意图判断
+                        //随机播放一首歌   本地 蓝牙 酷我 情况 播放下一首
+                        if (VoiceSourceManager.getInstance().getMusicSource() != VoiceSourceManager.KAOLA) {
+                            if (VoiceSourceManager.getInstance().getMusicSource() == VoiceSourceManager.LOCAL_MUSIC) {
+                                if (VUIUtils.isUdiskExist()) {
+                                    VoiceSourceManager.getInstance().next(VoiceSourceManager.VOICE);
+                                    shutAndTTS("");
+                                    return;
+                                }
+                            } else if (VoiceSourceManager.getInstance().getMusicSource() == VoiceSourceManager.BT_MUSIC) {
+                                if (SettingConfig.getInstance().isBtConnected()) {
+                                    VoiceSourceManager.getInstance().next(VoiceSourceManager.VOICE);
+                                    shutAndTTS("");
+                                    return;
+                                }
+                            } else if (VoiceSourceManager.getInstance().getMusicSource() == VoiceSourceManager.KUWO_MUSIC) {
+                                VoiceSourceManager.getInstance().next(VoiceSourceManager.VOICE);
+                                shutAndTTS("");
+                                return;
+                            }
+                        }
+                        //考拉情况 或者未开始播放情况    启用播放音频逻辑（ 本地 蓝牙 酷我顺序）
+                        if (VUIUtils.isUdiskExist()) {
+                            RouterUtils.getInstance().navigation(RouterConstants.FRAGMENT_LOCAL_MUSIC);
+                        } else if (SettingConfig.getInstance().isBtConnected()) {
+                            RouterUtils.getInstance().getPostcard(RouterConstants.FRAGMENT_LOCAL_MUSIC)
+                                    .withInt("index", 1)
+                                    .navigation();
+                        } else {
+                            VUIUtils.openThirdAppByMusic("", "");
+                        }
+                        shutAndTTS("");
                     }
-                    shutAndTTS("");
                 } else {
                     VUIUtils.openThirdAppByMusic(audioName, artistOrActor);
                     log("music search = " + audioName + " " + artistOrActor);
