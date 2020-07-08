@@ -86,6 +86,7 @@ public class KuwoManager extends BaseMusicManager {
         if (mKwapi != null) {
             mKwapi.bindAutoSdkService(BaseApp.getApp().getApplicationContext());
         }
+        isServerConnected = true;
     }
 
     public void unRegisterKuwoService() {
