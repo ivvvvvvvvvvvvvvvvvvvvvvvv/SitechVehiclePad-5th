@@ -7,6 +7,7 @@ import com.sitechdev.vehicle.lib.base.BaseApp;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.NetworkUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
+import com.sitechdev.vehicle.lib.util.StringUtils;
 import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.callback.BaseBribery;
@@ -589,12 +590,18 @@ public class KuwoManager extends BaseMusicManager {
         }
 
         //匹配“热歌或新歌”等排行榜音乐
+        String finalSongKey = "";
         for (String songKey : songKeyList) {
             if ("最新".equalsIgnoreCase(songKey)
-                    || "新歌".equalsIgnoreCase(songKey)
-                    || "最热".equalsIgnoreCase(songKey)
+                    || "新歌".equalsIgnoreCase(songKey)) {
+                finalSongKey = "新歌";
+            }
+            if ("最热".equalsIgnoreCase(songKey)
                     || "热歌".equalsIgnoreCase(songKey)) {
-                SitechDevLog.i("Music", "--------匹配到的“热歌或新歌”Name为：----------songKey= " + songKey);
+                finalSongKey = "热歌";
+            }
+            SitechDevLog.i("Music", "--------匹配到的“热歌或新歌”Name为：----------songKey= " + songKey);
+            if (StringUtils.isEmpty(finalSongKey)) {
                 playTopSongList(songKey, bribery);
                 return;
             }
@@ -610,8 +617,8 @@ public class KuwoManager extends BaseMusicManager {
                     BaseOnlineSection baseOnlineSection = onlineSections.get(i);
                     for (int i1 = 0; i1 < baseOnlineSection.getOnlineInfos().size(); i1++) {
                         BaseQukuItem qukuItem = baseOnlineSection.getOnlineInfos().get(i1);
-                        for (int t = 0; t < songKeyList.size(); i++) {
-                            String songKey = songKeyList.get(i);
+                        for (int t = 0; t < songKeyList.size(); t++) {
+                            String songKey = songKeyList.get(t);
                             if (songKey.equalsIgnoreCase(qukuItem.getName())) {
                                 SitechDevLog.i("Music", "--------匹配到的分类Name为：----------songKey= " + songKey);
                                 SitechDevLog.i("Music", "--------匹配到的分类Name为：----------qukuItem.getName()= " + qukuItem.getName());
