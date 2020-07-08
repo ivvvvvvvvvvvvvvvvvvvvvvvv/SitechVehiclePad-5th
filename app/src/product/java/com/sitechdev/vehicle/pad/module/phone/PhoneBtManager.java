@@ -121,6 +121,10 @@ public class PhoneBtManager {
                                 SettingConfig.getInstance().setConnectBtName("");
                                 SettingConfig.getInstance().setHFPConnected(false);
                                 SettingConfig.getInstance().setA2dpConnected(false);
+                                BtGlobalRef.contacts.clear();
+                                BtGlobalRef.contactSorts.clear();
+                                BtGlobalRef.callLogs.clear();
+                                BtGlobalRef.contactName.clear();
                                 EventBusUtils.postEvent(new SysEvent(EB_SYS_BT_STATE, false));
                             }
                         }
