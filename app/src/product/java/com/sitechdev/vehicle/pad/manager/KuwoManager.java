@@ -600,9 +600,9 @@ public class KuwoManager extends BaseMusicManager {
                     || "热歌".equalsIgnoreCase(songKey)) {
                 finalSongKey = "热歌";
             }
-            SitechDevLog.i("Music", "--------匹配到的“热歌或新歌”Name为：----------songKey= " + songKey);
             if (!StringUtils.isEmpty(finalSongKey)) {
-                playTopSongList(songKey, bribery);
+                SitechDevLog.i("Music", "--------匹配到的“热歌或新歌”Name为：----------finalSongKey= " + finalSongKey);
+                playTopSongList(finalSongKey, bribery);
                 return;
             }
         }
