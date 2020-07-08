@@ -60,7 +60,7 @@ public class PhoneBtManager {
         @Override
         public void onBtCallback(int cmdId, int param2, String param3, String param4) {
             logTest("onBtCallback-----cmdId:" + cmdId + " param2:" + param2 + " param3:" + param3 + " param4:" + param4);
-            ThreadManager.getInstance().addTask(() -> {
+//            ThreadManager.getInstance().addTask(() -> {
                 switch (cmdId) {
                     case ATBluetooth.RETURN_PHONE_CALLLOG: {//通话记录
                         handleCallLogCallback(param2, param3, param4);
@@ -168,7 +168,7 @@ public class PhoneBtManager {
                     default:
                         break;
                 }
-            });
+//            });
         }
     };
 
