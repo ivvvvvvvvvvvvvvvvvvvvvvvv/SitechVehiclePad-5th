@@ -46,6 +46,7 @@ public class KuwoManager extends BaseMusicManager {
 
     private KuwoManager() {
         mKwapi = KWAPI.createKWAPI(BaseApp.getApp().getApplicationContext(), "auto");
+        registerKuwoService();
         //注册一些监听
         registerKuwoListener();
     }
@@ -67,7 +68,6 @@ public class KuwoManager extends BaseMusicManager {
         ThreadUtils.runOnUIThread(() -> {
             boolean networkAvailable = NetworkUtils.isNetworkAvailable(BaseApp.getApp().getApplicationContext());
             mKwapi.startAPP(networkAvailable);
-            registerKuwoService();
             if (isServerConnected) {
                 getPlayResource();
             } else {
@@ -628,10 +628,7 @@ public class KuwoManager extends BaseMusicManager {
                                                 if (onlineSection != null) {
                                                     List<BaseQukuItem> items = onlineSection.getOnlineInfos();
                                                     if (onlineSection.getOnlineInfos().size() > 0) {
-                                                        int randomIndex = new Random().nextInt(onlineSection.getOnlineInfos().size());
-                                                        BaseQukuItem finalQukuItem = onlineSection.getOnlineInfos().get(randomIndex);
-                                                        SitechDevLog.i("Music", "--------最终播放的歌单名称：----------= " + finalQukuItem.getName());
-                                                        playMusicList(finalQukuItem, bribery);
+                                                        playRandomAlbum(onlineSection, bribery);
                                                     } else {
                                                         if (bribery != null) {
                                                             bribery.onFailure("");
@@ -665,6 +662,43 @@ public class KuwoManager extends BaseMusicManager {
                 if (bribery != null) {
                     bribery.onFailure(str);
                 }
+            }
+        });
+    }
+
+    private int retryCount = 0;
+
+    /**
+     * 增加重试机制。最大重试播放3次
+     *
+     * @param onlineSection
+     * @param bribery
+     */
+    private void playRandomAlbum(final BaseOnlineSection onlineSection, final BaseBribery bribery) {
+        if (retryCount > 2) {
+            retryCount = 0;
+            if (bribery != null) {
+                bribery.onFailure("");
+            }
+            return;
+        }
+        retryCount++;
+        int randomIndex = new Random().nextInt(onlineSection.getOnlineInfos().size());
+        BaseQukuItem finalQukuItem = onlineSection.getOnlineInfos().get(randomIndex);
+        SitechDevLog.i("Music", "--------最终播放的歌单名称：----------= " + finalQukuItem.getName());
+        playMusicList(finalQukuItem, new BaseBribery() {
+            @Override
+            public void onSuccess(Object successObj) {
+                retryCount = 0;
+                if (bribery != null) {
+                    bribery.onSuccess(true);
+                }
+            }
+
+            @Override
+            public void onFailure(Object failObj) {
+                super.onFailure(failObj);
+                playRandomAlbum(onlineSection, bribery);
             }
         });
     }
