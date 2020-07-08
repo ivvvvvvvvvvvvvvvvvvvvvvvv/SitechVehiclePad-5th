@@ -696,7 +696,7 @@ public class KuwoManager extends BaseMusicManager {
                                 if (songName.contains(songKey)) {
                                     SitechDevLog.i("Music", "--------排行榜 最终播放的歌单名称：----------= " + baseQukuItem.getName());
                                     playMusicList(baseQukuItem, bribery);
-                                    break;
+                                    return;
                                 }
                             }
                         }
