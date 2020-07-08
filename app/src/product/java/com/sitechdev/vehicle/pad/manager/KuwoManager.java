@@ -15,13 +15,19 @@ import com.sitechdev.vehicle.pad.event.KuwoEvent;
 import com.sitechdev.vehicle.pad.event.MusicStatusEvent;
 
 import java.util.List;
+import java.util.Random;
 
 import cn.kuwo.autosdk.api.KWAPI;
+import cn.kuwo.autosdk.api.OnGetBaseOnlineListListener;
+import cn.kuwo.autosdk.api.OnGetBaseOnlineListener;
 import cn.kuwo.autosdk.api.OnGetSongImgListener;
+import cn.kuwo.autosdk.api.OnGetSongListListener;
 import cn.kuwo.autosdk.api.OnSearchListener;
 import cn.kuwo.autosdk.api.PlayMode;
 import cn.kuwo.autosdk.api.PlayState;
 import cn.kuwo.autosdk.api.PlayerStatus;
+import cn.kuwo.autosdk.bean.notproguard.BaseOnlineSection;
+import cn.kuwo.autosdk.bean.notproguard.BaseQukuItem;
 import cn.kuwo.base.bean.Music;
 
 /**
@@ -66,6 +72,7 @@ public class KuwoManager extends BaseMusicManager {
             } else {
                 isServerConnected = true;
             }
+            showTopList();
         });
     }
 
@@ -566,5 +573,171 @@ public class KuwoManager extends BaseMusicManager {
         SitechDevLog.e("Music", this.getClass().getSimpleName() + "---------releaseMusicSource----------= 退出酷我");
         //界面展示为空
         exitKuwoApp();
+    }
+
+    /**
+     * 返回可以播放的歌单--主要为语音使用
+     *
+     * @param songKeyList 热词关键字列表
+     * @param bribery     回调函数==>回调onSuccess为成功，回调onFailure为失败
+     */
+    public void playSongList(List<String> songKeyList, BaseBribery bribery) {
+        if (songKeyList == null || songKeyList.isEmpty()) {
+            if (bribery != null) {
+                bribery.onFailure("");
+            }
+            return;
+        }
+
+        //匹配“热歌或新歌”等排行榜音乐
+        for (String songKey : songKeyList) {
+            if ("最新".equalsIgnoreCase(songKey)
+                    || "新歌".equalsIgnoreCase(songKey)
+                    || "最热".equalsIgnoreCase(songKey)
+                    || "热歌".equalsIgnoreCase(songKey)) {
+                SitechDevLog.i("Music", "--------匹配到的“热歌或新歌”Name为：----------songKey= " + songKey);
+                playTopSongList(songKey, bribery);
+                return;
+            }
+        }
+
+        SitechDevLog.i("Music", "--------匹配分类音乐：----------= ");
+        //匹配分类音乐
+        mKwapi.showClassifyList(0, new OnGetBaseOnlineListListener() {
+            @Override
+            public void onSuccess(List<BaseOnlineSection> onlineSections) {
+                //主题---影视/抖音/古风、心情-温柔/年轻
+                for (int i = 0; i < onlineSections.size(); i++) {
+                    BaseOnlineSection baseOnlineSection = onlineSections.get(i);
+                    for (int i1 = 0; i1 < baseOnlineSection.getOnlineInfos().size(); i1++) {
+                        BaseQukuItem qukuItem = baseOnlineSection.getOnlineInfos().get(i1);
+                        for (int t = 0; t < songKeyList.size(); i++) {
+                            String songKey = songKeyList.get(i);
+                            if (songKey.equalsIgnoreCase(qukuItem.getName())) {
+                                SitechDevLog.i("Music", "--------匹配到的分类Name为：----------songKey= " + songKey);
+                                SitechDevLog.i("Music", "--------匹配到的分类Name为：----------qukuItem.getName()= " + qukuItem.getName());
+                                mKwapi.showCategoryList(0, qukuItem, new OnGetBaseOnlineListener() {
+                                            @Override
+                                            public void onSuccess(BaseOnlineSection onlineSection) {
+                                                if (onlineSection != null) {
+                                                    List<BaseQukuItem> items = onlineSection.getOnlineInfos();
+                                                    if (onlineSection.getOnlineInfos().size() > 0) {
+                                                        int randomIndex = new Random().nextInt(onlineSection.getOnlineInfos().size());
+                                                        BaseQukuItem finalQukuItem = onlineSection.getOnlineInfos().get(randomIndex);
+                                                        SitechDevLog.i("Music", "--------最终播放的歌单名称：----------= " + finalQukuItem.getName());
+                                                        playMusicList(finalQukuItem, bribery);
+                                                    } else {
+                                                        if (bribery != null) {
+                                                            bribery.onFailure("");
+                                                        }
+                                                    }
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onError(String str) {
+                                                SitechDevLog.i("Music", "--------获取歌单信息失败：----------错误信息==> " + str);
+                                                if (bribery != null) {
+                                                    bribery.onFailure(str);
+                                                }
+                                            }
+                                        }
+                                );
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (bribery != null) {
+                    bribery.onFailure("");
+                }
+            }
+
+            @Override
+            public void onError(String str) {
+                SitechDevLog.i("Music", "--out------获取歌单信息失败：----------错误信息==> " + str);
+                if (bribery != null) {
+                    bribery.onFailure(str);
+                }
+            }
+        });
+    }
+
+    /**
+     * 返回可以播放的歌单
+     *
+     * @param songKey 热词关键字
+     * @param bribery 回调函数==>回调onSuccess为成功，回调onFailure为失败
+     */
+    public void playTopSongList(String songKey, BaseBribery bribery) {
+        SitechDevLog.i("Music", "--------排行榜 需要匹配的songKey名称：----------= " + songKey);
+        mKwapi.showTopList(0, new OnGetBaseOnlineListener() {
+                    @Override
+                    public void onSuccess(BaseOnlineSection onlineSection) {
+                        if (onlineSection != null) {
+                            final List<BaseQukuItem> items = onlineSection.getOnlineInfos();
+                            if (items == null || items.isEmpty()) {
+                                if (bribery != null) {
+                                    bribery.onFailure("");
+                                }
+                                return;
+                            }
+
+                            for (int i = 0; i < items.size(); i++) {
+                                BaseQukuItem baseQukuItem = items.get(i);
+                                String songName = baseQukuItem.getName();
+                                SitechDevLog.i("Music", "--------排行榜 songName名称：----------= " + songName);
+                                if (songName.contains(songKey)) {
+                                    SitechDevLog.i("Music", "--------排行榜 最终播放的歌单名称：----------= " + baseQukuItem.getName());
+                                    playMusicList(baseQukuItem, bribery);
+                                    break;
+                                }
+                            }
+                        }
+                        if (bribery != null) {
+                            bribery.onFailure("");
+                        }
+                    }
+
+                    @Override
+                    public void onError(String str) {
+                        SitechDevLog.i("Music", "--------排行榜 获取歌单信息失败：----------错误信息==> " + str);
+                        if (bribery != null) {
+                            bribery.onFailure(str);
+                        }
+                    }
+                }
+        );
+    }
+
+    /**
+     * 播放最终的歌单，替换当前歌单
+     *
+     * @param baseQukuItem baseQukuItem
+     * @param bribery      bribery
+     */
+    private void playMusicList(BaseQukuItem baseQukuItem, BaseBribery bribery) {
+        mKwapi.showSongList(0, baseQukuItem, new OnGetSongListListener() {
+            @Override
+            public void onSuccess(final List<Music> musics) {
+                if (musics == null || musics.isEmpty()) {
+                    if (bribery != null) {
+                        bribery.onFailure("");
+                    }
+                    return;
+                }
+                mKwapi.playMusicReplacePlayList(musics, 0, true, false);
+                if (bribery != null) {
+                    bribery.onSuccess(true);
+                }
+            }
+
+            @Override
+            public void onError(String str) {
+                if (bribery != null) {
+                    bribery.onFailure(str);
+                }
+            }
+        });
     }
 }
