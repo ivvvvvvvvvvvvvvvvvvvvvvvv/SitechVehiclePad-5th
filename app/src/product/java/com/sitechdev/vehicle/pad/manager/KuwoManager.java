@@ -72,7 +72,6 @@ public class KuwoManager extends BaseMusicManager {
             } else {
                 isServerConnected = true;
             }
-            showTopList();
         });
     }
 
