@@ -38,6 +38,7 @@ import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.imageloader.GlideApp;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.StringUtils;
+import com.sitechdev.vehicle.lib.util.ThreadManager;
 import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
@@ -128,7 +129,6 @@ public class MainActivity extends BaseActivity
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = this;
-        initToolBarView();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             if (!Settings.canDrawOverlays(AppApplication.getContext())) {
@@ -232,10 +232,14 @@ public class MainActivity extends BaseActivity
             SitechDevLog.exception(e);
         }
         if (AppVariants.activeSuccess) {
-            KaolaPlayManager.SingletonHolder.INSTANCE.acquireKaolaData();
+            ThreadManager.getInstance().addTask(()->{
+                KaolaPlayManager.SingletonHolder.INSTANCE.acquireKaolaData();
+            });
             KaolaPlayManager.SingletonHolder.INSTANCE.setCallback(mCallback);
         } else {
-            KaolaPlayManager.SingletonHolder.INSTANCE.activeKaola();
+            ThreadManager.getInstance().addTask(()->{
+                KaolaPlayManager.SingletonHolder.INSTANCE.activeKaola();
+            });
         }
 
 //        KaolaPlayManager.SingletonHolder.INSTANCE.setPlayCallback(mPlayCallback);

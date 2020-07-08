@@ -10,27 +10,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="116px">
+        android:layout_marginBottom="116pt">
 
         <ImageView
             android:id="@+id/id_iv_logo_under"
-            android:layout_width="291px"
-            android:layout_height="23px"
+            android:layout_width="291pt"
+            android:layout_height="23pt"
             android:layout_centerInParent="true" />
 
         <View
-            android:layout_width="200px"
-            android:layout_height="1px"
+            android:layout_width="200pt"
+            android:layout_height="1pt"
             android:layout_centerVertical="true"
-            android:layout_marginRight="40px"
+            android:layout_marginRight="40pt"
             android:layout_toLeftOf="@id/id_iv_logo_under"
             android:background="#33FFFFFF" />
 
         <View
-            android:layout_width="200px"
-            android:layout_height="1px"
+            android:layout_width="200pt"
+            android:layout_height="1pt"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="40px"
+            android:layout_marginLeft="40pt"
             android:layout_toRightOf="@id/id_iv_logo_under"
             android:background="#33FFFFFF" />
 
@@ -38,10 +38,10 @@
 
     <ImageView
         android:id="@+id/id_iv_logo"
-        android:layout_width="410px"
-        android:layout_height="53px"
+        android:layout_width="410pt"
+        android:layout_height="53pt"
         android:layout_above="@id/id_rl_logo_under"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="34px" />
+        android:layout_marginBottom="34pt" />
 
 </RelativeLayout>

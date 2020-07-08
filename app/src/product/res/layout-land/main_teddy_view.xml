@@ -51,62 +51,75 @@
         </RelativeLayout>
 
         <!-- 识别的view 识别语句的应答-->
-        <RelativeLayout
-            android:id="@+id/id_teddy_sr_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone">
-
-            <com.sitechdev.vehicle.pad.view.VolumeView2
-                android:id="@+id/id_teddy_sr_volume_content"
-                android:layout_width="wrap_content"
-                android:layout_height="46pt"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="top" />
-
-            <com.sitechdev.vehicle.pad.view.SkinTextView
-                android:id="@+id/id_teddy_sr_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/id_teddy_sr_volume_content"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10pt"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:maxLines="1"
-                android:paddingLeft="50pt"
-                android:paddingRight="50pt"
-                android:textColor="#499AC8"
-                android:textSize="30pt"
-                android:visibility="gone"
-                tools:text="打开车窗透气" />
-        </RelativeLayout>
-
-        <!-- tts的view 包含唤醒的应答-->
-        <RelativeLayout
-            android:id="@+id/id_teddy_tts_content"
+        <ViewStub
+            android:id="@+id/id_teddy_sr_content_vt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:visibility="gone">
+            android:inflatedId="@+id/teddy_sr_view"
+            android:layout="@layout/main_teddy_sr_view"/>
+        <!--        <RelativeLayout-->
+        <!--            android:id="@+id/id_teddy_sr_content"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:visibility="gone">-->
 
-            <com.sitechdev.vehicle.pad.view.SkinTextView
-                android:id="@+id/id_teddy_tts_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_btn_teddy_ask_land"
-                android:ellipsize="end"
-                android:gravity="left"
-                android:maxLines="2"
-                android:paddingLeft="30pt"
-                android:paddingTop="20pt"
-                android:paddingRight="30pt"
-                android:paddingBottom="20pt"
-                android:textColor="#499AC8"
-                android:textSize="30pt"
-                tools:text="好的" />
-        </RelativeLayout>
+        <!--            <com.sitechdev.vehicle.pad.view.VolumeView2-->
+        <!--                android:id="@+id/id_teddy_sr_volume_content"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="46pt"-->
+        <!--                android:layout_centerHorizontal="true"-->
+        <!--                android:layout_gravity="top" />-->
+
+        <!--            <com.sitechdev.vehicle.pad.view.SkinTextView-->
+        <!--                android:id="@+id/id_teddy_sr_text"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_below="@id/id_teddy_sr_volume_content"-->
+        <!--                android:layout_centerHorizontal="true"-->
+        <!--                android:layout_gravity="center_horizontal"-->
+        <!--                android:layout_marginTop="10pt"-->
+        <!--                android:ellipsize="end"-->
+        <!--                android:gravity="center"-->
+        <!--                android:maxLines="1"-->
+        <!--                android:paddingLeft="50pt"-->
+        <!--                android:paddingRight="50pt"-->
+        <!--                android:textColor="#499AC8"-->
+        <!--                android:textSize="30pt"-->
+        <!--                android:visibility="gone"-->
+        <!--                tools:text="打开车窗透气" />-->
+        <!--        </RelativeLayout>-->
+
+        <!-- tts的view 包含唤醒的应答-->
+        <!--        <RelativeLayout-->
+        <!--            android:id="@+id/id_teddy_tts_content"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_alignParentRight="true"-->
+        <!--            android:visibility="gone">-->
+
+        <!--            <com.sitechdev.vehicle.pad.view.SkinTextView-->
+        <!--                android:id="@+id/id_teddy_tts_text"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:background="@drawable/bg_btn_teddy_ask_land"-->
+        <!--                android:ellipsize="end"-->
+        <!--                android:gravity="left"-->
+        <!--                android:maxLines="2"-->
+        <!--                android:paddingLeft="30pt"-->
+        <!--                android:paddingTop="20pt"-->
+        <!--                android:paddingRight="30pt"-->
+        <!--                android:paddingBottom="20pt"-->
+        <!--                android:textColor="#499AC8"-->
+        <!--                android:textSize="30pt"-->
+        <!--                tools:text="好的" />-->
+        <!--        </RelativeLayout>-->
+        <ViewStub
+            android:id="@+id/id_teddy_tts_content_vt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inflatedId="@+id/teddy_tts_view"
+            android:layout="@layout/main_teddy_tts_view"
+            android:layout_alignParentRight="true" />
     </RelativeLayout>
 
 </RelativeLayout>

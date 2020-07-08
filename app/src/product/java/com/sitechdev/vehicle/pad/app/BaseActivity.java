@@ -106,7 +106,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     protected void onResume() {
         super.onResume();
         MapUtil.sendAMapInitBroadcast();
-        BarUtils.setNavBarVisibility(this, false);
+//        BarUtils.setNavBarVisibility(this, false);
 
         SitechDevLog.i("changeTime", this.getClass().getSimpleName() + "===view time====>" + (System.currentTimeMillis() - AppUtil.clickTime));
     }

@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewStub;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -30,19 +31,10 @@ import com.sitechdev.vehicle.pad.window.manager.TeddyWindowManager;
 public class FloatTeddyView extends RelativeLayout implements View.OnClickListener {
 
     private final String TAG = VoiceConstants.TEDDY_TAG;
-    private TeddyWindowManager manager;
     private ImageView voiceIconIv;
 
     public int mWidth;
     public int mHeight;
-
-    private int preX;
-    private int preY;
-    private int x;
-    private int y;
-
-    int lastX, lastY;
-
 
     private long lastClickTime = 0L;
     private static final int FAST_CLICK_DELAY_TIME = 1000;  // 快速点击间隔
@@ -56,6 +48,8 @@ public class FloatTeddyView extends RelativeLayout implements View.OnClickListen
     private RelativeLayout mTeddySringContentView = null;
     //tts中的Teddy展示样式
     private RelativeLayout mTeddyTtsContentView = null;
+
+    private ViewStub mTeddySrContentViewStup = null, mTeddyTtsContentViewStup = null;
 
     private SkinTextView mSrTextView = null, mTtsTextView = null;
     private VolumeView2 mSrVolumeView = null;
@@ -76,7 +70,6 @@ public class FloatTeddyView extends RelativeLayout implements View.OnClickListen
         voiceIconIv = findViewById(R.id.id_btn_teddy);
         mWidth = findViewById(R.id.id_rl_teddy).getLayoutParams().width;
         mHeight = findViewById(R.id.id_rl_teddy).getLayoutParams().height;
-        manager = TeddyWindowManager.getInstance();
 
         initView();
 
@@ -89,17 +82,10 @@ public class FloatTeddyView extends RelativeLayout implements View.OnClickListen
 
         //默认的Teddy展示样式
         mTeddyDefaultContentView = findViewById(R.id.id_teddy_default_content);
-
         //识别过程中的Teddy展示样式
-        mTeddySringContentView = findViewById(R.id.id_teddy_sr_content);
-        mSrVolumeView = findViewById(R.id.id_teddy_sr_volume_content);
-        mSrVolumeView.start();
-        mSrTextView = findViewById(R.id.id_teddy_sr_text);
-
+        mTeddySrContentViewStup = findViewById(R.id.id_teddy_sr_content_vt);
         //tts中的Teddy展示样式
-        mTeddyTtsContentView = findViewById(R.id.id_teddy_tts_content);
-        //tts文字描述
-        mTtsTextView = findViewById(R.id.id_teddy_tts_text);
+        mTeddyTtsContentViewStup = findViewById(R.id.id_teddy_tts_content_vt);
     }
 
     private void initListener() {
@@ -210,6 +196,34 @@ public class FloatTeddyView extends RelativeLayout implements View.OnClickListen
     }
 
     /**
+     * 初始化SrView
+     */
+    private void initSrContentView() {
+        //识别过程中的Teddy展示样式
+        if (mTeddySringContentView == null) {
+            //tts中的Teddy展示样式
+            mTeddySringContentView = (RelativeLayout) mTeddySrContentViewStup.inflate();
+            mSrVolumeView = findViewById(R.id.id_teddy_sr_volume_content);
+            mSrVolumeView.start();
+            //tts文字描述
+            mSrTextView = findViewById(R.id.id_teddy_sr_text);
+        }
+    }
+
+    /**
+     * 初始化ttsView
+     */
+    private void initTtsContentView() {
+        //tts中的Teddy展示样式
+        if (mTeddyTtsContentView == null) {
+            //tts中的Teddy展示样式
+            mTeddyTtsContentView = (RelativeLayout) mTeddyTtsContentViewStup.inflate();
+            //tts文字描述
+            mTtsTextView = findViewById(R.id.id_teddy_tts_text);
+        }
+    }
+
+    /**
      * 唤醒成功View
      */
     private void refreshTeddyViewMvwSuccess() {
@@ -218,13 +232,18 @@ public class FloatTeddyView extends RelativeLayout implements View.OnClickListen
             mTeddyDefaultContentView.setVisibility(View.GONE);
         }
         //识别过程中的Teddy展示样式
+        if (mTeddySringContentView == null) {
+            initSrContentView();
+        }
         if (mTeddySringContentView.getVisibility() != View.GONE) {
             mTeddySringContentView.setVisibility(View.GONE);
         }
+
         //tts中的Teddy展示样式
-        if (mTeddyTtsContentView.getVisibility() != View.VISIBLE) {
-            mTeddyTtsContentView.setVisibility(View.VISIBLE);
+        if (mTeddyTtsContentView == null) {
+            initTtsContentView();
         }
+        mTeddyTtsContentView.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -236,13 +255,16 @@ public class FloatTeddyView extends RelativeLayout implements View.OnClickListen
             mTeddyDefaultContentView.setVisibility(View.GONE);
         }
         //识别过程中的Teddy展示样式
-        if (mTeddySringContentView.getVisibility() != View.VISIBLE) {
-            mTeddySringContentView.setVisibility(View.VISIBLE);
+        if (mTeddySringContentView == null) {
+            initSrContentView();
         }
+        mTeddySringContentView.setVisibility(View.VISIBLE);
+
         //tts中的Teddy展示样式
-        if (mTeddyTtsContentView.getVisibility() != View.GONE) {
-            mTeddyTtsContentView.setVisibility(View.GONE);
+        if (mTeddyTtsContentView == null) {
+            initTtsContentView();
         }
+        mTeddyTtsContentView.setVisibility(View.GONE);
     }
 
     /**
@@ -254,13 +276,16 @@ public class FloatTeddyView extends RelativeLayout implements View.OnClickListen
             mTeddyDefaultContentView.setVisibility(View.GONE);
         }
         //识别过程中的Teddy展示样式
-        if (mTeddySringContentView.getVisibility() != View.GONE) {
-            mTeddySringContentView.setVisibility(View.GONE);
+        if (mTeddySringContentView == null) {
+            initSrContentView();
         }
+        mTeddySringContentView.setVisibility(View.GONE);
+
         //tts中的Teddy展示样式
-        if (mTeddyTtsContentView.getVisibility() != View.VISIBLE) {
-            mTeddyTtsContentView.setVisibility(View.VISIBLE);
+        if (mTeddyTtsContentView == null) {
+            initTtsContentView();
         }
+        mTeddyTtsContentView.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -272,12 +297,15 @@ public class FloatTeddyView extends RelativeLayout implements View.OnClickListen
             mTeddyDefaultContentView.setVisibility(View.VISIBLE);
         }
         //识别过程中的Teddy展示样式
-        if (mTeddySringContentView.getVisibility() != View.GONE) {
-            mTeddySringContentView.setVisibility(View.GONE);
+        if (mTeddySringContentView == null) {
+            initSrContentView();
         }
+        mTeddySringContentView.setVisibility(View.GONE);
+
         //tts中的Teddy展示样式
-        if (mTeddyTtsContentView.getVisibility() != View.GONE) {
-            mTeddyTtsContentView.setVisibility(View.GONE);
+        if (mTeddyTtsContentView == null) {
+            initTtsContentView();
         }
+        mTeddyTtsContentView.setVisibility(View.GONE);
     }
 }

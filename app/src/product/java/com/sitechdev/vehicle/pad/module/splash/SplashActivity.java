@@ -3,26 +3,20 @@ package com.sitechdev.vehicle.pad.module.splash;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.widget.ImageView;
 
 import com.sitechdev.vehicle.lib.imageloader.GlideApp;
-import com.sitechdev.vehicle.lib.util.ThreadManager;
-import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.app.AppConst;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
-import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.module.location.LocationUtil;
 import com.sitechdev.vehicle.pad.module.map.util.MapUtil;
-import com.sitechdev.vehicle.pad.module.music.MusicManager;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppUtil;
 import com.sitechdev.vehicle.pad.util.PermissionHelper;
-import com.sitechdev.vehicle.pad.vui.VUI;
 
 import java.util.List;
 
@@ -119,14 +113,6 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void initlogic() {
-        //语音
-        ThreadManager.getInstance().addTask(()->{
-            Looper.prepare();
-            VUI.getInstance().start();
-            Looper.loop();
-        });
-        MusicManager.getInstance().init(AppApplication.getContext());
-        VoiceSourceManager.getInstance().init();
     }
 }
 

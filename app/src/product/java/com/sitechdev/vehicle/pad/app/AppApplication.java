@@ -30,11 +30,13 @@ import com.sitechdev.vehicle.pad.event.WindowEvent;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.manager.AppManager;
 import com.sitechdev.vehicle.pad.manager.SkinManager;
+import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.manager.VolumeControlManager;
 import com.sitechdev.vehicle.pad.module.main.MainActivity;
 import com.sitechdev.vehicle.pad.module.map.util.MapVoiceEventUtil;
 import com.sitechdev.vehicle.pad.module.music.BtMusicManager;
 import com.sitechdev.vehicle.pad.module.music.MusicMainActivity;
+import com.sitechdev.vehicle.pad.module.music.MusicManager;
 import com.sitechdev.vehicle.pad.module.online_audio.KaolaAudioActivity;
 import com.sitechdev.vehicle.pad.module.phone.PhoneBtManager;
 import com.sitechdev.vehicle.pad.module.phone.PhoneCallWindow;
@@ -45,6 +47,7 @@ import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppVariants;
 import com.sitechdev.vehicle.pad.util.BuglyHelper;
 import com.sitechdev.vehicle.pad.utils.MyEventBusIndex;
+import com.sitechdev.vehicle.pad.vui.VUI;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -77,12 +80,6 @@ public class AppApplication extends BaseApp {
             e.printStackTrace();
         }
         AppManager.getInstance().init(this);
-        TouchEffectsManager.build(TouchEffectsWholeType.SCALE)
-                .addViewType(TouchEffectsViewType.ALL)
-                .setListWholeType(TouchEffectsWholeType.RIPPLE)
-                .setAspectRatioType(4f, TouchEffectsWholeType.RIPPLE);//宽高比大于4时启动水波纹
-        //腾讯相关组件
-        initTencentUtil();
         //工具初始化
         initUtils();
         //换肤组件
@@ -91,9 +88,6 @@ public class AppApplication extends BaseApp {
         initCustomWindow();
         //考拉SDK
         initKaolaSdk();
-
-        initBluetoothManager();
-
         initPhone();
     }
 
@@ -102,13 +96,9 @@ public class AppApplication extends BaseApp {
     }
 
     private void initBluetoothManager() {
-        ThreadManager.getInstance().addTask(() -> {
-            Looper.prepare();
-            BtMusicManager.getInstance();//初始化
-            BtManager.getInstance().init();//初始化
-            PhoneBtManager.getInstance().initPhone();
-            Looper.loop();
-        });
+        BtMusicManager.getInstance();//初始化
+        BtManager.getInstance().init();//初始化
+        PhoneBtManager.getInstance().initPhone();
     }
 
     private void initUtils() {
@@ -116,17 +106,29 @@ public class AppApplication extends BaseApp {
             Looper.prepare();
             //Activity 页面管理
             initLifecleActivity();
-            //
-            VolumeControlManager.getInstance().init();
+            TouchEffectsManager.build(TouchEffectsWholeType.SCALE)
+                    .addViewType(TouchEffectsViewType.ALL)
+                    .setListWholeType(TouchEffectsWholeType.RIPPLE)
+                    .setAspectRatioType(4f, TouchEffectsWholeType.RIPPLE);//宽高比大于4时启动水波纹
+            //腾讯相关组件
+            initTencentUtil();
             //路由组件
             RouterUtils.getInstance().init(BuildConfig.DEBUG, this);
             RouterUtils.getInstance().addOutClassName(MainActivity.class.getSimpleName(), KaolaAudioActivity.class.getSimpleName(), MusicMainActivity.class.getSimpleName());
+            //
+            VolumeControlManager.getInstance().init();
             //网络
             initNet();
             //地图事件注册
             MapVoiceEventUtil.getInstance().init();
             //bugly
             BuglyHelper.getInstance().initCrashReport(this);
+
+            initBluetoothManager();
+
+            VUI.getInstance().start();
+            MusicManager.getInstance().init(AppApplication.getContext());
+            VoiceSourceManager.getInstance().init();
             Looper.loop();
         });
     }
@@ -137,7 +139,7 @@ public class AppApplication extends BaseApp {
 
     private void initTencentUtil() {
         //日志组件
-        MarsXlogUtil.initXlog(this, true);
+        MarsXlogUtil.initXlog(this, BuildConfig.DEBUG);
         //数据存储组件
         ParamsUtil.init(this);
     }

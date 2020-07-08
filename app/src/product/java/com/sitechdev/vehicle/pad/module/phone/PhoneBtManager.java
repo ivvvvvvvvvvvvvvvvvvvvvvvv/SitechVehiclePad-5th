@@ -16,6 +16,7 @@ import com.sitechdev.jpinyin.PinyinHelper;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.CollectionUtils;
 import com.sitechdev.vehicle.lib.util.StringUtils;
+import com.sitechdev.vehicle.lib.util.ThreadManager;
 import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.event.BTEvent;
@@ -59,7 +60,7 @@ public class PhoneBtManager {
         @Override
         public void onBtCallback(int cmdId, int param2, String param3, String param4) {
             logTest("onBtCallback-----cmdId:" + cmdId + " param2:" + param2 + " param3:" + param3 + " param4:" + param4);
-            ThreadUtils.runOnUIThread(() -> {
+            ThreadManager.getInstance().addTask(() -> {
                 switch (cmdId) {
                     case ATBluetooth.RETURN_PHONE_CALLLOG: {//通话记录
                         handleCallLogCallback(param2, param3, param4);
