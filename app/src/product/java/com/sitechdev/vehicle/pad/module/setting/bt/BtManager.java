@@ -1,7 +1,6 @@
 package com.sitechdev.vehicle.pad.module.setting.bt;
 
 import com.my.hw.ATBluetooth;
-import com.my.hw.OnBtConnecStatusChangedListener;
 import com.my.hw.OnBtPairListChangeListener;
 import com.my.hw.SettingConfig;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
@@ -9,12 +8,7 @@ import com.sitechdev.vehicle.pad.event.SysEvent;
 
 public class BtManager {
     private static BtManager INSTANCE;
-    private OnBtConnecStatusChangedListener onBtConnecStatusChangedListener;
     private OnBtPairListChangeListener mPairListChangeListener;
-
-    public void setOnBtConnecStatusChangedListener(OnBtConnecStatusChangedListener onBtConnecStatusChangedListener) {
-        mATBluetooth.setOnBtConnectStatusChangedListener(onBtConnecStatusChangedListener);
-    }
 
     public void setOnPairListChangeListener(OnBtPairListChangeListener mPairListChangeListener) {
         mATBluetooth.setOnBtPairListChangeListener(mPairListChangeListener);

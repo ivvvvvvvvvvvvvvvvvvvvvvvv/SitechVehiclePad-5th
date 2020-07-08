@@ -1,7 +1,6 @@
 package com.sitechdev.vehicle.pad.module.setting.activity;
 
 import android.bluetooth.BluetoothDevice;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -13,25 +12,17 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.my.hw.BtDeviceBean;
-import com.my.hw.OnBtConnecStatusChangedListener;
 import com.my.hw.OnBtPairListChangeListener;
 import com.my.hw.SettingConfig;
 import com.sitechdev.vehicle.lib.event.BindEventBus;
-import com.sitechdev.vehicle.lib.util.ParamsUtil;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.bean.MvpActivity;
 import com.sitechdev.vehicle.pad.event.SysEvent;
-import com.sitechdev.vehicle.pad.event.VoiceEvent;
-import com.sitechdev.vehicle.pad.manager.CommonTopWindowManager;
-import com.sitechdev.vehicle.pad.manager.UserManager;
 import com.sitechdev.vehicle.pad.model.contract.SettingBtContract;
-import com.sitechdev.vehicle.pad.module.login.util.LoginUtils;
-import com.sitechdev.vehicle.pad.module.setting.SettingConstant;
 import com.sitechdev.vehicle.pad.module.setting.bt.BtDeviceItem;
 import com.sitechdev.vehicle.pad.module.setting.bt.BtListAdapter;
 import com.sitechdev.vehicle.pad.module.setting.presenter.SettingBtPresenter;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
-import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.view.BluetoothListView;
 import com.sitechdev.vehicle.pad.view.CommonProgressDialog;
 import com.sitechdev.vehicle.pad.view.CustomSwitchButton;
@@ -46,7 +37,7 @@ import java.util.List;
 
 @BindEventBus
 @Route(path = RouterConstants.SETTING_BT_PAGE)
-public class SettingBtActivity extends MvpActivity<SettingBtContract.BtPresenter> implements SettingBtContract.View, CustomSwitchButton.OnSwitchCheckChangeListener, OnBtConnecStatusChangedListener, OnBtPairListChangeListener {
+public class SettingBtActivity extends MvpActivity<SettingBtContract.BtPresenter> implements SettingBtContract.View, CustomSwitchButton.OnSwitchCheckChangeListener, OnBtPairListChangeListener {
 
     private CustomSwitchButton mBtEnableSwitch, mDiscovereSwitch;
     private TextView mBtName;
@@ -111,7 +102,7 @@ public class SettingBtActivity extends MvpActivity<SettingBtContract.BtPresenter
         });
         mDiscovereSwitch.setChecked(false);
         mBtEnableSwitch.setChecked(mPresenter.isBtEnable());
-        mListLayout.setVisibility(mBtEnableSwitch.isChecked()?View.VISIBLE:View.GONE);
+        mListLayout.setVisibility(mBtEnableSwitch.isChecked() ? View.VISIBLE : View.GONE);
         mHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -146,7 +137,6 @@ public class SettingBtActivity extends MvpActivity<SettingBtContract.BtPresenter
         mBtEnableSwitch.setOnSwitchChangeListener(this);
         mDiscovereSwitch.setOnSwitchChangeListener(this);
         mPresenter.registerPaireListCallback(this);
-        mPresenter.registerConnectCallback(this);
     }
 
     @Override
@@ -210,31 +200,6 @@ public class SettingBtActivity extends MvpActivity<SettingBtContract.BtPresenter
     }
 
     @Override
-    public void onBtConnectedChanged(boolean isConnected) {
-        CommonProgressDialog.getInstance().cancel(SettingBtActivity.this);
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (isConnected && !TextUtils.isEmpty(SettingConfig.getInstance().getConnectBtAdd())) {
-                    if (null != mBondList && mBondList.size() > 0) {
-                        for (int i = 0; i < mBondList.size(); i++) {
-                            BtDeviceBean deviceBean = mBondList.get(i);
-                            if (deviceBean.getBtAddress().equals(SettingConfig.getInstance().getConnectBtAdd())) {
-                                mBondList.remove(i);
-                                mBondList.add(0, deviceBean);
-                                continue;
-                            }
-                        }
-                        mBondAdapter.notifyList(mBondList);
-                    }
-                } else {
-                    mBondAdapter.notifyList(mBondList);
-                }
-            }
-        });
-    }
-
-    @Override
     public void onBtPairListChanged(final BtDeviceBean btDeviceBean, final boolean isPlus) {
         runOnUiThread(new Runnable() {
             @Override
@@ -259,10 +224,31 @@ public class SettingBtActivity extends MvpActivity<SettingBtContract.BtPresenter
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onBtEvent(SysEvent event) {
         switch (event.getEvent()) {
-            case SysEvent.EB_SYS_BT_ENABLE:
+            case SysEvent.EB_SYS_BT_ENABLE: {//蓝牙开关
                 boolean open = (boolean) event.getObj();
                 mBtEnableSwitch.setChecked(open);
-                break;
+            }
+            break;
+            case SysEvent.EB_SYS_BT_STATE: {//蓝牙连接状态
+                boolean isConnected = (boolean) event.getObj();
+                CommonProgressDialog.getInstance().cancel(SettingBtActivity.this);
+                if (isConnected && !TextUtils.isEmpty(SettingConfig.getInstance().getConnectBtAdd())) {
+                    if (null != mBondList && mBondList.size() > 0) {
+                        for (int i = 0; i < mBondList.size(); i++) {
+                            BtDeviceBean deviceBean = mBondList.get(i);
+                            if (deviceBean.getBtAddress().equals(SettingConfig.getInstance().getConnectBtAdd())) {
+                                mBondList.remove(i);
+                                mBondList.add(0, deviceBean);
+                                continue;
+                            }
+                        }
+                        mBondAdapter.notifyList(mBondList);
+                    }
+                } else {
+                    mBondAdapter.notifyList(mBondList);
+                }
+            }
+            break;
             default:
                 break;
         }

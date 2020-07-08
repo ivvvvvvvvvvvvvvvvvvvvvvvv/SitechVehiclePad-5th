@@ -29,7 +29,6 @@ import com.kaolafm.opensdk.api.operation.model.column.Column;
 import com.kaolafm.sdk.core.mediaplayer.BroadcastRadioPlayerManager;
 import com.kaolafm.sdk.core.mediaplayer.PlayerManager;
 import com.my.hw.BluetoothEvent;
-import com.my.hw.OnBtConnecStatusChangedListener;
 import com.my.hw.SettingConfig;
 import com.sitechdev.net.HttpCode;
 import com.sitechdev.vehicle.lib.event.AppEvent;
@@ -259,24 +258,6 @@ public class MainActivity extends BaseActivity
         mKmView.setText(setBottomAlignment("238", "KM"));
         mRechargeCountView.setText(setBottomAlignment("48", "次"));
 
-        BtMusicManager.getInstance().setOnBtConnecStatusChangedListener(new OnBtConnecStatusChangedListener() {
-            @Override
-            public void onBtConnectedChanged(boolean isConnected) {
-                ThreadUtils.runOnUIThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (!isConnected) {
-                            tvMusicName.setText("--");
-                            ivMusicStop.setActivated(false);
-                            ivMusicIcon.stopAnimation();
-                        } else {
-                            BtMusicManager.getInstance().btCtrlRequestStatus();//获取蓝牙音乐播放状态
-                            BtMusicManager.getInstance().getInfo();
-                        }
-                    }
-                });
-            }
-        });
     }
 
     @Override
@@ -583,8 +564,13 @@ public class MainActivity extends BaseActivity
                     boolean status = (boolean) event.getObj();
                     if (status) {
                         tvBtPhoneName.setText(SettingConfig.getInstance().getConnectBtName());
+                        BtMusicManager.getInstance().btCtrlRequestStatus();//获取蓝牙音乐播放状态
+                        BtMusicManager.getInstance().getInfo();
                     } else {
                         tvBtPhoneName.setText(R.string.bt_pair_unlink_tip);
+                        tvMusicName.setText("--");
+                        ivMusicStop.setActivated(false);
+                        ivMusicIcon.stopAnimation();
                     }
                 }
                 break;

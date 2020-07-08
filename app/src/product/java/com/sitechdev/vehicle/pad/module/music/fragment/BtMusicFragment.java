@@ -7,10 +7,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.my.hw.BluetoothEvent;
-import com.my.hw.OnBtConnecStatusChangedListener;
 import com.my.hw.SettingConfig;
 import com.sitechdev.vehicle.lib.event.BindEventBus;
-import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.bean.BaseFragment;
 import com.sitechdev.vehicle.pad.event.MusicControlEvent;
@@ -72,34 +70,16 @@ public class BtMusicFragment extends BaseFragment {
     protected void initData() {
         super.initData();
         initBtInfoRequest();
-        BtMusicManager.getInstance().setOnBtConnecStatusChangedListener(new OnBtConnecStatusChangedListener() {
-            @Override
-            public void onBtConnectedChanged(boolean isConnected) {
-                ThreadUtils.runOnUIThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        refreshConnectSt();
-                        if (!isConnected) {
-                            customPlaySeekBar.setCurrentStatusPlaying(false);
-                            musicName.setText("--");
-                            singer.setText("");
-                        } else {
-                            initBtInfoRequest();
-                        }
-                    }
-                });
-            }
-        });
     }
 
-    private void initBtInfoRequest(){
+    private void initBtInfoRequest() {
         BtMusicManager.getInstance().btCtrlRequestStatus();//获取蓝牙音乐播放状态
         BtMusicManager.getInstance().getInfo();
     }
 
     @Override
     protected int getLayoutId() {
-        return  R.layout.fragment_bt_music;
+        return R.layout.fragment_bt_music;
     }
 
     @Override
@@ -122,7 +102,7 @@ public class BtMusicFragment extends BaseFragment {
 
     }
 
-    private void refreshConnectSt(){
+    private void refreshConnectSt() {
         if (SettingConfig.getInstance().isBtConnected()) {
             connectBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -164,6 +144,16 @@ public class BtMusicFragment extends BaseFragment {
             SysEvent event = (SysEvent) o;
             if (event.eventKey.equals(SysEvent.EB_SYS_BT_STATE)) {
                 refreshConnectSt();
+                if (event.getObj() != null) {
+                    boolean isConnected = (boolean) event.getObj();
+                    if (!isConnected) {
+                        customPlaySeekBar.setCurrentStatusPlaying(false);
+                        musicName.setText("--");
+                        singer.setText("");
+                    } else {
+                        initBtInfoRequest();
+                    }
+                }
             }
         } else if (o instanceof MusicControlEvent) {
             MusicControlEvent event = (MusicControlEvent) o;

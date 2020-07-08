@@ -1,7 +1,6 @@
 package com.sitechdev.vehicle.pad.module.music;
 
 import com.my.hw.ATBluetooth;
-import com.my.hw.OnBtConnecStatusChangedListener;
 
 public class BtMusicManager {
     private static BtMusicManager INSTANCE;
@@ -48,10 +47,6 @@ public class BtMusicManager {
 
     public void btCtrlPlayPause() {
         mATBluetooth.write(ATBluetooth.REQUEST__A2DP_AUDIO_PLAYPAUSE);
-    }
-
-    public void setOnBtConnecStatusChangedListener(OnBtConnecStatusChangedListener onBtConnecStatusChangedListener) {
-        mATBluetooth.setOnBtConnectStatusChangedListener(onBtConnecStatusChangedListener);
     }
 
 

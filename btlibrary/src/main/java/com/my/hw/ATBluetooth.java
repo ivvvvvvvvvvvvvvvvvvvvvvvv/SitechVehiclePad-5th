@@ -250,7 +250,6 @@ public class ATBluetooth {
     public String mBtName = "";
     public String mBtPin = "";
     private OnBtPairListChangeListener mPairListChangedListener;
-    private OnBtConnecStatusChangedListener mConnecStatusListener;
     private BtCallBack mBtCallback;
 
     public void setBtCallback(BtCallBack mBtCallback) {
@@ -349,10 +348,6 @@ public class ATBluetooth {
         mPairListChangedListener = listener;
     }
 
-    public void setOnBtConnectStatusChangedListener(OnBtConnecStatusChangedListener listener) {
-        mConnecStatusListener = listener;
-    }
-
     private void btCallback(int cmdId, int param2, String param3, String param4) {
         logTest("btCallback---param1:" + cmdId + " param2:" + param2 + " p3:" + param3 +
                 " p4:" + param4);
@@ -370,17 +365,6 @@ public class ATBluetooth {
                 break;
             case RETURN_A2DP_CONNECT_STATUS:
                 SettingConfig.getInstance().setA2dpConnected(param2 == 3);
-                break;
-            case RETURN_HFP_INFO:
-                boolean connect = param2 == 3;
-                if (connect != SettingConfig.getInstance().isHFPConnected() && null != mConnecStatusListener) {
-                    SettingConfig.getInstance().setHFPConnected(connect);
-                    mConnecStatusListener.onBtConnectedChanged(connect);
-                }
-
-                if (!TextUtils.isEmpty(param3) && !param3.equals("null")) {
-                    SettingConfig.getInstance().setConnectBtAdd(param3);
-                }
                 break;
         }
 

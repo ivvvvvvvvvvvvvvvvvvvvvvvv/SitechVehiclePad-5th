@@ -2,7 +2,6 @@ package com.sitechdev.vehicle.pad.module.setting.presenter;
 
 import android.content.Context;
 
-import com.my.hw.OnBtConnecStatusChangedListener;
 import com.my.hw.OnBtPairListChangeListener;
 import com.my.hw.SettingConfig;
 import com.sitechdev.vehicle.pad.model.contract.SettingBtContract;
@@ -84,11 +83,6 @@ public class SettingBtPresenter extends SettingBtContract.BtPresenter {
     @Override
     public void registerPaireListCallback(OnBtPairListChangeListener listener) {
         BtManager.getInstance().setOnPairListChangeListener(listener);
-    }
-
-    @Override
-    public void registerConnectCallback(OnBtConnecStatusChangedListener listener) {
-        BtManager.getInstance().setOnBtConnecStatusChangedListener(listener);
     }
 
     @Override
