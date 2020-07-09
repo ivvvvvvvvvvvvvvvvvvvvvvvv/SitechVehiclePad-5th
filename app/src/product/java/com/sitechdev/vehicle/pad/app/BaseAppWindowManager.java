@@ -70,8 +70,8 @@ public class BaseAppWindowManager {
         Object object = event.getEventObject();
         switch (event.getEventKey()) {
             case WindowEvent.EVENT_WINDOW_MAIN_MENU:
-                MainMenuWindowManager.getInstance().show();
                 TeddyWindowManager.getInstance().show();
+                MainMenuWindowManager.getInstance().show();
                 break;
             case WindowEvent.EVENT_WINDOW_STATUS_BAR_MENU:
                 AppSignalWindowManager.getInstance().show();
@@ -95,34 +95,34 @@ public class BaseAppWindowManager {
                     boolean showForcibly = (boolean) event.getEventObject();
                     if (showForcibly) {
                         AppSignalWindowManager.getInstance().showForcibly();
+                        TeddyWindowManager.getInstance().show();
                         MainMenuWindowManager.getInstance().showForcibly();
                         MainControlPanelWindowManager.getInstance().showForcibly();
-                        TeddyWindowManager.getInstance().show();
                         return;
                     }
                 }
                 AppSignalWindowManager.getInstance().show();
-                MainMenuWindowManager.getInstance().show();
                 TeddyWindowManager.getInstance().show();
+                MainMenuWindowManager.getInstance().show();
                 MainControlPanelWindowManager.getInstance().show();
                 break;
             case WindowEvent.EVENT_WINDOW_APP_BACKGROUD:
                 //隐藏必须的所有窗口--APP切换到后台
                 AppSignalWindowManager.getInstance().hide();
-                MainMenuWindowManager.getInstance().hide();
                 TeddyWindowManager.getInstance().hide();
+                MainMenuWindowManager.getInstance().hide();
                 MainControlPanelWindowManager.getInstance().hide();
                 break;
             //输入法弹出时
             case WindowEvent.EVENT_WINDOW_INPUT_SHOW_STATE:
-                MainMenuWindowManager.getInstance().hide();
                 TeddyWindowManager.getInstance().hide();
+                MainMenuWindowManager.getInstance().hide();
                 MainControlPanelWindowManager.getInstance().mustHiddenView();
                 break;
             //输入法隐藏时
             case WindowEvent.EVENT_WINDOW_INPUT_HIDDEN_STATE:
-                MainMenuWindowManager.getInstance().show();
                 TeddyWindowManager.getInstance().show();
+                MainMenuWindowManager.getInstance().show();
                 MainControlPanelWindowManager.getInstance().show();
                 break;
             default:

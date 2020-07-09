@@ -378,8 +378,8 @@ public class MainActivity extends BaseActivity
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             if (Settings.canDrawOverlays(AppApplication.getContext())) {
                 AppSignalWindowManager.getInstance().show();
-                MainMenuWindowManager.getInstance().show();
                 TeddyWindowManager.getInstance().show();
+                MainMenuWindowManager.getInstance().show();
                 MainControlPanelWindowManager.getInstance().show();
             }
         }
