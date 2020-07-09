@@ -4,10 +4,8 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.media.AudioManager;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -29,6 +27,7 @@ import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.app.AppConst;
+import com.sitechdev.vehicle.pad.app.BaseAppWindowManager;
 import com.sitechdev.vehicle.pad.callback.BaseBribery;
 import com.sitechdev.vehicle.pad.event.MapEvent;
 import com.sitechdev.vehicle.pad.event.PoiEvent;
@@ -937,10 +936,15 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                 case "首页":
                                 case "主页":
                                     if (null == AppVariants.currentActivity || !(AppVariants.currentActivity instanceof MainActivity)) {
-//                                        Intent goMain = new Intent();
-//                                        goMain.setClass(context, MainActivity.class);
-//                                        context.startActivity(goMain);
-                                        RouterUtils.getInstance().navigationHomePage(RouterConstants.HOME_MAIN);
+                                        if (BaseAppWindowManager.isBackground(AppApplication.getContext())) {
+                                            //应用正在后台
+                                            Intent goMain = new Intent();
+                                            goMain.setClass(context, MainActivity.class);
+                                            goMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            context.startActivity(goMain);
+                                        } else {
+                                            RouterUtils.getInstance().navigationHomePage(RouterConstants.HOME_MAIN);
+                                        }
                                         shut();
                                     } else {
                                         shutAndTTS("您当前已在首页");
@@ -1232,10 +1236,10 @@ public class VUI implements VUIWindow.OnWindowHideListener {
     }
 
     private void syncContacts() {
-        if (BtGlobalRef.contacts.size()>0) {
+        if (BtGlobalRef.contacts.size() > 0) {
             StringBuilder contacts = new StringBuilder();
             JSONObject contact = new JSONObject();
-            for (Contact con:BtGlobalRef.contacts){
+            for (Contact con : BtGlobalRef.contacts) {
                 String displayName = con.getName();
                 String number = con.getPhoneNumber();
                 if (!TextUtils.isEmpty(displayName) && !TextUtils.isEmpty(number)) {
@@ -1363,8 +1367,8 @@ public class VUI implements VUIWindow.OnWindowHideListener {
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onTeddyEvent(TeddyEvent event) {
-        switch (event.getEventKey()){
-            case TeddyEvent.EB_TEDDY_EVENT_SR_CONTACT_DICT:{
+        switch (event.getEventKey()) {
+            case TeddyEvent.EB_TEDDY_EVENT_SR_CONTACT_DICT: {
                 syncContacts();
             }
             break;
