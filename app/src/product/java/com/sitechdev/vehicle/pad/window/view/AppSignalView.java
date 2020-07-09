@@ -72,7 +72,7 @@ public class AppSignalView extends LinearLayout {
             clickCount++;
             if (clickCount >= 10) {
                 //跳转原生桌面
-                JumpUtils.jumpAndroidLauncher();
+                JumpUtils.jumpAndroidSetting();
                 clickCount = 0;
             }
         });

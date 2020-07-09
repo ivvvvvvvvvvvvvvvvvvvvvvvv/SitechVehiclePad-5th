@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.sitechdev.vehicle.lib.util.NetworkUtils;
@@ -20,6 +21,8 @@ import com.sitechdev.vehicle.pad.module.login.util.LoginUtils;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.window.view.PersonLoginWindow;
+
+import static com.blankj.utilcode.util.ActivityUtils.startActivity;
 
 /**
  * 项目名称：SitechVehiclePad-5th
@@ -191,5 +194,13 @@ public class JumpUtils {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //        ActivityUtils.startActivity(intent);
         ActivityUtils.getTopActivity().startActivity(intent);
+    }
+
+    /**
+     * 跳往Android setting
+     */
+    public static void jumpAndroidSetting() {
+        Intent intent = new Intent(Settings.ACTION_SETTINGS);
+        startActivity(intent);
     }
 }
