@@ -26,8 +26,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.luck.picture.lib.rxbus2.Subscribe;
+import com.luck.picture.lib.rxbus2.ThreadMode;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.sitechdev.vehicle.lib.event.BindEventBus;
+import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.Assist;
 import com.sitechdev.vehicle.lib.util.ForbidClickEnable;
 import com.sitechdev.vehicle.lib.util.NetworkUtils;
@@ -38,6 +42,7 @@ import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.app.AppConst;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
+import com.sitechdev.vehicle.pad.event.SysEvent;
 import com.sitechdev.vehicle.pad.manager.trace.TraceManager;
 import com.sitechdev.vehicle.pad.module.setting.SettingConstant;
 import com.sitechdev.vehicle.pad.module.setting.SettingTraceEnum;
@@ -58,6 +63,7 @@ import static android.net.NetworkInfo.DetailedState.CONNECTED;
 import static android.net.NetworkInfo.DetailedState.DISCONNECTED;
 import static android.net.NetworkInfo.DetailedState.OBTAINING_IPADDR;
 
+@BindEventBus
 @Route(path = RouterConstants.SETTING_NET_PAGE)
 public class SettingNetActivity extends BaseActivity implements View.OnClickListener,
         WiFiEnabler.CallBack,
@@ -107,6 +113,7 @@ public class SettingNetActivity extends BaseActivity implements View.OnClickList
         isHotdotOpen = hotSwitch;
         wifiRecyclerView.setVisibility(wifiSwitch.isChecked() ? View.VISIBLE : View.GONE);
         recyclerRLayout.setVisibility(wifiSwitch.isChecked() ? View.VISIBLE : View.GONE);
+        gprsSwitch.setChecked(NetworkUtils.getMobileDataEnabled());
     }
 
     @Override
@@ -167,9 +174,11 @@ public class SettingNetActivity extends BaseActivity implements View.OnClickList
     public void onSwithChecked(int viewId, boolean isChecked) {
         if (viewId == R.id.setting_net_gprs_swith) {
             NetworkUtils.setMobileDataEnabled(isChecked);
+            EventBusUtils.postEvent(new SysEvent(SysEvent.EB_SYS_MOBILE_NET_SWITCH_STATE));
         } else if (viewId == R.id.setting_net_wifi_swith) {
             wifiRecyclerView.setVisibility(isChecked ? View.VISIBLE : View.GONE);
             recyclerRLayout.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+            EventBusUtils.postEvent(new SysEvent(SysEvent.EB_SYS_WIFI_STATE));
         }
     }
 
@@ -765,5 +774,20 @@ public class SettingNetActivity extends BaseActivity implements View.OnClickList
         }
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onSysEvent(SysEvent event){
+        switch (event.getEvent()){
+            case SysEvent.EB_SYS_WIFI_STATE:{
+                wifiSwitch.setChecked(NetworkUtils.getWifiEnabled());
+            }
+            break;
+            case SysEvent.EB_SYS_MOBILE_NET_SWITCH_STATE:{
+                gprsSwitch.setChecked(NetworkUtils.getMobileDataEnabled());
+            }
+            break;
+            default:
+                break;
+        }
+    }
 
 }
