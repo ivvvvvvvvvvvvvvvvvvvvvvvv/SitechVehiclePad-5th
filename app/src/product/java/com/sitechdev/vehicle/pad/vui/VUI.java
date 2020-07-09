@@ -1782,12 +1782,14 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                             .navigation();
                     log("queryString = " + getName);
                     shutAndTTS("");
+                    return;
                 } else if (!TextUtils.isEmpty(strOrigin)) {
                     RouterUtils.getInstance().getPostcard(RouterConstants.MUSIC_PLAY_ONLINE_MAIN)
                             .withString("queryString", strOrigin)
                             .navigation();
                     log("queryString = " + strOrigin);
                     shutAndTTS("");
+                    return;
                 }
             }
         }
