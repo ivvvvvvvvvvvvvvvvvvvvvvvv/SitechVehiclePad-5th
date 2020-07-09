@@ -29,7 +29,7 @@ import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppVariants;
 import com.sitechdev.vehicle.pad.view.CommonToast;
-import com.sitechdev.vehicle.pad.view.KaolaAiListSpaceItemDecoration;
+import com.sitechdev.vehicle.pad.view.KaolaCategorySpaceItemDecoration;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -67,10 +67,10 @@ public class KaolaAudioSearchPageFrag extends BaseFragment {
     protected void initView(Bundle savedInstanceState) {
         recyclerView = mContentView.findViewById(R.id.recyclerView);
         edit = mContentView.findViewById(R.id.edit);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 1);
-        gridLayoutManager.setOrientation(GridLayoutManager.HORIZONTAL);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, isLandscape() ? 1 : 3);
+        gridLayoutManager.setOrientation(isLandscape() ? GridLayoutManager.HORIZONTAL : GridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(gridLayoutManager);
-        recyclerView.addItemDecoration(new KaolaAiListSpaceItemDecoration(60));
+        recyclerView.addItemDecoration(new KaolaCategorySpaceItemDecoration());
         mContentView.findViewById(R.id.search_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

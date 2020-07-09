@@ -572,7 +572,9 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                     }
                     vuiAnr();
                 } else if (TextUtils.equals("radio", service)) {
-                    radioServiceLogic(service, semantics);
+                    if (radioServiceLogic(service, semantics)) {
+                        return;
+                    }
                 } else if (TextUtils.equals("musicX", service)) {
                     musicXServiceLogic(service, semantics);
                 } else if (TextUtils.equals(XF_SKILL_TAG_CROSSTALK, service) ||
@@ -1757,7 +1759,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
         }
     }
 
-    private void radioServiceLogic(String service, JSONArray semantics) {
+    private boolean radioServiceLogic(String service, JSONArray semantics) {
         if (null != semantics && semantics.length() > 0) {
             JSONObject semantic = semantics.optJSONObject(0);
             String intent = semantic.optString("intent").toLowerCase();
@@ -1782,17 +1784,18 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                             .navigation();
                     log("queryString = " + getName);
                     shutAndTTS("");
-                    return;
+                    return true;
                 } else if (!TextUtils.isEmpty(strOrigin)) {
                     RouterUtils.getInstance().getPostcard(RouterConstants.MUSIC_PLAY_ONLINE_MAIN)
                             .withString("queryString", strOrigin)
                             .navigation();
                     log("queryString = " + strOrigin);
                     shutAndTTS("");
-                    return;
+                    return true;
                 }
             }
         }
+        return false;
     }
 
     private void musicXServiceLogic(String service, JSONArray semantics) {
