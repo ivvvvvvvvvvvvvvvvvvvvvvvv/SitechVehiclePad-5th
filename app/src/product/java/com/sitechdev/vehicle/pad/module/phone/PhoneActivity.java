@@ -76,7 +76,7 @@ public class PhoneActivity extends MvpActivity<PhoneContract.Presenter> implemen
                 finish();
                 break;
             case R.id.btn_phone_bluetooth:
-                RouterUtils.getInstance().navigation(RouterConstants.SETTING_BT_PAGE);
+                RouterUtils.getInstance().navigationNoFinish(RouterConstants.SETTING_BT_PAGE);
                 break;
             default:
                 break;

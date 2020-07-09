@@ -117,7 +117,7 @@ public class BtMusicFragment extends BaseFragment {
             connectBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    RouterUtils.getInstance().navigation(RouterConstants.SETTING_BT_PAGE);
+                    RouterUtils.getInstance().navigationNoFinish(RouterConstants.SETTING_BT_PAGE);
                 }
             });
             btTip1.setText("请连接蓝牙设备");
