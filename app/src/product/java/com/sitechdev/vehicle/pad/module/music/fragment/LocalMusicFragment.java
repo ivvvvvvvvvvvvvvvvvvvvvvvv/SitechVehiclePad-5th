@@ -221,17 +221,21 @@ public class LocalMusicFragment extends BaseFragment implements
                 if (null != adapter.musicInfos && adapter.musicInfos.size() > 0 && !MusicManager.getInstance().isLocalPlaying()) {
                     MusicInfo info;
                     if (null != MusicConfig.getInstance().getCurrentMusicInfo()) {
-                        info = MusicConfig.getInstance().getCurrentMusicInfo();
-                    } else {
-                        info = adapter.musicInfos.get(0);
-                    }
-                    MusicManager.getInstance().play(info.songId,
-                            new MusicManager.CallBack<String>() {
-                        @Override
-                        public void onCallBack(int code, String s) {
+                        MusicManager.getInstance().resume(new MusicManager.CallBack<String>() {
+                            @Override
+                            public void onCallBack(int code, String s) {
 
-                        }
-                    });
+                            }
+                        });
+                    } else {
+                        MusicManager.getInstance().play(adapter.musicInfos.get(0).songId,
+                                new MusicManager.CallBack<String>() {
+                                    @Override
+                                    public void onCallBack(int code, String s) {
+
+                                    }
+                                });
+                    }
                 }
             }
         }
