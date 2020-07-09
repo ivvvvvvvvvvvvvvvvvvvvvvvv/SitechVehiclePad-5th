@@ -11,11 +11,13 @@ import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.app.BaseWindow;
 import com.sitechdev.vehicle.pad.event.ScreenEvent;
+import com.sitechdev.vehicle.pad.event.SysEvent;
 import com.sitechdev.vehicle.pad.event.VoiceEvent;
 import com.sitechdev.vehicle.pad.module.setting.teddy.TeddyConfig;
 import com.sitechdev.vehicle.pad.vui.VoiceConstants;
 import com.sitechdev.vehicle.pad.window.view.FloatTeddyView;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -173,6 +175,7 @@ public class TeddyWindowManager {
                 boolean autoSwitch = (boolean) event.getEventValue();
                 SitechDevLog.i(TAG, "EVENT_VOICE_AUTO_MVW_SWITCH=========autoSwitch===" + autoSwitch);
                 TeddyConfig.setAutoMvwStatus(autoSwitch);
+                EventBusUtils.postEvent(new SysEvent(SysEvent.EB_SYS_TEDDY_SWITCH_STATE));
                 break;
             case VoiceEvent.EVENT_VOICE_SEX_SWITCH:
                 boolean isMale = (boolean) event.getEventValue();

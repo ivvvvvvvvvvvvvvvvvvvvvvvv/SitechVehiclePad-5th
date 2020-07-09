@@ -18,7 +18,6 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 
 import com.blankj.utilcode.util.ActivityUtils;
-import com.blankj.utilcode.util.BrightnessUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
@@ -26,10 +25,14 @@ import com.sitechdev.vehicle.lib.util.NetworkUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
+import com.sitechdev.vehicle.pad.event.SysEvent;
 import com.sitechdev.vehicle.pad.event.VoiceEvent;
+import com.sitechdev.vehicle.pad.manager.ScreenLightControlManager;
 import com.sitechdev.vehicle.pad.manager.VolumeControlManager;
 import com.sitechdev.vehicle.pad.module.setting.bt.BtManager;
 import com.sitechdev.vehicle.pad.module.setting.teddy.TeddyConfig;
+import com.sitechdev.vehicle.pad.router.RouterConstants;
+import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppUtil;
 import com.sitechdev.vehicle.pad.view.VerticalSeekBarForSkin;
 import com.sitechdev.vehicle.pad.window.manager.MainControlPanelWindowManager;
@@ -99,6 +102,7 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
 
     public MainControlPanelView(Context context, AttributeSet attrs) {
         super(context, attrs);
+//        TouchEffectsFactory.initTouchEffects(this);
         // 填充布局，并添加至
         LayoutInflater.from(context).inflate(R.layout.custom_control_panel_view, this);
         contentView = findViewById(R.id.id_main_popup_view_content);
@@ -189,8 +193,8 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
         currentVolumeValue = VolumeControlManager.getInstance().getCurrentVolumeValue();// mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
         SitechDevLog.i(TAG, "当前音量===" + currentVolumeValue);
 
-        currentScreenLightValue = maxScreenLightValue / 5 * 4;
-        SitechDevLog.i(TAG, "当前亮度===>" + BrightnessUtils.getWindowBrightness(ActivityUtils.getTopActivity().getWindow()));
+        currentScreenLightValue = ScreenLightControlManager.getInstance().getScreenLightValue();
+        SitechDevLog.i(TAG, "当前亮度===>" + currentScreenLightValue);
     }
 
     private void initListener() {
@@ -199,6 +203,26 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
         wifiControlView.setOnClickListener(this);
         mobileNetControlView.setOnClickListener(this);
         mTeddySwitchControlView.setOnClickListener(this);
+
+        wifiControlView.setOnLongClickListener(new OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                SitechDevLog.i(TAG, "setOnLongClickListener wifiControlView===长按事件被激活,跳转网络设置");
+                RouterUtils.getInstance().navigation(RouterConstants.SETTING_NET_PAGE);
+                manager.mustHiddenView();
+                return true;
+            }
+        });
+
+        mobileNetControlView.setOnLongClickListener(new OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                SitechDevLog.i(TAG, "setOnLongClickListener mobileNetControlView===长按事件被激活,跳转网络设置");
+                RouterUtils.getInstance().navigation(RouterConstants.SETTING_NET_PAGE);
+                manager.mustHiddenView();
+                return true;
+            }
+        });
 
         ecoView.setOnClickListener(this);
         screenOriView.setOnClickListener(this);
@@ -501,11 +525,13 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
                 //wifi网络
                 wifiControlView.setActivated(!isActivated);
                 NetworkUtils.setWifiEnabled(!isActivated);
+                EventBusUtils.postEvent(new SysEvent(SysEvent.EB_SYS_WIFI_STATE));
                 break;
             case R.id.id_mobile_net_Btn:
                 isActivated = mobileNetControlView.isActivated();
                 mobileNetControlView.setActivated(!isActivated);
                 NetworkUtils.setMobileDataEnabled(!isActivated);
+                EventBusUtils.postEvent(new SysEvent(SysEvent.EB_SYS_MOBILE_NET_SWITCH_STATE));
                 break;
             case R.id.id_teddy_Btn:
                 //开启或关闭Teddy语音唤醒
@@ -611,11 +637,7 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
      */
     private void setLightValue(int value) {
         SitechDevLog.i(TAG, "setLightValue===" + value);
-        try {
-            BrightnessUtils.setWindowBrightness(ActivityUtils.getTopActivity().getWindow(), value);
-        } catch (Exception e) {
-            SitechDevLog.exception(e);
-        }
+        ScreenLightControlManager.getInstance().setScreenLightValue(value);
     }
 
     /**
