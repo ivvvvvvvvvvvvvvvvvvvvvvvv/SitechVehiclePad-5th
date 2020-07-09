@@ -105,7 +105,8 @@ public class SettingNetActivity extends BaseActivity implements View.OnClickList
         Log.d(TAG, "hotSwitch：" + hotSwitch);
 
         isHotdotOpen = hotSwitch;
-
+        wifiRecyclerView.setVisibility(wifiSwitch.isChecked() ? View.VISIBLE : View.GONE);
+        recyclerRLayout.setVisibility(wifiSwitch.isChecked() ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -128,6 +129,7 @@ public class SettingNetActivity extends BaseActivity implements View.OnClickList
     protected void initListener() {
         super.initListener();
         gprsSwitch.setOnSwitchChangeListener(this);
+        wifiSwitch.setOnSwitchChangeListener(this);
         wiFiListAdapter.setOnItemClickListener(this);
         wiFiEnabler.setCallBack(this);
 
@@ -165,6 +167,9 @@ public class SettingNetActivity extends BaseActivity implements View.OnClickList
     public void onSwithChecked(int viewId, boolean isChecked) {
         if (viewId == R.id.setting_net_gprs_swith) {
             NetworkUtils.setMobileDataEnabled(isChecked);
+        } else if (viewId == R.id.setting_net_wifi_swith) {
+            wifiRecyclerView.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+            recyclerRLayout.setVisibility(isChecked ? View.VISIBLE : View.GONE);
         }
     }
 
