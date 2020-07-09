@@ -4,18 +4,21 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.sitechdev.vehicle.lib.event.BindEventBus;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.event.VoiceEvent;
 import com.sitechdev.vehicle.pad.module.setting.teddy.TeddyConfig;
+import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.view.CustomSwitchButton;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 @BindEventBus
+@Route(path = RouterConstants.SETTING_TEDDY_PAGE)
 public class SettingTeddyActivity extends BaseActivity implements CustomSwitchButton.OnSwitchCheckChangeListener {
 
     private CustomSwitchButton mEnableWakeup;

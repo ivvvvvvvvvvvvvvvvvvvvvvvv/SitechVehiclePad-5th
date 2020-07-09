@@ -74,6 +74,10 @@ public interface RouterConstants extends IRouterConstants {
      */
     String SETTING_NET_PAGE = MODULE_MAIN + LEVEL_THIRD + GROUP_SETTING + "/net";
     /**
+     * 语音设置页面
+     */
+    String SETTING_TEDDY_PAGE = MODULE_MAIN + LEVEL_THIRD + GROUP_SETTING + "/teddy";
+    /**
      * 系统设置页面
      */
     String SETTING_SYSTEM_PAGE = MODULE_MAIN + LEVEL_THIRD + GROUP_SETTING + "/system";
@@ -213,7 +217,11 @@ public interface RouterConstants extends IRouterConstants {
     //====================  车辆控制    =============================================
 
     /**
+     * 组名-- led
+     */
+    String GROUP_LED_MANAGER = "/_led_manager";
+    /**
      * led管理界面
      */
-    String SETTING_LED_MANAGER = "subApp/ledManager";
+    String SETTING_LED_MANAGER = MODULE_MAIN + LEVEL_THIRD + GROUP_LED_MANAGER + "/ledManager";
 }

@@ -25,6 +25,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.sitechdev.vehicle.lib.util.Assist;
@@ -43,6 +44,7 @@ import com.sitechdev.vehicle.pad.module.setting.SettingTraceEnum;
 import com.sitechdev.vehicle.pad.module.setting.wifi.WiFiDialog;
 import com.sitechdev.vehicle.pad.module.setting.wifi.WiFiEnabler;
 import com.sitechdev.vehicle.pad.module.setting.wifi.WiFiListAdapter;
+import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.util.PermissionHelper;
 import com.sitechdev.vehicle.pad.view.CustomSwitchButton;
 
@@ -56,7 +58,7 @@ import static android.net.NetworkInfo.DetailedState.CONNECTED;
 import static android.net.NetworkInfo.DetailedState.DISCONNECTED;
 import static android.net.NetworkInfo.DetailedState.OBTAINING_IPADDR;
 
-
+@Route(path = RouterConstants.SETTING_NET_PAGE)
 public class SettingNetActivity extends BaseActivity implements View.OnClickListener,
         WiFiEnabler.CallBack,
         WiFiListAdapter.OnRecyclerViewItemClickListener,
