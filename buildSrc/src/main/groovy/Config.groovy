@@ -69,7 +69,7 @@ class Config {
                     eventbusProcessor: 'org.greenrobot:eventbus-annotation-processor:3.2.0',
             ],
             //kaola-tingban
-            tingban            : 'com.kaolafm:open-sdk:1.5.0',
+            tingban            : 'com.kaolafm:open-sdk:1.5.4',
             //下拉刷新组件
             smartrefresh       : 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1',
             tkrefreshlayout    : 'com.lcodecorex:tkrefreshlayout:1.0.7',

@@ -27,7 +27,7 @@ allprojects {
         }
         maven { url 'https://jitpack.io' }
         maven {
-            url "https://raw.githubusercontent.com/tingban/maven-repository/release"
+            url "http://pub.nexus.kaolafm.com:8082/repository/github-self/"
         }
         maven { url "http://lib.gcssloop.com:8081/repository/gcssloop-central/" }
         google()

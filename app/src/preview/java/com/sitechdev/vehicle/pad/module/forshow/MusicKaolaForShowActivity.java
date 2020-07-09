@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.kaolafm.opensdk.api.operation.model.column.ColumnMember;
 import com.kaolafm.opensdk.api.operation.model.column.RadioDetailColumnMember;
-import com.kaolafm.opensdk.utils.ListUtil;
 import com.kaolafm.sdk.core.mediaplayer.IPlayerListChangedListener;
 import com.kaolafm.sdk.core.mediaplayer.OnPlayItemInfoListener;
 import com.kaolafm.sdk.core.mediaplayer.PlayItem;
@@ -334,7 +333,7 @@ public class MusicKaolaForShowActivity extends BaseActivity implements
         if (!isLoadMore) {
             ArrayList<PlayItem> playList = PlayerListManager.getInstance().getPlayList();
             //有可能为空，因为数据有可能还没请求过来。
-            if (!ListUtil.isEmpty(playList)) {
+            if (playList == null || playList.isEmpty()) {
                 CommonToast.makeText(mContext, "数据为空 ~~~ ~~~");
             }
         } else {

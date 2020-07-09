@@ -172,11 +172,11 @@ dependencies {
     implementation Config.depConfig.dataStatistics
 
     //============听伴sdk================
-//    implementation(Config.depConfig.tingban) {
-//        changing = true
-//        exclude module: 'gson'
-//    }
-    //引入考拉jar包的依赖包，临时方案
+    implementation(Config.depConfig.tingban) {
+        changing = true
+        exclude module: 'gson'
+    }
+    //引入考拉jar包的依赖包
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'

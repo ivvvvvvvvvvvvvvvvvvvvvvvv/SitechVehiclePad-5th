@@ -234,13 +234,21 @@ public class MainActivity extends BaseActivity
             SitechDevLog.exception(e);
         }
         if (AppVariants.activeSuccess) {
-            ThreadManager.getInstance().addTask(()->{
-                KaolaPlayManager.SingletonHolder.INSTANCE.acquireKaolaData();
+            ThreadManager.getInstance().addTask(() -> {
+                try {
+                    KaolaPlayManager.SingletonHolder.INSTANCE.acquireKaolaData();
+                } catch (Exception e) {
+                    SitechDevLog.exception(e);
+                }
             });
             KaolaPlayManager.SingletonHolder.INSTANCE.setCallback(mCallback);
         } else {
-            ThreadManager.getInstance().addTask(()->{
-                KaolaPlayManager.SingletonHolder.INSTANCE.activeKaola();
+            ThreadManager.getInstance().addTask(() -> {
+                try {
+                    KaolaPlayManager.SingletonHolder.INSTANCE.activeKaola();
+                } catch (Exception e) {
+                    SitechDevLog.exception(e);
+                }
             });
         }
 

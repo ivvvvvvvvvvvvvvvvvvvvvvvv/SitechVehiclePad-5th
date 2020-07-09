@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.kaolafm.opensdk.utils.ListUtil;
 import com.kaolafm.sdk.core.mediaplayer.BroadcastRadioListManager;
 import com.kaolafm.sdk.core.mediaplayer.BroadcastRadioPlayerManager;
 import com.kaolafm.sdk.core.mediaplayer.IPlayerListChangedListener;
@@ -333,7 +332,7 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
         if (!isLoadMore) {
             ArrayList<PlayItem> playList = BroadcastRadioListManager.getInstance().getPlayList();
             //有可能为空，因为数据有可能还没请求过来。
-            if (!ListUtil.isEmpty(playList)) {
+            if (playList == null || playList.isEmpty()) {
                 CommonToast.makeText(mContext, "数据为空");
             }
         } else {
