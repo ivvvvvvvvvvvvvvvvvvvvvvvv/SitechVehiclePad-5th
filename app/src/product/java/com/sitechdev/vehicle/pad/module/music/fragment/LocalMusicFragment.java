@@ -1,10 +1,6 @@
 package com.sitechdev.vehicle.pad.module.music.fragment;
 
-import android.app.Activity;
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
@@ -100,7 +96,9 @@ public class LocalMusicFragment extends BaseFragment implements
             musicName.setText(MusicConfig.getInstance().getCurrentMusicInfo().musicName);
             singer.setText(MusicConfig.getInstance().getCurrentMusicInfo().artist);
             customPlaySeekBar.setProgress(MusicConfig.getInstance().getProgress());
-            musicIcon.setImageBitmap(MusicUtils.getArtwork(getActivity(),MusicConfig.getInstance().getCurrentMusicInfo().songId,MusicConfig.getInstance().getCurrentMusicInfo().albumId,true));
+            musicIcon.setImageBitmap(MusicUtils.getArtwork(getActivity(),
+                    MusicConfig.getInstance().getCurrentMusicInfo().songId,
+                    MusicConfig.getInstance().getCurrentMusicInfo().albumId, true));
         } else {
             musicName.setText("- - -");
             singer.setText("- -");
@@ -220,19 +218,30 @@ public class LocalMusicFragment extends BaseFragment implements
         if (o instanceof MusicControlEvent) {
             MusicControlEvent event = (MusicControlEvent) o;
             if (MusicControlEvent.EVENT_CONTROL_MUSIC_PLAY_IF_ON_TOP.equals(event.getKey()) && getUserVisibleHint()) {
-                if (null != adapter.musicInfos && adapter.musicInfos.size() > 0) {
-                    MusicConfig.getInstance().setCurrentMusicInfo(adapter.musicInfos.get(0));
-                    MusicManager.getInstance().play(adapter.musicInfos.get(0).songId, null);
+                if (null != adapter.musicInfos && adapter.musicInfos.size() > 0 && !MusicManager.getInstance().isLocalPlaying()) {
+                    MusicInfo info;
+                    if (null != MusicConfig.getInstance().getCurrentMusicInfo()) {
+                        info = MusicConfig.getInstance().getCurrentMusicInfo();
+                    } else {
+                        info = adapter.musicInfos.get(0);
+                    }
+                    MusicManager.getInstance().play(info.songId,
+                            new MusicManager.CallBack<String>() {
+                        @Override
+                        public void onCallBack(int code, String s) {
+
+                        }
+                    });
                 }
             }
         }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onSysEvent(SysEvent event){
-        if(event.getEvent() == SysEvent.EB_SYS_USB_STATE){
+    public void onSysEvent(SysEvent event) {
+        if (event.getEvent() == SysEvent.EB_SYS_USB_STATE) {
             boolean isMounted = (boolean) event.getObj();
-            if(!isMounted){
+            if (!isMounted) {
                 onCheckEmpty(true);
             }
         }

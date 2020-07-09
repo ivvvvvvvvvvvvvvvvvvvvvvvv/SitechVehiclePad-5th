@@ -14,6 +14,7 @@ import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.event.MusicControlEvent;
+import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.module.music.adapter.MusicPagerAdapter;
 import com.sitechdev.vehicle.pad.module.music.fragment.BtMusicFragment;
 import com.sitechdev.vehicle.pad.module.music.fragment.LocalMusicFragment;
@@ -48,7 +49,7 @@ public class MusicMainActivity extends BaseActivity {
             public void run() {
                 EventBusUtils.postEvent(new MusicControlEvent(MusicControlEvent.EVENT_CONTROL_MUSIC_PLAY_IF_ON_TOP));
             }
-        },500);//页面加载完成发送事件
+        }, 500);//页面加载完成发送事件
     }
 
 
@@ -114,7 +115,7 @@ public class MusicMainActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-
+        vTab.setCurrentTab(VoiceSourceManager.getInstance().getMusicSource() == VoiceSourceManager.BT_MUSIC ? 1 : 0);
     }
 
     @Override
