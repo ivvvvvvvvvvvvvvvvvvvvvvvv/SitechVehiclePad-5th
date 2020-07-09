@@ -56,6 +56,11 @@ public class SysEvent extends BaseEvent<String> {
     public static final String EB_SYS_BT_STATE = "EB_SYS_BT_STATE";
 
     /**
+     * USB设备连接状态更新 [OUT]
+     */
+    public static final String EB_SYS_USB_STATE = "EB_SYS_USB_STATE";
+
+    /**
      * 蓝牙功能开关
      */
     public static final String EB_SYS_BT_ENABLE = "EB_SYS_BT_ENABLE";

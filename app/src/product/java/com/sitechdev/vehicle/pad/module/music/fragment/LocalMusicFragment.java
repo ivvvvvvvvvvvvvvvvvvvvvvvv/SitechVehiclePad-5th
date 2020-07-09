@@ -21,6 +21,7 @@ import com.sitechdev.vehicle.lib.event.BindEventBus;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.bean.BaseFragment;
 import com.sitechdev.vehicle.pad.event.MusicControlEvent;
+import com.sitechdev.vehicle.pad.event.SysEvent;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceType;
 import com.sitechdev.vehicle.pad.module.music.MusicConfig;
@@ -214,35 +215,6 @@ public class LocalMusicFragment extends BaseFragment implements
         }
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(Intent.ACTION_MEDIA_MOUNTED);
-        filter.addAction(Intent.ACTION_MEDIA_EJECT);
-        filter.addAction(Intent.ACTION_MEDIA_SCANNER_STARTED);
-        filter.addAction(Intent.ACTION_MEDIA_SCANNER_FINISHED);
-        filter.addDataScheme("file");
-        getActivity().registerReceiver(mUsbReceiver, filter);
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        getActivity().unregisterReceiver(mUsbReceiver);
-    }
-
-    BroadcastReceiver mUsbReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (Intent.ACTION_MEDIA_MOUNTED.equals(intent.getAction())) {
-
-            } else if (Intent.ACTION_MEDIA_EJECT.equals(intent.getAction())) {
-                onCheckEmpty(true);
-            }
-        }
-    };
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(Object o) {
         if (o instanceof MusicControlEvent) {
@@ -252,6 +224,16 @@ public class LocalMusicFragment extends BaseFragment implements
                     MusicConfig.getInstance().setCurrentMusicInfo(adapter.musicInfos.get(0));
                     MusicManager.getInstance().play(adapter.musicInfos.get(0).songId, null);
                 }
+            }
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onSysEvent(SysEvent event){
+        if(event.getEvent() == SysEvent.EB_SYS_USB_STATE){
+            boolean isMounted = (boolean) event.getObj();
+            if(!isMounted){
+                onCheckEmpty(true);
             }
         }
     }

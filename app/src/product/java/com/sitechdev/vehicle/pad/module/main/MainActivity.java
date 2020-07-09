@@ -63,7 +63,9 @@ import com.sitechdev.vehicle.pad.module.main.util.MainHttpUtils;
 import com.sitechdev.vehicle.pad.module.main.util.WeatherUtils;
 import com.sitechdev.vehicle.pad.module.music.BtMusicManager;
 import com.sitechdev.vehicle.pad.module.setting.bt.BtManager;
+import com.sitechdev.vehicle.pad.receiver.DeviceReceiver;
 import com.sitechdev.vehicle.pad.receiver.NetReceiver;
+import com.sitechdev.vehicle.pad.receiver.UsbReciver;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppVariants;
@@ -106,6 +108,7 @@ public class MainActivity extends BaseActivity
     private static final String TEMP_DATA = "一 一";
     private TextView mPowerPercentView = null, mKmView = null, mRechargeCountView = null;
     private LinearLayout carPowerInfoView = null, mLinearHomeWorkView = null, mLinearHomeView = null, mLinearWorkView = null;
+    private UsbReciver mUsbReceiver;
 
     //    List<Column> mColumns = new ArrayList<>();
 //    Column mCurrentColumn;
@@ -257,7 +260,20 @@ public class MainActivity extends BaseActivity
         mPowerPercentView.setText(setBottomAlignment("70", "%"));
         mKmView.setText(setBottomAlignment("238", "KM"));
         mRechargeCountView.setText(setBottomAlignment("48", "次"));
+        registerDeviceReceiver();
+    }
 
+    private void registerDeviceReceiver() {
+        if(null == mUsbReceiver){
+            mUsbReceiver = new UsbReciver();
+        }
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Intent.ACTION_MEDIA_MOUNTED);
+        filter.addAction(Intent.ACTION_MEDIA_EJECT);
+        filter.addAction(Intent.ACTION_MEDIA_SCANNER_STARTED);
+        filter.addAction(Intent.ACTION_MEDIA_SCANNER_FINISHED);
+        filter.addDataScheme("file");
+        registerReceiver(mUsbReceiver,filter);
     }
 
     @Override
@@ -271,6 +287,7 @@ public class MainActivity extends BaseActivity
         } catch (Exception e) {
             SitechDevLog.exception(e);
         }
+        unregisterReceiver(mUsbReceiver);
 //        MusicManager.getInstance().removeMusicChangeListener(musicChangeListener);
     }
 
