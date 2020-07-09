@@ -460,11 +460,9 @@ public class SettingNetActivity extends BaseActivity implements View.OnClickList
                 }
             }
         }
-        //去除隐藏名字或特殊名字的wifi。以sitech开头的
+        //去除隐藏名字的
         for (int i = scanResults.size() - 1; i >= 0; i--) {
-            if (TextUtils.isEmpty(scanResults.get(i).SSID)
-                    || scanResults.get(i).SSID.toLowerCase()
-                    .startsWith(SettingConstant.TBOX_HOTSPOT_NAME_PIX.toLowerCase())) {
+            if (TextUtils.isEmpty(scanResults.get(i).SSID)) {
                 scanResults.remove(i);
             }
         }
