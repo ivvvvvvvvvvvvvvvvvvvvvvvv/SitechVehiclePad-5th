@@ -1,6 +1,7 @@
 package com.sitechdev.vehicle.pad.router;
 
 import android.content.Context;
+import android.os.Bundle;
 
 import com.alibaba.android.arouter.facade.Postcard;
 import com.alibaba.android.arouter.facade.annotation.Interceptor;
@@ -39,8 +40,17 @@ public class RouterInterceptor implements IInterceptor {
             //取出新path的页面级别,发出跳转事件
             JSONObject pathObject = getPathJsonObject(jumpNewPath);
             String level = pathObject.optString("level");
-            if (IRouterConstants.LEVEL_THIRD.equalsIgnoreCase("/" + level)) {
-                //是三级页面，才发事件
+
+            //包含“isFinish”标记
+            boolean isFinish = true;
+            Bundle bundle = postcard.getExtras();
+            if (bundle != null && bundle.containsKey("isFinish")) {
+                isFinish = bundle.getBoolean("isFinish");
+                SitechDevLog.i(TAG, "[RouterInterceptor--isFinish()=false=no finish lastpage]==>" + isFinish);
+            }
+
+            if (isFinish && IRouterConstants.LEVEL_THIRD.equalsIgnoreCase("/" + level)) {
+                //是三级页面,并要关闭上述界面，才发事件
                 EventBusUtils.postEvent(new AppEvent(AppEvent.EB_ACTIVITY_START_EVENT, pathObject.toString()));
             }
             // 处理完成，交还控制权

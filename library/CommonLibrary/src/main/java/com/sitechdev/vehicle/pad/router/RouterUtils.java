@@ -115,6 +115,22 @@ public class RouterUtils {
                 .navigation(ActivityUtils.getTopActivity());
     }
 
+    /**
+     * 应用内简单的跳转,待finish参数。标识无需finish last page
+     *
+     * @param path 目标界面对应的路径
+     */
+    public void navigationNoFinish(String path) {
+        if (path == null) {
+            return;
+        }
+        ARouter.getInstance()
+                .build(path)
+                .withBoolean("isFinish", false)
+                .withFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                .navigation(ActivityUtils.getTopActivity());
+    }
+
 
     /**
      * 应用内简单的跳转
