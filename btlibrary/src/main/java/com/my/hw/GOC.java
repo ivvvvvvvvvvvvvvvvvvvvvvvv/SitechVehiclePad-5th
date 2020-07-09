@@ -5,6 +5,7 @@
 
 package com.my.hw;
 
+import android.text.TextUtils;
 import android.util.Log;
 import com.common.util.Util;
 
@@ -852,21 +853,24 @@ public class GOC extends BtCmd {
                                                 var10001 = false;
                                                 break label562;
                                             }
-
                                             var49 = var7;
                                             var3 = var8;
                                             var11 = (String)var16;
                                             var12 = var14;
 
                                             try {
-                                                var13 = new String(var1, var50, var6 - 1 - var50);
+                                                String name = new String(var1,"UTF-8");
+                                                if(!TextUtils.isEmpty(name) && name.startsWith("SA")){
+                                                    var13 = name.replace("SA","");
+                                                } else {
+                                                    var13 = new String(var1, var50, var6 - 1 - var50);
+                                                }
                                             } catch (Exception var35) {
                                                 var10000 = var35;
                                                 var10001 = false;
                                                 break label562;
                                             }
                                         }
-
                                         var49 = 777;
                                         var11 = var13;
                                         var12 = var14;
