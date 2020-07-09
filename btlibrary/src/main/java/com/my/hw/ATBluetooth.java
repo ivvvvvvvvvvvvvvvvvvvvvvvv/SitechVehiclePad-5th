@@ -196,6 +196,7 @@ public class ATBluetooth {
     public static final int RETURN_MIC_STATUS = 169;
     public static final int RETURN_MSG_MAX = 1048576;
     public static final int RETURN_NAME = 31;
+    public static final int RETURN_ADDRESS = 189;
     public static final int RETURN_OBD_DISCONNECT = 52;
     public static final int RETURN_PAIR_ADDR = 111;
     public static final int RETURN_PAIR_INFO = 4;

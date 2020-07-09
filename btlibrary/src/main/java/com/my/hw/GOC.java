@@ -54,6 +54,7 @@ public class GOC extends BtCmd {
         this.addReceiveCmd(78, "IY");
         this.addReceiveCmd(186, "NC");
         this.addReceiveCmd(188, "NA");
+        this.addReceiveCmd(189,"DF");
         this.addSendCmd(110, "PD");
         this.addSendCmd(69, "CP");
         this.addSendCmd(70, "CP");
@@ -482,6 +483,21 @@ public class GOC extends BtCmd {
                                 var11 = var14;
                                 var12 = var13;
                             }
+                        }  else if (var1[0] == 68 && var1[1] == 66) {//本地蓝牙地址
+                            String address = "";
+                            try {
+                                address = new String(var1,"UTF-8");
+                            } catch (UnsupportedEncodingException e) {
+                                e.printStackTrace();
+                            }
+                            var11 = "";
+                            if (address.length() > 4) {
+                                var11 = address.substring(address.length() - 4, address.length());
+                            }
+                            var49 = 189;
+                            var3 = var5;
+                            var12 = var13;
+
                         } else if (var1[0] == 73 && var1[1] == 67) {
                             label556: {
                                 var4 = 84;

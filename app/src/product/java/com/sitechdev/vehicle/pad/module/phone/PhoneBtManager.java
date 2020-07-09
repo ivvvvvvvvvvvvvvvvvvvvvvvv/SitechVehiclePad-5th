@@ -146,6 +146,12 @@ public class PhoneBtManager {
                         }
                     }
                     break;
+                    case ATBluetooth.RETURN_ADDRESS:{//本地蓝牙地址
+                        if(!StringUtils.isEmpty(param3) && !SettingConfig.getInstance().getLocalBtName().contains("SITECH")) {
+                            modifyBtName("SITECH_"+param3);
+                        }
+                    }
+                    break;
                     case ATBluetooth.RETURN_A2DP_ID3_NAME:
                         EventBusUtils.postEvent(new BluetoothEvent(BluetoothEvent.BT_EVENT_RECEIVE_TITLE, param3));
                         break;
@@ -356,5 +362,9 @@ public class PhoneBtManager {
 
     public void reject() {
         mATBluetooth.write(ATBluetooth.REQUEST_REJECT);
+    }
+
+    private void modifyBtName(String name){
+        mATBluetooth.write(ATBluetooth.REQUEST_NAME,name);
     }
 }
