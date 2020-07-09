@@ -391,6 +391,7 @@ public class MainActivity extends BaseActivity
 //        mMusicBtnImageView.setOnClickListener(this);
 //        mDriverBtnImageView.setOnClickListener(this);
 //        mAppsBtnImageView.setOnClickListener(this);
+        findViewById(R.id.id_bluetooth_content).setOnClickListener(this);
     }
 
     @Override
@@ -477,6 +478,9 @@ public class MainActivity extends BaseActivity
 //                break;
 //            case R.id.fl_teddy:
 //                break;
+            case R.id.id_bluetooth_content:
+                RouterUtils.getInstance().navigation(RouterConstants.SETTING_BT_PAGE);
+                break;
 
             default:
                 break;
