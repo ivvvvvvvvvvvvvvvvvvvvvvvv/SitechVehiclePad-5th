@@ -96,6 +96,7 @@
             android:paddingRight="62pt"
             android:paddingBottom="24pt"
             android:text="点击连接"
+            android:textColor="@color/white"
             android:textSize="29pt"
             app:layout_constraintLeft_toLeftOf="@+id/tv_connect_tip"
             app:layout_constraintRight_toRightOf="@+id/tv_connect_tip"

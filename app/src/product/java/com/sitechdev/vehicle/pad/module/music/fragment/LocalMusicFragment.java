@@ -219,21 +219,12 @@ public class LocalMusicFragment extends BaseFragment implements
             MusicControlEvent event = (MusicControlEvent) o;
             if (MusicControlEvent.EVENT_CONTROL_MUSIC_PLAY_IF_ON_TOP.equals(event.getKey()) && getUserVisibleHint()) {
                 if (null != adapter.musicInfos && adapter.musicInfos.size() > 0 && !MusicManager.getInstance().isLocalPlaying()) {
-                    MusicInfo info;
                     if (null != MusicConfig.getInstance().getCurrentMusicInfo()) {
-                        MusicManager.getInstance().resume(new MusicManager.CallBack<String>() {
-                            @Override
-                            public void onCallBack(int code, String s) {
-
-                            }
+                        MusicManager.getInstance().resume((code, s) -> {
                         });
                     } else {
                         MusicManager.getInstance().play(adapter.musicInfos.get(0).songId,
-                                new MusicManager.CallBack<String>() {
-                                    @Override
-                                    public void onCallBack(int code, String s) {
-
-                                    }
+                                (code, s) -> {
                                 });
                     }
                 }
