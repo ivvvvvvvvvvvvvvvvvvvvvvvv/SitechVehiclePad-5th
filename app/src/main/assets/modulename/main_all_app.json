@@ -1,5 +1,5 @@
 {
-  "menu_version": 1,
+  "menu_version": 2,
   "apps": [
     {
       "index": 0,
@@ -69,7 +69,7 @@
       "index": 8,
       "appName": "网络音乐",
       "appIcon": 9,
-      "appRoute": "/m_main/thirdPage/g_third_app/netMusic?needLogin=true&needNet=true",
+      "appRoute": "/m_main/thirdPage/g_third_app/netMusic?needLogin=false&needNet=true",
       "jumpType": 1,
       "eventId": "btn_app_net_music"
     },
