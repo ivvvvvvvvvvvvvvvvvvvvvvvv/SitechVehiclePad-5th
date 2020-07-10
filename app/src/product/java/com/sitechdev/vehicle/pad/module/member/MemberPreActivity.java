@@ -131,6 +131,8 @@ public class MemberPreActivity extends BaseActivity {
     @Override
     protected void initData() {
         tvTitle.setText("个人中心");
+        mSignBtnRelaLayoutView.setVisibility(View.GONE);
+        tvSignedView.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -217,12 +219,15 @@ public class MemberPreActivity extends BaseActivity {
                 }
                 try {
                     mSigninBean = (PointsSigninBean) successObj;
-                    if ("1".equalsIgnoreCase(mSigninBean.getData().getStatus())) {
-                        runOnUiThread(() -> {
+                    runOnUiThread(() -> {
+                        if ("1".equalsIgnoreCase(mSigninBean.getData().getStatus())) {
                             mSignBtnRelaLayoutView.setVisibility(View.GONE);
                             tvSignedView.setVisibility(View.VISIBLE);
-                        });
-                    }
+                        } else {
+                            mSignBtnRelaLayoutView.setVisibility(View.VISIBLE);
+                            tvSignedView.setVisibility(View.GONE);
+                        }
+                    });
                 } catch (Exception e) {
                     SitechDevLog.exception(e);
                 }
