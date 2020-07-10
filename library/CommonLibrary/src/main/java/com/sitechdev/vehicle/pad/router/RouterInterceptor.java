@@ -7,12 +7,10 @@ import com.alibaba.android.arouter.facade.Postcard;
 import com.alibaba.android.arouter.facade.annotation.Interceptor;
 import com.alibaba.android.arouter.facade.callback.InterceptorCallback;
 import com.alibaba.android.arouter.facade.template.IInterceptor;
-import com.blankj.utilcode.util.ActivityUtils;
 import com.sitechdev.vehicle.lib.event.AppEvent;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 
-import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
 
 /**
@@ -37,6 +35,12 @@ public class RouterInterceptor implements IInterceptor {
         } else {
             //当前要跳转的新Path
             String jumpNewPath = postcard.getPath();
+            if (jumpNewPath.contains(IRouterConstants.LEVEL_HOME) || jumpNewPath.contains(IRouterConstants.LEVEL_SUB)) {
+                //如果跳一级页面或二级页面，直接跳
+                // 处理完成，交还控制权
+                callback.onContinue(postcard);
+                return;
+            }
             //取出新path的页面级别,发出跳转事件
             JSONObject pathObject = getPathJsonObject(jumpNewPath);
             String level = pathObject.optString("level");
@@ -71,10 +75,18 @@ public class RouterInterceptor implements IInterceptor {
             String[] pathSplits = path.split("/");
             //数组组成格式为：【无用，module_name,level_name,group_name,path&param】
             if (pathSplits != null && pathSplits.length > 0) {
-                pathObject.put("module", pathSplits[1]);
-                pathObject.put("level", pathSplits[2]);
-                pathObject.put("group", pathSplits[3]);
-                pathObject.put("realPath", pathSplits[4]);
+                if (pathSplits.length > 1) {
+                    pathObject.put("module", pathSplits[1]);
+                }
+                if (pathSplits.length > 2) {
+                    pathObject.put("level", pathSplits[2]);
+                }
+                if (pathSplits.length > 3) {
+                    pathObject.put("group", pathSplits[3]);
+                }
+                if (pathSplits.length > 4) {
+                    pathObject.put("realPath", pathSplits[4]);
+                }
             }
         } catch (Exception e) {
             SitechDevLog.exception(e);
