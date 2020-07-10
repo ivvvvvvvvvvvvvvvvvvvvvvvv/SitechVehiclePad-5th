@@ -44,7 +44,7 @@ public class SettingHomeItemView extends RelativeLayout {
             mContent.setText(content);
         }
         if(View.VISIBLE != a.getInt(R.styleable.setting_home_item_arrow_visibility,View.VISIBLE)){
-            mArrow.setVisibility(INVISIBLE);
+            mArrow.setVisibility(GONE);
         }
     }
 }
