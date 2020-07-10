@@ -52,6 +52,6 @@
         android:layout_width="match_parent"
         android:layout_height="1pt"
         android:layout_below="@id/custom_switch_title"
-        android:background="@color/main_info_line" />
+        android:background="@drawable/ico_split_line_land" />
 
 </RelativeLayout>

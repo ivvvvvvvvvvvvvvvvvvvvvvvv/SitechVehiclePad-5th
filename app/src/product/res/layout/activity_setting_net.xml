@@ -26,6 +26,7 @@
         android:id="@+id/rl_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/pt_30"
         android:layout_marginLeft="@dimen/setting_padding_left_right"
         android:layout_marginRight="@dimen/setting_padding_left_right"
         android:visibility="gone">
