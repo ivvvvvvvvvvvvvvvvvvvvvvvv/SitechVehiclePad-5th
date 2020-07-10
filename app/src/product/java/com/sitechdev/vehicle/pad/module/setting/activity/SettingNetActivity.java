@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.blankj.utilcode.util.ToastUtils;
 import com.luck.picture.lib.rxbus2.Subscribe;
 import com.luck.picture.lib.rxbus2.ThreadMode;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -37,7 +38,6 @@ import com.sitechdev.vehicle.lib.util.ForbidClickEnable;
 import com.sitechdev.vehicle.lib.util.NetworkUtils;
 import com.sitechdev.vehicle.lib.util.SPUtils;
 import com.sitechdev.vehicle.lib.util.ThreadManager;
-import com.sitechdev.vehicle.lib.util.ToastUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.app.AppConst;
