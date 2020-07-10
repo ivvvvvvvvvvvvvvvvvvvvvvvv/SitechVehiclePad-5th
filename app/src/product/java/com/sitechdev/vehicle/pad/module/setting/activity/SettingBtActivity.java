@@ -75,20 +75,13 @@ public class SettingBtActivity extends MvpActivity<SettingBtContract.BtPresenter
             @Override
             public void onConnect(int pos, BtDeviceBean btDeviceBean) {
                 if (SettingConfig.getInstance().isBtConnected()) {
-                    CommonLogoutDialog logoutDialog =
-                            new CommonLogoutDialog(SettingBtActivity.this);
-                    logoutDialog.setListener(() -> {
-                        //确定按钮被点击
-                        mPresenter.disconnectToDevice();
-                        if (null != mHandler) {
-                            Message message = new Message();
-                            message.what = 0;
-                            message.obj = btDeviceBean;
-                            mHandler.sendMessageDelayed(message, 2000);
-                            CommonProgressDialog.getInstance().show(SettingBtActivity.this);
-                        }
-                    });
-                    logoutDialog.show();
+                    //断开连接
+                    mPresenter.disconnectToDevice();
+                    Message message = new Message();
+                    message.what = 0;
+                    message.obj = btDeviceBean;
+                    //重新连接新的需要隔一段时间，所以延迟进行
+                    mHandler.sendMessageDelayed(message, 2000);
                 } else {
                     mPresenter.connectToDevice(btDeviceBean.getBtAddress());
                     CommonProgressDialog.getInstance().show(SettingBtActivity.this);
@@ -109,6 +102,7 @@ public class SettingBtActivity extends MvpActivity<SettingBtContract.BtPresenter
                 super.handleMessage(msg);
                 if (msg.what == 0) {
                     if (null != msg.obj && msg.obj instanceof BtDeviceBean) {
+                        CommonProgressDialog.getInstance().show(SettingBtActivity.this);
                         BtDeviceBean deviceBean = (BtDeviceBean) msg.obj;
                         mPresenter.connectToDevice(deviceBean.getBtAddress());
                     }
