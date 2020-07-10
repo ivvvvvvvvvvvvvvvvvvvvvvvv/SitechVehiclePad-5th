@@ -182,9 +182,7 @@ public class RouterUtils {
      * @param homePath homePath
      */
     public void navigationHomePage(String homePath) {
-        navigationWithFlags(homePath,
-                Intent.FLAG_ACTIVITY_NEW_TASK, Intent.FLAG_ACTIVITY_CLEAR_TASK, Intent.FLAG_ACTIVITY_CLEAR_TOP
-        );
+        navigationWithFlags(homePath, Intent.FLAG_ACTIVITY_NEW_TASK);
     }
 
     /**

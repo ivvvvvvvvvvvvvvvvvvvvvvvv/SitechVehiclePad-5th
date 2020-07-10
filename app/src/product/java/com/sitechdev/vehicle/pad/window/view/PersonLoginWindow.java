@@ -131,6 +131,7 @@ public class PersonLoginWindow extends BasicWindow implements View.OnClickListen
      * @param onLoginIntent onLoginIntent
      */
     public void showWnd(LoginIntent.onLoginIntent onLoginIntent) {
+        hideWnd();
         LoginIntent.getInstance().setOnLoginIntent(onLoginIntent);
         showWnd();
     }
@@ -187,15 +188,15 @@ public class PersonLoginWindow extends BasicWindow implements View.OnClickListen
         SitechDevLog.i(AppConst.TAG, this + "==SSOEvent 消息==" + event.eventKey);
         switch (event.eventKey) {
             case SSOEvent.EB_MSG_LOGIN:
-                SitechDevLog.d(TAG, "login success!!!");
+                SitechDevLog.d(AppConst.TAG, "login success!!!");
                 LoginUserBean loginBean = (LoginUserBean) event.mValue;
-                if (null != loginBean) {
-                    hideWnd();
-                }
                 if (LoginIntent.getInstance().getOnLoginIntent() != null) {
                     //登录后的步骤
                     LoginIntent.getInstance().getOnLoginIntent().onNext();
                     LoginIntent.getInstance().setOnLoginIntent(null);
+                }
+                if (null != loginBean) {
+                    hideWnd();
                 }
                 break;
             default:

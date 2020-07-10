@@ -72,7 +72,7 @@ public abstract class BasicWindow {
     }
 
     public void showWnd() {
-        hideWnd();
+//        hideWnd();
         if (mWindowManager != null && mView != null && !mView.isShown()) {
             mWindowManager.addView(mView, mLayoutParams);
         }
