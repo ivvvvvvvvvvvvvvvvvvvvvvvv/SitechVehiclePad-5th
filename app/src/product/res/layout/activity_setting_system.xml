@@ -20,20 +20,20 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="231px"
+                android:layout_marginRight="231pt"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="116px"
+                    android:layout_height="116pt"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="150px"
+                    android:layout_marginLeft="150pt"
 
                     android:gravity="center_vertical"
                     android:text="在线升级"
                     android:textColor="@color/white"
-                    android:textSize="32px" />
+                    android:textSize="32pt" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -45,9 +45,9 @@
 
                     <ImageView
                         android:id="@+id/img_new_version"
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
-                        android:layout_marginRight="8dp"
+                        android:layout_width="16pt"
+                        android:layout_height="16pt"
+                        android:layout_marginRight="8pt"
                         android:background="@drawable/red_ponit"
                         android:gravity="center"
                         android:scaleType="fitXY"
@@ -57,34 +57,34 @@
                         android:id="@+id/tv_setting_update"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="8dp"
+                        android:layout_marginRight="8pt"
                         android:gravity="center"
                         android:text="检查更新"
                         android:textColor="@color/white"
-                        android:textSize="32px" />
+                        android:textSize="32pt" />
                 </LinearLayout>
             </RelativeLayout>
 
             <ImageView
-                android:layout_width="1040dp"
+                android:layout_width="1040pt"
                 android:layout_height="wrap_content"
                 android:src="@drawable/common_line_white" />
 
             <RelativeLayout
                 android:id="@+id/setting_app_version_info_linear_layout"
                 android:layout_width="match_parent"
-                android:layout_height="116px"
-                android:layout_marginRight="231px"
+                android:layout_height="116pt"
+                android:layout_marginRight="231pt"
                 android:focusable="true">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="150px"
+                    android:layout_marginLeft="150pt"
                     android:text="软件版本"
                     android:textColor="@color/white"
-                    android:textSize="32px" />
+                    android:textSize="32pt" />
 
                 <TextView
                     android:id="@+id/tv_app_version"
@@ -94,19 +94,19 @@
                     android:layout_centerVertical="true"
                     android:text="yyMMddHH"
                     android:textColor="@color/white"
-                    android:textSize="32px" />
+                    android:textSize="32pt" />
 
             </RelativeLayout>
 
             <ImageView
-                android:layout_width="1040dp"
+                android:layout_width="1040pt"
                 android:layout_height="wrap_content"
                 android:src="@drawable/common_line_white" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="116px"
-                android:layout_marginRight="231px"
+                android:layout_height="116pt"
+                android:layout_marginRight="231pt"
                 android:focusable="true">
 
                 <TextView
@@ -114,10 +114,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="150px"
+                    android:layout_marginLeft="150pt"
                     android:text="硬件版本"
                     android:textColor="@color/white"
-                    android:textSize="32px" />
+                    android:textSize="32pt" />
 
                 <TextView
                     android:id="@+id/tv_mcu_version"
@@ -127,36 +127,36 @@
                     android:layout_centerVertical="true"
                     android:text="当前版本号：v3.01"
                     android:textColor="@color/white"
-                    android:textSize="32px" />
+                    android:textSize="32pt" />
 
 
             </RelativeLayout>
 
             <ImageView
-                android:layout_width="1040dp"
+                android:layout_width="1040pt"
                 android:layout_height="wrap_content"
                 android:src="@drawable/common_line_white" />
 
             <RelativeLayout
                 android:id="@+id/btn_sets_mate"
                 android:layout_width="match_parent"
-                android:layout_height="116px"
-                android:layout_marginRight="231px"
+                android:layout_height="116pt"
+                android:layout_marginRight="231pt"
                 android:background="@drawable/selector_setting_reset_btn">
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="116px"
+                    android:layout_height="116pt"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="150px"
+                    android:layout_marginLeft="150pt"
                     android:gravity="center_vertical"
                     android:text="恢复出厂设置"
                     android:textColor="@color/white"
-                    android:textSize="32px" />
+                    android:textSize="32pt" />
             </RelativeLayout>
 
             <ImageView
-                android:layout_width="1040dp"
+                android:layout_width="1040pt"
                 android:layout_height="wrap_content"
                 android:src="@drawable/common_line_white" />
         </LinearLayout>
@@ -186,30 +186,30 @@
                     android:id="@+id/tv_vin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="5pt"
                     android:text="当前版本号：2.0.3"
                     android:textColor="@color/white"
-                    android:textSize="32px"
+                    android:textSize="32pt"
                     android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/tv_sn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="5pt"
                     android:text="当前版本号："
                     android:textColor="@color/white"
-                    android:textSize="32px"
+                    android:textSize="32pt"
                     android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/tv_iccid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="5pt"
                     android:text="当前版本号："
                     android:textColor="@color/white"
-                    android:textSize="32px"
+                    android:textSize="32pt"
                     android:visibility="gone" />
             </LinearLayout>
         </RelativeLayout>
