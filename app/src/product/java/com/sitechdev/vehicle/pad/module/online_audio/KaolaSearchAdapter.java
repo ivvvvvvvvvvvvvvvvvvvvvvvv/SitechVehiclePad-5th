@@ -21,7 +21,9 @@ import java.util.List;
 public class KaolaSearchAdapter extends RecyclerView.Adapter<KaolaSearchAdapter.VHolderAbs> {
     private Context context;
     private List<SearchProgramBean> mLists;
-
+    public List<SearchProgramBean> getData(){
+        return mLists;
+    }
     // 构造方法
     KaolaSearchAdapter(Context context, List<SearchProgramBean> mLists) {
         this.context = context;

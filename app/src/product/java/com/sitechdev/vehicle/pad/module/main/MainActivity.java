@@ -662,7 +662,7 @@ public class MainActivity extends BaseActivity
         }
         if (null != ivMusicIcon) {
             ivMusicIcon.resumeAnimation();
-            GlideApp.with(this).load(R.drawable.iv_music).into(ivMusicIcon);
+            GlideApp.with(MainActivity.this).load(R.drawable.iv_music).into(ivMusicIcon);
         }
     }
 

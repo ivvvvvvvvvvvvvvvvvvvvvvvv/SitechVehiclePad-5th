@@ -3,10 +3,16 @@ package com.sitechdev.vehicle.pad.module.online_audio;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.text.Html;
 import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -23,6 +29,7 @@ import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.bean.BaseFragment;
+import com.sitechdev.vehicle.pad.event.KaolaEvent;
 import com.sitechdev.vehicle.pad.event.TeddyEvent;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
@@ -34,6 +41,7 @@ import com.sitechdev.vehicle.pad.view.KaolaCategorySpaceItemDecoration;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -47,13 +55,50 @@ public class KaolaAudioSearchPageFrag extends BaseFragment {
     private RecyclerView recyclerView;
     private KaolaSearchAdapter adapter;
     String quertString;
-
+    private final static String TAG_SAVE_EDIT_CONTENT = "tag_kaola_search_keyword";
+    private final static String TAG_SAVE_SEARCH_DATA = "tag_kaola_search_data";
+    private final static String TAG_SAVE_LIST_STATE = "TAG_SAVE_LIST_STATE";
     public KaolaAudioSearchPageFrag() {
     }
 
     @SuppressLint("ValidFragment")
     public KaolaAudioSearchPageFrag(String quertString) {
         this.quertString = quertString;
+    }
+
+    public Bundle getSaveInstanceState() {
+        Bundle outState = new Bundle();
+        outState.putParcelable(TAG_SAVE_EDIT_CONTENT, edit.onSaveInstanceState());
+        return outState;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onEvent(KaolaEvent event) {
+        if (event.getEvent().equals(KaolaEvent.EB_KAOLA_RESTORE_SEARCH_STATUS)) {
+            reStoreState((Bundle) event.getObj());
+        }
+    }
+
+    public void reStoreState(Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            if (savedInstanceState.containsKey(TAG_SAVE_EDIT_CONTENT)) {
+                Parcelable parcelable = savedInstanceState.getParcelable(TAG_SAVE_EDIT_CONTENT);
+                edit.onRestoreInstanceState(parcelable);
+//                edit.onRestoreInstanceState(savedInstanceState.getParcelable(TAG_SAVE_EDIT_CONTENT));
+            }
+//            List<SearchProgramBean> data = (List<SearchProgramBean>) savedInstanceState.getSerializable(TAG_SAVE_SEARCH_DATA);
+//            if (data != null) {
+//                setData(data);
+//            }
+            //        if (adapter != null && adapter.getData().size() > 0) {
+//            // Save list state
+//
+//            Parcelable mListState = recyclerView.getLayoutManager().onSaveInstanceState();
+//
+//            outState.putParcelable(TAG_SAVE_LIST_STATE, mListState);
+//            outState.putSerializable(TAG_SAVE_EDIT_CONTENT, (Serializable) adapter.getData());
+//        }
+        }
     }
 
     @Override
@@ -65,6 +110,7 @@ public class KaolaAudioSearchPageFrag extends BaseFragment {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+        setRetainInstance(true);
         recyclerView = mContentView.findViewById(R.id.recyclerView);
         edit = mContentView.findViewById(R.id.edit);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, isLandscape() ? 1 : 3);
@@ -84,6 +130,7 @@ public class KaolaAudioSearchPageFrag extends BaseFragment {
                 return true;
             }
         });
+
         if (!TextUtils.isEmpty(quertString)) {
             edit.setText(quertString);
             edit.clearFocus();
@@ -92,6 +139,7 @@ public class KaolaAudioSearchPageFrag extends BaseFragment {
                 @Override
                 public void run() {
                     hideInput();
+                    quertString = "";
                 }
             }, 300);
         }
@@ -140,26 +188,9 @@ public class KaolaAudioSearchPageFrag extends BaseFragment {
                 @Override
                 public void onSuccess(List<SearchProgramBean> searchProgramBeans) {
                     callback.onSuccess(searchProgramBeans);
-                    if (adapter == null) {
-                        adapter = new KaolaSearchAdapter(getActivity(), searchProgramBeans);
-                        adapter.setOnItemClick(new KaolaSearchAdapter.OnItemClick() {
-                            @Override
-                            public void onClick(SearchProgramBean warpper) {
-                                if (warpper.getType() == ResType.TYPE_BROADCAST) {
-                                    jump2PlayBroadcast(warpper.getId(), warpper.getName(), warpper.getImg());
-                                }
-                                if (warpper.getType() == ResType.TYPE_RADIO || warpper.getType() == ResType.TYPE_AUDIO || warpper.getType() == ResType.TYPE_ALBUM) {
-                                    jump2Play(warpper.getId(), warpper.getName(), warpper.getImg(), warpper.getType());
-                                }
-                            }
-                        });
-                        recyclerView.setAdapter(adapter);
-                    } else {
-                        adapter.setDataAndNotify(searchProgramBeans);
-                    }
+                    setData(searchProgramBeans);
                     mContentView.findViewById(R.id.voice_tip).setVisibility(View.GONE);
                     if (searchProgramBeans == null || searchProgramBeans.size() == 0) {
-                        String.format("未找到“%s”相关内容", key);
                         ((TextView) mContentView.findViewById(R.id.tip)).setText(Html.fromHtml("未找到<font color= '#499AC8'>“" + key + "”</font>相关内容"));
                     } else {
                         ((TextView) mContentView.findViewById(R.id.tip)).setText(Html.fromHtml("为您找到<font color= '#499AC8'>“" + key + "”</font>相关内容"));
@@ -176,6 +207,25 @@ public class KaolaAudioSearchPageFrag extends BaseFragment {
         }
     }
 
+    private void setData(List<SearchProgramBean> searchProgramBeans){
+        if (adapter == null) {
+            adapter = new KaolaSearchAdapter(getActivity(), searchProgramBeans);
+            adapter.setOnItemClick(new KaolaSearchAdapter.OnItemClick() {
+                @Override
+                public void onClick(SearchProgramBean warpper) {
+                    if (warpper.getType() == ResType.TYPE_BROADCAST) {
+                        jump2PlayBroadcast(warpper.getId(), warpper.getName(), warpper.getImg());
+                    }
+                    if (warpper.getType() == ResType.TYPE_RADIO || warpper.getType() == ResType.TYPE_AUDIO || warpper.getType() == ResType.TYPE_ALBUM) {
+                        jump2Play(warpper.getId(), warpper.getName(), warpper.getImg(), warpper.getType());
+                    }
+                }
+            });
+            recyclerView.setAdapter(adapter);
+        } else {
+            adapter.setDataAndNotify(searchProgramBeans);
+        }
+    }
 
     private void jump2PlayBroadcast(long id, String title, String url) {
         Bundle bundle = new Bundle();
@@ -200,7 +250,7 @@ public class KaolaAudioSearchPageFrag extends BaseFragment {
     public void onEvent(TeddyEvent event) {
         if (event.getEventKey().equals(TeddyEvent.EVENT_TEDDY_KAOLA_QUERY_KEYWORDS)) {
             if (event.getEventValue() instanceof String && !TextUtils.isEmpty((String) event.getEventValue())) {
-                edit.setText((String) event.getEventValue());
+//                edit.setText((String) event.getEventValue());
                 edit.clearFocus();
                 goSearch();
                 ThreadUtils.runOnUIThreadDelay(new Runnable() {

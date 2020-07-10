@@ -20,6 +20,9 @@ public class KaolaFragmentAdapter extends PagerAdapter {
     // 构造方法
     public KaolaFragmentAdapter(FragmentManager fragmentManager,  String[] titles,Object... args) {
         this.fragmentManager = fragmentManager;
+        for (int i = 0; i < fragmentManager.getBackStackEntryCount(); i++) {
+            fragmentManager.popBackStackImmediate();
+        }
         this.titles = titles;
         if (args.length >= 3) {
             defaultIndex = (int) args[0];
@@ -78,6 +81,7 @@ public class KaolaFragmentAdapter extends PagerAdapter {
             FragmentTransaction ft = fragmentManager.beginTransaction();
             ft.add(fragment, fragment.getClass().getSimpleName() + position);
             ft.commit();
+            ft.addToBackStack(fragment.getClass().getSimpleName() + position);
             fragmentManager.executePendingTransactions();
         }
 

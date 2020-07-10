@@ -6,6 +6,7 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.imageloader.GlideApp;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
+import com.sitechdev.vehicle.pad.event.KaolaEvent;
 import com.sitechdev.vehicle.pad.event.TeddyEvent;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
@@ -128,6 +130,26 @@ public class KaolaAudioActivity extends BaseActivity implements
     @Override
     protected int getLayoutId() {
         return  R.layout.audio_kaola_main_frame;
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        for (int i = 0; i < getSupportFragmentManager().getFragments().size(); i++) {
+            Fragment fragment = getSupportFragmentManager().getFragments().get(i);
+            if (fragment instanceof KaolaAudioSearchPageFrag) {
+                outState.putParcelable("search_page_saveinstance", ((KaolaAudioSearchPageFrag) fragment).getSaveInstanceState());
+                break;
+            }
+        }
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (savedInstanceState.containsKey("search_page_saveinstance")) {
+            EventBusUtils.postStickyEvent(new KaolaEvent(KaolaEvent.EB_KAOLA_RESTORE_SEARCH_STATUS, savedInstanceState.getParcelable("search_page_saveinstance")));
+        }
     }
 
     @Override

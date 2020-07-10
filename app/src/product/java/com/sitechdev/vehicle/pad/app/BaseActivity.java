@@ -314,7 +314,6 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         Map<String, RouteMeta> atlas = new HashMap<>();
         c.loadInto(atlas);
         Iterator<Map.Entry<String, RouteMeta>> routeMetaIterator = atlas.entrySet().iterator();
-        SitechDevLog.e("zyf", "this getSimpleName() = " + this.getClass().getSimpleName());
         while (routeMetaIterator.hasNext()) {
             Map.Entry<String, RouteMeta> routeMetaEntry = routeMetaIterator.next();
             activityPathHashMap.put(((RouteMeta) routeMetaEntry.getValue()).getDestination().getSimpleName(), routeMetaEntry.getKey());
