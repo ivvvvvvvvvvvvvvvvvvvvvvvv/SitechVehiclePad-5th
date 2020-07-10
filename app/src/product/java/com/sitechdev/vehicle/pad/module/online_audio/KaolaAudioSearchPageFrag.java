@@ -69,6 +69,14 @@ public class KaolaAudioSearchPageFrag extends BaseFragment {
     public Bundle getSaveInstanceState() {
         Bundle outState = new Bundle();
         outState.putParcelable(TAG_SAVE_EDIT_CONTENT, edit.onSaveInstanceState());
+
+        if (adapter != null && adapter.getData().size() > 0) {
+            // Save list state
+            Parcelable mListState = recyclerView.getLayoutManager().onSaveInstanceState();
+
+            outState.putParcelable(TAG_SAVE_LIST_STATE, mListState);
+            outState.putSerializable(TAG_SAVE_SEARCH_DATA, (Serializable) adapter.getData());
+        }
         return outState;
     }
 
@@ -84,20 +92,15 @@ public class KaolaAudioSearchPageFrag extends BaseFragment {
             if (savedInstanceState.containsKey(TAG_SAVE_EDIT_CONTENT)) {
                 Parcelable parcelable = savedInstanceState.getParcelable(TAG_SAVE_EDIT_CONTENT);
                 edit.onRestoreInstanceState(parcelable);
-//                edit.onRestoreInstanceState(savedInstanceState.getParcelable(TAG_SAVE_EDIT_CONTENT));
             }
-//            List<SearchProgramBean> data = (List<SearchProgramBean>) savedInstanceState.getSerializable(TAG_SAVE_SEARCH_DATA);
-//            if (data != null) {
-//                setData(data);
-//            }
-            //        if (adapter != null && adapter.getData().size() > 0) {
-//            // Save list state
-//
-//            Parcelable mListState = recyclerView.getLayoutManager().onSaveInstanceState();
-//
-//            outState.putParcelable(TAG_SAVE_LIST_STATE, mListState);
-//            outState.putSerializable(TAG_SAVE_EDIT_CONTENT, (Serializable) adapter.getData());
-//        }
+
+            recyclerView.getLayoutManager().onRestoreInstanceState(savedInstanceState.getParcelable(TAG_SAVE_LIST_STATE));
+
+            List<SearchProgramBean> data = (List<SearchProgramBean>) savedInstanceState.getSerializable(TAG_SAVE_SEARCH_DATA);
+            if (data != null) {
+                setData(edit.getText().toString(), data);
+            }
+
         }
     }
 
@@ -188,13 +191,7 @@ public class KaolaAudioSearchPageFrag extends BaseFragment {
                 @Override
                 public void onSuccess(List<SearchProgramBean> searchProgramBeans) {
                     callback.onSuccess(searchProgramBeans);
-                    setData(searchProgramBeans);
-                    mContentView.findViewById(R.id.voice_tip).setVisibility(View.GONE);
-                    if (searchProgramBeans == null || searchProgramBeans.size() == 0) {
-                        ((TextView) mContentView.findViewById(R.id.tip)).setText(Html.fromHtml("未找到<font color= '#499AC8'>“" + key + "”</font>相关内容"));
-                    } else {
-                        ((TextView) mContentView.findViewById(R.id.tip)).setText(Html.fromHtml("为您找到<font color= '#499AC8'>“" + key + "”</font>相关内容"));
-                    }
+                    setData(key, searchProgramBeans);
                 }
 
                 @Override
@@ -207,7 +204,14 @@ public class KaolaAudioSearchPageFrag extends BaseFragment {
         }
     }
 
-    private void setData(List<SearchProgramBean> searchProgramBeans){
+    private void setData(String key, List<SearchProgramBean> searchProgramBeans){
+        mContentView.findViewById(R.id.voice_tip).setVisibility(View.GONE);
+        if (searchProgramBeans == null || searchProgramBeans.size() == 0) {
+            ((TextView) mContentView.findViewById(R.id.tip)).setText(Html.fromHtml("未找到<font color= '#499AC8'>“" + key + "”</font>相关内容"));
+        } else {
+            ((TextView) mContentView.findViewById(R.id.tip)).setText(Html.fromHtml("为您找到<font color= '#499AC8'>“" + key + "”</font>相关内容"));
+        }
+
         if (adapter == null) {
             adapter = new KaolaSearchAdapter(getActivity(), searchProgramBeans);
             adapter.setOnItemClick(new KaolaSearchAdapter.OnItemClick() {
@@ -225,6 +229,12 @@ public class KaolaAudioSearchPageFrag extends BaseFragment {
         } else {
             adapter.setDataAndNotify(searchProgramBeans);
         }
+        ThreadUtils.runOnUIThreadDelay(new Runnable() {
+            @Override
+            public void run() {
+                hideInput();
+            }
+        }, 300);
     }
 
     private void jump2PlayBroadcast(long id, String title, String url) {
