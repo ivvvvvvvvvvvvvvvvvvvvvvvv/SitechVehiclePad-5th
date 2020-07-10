@@ -624,7 +624,7 @@ public class VoiceSourceManager {
                 BtMusicManager.getInstance().btCtrlPlayPause();
                 break;
             case KUWO_MUSIC:
-                if (KuwoManager.getInstance().isRunning()) {
+                if (KuwoManager.getInstance().isMusicPlaying()) {
                     KuwoManager.getInstance().onMusicPlayPause();
                 } else {
                     KuwoManager.getInstance().onMusicPlayResume();
