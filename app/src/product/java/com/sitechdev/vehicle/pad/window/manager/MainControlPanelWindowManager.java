@@ -157,8 +157,11 @@ public class MainControlPanelWindowManager {
                 break;
             case SysEvent.EB_SYS_WIFI_STATE:
                 if (mainControlPanelView != null) {
-                    //wifi变化消息
-                    mainControlPanelView.refreshWifiSwitchView();
+                    if (event.getObj() != null) {
+                        boolean status = (boolean) event.getObj();
+                        //wifi变化消息
+                        mainControlPanelView.refreshWifiSwitchView(status);
+                    }
                 }
                 break;
             case SysEvent.EB_SYS_TEDDY_SWITCH_STATE:

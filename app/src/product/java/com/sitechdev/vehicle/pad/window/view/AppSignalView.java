@@ -151,13 +151,16 @@ public class AppSignalView extends LinearLayout {
      * @param isShow true=展示，否则隐藏
      */
     public void refreshTboxIconView(boolean isShow, int netRssi) {
-//        ThreadUtils.runOnUIThread(() -> {
-//            if (iv_tbox_icon == null) {
-//                iv_tbox_icon = findViewById(R.id.iv_tbox_icon);
-//            }
-//            iv_tbox_icon.setVisibility(isShow ? View.VISIBLE : View.GONE);
+        ThreadUtils.runOnUIThread(() -> {
+            if (iv_tbox_icon == null) {
+                iv_tbox_icon = findViewById(R.id.iv_tbox_icon);
+            }
+            iv_tbox_icon.setVisibility(isShow ? View.VISIBLE : View.GONE);
 //            tBoxIconChange(netRssi);
-//        });
+            if (isShow) {
+                mobileIconChange(netRssi);
+            }
+        });
     }
 
     public void refreshTboxIconView(boolean isShow) {
@@ -188,6 +191,21 @@ public class AppSignalView extends LinearLayout {
             }
             mMuteView.setVisibility(isShow ? View.VISIBLE : View.GONE);
         });
+    }
+
+    /**
+     * 网络强度 取值范围：[0,4]
+     *
+     * @param netRssi 取值范围：[0,4]
+     */
+    private void mobileIconChange(int netRssi) {
+        if (netRssi < 0) {
+            netRssi = 0;
+        }
+        if (netRssi > 4) {
+            netRssi = 4;
+        }
+        tBoxIconChangeLevel(netRssi);
     }
 
     /**

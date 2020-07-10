@@ -1,19 +1,15 @@
 package com.sitechdev.vehicle.pad.window.manager;
 
-import android.content.Context;
 import android.graphics.PixelFormat;
-import android.telephony.PhoneStateListener;
-import android.telephony.SignalStrength;
-import android.telephony.TelephonyManager;
 import android.view.Gravity;
 import android.view.WindowManager;
 
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
+import com.sitechdev.vehicle.lib.util.NetworkUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.app.BaseAppWindowManager;
 import com.sitechdev.vehicle.pad.app.BaseWindow;
-import com.sitechdev.vehicle.pad.event.AppSignalEvent;
 import com.sitechdev.vehicle.pad.event.ScreenEvent;
 import com.sitechdev.vehicle.pad.event.SysEvent;
 import com.sitechdev.vehicle.pad.window.view.AppSignalView;
@@ -91,6 +87,7 @@ public class AppSignalWindowManager {
         if (appSignalView == null) {
             appSignalView = getView();
         }
+        initData();
         if (appSignalView.getParent() != null) {
             winManager.removeViewImmediate(appSignalView);
         }
@@ -161,8 +158,16 @@ public class AppSignalWindowManager {
         }
     }
 
-    public void tBoxIconChange(int netRssi) {
-        appSignalView.refreshTboxIconView(true, netRssi);
+    /**
+     * 刷新信号状态。范围[0,4]： 0表示信号强度很差 ,4表示非常强的信号强度。
+     *
+     * @param isShow  true=显示
+     * @param netRssi 范围[0,4]： 0表示信号强度很差 ,4表示非常强的信号强度。
+     */
+    public void tBoxIconChange(boolean isShow, int netRssi) {
+        if (appSignalView != null) {
+            appSignalView.refreshTboxIconView(isShow, netRssi);
+        }
     }
 
     public void tBoxIconLevelChange(int level) {
@@ -177,38 +182,6 @@ public class AppSignalWindowManager {
         appSignalView.refreshHotIconView(isShow);
     }
 
-    @Subscribe(threadMode = ThreadMode.BACKGROUND)
-    public void onEventChange(AppSignalEvent event) {
-        SitechDevLog.i(TAG, this + "==消息==" + event.getEventKey());
-        Object object = event.getEventObject();
-        switch (event.getEventKey()) {
-            case AppSignalEvent.EVENT_SIGNAL_CHANGE_PHONE_STATE:
-                break;
-            case AppSignalEvent.EVENT_SIGNAL_CHANGE_WIFI_STATE:
-                if (object != null) {
-                    if (object instanceof Boolean) {
-                        boolean isParams = (boolean) object;
-                        wifiIconShowOrHide(isParams);
-                    }
-                }
-                break;
-            case AppSignalEvent.EVENT_SIGNAL_CHANGE_BLUETOOTH_STATE:
-                break;
-            case AppSignalEvent.EVENT_SIGNAL_CHANGE_VOLUME_STATE:
-                break;
-            case AppSignalEvent.EVENT_SIGNAL_CHANGE_USB_STATE:
-                if (object != null) {
-                    if (object instanceof Boolean) {
-                        boolean isParams = (boolean) object;
-                        usbIconShowOrHide(isParams);
-                    }
-                }
-                break;
-            default:
-                break;
-        }
-    }
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onSysEventChange(SysEvent event) {
         SitechDevLog.i(TAG, this + "==消息==" + event.getEvent());
@@ -217,6 +190,22 @@ public class AppSignalWindowManager {
                 if (event.getObj() != null) {
                     boolean status = (boolean) event.getObj();
                     bluetoothIconShowOrHide(status);
+                }
+                break;
+            case SysEvent.EB_SYS_MOBILE_NET_SWITCH_STATE:
+                if (event.getObj() != null) {
+                    boolean status = (boolean) event.getObj();
+                    if (status) {
+                        tBoxIconChange(true, 4);
+                    } else {
+                        tBoxIconChange(false, 0);
+                    }
+                }
+                break;
+            case SysEvent.EB_SYS_WIFI_STATE:
+                if (event.getObj() != null) {
+                    boolean status = (boolean) event.getObj();
+                    wifiIconShowOrHide(status);
                 }
                 break;
             default:
@@ -229,28 +218,10 @@ public class AppSignalWindowManager {
      * 初始化逻辑
      */
     private void initData() {
-        try {
-            TelephonyManager tm = (TelephonyManager) AppApplication.getContext().getSystemService(Context.TELEPHONY_SERVICE);
-            tm.listen(new PhoneStateListener() {
-                @Override
-                public void onSignalStrengthsChanged(SignalStrength signalStrength) {
-                    super.onSignalStrengthsChanged(signalStrength);
-                    //获取网络信号强度
-                    //获取0-4的5种信号级别，越大信号越好,但是api23开始才能用
-                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-                        int level = signalStrength.getLevel();
-                        SitechDevLog.i(TAG, "signalStrength level====" + level);
-//                        tBoxIconChange(level);
-                    }
-                }
-
-                @Override
-                public void onDataConnectionStateChanged(int state) {
-                    super.onDataConnectionStateChanged(state);
-                }
-            }, PhoneStateListener.LISTEN_SIGNAL_STRENGTHS);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (NetworkUtils.getMobileDataEnabled()) {
+            tBoxIconChange(true, 4);
+        } else {
+            tBoxIconChange(false, 0);
         }
     }
 

@@ -175,6 +175,20 @@ public class NetworkUtils {
     }
 
     /**
+     * 移动网络是否连接
+     *
+     * @return true=连接
+     */
+    public static boolean isMobileDataConnected(Context context) {
+        ConnectivityManager mConnectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo mMobleNetworkInfo = mConnectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        if (mMobleNetworkInfo != null) {
+            return mMobleNetworkInfo.isConnected();
+        }
+        return false;
+    }
+
+    /**
      * Enable or disable mobile data.
      * <p>Must hold {@code android:sharedUserId="android.uid.system"},
      * {@code <uses-permission android:name="android.permission.MODIFY_PHONE_STATE" />}</p>
@@ -558,5 +572,27 @@ public class NetworkUtils {
         WifiManager manager = (WifiManager) Utils.getApp().getSystemService(WIFI_SERVICE);
         if (manager == null) return false;
         return manager.isWifiEnabled();
+    }
+
+    /**
+     * 判断是否包含SIM卡
+     *
+     * @return 状态
+     */
+    public static boolean hasSimCard(Context context) {
+        TelephonyManager telMgr = (TelephonyManager)
+                context.getSystemService(Context.TELEPHONY_SERVICE);
+        int simState = telMgr.getSimState();
+        boolean result = true;
+        switch (simState) {
+            case TelephonyManager.SIM_STATE_ABSENT:
+                result = false; // 没有SIM卡
+                break;
+            case TelephonyManager.SIM_STATE_UNKNOWN:
+                result = false;
+                break;
+        }
+        SitechDevLog.d("try", result ? "有SIM卡" : "无SIM卡");
+        return result;
     }
 }

@@ -25,7 +25,6 @@ import com.sitechdev.vehicle.lib.util.NetworkUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
-import com.sitechdev.vehicle.pad.event.SysEvent;
 import com.sitechdev.vehicle.pad.event.VoiceEvent;
 import com.sitechdev.vehicle.pad.manager.ScreenLightControlManager;
 import com.sitechdev.vehicle.pad.manager.VolumeControlManager;
@@ -167,6 +166,8 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
         carRecycleGroup_Off = findViewById(R.id.id_car_recycle_off);
         carRecycleGroup_Middle = findViewById(R.id.id_car_recycle_middle);
         carRecycleGroup_Max = findViewById(R.id.id_car_recycle_max);
+
+        initSimStatus();
     }
 
     public void initVolumeAndLightData() {
@@ -440,7 +441,7 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
 
     private void initData() {
         //wifi网络
-        refreshWifiSwitchView();
+        refreshWifiSwitchView(NetworkUtils.isWifiConnected());
         //移动网络
         refreshMobileNetSwitchView();
         //使用Teddy开关
@@ -525,13 +526,12 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
                 //wifi网络
                 wifiControlView.setActivated(!isActivated);
                 NetworkUtils.setWifiEnabled(!isActivated);
-                EventBusUtils.postEvent(new SysEvent(SysEvent.EB_SYS_WIFI_STATE));
                 break;
             case R.id.id_mobile_net_Btn:
                 isActivated = mobileNetControlView.isActivated();
                 mobileNetControlView.setActivated(!isActivated);
                 NetworkUtils.setMobileDataEnabled(!isActivated);
-                EventBusUtils.postEvent(new SysEvent(SysEvent.EB_SYS_MOBILE_NET_SWITCH_STATE));
+//                EventBusUtils.postEvent(new SysEvent(SysEvent.EB_SYS_MOBILE_NET_SWITCH_STATE));
                 break;
             case R.id.id_teddy_Btn:
                 //开启或关闭Teddy语音唤醒
@@ -604,6 +604,23 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
     }
 
     /**
+     * 初始化SIM卡状态
+     */
+    public void initSimStatus() {
+        boolean hasSim = NetworkUtils.hasSimCard(AppApplication.getContext());
+        SitechDevLog.i(TAG, "当前SIM卡状态===>" + hasSim);
+        if (!hasSim) {
+            mobileNetControlView.setEnabled(false);
+            mobileNetControlView.setActivated(false);
+            if (mobileNetControlView.getBackground() != null) {
+                mobileNetControlView.getBackground().setAlpha(200);
+            }
+        } else {
+            mobileNetControlView.setEnabled(true);
+        }
+    }
+
+    /**
      * 设置音量大小
      *
      * @param value 音量大小，seekbar的progress值
@@ -651,9 +668,9 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
     /**
      * 刷新wifi网络状态
      */
-    public void refreshWifiSwitchView() {
-        SitechDevLog.i(TAG, "当前wifi网络状态===>" + NetworkUtils.getWifiEnabled());
-        wifiControlView.setActivated(NetworkUtils.getWifiEnabled());
+    public void refreshWifiSwitchView(boolean isConnected) {
+        SitechDevLog.i(TAG, "当前wifi网络状态===>" + isConnected);
+        wifiControlView.setActivated(isConnected);
     }
 
     /**

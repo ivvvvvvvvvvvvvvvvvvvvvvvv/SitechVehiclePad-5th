@@ -27,16 +27,14 @@ import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.blankj.utilcode.util.ToastUtils;
-import com.luck.picture.lib.rxbus2.Subscribe;
-import com.luck.picture.lib.rxbus2.ThreadMode;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.sitechdev.vehicle.lib.event.BindEventBus;
-import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.Assist;
 import com.sitechdev.vehicle.lib.util.ForbidClickEnable;
 import com.sitechdev.vehicle.lib.util.NetworkUtils;
 import com.sitechdev.vehicle.lib.util.SPUtils;
+import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.ThreadManager;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
@@ -53,12 +51,14 @@ import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.util.PermissionHelper;
 import com.sitechdev.vehicle.pad.view.CustomSwitchButton;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Scanner;
 
 import static android.net.NetworkInfo.DetailedState.CONNECTED;
 import static android.net.NetworkInfo.DetailedState.DISCONNECTED;
@@ -114,7 +114,26 @@ public class SettingNetActivity extends BaseActivity implements View.OnClickList
         isHotdotOpen = hotSwitch;
         wifiRecyclerView.setVisibility(wifiSwitch.isChecked() ? View.VISIBLE : View.GONE);
         recyclerRLayout.setVisibility(wifiSwitch.isChecked() ? View.VISIBLE : View.GONE);
-        gprsSwitch.setChecked(NetworkUtils.getMobileDataEnabled());
+        initSimStatus();
+    }
+
+
+    /**
+     * 初始化SIM卡状态
+     */
+    public void initSimStatus() {
+        boolean hasSim = NetworkUtils.hasSimCard(AppApplication.getContext());
+        SitechDevLog.i(TAG, "当前SIM卡状态===>" + hasSim);
+        if (!hasSim) {
+            gprsSwitch.setEnabled(false);
+            gprsSwitch.setChecked(false);
+            if (gprsSwitch.getBackground() != null) {
+                gprsSwitch.getBackground().setAlpha(200);
+            }
+        } else {
+            gprsSwitch.setEnabled(true);
+            gprsSwitch.setChecked(NetworkUtils.getMobileDataEnabled());
+        }
     }
 
     @Override
@@ -175,11 +194,9 @@ public class SettingNetActivity extends BaseActivity implements View.OnClickList
     public void onSwithChecked(int viewId, boolean isChecked) {
         if (viewId == R.id.setting_net_gprs_swith) {
             NetworkUtils.setMobileDataEnabled(isChecked);
-            EventBusUtils.postEvent(new SysEvent(SysEvent.EB_SYS_MOBILE_NET_SWITCH_STATE));
         } else if (viewId == R.id.setting_net_wifi_swith) {
             wifiRecyclerView.setVisibility(isChecked ? View.VISIBLE : View.GONE);
             recyclerRLayout.setVisibility(isChecked ? View.VISIBLE : View.GONE);
-            EventBusUtils.postEvent(new SysEvent(SysEvent.EB_SYS_WIFI_STATE));
         }
     }
 
@@ -497,7 +514,7 @@ public class SettingNetActivity extends BaseActivity implements View.OnClickList
             wifiRecyclerView.setVisibility(View.GONE);
             recyclerRLayout.setVisibility(View.GONE);
             wifiHnit.setVisibility(View.VISIBLE);
-            if(wifiSwitch.isChecked()) {
+            if (wifiSwitch.isChecked()) {
                 wifiHnit.setText("附近无可用WiFi");
             } else {
                 wifiHnit.setText(this.getResources().getString(R.string.wifi_hint_1));
@@ -780,16 +797,20 @@ public class SettingNetActivity extends BaseActivity implements View.OnClickList
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onSysEvent(SysEvent event){
-        switch (event.getEvent()){
-            case SysEvent.EB_SYS_WIFI_STATE:{
-                wifiSwitch.setChecked(NetworkUtils.getWifiEnabled());
-            }
-            break;
-            case SysEvent.EB_SYS_MOBILE_NET_SWITCH_STATE:{
-                gprsSwitch.setChecked(NetworkUtils.getMobileDataEnabled());
-            }
-            break;
+    public void onSysEvent(SysEvent event) {
+        switch (event.getEvent()) {
+            case SysEvent.EB_SYS_MOBILE_NET_SWITCH_STATE:
+                if (event.getObj() != null) {
+                    boolean status = (boolean) event.getObj();
+                    gprsSwitch.setChecked(status);
+                }
+                break;
+            case SysEvent.EB_SYS_WIFI_STATE:
+                if (event.getObj() != null) {
+                    boolean status = (boolean) event.getObj();
+                    wifiSwitch.setChecked(status);
+                }
+                break;
             default:
                 break;
         }

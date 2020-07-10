@@ -7,8 +7,13 @@ import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
 
+import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
+import com.sitechdev.vehicle.lib.util.StringUtils;
 import com.sitechdev.vehicle.pad.app.AppApplication;
+import com.sitechdev.vehicle.pad.event.SysEvent;
+
+import java.util.HashMap;
 
 /**
  * 项目名称：SitechVehiclePad-5th
@@ -26,6 +31,8 @@ public class NetManagerImpl {
     private NetworkRequest request = null;
     private ConnectivityManager connectivityManager = null;
 
+    private HashMap<Network, String> mNetTypeConnectMap = null;
+
     private NetManagerImpl() {
         networkCallback = new NetworkCallbackImpl();
         builder = new NetworkRequest.Builder();
@@ -35,6 +42,7 @@ public class NetManagerImpl {
                 .build();
         connectivityManager = (ConnectivityManager) AppApplication.getContext().
                 getSystemService(Context.CONNECTIVITY_SERVICE);
+        mNetTypeConnectMap = new HashMap<>();
     }
 
     private static final class Single {
@@ -53,16 +61,14 @@ public class NetManagerImpl {
     }
 
     private class NetworkCallbackImpl extends ConnectivityManager.NetworkCallback {
+        private Network currentNetWork = null;
+
         @Override
         public void onAvailable(Network network) {
             super.onAvailable(network);
-            SitechDevLog.i(TAG, "NetworkCallbackImpl=====>onAvailable");
-        }
-
-        @Override
-        public void onLosing(Network network, int maxMsToLive) {
-            super.onLosing(network, maxMsToLive);
-            SitechDevLog.i(TAG, "NetworkCallbackImpl=====>onLosing==maxMsToLive=>" + maxMsToLive);
+            currentNetWork = network;
+            SitechDevLog.i(TAG, "NetworkCallbackImpl=== 网络已连接==>onAvailable==" + currentNetWork);
+//            mNetTypeConnectMap.put(currentNetWork.toString(), true);
         }
 
         /**
@@ -73,32 +79,47 @@ public class NetManagerImpl {
         @Override
         public void onLost(Network network) {
             super.onLost(network);
-            SitechDevLog.i(TAG, "NetworkCallbackImpl=====>onLost");
+            SitechDevLog.i(TAG, "NetworkCallbackImpl=====>onLost==>" + network);
+            String type = mNetTypeConnectMap.get(network);
+            if (StringUtils.isEmpty(type)) {
+                return;
+            }
+            switch (type) {
+                case "TRANSPORT_WIFI":
+                    //WIFI网络断开连接
+                    EventBusUtils.postEvent(new SysEvent(SysEvent.EB_SYS_WIFI_STATE, false));
+                    break;
+                case "TRANSPORT_CELLULAR":
+                    //蜂窝网络,2G/3G/4G--断开连接
+                    EventBusUtils.postEvent(new SysEvent(SysEvent.EB_SYS_MOBILE_NET_SWITCH_STATE, false));
+                    break;
+                default:
+                    break;
+            }
         }
 
         @Override
         public void onCapabilitiesChanged(Network network, NetworkCapabilities networkCapabilities) {
             super.onCapabilitiesChanged(network, networkCapabilities);
-            SitechDevLog.i(TAG, "NetworkCallbackImpl=====>onCapabilitiesChanged=network=>" + network.toString());
-            //[ Transports: WIFI Capabilities: NOT_METERED&INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VPN&FOREGROUND LinkUpBandwidth>=1048576Kbps LinkDnBandwidth>=1048576Kbps SignalStrength: -57]
-            SitechDevLog.i(TAG, "NetworkCallbackImpl=====>onCapabilitiesChanged2222==" + networkCapabilities.toString());
+            if (!network.toString().equalsIgnoreCase(currentNetWork.toString())) {
+                return;
+            }
             if (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-                //WIFI链接
-                SitechDevLog.i(TAG, "NetworkCallbackImpl=====>onCapabilitiesChanged3333==WIFI");
+                mNetTypeConnectMap.put(currentNetWork, "TRANSPORT_WIFI");
+                //WIFI网络已连接
+                EventBusUtils.postEvent(new SysEvent(SysEvent.EB_SYS_WIFI_STATE, true));
             } else if (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
-                //蜂窝网络,2G/3G/4G
-                SitechDevLog.i(TAG, "NetworkCallbackImpl=====>onCapabilitiesChanged3333==蜂窝网络,2G/3G/4G");
-            } else if (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
-                //以太网网络
-                SitechDevLog.i(TAG, "NetworkCallbackImpl=====>onCapabilitiesChanged3333==以太网网络");
+                mNetTypeConnectMap.put(currentNetWork, "TRANSPORT_CELLULAR");
+                //蜂窝网络,2G/3G/4G=已连接
+                EventBusUtils.postEvent(new SysEvent(SysEvent.EB_SYS_MOBILE_NET_SWITCH_STATE, true));
             }
         }
 
         @Override
         public void onLinkPropertiesChanged(Network network, LinkProperties linkProperties) {
             super.onLinkPropertiesChanged(network, linkProperties);
-            SitechDevLog.i(TAG, "NetworkCallbackImpl=====>onLinkPropertiesChanged==>" + linkProperties.getInterfaceName());
-            SitechDevLog.i(TAG, "NetworkCallbackImpl=====>onLinkPropertiesChanged2222==>" + linkProperties.toString());
+//            SitechDevLog.i(TAG, "NetworkCallbackImpl=====>onLinkPropertiesChanged==>" + linkProperties.getInterfaceName());
+//            SitechDevLog.i(TAG, "NetworkCallbackImpl=====>onLinkPropertiesChanged2222==>" + linkProperties.toString());
         }
     }
 

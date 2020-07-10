@@ -29,6 +29,7 @@ import com.sitechdev.vehicle.pad.BuildConfig;
 import com.sitechdev.vehicle.pad.event.WindowEvent;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.manager.AppManager;
+import com.sitechdev.vehicle.pad.manager.NetManagerImpl;
 import com.sitechdev.vehicle.pad.manager.SkinManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.manager.VolumeControlManager;
@@ -148,6 +149,8 @@ public class AppApplication extends BaseApp {
      * 网络模块初始化
      */
     private void initNet() {
+        //网络连接注册
+        NetManagerImpl.getInstance().initNetCallback();
         EnvironmentConfig.init(!BuildConfig.DEBUG);
         //自定义拦截器
         HttpHelper.getInstance().addNetInterceptor(new SitechRequestInterceptor(), new SitechResponseInterceptor());

@@ -56,7 +56,6 @@ public class NetReceiver extends BroadcastReceiver {
             WifiInfo info = wifiManager.getConnectionInfo();
             if (info != null && info.getBSSID() != null) {
 //                DataFactory.produceMemData().getDeviceState().wifiRssi = info.getRssi();
-//                EventBusUtils.postEvent(new SysEvent(SysEvent.EB_SYS_WIFI_STATE_CHANGE));
             }
         }
     }

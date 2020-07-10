@@ -6,7 +6,6 @@ import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -63,8 +62,6 @@ import com.sitechdev.vehicle.pad.module.main.util.MainHttpUtils;
 import com.sitechdev.vehicle.pad.module.main.util.WeatherUtils;
 import com.sitechdev.vehicle.pad.module.music.BtMusicManager;
 import com.sitechdev.vehicle.pad.module.setting.bt.BtManager;
-import com.sitechdev.vehicle.pad.receiver.DeviceReceiver;
-import com.sitechdev.vehicle.pad.receiver.NetReceiver;
 import com.sitechdev.vehicle.pad.receiver.UsbReciver;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
@@ -119,7 +116,7 @@ public class MainActivity extends BaseActivity
 //    private static final int KAOLA = 0;
 //    private static final int LOCAL_MUSIC = 1;
 
-    NetReceiver receiver = new NetReceiver();
+//    NetReceiver receiver = new NetReceiver();
 
     //长按跳往设置地址页面
     private View.OnLongClickListener addressSetListener = v -> {
@@ -141,7 +138,7 @@ public class MainActivity extends BaseActivity
             }
         }
 
-        registerReceiver(receiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+//        registerReceiver(receiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
         if (BtManager.getInstance().isBtEnable()) {
             BtMusicManager.getInstance().btCtrlRequestStatus();//获取蓝牙音乐播放状态
         }
@@ -289,9 +286,9 @@ public class MainActivity extends BaseActivity
         super.onDestroy();
         try {
             VoiceSourceManager.getInstance().removeMusicChangeListener(this);
-            if (receiver != null) {
-                unregisterReceiver(receiver);
-            }
+//            if (receiver != null) {
+//                unregisterReceiver(receiver);
+//            }
         } catch (Exception e) {
             SitechDevLog.exception(e);
         }
