@@ -234,6 +234,7 @@ public class SettingBtActivity extends MvpActivity<SettingBtContract.BtPresenter
                 boolean isConnected = (boolean) event.getObj();
                 CommonProgressDialog.getInstance().cancel(SettingBtActivity.this);
                 if (isConnected && !TextUtils.isEmpty(SettingConfig.getInstance().getConnectBtAdd())) {
+                    mDiscovereSwitch.setChecked(false);
                     if (null != mBondList && mBondList.size() > 0) {
                         for (int i = 0; i < mBondList.size(); i++) {
                             BtDeviceBean deviceBean = mBondList.get(i);
