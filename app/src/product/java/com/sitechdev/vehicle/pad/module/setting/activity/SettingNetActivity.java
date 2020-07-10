@@ -58,6 +58,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Scanner;
 
 import static android.net.NetworkInfo.DetailedState.CONNECTED;
 import static android.net.NetworkInfo.DetailedState.DISCONNECTED;
@@ -496,7 +497,11 @@ public class SettingNetActivity extends BaseActivity implements View.OnClickList
             wifiRecyclerView.setVisibility(View.GONE);
             recyclerRLayout.setVisibility(View.GONE);
             wifiHnit.setVisibility(View.VISIBLE);
-            wifiHnit.setText("附近无可用WiFi");
+            if(wifiSwitch.isChecked()) {
+                wifiHnit.setText("附近无可用WiFi");
+            } else {
+                wifiHnit.setText(this.getResources().getString(R.string.wifi_hint_1));
+            }
         }
 
     }
