@@ -115,6 +115,7 @@ public class SettingBtActivity extends MvpActivity<SettingBtContract.BtPresenter
                 }
             }
         };
+        mPresenter.enableDiscoverable(false);
     }
 
     @Override
@@ -254,9 +255,4 @@ public class SettingBtActivity extends MvpActivity<SettingBtContract.BtPresenter
         }
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mPresenter.enableDiscoverable(false);
-    }
 }

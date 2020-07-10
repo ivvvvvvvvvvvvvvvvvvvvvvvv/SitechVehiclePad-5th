@@ -9,10 +9,11 @@ import com.sitechdev.vehicle.pad.BuildConfig;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
+import com.sitechdev.vehicle.pad.view.SettingHomeItemView;
 
 @Route(path = RouterConstants.SETTING_SYSTEM_PAGE)
 public class SettingSystemActivity extends BaseActivity {
-    private TextView mSoftVersion;
+    private SettingHomeItemView mSoftVersion;
     @Override
     protected int getLayoutId() {
         return R.layout.activity_setting_system;
@@ -20,14 +21,14 @@ public class SettingSystemActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        mSoftVersion.setText(String.format("v%s", BuildConfig.VERSION_NAME));
+        mSoftVersion.setContentText(String.format("v%s", BuildConfig.VERSION_NAME));
     }
 
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         ((TextView) findViewById(R.id.tv_sub_title)).setText("系统设置");
-        mSoftVersion = findViewById(R.id.tv_app_version);
+        mSoftVersion = findViewById(R.id.setting_system_soft_version);
     }
 
     @Override

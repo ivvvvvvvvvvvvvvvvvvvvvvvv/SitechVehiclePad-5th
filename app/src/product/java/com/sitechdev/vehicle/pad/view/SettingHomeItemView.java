@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.sitechdev.vehicle.lib.util.StringUtils;
 import com.sitechdev.vehicle.pad.R;
 
 public class SettingHomeItemView extends RelativeLayout {
@@ -43,8 +44,15 @@ public class SettingHomeItemView extends RelativeLayout {
         if (!TextUtils.isEmpty(content)) {
             mContent.setText(content);
         }
-        if(View.VISIBLE != a.getInt(R.styleable.setting_home_item_arrow_visibility,View.VISIBLE)){
+        if (View.VISIBLE != a.getInt(R.styleable.setting_home_item_arrow_visibility,
+                View.VISIBLE)) {
             mArrow.setVisibility(GONE);
+        }
+    }
+
+    public void setContentText(String msg) {
+        if (!StringUtils.isEmpty(msg)) {
+            mContent.setText(msg);
         }
     }
 }

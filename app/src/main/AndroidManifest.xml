@@ -124,6 +124,7 @@
             android:launchMode="singleTask"/>
         <activity android:name=".module.video.VideoListActivity" />
         <activity android:name=".module.phone.PhoneActivity" />
+        <activity android:name=".module.led.activity.LedActivity"/>
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
