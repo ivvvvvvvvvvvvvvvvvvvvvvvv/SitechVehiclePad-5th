@@ -36,7 +36,9 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1pt"
+        android:layout_marginLeft="@dimen/setting_line_margin_left_right"
+        android:layout_marginRight="@dimen/setting_line_margin_left_right"
         android:layout_below="@id/setting_home_item_title"
-        android:background="@color/main_info_line" />
+        android:background="@drawable/ico_split_line_land" />
 
 </RelativeLayout>

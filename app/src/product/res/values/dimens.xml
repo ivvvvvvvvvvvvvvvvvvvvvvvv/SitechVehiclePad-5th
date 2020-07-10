@@ -67,6 +67,7 @@
 
     <dimen name="text_size_main">32pt</dimen>
     <dimen name="setting_padding_left_right">150pt</dimen>
+    <dimen name="setting_line_margin_left_right">20pt</dimen>
     <dimen name="main_menu_height">300pt</dimen>
     <dimen name="pt_40">40pt</dimen>
 
