@@ -6,6 +6,7 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TableLayout;
+import android.widget.TextView;
 
 import com.sitechdev.vehicle.lib.event.BindEventBus;
 import com.sitechdev.vehicle.lib.util.ForbidClickEnable;
@@ -37,7 +38,7 @@ public class DialFragment extends MvpFragment<DialPresenter> implements View.OnC
 
     private List<View> viewList;
     private TableLayout mDialTagLayout;
-    private EditText mEdittext;
+    private TextView mEdittext;
     private PhoneDialWindow mPhoneDialWindow;
     private View mDelete;
 
@@ -66,8 +67,6 @@ public class DialFragment extends MvpFragment<DialPresenter> implements View.OnC
         mDialTagLayout = mContentView.findViewById(R.id.tl_dial_container);
         mEdittext = mContentView.findViewById(R.id.phone_dial_edit);
         mDelete = mContentView.findViewById(R.id.dialpad_key_delete);
-        mEdittext.setRawInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
-        mEdittext.setTextIsSelectable(true);
 
         viewList = new ArrayList<>();
         viewList.add(mContentView.findViewById(R.id.dialpad_key_one));
