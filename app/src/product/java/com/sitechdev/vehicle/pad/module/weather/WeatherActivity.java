@@ -196,8 +196,8 @@ public class WeatherActivity extends MvpActivity<WeatherPresenter> implements We
     }
 
     private void loadLocalCityWeather() {
-        mChronometer.setBase(SystemClock.elapsedRealtime());
-        btnUpdate.setVisibility(View.GONE);
+//        mChronometer.setBase(SystemClock.elapsedRealtime());
+//        btnUpdate.setVisibility(View.GONE);
         if (!TextUtils.isEmpty(LocationData.getInstance().getCityName())) {
             tv_city.setText(String.format(" %s", mPresenter.loadCityDataWithLocation()));
             mPresenter.loadWeatherData(false);
