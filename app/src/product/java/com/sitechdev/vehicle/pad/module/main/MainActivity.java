@@ -272,7 +272,7 @@ public class MainActivity extends BaseActivity
     }
 
     private void registerDeviceReceiver() {
-        if(null == mUsbReceiver){
+        if (null == mUsbReceiver) {
             mUsbReceiver = new UsbReciver();
         }
         IntentFilter filter = new IntentFilter();
@@ -281,7 +281,7 @@ public class MainActivity extends BaseActivity
         filter.addAction(Intent.ACTION_MEDIA_SCANNER_STARTED);
         filter.addAction(Intent.ACTION_MEDIA_SCANNER_FINISHED);
         filter.addDataScheme("file");
-        registerReceiver(mUsbReceiver,filter);
+        registerReceiver(mUsbReceiver, filter);
     }
 
     @Override
@@ -431,7 +431,7 @@ public class MainActivity extends BaseActivity
                     RouterUtils.getInstance().navigation(RouterConstants.SUB_APP_MEMBER);
                 } else {
                     //未登录，去往登录
-                    PersonLoginWindow.getInstance().showWnd();
+                    PersonLoginWindow.getInstance().showWnd(() -> RouterUtils.getInstance().navigation(RouterConstants.SUB_APP_MEMBER));
                 }
                 break;
             case R.id.fl_weather:
