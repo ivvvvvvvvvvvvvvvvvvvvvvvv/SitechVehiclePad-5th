@@ -488,7 +488,7 @@ public class SettingNetActivity extends BaseActivity implements View.OnClickList
         wiFiListAdapter.onTopNotifyDataSetChanged();
         Log.d(TAG, "setAdapter：" + scanResults.size());
 //        superSwipeRefreshLayout.setVisibility(View.VISIBLE);
-        if (scanResults.size() > 0) {
+        if (scanResults.size() > 0 && wifiSwitch.isChecked()) {
             wifiRecyclerView.setVisibility(View.VISIBLE);
             recyclerRLayout.setVisibility(View.VISIBLE);
             wifiHnit.setVisibility(View.GONE);
@@ -505,7 +505,7 @@ public class SettingNetActivity extends BaseActivity implements View.OnClickList
         Log.d(TAG, "state: " + state);
         if (wiFiListAdapter != null) {
             List<ScanResult> adapterData = wiFiListAdapter.getData();
-            if (adapterData != null && adapterData.size() > 0) {
+            if (adapterData != null && adapterData.size() > 0 && wifiSwitch.isChecked()) {
                 wifiHnit.setVisibility(View.GONE);
                 wifiRecyclerView.setVisibility(View.VISIBLE);
                 recyclerRLayout.setVisibility(View.VISIBLE);
