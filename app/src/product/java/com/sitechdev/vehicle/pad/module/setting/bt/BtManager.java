@@ -19,6 +19,7 @@ public class BtManager {
 
     public void init() {
         mATBluetooth = ATBluetooth.create();
+        setDiscovered(false);
     }
 
     public static BtManager getInstance() {

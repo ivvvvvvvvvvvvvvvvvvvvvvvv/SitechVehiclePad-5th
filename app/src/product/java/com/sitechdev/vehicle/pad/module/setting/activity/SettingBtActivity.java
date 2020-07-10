@@ -253,4 +253,10 @@ public class SettingBtActivity extends MvpActivity<SettingBtContract.BtPresenter
                 break;
         }
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mPresenter.enableDiscoverable(false);
+    }
 }
