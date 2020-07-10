@@ -106,7 +106,7 @@ public class SplashActivity extends BaseActivity {
             MapUtil.sendAMapInitBroadcast();
             //页面跳转
             AppUtil.clickTime = System.currentTimeMillis();
-            RouterUtils.getInstance().navigation(RouterConstants.HOME_MAIN);
+            RouterUtils.getInstance().navigationHomePage(RouterConstants.HOME_MAIN);
 //            startActivity(new Intent(SplashActivity.this, MainActivity.class));
             finish();
         });
