@@ -392,8 +392,10 @@ public class MemberPreActivity extends BaseActivity {
                 super.onFailure(failObj);
                 runOnUiThread(() -> {
                     cancelProgressDialog();
-                    ToastUtils.setGravity(Gravity.CENTER, 0, 0);
-                    ToastUtils.showShort(((PointsSigninBean) failObj).getMessage());
+//                    ToastUtils.setGravity(Gravity.CENTER, 0, 0);
+//                    if (failObj!=null) {
+//                        ToastUtils.showShort(((PointsSigninBean) failObj).getMessage());
+//                    }
                 });
             }
         });
