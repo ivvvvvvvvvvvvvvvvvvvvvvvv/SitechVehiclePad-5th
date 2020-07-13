@@ -92,6 +92,18 @@ android {
             zipAlignEnabled true
             versionNameSuffix "." + getCurrentTime("YYMMddHHmm").toString() + ".debug"
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField("Boolean", "isReleaseApp", "false")
+        }
+        sitechTest {
+            minifyEnabled true
+            shrinkResources true
+            debuggable false
+            jniDebuggable false
+            zipAlignEnabled true
+            signingConfig signingConfigs.release
+            versionNameSuffix "." + getCurrentTime("YYMMddHHmm").toString() + ".test"
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField("Boolean", "isReleaseApp", "false")
         }
         release {
             minifyEnabled true
@@ -102,6 +114,7 @@ android {
             zipAlignEnabled true
             versionNameSuffix "." + getCurrentTime("YYMMddHHmm").toString()
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField("Boolean", "isReleaseApp", "true")
         }
     }
     compileOptions {
@@ -219,6 +232,6 @@ android.applicationVariants.all { variant ->
     def apkProvider = variant.getPackageApplicationProvider().get().outputScope.apkDatas
     apkProvider.forEach { apkData ->
         def isRelease = "release".equalsIgnoreCase(variant.buildType.name)
-        apkData.outputFileName = fileName + (isRelease ? "_Release_" : "_Debug_") + "${variant.productFlavors[0].name}_v" + versionName + ".apk"
+        apkData.outputFileName = fileName + (isRelease ? "_Release_" : "_test_") + "${variant.productFlavors[0].name}_v" + versionName + ".apk"
     }
 }

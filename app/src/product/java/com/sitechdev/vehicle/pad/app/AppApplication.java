@@ -151,7 +151,7 @@ public class AppApplication extends BaseApp {
     private void initNet() {
         //网络连接注册
         NetManagerImpl.getInstance().initNetCallback();
-        EnvironmentConfig.init(!BuildConfig.DEBUG);
+        EnvironmentConfig.init(BuildConfig.isReleaseApp);
         //自定义拦截器
         HttpHelper.getInstance().addNetInterceptor(new SitechRequestInterceptor(), new SitechResponseInterceptor());
         //初始化网络组件
