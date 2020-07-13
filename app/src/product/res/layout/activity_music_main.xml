@@ -1,55 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ico_taxi_main_bg">
+    android:background="@drawable/bg_kaola_play"
+    android:orientation="vertical"
+    tools:ignore="PxUsage">
 
     <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/phone_bt_connect_content_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/music_usb_padding_left_right"
-        android:paddingTop="64dp"
-        android:paddingRight="@dimen/music_usb_padding_left_right">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/music_main_back"
-            android:layout_width="26pt"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ico_back" />
+        <include
+            layout="@layout/common_phonel_title_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <LinearLayout
+            android:id="@+id/phone_content_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="left"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/music_usb_padding_left_right"
+            android:paddingRight="@dimen/music_usb_padding_left_right"
+            android:paddingTop="32pt">
 
-            <com.flyco.tablayout.SlidingTabLayout
-                android:id="@+id/music_main_tablayout"
-                android:layout_width="wrap_content"
-                android:layout_height="72dp"
-                android:layout_marginTop="-24dp"
-                app:tl_indicator_color="@color/music_main_tab_indicator_color"
-                app:tl_indicator_gravity="BOTTOM"
-                app:tl_indicator_height="6dp"
-                app:tl_indicator_margin_left="16dp"
-                app:tl_indicator_margin_right="16dp"
-                app:tl_indicator_width_equal_title="false"
-                app:tl_textSelectColor="@color/white"
-                app:tl_textUnselectColor="@color/music_main_tab_normal"
-                app:tl_textsize="24sp" />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1pt"
-                android:layout_marginLeft="50pt"
-                android:layout_marginRight="50pt"
-                android:background="@color/main_info_line"/>
             <android.support.v4.view.ViewPager
                 android:id="@+id/music_main_viewpager"
+                android:layout_marginTop="16pt"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="16dp" />
+                android:layout_height="match_parent"/>
+
         </LinearLayout>
     </LinearLayout>
-</RelativeLayout>
+
+</LinearLayout>

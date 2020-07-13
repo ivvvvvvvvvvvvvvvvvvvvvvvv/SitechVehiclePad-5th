@@ -19,6 +19,7 @@ import com.sitechdev.vehicle.pad.module.music.adapter.MusicPagerAdapter;
 import com.sitechdev.vehicle.pad.module.music.fragment.BtMusicFragment;
 import com.sitechdev.vehicle.pad.module.music.fragment.LocalMusicFragment;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
+import com.sitechdev.vehicle.pad.view.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,7 @@ import java.util.List;
 @Route(path = RouterConstants.FRAGMENT_LOCAL_MUSIC)
 public class MusicMainActivity extends BaseActivity {
 
-    private SlidingTabLayout vTab;
+    private TabLayout vTab;
     private ViewPager vPager;
     private String[] mTitles = {"USB", "蓝牙"};
     private int index = 0;
@@ -61,68 +62,37 @@ public class MusicMainActivity extends BaseActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        vTab = findViewById(R.id.music_main_tablayout);
+        vTab = findViewById(R.id.tv_sub_title_tab);
         vPager = findViewById(R.id.music_main_viewpager);
         List<Fragment> mFragments = new ArrayList<>();
         mFragments.add(LocalMusicFragment.newInstance());
         mFragments.add(BtMusicFragment.newInstance());
         MusicPagerAdapter mAdapter = new MusicPagerAdapter(getSupportFragmentManager(), mFragments);
         vPager.setAdapter(mAdapter);
-        vTab.setViewPager(vPager, mTitles);
-        vTab.setOnTabSelectListener(new OnTabSelectListener() {
-            @Override
-            public void onTabSelect(int position) {
-                int count = vTab.getTabCount();
-                for (int i = 0; i < count; i++) {
-                    vTab.getTitleView(i).setTextSize(24);
-                }
-                vTab.getTitleView(position).setTextSize(27);
-            }
-
-            @Override
-            public void onTabReselect(int position) {
-            }
-        });
-        vPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int i, float v, int i1) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                int count = vTab.getTabCount();
-                for (int i = 0; i < count; i++) {
-                    vTab.getTitleView(i).setTextSize(24);
-                }
-                vTab.getTitleView(position).setTextSize(27);
-                EventBusUtils.postEvent(new MusicControlEvent(MusicControlEvent.EVENT_CONTROL_MUSIC_PLAY_IF_ON_TOP));
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int i) {
-
-            }
-        });
+        vTab.setupWithViewPager(vPager);
+        for (int i = 0; i < vTab.getTabCount(); i++) {
+            TabLayout.Tab tab = vTab.getTabAt(i);
+            tab.setText(mTitles[i]);
+        }
         analyzeIntent(getIntent());
     }
 
     @Override
     protected void initListener() {
         super.initListener();
-        findViewById(R.id.music_main_back).setOnClickListener(this);
+        findViewById(R.id.iv_phone_sub_back).setOnClickListener(this);
     }
 
     @Override
     protected void initData() {
-        vTab.setCurrentTab(VoiceSourceManager.getInstance().getMusicSource() == VoiceSourceManager.BT_MUSIC ? 1 : 0);
+        vPager.setCurrentItem(VoiceSourceManager.getInstance().getMusicSource() == VoiceSourceManager.BT_MUSIC ? 1 : 0);
     }
 
     @Override
     public void onClick(View v) {
         super.onClick(v);
         switch (v.getId()) {
-            case R.id.music_main_back:
+            case R.id.iv_phone_sub_back:
                 onBackPressed();
                 break;
         }
