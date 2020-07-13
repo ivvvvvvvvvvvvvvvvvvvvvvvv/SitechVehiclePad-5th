@@ -191,13 +191,19 @@ public class CustomPlaySeekBar extends RelativeLayout implements View.OnClickLis
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
+        if (MusicManager.getInstance().getStatus() == MusicManager.OnMusicChangeListener.PAUSE) {
+            MusicManager.getInstance().toggle(new MusicManager.CallBack<String>() {
+                @Override
+                public void onCallBack(int code, String s) {
 
+                }
+            });
+        }
     }
 
     public void setCurrentStatusPlaying(boolean isPlaying) {
         mPlayPause.setActivated(isPlaying);
     }
-
     @Override
     public void onMusicChange(MusicInfo current, int status) {
         if (null != current) {
