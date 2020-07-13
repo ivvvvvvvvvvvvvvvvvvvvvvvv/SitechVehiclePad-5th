@@ -198,6 +198,7 @@
 #-------------考拉听伴-------------------
 -dontwarn com.kaolafm.**
 -keep class com.kaolafm.** { *; }
+-keep class tv.danmaku.ijk.media.player.** { *; }
 -keepclasseswithmembers class tv.danmaku.ijk.media.player.IjkMediaPlayer {
     <fields>;
     <methods>;
