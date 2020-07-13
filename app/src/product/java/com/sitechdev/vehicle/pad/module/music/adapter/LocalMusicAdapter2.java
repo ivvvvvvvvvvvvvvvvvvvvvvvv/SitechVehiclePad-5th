@@ -92,14 +92,13 @@ public class LocalMusicAdapter2 extends
             @Override
             public void onClick(View v) {
                 if (checkedPositon == position) {
-                    MusicManager.getInstance().toggle(new MusicManager.CallBack<String>() {
+                    MusicManager.getInstance().seekTo(new MusicManager.CallBack<String>() {
                         @Override
                         public void onCallBack(int code, String msg) {
                             if (code != 0) {
-                                CommonToast.showToast(msg);
                             }
                         }
-                    });
+                    }, 0);
                 } else {
                     MusicManager.getInstance().play(musicInfo.songId,
                             new MusicManager.CallBack<String>() {
