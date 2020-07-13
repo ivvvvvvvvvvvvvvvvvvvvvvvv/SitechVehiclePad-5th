@@ -23,6 +23,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.kaolafm.opensdk.api.operation.model.column.Column;
@@ -600,11 +601,13 @@ public class MainActivity extends BaseActivity
                         tvBtPhoneName.setText(SettingConfig.getInstance().getConnectBtName());
                         BtMusicManager.getInstance().btCtrlRequestStatus();//获取蓝牙音乐播放状态
                         BtMusicManager.getInstance().getInfo();
+                        ToastUtils.showShort("蓝牙已连接");
                     } else {
                         tvBtPhoneName.setText(R.string.bt_pair_unlink_tip);
                         tvMusicName.setText("--");
                         ivMusicStop.setActivated(false);
                         ivMusicIcon.stopAnimation();
+                        ToastUtils.showShort("蓝牙已断开");
                     }
                 }
                 break;
