@@ -42,4 +42,23 @@ public class AudioUtil {
         mAudioManager.adjustStreamVolume(streamType, AudioManager.ADJUST_LOWER, AudioManager.FLAG_SHOW_UI);
     }
 
+    /**
+     * 静音
+     */
+    public static void onKeyMuteVolume(int streamType) {
+        if (mAudioManager == null) {
+            initAudioManager();
+        }
+        mAudioManager.adjustStreamVolume(streamType, AudioManager.ADJUST_MUTE, AudioManager.FLAG_SHOW_UI);
+    }
+
+    /**
+     * 静音取消
+     */
+    public static void onKeyUnmuteVolume(int streamType) {
+        if (mAudioManager == null) {
+            initAudioManager();
+        }
+        mAudioManager.adjustStreamVolume(streamType, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_SHOW_UI);
+    }
 }

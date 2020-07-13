@@ -21,6 +21,7 @@ import com.iflytek.cloud.WakeuperResult;
 import com.my.hw.SettingConfig;
 import com.sitechdev.vehicle.lib.event.AppEvent;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
+import com.sitechdev.vehicle.lib.util.NetworkUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.StringUtils;
 import com.sitechdev.vehicle.lib.util.ThreadUtils;
@@ -46,6 +47,7 @@ import com.sitechdev.vehicle.pad.module.map.util.MapUtil;
 import com.sitechdev.vehicle.pad.module.music.MusicMainActivity;
 import com.sitechdev.vehicle.pad.module.music.MusicManager;
 import com.sitechdev.vehicle.pad.module.phone.BtGlobalRef;
+import com.sitechdev.vehicle.pad.module.setting.bt.BtManager;
 import com.sitechdev.vehicle.pad.module.setting.teddy.TeddyConfig;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
@@ -933,6 +935,45 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                 break;
                             }
                             switch (appname) {
+                                case "wifi":
+                                case "无线网络":
+                                    if (NetworkUtils.getWifiService().isWifiEnabled()) {
+                                        shutAndTTS("当前无线网络已开启");
+                                    } else {
+                                        NetworkUtils.getWifiService().setWifiEnabled(true);
+//                                    EventBusUtils.postEvent(new SysEvent(SysEvent.EB_SYS_WIFI_STATE, true));
+                                        shutAndTTS("已为您打开无线网络");
+                                    }
+
+                                    break;
+                                case "蓝牙":
+                                    if (BtManager.getInstance().isBtEnable()){
+                                        shutAndTTS("当前蓝牙已开启");
+                                    }else{
+                                        BtManager.getInstance().openBt();
+//                                    EventBusUtils.postEvent(new SysEvent(SysEvent.EB_SYS_BT_ENABLE, true));
+                                        shutAndTTS("已为您打开蓝牙");
+                                    }
+                                    break;
+                                case "流量":
+                                case "移动网络":
+                                    if (NetworkUtils.hasSimCard(AppApplication.getApp())) {
+                                        if (NetworkUtils.isMobileDataConnected(AppApplication.getApp())) {
+                                            shutAndTTS("当前移动网络已开启");
+                                        } else {
+                                            NetworkUtils.setMobileDataEnabled(true);
+//                                    EventBusUtils.postEvent(new SysEvent(SysEvent.EB_SYS_MOBILE_NET_SWITCH_STATE, true));
+                                            shutAndTTS("已为您打开流量");
+                                        }
+                                    } else {
+                                        shutAndTTS("未检测到sim卡");
+                                    }
+
+                                    break;
+                                case "静音":
+                                    AudioUtil.onKeyMuteVolume(AudioManager.STREAM_MUSIC);
+                                    shutAndTTS("已为您静音");
+                                    break;
                                 case "首页":
                                 case "主页":
                                     if (null == AppVariants.currentActivity || !(AppVariants.currentActivity instanceof MainActivity)) {
@@ -1048,6 +1089,43 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                             break;
                         case "close":
                             switch (appname) {
+                                case "wifi":
+                                case "无线网络":
+                                    if (NetworkUtils.getWifiService().isWifiEnabled()) {
+                                        NetworkUtils.getWifiService().setWifiEnabled(false);
+//                                    EventBusUtils.postEvent(new SysEvent(SysEvent.EB_SYS_WIFI_STATE, false));
+                                        shutAndTTS("已为您关闭无线网络");
+                                    } else {
+                                        shutAndTTS("当前无线网络已关闭");
+                                    }
+                                    break;
+                                case "蓝牙":
+                                    if (BtManager.getInstance().isBtEnable()) {
+                                        BtManager.getInstance().closeBt();
+                                        shutAndTTS("已为您关闭蓝牙");
+                                    } else {
+                                        shutAndTTS("当前蓝牙已关闭");
+                                    }
+                                    break;
+                                case "流量":
+                                case "移动网络":
+                                    if (NetworkUtils.hasSimCard(AppApplication.getApp())) {
+                                        if (NetworkUtils.isMobileDataConnected(AppApplication.getApp())) {
+                                            NetworkUtils.setMobileDataEnabled(false);
+//                                    EventBusUtils.postEvent(new SysEvent(SysEvent.EB_SYS_MOBILE_NET_SWITCH_STATE, false));
+                                            shutAndTTS("已为您关闭移动网络");
+                                        } else {
+                                            shutAndTTS("当前移动网络已关闭");
+                                        }
+                                    } else {
+                                        shutAndTTS("未检测到sim卡");
+                                    }
+
+                                    break;
+                                case "静音":
+                                    AudioUtil.onKeyUnmuteVolume(AudioManager.STREAM_MUSIC);
+                                    shutAndTTS("已为您关闭静音");
+                                    break;
                                 case "本地音乐":
                                     MusicManager.getInstance().stop(new MusicManager.CallBack<String>() {
                                         @Override
@@ -1622,6 +1700,10 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                         VoiceSourceManager.getInstance().pause(VoiceSourceManager.VOICE);
                         EventBusUtils.postEvent(new TeddyEvent(TeddyEvent.EVENT_TEDDY_AUDIO_STOP));
                         break;
+                    case "volume_min":
+                        //声音减小
+                        AudioUtil.onKeyMuteVolume(AudioManager.STREAM_MUSIC);
+                        shutAndTTS("已为您静音");
                     case "volume_minus":
                         //声音减小
                         AudioUtil.onKeyDownVolume(AudioManager.STREAM_MUSIC);
