@@ -78,6 +78,7 @@ public class MemberPreActivity extends BaseActivity {
     private TotalPointsBean mTotalPointsBean = null;
     private PointsSigninBean mSigninBean = null;
     private SignDialog mSignDialog = null;
+    private CommonLogoutDialog logoutDialog = null;
 
     @Override
     protected int getLayoutId() {
@@ -330,10 +331,13 @@ public class MemberPreActivity extends BaseActivity {
                 break;
             //退出登录
             case R.id.id_logout:
-                if (!LoginUtils.isLogin()) {
+                if (!LoginUtils.isLogin() || (logoutDialog != null && logoutDialog.isShowing())) {
                     return;
                 }
-                CommonLogoutDialog logoutDialog = new CommonLogoutDialog(this);
+
+                if (logoutDialog == null) {
+                    logoutDialog = new CommonLogoutDialog(this);
+                }
                 logoutDialog.setListener(() -> {
                     //确定按钮被点击
                     UserManager.getInstance().logoutUser();
