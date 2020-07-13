@@ -15,6 +15,7 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -380,6 +381,13 @@ public class MainActivity extends BaseActivity
                 MainControlPanelWindowManager.getInstance().show();
             }
         }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Log.i("MainActivity", "====>onNewIntent");
+        setIntent(intent);
     }
 
     @Override

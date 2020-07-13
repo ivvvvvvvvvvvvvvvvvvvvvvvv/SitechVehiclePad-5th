@@ -1,5 +1,5 @@
 {
-  "menu_version": 2,
+  "menu_version": 3,
   "apps": [
     {
       "index": 0,
@@ -61,7 +61,7 @@
       "index": 7,
       "appName": "导航",
       "appIcon": 8,
-      "appRoute": "/m_main/thirdPage/g_navi/navi",
+      "appRoute": "/m_main/thirdPage/g_third_app/naviApp",
       "jumpType": 1,
       "eventId": "btn_app_navi"
     },

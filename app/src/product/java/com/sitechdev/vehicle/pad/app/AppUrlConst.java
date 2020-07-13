@@ -114,7 +114,10 @@ public interface AppUrlConst {
      * 用户积分
      */
     String GET_USER_CREDITS = "/user/myIntegral";
-
+    /**
+     * 用户会员信息
+     */
+    String GET_USER_MEMBERINFO = "/forum/v1/app/user/getMemberInfo";
     /**
      * 天气接口
      */

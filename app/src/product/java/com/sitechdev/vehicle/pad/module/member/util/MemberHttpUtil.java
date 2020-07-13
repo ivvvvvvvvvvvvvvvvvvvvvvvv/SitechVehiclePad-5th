@@ -7,6 +7,7 @@ import com.sitechdev.net.JsonCallback;
 import com.sitechdev.vehicle.pad.app.AppUrlConst;
 import com.sitechdev.vehicle.pad.callback.BaseBribery;
 import com.sitechdev.vehicle.pad.module.login.util.LoginUtils;
+import com.sitechdev.vehicle.pad.module.member.bean.MemberInfoBaseBean;
 import com.sitechdev.vehicle.pad.module.member.bean.PointsInfoBean;
 import com.sitechdev.vehicle.pad.module.member.bean.PointsSigninBean;
 import com.sitechdev.vehicle.pad.module.member.bean.TotalPointsBean;
@@ -77,6 +78,34 @@ public class MemberHttpUtil extends HttpUtil {
                         super.onError(response);
                         if (baseBribery != null) {
                             baseBribery.onFailure(response);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 获取当前用户会员信息
+     */
+    public static void requestUserMemberInfo(BaseBribery baseBribery) {
+        OkGo.<MemberInfoBaseBean>get(EnvironmentConfig.BBS_HOST + AppUrlConst.GET_USER_MEMBERINFO)
+                .tag("MemberInfoBaseBean")
+                .headers("Authorization", LoginUtils.getBearToken())
+                .execute(new JsonCallback<MemberInfoBaseBean>(MemberInfoBaseBean.class) {
+
+                    @Override
+                    public void onSuccess(Response<MemberInfoBaseBean> response) {
+                        MemberInfoBaseBean databean = null != response ? response.body() : null;
+
+                        if (null != baseBribery) {
+                            baseBribery.onSuccess(databean);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<MemberInfoBaseBean> response) {
+                        super.onError(response);
+                        if (null != baseBribery) {
+                            baseBribery.onFailure("请求失败，请稍后再试！");
                         }
                     }
                 });

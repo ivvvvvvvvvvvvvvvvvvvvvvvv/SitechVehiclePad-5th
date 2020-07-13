@@ -20,6 +20,8 @@ import com.sitechdev.vehicle.lib.event.AppEvent;
 import com.sitechdev.vehicle.pad.manager.CommonTopWindowManager;
 import com.sitechdev.vehicle.pad.manager.UserManager;
 import com.sitechdev.vehicle.pad.module.main.MainActivity;
+import com.sitechdev.vehicle.pad.router.RouterConstants;
+import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.view.CommonToast;
 
 /**
@@ -139,9 +141,10 @@ public class MemberActivity extends BaseActivity {
         //发出退出登录事件
         EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_LOGIN_LOGOUT));
         //返回首页
-        Intent intent = new Intent();
-        intent.setClass(this, MainActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent();
+//        intent.setClass(this, MainActivity.class);
+//        startActivity(intent);
+        RouterUtils.getInstance().navigationHomePage(RouterConstants.HOME_MAIN);
         finish();
     }
 

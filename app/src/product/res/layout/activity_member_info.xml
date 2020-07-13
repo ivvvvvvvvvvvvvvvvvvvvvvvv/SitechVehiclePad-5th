@@ -46,7 +46,8 @@
                 android:layout_marginTop="10pt"
                 android:text="车友会会员"
                 android:textColor="@color/color_setting_skin_second_text"
-                android:textSize="28pt" />
+                android:textSize="28pt"
+                android:visibility="gone" />
         </RelativeLayout>
 
         <RelativeLayout

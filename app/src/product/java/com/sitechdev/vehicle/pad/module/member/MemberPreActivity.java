@@ -13,6 +13,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
+import com.sitechdev.vehicle.lib.event.AppEvent;
 import com.sitechdev.vehicle.lib.event.BindEventBus;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
@@ -20,11 +21,11 @@ import com.sitechdev.vehicle.lib.util.StringUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
 import com.sitechdev.vehicle.pad.callback.BaseBribery;
-import com.sitechdev.vehicle.lib.event.AppEvent;
 import com.sitechdev.vehicle.pad.event.TeddyEvent;
 import com.sitechdev.vehicle.pad.manager.UserManager;
 import com.sitechdev.vehicle.pad.module.feedback.FeedbackActivity;
 import com.sitechdev.vehicle.pad.module.login.util.LoginUtils;
+import com.sitechdev.vehicle.pad.module.member.bean.MemberInfoBaseBean;
 import com.sitechdev.vehicle.pad.module.member.bean.PointsSigninBean;
 import com.sitechdev.vehicle.pad.module.member.bean.TotalPointsBean;
 import com.sitechdev.vehicle.pad.module.member.util.MemberHttpUtil;
@@ -62,11 +63,10 @@ public class MemberPreActivity extends BaseActivity {
     mMySignChangeRelaLayoutView = null;
     private ReflectTextView mUserSignView = null;
 
-    private RelativeLayout
-            /**
-             * 签到
-             */
-            mSignBtnRelaLayoutView = null,
+    /**
+     * 签到
+     */
+    private RelativeLayout mSignBtnRelaLayoutView = null,
     /**
      * 我的积分
      */
@@ -140,12 +140,63 @@ public class MemberPreActivity extends BaseActivity {
         super.onResume();
         refreshView();
         if (LoginUtils.isLogin()) {
-            //TODO 为了发布会版本做的判断处理。发布会版本暂未接入登录功能。待发布会同步登录功能后，此处判断会去掉
+            if (StringUtils.isEmpty(UserManager.getInstance().getLoginUserBean().getMemberDescStr())) {
+                //请求会员信息
+                requestMemberInfo();
+            }
             //请求积分
             requestPoints();
             //
             requestSignStatus();
         }
+    }
+
+    private void requestMemberInfo() {
+//        showProgressDialog();
+        MemberHttpUtil.requestUserMemberInfo(new BaseBribery() {
+            @Override
+            public void onSuccess(Object successObj) {
+                if (null == successObj) {
+                    SitechDevLog.d(TAG, "没有会员信息");
+                    return;
+                }
+                MemberInfoBaseBean memberInfoBaseBean = (MemberInfoBaseBean) successObj;
+                if (memberInfoBaseBean.getData() == null) {
+                    return;
+                }
+                MemberInfoBaseBean.DataBean dataBean = memberInfoBaseBean.getData();
+                if (!dataBean.isMember()) {
+                    return;
+                }
+                MemberInfoBaseBean.DataBean.MemberInfoBean memberInfo = dataBean.getMemberInfo();
+                if (memberInfo == null) {
+                    return;
+                }
+
+                String clubName = memberInfo.getClubName();
+                String memberName = memberInfo.getMemberName();
+
+                String descName = String.format("%s%s", clubName, memberName);
+                UserManager.getInstance().getLoginUserBean().setMemberDescStr(descName);
+
+                runOnUiThread(() -> {
+                    if (!StringUtils.isEmpty(descName)) {
+                        mUserDescView.setVisibility(View.VISIBLE);
+                        mUserDescView.setText(descName);
+                    } else {
+                        mUserDescView.setVisibility(View.GONE);
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(Object failObj) {
+                super.onFailure(failObj);
+//                runOnUiThread(() -> {
+//                    cancelProgressDialog();
+//                });
+            }
+        });
     }
 
     /**
@@ -161,9 +212,9 @@ public class MemberPreActivity extends BaseActivity {
             // 昵称
             mUserNameTextView.setText(String.format("Hi，%s", UserManager.getInstance().getLoginUserBean().getNickName()));
             // 描述
-            if (!StringUtils.isEmpty(UserManager.getInstance().getLoginUserBean().getJob())) {
+            if (!StringUtils.isEmpty(UserManager.getInstance().getLoginUserBean().getMemberDescStr())) {
                 mUserDescView.setVisibility(View.VISIBLE);
-                mUserDescView.setText(UserManager.getInstance().getLoginUserBean().getJob());
+                mUserDescView.setText(UserManager.getInstance().getLoginUserBean().getMemberDescStr());
             } else {
                 mUserDescView.setVisibility(View.GONE);
             }

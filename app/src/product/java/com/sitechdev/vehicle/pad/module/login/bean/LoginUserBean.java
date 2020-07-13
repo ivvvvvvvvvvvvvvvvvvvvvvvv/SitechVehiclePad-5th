@@ -100,6 +100,15 @@ public class LoginUserBean implements Serializable {
     private String businessFlag;
     private String identityType;
     private CredentialBean credential;
+    private String memberDescStr;
+
+    public String getMemberDescStr() {
+        return memberDescStr;
+    }
+
+    public void setMemberDescStr(String memberDescStr) {
+        this.memberDescStr = memberDescStr;
+    }
 
     public String getSource() {
         return source;
@@ -532,4 +541,5 @@ public class LoginUserBean implements Serializable {
             this.cmdTokenDTO = cmdTokenDTO;
         }
     }
+
 }

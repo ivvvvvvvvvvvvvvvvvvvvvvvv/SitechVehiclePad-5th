@@ -34,6 +34,12 @@
         <activity android:name=".module.apps.view.AppsListGridActivity" />
         <activity
             android:name=".module.splash.SplashActivity"
+            android:launchMode="singleTask"
+            android:enabled="true"
+            android:clearTaskOnLaunch="true"
+            android:stateNotNeeded="true"
+            android:resumeWhilePausing="true"
+            android:resizeableActivity="true"
             android:theme="@style/NoTitleAppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -47,6 +53,10 @@
             android:name=".module.main.MainActivity"
             android:exported="true"
             android:launchMode="singleTask"
+            android:clearTaskOnLaunch="true"
+            android:stateNotNeeded="true"
+            android:resumeWhilePausing="true"
+            android:resizeableActivity="true"
             android:theme="@style/NoTitleAppTheme">
             <intent-filter>
                 <!-- 兼容高德地图无网络跳转-->

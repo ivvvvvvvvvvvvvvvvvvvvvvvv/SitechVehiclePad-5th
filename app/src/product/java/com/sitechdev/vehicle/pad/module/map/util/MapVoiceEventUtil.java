@@ -18,6 +18,8 @@ import com.sitechdev.vehicle.pad.module.map.SetAddressActivity;
 import com.sitechdev.vehicle.pad.module.map.constant.AMapConstant;
 import com.sitechdev.vehicle.pad.module.map.receiver.MapReceiver;
 import com.sitechdev.vehicle.pad.module.splash.SplashActivity;
+import com.sitechdev.vehicle.pad.router.RouterConstants;
+import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppVariants;
 import com.sitechdev.vehicle.pad.view.CommonToast;
 import com.sitechdev.vehicle.pad.vui.VUI;
@@ -146,8 +148,9 @@ public class MapVoiceEventUtil {
                 if (MapUtil.isMapActivityFront() || MapUtil.isPoiActivityFront()) {
                     //是POI页面或地图页面，不做处理，交由相应页面的事件响应处理
                     SitechDevLog.i(AppConst.TAG, this + " == " + event.toString() + " ==不做处理，交由POI页面的事件响应处理 ");
-                    Intent intent = new Intent(AppVariants.currentActivity, MainActivity.class);
-                    startActivity(intent);
+//                    Intent intent = new Intent(AppVariants.currentActivity, MainActivity.class);
+//                    startActivity(intent);
+                    RouterUtils.getInstance().navigationHomePage(RouterConstants.HOME_MAIN);
                 }
                 MapUtil.closeNavi();
                 MapUtil.hideNaviClient();
