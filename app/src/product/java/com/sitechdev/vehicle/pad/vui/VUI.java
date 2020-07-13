@@ -638,6 +638,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                                         } else {
 //                                                            vuiWindow.hide();
                                                             EventBusUtils.postEvent(new PoiEvent(PoiEvent.EVENT_QUERY_POI_KEYWORD, value));
+                                                            shutAndTTS("");
                                                             return;
                                                         }
                                                     }
@@ -704,6 +705,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
 //                                }
 //                            }
 //                        }
+                        vuiAnr();
                     } else if (TextUtils.equals(VoiceConstants.VOICE_CUSTOM_SERVICE_NAVI, service)) {
                         if (null != semantics && semantics.length() > 0) {
                             JSONObject semantic = semantics.optJSONObject(0);
@@ -712,18 +714,22 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                     //设置为家
                                     case VoiceConstants.VOICE_CUSTOM_INTENT_NAVI_SETHOME:
                                         EventBusUtils.postEvent(new MapEvent(MapEvent.EVENT_MAP_NAVI_SET_HOME_ADDR));
+                                        shutAndTTS("");
                                         return;
                                     //设置为公司
                                     case VoiceConstants.VOICE_CUSTOM_INTENT_NAVI_SETWORK:
                                         EventBusUtils.postEvent(new MapEvent(MapEvent.EVENT_MAP_NAVI_SET_WORK_ADDR));
+                                        shutAndTTS("");
                                         return;
                                     //开始导航
                                     case VoiceConstants.VOICE_CUSTOM_INTENT_START_NAVI:
 //                                        EventBusUtils.postEvent(new MapEvent(MapEvent.EVENT_MAP_NAVI_SET_HOME_ADDR));
+                                        shutAndTTS("");
                                         return;
                                     //关闭导航
                                     case VoiceConstants.VOICE_CUSTOM_INTENT_CLOSE_NAVI:
                                         EventBusUtils.postEvent(new MapEvent(MapEvent.EVENT_MAP_CLOSE_NAVI));
+                                        shutAndTTS("");
                                         return;
                                     default:
                                         vuiAnr();
@@ -813,6 +819,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                                     case "CONTACTS":
                                                         vuiWindow.hide();
                                                         VUIUtils.goContacts();
+                                                        shutAndTTS("");
                                                         break;
                                                     default:
                                                         vuiAnr();
@@ -1072,6 +1079,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                 case "酷我音乐":
                                 case "酷我":
                                     KuwoManager.getInstance().startKuwoApp(true);
+                                    shutAndTTS("");
                                     break;
                                 case "导航":
                                 case "LED表情管理":
