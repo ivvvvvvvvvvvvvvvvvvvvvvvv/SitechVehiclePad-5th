@@ -15,6 +15,7 @@ import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.module.music.MusicConfig;
 import com.sitechdev.vehicle.pad.module.music.MusicManager;
 import com.sitechdev.vehicle.pad.module.music.service.MusicInfo;
+import com.sitechdev.vehicle.pad.vui.VUIUtils;
 
 import java.util.List;
 
@@ -220,7 +221,7 @@ public class CustomPlaySeekBar extends RelativeLayout implements View.OnClickLis
         } else {
             mPlayPause.setActivated(false);
         }
-        if (null != mMusicInfoChangedListener) {
+        if (null != mMusicInfoChangedListener && VUIUtils.isUdiskExist()) {
             mMusicInfoChangedListener.onMusicInfoChanged(current, status);
         }
     }
