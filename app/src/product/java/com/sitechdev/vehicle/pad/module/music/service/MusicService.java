@@ -446,7 +446,7 @@ public class MusicService extends Service {
 
         @Override
         public IPCResult next(boolean fromUser) throws RemoteException {
-            IPCResult result = new IPCResult(-1, "next error");
+            IPCResult result = new IPCResult(-1, "当前无可用音源");
             if (null != musicInfos) {
                 int size = musicInfos.size();
                 if (size > 0) {
@@ -479,7 +479,7 @@ public class MusicService extends Service {
 
         @Override
         public IPCResult pre() throws RemoteException {
-            IPCResult result = new IPCResult(-1, "pre error");
+            IPCResult result = new IPCResult(-1, "当前无可用音源");
             if (null != musicInfos) {
                 int size = musicInfos.size();
                 if (size > 0) {
