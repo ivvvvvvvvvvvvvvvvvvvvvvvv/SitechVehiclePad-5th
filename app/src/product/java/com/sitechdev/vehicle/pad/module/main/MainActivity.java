@@ -122,6 +122,7 @@ public class MainActivity extends BaseActivity
 
     //长按跳往设置地址页面
     private View.OnLongClickListener addressSetListener = v -> {
+        SitechDevLog.i("MainActivity", "地址长按事件被激活============================>");
         RouterUtils.getInstance().navigation(RouterConstants.SET_ADDRESS_PAGE);
         return true;
     };
@@ -403,10 +404,16 @@ public class MainActivity extends BaseActivity
         tvHome.setOnClickListener(this);
         mHomeImageView.setOnClickListener(this);
         mWorkImageView.setOnClickListener(this);
+
         //长按跳往设置地址页面
         mLinearHomeWorkView.setOnLongClickListener(addressSetListener);
         mLinearHomeView.setOnLongClickListener(addressSetListener);
         mLinearWorkView.setOnLongClickListener(addressSetListener);
+        tvHome.setOnLongClickListener(addressSetListener);
+        tvWork.setOnLongClickListener(addressSetListener);
+        mHomeImageView.setOnLongClickListener(addressSetListener);
+        mWorkImageView.setOnLongClickListener(addressSetListener);
+
         tvWork.setOnClickListener(this);
         tvWhat.setOnClickListener(this);
 //        llMusic.setOnClickListener(this);
