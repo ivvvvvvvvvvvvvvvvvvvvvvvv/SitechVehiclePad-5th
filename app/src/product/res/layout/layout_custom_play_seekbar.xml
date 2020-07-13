@@ -21,7 +21,7 @@
         <SeekBar
             android:id="@+id/custom_play_seekbar_seecbar"
             android:layout_width="0pt"
-            android:layout_height="wrap_content"
+            android:layout_height="80pt"
             android:layout_weight="1"
             android:maxHeight="4pt"
             android:minHeight="4pt"
