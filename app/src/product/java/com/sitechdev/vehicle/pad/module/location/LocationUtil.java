@@ -41,6 +41,8 @@ public class LocationUtil {
      */
     private int locCount = 0;
 
+    private volatile static boolean isInited = false;
+
     private LocationUtil() {
     }
 
@@ -58,6 +60,9 @@ public class LocationUtil {
      * @param start 是否立即启动定位
      */
     public void init(Context context, boolean start) {
+        if (isInited) {
+            return;
+        }
         //初始化client
         mContext = context.getApplicationContext();
         locationClient = new AMapLocationClient(mContext);
@@ -68,8 +73,10 @@ public class LocationUtil {
         locationClient.setLocationListener(locationListener);
         locationClient.disableBackgroundLocation(true);
         if (start) {
+            SitechDevLog.e(TAG, "定位，start======>" + getInstance());
             startLocation();
         }
+        isInited = true;
     }
 
     /**

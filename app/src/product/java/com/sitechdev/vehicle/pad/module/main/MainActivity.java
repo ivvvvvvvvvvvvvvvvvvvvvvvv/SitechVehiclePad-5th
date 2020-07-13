@@ -374,6 +374,11 @@ public class MainActivity extends BaseActivity
             tvBtPhoneName.setText(R.string.bt_pair_unlink_tip);
         }
 
+        //酷我有时判断不对的问题
+        if (ivMusicStop != null) {
+            ivMusicStop.setActivated(VoiceSourceManager.getInstance().isMusicPlaying());
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             if (Settings.canDrawOverlays(AppApplication.getContext())) {
                 AppSignalWindowManager.getInstance().show();

@@ -181,26 +181,26 @@ public class VoiceSourceManager {
                     listener.pause();
                 }
                 SitechDevLog.i("onMusicChange", "MainActivty vourceManger=  onPause  =value=" + value);
-                if (curPlayItem != null) {
-                    String title = curPlayItem.getTitle();
-                    SitechDevLog.i("onMusicChange", "MainActivty vourceManger=  onPause  ===title=" + title);
-                    switch (value) {
-                        case SUPPORT_TYPE_ALL:
-                            listener.onMusicChange(title);
-                            break;
-                        case SUPPORT_TYPE_KAOLA:
-                            listener.onMusicChange(title);
-                            break;
-                        case SUPPORT_TYPE_LOCAL:
-                            break;
-                        case SUPPORT_TYPE_BT:
-                            break;
-                        case SUPPORT_TYPE_KUWO:
-                            break;
-                        default:
-                            break;
-                    }
-                }
+//                if (curPlayItem != null) {
+//                    String title = curPlayItem.getTitle();
+//                    SitechDevLog.i("onMusicChange", "MainActivty vourceManger=  onPause  ===title=" + title);
+//                    switch (value) {
+//                        case SUPPORT_TYPE_ALL:
+//                            listener.onMusicChange(title);
+//                            break;
+//                        case SUPPORT_TYPE_KAOLA:
+//                            listener.onMusicChange(title);
+//                            break;
+//                        case SUPPORT_TYPE_LOCAL:
+//                            break;
+//                        case SUPPORT_TYPE_BT:
+//                            break;
+//                        case SUPPORT_TYPE_KUWO:
+//                            break;
+//                        default:
+//                            break;
+//                    }
+//                }
             }
             if (null != removes) {
                 for (int i = 0; i < len; i++) {
@@ -245,15 +245,15 @@ public class VoiceSourceManager {
                                         listener.onMusicChange("");
                                         listener.pause();
                                     } else {
-                                        StringBuilder content = new StringBuilder();
-                                        content.append(current.musicName).append(" - ").append(current.artist);
-                                        listener.onMusicChange(content.toString());
-                                        content.delete(0, content.length());
                                         switch (status) {
                                             case 0:
                                                 listener.pause();
                                                 break;
                                             case 1:
+                                                StringBuilder content = new StringBuilder();
+                                                content.append(current.musicName).append(" - ").append(current.artist);
+                                                listener.onMusicChange(content.toString());
+                                                content.delete(0, content.length());
                                                 listener.resume();
                                                 break;
                                         }

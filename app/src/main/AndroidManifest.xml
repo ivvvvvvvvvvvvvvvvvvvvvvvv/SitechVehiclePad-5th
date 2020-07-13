@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:sharedUserId="android.uid.system"
-    package="com.sitechdev.vehicle.pad">
+    package="com.sitechdev.vehicle.pad"
+    android:sharedUserId="android.uid.system">
 
     <application
         android:name=".app.AppApplication"
@@ -31,18 +31,21 @@
         <activity
             android:name=".module.carstatus.CarStatusPreActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".module.apps.view.AppsListGridActivity" />
+        <activity
+            android:name=".module.apps.view.AppsListGridActivity"
+            android:launchMode="singleTask" />
         <activity
             android:name=".module.splash.SplashActivity"
-            android:launchMode="singleTask"
-            android:enabled="true"
             android:clearTaskOnLaunch="true"
-            android:stateNotNeeded="true"
-            android:resumeWhilePausing="true"
+            android:enabled="true"
+            android:launchMode="singleTask"
             android:resizeableActivity="true"
+            android:resumeWhilePausing="true"
+            android:stateNotNeeded="true"
             android:theme="@style/NoTitleAppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.HOME" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -53,10 +56,6 @@
             android:name=".module.main.MainActivity"
             android:exported="true"
             android:launchMode="singleTask"
-            android:clearTaskOnLaunch="true"
-            android:stateNotNeeded="true"
-            android:resumeWhilePausing="true"
-            android:resizeableActivity="true"
             android:theme="@style/NoTitleAppTheme">
             <intent-filter>
                 <!-- 兼容高德地图无网络跳转-->
@@ -130,11 +129,12 @@
         <activity android:name=".module.online_audio.MusicKaolaBroadcastActivity" />
         <activity android:name=".module.feedback.FeedbackActivity" />
         <activity android:name=".module.main.DebugInfo" />
-        <activity android:name=".module.music.MusicMainActivity"
-            android:launchMode="singleTask"/>
+        <activity
+            android:name=".module.music.MusicMainActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".module.video.VideoListActivity" />
         <activity android:name=".module.phone.PhoneActivity" />
-        <activity android:name=".module.led.activity.LedActivity"/>
+        <activity android:name=".module.led.activity.LedActivity" />
 
         <meta-data
             android:name="com.amap.api.v2.apikey"

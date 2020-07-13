@@ -1,11 +1,15 @@
 package com.sitechdev.vehicle.pad.module.splash;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.widget.ImageView;
 
+import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.AppUtils;
 import com.sitechdev.vehicle.lib.imageloader.GlideApp;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
@@ -15,7 +19,6 @@ import com.sitechdev.vehicle.pad.module.location.LocationUtil;
 import com.sitechdev.vehicle.pad.module.map.util.MapUtil;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
-import com.sitechdev.vehicle.pad.util.AppUtil;
 import com.sitechdev.vehicle.pad.util.PermissionHelper;
 
 import java.util.List;
@@ -105,9 +108,14 @@ public class SplashActivity extends BaseActivity {
             //发送地图广播，获取一些初始化参数
             MapUtil.sendAMapInitBroadcast();
             //页面跳转
-            AppUtil.clickTime = System.currentTimeMillis();
-            RouterUtils.getInstance().navigationHomePage(RouterConstants.HOME_MAIN);
-//            startActivity(new Intent(SplashActivity.this, MainActivity.class));
+//            AppUtil.clickTime = System.currentTimeMillis();
+
+            if (ActivityUtils.getActivityList().size() == 1) {
+                RouterUtils.getInstance().navigationHomePage(RouterConstants.HOME_MAIN);
+            } else {
+                Activity activity = ActivityUtils.getActivityList().get(1);
+                startActivity(new Intent(this, activity.getClass()));
+            }
             finish();
         });
     }
