@@ -23,6 +23,11 @@ import java.util.List;
 
 public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.VHolderAbs> {
     private Context context;
+
+    public List<VideoInfo> getmLists() {
+        return mLists;
+    }
+
     private List<VideoInfo> mLists = new ArrayList<>();
 
     VideoListAdapter(Context context) {

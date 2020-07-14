@@ -143,7 +143,7 @@ public class KaolaAIListAdapter extends KaolaBaseAdapter<KaolaAIListAdapter.VHol
                     img = mLists.get(i).column.getImageFiles().get("cover");
                 }
                 if (img != null) {
-                    GlideApp.with(context).load(img.getUrl()).placeholder(R.drawable.default_audio).centerCrop().into(vh.img);
+                    GlideApp.with(context).load(img.getUrl()).placeholder(R.drawable.default_audio_2).centerCrop().into(vh.img);
 					if (!RECOMMEND_TAG.equals(mLists.get(i).getIndex())) {
 	                    MultiTransformation multiTransformation = new MultiTransformation(new BlurTransformation(15, 1),
 	                            new GlideRoundedCornersTransform(8

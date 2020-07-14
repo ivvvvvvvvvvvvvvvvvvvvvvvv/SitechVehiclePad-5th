@@ -8,6 +8,13 @@
     android:paddingBottom="300pt"
     tools:ignore="PxUsage">
 
+    <ImageView
+        android:id="@+id/empty"
+        android:layout_width="210pt"
+        android:layout_height="189pt"
+        android:layout_centerInParent="true"
+        android:src="@drawable/ic_usb_disconnect" />
+
     <include
         layout="@layout/common_title_toolbar"
         android:layout_width="match_parent"

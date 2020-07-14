@@ -41,9 +41,9 @@ import java.util.List;
 public class VideoListActivity extends BaseActivity {
     private TwinklingRefreshLayout refreshLayout;
     private RecyclerView recyclerView;
-    private static VideoListAdapter adapter;
+    private VideoListAdapter adapter;
     private MediaStoreObserver mMediaStoreObserver;
-    private static class MediaStoreObserver extends ContentObserver {
+    private class MediaStoreObserver extends ContentObserver {
 
         private static final int REFRESH_DELAY = 3000;
 
@@ -58,13 +58,24 @@ public class VideoListActivity extends BaseActivity {
                 @Override
                 public void run() {
                     adapter.refreshData();
+                    refreshEmpty();
                 }
             }, REFRESH_DELAY);
         }
 
+
+
         @Override
         public void onChange(boolean selfChange, Uri uri) {
             super.onChange(selfChange, uri);
+        }
+    }
+
+    private void refreshEmpty() {
+        if (adapter != null && adapter.getmLists() != null && adapter.getmLists().size() > 0) {
+            showEmpty(false);
+        } else {
+            showEmpty(true);
         }
     }
 
@@ -77,6 +88,7 @@ public class VideoListActivity extends BaseActivity {
     protected void initData() {
         initObser();
         adapter = new VideoListAdapter(this);
+        refreshEmpty();
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClick(new VideoListAdapter.OnItemClick() {
             @Override
@@ -101,6 +113,10 @@ public class VideoListActivity extends BaseActivity {
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
+    }
+
+    private void showEmpty(boolean show) {
+        findViewById(R.id.empty).setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     public static boolean checkApkExist(Context context, String packageName){

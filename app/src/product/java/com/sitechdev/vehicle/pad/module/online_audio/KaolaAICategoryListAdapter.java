@@ -96,7 +96,7 @@ public class KaolaAICategoryListAdapter extends KaolaBaseAdapter<KaolaAICategory
             }
             if (mLists.get(i).getImageFiles().containsKey("cover")) {
                 ImageFile img = mLists.get(i).getImageFiles().get("cover");
-                GlideApp.with(context).load(img.getUrl()).placeholder(R.drawable.default_audio).centerCrop().into(vh.img);
+                GlideApp.with(context).load(img.getUrl()).placeholder(R.drawable.default_audio_2).centerCrop().into(vh.img);
             }
         }
         vh.itemView.setOnClickListener(new View.OnClickListener() {

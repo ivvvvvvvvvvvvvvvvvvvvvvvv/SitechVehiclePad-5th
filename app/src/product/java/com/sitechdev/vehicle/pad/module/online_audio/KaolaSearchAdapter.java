@@ -63,7 +63,7 @@ public class KaolaSearchAdapter extends RecyclerView.Adapter<KaolaSearchAdapter.
         SearchProgramBean searchProgramBean = mLists.get(i);
         vh.title.setText(searchProgramBean.getName());
         vh.des.setText(searchProgramBean.getAlbumName());
-        GlideApp.with(context).load(searchProgramBean.getImg()).placeholder(R.drawable.default_audio).into(vh.img);
+        GlideApp.with(context).load(searchProgramBean.getImg()).placeholder(R.drawable.default_audio_2).into(vh.img);
 //        setPlayTime(vh.des, searchProgramBean.get);
         vh.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
