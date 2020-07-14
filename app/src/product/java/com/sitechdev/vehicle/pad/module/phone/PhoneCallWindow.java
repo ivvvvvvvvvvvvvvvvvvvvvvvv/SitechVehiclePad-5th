@@ -19,6 +19,7 @@ import com.sitechdev.vehicle.lib.util.StringUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.app.BaseWindow;
+import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.module.phone.presenter.PhoneCallPresenter;
 import com.sitechdev.vehicle.pad.view.ScrollTextView;
 
@@ -375,6 +376,7 @@ public class PhoneCallWindow implements PhoneCallPresenter.UICallback, View.OnCl
             if (null != phoneView && phoneView.getParent() == null && !phoneView.isShown()) {
                 phoneView.setBackgroundResource(R.drawable.shape_phone_call);
                 windowManager.addView(phoneView, phoneWindowParams);
+                VoiceSourceManager.getInstance().pause(VoiceSourceManager.CONTENT);
             }
             if (null == mHandler) {
                 mTime = 0;
@@ -394,6 +396,7 @@ public class PhoneCallWindow implements PhoneCallPresenter.UICallback, View.OnCl
         } else {
             if (phoneView.isShown()) {
                 windowManager.removeViewImmediate(phoneView);
+                VoiceSourceManager.getInstance().resume(VoiceSourceManager.CONTENT);
                 phoneView.setBackground(null);
                 if (BtGlobalRef.isMicMute) {
                     presenter.micMute();
