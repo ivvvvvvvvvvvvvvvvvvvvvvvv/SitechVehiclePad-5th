@@ -11,24 +11,18 @@ import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.app.AppConst;
 import com.sitechdev.vehicle.pad.event.MapEvent;
 import com.sitechdev.vehicle.pad.event.PoiEvent;
-import com.sitechdev.vehicle.pad.event.VoiceEvent;
-import com.sitechdev.vehicle.pad.module.main.MainActivity;
+import com.sitechdev.vehicle.pad.manager.MapManager;
 import com.sitechdev.vehicle.pad.module.map.MapActivity;
-import com.sitechdev.vehicle.pad.module.map.SetAddressActivity;
 import com.sitechdev.vehicle.pad.module.map.constant.AMapConstant;
 import com.sitechdev.vehicle.pad.module.map.receiver.MapReceiver;
-import com.sitechdev.vehicle.pad.module.splash.SplashActivity;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppVariants;
 import com.sitechdev.vehicle.pad.view.CommonToast;
 import com.sitechdev.vehicle.pad.vui.VUI;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
-import static com.blankj.utilcode.util.ActivityUtils.startActivity;
 
 /**
  * 项目名称：SitechVehiclePad
@@ -110,14 +104,7 @@ public class MapVoiceEventUtil {
                     SitechDevLog.i(AppConst.TAG, this + " == " + event.toString() + " ==不做处理，交由POI页面的事件响应处理 ");
                     return;
                 }
-                Intent mIntent = new Intent();
-                //因POI的返回规则,先打开地图页面，再通过地图跳转POI搜索
-                mIntent.setClass(AppVariants.currentActivity, MapActivity.class);
-                ThreadUtils.runOnUIThread(() -> {
-                    if (AppVariants.currentActivity != null) {
-                        AppVariants.currentActivity.startActivity(mIntent);
-                    }
-                });
+                MapManager.getInstance().startMap();
                 break;
             case MapEvent.EVENT_MAP_START_NAVI:
                 LatLng mLatlng = (LatLng) event.getEventValue();
@@ -127,21 +114,13 @@ public class MapVoiceEventUtil {
                 break;
             //设置为公司
             case MapEvent.EVENT_MAP_NAVI_SET_HOME_ADDR:
-                EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_TTS_PLAY_TEXT, "请设置您的家庭地址"));
-                Intent mIntent3 = new Intent(AppVariants.currentActivity, SetAddressActivity.class);
-                mIntent3.putExtra(AppConst.ADDRESS_SET_TYPE, AppConst.HOME_ADDRESS_SET_INDEX);
-                if (AppVariants.currentActivity != null) {
-                    AppVariants.currentActivity.startActivity(mIntent3);
-                }
+                //家庭地址--地图选择
+                MapUtil.sendAMapAddressSave(0);
                 break;
             //设置为家
             case MapEvent.EVENT_MAP_NAVI_SET_WORK_ADDR:
-                EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_TTS_PLAY_TEXT, "请设置您的公司地址"));
-                Intent mIntent2 = new Intent(AppVariants.currentActivity, SetAddressActivity.class);
-                mIntent2.putExtra(AppConst.ADDRESS_SET_TYPE, AppConst.COMPONY_ADDRESS_SET_INDEX);
-                if (AppVariants.currentActivity != null) {
-                    AppVariants.currentActivity.startActivity(mIntent2);
-                }
+                //家庭地址--地图选择
+                MapUtil.sendAMapAddressSave(1);
                 break;
             //关闭导航
             case MapEvent.EVENT_MAP_CLOSE_NAVI:
@@ -161,11 +140,8 @@ public class MapVoiceEventUtil {
                 if (!LocationData.getInstance().isHasHomeAddress()) {
                     ThreadUtils.runOnUIThread(() -> {
                         CommonToast.makeText(AppApplication.getContext(), "您还未设置家庭地址");
-                        Intent mIntent1 = new Intent(AppVariants.currentActivity, SetAddressActivity.class);
-                        mIntent1.putExtra(AppConst.ADDRESS_SET_TYPE, AppConst.HOME_ADDRESS_SET_INDEX);
-                        if (AppVariants.currentActivity != null) {
-                            AppVariants.currentActivity.startActivity(mIntent1);
-                        }
+                        //家庭地址--地图选择
+                        MapUtil.sendAMapAddressView(0);
                     });
                     return;
                 }
@@ -181,11 +157,8 @@ public class MapVoiceEventUtil {
                 if (!LocationData.getInstance().isHasWorkAddress()) {
                     ThreadUtils.runOnUIThread(() -> {
                         CommonToast.makeText(AppApplication.getContext(), "您还未设置公司地址");
-                        Intent mIntent4 = new Intent(AppVariants.currentActivity, SetAddressActivity.class);
-                        mIntent4.putExtra(AppConst.ADDRESS_SET_TYPE, AppConst.COMPONY_ADDRESS_SET_INDEX);
-                        if (AppVariants.currentActivity != null) {
-                            AppVariants.currentActivity.startActivity(mIntent4);
-                        }
+                        //家庭地址--地图选择
+                        MapUtil.sendAMapAddressView(1);
                     });
                     return;
                 }

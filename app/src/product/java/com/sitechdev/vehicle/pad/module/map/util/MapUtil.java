@@ -391,7 +391,7 @@ public class MapUtil {
     /**
      * 发送给高德保存家和公司地址
      *
-     * @param EXTRA_TYPE 1:表示搜索家,2:表示搜索公司
+     * @param EXTRA_TYPE 0:表示搜索家,1:表示搜索公司
      */
     public static void sendAMapAddressSave(int EXTRA_TYPE) {
         SitechDevLog.i(AppConst.TAG, "发送广播给高德保存家和公司地址===========>EXTRA_TYPE==" + EXTRA_TYPE);

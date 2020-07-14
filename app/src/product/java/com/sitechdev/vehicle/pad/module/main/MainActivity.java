@@ -62,6 +62,7 @@ import com.sitechdev.vehicle.pad.module.login.util.LoginUtils;
 import com.sitechdev.vehicle.pad.module.main.bean.WeatherInfoBean;
 import com.sitechdev.vehicle.pad.module.main.util.MainHttpUtils;
 import com.sitechdev.vehicle.pad.module.main.util.WeatherUtils;
+import com.sitechdev.vehicle.pad.module.map.util.MapUtil;
 import com.sitechdev.vehicle.pad.module.music.BtMusicManager;
 import com.sitechdev.vehicle.pad.module.setting.bt.BtManager;
 import com.sitechdev.vehicle.pad.receiver.UsbReciver;
@@ -121,10 +122,19 @@ public class MainActivity extends BaseActivity
 
 //    NetReceiver receiver = new NetReceiver();
 
-    //长按跳往设置地址页面
-    private View.OnLongClickListener addressSetListener = v -> {
-        SitechDevLog.i("MainActivity", "地址长按事件被激活============================>");
-        RouterUtils.getInstance().navigation(RouterConstants.SET_ADDRESS_PAGE);
+    //长按跳往设置家庭地址页面
+    private View.OnLongClickListener homeAddressSetListener = v -> {
+        SitechDevLog.i("MainActivity", "家庭地址长按事件被激活============================>");
+        //家庭地址--地图选择
+        MapUtil.sendAMapAddressView(0);
+        return true;
+    };
+
+    //长按跳往设置公司地址页面
+    private View.OnLongClickListener workAddressSetListener = v -> {
+        SitechDevLog.i("MainActivity", "公司地址长按事件被激活============================>");
+        //家庭地址--地图选择
+        MapUtil.sendAMapAddressView(1);
         return true;
     };
 
@@ -407,13 +417,13 @@ public class MainActivity extends BaseActivity
         mWorkImageView.setOnClickListener(this);
 
         //长按跳往设置地址页面
-        mLinearHomeWorkView.setOnLongClickListener(addressSetListener);
-        mLinearHomeView.setOnLongClickListener(addressSetListener);
-        mLinearWorkView.setOnLongClickListener(addressSetListener);
-        tvHome.setOnLongClickListener(addressSetListener);
-        tvWork.setOnLongClickListener(addressSetListener);
-        mHomeImageView.setOnLongClickListener(addressSetListener);
-        mWorkImageView.setOnLongClickListener(addressSetListener);
+        mLinearHomeView.setOnLongClickListener(homeAddressSetListener);
+        tvHome.setOnLongClickListener(homeAddressSetListener);
+        mHomeImageView.setOnLongClickListener(homeAddressSetListener);
+
+        tvWork.setOnLongClickListener(workAddressSetListener);
+        mLinearWorkView.setOnLongClickListener(workAddressSetListener);
+        mWorkImageView.setOnLongClickListener(workAddressSetListener);
 
         tvWork.setOnClickListener(this);
         tvWhat.setOnClickListener(this);

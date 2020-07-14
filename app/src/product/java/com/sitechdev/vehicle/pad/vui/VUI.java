@@ -27,7 +27,6 @@ import com.sitechdev.vehicle.lib.util.StringUtils;
 import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
-import com.sitechdev.vehicle.pad.app.AppConst;
 import com.sitechdev.vehicle.pad.app.BaseAppWindowManager;
 import com.sitechdev.vehicle.pad.callback.BaseBribery;
 import com.sitechdev.vehicle.pad.event.MapEvent;
@@ -41,8 +40,6 @@ import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.model.phone.Contact;
 import com.sitechdev.vehicle.pad.module.login.util.LoginUtils;
 import com.sitechdev.vehicle.pad.module.main.MainActivity;
-import com.sitechdev.vehicle.pad.module.map.SetAddressActivity;
-import com.sitechdev.vehicle.pad.module.map.util.LocationData;
 import com.sitechdev.vehicle.pad.module.map.util.MapUtil;
 import com.sitechdev.vehicle.pad.module.music.MusicMainActivity;
 import com.sitechdev.vehicle.pad.module.music.MusicManager;
@@ -606,35 +603,15 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                                     String value = object.optString("value");
                                                     if (!TextUtils.isEmpty(value)) {
                                                         if (TextUtils.equals(value, "家")) {
-                                                            if (!LocationData.getInstance().isHasHomeAddress()) {
-                                                                Intent goHome = new Intent(AppVariants.currentActivity, SetAddressActivity.class);
-                                                                goHome.putExtra(AppConst.ADDRESS_SET_TYPE, AppConst.HOME_ADDRESS_SET_INDEX);
-                                                                if (AppVariants.currentActivity != null) {
-                                                                    AppVariants.currentActivity.startActivity(goHome);
-                                                                }
-                                                                shutAndTTS("请先设置家的地址");
-                                                                return;
-                                                            } else {
-                                                                //导航回家
-                                                                vuiWindow.hide();
-                                                                EventBusUtils.postEvent(new MapEvent(MapEvent.EVENT_MAP_START_NAVI_HOME));
-                                                                return;
-                                                            }
+                                                            //导航回家
+                                                            vuiWindow.hide();
+                                                            EventBusUtils.postEvent(new MapEvent(MapEvent.EVENT_MAP_START_NAVI_HOME));
+                                                            return;
                                                         } else if (TextUtils.equals(value, "公司")) {
-                                                            if (!LocationData.getInstance().isHasWorkAddress()) {
-                                                                Intent goCompony = new Intent(AppVariants.currentActivity, SetAddressActivity.class);
-                                                                goCompony.putExtra(AppConst.ADDRESS_SET_TYPE, AppConst.COMPONY_ADDRESS_SET_INDEX);
-                                                                if (AppVariants.currentActivity != null) {
-                                                                    AppVariants.currentActivity.startActivity(goCompony);
-                                                                }
-                                                                shutAndTTS("请先设置公司的地址");
-                                                                return;
-                                                            } else {
-                                                                //导航回公司
-                                                                vuiWindow.hide();
-                                                                EventBusUtils.postEvent(new MapEvent(MapEvent.EVENT_MAP_START_NAVI_COMPONY));
-                                                                return;
-                                                            }
+                                                            //导航回公司
+                                                            vuiWindow.hide();
+                                                            EventBusUtils.postEvent(new MapEvent(MapEvent.EVENT_MAP_START_NAVI_COMPONY));
+                                                            return;
                                                         } else {
 //                                                            vuiWindow.hide();
                                                             EventBusUtils.postEvent(new PoiEvent(PoiEvent.EVENT_QUERY_POI_KEYWORD, value));
@@ -723,7 +700,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                         return;
                                     //开始导航
                                     case VoiceConstants.VOICE_CUSTOM_INTENT_START_NAVI:
-//                                        EventBusUtils.postEvent(new MapEvent(MapEvent.EVENT_MAP_NAVI_SET_HOME_ADDR));
+                                        EventBusUtils.postEvent(new MapEvent(MapEvent.EVENT_MAP_NAVI_SET_HOME_ADDR));
                                         shutAndTTS("");
                                         return;
                                     //关闭导航
@@ -954,9 +931,9 @@ public class VUI implements VUIWindow.OnWindowHideListener {
 
                                     break;
                                 case "蓝牙":
-                                    if (BtManager.getInstance().isBtEnable()){
+                                    if (BtManager.getInstance().isBtEnable()) {
                                         shutAndTTS("当前蓝牙已开启");
-                                    }else{
+                                    } else {
                                         BtManager.getInstance().openBt();
 //                                    EventBusUtils.postEvent(new SysEvent(SysEvent.EB_SYS_BT_ENABLE, true));
                                         shutAndTTS("已为您打开蓝牙");
