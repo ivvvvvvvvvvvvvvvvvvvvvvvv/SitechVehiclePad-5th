@@ -211,7 +211,11 @@ public class MemberPreActivity extends BaseActivity {
                     .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                     .into(mUserIconView);
             // 昵称
-            mUserNameTextView.setText(String.format("Hi，%s", UserManager.getInstance().getLoginUserBean().getNickName()));
+            String userAreaName = UserManager.getInstance().getLoginUserBean().getNickName();
+            if (StringUtils.isEmpty(userAreaName)) {
+                userAreaName = CommonUtil.formatNumber(UserManager.getInstance().getLoginUserBean().getMobile());
+            }
+            mUserNameTextView.setText(String.format("Hi，%s", userAreaName));
             // 描述
             if (!StringUtils.isEmpty(UserManager.getInstance().getLoginUserBean().getMemberDescStr())) {
                 mUserDescView.setVisibility(View.VISIBLE);

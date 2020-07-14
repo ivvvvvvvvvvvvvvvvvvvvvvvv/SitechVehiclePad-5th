@@ -2,6 +2,7 @@ package com.sitechdev.vehicle.pad.util;
 
 import android.view.Gravity;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 
 /**
@@ -33,6 +34,18 @@ public class CommonUtil {
     public static void showToast(int resId) {
         ToastUtils.setGravity(Gravity.CENTER, 0, 0);
         ToastUtils.showShort(resId);
+    }
+
+    public static String formatNumber(String phone) {
+        if (StringUtils.isEmpty(phone)) {
+            return phone;
+        }
+
+        if (phone.length() < 11) {
+            return phone;
+        }
+
+        return phone.substring(0, 3) + "****" + phone.substring(7, phone.length());
     }
 
 }

@@ -68,6 +68,7 @@ import com.sitechdev.vehicle.pad.receiver.UsbReciver;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppVariants;
+import com.sitechdev.vehicle.pad.util.CommonUtil;
 import com.sitechdev.vehicle.pad.util.FontUtil;
 import com.sitechdev.vehicle.pad.view.MusicImageView;
 import com.sitechdev.vehicle.pad.view.ReflectTextClock;
@@ -416,7 +417,7 @@ public class MainActivity extends BaseActivity
 
         tvWork.setOnClickListener(this);
         tvWhat.setOnClickListener(this);
-//        llMusic.setOnClickListener(this);
+        llMusic.setOnClickListener(this);
         llNews.setOnClickListener(this);
         llBook.setOnClickListener(this);
         llCar.setOnClickListener(this);
@@ -469,9 +470,7 @@ public class MainActivity extends BaseActivity
                 EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_MVW_SUCCESS, VoiceConstants.TTS_RESPONSE_NAVI_TEXT));
                 break;
             case R.id.ll_music:
-//                Intent goMusic = new Intent();
-//                goMusic.setClass(this, MusicMainActivity.class);
-//                startActivity(goMusic);
+                VoiceSourceManager.getInstance().clickEvent();
                 break;
             case R.id.ll_news:
                 RouterUtils.getInstance().getPostcard(RouterConstants.MUSIC_PLAY_ONLINE_MAIN)
@@ -571,11 +570,18 @@ public class MainActivity extends BaseActivity
      * 退出登录的默认用户信息
      */
     private void refreshUserView(boolean isLogin, LoginUserBean userBean) {
+        String userAreaName = "立即登录";
         if (userBean == null && isLogin) {
             userBean = UserManager.getInstance().getLoginUserBean();
+            userAreaName = userBean.getNickName();
+            if (StringUtils.isEmpty(userAreaName)) {
+                userAreaName = CommonUtil.formatNumber(userBean.getMobile());
+            }
         }
-        tvLogin.setText(isLogin ? String.format("Hi，%s", userBean.getNickName()) : "立即登录");
-        if (isLogin && userBean != null) {
+        if (tvLogin != null) {
+            tvLogin.setText(isLogin ? String.format("Hi，%s", userAreaName) : userAreaName);
+        }
+        if (isLogin) {
             GlideApp.with(MainActivity.this).load(userBean.getAvatarUrl())
                     .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                     .into(ivLogin);
