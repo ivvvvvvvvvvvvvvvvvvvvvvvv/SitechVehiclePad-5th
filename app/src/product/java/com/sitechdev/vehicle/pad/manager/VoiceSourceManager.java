@@ -972,11 +972,11 @@ public class VoiceSourceManager {
     public boolean isMusicPlaying() {
         switch (musicSource) {
             case LOCAL_MUSIC:
-                return MusicPlayerManager.getInstance().isPlaying();
+                return MusicManager.getInstance().isLocalPlaying();
             case BT_MUSIC:
                 return PhoneBtManager.getInstance().isPlayingMusic;
             case KAOLA:
-                return KaolaPlayManager.SingletonHolder.INSTANCE.isPlaying(ActivityUtils.getTopActivity());
+                return  KaolaPlayManager.SingletonHolder.INSTANCE.isPlaying(ActivityUtils.getTopActivity());
             case KUWO_MUSIC:
                 return KuwoManager.getInstance().isMusicPlaying();
             default:
