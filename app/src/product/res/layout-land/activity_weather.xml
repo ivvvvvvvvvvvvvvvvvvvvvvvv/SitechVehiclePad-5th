@@ -546,23 +546,23 @@
         android:background="@color/colo_50000000"
         android:gravity="center"
         android:visibility="gone"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp" />
+        tools:layout_editor_absoluteX="0pt"
+        tools:layout_editor_absoluteY="0pt" />
 
     <LinearLayout
         android:id="@+id/ll_weather_error"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="265dp"
+        android:layout_marginTop="265pt"
         android:orientation="vertical"
         android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="800dp">
+        tools:layout_editor_absoluteX="800pt">
 
         <ImageView
             android:id="@+id/iv_weather_error"
-            android:layout_width="160dp"
-            android:layout_height="162dp"
+            android:layout_width="160pt"
+            android:layout_height="162pt"
             android:layout_gravity="center_horizontal"
             app:srcCompat="@drawable/no_web" />
 
@@ -570,7 +570,7 @@
             android:id="@+id/tv_weather_error"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="20pt"
             android:gravity="center_horizontal"
             android:text="网络不稳定，请稍后重试"
             android:textColor="@color/white"
