@@ -123,6 +123,9 @@
     java.lang.Object readResolve();
 }
 
+#不混淆MusicInfo类
+-keep class com.sitechdev.vehicle.pad.module.music.service.MusicInfo{*;}
+
 #-------------okhttp-------------------
 # okhttp
 -keepattributes Signature
