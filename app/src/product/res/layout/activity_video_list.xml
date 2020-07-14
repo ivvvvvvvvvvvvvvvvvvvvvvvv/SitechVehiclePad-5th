@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_kaola_play"
-    android:paddingBottom="300px"
+    android:paddingBottom="300pt"
     tools:ignore="PxUsage">
 
     <include
         layout="@layout/common_title_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="138px"
+        android:layout_height="138pt"
         android:layout_alignParentTop="true" />
 
     <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout

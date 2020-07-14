@@ -5,6 +5,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
 
 /**
@@ -24,11 +25,11 @@ public class VideoItemDecoration extends RecyclerView.ItemDecoration {
         if (parent.getLayoutManager() instanceof GridLayoutManager && view.getContext() instanceof BaseActivity) {
             GridLayoutManager gridLayoutManager = (GridLayoutManager) parent.getLayoutManager();
             if (((BaseActivity) view.getContext()).isLandscape()) {
-                outRect.left = 60;
-                outRect.top = 80;
+                outRect.left = view.getContext().getResources().getInteger(R.integer.video_list_land_left_space);
+                outRect.top = view.getContext().getResources().getInteger(R.integer.video_list_land_top_space);
             } else {
-                outRect.left = 88;
-                outRect.top = 73;
+                outRect.left = view.getContext().getResources().getInteger(R.integer.video_list_left_space);
+                outRect.top = view.getContext().getResources().getInteger(R.integer.video_list_top_space);
             }
         }
     }

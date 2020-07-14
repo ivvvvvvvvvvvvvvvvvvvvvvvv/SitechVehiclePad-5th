@@ -101,7 +101,7 @@ public class KaolaAIListAdapter extends KaolaBaseAdapter<KaolaAIListAdapter.VHol
     public int getItemViewType(int position) {
         return position;
     }
-
+    public final static String VIEWHOLDER_TAG = "empty";
     @NonNull
     @Override
     public VHolderAbs onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -110,8 +110,14 @@ public class KaolaAIListAdapter extends KaolaBaseAdapter<KaolaAIListAdapter.VHol
             root = LayoutInflater.from(context).inflate(isLandscape() ? R.layout.kaola_item_recommend : R.layout.kaola_item_recommend_portrait, viewGroup, false);
             return new VHolder(root);
         } else if (mLists.get(i).column == null) {
-            root = LayoutInflater.from(context).inflate(R.layout.kaola_item_group, viewGroup, false);
-            return new VHolderGroup(root);
+            if (isLandscape()) {
+                root = LayoutInflater.from(context).inflate(R.layout.kaola_item_group_empty, viewGroup, false);
+                root.setTag(VIEWHOLDER_TAG);
+                return new VHolderGroup(root);
+            } else {
+                root = LayoutInflater.from(context).inflate(R.layout.kaola_item_group, viewGroup, false);
+                return new VHolderGroup(root);
+            }
         } else {
             root = LayoutInflater.from(context).inflate(isLandscape() ? R.layout.kaola_item_common : R.layout.kaola_item_common_protrait, viewGroup, false);
             return new VHolder2(root);
@@ -122,9 +128,8 @@ public class KaolaAIListAdapter extends KaolaBaseAdapter<KaolaAIListAdapter.VHol
     @Override
     public void onBindViewHolder(@NonNull VHolderAbs vh, @SuppressLint("RecyclerView") int i) {
         if (vh instanceof VHolderGroup) {
-            if (isLandscape()) {
-                vh.des.setVisibility(View.GONE);
-            } else {
+            if (!isLandscape()) {
+                vh.itemView.setVisibility(View.VISIBLE);
                 vh.des.setText(mLists.get(i).getIndex());
             }
         } else {
@@ -138,7 +143,7 @@ public class KaolaAIListAdapter extends KaolaBaseAdapter<KaolaAIListAdapter.VHol
                     img = mLists.get(i).column.getImageFiles().get("cover");
                 }
                 if (img != null) {
-                    GlideApp.with(context).load(img.getUrl()).centerCrop().into(vh.img);
+                    GlideApp.with(context).load(img.getUrl()).placeholder(R.drawable.default_audio).centerCrop().into(vh.img);
 					if (!RECOMMEND_TAG.equals(mLists.get(i).getIndex())) {
 	                    MultiTransformation multiTransformation = new MultiTransformation(new BlurTransformation(15, 1),
 	                            new GlideRoundedCornersTransform(8

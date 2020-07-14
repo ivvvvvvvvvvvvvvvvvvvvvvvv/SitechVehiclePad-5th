@@ -55,6 +55,7 @@ public class KaolaAudioSubPageFrag extends BaseFragment {
     private boolean playIfSuspend;//自动播放是否判断当前播放状态
     private int defaultIndex = -1;
     private int defaultSubIndex = -1;
+    private KaolaAiListSpaceItemDecoration decoration;
     public KaolaAudioSubPageFrag() {
 
     }
@@ -96,7 +97,8 @@ public class KaolaAudioSubPageFrag extends BaseFragment {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 6);
         gridLayoutManager.setOrientation(isLandscape() ? GridLayoutManager.HORIZONTAL : GridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(gridLayoutManager);
-        recyclerView.addItemDecoration(new KaolaAiListSpaceItemDecoration(60));
+        decoration = new KaolaAiListSpaceItemDecoration(null);
+        recyclerView.addItemDecoration(decoration);
         adapter = new KaolaAIListAdapter(mContext, new ArrayList());
         recyclerView.setAdapter(adapter);
         indecator.setupWithRecycler(recyclerView);
@@ -190,6 +192,7 @@ public class KaolaAudioSubPageFrag extends BaseFragment {
 
                         @Override
                         public void onComplete() {
+                            decoration.setData(kaolaDataWarpperList);
                             adapter.setDataAndNotify(kaolaDataWarpperList);
                             indecator.initChoose(defaultIndex >= 0 ? defaultIndex : 0);
                         }
