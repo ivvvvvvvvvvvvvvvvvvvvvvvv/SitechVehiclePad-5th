@@ -8,12 +8,6 @@
     android:paddingBottom="300pt"
     tools:ignore="PxUsage">
 
-    <ImageView
-        android:id="@+id/empty"
-        android:layout_width="210pt"
-        android:layout_height="189pt"
-        android:layout_centerInParent="true"
-        android:src="@drawable/ic_usb_disconnect" />
 
     <include
         layout="@layout/common_title_toolbar"
@@ -21,16 +15,47 @@
         android:layout_height="138pt"
         android:layout_alignParentTop="true" />
 
-    <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
-        android:id="@+id/refresh_layout"
+    <FrameLayout
+        android:layout_marginTop="200pt"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar_sub">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyc_list"
+        <LinearLayout
+            android:id="@+id/empty"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layerType="software" />
-    </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="210pt"
+                android:layout_height="189pt"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_usb_disconnect" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20pt"
+                android:layout_marginBottom="250pt"
+                android:text="暂无U盘插入"
+                android:textColor="@color/white"
+                android:textSize="32pt" />
+        </LinearLayout>
+
+        <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+            android:id="@+id/refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyc_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layerType="software" />
+        </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+    </FrameLayout>
+
 </RelativeLayout>
