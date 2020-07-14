@@ -70,6 +70,22 @@ public class MusicMainActivity extends BaseActivity {
         MusicPagerAdapter mAdapter = new MusicPagerAdapter(getSupportFragmentManager(), mFragments);
         vPager.setAdapter(mAdapter);
         vTab.setupWithViewPager(vPager);
+        vPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                EventBusUtils.postEvent(new MusicControlEvent(MusicControlEvent.EVENT_CONTROL_MUSIC_PLAY_IF_ON_TOP));
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
         for (int i = 0; i < vTab.getTabCount(); i++) {
             TabLayout.Tab tab = vTab.getTabAt(i);
             tab.setText(mTitles[i]);
