@@ -39,7 +39,7 @@
             <TextView
                 android:id="@+id/music_usb_list_empty_tip"
                 android:layout_width="wrap_content"
-                android:layout_marginTop="50pt"
+                android:layout_marginTop="20pt"
                 android:layout_marginBottom="250pt"
                 android:layout_height="wrap_content"
                 android:text="请您插入带有歌曲的U盘哦"
