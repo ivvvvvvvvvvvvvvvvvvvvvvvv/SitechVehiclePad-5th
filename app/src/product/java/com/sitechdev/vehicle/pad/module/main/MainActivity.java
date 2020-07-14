@@ -110,17 +110,8 @@ public class MainActivity extends BaseActivity
     private TextView mPowerPercentView = null, mKmView = null, mRechargeCountView = null;
     private LinearLayout carPowerInfoView = null, mLinearHomeWorkView = null, mLinearHomeView = null, mLinearWorkView = null;
     private UsbReciver mUsbReceiver;
-
-    //    List<Column> mColumns = new ArrayList<>();
-//    Column mCurrentColumn;
-//    private String KEY_COLUMN = "KEY_COLUMN";
     private Context mContext;
     private TextView btn_music_title;
-//    private int musicSource  = -1;
-//    private static final int KAOLA = 0;
-//    private static final int LOCAL_MUSIC = 1;
-
-//    NetReceiver receiver = new NetReceiver();
 
     //长按跳往设置家庭地址页面
     private View.OnLongClickListener homeAddressSetListener = v -> {
@@ -152,7 +143,6 @@ public class MainActivity extends BaseActivity
             }
         }
 
-//        registerReceiver(receiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
         if (BtManager.getInstance().isBtEnable()) {
             BtMusicManager.getInstance().btCtrlRequestStatus();//获取蓝牙音乐播放状态
         }
@@ -607,10 +597,7 @@ public class MainActivity extends BaseActivity
         SitechDevLog.i(AppConst.TAG, this + "==MapEvent 消息==" + event.getEventKey());
         switch (event.getEventKey()) {
             case MapEvent.EVENT_LOCATION_SUCCESS:
-                //定位成功，请求或刷新天气数据
-                ThreadUtils.runOnUIThread(() -> {
-                    refreshCityView();
-                });
+                refreshCityView();
                 break;
             default:
                 break;
@@ -675,7 +662,11 @@ public class MainActivity extends BaseActivity
     public void refreshCityView() {
         String locationDataText = WeatherUtils.getCityDataWithLocation();
         if (!locationDataText.equals(tvLocation.getText().toString().trim())) {
-            tvLocation.setText(locationDataText);
+            //定位成功，刷新当前地址显示
+            ThreadUtils.runOnUIThread(() -> {
+                tvLocation.setText(locationDataText);
+            });
+            //重新请求或刷新天气数据
             MainHttpUtils.getWeatherData(new BaseBribery() {
                 @Override
                 public void onSuccess(Object successObj) {
