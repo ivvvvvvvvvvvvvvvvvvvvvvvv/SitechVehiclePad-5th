@@ -21,7 +21,7 @@ public class ScrollTextView extends SkinTextView implements View.OnClickListener
     public boolean isStarting = true;//是否开始滚动
     private Paint paint; //绘图样式
     private String text = "";//文本内容
-    private int marqueeRepeatLimit = 3;
+    private int marqueeRepeatLimit = -1;
     private int currentRepeatLimit;
 
     public ScrollTextView(Context context) {
