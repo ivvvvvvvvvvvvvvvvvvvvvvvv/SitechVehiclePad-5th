@@ -1,6 +1,7 @@
 package com.sitechdev.vehicle.pad.module.music;
 
 import com.sitechdev.vehicle.pad.module.music.service.MusicInfo;
+import com.sitechdev.vehicle.pad.vui.VUIUtils;
 
 public class MusicConfig {
     private static MusicConfig INSTANCE;
@@ -54,6 +55,15 @@ public class MusicConfig {
     private MusicModeType modeType;
     private MusicInfo currentMusicInfo;
     private int progress;
+    private boolean isUdiskMounted = VUIUtils.isUdiskExist();
+
+    public boolean isUdiskMounted() {
+        return isUdiskMounted;
+    }
+
+    public void setUdiskMounted(boolean udiskMounted) {
+        isUdiskMounted = udiskMounted;
+    }
 
     public int getProgress() {
         return progress;

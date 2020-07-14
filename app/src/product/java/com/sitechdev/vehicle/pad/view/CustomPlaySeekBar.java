@@ -221,7 +221,7 @@ public class CustomPlaySeekBar extends RelativeLayout implements View.OnClickLis
         } else {
             mPlayPause.setActivated(false);
         }
-        if (null != mMusicInfoChangedListener && VUIUtils.isUdiskExist()) {
+        if (null != mMusicInfoChangedListener && MusicConfig.getInstance().isUdiskMounted()) {
             mMusicInfoChangedListener.onMusicInfoChanged(current, status);
         }
     }
