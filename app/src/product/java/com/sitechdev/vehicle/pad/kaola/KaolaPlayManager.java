@@ -365,7 +365,7 @@ public class KaolaPlayManager extends BaseMusicManager {
         boolean hasNext = false;
         int curPosition = -1;
         if (isbrocast) {
-            if (BroadcastRadioListManager.getInstance().getCurPlayItem().getStatus() == 1) {  //1-直播中，2-回放，3-未开播
+            if (BroadcastRadioListManager.getInstance().getCurPlayItem() != null && BroadcastRadioListManager.getInstance().getCurPlayItem().getStatus() == 1) {  //1-直播中，2-回放，3-未开播
                 CommonToast.makeText(AppApplication.getContext(), "节目未开播");
                 hasNext = false;
             } else {
@@ -605,6 +605,7 @@ public class KaolaPlayManager extends BaseMusicManager {
         PlayerManager.getInstance(context).playPgc(id);
         setCurPlayingBroadcast(false);
     }
+
     public void playAudio(Context context, long id) {
         PlayerManager.getInstance(context).playAudio(id);
         setCurPlayingBroadcast(false);

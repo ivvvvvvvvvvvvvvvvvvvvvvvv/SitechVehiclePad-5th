@@ -9,6 +9,8 @@ import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
 
+import com.blankj.utilcode.util.AppUtils;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
@@ -73,15 +75,17 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
      * 重启应用
      */
     private void killProcess() {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            SitechDevLog.e(TAG, "kill process because -> " + e.getMessage());
-        }
-        AlarmManager mgr = (AlarmManager) mContext.getApplicationContext().getSystemService(Context.ALARM_SERVICE);
-        mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 1000, mRestartIntent);
-        android.os.Process.killProcess(android.os.Process.myPid());
-        System.exit(1);
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            SitechDevLog.e(TAG, "kill process because -> " + e.getMessage());
+//        }
+//        AlarmManager mgr = (AlarmManager) mContext.getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+//        mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 1000, mRestartIntent);
+//        android.os.Process.killProcess(android.os.Process.myPid());
+//        System.exit(1);
+        Log.i("Crash", "relaunchApp====>");
+        AppUtils.relaunchApp(true);
     }
 
     /**

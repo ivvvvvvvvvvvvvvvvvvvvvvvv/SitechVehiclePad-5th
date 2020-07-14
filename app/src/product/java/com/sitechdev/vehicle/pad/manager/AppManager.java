@@ -50,6 +50,7 @@ public class AppManager {
         Intent mIntent = new Intent();
         mIntent.setAction("com.sitechdev.vehicle");
         PendingIntent intent = PendingIntent.getActivity(appApplication, 1000, mIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+
         CrashHandler.getInstance().init(appApplication, intent);
     }
 
