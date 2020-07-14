@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 
 
-public class ScrollTextView extends android.support.v7.widget.AppCompatTextView implements View.OnClickListener {
+public class ScrollTextView extends SkinTextView implements View.OnClickListener {
 
     private final String TAG = ScrollTextView.class.getSimpleName();
     private float textLength;//文本长度
@@ -109,9 +109,10 @@ public class ScrollTextView extends android.support.v7.widget.AppCompatTextView 
     public void onWindowFocusChanged(boolean hasWindowFocus) {
         super.onWindowFocusChanged(hasWindowFocus);
         SitechDevLog.d(TAG, "onWindowFocusChanged: hasWindowFocus=" + hasWindowFocus);
-        if (!hasWindowFocus) {
-            step = 0;
-            isStarting = false;
-        }
+//        if (!hasWindowFocus) {
+//            step = 0;
+//            isStarting = false;
+//        }
     }
+
 }
