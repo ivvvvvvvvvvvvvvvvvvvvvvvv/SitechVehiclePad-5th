@@ -581,15 +581,18 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
      */
     public void resetViewAlpha(int alphaValue) {
         SitechDevLog.i(TAG, "*********************重设透明值==" + alphaValue);
-        if (alphaValue < 0 || alphaValue > 255) {
-            return;
+        if (alphaValue < 0) {
+            alphaValue = 0;
         }
-        int alphaValue2 = alphaValue * 95 / 100;
-        alphaValue2 = alphaValue2 * 2;
-        if (alphaValue2 > 255) {
-            alphaValue2 = 255 * 95 / 100;
+        if (alphaValue > 255) {
+            alphaValue = 255;
         }
-        contentView.getBackground().setAlpha(alphaValue2);
+//        int alphaValue2 = alphaValue * 95 / 100;
+//        alphaValue2 = alphaValue2 * 2;
+//        if (alphaValue2 > 255) {
+//            alphaValue2 = 255 * 95 / 100;
+//        }
+        contentView.getBackground().setAlpha(alphaValue);
 //        SitechDevLog.i(TAG, "*********************重设透明值2222===============" + alphaValue2);
 //        contentView.setBackgroundColor(Color.argb(alphaValue2, 24, 50, 63));
     }

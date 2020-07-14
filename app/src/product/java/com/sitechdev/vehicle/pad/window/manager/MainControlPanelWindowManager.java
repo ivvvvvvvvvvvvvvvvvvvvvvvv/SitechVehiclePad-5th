@@ -260,6 +260,7 @@ public class MainControlPanelWindowManager {
             params.flags = getNewParams(false);
             params.x = minWindowLength - params.width;
         } else {
+            params.flags = getNewParams(true);
             if (delatX < 0) {
                 //<0代表正在左滑,隐藏View
                 if (params.x <= (-(params.width / 2))) {
@@ -277,17 +278,20 @@ public class MainControlPanelWindowManager {
             }
         }
         int delX = params.x;
-        int alphaValue = 255 * delX / params.width;
-        mainControlPanelView.resetViewAlpha(Math.abs(alphaValue));
-        SitechDevLog.i(TAG, "*********************移动后  move (params.x )==" + params.x
-                + "，【 (minWindowLength - params.width)=="
-                + (minWindowLength - params.width)
-                + "】， (params.width / 2)== -"
-                + (params.width / 2)
-                + "】， delX== "
-                + delX
-                + "】， (alphaValue)== -"
-                + (alphaValue));
+        int alphaValue = 255 - Math.abs(255 * delX / params.width);
+        mainControlPanelView.resetViewAlpha(alphaValue);
+
+        params.dimAmount = alphaValue * 0.8f / 255;
+
+//        SitechDevLog.i(TAG, "*********************移动后  move (params.x )==" + params.x
+//                + "，【 (minWindowLength - params.width)=="
+//                + (minWindowLength - params.width)
+//                + "】， (params.width / 2)== -"
+//                + (params.width / 2)
+//                + "】， delX== "
+//                + delX
+//                + "】， (alphaValue)== -"
+//                + (alphaValue));
         updateWindow();
     }
 
