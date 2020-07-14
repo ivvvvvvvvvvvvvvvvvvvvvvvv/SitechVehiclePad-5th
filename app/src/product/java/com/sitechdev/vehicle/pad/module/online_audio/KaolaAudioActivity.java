@@ -289,12 +289,11 @@ public class KaolaAudioActivity extends BaseActivity implements
         int defaultIndex = 0;
         if (!TextUtils.isEmpty(queryString)) {
             defaultIndex = 3;
-        }
-//        View text = tabLayout.getTabAt(defaultIndex).getCustomView().findViewById(android.R.id.text1);
-//        selectTabAni(text);
-//        text.setAlpha(1f);
-        if (defaultIndex > 0) {
             pager.setCurrentItem(defaultIndex);
+        } else {
+            View text = tabLayout.getTabAt(defaultIndex).getCustomView().findViewById(android.R.id.text1);
+            selectTabAni(text);
+            text.setAlpha(1f);
         }
         queryString = "";
     }
