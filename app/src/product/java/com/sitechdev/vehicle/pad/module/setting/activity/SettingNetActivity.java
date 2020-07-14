@@ -808,7 +808,7 @@ public class SettingNetActivity extends BaseActivity implements View.OnClickList
             case SysEvent.EB_SYS_WIFI_STATE:
                 if (event.getObj() != null) {
                     boolean status = (boolean) event.getObj();
-                    wifiSwitch.setChecked(status);
+//                    wifiSwitch.setChecked(status);
                 }
                 break;
             default:
