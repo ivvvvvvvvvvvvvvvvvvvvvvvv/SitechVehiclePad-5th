@@ -8,6 +8,7 @@ import com.kaolafm.opensdk.player.MusicPlayerManager;
 import com.kaolafm.sdk.core.mediaplayer.BroadcastRadioListManager;
 import com.kaolafm.sdk.core.mediaplayer.PlayItem;
 import com.kaolafm.sdk.core.mediaplayer.PlayerListManager;
+import com.my.hw.SettingConfig;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.app.AppApplication;
@@ -19,9 +20,12 @@ import com.sitechdev.vehicle.pad.module.music.MusicMainActivity;
 import com.sitechdev.vehicle.pad.module.music.MusicManager;
 import com.sitechdev.vehicle.pad.module.music.service.MusicInfo;
 import com.sitechdev.vehicle.pad.module.phone.PhoneBtManager;
+import com.sitechdev.vehicle.pad.router.RouterConstants;
+import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppUtil;
 import com.sitechdev.vehicle.pad.view.CommonToast;
 import com.sitechdev.vehicle.pad.vui.VUI;
+import com.sitechdev.vehicle.pad.vui.VUIUtils;
 import com.sitechdev.vehicle.pad.vui.VUIWindow;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -842,6 +846,35 @@ public class VoiceSourceManager {
         this.musicSource = musicSource;
     }
 
+    public void clickEvent() {
+        switch (musicSource) {
+            case KAOLA:
+                RouterUtils.getInstance().navigation(RouterConstants.MUSIC_PLAY_ONLINE_MAIN);
+                break;
+            case LOCAL_MUSIC:
+                RouterUtils.getInstance().navigation(RouterConstants.FRAGMENT_LOCAL_MUSIC);
+                break;
+            case BT_MUSIC:
+                RouterUtils.getInstance().getPostcard(RouterConstants.FRAGMENT_LOCAL_MUSIC).withInt("index", 1).navigation();
+                break;
+            case KUWO_MUSIC:
+                KuwoManager.getInstance().startKuwoApp(true);
+                break;
+            default:
+                //考拉情况 或者未开始播放情况    启用播放音频逻辑（ 本地 蓝牙 酷我顺序）
+                if (VUIUtils.isUdiskExist()) {
+                    RouterUtils.getInstance().navigation(RouterConstants.FRAGMENT_LOCAL_MUSIC);
+                } else if (SettingConfig.getInstance().isBtConnected()) {
+                    RouterUtils.getInstance().getPostcard(RouterConstants.FRAGMENT_LOCAL_MUSIC)
+                            .withInt("index", 1)
+                            .navigation();
+                } else {
+                    VUIUtils.openThirdAppByMusic("", "");
+                }
+                break;
+        }
+    }
+
     public interface MusicChangeListener {
 
         void onMusicChange(String name);
@@ -933,6 +966,7 @@ public class VoiceSourceManager {
 
     /**
      * 返回当前是否有音乐正在播放
+     *
      * @return true=正在播放，false=没有正在播放的音乐
      */
     public boolean isMusicPlaying() {
