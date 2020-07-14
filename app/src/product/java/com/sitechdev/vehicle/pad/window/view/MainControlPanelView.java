@@ -3,23 +3,18 @@ package com.sitechdev.vehicle.pad.window.view;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Rect;
-import android.media.AudioManager;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.ScreenUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.NetworkUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
@@ -66,11 +61,11 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
     private VerticalSeekBarForSkin volumeVerticalSeekBar = null, lightVerticalSeekBar = null;
     private SeekBar volumeSeekBar = null, lightSeekBar = null;
 
-    private RadioGroup carSpeedGroupView = null, carRecycleGroupView = null;
-    private RadioButton carSpeedGroup_Off = null, carSpeedGroup_Middle = null, carSpeedGroup_Max = null;
-    private RadioButton carRecycleGroup_Off = null, carRecycleGroup_Middle = null, carRecycleGroup_Max = null;
-
-    private LinearLayout mLedViewLiearLayoutView = null;
+//    private RadioGroup carSpeedGroupView = null, carRecycleGroupView = null;
+//    private RadioButton carSpeedGroup_Off = null, carSpeedGroup_Middle = null, carSpeedGroup_Max = null;
+//    private RadioButton carRecycleGroup_Off = null, carRecycleGroup_Middle = null, carRecycleGroup_Max = null;
+//
+//    private LinearLayout mLedViewLiearLayoutView = null;
 
     private boolean isFullScreen = false, isMove = false;
 
@@ -88,7 +83,7 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
     private int maxVolumeValue = 10, currentVolumeValue = 0;
     private int maxScreenLightValue = 255, currentScreenLightValue = 0;
 
-    private AudioManager mAudioManager = null;
+//    private AudioManager mAudioManager = null;
 
     @Override
     public Resources getResources() {
@@ -101,6 +96,7 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
 
     public MainControlPanelView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        long startTime = System.currentTimeMillis();
 //        TouchEffectsFactory.initTouchEffects(this);
         // 填充布局，并添加至
         LayoutInflater.from(context).inflate(R.layout.custom_control_panel_view, this);
@@ -110,7 +106,7 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
         mHeight = contentView.getLayoutParams().height;
         SitechDevLog.i(TAG, "MainPopupControlView==mWidth==" + mWidth + "，mHeight==" + mHeight);
         //音量控制,初始化定义
-        mAudioManager = (AudioManager) AppApplication.getContext().getSystemService(Context.AUDIO_SERVICE);
+//        mAudioManager = (AudioManager) AppApplication.getContext().getSystemService(Context.AUDIO_SERVICE);
         //最大音量
         maxVolumeValue = VolumeControlManager.getInstance().getMaxVolumeValue();// mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         SitechDevLog.i(TAG, "最大音量===" + maxVolumeValue);
@@ -129,6 +125,8 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
 
         requestFocus();
         requestFocusFromTouch();
+        long endTime = System.currentTimeMillis();
+        SitechDevLog.w("runTime", "Displayed com.sitechdev.vehicle.pad.MainControlPanelView:" + (endTime - startTime));
     }
 
     public View getContentView() {
@@ -151,21 +149,21 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
             lightSeekBar = findViewById(R.id.id_control_light_seek_bar);
         }
 
-        mLedViewLiearLayoutView = findViewById(R.id.id_led_view_content);
+//        mLedViewLiearLayoutView = findViewById(R.id.id_led_view_content);
 
-        ecoView = findViewById(R.id.id_eco_content);
-        screenOriView = findViewById(R.id.id_screen_ori_content);
-
-
-        carSpeedGroupView = findViewById(R.id.id_car_speed_switch_group);
-        carRecycleGroupView = findViewById(R.id.id_car_power_recycle_group);
-
-        carSpeedGroup_Off = findViewById(R.id.id_car_speed_off);
-        carSpeedGroup_Middle = findViewById(R.id.id_car_speed_middle);
-        carSpeedGroup_Max = findViewById(R.id.id_car_speed_max);
-        carRecycleGroup_Off = findViewById(R.id.id_car_recycle_off);
-        carRecycleGroup_Middle = findViewById(R.id.id_car_recycle_middle);
-        carRecycleGroup_Max = findViewById(R.id.id_car_recycle_max);
+//        ecoView = findViewById(R.id.id_eco_content);
+//        screenOriView = findViewById(R.id.id_screen_ori_content);
+//
+//
+//        carSpeedGroupView = findViewById(R.id.id_car_speed_switch_group);
+//        carRecycleGroupView = findViewById(R.id.id_car_power_recycle_group);
+//
+//        carSpeedGroup_Off = findViewById(R.id.id_car_speed_off);
+//        carSpeedGroup_Middle = findViewById(R.id.id_car_speed_middle);
+//        carSpeedGroup_Max = findViewById(R.id.id_car_speed_max);
+//        carRecycleGroup_Off = findViewById(R.id.id_car_recycle_off);
+//        carRecycleGroup_Middle = findViewById(R.id.id_car_recycle_middle);
+//        carRecycleGroup_Max = findViewById(R.id.id_car_recycle_max);
 
         initSimStatus();
     }
@@ -173,7 +171,12 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
     public void initVolumeAndLightData() {
         contentView.setOnClickListener(this);
 
-        initVolumeLightData();
+        //当前音量
+        currentVolumeValue = VolumeControlManager.getInstance().getCurrentVolumeValue();
+        SitechDevLog.i(TAG, "当前音量===" + currentVolumeValue);
+
+        currentScreenLightValue = ScreenLightControlManager.getInstance().getScreenLightValue();
+        SitechDevLog.i(TAG, "当前亮度===>" + currentScreenLightValue);
 
         if (ScreenUtils.isLandscape()) {
             volumeVerticalSeekBar.setProgress(currentVolumeValue);
@@ -184,18 +187,6 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
         }
         //按键监听
         initSeekBarListener();
-    }
-
-    /**
-     * 获取音量数据
-     */
-    public void initVolumeLightData() {
-        //当前音量
-        currentVolumeValue = VolumeControlManager.getInstance().getCurrentVolumeValue();// mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-        SitechDevLog.i(TAG, "当前音量===" + currentVolumeValue);
-
-        currentScreenLightValue = ScreenLightControlManager.getInstance().getScreenLightValue();
-        SitechDevLog.i(TAG, "当前亮度===>" + currentScreenLightValue);
     }
 
     private void initListener() {
@@ -225,8 +216,8 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
             }
         });
 
-        ecoView.setOnClickListener(this);
-        screenOriView.setOnClickListener(this);
+//        ecoView.setOnClickListener(this);
+//        screenOriView.setOnClickListener(this);
 
         setOnTouchListener(new OnTouchListener() {
             @Override
@@ -241,47 +232,47 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
             }
         });
 
-        carSpeedGroupView.setOnCheckedChangeListener((group, checkedId) -> {
-            SitechDevLog.i(TAG, "carSpeedGroupView setOnCheckedChangeListener ==========checkedId==== " + checkedId);
-            int currentCarSpeed = 0;
-            switch (checkedId) {
-                case R.id.id_car_speed_off:
-                    currentCarSpeed = 0;
-                    break;
-                case R.id.id_car_speed_middle:
-                    currentCarSpeed = 1;
-                    break;
-                case R.id.id_car_speed_max:
-                    currentCarSpeed = 2;
-                    break;
-                default:
-                    break;
-            }
-        });
-        carRecycleGroupView.setOnCheckedChangeListener((group, checkedId) -> {
-            SitechDevLog.i(TAG, "carRecycleGroupView setOnCheckedChangeListener ==========checkedId==== " + checkedId);
-            int currentCarRecycle = 0;
-            switch (checkedId) {
-                case R.id.id_car_recycle_off:
-                    currentCarRecycle = 0;
-                    break;
-                case R.id.id_car_recycle_middle:
-                    currentCarRecycle = 1;
-                    break;
-                case R.id.id_car_recycle_max:
-                    currentCarRecycle = 2;
-                    break;
-                default:
-                    break;
-            }
-        });
+//        carSpeedGroupView.setOnCheckedChangeListener((group, checkedId) -> {
+//            SitechDevLog.i(TAG, "carSpeedGroupView setOnCheckedChangeListener ==========checkedId==== " + checkedId);
+//            int currentCarSpeed = 0;
+//            switch (checkedId) {
+//                case R.id.id_car_speed_off:
+//                    currentCarSpeed = 0;
+//                    break;
+//                case R.id.id_car_speed_middle:
+//                    currentCarSpeed = 1;
+//                    break;
+//                case R.id.id_car_speed_max:
+//                    currentCarSpeed = 2;
+//                    break;
+//                default:
+//                    break;
+//            }
+//        });
+//        carRecycleGroupView.setOnCheckedChangeListener((group, checkedId) -> {
+//            SitechDevLog.i(TAG, "carRecycleGroupView setOnCheckedChangeListener ==========checkedId==== " + checkedId);
+//            int currentCarRecycle = 0;
+//            switch (checkedId) {
+//                case R.id.id_car_recycle_off:
+//                    currentCarRecycle = 0;
+//                    break;
+//                case R.id.id_car_recycle_middle:
+//                    currentCarRecycle = 1;
+//                    break;
+//                case R.id.id_car_recycle_max:
+//                    currentCarRecycle = 2;
+//                    break;
+//                default:
+//                    break;
+//            }
+//        });
 
-        carSpeedGroup_Off.setOnClickListener(this);
-        carSpeedGroup_Middle.setOnClickListener(this);
-        carSpeedGroup_Max.setOnClickListener(this);
-        carRecycleGroup_Off.setOnClickListener(this);
-        carRecycleGroup_Middle.setOnClickListener(this);
-        carRecycleGroup_Max.setOnClickListener(this);
+//        carSpeedGroup_Off.setOnClickListener(this);
+//        carSpeedGroup_Middle.setOnClickListener(this);
+//        carSpeedGroup_Max.setOnClickListener(this);
+//        carRecycleGroup_Off.setOnClickListener(this);
+//        carRecycleGroup_Middle.setOnClickListener(this);
+//        carRecycleGroup_Max.setOnClickListener(this);
 
         popControlView.setOnTouchListener(new OnTouchListener() {
             @Override
@@ -461,26 +452,26 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
             lightSeekBar.setMax(maxScreenLightValue);
         }
 
-        if (mLedViewLiearLayoutView != null) {
-            mLedViewLiearLayoutView.removeAllViews();
-            for (int i = 0; i < LED_VIEW_RESOURCE_ARRAY.length; i++) {
-                ImageView ledImgView = (ImageView) View.inflate(getContext(), R.layout.custom_led_view, null);
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                params.weight = 1.0f;
-                params.gravity = Gravity.CENTER_VERTICAL;
-                ledImgView.setImageResource(LED_VIEW_RESOURCE_ARRAY[i]);
-                ledImgView.setTag("led索引id：" + i);
-                ledImgView.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Log.i(TAG, "被点击的是+=======" + v.getTag());
-                        ToastUtils.setGravity(Gravity.TOP, 0, 0);
-//                        ToastUtils.showShort("点击了" + v.getTag());
-                    }
-                });
-                mLedViewLiearLayoutView.addView(ledImgView, params);
-            }
-        }
+//        if (mLedViewLiearLayoutView != null) {
+//            mLedViewLiearLayoutView.removeAllViews();
+//            for (int i = 0; i < LED_VIEW_RESOURCE_ARRAY.length; i++) {
+//                ImageView ledImgView = (ImageView) View.inflate(getContext(), R.layout.custom_led_view, null);
+//                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+//                params.weight = 1.0f;
+//                params.gravity = Gravity.CENTER_VERTICAL;
+//                ledImgView.setImageResource(LED_VIEW_RESOURCE_ARRAY[i]);
+//                ledImgView.setTag("led索引id：" + i);
+//                ledImgView.setOnClickListener(new OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Log.i(TAG, "被点击的是+=======" + v.getTag());
+//                        ToastUtils.setGravity(Gravity.TOP, 0, 0);
+////                        ToastUtils.showShort("点击了" + v.getTag());
+//                    }
+//                });
+//                mLedViewLiearLayoutView.addView(ledImgView, params);
+//            }
+//        }
 
         contentView.getBackground().setAlpha(0);
     }
@@ -540,24 +531,24 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
                 mTeddySwitchControlView.setActivated(!isActivated);
                 EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_AUTO_MVW_SWITCH, !isActivated));
                 break;
-            case R.id.id_eco_content:
-                isActivated = ecoView.isActivated();
-                if (isActivated) {
-                    //todo 切换到eco
-                } else {
-                    //todo 切换到eco+
-                }
-                ecoView.setActivated(!isActivated);
-                break;
-            case R.id.id_screen_ori_content:
-                isActivated = screenOriView.isActivated();
-                if (isActivated) {
-                    //todo 切换到横屏
-                } else {
-                    //todo 切换到竖屏
-                }
-                screenOriView.setActivated(!isActivated);
-                break;
+//            case R.id.id_eco_content:
+//                isActivated = ecoView.isActivated();
+//                if (isActivated) {
+//                    //todo 切换到eco
+//                } else {
+//                    //todo 切换到eco+
+//                }
+//                ecoView.setActivated(!isActivated);
+//                break;
+//            case R.id.id_screen_ori_content:
+//                isActivated = screenOriView.isActivated();
+//                if (isActivated) {
+//                    //todo 切换到横屏
+//                } else {
+//                    //todo 切换到竖屏
+//                }
+//                screenOriView.setActivated(!isActivated);
+//                break;
             default:
                 break;
         }
