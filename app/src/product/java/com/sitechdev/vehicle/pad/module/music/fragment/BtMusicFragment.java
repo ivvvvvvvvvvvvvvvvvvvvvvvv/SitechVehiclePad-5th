@@ -16,6 +16,7 @@ import com.sitechdev.vehicle.pad.event.SysEvent;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceType;
 import com.sitechdev.vehicle.pad.module.music.BtMusicManager;
+import com.sitechdev.vehicle.pad.module.music.MusicConfig;
 import com.sitechdev.vehicle.pad.module.setting.bt.BtManager;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
@@ -157,7 +158,10 @@ public class BtMusicFragment extends BaseFragment {
             }
         } else if (o instanceof MusicControlEvent) {
             MusicControlEvent event = (MusicControlEvent) o;
-            if (MusicControlEvent.EVENT_CONTROL_MUSIC_PLAY_IF_ON_TOP.equals(event.getKey()) && getUserVisibleHint()) {
+            if (MusicControlEvent.EVENT_CONTROL_MUSIC_PLAY_IF_ON_TOP.equals(event.getKey())) {
+                if((int)event.getBean() != MusicConfig.MUSIC_CURRENT_SHOWN_BT){
+                    return;
+                }
                 BtMusicManager.getInstance().btCtrlPlay();
             }
         }

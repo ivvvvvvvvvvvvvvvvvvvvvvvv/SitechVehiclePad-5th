@@ -4,6 +4,9 @@ import com.sitechdev.vehicle.pad.module.music.service.MusicInfo;
 
 public class MusicConfig {
     private static MusicConfig INSTANCE;
+    public static final int MUSIC_CURRENT_SHOWN_USB = 0;
+    public static final int MUSIC_CURRENT_SHOWN_BT = 1;
+
 
     private MusicConfig() {
     }

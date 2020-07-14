@@ -217,7 +217,10 @@ public class LocalMusicFragment extends BaseFragment implements
     public void onEvent(Object o) {
         if (o instanceof MusicControlEvent) {
             MusicControlEvent event = (MusicControlEvent) o;
-            if (MusicControlEvent.EVENT_CONTROL_MUSIC_PLAY_IF_ON_TOP.equals(event.getKey()) && getUserVisibleHint()) {
+            if (MusicControlEvent.EVENT_CONTROL_MUSIC_PLAY_IF_ON_TOP.equals(event.getKey())) {
+                if((int)event.getBean() != MusicConfig.MUSIC_CURRENT_SHOWN_USB){
+                    return;
+                }
                 if (null != adapter.musicInfos && adapter.musicInfos.size() > 0 && !MusicManager.getInstance().isLocalPlaying()) {
                     if (null != MusicConfig.getInstance().getCurrentMusicInfo()) {
                         MusicManager.getInstance().resume((code, s) -> {
