@@ -55,6 +55,7 @@ import com.sitechdev.vehicle.pad.manager.UserManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceType;
 import com.sitechdev.vehicle.pad.module.feedback.utils.FeedBackUtils;
+import com.sitechdev.vehicle.pad.module.location.LocationUtil;
 import com.sitechdev.vehicle.pad.module.login.bean.LoginResponseBean;
 import com.sitechdev.vehicle.pad.module.login.bean.LoginUserBean;
 import com.sitechdev.vehicle.pad.module.login.util.LoginHttpUtil;
@@ -141,10 +142,6 @@ public class MainActivity extends BaseActivity
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
-        }
-
-        if (BtManager.getInstance().isBtEnable()) {
-            BtMusicManager.getInstance().btCtrlRequestStatus();//获取蓝牙音乐播放状态
         }
     }
 
@@ -234,29 +231,9 @@ public class MainActivity extends BaseActivity
         } catch (Exception e) {
             SitechDevLog.exception(e);
         }
-        if (AppVariants.activeSuccess) {
-            ThreadManager.getInstance().addTask(() -> {
-                try {
-                    KaolaPlayManager.SingletonHolder.INSTANCE.acquireKaolaData();
-                } catch (Exception e) {
-                    SitechDevLog.exception(e);
-                }
-            });
-            KaolaPlayManager.SingletonHolder.INSTANCE.setCallback(mCallback);
-        } else {
-            ThreadManager.getInstance().addTask(() -> {
-                try {
-                    KaolaPlayManager.SingletonHolder.INSTANCE.activeKaola();
-                } catch (Exception e) {
-                    SitechDevLog.exception(e);
-                }
-            });
-        }
 
-//        KaolaPlayManager.SingletonHolder.INSTANCE.setPlayCallback(mPlayCallback);
         PlayerManager.getInstance(this).addPlayerStateListener(KaolaPlayManager.SingletonHolder.INSTANCE.mIPlayerStateListener);
         BroadcastRadioPlayerManager.getInstance().addPlayerStateListener(KaolaPlayManager.SingletonHolder.INSTANCE.mIPlayerStateListener);
-        //        MusicManager.getInstance().addMusicChangeListener(musicChangeListener);
         VoiceSourceManager.getInstance().addMusicChangeListener(this);
 
         btn_music_title.setTypeface(FontUtil.getInstance().getMainFont_Min_i());
@@ -270,6 +247,34 @@ public class MainActivity extends BaseActivity
         mKmView.setText(setBottomAlignment("238", "KM"));
         mRechargeCountView.setText(setBottomAlignment("48", "次"));
         registerDeviceReceiver();
+
+        ThreadUtils.runOnUIThreadDelay(() -> {
+            //初始化定位
+            LocationUtil.getInstance().init(AppApplication.getContext(), true);
+            //kaola
+            if (AppVariants.activeSuccess) {
+                ThreadManager.getInstance().addTask(() -> {
+                    try {
+                        KaolaPlayManager.SingletonHolder.INSTANCE.acquireKaolaData();
+                    } catch (Exception e) {
+                        SitechDevLog.exception(e);
+                    }
+                });
+                KaolaPlayManager.SingletonHolder.INSTANCE.setCallback(mCallback);
+            } else {
+                ThreadManager.getInstance().addTask(() -> {
+                    try {
+                        KaolaPlayManager.SingletonHolder.INSTANCE.activeKaola();
+                    } catch (Exception e) {
+                        SitechDevLog.exception(e);
+                    }
+                });
+            }
+
+            if (BtManager.getInstance().isBtEnable()) {
+                BtMusicManager.getInstance().btCtrlRequestStatus();//获取蓝牙音乐播放状态
+            }
+        }, 2000);
     }
 
     private void registerDeviceReceiver() {
