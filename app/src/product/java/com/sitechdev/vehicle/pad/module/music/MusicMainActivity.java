@@ -7,8 +7,6 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.flyco.tablayout.SlidingTabLayout;
-import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.R;
@@ -42,15 +40,15 @@ public class MusicMainActivity extends BaseActivity {
         if (null != intent) {
             index = intent.getIntExtra("index", 0);
         }
-        if (null != vPager) {
+        if (null != vPager && index == 1) {
             vPager.setCurrentItem(index);
+            ThreadUtils.runOnUIThreadDelay(new Runnable() {
+                @Override
+                public void run() {
+                    EventBusUtils.postEvent(new MusicControlEvent(MusicControlEvent.EVENT_CONTROL_MUSIC_PLAY_IF_ON_TOP,index));
+                }
+            }, 500);//页面加载完成发送事件
         }
-        ThreadUtils.runOnUIThreadDelay(new Runnable() {
-            @Override
-            public void run() {
-                EventBusUtils.postEvent(new MusicControlEvent(MusicControlEvent.EVENT_CONTROL_MUSIC_PLAY_IF_ON_TOP,index));
-            }
-        }, 500);//页面加载完成发送事件
     }
 
 
