@@ -28,7 +28,7 @@ public class ProcessUtil {
     /**
      * 获取当前进程名
      */
-    private static String getCurrentProcessName(Context context) {
+    public static String getCurrentProcessName(Context context) {
         int pid = android.os.Process.myPid();
         String processName = "";
         android.app.ActivityManager manager = (android.app.ActivityManager) context.getApplicationContext().getSystemService
