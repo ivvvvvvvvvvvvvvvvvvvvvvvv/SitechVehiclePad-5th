@@ -80,7 +80,6 @@ public class KaolaAudioCategoryPageFrag extends BaseFragment {
                 }, warpper -> {
                     dialog.cancel();
                     getCategoryAblum(warpper);
-                    curSelectChannel.setText(warpper.getName());
                 });
             }
         });
@@ -160,24 +159,30 @@ public class KaolaAudioCategoryPageFrag extends BaseFragment {
     }
 
     private void getCategoryAblum(Category category) {
+        String name = category.getName();
         new OperationRequest().getCategoryMemberList(category.getCode(), 1, 50, new HttpCallback<BasePageResult<List<CategoryMember>>>() {
             @Override
             public void onSuccess(BasePageResult<List<CategoryMember>> listBasePageResult) {
-                adapter = new KaolaAICategoryListAdapter(mContext, listBasePageResult.getDataList());
-                recyclerView.setAdapter(adapter);
-                adapter.setOnItemClick(new KaolaAICategoryListAdapter.OnItemClick() {
-                    @Override
-                    public void onClick(CategoryMember cm) {
-                        if (cm instanceof AlbumCategoryMember) {
-                            AlbumCategoryMember albumCategoryMember = (AlbumCategoryMember) cm;
-                            String url = "";
-                            if (albumCategoryMember.getImageFiles() != null && albumCategoryMember.getImageFiles().get("cover") != null) {
-                                url = albumCategoryMember.getImageFiles().get("cover").getUrl();
+                if (adapter == null) {
+                    adapter = new KaolaAICategoryListAdapter(mContext, listBasePageResult.getDataList());
+                    recyclerView.setAdapter(adapter);
+                    adapter.setOnItemClick(new KaolaAICategoryListAdapter.OnItemClick() {
+                        @Override
+                        public void onClick(CategoryMember cm) {
+                            if (cm instanceof AlbumCategoryMember) {
+                                AlbumCategoryMember albumCategoryMember = (AlbumCategoryMember) cm;
+                                String url = "";
+                                if (albumCategoryMember.getImageFiles() != null && albumCategoryMember.getImageFiles().get("cover") != null) {
+                                    url = albumCategoryMember.getImageFiles().get("cover").getUrl();
+                                }
+                                jump2Play(albumCategoryMember.getAlbumId(), albumCategoryMember.getTitle(), url);
                             }
-                            jump2Play(albumCategoryMember.getAlbumId(), albumCategoryMember.getTitle(), url);
                         }
-                    }
-                });
+                    });
+                } else {
+                    adapter.setDataAndNotify(listBasePageResult.getDataList());
+                }
+                curSelectChannel.setText(name);
             }
 
             @Override

@@ -77,7 +77,6 @@ public class KaolaAudioBroadcastPageFrag extends BaseFragment {
                 }, warpper -> {
                     dialog.cancel();
                     getCategoryAblum(warpper);
-                    curSelectChannel.setText(warpper.getName());
                 });
             }
         });
@@ -129,11 +128,13 @@ public class KaolaAudioBroadcastPageFrag extends BaseFragment {
     }
 
     private void getCategoryAblum(Category category) {
+        String name = category.getName();
         new OperationRequest().getCategoryMemberList(category.getCode(), 1, 50, new HttpCallback<BasePageResult<List<CategoryMember>>>() {
             @Override
             public void onSuccess(BasePageResult<List<CategoryMember>> listBasePageResult) {
                 adapter = new KaolaAICategoryListAdapter(mContext, listBasePageResult.getDataList());
                 recyclerView.setAdapter(adapter);
+                curSelectChannel.setText(name);
                 adapter.setOnItemClick(new KaolaAICategoryListAdapter.OnItemClick() {
                     @Override
                     public void onClick(CategoryMember cm) {
