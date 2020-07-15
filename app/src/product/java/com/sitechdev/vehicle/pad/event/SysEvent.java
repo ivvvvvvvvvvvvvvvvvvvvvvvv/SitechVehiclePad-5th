@@ -73,6 +73,10 @@ public class SysEvent extends BaseEvent<String> {
      */
     public static final String EB_SYS_WIFI_STATE = "EB_SYS_WIFI_STATE";
     /**
+     * WIFI开关开启或关闭状态
+     */
+    public static final String EB_SYS_WIFI_SWITCH_STATE = "EB_SYS_WIFI_SWITCH_STATE";
+    /**
      * 系统设备连接状态更新 [Teddy]
      */
     public static final String EB_SYS_TEDDY_SWITCH_STATE = "EB_SYS_TEDDY_SWITCH_STATE";

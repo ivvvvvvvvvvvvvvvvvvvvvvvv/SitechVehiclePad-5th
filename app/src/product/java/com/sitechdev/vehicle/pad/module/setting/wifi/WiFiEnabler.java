@@ -11,7 +11,9 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.util.Log;
 
+import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.NetworkUtils;
+import com.sitechdev.vehicle.pad.event.SysEvent;
 import com.sitechdev.vehicle.pad.view.CustomSwitchButton;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -201,6 +203,7 @@ public class WiFiEnabler implements CustomSwitchButton.OnSwitchCheckChangeListen
             mSwitchSetEnabled(true);
 //            Toast.makeText(mContext, "R.string.wifi_error", Toast.LENGTH_SHORT).show();
         }
+        EventBusUtils.postEvent(new SysEvent(SysEvent.EB_SYS_WIFI_SWITCH_STATE, isChecked));
     }
 
     public interface CallBack {
