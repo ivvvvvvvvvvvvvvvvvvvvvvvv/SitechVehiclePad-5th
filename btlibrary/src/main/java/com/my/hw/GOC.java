@@ -483,7 +483,7 @@ public class GOC extends BtCmd {
                                 var11 = var14;
                                 var12 = var13;
                             }
-                        }  else if (var1[0] == 68 && var1[1] == 66) {//本地蓝牙地址
+                        } else if (var1[0] == 68 && var1[1] == 66) {//本地蓝牙地址
                             String address = "";
                             try {
                                 address = new String(var1,"UTF-8");
@@ -496,6 +496,23 @@ public class GOC extends BtCmd {
                             }
                             var49 = 189;
                             var3 = var5;
+                            var12 = var13;
+
+                        } else if (var1[0] == 80 && var1[1] == 67) {//电话本下载结束/失败
+                            String result = "";
+                            try {
+                                result = new String(var1,"UTF-8");
+                            } catch (UnsupportedEncodingException e) {
+                                e.printStackTrace();
+                            }
+                            var3 = 0;
+                            if (result.startsWith("PC0")) {//下载失败
+                                var3 = 1;
+                            } else if(result.startsWith("PC1")){//下载结束
+                                var3 = 2;
+                            }
+                            var49 = 23;
+                            var11 = "";
                             var12 = var13;
 
                         } else if (var1[0] == 73 && var1[1] == 67) {

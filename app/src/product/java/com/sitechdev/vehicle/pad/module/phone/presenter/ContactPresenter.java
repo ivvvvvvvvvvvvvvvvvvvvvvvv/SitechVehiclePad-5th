@@ -60,21 +60,20 @@ public class ContactPresenter extends ContactContract.Presenter {
                 }
                 break;
             case BTEvent.PB_OR_CL_UPDATE_SUCCESS:
-                boolean isPhoneBook = (boolean) event.getData();
-                if (isPhoneBook) {
+                if ((int)event.getData() == BtGlobalRef.DOWNLOAD_FINISH_CONTACT){
                     if (getView() != null) {
                         if (CollectionUtils.isEmpty(BtGlobalRef.contactSorts)) {
-                            getView().showEmptyView();
+                            getView().showEmptyView(false);
                         } else {
                             getView().showLoadSuccessView();
                         }
                     }
                     if (BtGlobalRef.contactName.size() > 0) {
                         ThreadManager.getInstance().addTask(() -> {
-//                            VUIUtils.updataUserWordsContact(AppApplication.getContext(),
-//                                    BtGlobalRef.contactName);
                         });
                     }
+                } else if((int)event.getData() == BtGlobalRef.DOWNLOAD_FINISH_FAIL){
+                    getView().showEmptyView(true);
                 }
                 break;
             default:

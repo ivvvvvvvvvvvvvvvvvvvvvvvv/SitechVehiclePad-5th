@@ -36,7 +36,7 @@ public interface CallLogContract {
 
         void showLoadFailedView();
 
-        void showEmptyView();
+        void showEmptyView(boolean isFail);
 
         /**
          * 查看未接电话、已接电话等

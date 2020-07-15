@@ -67,7 +67,7 @@ public class PhoneBtManager {
                     }
                     break;
                     case ATBluetooth.RETURN_PHONE_CALLLOG_END: {//通话记录下载结束
-                        EventBusUtils.postEvent(new BTEvent(BTEvent.PB_OR_CL_UPDATE_SUCCESS, false));
+                        EventBusUtils.postEvent(new BTEvent(BTEvent.PB_OR_CL_UPDATE_SUCCESS, BtGlobalRef.DOWNLOAD_FINISH_CALLLOGS));
                         isPullNewCalllog = false;
                     }
                     break;
@@ -317,29 +317,33 @@ public class PhoneBtManager {
             BtGlobalRef.contacts.add(new Contact(abbr, contactName, number));
             BtGlobalRef.contactName.add(name);
         } else { //通讯录下载结束
-            EventBusUtils.postEvent(new BTEvent(BTEvent.PB_DOWN_COUNT,
-                    BtGlobalRef.contacts.size()));
-            if (CollectionUtils.isEmpty(BtGlobalRef.callLogs)) {
-                reqCallLogs();
-            }
-            ThreadUtils.executeByIo(new ThreadUtils.SimpleTask<Void>() {
-                @Nullable
-                @Override
-                public Void doInBackground() {
-                    Collections.sort(BtGlobalRef.contacts, PinyinComparator.getDefault());
-                    List<Contact> tmpContacts = IndexUtils.sortContacts(BtGlobalRef.contacts);
-                    BtGlobalRef.contactSorts.clear();
-                    BtGlobalRef.contactSorts.addAll(tmpContacts);
-                    return null;
+            if (param2 == 1) {//下载失败
+                EventBusUtils.postEvent(new BTEvent(BTEvent.PB_OR_CL_UPDATE_SUCCESS, BtGlobalRef.DOWNLOAD_FINISH_FAIL));
+            } else if (param2 == 2) {//下载结束
+                EventBusUtils.postEvent(new BTEvent(BTEvent.PB_DOWN_COUNT,
+                        BtGlobalRef.contacts.size()));
+                if (CollectionUtils.isEmpty(BtGlobalRef.callLogs)) {
+                    reqCallLogs();
                 }
+                ThreadUtils.executeByIo(new ThreadUtils.SimpleTask<Void>() {
+                    @Nullable
+                    @Override
+                    public Void doInBackground() {
+                        Collections.sort(BtGlobalRef.contacts, PinyinComparator.getDefault());
+                        List<Contact> tmpContacts = IndexUtils.sortContacts(BtGlobalRef.contacts);
+                        BtGlobalRef.contactSorts.clear();
+                        BtGlobalRef.contactSorts.addAll(tmpContacts);
+                        return null;
+                    }
 
-                @Override
-                public void onSuccess(@Nullable Void result) {
-                    super.onSuccess(result);
-                    EventBusUtils.postEvent(new TeddyEvent(TeddyEvent.EB_TEDDY_EVENT_SR_CONTACT_DICT));
-                    EventBusUtils.postEvent(new BTEvent(BTEvent.PB_OR_CL_UPDATE_SUCCESS, true));
-                }
-            });
+                    @Override
+                    public void onSuccess(@Nullable Void result) {
+                        super.onSuccess(result);
+                        EventBusUtils.postEvent(new TeddyEvent(TeddyEvent.EB_TEDDY_EVENT_SR_CONTACT_DICT));
+                        EventBusUtils.postEvent(new BTEvent(BTEvent.PB_OR_CL_UPDATE_SUCCESS, BtGlobalRef.DOWNLOAD_FINISH_CONTACT));
+                    }
+                });
+            }
         }
     }
 

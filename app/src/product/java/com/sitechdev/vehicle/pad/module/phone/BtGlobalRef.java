@@ -78,4 +78,8 @@ public class BtGlobalRef {
             BtConstants.FUNC_OFF,
             BtConstants.FUNC_OFF,
             BtConstants.FUNC_OFF};
+
+    public static int DOWNLOAD_FINISH_CONTACT = 1;
+    public static int DOWNLOAD_FINISH_CALLLOGS = 2;
+    public static int DOWNLOAD_FINISH_FAIL = 3;
 }

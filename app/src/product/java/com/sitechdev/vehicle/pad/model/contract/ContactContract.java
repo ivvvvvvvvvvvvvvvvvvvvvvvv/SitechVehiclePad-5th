@@ -32,7 +32,7 @@ public interface ContactContract {
 
         void showLoadFailedView();
 
-        void showEmptyView();
+        void showEmptyView(boolean isFail);
 
         void onPbCount(int count);
     }

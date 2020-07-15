@@ -109,8 +109,12 @@ public class CallLogFragment extends MvpFragment<CallLogPresenter> implements Ca
     }
 
     @Override
-    public void showEmptyView() {
-        hintTxt.setText("暂无通话记录!");
+    public void showEmptyView(boolean isFail) {
+        if(isFail){
+            hintTxt.setText("手机通讯录未授权,请授权后重新操作");
+        } else {
+            hintTxt.setText("暂无通话记录!");
+        }
         downBtn.setVisibility(View.GONE);
         mEmptyView.setVisibility(View.VISIBLE);
         downLayout.setVisibility(View.VISIBLE);

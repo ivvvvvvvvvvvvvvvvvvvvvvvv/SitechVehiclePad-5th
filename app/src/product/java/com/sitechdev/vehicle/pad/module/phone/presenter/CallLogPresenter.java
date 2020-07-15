@@ -78,15 +78,16 @@ public class CallLogPresenter extends CallLogContract.Presenter {
                 }
                 break;
             case BTEvent.PB_OR_CL_UPDATE_SUCCESS:
-                boolean isPhoneBook = (boolean) event.getData();
-                if (!isPhoneBook) {
+                if ((int)event.getData() == BtGlobalRef.DOWNLOAD_FINISH_CALLLOGS) {
                     if (getView() != null) {
                         if (CollectionUtils.isEmpty(BtGlobalRef.callLogs)) {
-                            getView().showEmptyView();
+                            getView().showEmptyView(false);
                         } else {
                             getView().showLoadSuccessView();
                         }
                     }
+                } else if((int)event.getData() == BtGlobalRef.DOWNLOAD_FINISH_FAIL){
+                    getView().showEmptyView(true);
                 }
                 break;
             default:

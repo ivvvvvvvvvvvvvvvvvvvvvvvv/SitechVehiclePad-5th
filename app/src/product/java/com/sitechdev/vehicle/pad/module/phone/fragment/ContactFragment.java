@@ -213,7 +213,7 @@ public class ContactFragment extends MvpFragment<ContactPresenter> implements Vi
     }
 
     @Override
-    public void showEmptyView() {
+    public void showEmptyView(boolean isFail) {
         refreshLayout.setVisibility(View.GONE);
         phoneBookList.setVisibility(View.GONE);
         mIndexListView.setVisibility(View.GONE);
@@ -221,7 +221,11 @@ public class ContactFragment extends MvpFragment<ContactPresenter> implements Vi
         downBtn.setVisibility(View.GONE);
         mEmptyView.setVisibility(View.VISIBLE);
         mEmptyLayout.setVisibility(View.VISIBLE);
-        hintTxt.setText("暂无通讯录!");
+        if(isFail){
+            hintTxt.setText("手机通讯录未授权,请授权后重新操作");
+        } else {
+            hintTxt.setText("暂无通讯录!");
+        }
     }
 
     @Override
