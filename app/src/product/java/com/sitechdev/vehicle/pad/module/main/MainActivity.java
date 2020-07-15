@@ -822,7 +822,9 @@ public class MainActivity extends BaseActivity
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(BluetoothEvent event) {
         if (event.getTag().equals(BluetoothEvent.BT_EVENT_RECEIVE_TITLE)) {
-            tvMusicName.setText((String) event.getObject());
+            if (VoiceSourceManager.BT_MUSIC == VoiceSourceManager.getInstance().getMusicSource()) {
+                tvMusicName.setText((String) event.getObject());
+            }
         } else if (event.getTag().equals(BluetoothEvent.BT_EVENT_RECEIVE_PLAY_ON)) {
             if (SettingConfig.getInstance().isBtConnected()) {
                 ivMusicStop.setActivated(true);
