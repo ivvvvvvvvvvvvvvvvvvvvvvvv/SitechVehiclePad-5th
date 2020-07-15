@@ -19,7 +19,7 @@
             layout="@layout/common_phonel_title_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="45px" />
+            android:layout_marginTop="45pt" />
 
         <LinearLayout
             android:id="@+id/phone_content_layout"

@@ -16,20 +16,18 @@
     <!--标题-->
     <com.sitechdev.vehicle.pad.view.TabLayout
         android:id="@+id/tv_sub_title_tab"
-        style="@style/RadioButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="74px"
-        android:layout_marginLeft="25px"
         android:clipChildren="false"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/toolbar_tablayout_height"
+        android:layout_marginLeft="@dimen/toolbar_tablayout_margin_left"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/iv_phone_sub_back"
+        app:layout_constraintLeft_toRightOf="@+id/iv_phone_sub_back"
         app:layout_constraintTop_toTopOf="parent"
         app:tabIndicatorColor="@color/white"
         app:tabIndicatorHeight="3px"
         app:tabMode="fixed"
-        app:tabPaddingEnd="15px"
-        app:tabPaddingStart="15px"
-
+        app:tabPaddingStart="@dimen/toolbar_tablayout_tab_padding_start"
+        app:tabPaddingEnd="@dimen/toolbar_tablayout_tab_padding_end"
         app:tabSelectedTextColor="@color/white"
         app:tabTextAppearance="@style/TabLayoutTextStyle"
         app:tabTextColor="@color/colo_80ffffff">
@@ -50,11 +48,11 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:layout_marginLeft="25px"
-        android:layout_marginRight="25px"
+        android:layout_marginLeft="25pt"
+        android:layout_marginRight="25pt"
         android:background="#FF6E6E80"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_phone_sub_back" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_phone_sub_back" />
 
 </android.support.constraint.ConstraintLayout>
