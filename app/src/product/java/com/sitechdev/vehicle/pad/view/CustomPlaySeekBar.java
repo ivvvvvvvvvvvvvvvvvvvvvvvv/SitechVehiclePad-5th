@@ -2,6 +2,7 @@ package com.sitechdev.vehicle.pad.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -221,7 +222,7 @@ public class CustomPlaySeekBar extends RelativeLayout implements View.OnClickLis
         } else {
             mPlayPause.setActivated(false);
         }
-        if (null != mMusicInfoChangedListener && MusicConfig.getInstance().isUdiskMounted()) {
+        if (null != mMusicInfoChangedListener) {
             mMusicInfoChangedListener.onMusicInfoChanged(current, status);
         }
     }
