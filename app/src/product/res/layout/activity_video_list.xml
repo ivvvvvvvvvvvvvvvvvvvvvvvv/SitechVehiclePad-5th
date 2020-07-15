@@ -16,12 +16,12 @@
         android:layout_alignParentTop="true" />
 
     <FrameLayout
-        android:layout_marginTop="200pt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar_sub">
 
         <LinearLayout
+            android:layout_marginTop="200pt"
             android:id="@+id/empty"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
