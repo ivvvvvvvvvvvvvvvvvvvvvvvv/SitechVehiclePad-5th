@@ -170,12 +170,31 @@ public class AppsListGridActivity extends BaseActivity {
             MenuBundle.getInstance().setMainViewMenuListener(null);
         }
         exitRecycleViewEditStatus();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
         //移除镜像,防止内存泄露
         if (AppsMenuConfig.windowManager != null) {
             AppsMenuConfig.windowManager = null;
         }
         if (MenuBundle.getInstance().getMainViewMenuListener() != null) {
             MenuBundle.getInstance().setMainViewMenuListener(null);
+        }
+        if (AppsMenuConfig.mAllMenuAdapterList != null && !AppsMenuConfig.mAllMenuAdapterList.isEmpty()) {
+            for (MainMenuAdapater menuAdapter : AppsMenuConfig.mAllMenuAdapterList) {
+                //对象置空
+                menuAdapter = null;
+            }
+            AppsMenuConfig.mAllMenuAdapterList.clear();
+        }
+        if (AppViewPager.mAllMenuGridViewList != null && !AppViewPager.mAllMenuGridViewList.isEmpty()) {
+            for (View view : AppViewPager.mAllMenuGridViewList) {
+                //对象置空
+                view = null;
+            }
+            AppViewPager.mAllMenuGridViewList.clear();
         }
     }
 
