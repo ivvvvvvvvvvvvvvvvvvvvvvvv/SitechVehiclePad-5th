@@ -40,7 +40,6 @@ public class KaolaAudioBroadcastPageFrag extends BaseFragment {
     private ListIndicatorRecycview indecator;
     private KaolaAICategoryListAdapter adapter;
     private TextView curSelectChannel;
-    List<KaolaDataWarpper> kaolaDataWarpperList = new ArrayList<>();
     private List<Category> mCategories = new ArrayList<>();
 
     @Override
@@ -99,7 +98,7 @@ public class KaolaAudioBroadcastPageFrag extends BaseFragment {
                 @Override
                 public void onSuccess(List<Category> categories) {
                     mCategories.clear();
-                    List<Indexable> indexs = KaolaBroadcastUtil.getIndexableData(categories, 4);
+                    List<Indexable> indexs = KaolaBroadcastUtil.getIndexableData(categories, isLandscape() ? 4 : 3);
                     mCategories = KaolaBroadcastUtil.getList(categories);
                     indecator.setupWithData(indexs, new ListIndicatorRecycview.OnItemClickListener() {
                         @Override

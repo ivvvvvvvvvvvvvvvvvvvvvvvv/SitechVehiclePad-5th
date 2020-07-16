@@ -127,8 +127,9 @@ public class KaolaAudioCategoryPageFrag extends BaseFragment {
                                 mCategories.add(categories.get(finalI).getChildCategories().get(finalJ));
                             }
                         }
-                        if (indexs.size() > 3) {
-                            indexs = indexs.size() == 4 ? indexs : indexs.subList(0, 4);
+                        int max = isLandscape() ? 4 : 3;
+                        if (indexs.size() > (max - 1)) {
+                            indexs = indexs.size() == max ? indexs : indexs.subList(0, max);
                             break;
                         }
                     }
