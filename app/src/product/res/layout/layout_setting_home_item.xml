@@ -24,8 +24,8 @@
             android:id="@+id/setting_home_item_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
+            android:layout_alignBaseline="@id/setting_home_item_title"
             android:layout_toLeftOf="@+id/setting_home_item_arrow"
             android:textColor="@color/white"
             android:textSize="32pt" />
