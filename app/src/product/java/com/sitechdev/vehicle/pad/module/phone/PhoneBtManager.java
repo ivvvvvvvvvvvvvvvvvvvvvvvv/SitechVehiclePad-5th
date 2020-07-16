@@ -90,6 +90,9 @@ public class PhoneBtManager {
                         info.setState(BTEvent.ACTIVE);
                         EventBusUtils.postEvent(new BTEvent(BTEvent.PHONE_CALL_STATE,
                                 info));
+                        if(null != mHandler){
+                            mHandler.removeMessages(MyBtHandler.MSG_START_DIAL);
+                        }
                     }
                     break;
                     case ATBluetooth.RETURN_CALL_INCOMING: {//打进电话
@@ -98,6 +101,9 @@ public class PhoneBtManager {
                         info.setState(BTEvent.INCOMING);
                         EventBusUtils.postEvent(new BTEvent(BTEvent.PHONE_CALL_STATE,
                                 info));
+                        if(null != mHandler){
+                            mHandler.removeMessages(MyBtHandler.MSG_START_DIAL);
+                        }
                     }
                     break;
                     case ATBluetooth.RETURN_CALL_OUT: {//拨出
@@ -106,6 +112,9 @@ public class PhoneBtManager {
                         info.setState(BTEvent.DIALING);
                         EventBusUtils.postEvent(new BTEvent(BTEvent.PHONE_CALL_STATE,
                                 info));
+                        if(null != mHandler){
+                            mHandler.removeMessages(MyBtHandler.MSG_START_DIAL);
+                        }
                     }
                     break;
                     case ATBluetooth.RETURN_CALL_END: {//通话结束
@@ -115,6 +124,9 @@ public class PhoneBtManager {
                         EventBusUtils.postEvent(new BTEvent(BTEvent.PHONE_CALL_STATE,
                                 info));
                         reqNewCalllog();
+                        if(null != mHandler){
+                            mHandler.removeMessages(MyBtHandler.MSG_START_DIAL);
+                        }
                     }
                     break;
                     case ATBluetooth.RETURN_HFP_INFO: {//连接状态
@@ -214,6 +226,9 @@ public class PhoneBtManager {
      */
     public void diaTo(String phoneNum) {
         mATBluetooth.write(ATBluetooth.REQUEST_CALL, phoneNum);
+        if(null != mHandler){
+            mHandler.sendEmptyMessageDelayed(MyBtHandler.MSG_START_DIAL,15*1000);
+        }
     }
 
     /**
@@ -385,6 +400,7 @@ public class PhoneBtManager {
 
     private class MyBtHandler extends Handler{
         public static final int MSG_CONNECT_BT_FAIL = 0;
+        public static final int MSG_START_DIAL = 1;
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -393,6 +409,10 @@ public class PhoneBtManager {
                     CommonToast.showToast(String.format("连接失败，请确定“%s”已打开而且在通信范围内",SettingConfig.getInstance().getConnecttingBtName()));
                     SettingConfig.getInstance().setConnecttingBtName("");
                     EventBusUtils.postEvent(new SysEvent(SysEvent.EB_SYS_BT_CONNECT_FAIL));
+                }
+                break;
+                case MSG_START_DIAL:{
+                    CommonToast.showToast("呼出失败，请检查手机设备通信状态");
                 }
                 break;
                 default:
