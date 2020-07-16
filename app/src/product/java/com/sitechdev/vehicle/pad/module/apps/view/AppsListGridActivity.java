@@ -167,11 +167,15 @@ public class AppsListGridActivity extends BaseActivity {
         if (AppsMenuConfig.isAppsEditStatus && MenuBundle.getInstance().getMainViewMenuListener() != null) {
             SitechDevLog.w(AppConst.TAG_APP, "setCountDownTimeRunnable ====>Activity onStop ==取消 退出编辑倒计时 线程===>");
             MenuBundle.getInstance().getMainViewMenuListener().setCountDownTimeRunnable(false);
+            MenuBundle.getInstance().setMainViewMenuListener(null);
         }
         exitRecycleViewEditStatus();
         //移除镜像,防止内存泄露
         if (AppsMenuConfig.windowManager != null) {
             AppsMenuConfig.windowManager = null;
+        }
+        if (MenuBundle.getInstance().getMainViewMenuListener() != null) {
+            MenuBundle.getInstance().setMainViewMenuListener(null);
         }
     }
 
