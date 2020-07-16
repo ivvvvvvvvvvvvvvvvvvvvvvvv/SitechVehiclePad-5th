@@ -67,7 +67,7 @@
     },
     {
       "index": 8,
-      "appName": "网络音乐",
+      "appName": "酷我音乐",
       "appIcon": 9,
       "appRoute": "/m_main/thirdPage/g_third_app/netMusic?needLogin=false&needNet=true",
       "jumpType": 1,
