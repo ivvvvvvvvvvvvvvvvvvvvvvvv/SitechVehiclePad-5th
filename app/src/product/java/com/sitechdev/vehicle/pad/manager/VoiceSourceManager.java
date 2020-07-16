@@ -157,34 +157,36 @@ public class VoiceSourceManager {
         @Override
         public void onPause() {
             int len = listeners.size();
-            boolean[] removes = null;
-            for (int i = 0; i < len; i++) {
-                WeakReference<MusicChangeListener> ref = listeners.get(i);
-                if (null == ref || null == ref.get()) {
-                    if (null == removes) {
-                        removes = new boolean[len];
-                    }
-                    removes[i] = true;
-                    continue;
-                }
-                MusicChangeListener listener = ref.get();
-                PlayItem curPlayItem;
-                if (KaolaPlayManager.SingletonHolder.INSTANCE.isCurPlayingBroadcast()) {
-                    curPlayItem = BroadcastRadioListManager.getInstance().getCurPlayItem();
-                } else {
-                    curPlayItem = PlayerListManager.getInstance().getCurPlayItem();
-                }
-                SitechDevLog.i("music", "MainActivty vourceManger=  onPause  = curPlayItem == null=" + (curPlayItem == null));
-                if (curPlayItem == null) {
-                    continue;
-                }
-                SitechDevLog.i("music", "MainActivty vourceManger=  onPause  =listener.getClass()=" + listener.getClass());
-                String value = listener.getClass().getAnnotation(
-                        VoiceSourceType.class).value();
-                if (value.equals(SUPPORT_TYPE_ALL) || value.equals(SUPPORT_TYPE_KAOLA)) {
-                    listener.pause();
-                }
-                SitechDevLog.i("onMusicChange", "MainActivty vourceManger=  onPause  =value=" + value);
+            if(len > 0){
+                synchronized (listeners){
+                    boolean[] removes = null;
+                    for (int i = 0; i < len; i++) {
+                        WeakReference<MusicChangeListener> ref = listeners.get(i);
+                        if (null == ref || null == ref.get()) {
+                            if (null == removes) {
+                                removes = new boolean[len];
+                            }
+                            removes[i] = true;
+                            continue;
+                        }
+                        MusicChangeListener listener = ref.get();
+                        PlayItem curPlayItem;
+                        if (KaolaPlayManager.SingletonHolder.INSTANCE.isCurPlayingBroadcast()) {
+                            curPlayItem = BroadcastRadioListManager.getInstance().getCurPlayItem();
+                        } else {
+                            curPlayItem = PlayerListManager.getInstance().getCurPlayItem();
+                        }
+                        SitechDevLog.i("music", "MainActivty vourceManger=  onPause  = curPlayItem == null=" + (curPlayItem == null));
+                        if (curPlayItem == null) {
+                            continue;
+                        }
+                        SitechDevLog.i("music", "MainActivty vourceManger=  onPause  =listener.getClass()=" + listener.getClass());
+                        String value = listener.getClass().getAnnotation(
+                                VoiceSourceType.class).value();
+                        if (value.equals(SUPPORT_TYPE_ALL) || value.equals(SUPPORT_TYPE_KAOLA)) {
+                            listener.pause();
+                        }
+                        SitechDevLog.i("onMusicChange", "MainActivty vourceManger=  onPause  =value=" + value);
 //                if (curPlayItem != null) {
 //                    String title = curPlayItem.getTitle();
 //                    SitechDevLog.i("onMusicChange", "MainActivty vourceManger=  onPause  ===title=" + title);
@@ -205,11 +207,14 @@ public class VoiceSourceManager {
 //                            break;
 //                    }
 //                }
-            }
-            if (null != removes) {
-                for (int i = 0; i < len; i++) {
-                    if (removes[i]) {
-                        listeners.remove(i);
+                    }
+
+                    if (null != removes) {
+                        for (int i = 0; i < len; i++) {
+                            if (removes[i]) {
+                                listeners.remove(i);
+                            }
+                        }
                     }
                 }
             }
