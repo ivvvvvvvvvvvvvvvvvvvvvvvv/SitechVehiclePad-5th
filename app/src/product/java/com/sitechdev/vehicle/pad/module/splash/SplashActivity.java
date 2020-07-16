@@ -109,7 +109,18 @@ public class SplashActivity extends BaseActivity {
                 TimeUtils.formatTime(System.currentTimeMillis(), "HH:mm:ss.SSS") + " >>>"
                 + ProcessUtil.getCurrentProcessName(this));
         Log.i("ActivityManager", "ActivityUtils.getActivityList().size()====" + ActivityUtils.getActivityList().size());
-        if (ActivityUtils.getActivityList().size() <= 1) {
+        List<Activity> activities = ActivityUtils.getActivityList();
+        boolean allSplash = true;//标记重复启动Splash 导致的 Splash产生多个实例
+        for (int i = 0; i < activities.size(); i++) {
+            if (!activities.get(i).getComponentName().getClassName().equals(this.getComponentName().getClassName())) {
+                if (activities.get(i).getPackageName().equals(this.getComponentName().getPackageName())) {
+                    allSplash = false;
+                    break;
+                }
+            }
+        }
+//        Log.i("zyf","allSplash = "+allSplash);
+        if (ActivityUtils.getActivityList().size() <= 1 || allSplash) {
             RouterUtils.getInstance().navigationHomePage(RouterConstants.HOME_MAIN);
         } else {
             Activity activity = ActivityUtils.getActivityList().get(1);
