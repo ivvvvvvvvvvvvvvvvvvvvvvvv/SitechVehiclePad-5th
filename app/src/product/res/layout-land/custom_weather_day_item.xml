@@ -6,8 +6,8 @@
     android:layout_height="130pt"
     android:background="@drawable/weather_info_day_bg"
     android:gravity="center_horizontal"
-    android:paddingLeft="24pt"
-    android:paddingRight="24pt">
+    android:paddingLeft="20pt"
+    android:paddingRight="20pt">
 
     <TextView
         android:id="@+id/id_weather_date"
