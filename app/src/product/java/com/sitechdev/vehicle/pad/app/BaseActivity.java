@@ -200,6 +200,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 //        if (this.getClass().isAnnotationPresent(BindBus.class)) {
 //            XtBusUtil.unregister(this);
 //        }
+        ActivityManager.getInstance().removeActivity(this);
     }
 
     @Override
