@@ -111,7 +111,7 @@ public class BaseAppWindowManager {
                 AppSignalWindowManager.getInstance().hide();
                 TeddyWindowManager.getInstance().hide();
                 MainMenuWindowManager.getInstance().hide();
-                MainControlPanelWindowManager.getInstance().hide();
+//                MainControlPanelWindowManager.getInstance().hide();
                 break;
             //输入法弹出时
             case WindowEvent.EVENT_WINDOW_INPUT_SHOW_STATE:
