@@ -18,7 +18,7 @@ public class ActivityManager {
 
     private static ActivityManager instance;
 
-    private HashMap<String,Activity> activityHashMap=null;
+    private HashMap<String, Activity> activityHashMap = null;
 
     private ActivityManager() {
     }
@@ -73,6 +73,16 @@ public class ActivityManager {
         if (activity != null && !CollectionUtils.isEmpty(activityStack)) {
             activityStack.remove(activity);
             activity.finish();
+            activity = null;
+        }
+    }
+
+    /**
+     * 移除指定的Activity
+     */
+    public void removeActivity(Activity activity) {
+        if (activity != null && !CollectionUtils.isEmpty(activityStack)) {
+            activityStack.remove(activity);
             activity = null;
         }
     }
