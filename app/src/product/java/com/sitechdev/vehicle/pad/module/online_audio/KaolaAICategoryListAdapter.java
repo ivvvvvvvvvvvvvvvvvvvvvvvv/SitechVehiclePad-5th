@@ -92,7 +92,7 @@ public class KaolaAICategoryListAdapter extends KaolaBaseAdapter<KaolaAICategory
         if (mLists.get(i).getImageFiles() != null ) {
             if (mLists.get(i).getImageFiles().containsKey("icon")) {
                 ImageFile img = mLists.get(i).getImageFiles().get("icon");
-                GlideApp.with(context).load(img.getUrl()).placeholder(R.drawable.default_audio).centerCrop().into(vh.img);
+                GlideApp.with(context).load(img.getUrl()).placeholder(R.drawable.default_audio_2).centerCrop().into(vh.img);
             }
             if (mLists.get(i).getImageFiles().containsKey("cover")) {
                 ImageFile img = mLists.get(i).getImageFiles().get("cover");
