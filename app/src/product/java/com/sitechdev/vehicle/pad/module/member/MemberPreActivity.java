@@ -152,6 +152,15 @@ public class MemberPreActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (logoutDialog != null && logoutDialog.isShowing()) {
+            logoutDialog.cancel();
+            logoutDialog = null;
+        }
+    }
+
     private void requestMemberInfo() {
 //        showProgressDialog();
         MemberHttpUtil.requestUserMemberInfo(new BaseBribery() {

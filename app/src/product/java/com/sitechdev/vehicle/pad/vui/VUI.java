@@ -1,7 +1,5 @@
 package com.sitechdev.vehicle.pad.vui;
 
-import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
@@ -62,7 +60,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -96,7 +93,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
     private boolean vadBos = false;
     private boolean isInTTS = false;
     private boolean isUIHide = false;
-    private LinkedList<Activity> activities;
+//    private LinkedList<Activity> activities;
     private JSONArray calls;
     private boolean shutdown = false;
 
@@ -1179,66 +1176,66 @@ public class VUI implements VUIWindow.OnWindowHideListener {
 
     private VUI() {
         context = AppApplication.getContext();
-        registerActivityLifecycleCallbacks();
+//        registerActivityLifecycleCallbacks();
         mWakeupEngine = WakeupEngine.getInstance(mWakeuperListener);
         mAIUIEngine = AIUIEngine.getInstance(mAIUIListener);
         mTTS = TTS.getInstance(mAIUIListener);
         EventBusUtils.register(this);
     }
 
-    private void registerActivityLifecycleCallbacks() {
-        activities = new LinkedList<>();
-        ((Application) context).registerActivityLifecycleCallbacks(
-                new Application.ActivityLifecycleCallbacks() {
-                    @Override
-                    public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-
-                    }
-
-                    @Override
-                    public void onActivityStarted(Activity activity) {
-
-                    }
-
-                    @Override
-                    public void onActivityResumed(Activity activity) {
-                        log("onActivityResumed -> " + activity.getLocalClassName());
-//                        topActivity = new WeakReference<Activity>(activity);
-                        activities.add(activity);
-                        if (isUIHide) {
-                            start();
-                        }
-                    }
-
-                    @Override
-                    public void onActivityPaused(Activity activity) {
-                    }
-
-                    @Override
-                    public void onActivityStopped(Activity activity) {
-                        log("onActivityStopped -> " + activity.getLocalClassName());
-                        activities.remove(activity);
-//                        if (activities.size() == 0){
-//                            isUIHide = true;
-//                            stop();
+//    private void registerActivityLifecycleCallbacks() {
+//        activities = new LinkedList<>();
+//        ((Application) context).registerActivityLifecycleCallbacks(
+//                new Application.ActivityLifecycleCallbacks() {
+//                    @Override
+//                    public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onActivityStarted(Activity activity) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onActivityResumed(Activity activity) {
+//                        log("onActivityResumed -> " + activity.getLocalClassName());
+////                        topActivity = new WeakReference<Activity>(activity);
+//                        activities.add(activity);
+//                        if (isUIHide) {
+//                            start();
 //                        }
-                    }
-
-                    @Override
-                    public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-
-                    }
-
-                    @Override
-                    public void onActivityDestroyed(Activity activity) {
-//                        if (null != topActivity && null != topActivity.get()){
-//                            if (topActivity.get() == activity){
-//                                topActivity = null;
-//                            }
-//                        }
-                    }
-                });
-    }
+//                    }
+//
+//                    @Override
+//                    public void onActivityPaused(Activity activity) {
+//                    }
+//
+//                    @Override
+//                    public void onActivityStopped(Activity activity) {
+//                        log("onActivityStopped -> " + activity.getLocalClassName());
+//                        activities.remove(activity);
+////                        if (activities.size() == 0){
+////                            isUIHide = true;
+////                            stop();
+////                        }
+//                    }
+//
+//                    @Override
+//                    public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onActivityDestroyed(Activity activity) {
+////                        if (null != topActivity && null != topActivity.get()){
+////                            if (topActivity.get() == activity){
+////                                topActivity = null;
+////                            }
+////                        }
+//                    }
+//                });
+//    }
 
     public void start() {
         isUIHide = false;
