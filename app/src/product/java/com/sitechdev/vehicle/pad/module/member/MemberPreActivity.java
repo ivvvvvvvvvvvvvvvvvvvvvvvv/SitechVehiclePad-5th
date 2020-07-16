@@ -325,7 +325,8 @@ public class MemberPreActivity extends BaseActivity {
                 //我的积分
                 break;
             case R.id.id_feedback:
-                toFeedback();
+                CommonUtil.showToast(R.string.app_developing);
+//                toFeedback();
                 break;
             case R.id.id_sign_count_top_content:
                 if (!LoginUtils.isLogin()) {
