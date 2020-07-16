@@ -35,4 +35,6 @@ interface AMusicInterface {
 
     IPCResult changeMode(int mode);
 
+    void clearMusicInfo();
+
 }

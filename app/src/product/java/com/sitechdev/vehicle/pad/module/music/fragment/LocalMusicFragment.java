@@ -240,6 +240,7 @@ public class LocalMusicFragment extends BaseFragment implements
         if (event.getEvent() == SysEvent.EB_SYS_USB_STATE) {
             boolean isMounted = (boolean) event.getObj();
             if (!isMounted) {
+                MusicManager.getInstance().clearMusicInfo();
                 onCheckEmpty(true);
             }
         }

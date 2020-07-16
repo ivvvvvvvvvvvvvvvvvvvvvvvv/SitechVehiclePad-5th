@@ -523,6 +523,16 @@ public class MusicService extends Service {
             return result;
         }
 
+        @Override
+        public void clearMusicInfo() throws RemoteException {
+            if(null != musicInfos){
+                musicInfos.clear();
+            }
+            if(null != randomMusicInfos){
+                randomMusicInfos.clear();
+            }
+        }
+
         private Uri getAlbumArtUri(long albumId) {
             return ContentUris.withAppendedId(Uri.parse(
                     "content://media/external/audio/albumart"), albumId);

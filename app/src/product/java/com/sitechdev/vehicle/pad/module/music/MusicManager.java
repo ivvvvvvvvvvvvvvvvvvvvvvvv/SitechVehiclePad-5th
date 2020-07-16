@@ -445,6 +445,16 @@ public class MusicManager {
                 });
     }
 
+    public void clearMusicInfo() {
+        if(null != musicInterface){
+            try {
+                musicInterface.clearMusicInfo();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
     public interface CallBack<T> {
         void onCallBack(int code, T t);
