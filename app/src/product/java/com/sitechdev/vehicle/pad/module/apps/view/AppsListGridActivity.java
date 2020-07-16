@@ -169,6 +169,10 @@ public class AppsListGridActivity extends BaseActivity {
             MenuBundle.getInstance().getMainViewMenuListener().setCountDownTimeRunnable(false);
         }
         exitRecycleViewEditStatus();
+        //移除镜像,防止内存泄露
+        if (AppsMenuConfig.windowManager != null) {
+            AppsMenuConfig.windowManager = null;
+        }
     }
 
     @Override
