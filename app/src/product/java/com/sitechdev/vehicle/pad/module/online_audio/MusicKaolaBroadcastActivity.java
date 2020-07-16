@@ -1,5 +1,6 @@
 package com.sitechdev.vehicle.pad.module.online_audio;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import com.kaolafm.sdk.core.mediaplayer.PlayItem;
 import com.kaolafm.sdk.core.mediaplayer.PlayItemType;
 import com.kaolafm.sdk.core.mediaplayer.PlayerRadioListManager;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
+import com.sitechdev.vehicle.lib.event.AppEvent;
 import com.sitechdev.vehicle.lib.event.BindEventBus;
 import com.sitechdev.vehicle.lib.imageloader.GlideApp;
 import com.sitechdev.vehicle.lib.util.Constant;
@@ -28,7 +30,6 @@ import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.lib.util.TimeUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.BaseActivity;
-import com.sitechdev.vehicle.lib.event.AppEvent;
 import com.sitechdev.vehicle.pad.event.TeddyEvent;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.kaola.PlayItemAdapter;
@@ -415,14 +416,14 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
                 }
                 lastStartAnimTime = System.currentTimeMillis();
                 btn_pause_play.setImageResource(R.drawable.pc_pause);
-                KaolaPlayManager.setCoverPlayStartAnim(playCoverHolder);
+                setCoverPlayStartAnim(playCoverHolder);
             } else {
                 if (System.currentTimeMillis() - lastPasueAnimTime < 700) {
                     return;
                 }
                 lastPasueAnimTime = System.currentTimeMillis();
                 btn_pause_play.setImageResource(R.drawable.pc_play);
-                KaolaPlayManager.setCoverPlayPauseAnim(playCoverHolder);
+                setCoverPlayPauseAnim(playCoverHolder);
             }
         }
     }
@@ -530,8 +531,53 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
         }
     }
 
-    private void getProgamList() {
+    ValueAnimator imageAnimator;
+    ValueAnimator imageBgAnimator;
+    private void setCoverPlayStartAnim(View holder) {
+        try {
+            if (imageAnimator != null) {//image已经初始化 直接执行resume
+                if (imageAnimator.isPaused()) {
+                    imageAnimator.resume();
+                } else {
+                    imageAnimator.start();
+                }
+            } else {//初始化动画
+                imageAnimator = KaolaPlayManager.getKaolaCoverAnimStart(holder.findViewById(R.id.image));
+                imageAnimator.start();
+            }
 
+            if (imageBgAnimator != null) {//imageBg已经初始化 直接执行resume
+                if (imageBgAnimator.isPaused()) {
+                    imageBgAnimator.resume();
+                } else {
+                    imageBgAnimator.start();
+                }
+            } else {//初始化动画
+                //image bg动画
+                imageBgAnimator = KaolaPlayManager.getKaolaCoverBgAnimStart(holder.findViewById(R.id.image_bg));
+                imageBgAnimator.start();
+            }
+
+
+            holder.findViewById(R.id.ui_play_bar).startAnimation(KaolaPlayManager.getKaolaPlayStickStarAnim());
+        } finally {
+
+        }
+
+    }
+
+    private void setCoverPlayPauseAnim(View holder) {
+        try {
+            if (imageAnimator != null) {
+                imageAnimator.pause();
+            }
+            if (imageBgAnimator != null) {
+                imageBgAnimator.pause();
+            }
+
+            holder.findViewById(R.id.ui_play_bar).startAnimation(KaolaPlayManager.getKaolaPlayStickPauseAnim());
+        } finally {
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
