@@ -83,7 +83,7 @@ public class SettingBtActivity extends MvpActivity<SettingBtContract.BtPresenter
                     //重新连接新的需要隔一段时间，所以延迟进行
                     mHandler.sendMessageDelayed(message, 2000);
                 } else {
-                    mPresenter.connectToDevice(btDeviceBean.getBtAddress());
+                    mPresenter.connectToDevice(btDeviceBean.getBtName(),btDeviceBean.getBtAddress());
                     CommonProgressDialog.getInstance().show(SettingBtActivity.this);
                 }
             }
@@ -104,7 +104,7 @@ public class SettingBtActivity extends MvpActivity<SettingBtContract.BtPresenter
                     if (null != msg.obj && msg.obj instanceof BtDeviceBean) {
                         CommonProgressDialog.getInstance().show(SettingBtActivity.this);
                         BtDeviceBean deviceBean = (BtDeviceBean) msg.obj;
-                        mPresenter.connectToDevice(deviceBean.getBtAddress());
+                        mPresenter.connectToDevice(deviceBean.getBtName(),deviceBean.getBtAddress());
                     }
                 }
             }
@@ -222,6 +222,10 @@ public class SettingBtActivity extends MvpActivity<SettingBtContract.BtPresenter
             case SysEvent.EB_SYS_BT_ENABLE: {//蓝牙开关
                 boolean open = (boolean) event.getObj();
                 mBtEnableSwitch.setChecked(open);
+            }
+            break;
+            case SysEvent.EB_SYS_BT_CONNECT_FAIL: {//蓝牙连接失败
+                CommonProgressDialog.getInstance().cancel(SettingBtActivity.this);
             }
             break;
             case SysEvent.EB_SYS_BT_STATE: {//蓝牙连接状态

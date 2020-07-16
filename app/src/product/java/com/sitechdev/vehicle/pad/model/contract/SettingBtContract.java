@@ -23,7 +23,7 @@ public interface SettingBtContract {
 
         public abstract void startScan();
 
-        public abstract void connectToDevice(String mac);
+        public abstract void connectToDevice(String deviceName,String mac);
 
         public abstract void disconnectToDevice();
 

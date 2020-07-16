@@ -41,6 +41,21 @@ public class SettingConfig {
      */
     private String connectBtName = "";
 
+    /**
+     * 正在连接的蓝牙设备名称
+     * 用于连接失败时弹窗使用
+     *
+     */
+    private String connecttingBtName = "";
+
+    public String getConnecttingBtName() {
+        return connecttingBtName;
+    }
+
+    public void setConnecttingBtName(String connecttingBtName) {
+        this.connecttingBtName = connecttingBtName;
+    }
+
     public boolean isBtEnable() {
         String enable = ParamsUtil.getStringData(SP_KEY_SETTING_BT_ENABLE);
         if (StringUtils.isEmpty(enable)) {

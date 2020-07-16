@@ -31,7 +31,8 @@ public class SettingBtPresenter extends SettingBtContract.BtPresenter {
     }
 
     @Override
-    public void connectToDevice(String mac) {
+    public void connectToDevice(String deviceName,String mac) {
+        SettingConfig.getInstance().setConnecttingBtName(deviceName);
         BtManager.getInstance().connectToDevice(mac);
     }
 

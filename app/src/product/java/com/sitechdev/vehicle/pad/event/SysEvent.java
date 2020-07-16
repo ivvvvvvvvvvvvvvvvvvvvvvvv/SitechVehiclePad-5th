@@ -84,6 +84,10 @@ public class SysEvent extends BaseEvent<String> {
      * 系统设备连接状态更新 [移动网络]
      */
     public static final String EB_SYS_MOBILE_NET_SWITCH_STATE = "EB_SYS_MOBILE_NET_SWITCH_STATE";
+    /**
+     * 蓝牙设备连接失败
+     */
+    public static final String EB_SYS_BT_CONNECT_FAIL = "EB_SYS_BT_CONNECT_FAIL";
 
 
     public static final int CALLLOG_RECORDS = 0;

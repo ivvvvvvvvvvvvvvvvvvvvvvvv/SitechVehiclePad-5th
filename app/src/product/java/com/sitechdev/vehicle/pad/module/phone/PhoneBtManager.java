@@ -1,6 +1,8 @@
 package com.sitechdev.vehicle.pad.module.phone;
 
 import android.media.AudioManager;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
@@ -28,6 +30,7 @@ import com.sitechdev.vehicle.pad.model.phone.Contact;
 import com.sitechdev.vehicle.pad.module.music.BtMusicManager;
 import com.sitechdev.vehicle.pad.module.phone.utils.IndexUtils;
 import com.sitechdev.vehicle.pad.module.phone.utils.PinyinComparator;
+import com.sitechdev.vehicle.pad.view.CommonToast;
 
 import java.util.Collections;
 import java.util.List;
@@ -39,6 +42,7 @@ public class PhoneBtManager {
     private ATBluetooth mATBluetooth;
     private boolean isPullNewCalllog = false;
     public boolean isPlayingMusic = false;
+    private MyBtHandler mHandler;
     private AudioManager.OnAudioFocusChangeListener audioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
         @Override
         public void onAudioFocusChange(int focusChange) {
@@ -48,6 +52,7 @@ public class PhoneBtManager {
         }
     };
     private PhoneBtManager() {
+        mHandler = new MyBtHandler();
     }
 
     public void initPhone() {
@@ -137,6 +142,7 @@ public class PhoneBtManager {
                         SettingConfig.getInstance().setConnectBtName(param3);
                         SettingConfig.getInstance().setHFPConnected(true);
                         SettingConfig.getInstance().setA2dpConnected(true);
+                        SettingConfig.getInstance().setConnecttingBtName("");
                         EventBusUtils.postEvent(new SysEvent(EB_SYS_BT_STATE, true));
                     }
                     break;
@@ -149,6 +155,13 @@ public class PhoneBtManager {
                     case ATBluetooth.RETURN_ADDRESS:{//本地蓝牙地址
                         if(!StringUtils.isEmpty(param3) && !SettingConfig.getInstance().getLocalBtName().contains("SITECH")) {
                             modifyBtName("SITECH_"+param3);
+                        }
+                    }
+                    break;
+                    case ATBluetooth.RETURN_CONNECT_FAIL:{//蓝牙连接失败
+                        if(null != mHandler){
+                            mHandler.removeMessages(MyBtHandler.MSG_CONNECT_BT_FAIL);
+                            mHandler.sendEmptyMessageDelayed(MyBtHandler.MSG_CONNECT_BT_FAIL,1000*10);
                         }
                     }
                     break;
@@ -368,5 +381,23 @@ public class PhoneBtManager {
 
     private void modifyBtName(String name){
         mATBluetooth.write(ATBluetooth.REQUEST_NAME,name);
+    }
+
+    private class MyBtHandler extends Handler{
+        public static final int MSG_CONNECT_BT_FAIL = 0;
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case MSG_CONNECT_BT_FAIL:{
+                    CommonToast.showToast(String.format("连接失败，请确定“%s”已打开而且在通信范围内",SettingConfig.getInstance().getConnecttingBtName()));
+                    SettingConfig.getInstance().setConnecttingBtName("");
+                    EventBusUtils.postEvent(new SysEvent(SysEvent.EB_SYS_BT_CONNECT_FAIL));
+                }
+                break;
+                default:
+                    break;
+            }
+        }
     }
 }

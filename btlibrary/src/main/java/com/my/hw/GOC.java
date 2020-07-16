@@ -106,6 +106,7 @@ public class GOC extends BtCmd {
 
         this.addSendCmd(1001, "MK");
         this.addSendCmd(1002, "MA");
+        this.addReceiveCmd(776,"IL");//车机连接手机端失败
 
 
     }
@@ -512,6 +513,18 @@ public class GOC extends BtCmd {
                                 var3 = 2;
                             }
                             var49 = 23;
+                            var11 = "";
+                            var12 = var13;
+
+                        }else if (var1[0] == 73 && var1[1] == 76) {//车机连接手机连接失败
+                            String result = "";
+                            try {
+                                result = new String(var1,"UTF-8");
+                            } catch (UnsupportedEncodingException e) {
+                                e.printStackTrace();
+                            }
+                            var3 = 0;
+                            var49 = 776;
                             var11 = "";
                             var12 = var13;
 

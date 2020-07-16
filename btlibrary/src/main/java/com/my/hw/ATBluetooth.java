@@ -192,6 +192,7 @@ public class ATBluetooth {
     public static final int RETURN_HFP = 7;
     public static final int RETURN_HFP_INFO = 9;
     public static final int RETURN_HFP_CONNECT_NAME = 777;
+    public static final int RETURN_CONNECT_FAIL = 776;
     public static final int RETURN_LANGUAGE = 128;
     public static final int RETURN_MIC_STATUS = 169;
     public static final int RETURN_MSG_MAX = 1048576;
