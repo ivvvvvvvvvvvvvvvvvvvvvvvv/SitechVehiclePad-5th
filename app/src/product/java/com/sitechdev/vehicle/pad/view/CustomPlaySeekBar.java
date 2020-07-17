@@ -206,6 +206,7 @@ public class CustomPlaySeekBar extends RelativeLayout implements View.OnClickLis
     public void setCurrentStatusPlaying(boolean isPlaying) {
         mPlayPause.setActivated(isPlaying);
     }
+
     @Override
     public void onMusicChange(MusicInfo current, int status) {
         if (null != current) {
@@ -233,6 +234,9 @@ public class CustomPlaySeekBar extends RelativeLayout implements View.OnClickLis
 
     @Override
     public void onPositionChange(MusicInfo currentInfo, int position) {
+        if (currentInfo == null) {
+            return;
+        }
         mSeekBar.setMax(currentInfo.duration);
         if (position > currentInfo.duration) {
             position = currentInfo.duration;
