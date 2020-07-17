@@ -784,17 +784,17 @@ public class MainActivity extends BaseActivity
                 break;
             case MusicStatusEvent.EVENT_UPD_MUSIC_IMAGE:
                 //当前播放的音乐图片
-                Bitmap musicIconBitmap = (Bitmap) event.getBean();
-                SitechDevLog.i("MainActivity", "===> onMusicEvent=====musicBean.getIconBitmap()= " + musicIconBitmap);
-                if (musicIconBitmap == null) {
-                    ivMusicIcon.stopAnimation();
-                    GlideApp.with(this).load(R.drawable.iv_music).into(ivMusicIcon);
-                } else {
-                    if (null != ivMusicIcon) {
-                        GlideApp.with(this).load(musicIconBitmap).circleCrop().into(ivMusicIcon);
-                        ivMusicIcon.startAnimation();
-                    }
-                }
+//                Bitmap musicIconBitmap = (Bitmap) event.getBean();
+//                SitechDevLog.i("MainActivity", "===> onMusicEvent=====musicBean.getIconBitmap()= " + musicIconBitmap);
+//                if (musicIconBitmap == null) {
+//                    ivMusicIcon.stopAnimation();
+//                    GlideApp.with(this).load(R.drawable.iv_music).into(ivMusicIcon);
+//                } else {
+//                    if (null != ivMusicIcon) {
+//                        GlideApp.with(this).load(musicIconBitmap).circleCrop().into(ivMusicIcon);
+//                        ivMusicIcon.startAnimation();
+//                    }
+//                }
                 break;
             case MusicStatusEvent.EVENT_UPD_MUSIC_PLAY_STATUS:
                 //当前状态--true代表正在播放，false代表暂停播放
