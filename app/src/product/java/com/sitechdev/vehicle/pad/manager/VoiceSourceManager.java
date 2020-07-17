@@ -146,6 +146,7 @@ public class VoiceSourceManager {
                 }
             }
             if (null != removes) {
+                len = listeners.size();
                 for (int i = 0; i < len; i++) {
                     if (removes[i]) {
                         listeners.remove(i);
@@ -157,8 +158,8 @@ public class VoiceSourceManager {
         @Override
         public void onPause() {
             int len = listeners.size();
-            if(len > 0){
-                synchronized (listeners){
+            if (len > 0) {
+                synchronized (listeners) {
                     boolean[] removes = null;
                     for (int i = 0; i < len; i++) {
                         WeakReference<MusicChangeListener> ref = listeners.get(i);
@@ -210,6 +211,7 @@ public class VoiceSourceManager {
                     }
 
                     if (null != removes) {
+                        len = listeners.size();
                         for (int i = 0; i < len; i++) {
                             if (removes[i]) {
                                 listeners.remove(i);
@@ -273,6 +275,7 @@ public class VoiceSourceManager {
                             }
                         }
                         if (null != removes) {
+                            len = listeners.size();
                             for (int i = 0; i < len; i++) {
                                 if (removes[i]) {
                                     listeners.remove(i);
@@ -981,7 +984,7 @@ public class VoiceSourceManager {
             case BT_MUSIC:
                 return PhoneBtManager.getInstance().isPlayingMusic;
             case KAOLA:
-                return  KaolaPlayManager.SingletonHolder.INSTANCE.isPlaying(ActivityUtils.getTopActivity());
+                return KaolaPlayManager.SingletonHolder.INSTANCE.isPlaying(ActivityUtils.getTopActivity());
             case KUWO_MUSIC:
                 return KuwoManager.getInstance().isMusicPlaying();
             default:
