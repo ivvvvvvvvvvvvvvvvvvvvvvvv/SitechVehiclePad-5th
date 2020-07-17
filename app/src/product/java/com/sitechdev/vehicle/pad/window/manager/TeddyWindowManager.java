@@ -188,4 +188,13 @@ public class TeddyWindowManager {
                 break;
         }
     }
+
+    /**
+     * 是否正在Teddy工作中
+     *
+     * @return true=teddy正在识别
+     */
+    public boolean isTeddyWorking() {
+        return floatView != null && floatView.isTeddyWorking();
+    }
 }

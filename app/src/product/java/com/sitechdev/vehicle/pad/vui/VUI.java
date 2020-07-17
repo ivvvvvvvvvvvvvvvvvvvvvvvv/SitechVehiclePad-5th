@@ -94,7 +94,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
     private boolean vadBos = false;
     private boolean isInTTS = false;
     private boolean isUIHide = false;
-//    private LinkedList<Activity> activities;
+    //    private LinkedList<Activity> activities;
     private JSONArray calls;
     private boolean shutdown = false;
 
@@ -615,7 +615,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                                 if (TextUtils.equals(object.optString("name"),
                                                         "endLoc.ori_loc")) {
                                                     String value = object.optString("value");
-                                                    if(!TextUtils.isEmpty(value)){
+                                                    if (!TextUtils.isEmpty(value)) {
                                                         MapManager.getInstance().searchNearby(value);
                                                         shutAndTTS("已为您查找附近的" + value);
                                                     }
@@ -1333,6 +1333,11 @@ public class VUI implements VUIWindow.OnWindowHideListener {
         VoiceSourceManager.getInstance().resume(VoiceSourceManager.CONTENT);
     }
 
+    /**
+     * Teddy是否正在工作。不能直接调用。使用TeddyWindowManger.isTeddyWorking更加准确
+     *
+     * @return
+     */
     public boolean isTeddyWorking() {
         boolean isWorking = isWakeupTTS || (AIUIConstant.STATE_WORKING == mAIUIState) || isInTTS;
         SitechDevLog.i(TAG, "isTeddyWorking====" + isWorking);
