@@ -185,6 +185,24 @@ public class MainControlPanelWindowManager {
                     mainControlPanelView.refreshMobileNetSwitchView();
                 }
                 break;
+            case SysEvent.EB_SYS_VOLUME_CHANGE_STATE:
+                if (mainControlPanelView != null) {
+                    if (event.getDataCtrlMask() != -1) {
+                        int volumeValue = (int) event.getDataCtrlMask();
+                        //音量的变化
+                        mainControlPanelView.refreshVolumeView(volumeValue);
+                    }
+                }
+                break;
+            case SysEvent.EB_SYS_LIGHT_CHANGE_STATE:
+                if (mainControlPanelView != null) {
+                    if (event.getDataCtrlMask() != -1) {
+                        int value = (int) event.getDataCtrlMask();
+                        //音量的变化
+                        mainControlPanelView.refreshScreenLightView(value);
+                    }
+                }
+                break;
             default:
                 break;
         }

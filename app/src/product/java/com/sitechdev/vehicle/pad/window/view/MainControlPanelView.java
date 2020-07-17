@@ -342,63 +342,65 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
     private void initSeekBarListener() {
         if (ScreenUtils.isLandscape()) {
             //横屏的view
-            volumeVerticalSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+            volumeVerticalSeekBar.setOnSeekBarChangeVertical(new VerticalSeekBarForSkin.onSeekBarChangeVertical() {
                 @Override
-                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                public void onStopTouchView(VerticalSeekBarForSkin mSeekbar) {
+                    SitechDevLog.i(TAG, "volumeVerticalSeekBar onStopTouchView==========================================" + mSeekbar.getProgress());
+                    setVolumeValue(mSeekbar.getProgress());
+                }
+
+                @Override
+                public void onProgressChanged(VerticalSeekBarForSkin seekBar, int progress) {
                     SitechDevLog.i(TAG, "volumeVerticalSeekBar onProgressChanged==========================================" + progress);
-                    setVolumeValue(progress);
-                }
-
-                @Override
-                public void onStartTrackingTouch(SeekBar seekBar) {
-                    SitechDevLog.i(TAG, "volumeVerticalSeekBar onStartTrackingTouch==========================================");
 
                 }
 
                 @Override
-                public void onStopTrackingTouch(SeekBar seekBar) {
-                    SitechDevLog.i(TAG, "volumeVerticalSeekBar onStopTrackingTouch==========================================");
-
+                public void onStartTouchView(VerticalSeekBarForSkin seekBar) {
+                    SitechDevLog.i(TAG, "volumeVerticalSeekBar onStartTouchView==========================================" + seekBar.getProgress());
                 }
             });
 
-            lightVerticalSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            lightVerticalSeekBar.setOnSeekBarChangeVertical(new VerticalSeekBarForSkin.onSeekBarChangeVertical() {
                 @Override
-                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                public void onStopTouchView(VerticalSeekBarForSkin mSeekbar) {
+                    SitechDevLog.i(TAG, "lightVerticalSeekBar onStopTouchView==========================================" + mSeekbar.getProgress());
+                    setLightValue(mSeekbar.getProgress());
+                }
+
+                @Override
+                public void onProgressChanged(VerticalSeekBarForSkin seekBar, int progress) {
                     SitechDevLog.i(TAG, "lightVerticalSeekBar onProgressChanged==========================================" + progress);
-                    setLightValue(progress);
-                }
-
-                @Override
-                public void onStartTrackingTouch(SeekBar seekBar) {
-                    SitechDevLog.i(TAG, "lightVerticalSeekBar onStartTrackingTouch==========================================");
 
                 }
 
                 @Override
-                public void onStopTrackingTouch(SeekBar seekBar) {
-                    SitechDevLog.i(TAG, "lightVerticalSeekBar onStopTrackingTouch==========================================");
-
+                public void onStartTouchView(VerticalSeekBarForSkin seekBar) {
+                    SitechDevLog.i(TAG, "lightVerticalSeekBar onStartTouchView==========================================" + seekBar.getProgress());
                 }
             });
+
         } else {
             //竖屏的view
             volumeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                    SitechDevLog.i(TAG, "volumeSeekBar onProgressChanged==========================================" + progress);
-                    setVolumeValue(progress);
+                    SitechDevLog.i(TAG, "volumeSeekBar onProgressChanged==========================================" + progress + "==fromUser==" + fromUser);
+                    if (fromUser) {
+                        setVolumeValue(progress);
+                    }
                 }
 
                 @Override
                 public void onStartTrackingTouch(SeekBar seekBar) {
-                    SitechDevLog.i(TAG, "volumeSeekBar onStartTrackingTouch==========================================");
+                    SitechDevLog.i(TAG, "volumeSeekBar onStartTrackingTouch==========================================" + seekBar.getProgress());
 
                 }
 
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar) {
-                    SitechDevLog.i(TAG, "volumeSeekBar onStopTrackingTouch==========================================");
+                    SitechDevLog.i(TAG, "volumeSeekBar onStopTrackingTouch==========================================" + seekBar.getProgress());
 
                 }
             });
@@ -406,24 +408,26 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
             lightSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                    SitechDevLog.i(TAG, "lightSeekBar onProgressChanged==========================================" + progress);
+                    SitechDevLog.i(TAG, "lightSeekBar onProgressChanged==========================================" + progress + "==fromUser==" + fromUser);
 //                    if (progress == seekBar.getMax()) {
 //                        seekBar.setThumb(null);
 //                    } else {
 //                        seekBar.setThumb(getResources().getDrawable((R.drawable.bg_popup_btn_thumb)));
 //                    }
-                    setLightValue(progress);
+                    if (fromUser) {
+                        setLightValue(progress);
+                    }
                 }
 
                 @Override
                 public void onStartTrackingTouch(SeekBar seekBar) {
-                    SitechDevLog.i(TAG, "lightSeekBar onStartTrackingTouch==========================================");
+                    SitechDevLog.i(TAG, "lightSeekBar onStartTrackingTouch==========================================" + seekBar.getProgress());
 
                 }
 
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar) {
-                    SitechDevLog.i(TAG, "lightSeekBar onStopTrackingTouch==========================================");
+                    SitechDevLog.i(TAG, "lightSeekBar onStopTrackingTouch==========================================" + seekBar.getProgress());
 
                 }
             });
@@ -683,5 +687,31 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
         SitechDevLog.i(TAG, "当前Teddy状态===>" + TeddyConfig.getAutoMVWStatus());
         //使用Teddy开关
         mTeddySwitchControlView.setActivated(TeddyConfig.getAutoMVWStatus());
+    }
+
+    /**
+     * 刷新音量值
+     */
+    public void refreshVolumeView(int value) {
+        SitechDevLog.i(TAG, "当前音量值=======>" + value);
+        //根据横竖屏分别做设置
+        if (ScreenUtils.isLandscape()) {
+            volumeVerticalSeekBar.setProgress(value);
+        } else {
+            volumeSeekBar.setProgress(value);
+        }
+    }
+
+    /**
+     * 刷新亮度值
+     */
+    public void refreshScreenLightView(int value) {
+        SitechDevLog.i(TAG, "当前亮度值=======>" + value);
+        //根据横竖屏分别做设置
+        if (ScreenUtils.isLandscape()) {
+            lightVerticalSeekBar.setProgress(value);
+        } else {
+            lightSeekBar.setProgress(value);
+        }
     }
 }

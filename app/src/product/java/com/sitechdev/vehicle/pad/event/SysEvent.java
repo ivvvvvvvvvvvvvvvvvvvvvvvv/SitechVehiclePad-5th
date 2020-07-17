@@ -88,6 +88,14 @@ public class SysEvent extends BaseEvent<String> {
      * 蓝牙设备连接失败
      */
     public static final String EB_SYS_BT_CONNECT_FAIL = "EB_SYS_BT_CONNECT_FAIL";
+    /**
+     * 音量改变状态
+     */
+    public static final String EB_SYS_VOLUME_CHANGE_STATE = "EB_SYS_VOLUME_CHANGE_STATE";
+    /**
+     * 亮度改变状态
+     */
+    public static final String EB_SYS_LIGHT_CHANGE_STATE = "EB_SYS_LIGHT_CHANGE_STATE";
 
 
     public static final int CALLLOG_RECORDS = 0;
