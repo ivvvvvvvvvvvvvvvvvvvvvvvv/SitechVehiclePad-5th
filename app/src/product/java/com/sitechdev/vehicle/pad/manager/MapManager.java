@@ -364,6 +364,9 @@ public class MapManager implements IMap {
         mContext.sendBroadcast(intent);
     }
 
+    public void searchNearby(String keywords) {
+        searchNearby(keywords, LocationData.getInstance().getLatitude(), LocationData.getInstance().getLongitude());
+    }
     /**
      * 应用内查找数据，会自动打开地图，但是没有响应结果回传；
      * 比如：附近的银行、超市等

@@ -586,7 +586,21 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                             JSONObject semantic = semantics.optJSONObject(0);
                             switch (semantic.optString("intent")) {
                                 case "LOCATE":
-                                    vuiAnr();
+                                    if (null != slots && len > 0) {
+                                        for (int i = 0; i < len; i++) {
+                                            JSONObject object = slots.optJSONObject(i);
+                                            if (null != object) {
+                                                if (TextUtils.equals(object.optString("name"),
+                                                        "endLoc.ori_loc")) {
+                                                    String value = object.optString("value");
+                                                    if(!TextUtils.isEmpty(value)){
+                                                        MapManager.getInstance().searchNearby(value);
+                                                        shutAndTTS("已为您查找附近的" + value);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
                                     return;
                                 case "QUERY":
                                     JSONArray slots = semantic.optJSONArray("slots");
