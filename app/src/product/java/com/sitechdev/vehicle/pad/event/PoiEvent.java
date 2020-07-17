@@ -24,6 +24,8 @@ public class PoiEvent extends BaseEvent {
      * 查找指定的POI--索引
      */
     public static final String EVENT_QUERY_POI_INDEX = "EVENT_QUERY_POI_INDEX";
+    public static final String EVENT_QUERY_POI_PAGE = "EVENT_QUERY_POI_PAGE";
+    public static final String EVENT_QUERY_POI_PAGE_NEXT = "EVENT_QUERY_POI_PAGE_NEXT";
 
     private String eventKey = "";
     private String eventValue = "";

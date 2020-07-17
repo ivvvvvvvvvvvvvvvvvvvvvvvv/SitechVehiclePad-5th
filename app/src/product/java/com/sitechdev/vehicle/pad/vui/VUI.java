@@ -34,11 +34,11 @@ import com.sitechdev.vehicle.pad.event.VoiceEvent;
 import com.sitechdev.vehicle.pad.event.WindowEvent;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.manager.KuwoManager;
+import com.sitechdev.vehicle.pad.manager.MapManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.model.phone.Contact;
 import com.sitechdev.vehicle.pad.module.login.util.LoginUtils;
 import com.sitechdev.vehicle.pad.module.main.MainActivity;
-import com.sitechdev.vehicle.pad.module.map.util.MapUtil;
 import com.sitechdev.vehicle.pad.module.music.MusicMainActivity;
 import com.sitechdev.vehicle.pad.module.music.MusicManager;
 import com.sitechdev.vehicle.pad.module.phone.BtGlobalRef;
@@ -497,47 +497,66 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                     String index = null;
                     if (null != semantics && semantics.length() > 0) {
                         JSONObject semantic = semantics.optJSONObject(0);
+                        JSONArray slots = semantic.optJSONArray("slots");
+                        int len = slots.length();
                         switch (semantic.optString("intent")) {
                             case "listSelect":
-                                JSONArray slots = semantic.optJSONArray("slots");
-                                int len = slots.length();
                                 if (null != slots && len > 0) {
                                     JSONObject slot = slots.optJSONObject(0);
                                     if (null != slot) {
                                         index = slot.optString("value");
+                                        if (!TextUtils.isEmpty(index)) {
+                                            EventBusUtils.postEvent(new PoiEvent(
+                                                    PoiEvent.EVENT_QUERY_POI_INDEX,
+                                                    index));
+                                            shutAndTTS("");
+                                        }
                                     }
+                                }
+                                break;
+                            case "pageTuring":
+                                String turning = semantic.optString("template");
+                                if ("下一页".equals(turning)) {
+                                    EventBusUtils.postEvent(new PoiEvent(
+                                            PoiEvent.EVENT_QUERY_POI_PAGE,
+                                            "1"));
+                                    shutAndTTS("");
+                                } else if ("上一页".equals(turning)) {
+                                    EventBusUtils.postEvent(new PoiEvent(
+                                            PoiEvent.EVENT_QUERY_POI_PAGE,
+                                            "0"));
+                                    shutAndTTS("");
+                                } else {
+                                    vuiAnr();
                                 }
                                 break;
                         }
                     }
-                    if (MapUtil.isSelectPoiScene()) {
-                        if (!TextUtils.isEmpty(index))
-                            EventBusUtils.postEvent(new PoiEvent(
-                                    PoiEvent.EVENT_QUERY_POI_INDEX,
-                                    index));
-                        return;
-                    } else {
-                        if (vuiWindow.getCurrentHolder() instanceof ContactsHolder) {
-                            ContactsHolder holder = vuiWindow.getCurrentHolder();
-                            if (null != holder.getContacts()) {
-                                if (holder.getContacts().size() > 0) {
-                                    int i = Integer.valueOf(index);
-                                    if (holder.getContacts().size() >= i) {
-                                        i--;
-                                        String phoneNumber = holder.getContacts().get(i).getPhoneNumber();
-                                        if (!TextUtils.isEmpty(phoneNumber)) {
-                                            vuiWindow.hide();
-                                            VUIUtils.callPhone(phoneNumber);
-                                        }
-                                    } else {
-                                        shutAndTTS("找不到您要的联系人");
-                                    }
-                                    return;
-                                }
-                            }
-                        }
+                    //                    if (MapUtil.isSelectPoiScene()) {
+//
+//                    } else {
+//                        if (vuiWindow.getCurrentHolder() instanceof ContactsHolder) {
+//                            ContactsHolder holder = vuiWindow.getCurrentHolder();
+//                            if (null != holder.getContacts()) {
+//                                if (holder.getContacts().size() > 0) {
+//                                    int i = Integer.valueOf(index);
+//                                    if (holder.getContacts().size() >= i) {
+//                                        i--;
+//                                        String phoneNumber = holder.getContacts().get(i).getPhoneNumber();
+//                                        if (!TextUtils.isEmpty(phoneNumber)) {
+//                                            vuiWindow.hide();
+//                                            VUIUtils.callPhone(phoneNumber);
+//                                            shutAndTTS("");
+//                                        }
+//                                    } else {
+//                                        shutAndTTS("找不到您要的联系人");
+//                                    }
+//                                    return;
+//                                }
+//                            }
+//                        }
 //                    shutAndTTS("Teddy正在努力学习中，敬请期待");
-                    }
+//                    }
                 } else if (TextUtils.equals("SITECHAI.AIradio", service)) {
                     if (null != semantics && semantics.length() > 0) {
                         JSONObject semantic = semantics.optJSONObject(0);
@@ -584,6 +603,8 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                     if (TextUtils.equals("mapU", service)) {
                         if (null != semantics && semantics.length() > 0) {
                             JSONObject semantic = semantics.optJSONObject(0);
+                            JSONArray slots = semantic.optJSONArray("slots");
+                            int len = slots.length();
                             switch (semantic.optString("intent")) {
                                 case "LOCATE":
                                     if (null != slots && len > 0) {
@@ -603,8 +624,6 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                     }
                                     return;
                                 case "QUERY":
-                                    JSONArray slots = semantic.optJSONArray("slots");
-                                    int len = slots.length();
                                     if (null != slots && len > 0) {
                                         for (int i = 0; i < len; i++) {
                                             JSONObject object = slots.optJSONObject(i);

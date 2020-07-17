@@ -40,9 +40,9 @@ public class KaolaAiListSpaceItemDecoration extends RecyclerView.ItemDecoration 
                 int position = parent.getChildLayoutPosition(view);
                 if (KaolaAIListAdapter.VIEWHOLDER_TAG.equals(view.getTag())) {
                     if (mLists != null) {
-                        Log.e("zyf", "mLists.get(position).column = " + mLists.get(position).tag);
+//                        Log.e("zyf", "mLists.get(position).column = " + mLists.get(position).tag);
                     } else {
-                        Log.e("zyf", "mLists == null");
+//                        Log.e("zyf", "mLists == null");
                     }
                     outRect.left = 0;
                     outRect.bottom = 0;
@@ -54,7 +54,7 @@ public class KaolaAiListSpaceItemDecoration extends RecyclerView.ItemDecoration 
                 }
             } else {
                 int position = parent.getChildLayoutPosition(view);
-                Log.e("zyf","mLists.get(position).column = "+mLists.get(position).tag);
+//                Log.e("zyf","mLists.get(position).column = "+mLists.get(position).tag);
                 int lookupsize = ((GridLayoutManager) parent.getLayoutManager()).getSpanSizeLookup().getSpanSize(position);
                 if (lookupsize == 2) {
                     if (position % 3 == 2) {

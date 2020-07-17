@@ -2,6 +2,7 @@ package com.sitechdev.vehicle.pad.module.map.util;
 
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.text.TextUtils;
 
 import com.amap.api.maps.model.LatLng;
 import com.blankj.utilcode.util.ActivityUtils;
@@ -19,11 +20,12 @@ import com.sitechdev.vehicle.pad.module.map.receiver.MapReceiver;
 import com.sitechdev.vehicle.pad.router.RouterConstants;
 import com.sitechdev.vehicle.pad.router.RouterUtils;
 import com.sitechdev.vehicle.pad.util.AppVariants;
-import com.sitechdev.vehicle.pad.view.CommonToast;
 import com.sitechdev.vehicle.pad.vui.VUI;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  * 项目名称：SitechVehiclePad
@@ -85,8 +87,61 @@ public class MapVoiceEventUtil {
                 });
                 break;
             //poi列表选择
+            case PoiEvent.EVENT_QUERY_POI_PAGE:
+                try {
+                    Intent intent = new Intent();
+                    intent.setAction(AMapConstant.BROADCAST_TO_AMAP);
+                    intent.putExtra("KEY_TYPE", AMapConstant.BROADCAST_AMAP_TYPE_SEARCH_RESULT);
+//                    intent.putExtra("EXTRA_PAGE_TURNING", Integer.parseInt(poiEvent.getEventValue()) > 0 ? 1 : 0);//翻页
+                    intent.putExtra("EXTRA_SCREEN_TURNING", Integer.parseInt(poiEvent.getEventValue()) > 0 ? 1 : 0);
+                    AppApplication.getApp().sendBroadcast(intent);
+                } catch (Exception e) {
+
+                }
+                break;
+            case PoiEvent.EVENT_QUERY_POI_PAGE_NEXT:
+                try {
+                    Intent intent = new Intent();
+                    intent.setAction(AMapConstant.BROADCAST_TO_AMAP);
+                    intent.putExtra("KEY_TYPE", AMapConstant.BROADCAST_AMAP_TYPE_SEARCH_RESULT);
+                    intent.putExtra("EXTRA_PAGE_TURNING", Integer.parseInt(poiEvent.getEventValue()) > 0 ? 1 : 0);//翻页
+                    AppApplication.getApp().sendBroadcast(intent);
+                } catch (Exception e) {
+
+                }
+                break;
             case PoiEvent.EVENT_QUERY_POI_INDEX:
-                MapUtil.startPoiNaviByIndex(Integer.parseInt(poiEvent.getEventValue()));
+                try {
+                    int index = Integer.parseInt(poiEvent.getEventValue()) - 1;//语音来源index=1 实际选中index-1
+                    //应用内选中
+                    Intent intent = new Intent();
+                    intent.setAction(AMapConstant.BROADCAST_TO_AMAP);
+                    intent.putExtra("KEY_TYPE", AMapConstant.BROADCAST_AMAP_TYPE_SEARCH_RESULT);
+                    intent.putExtra("EXTRA_CHOICE", index);
+                    intent.putExtra("EXTRA_PLAN_ROUTE", true);
+//                    AppApplication.getApp().sendBroadcast(intent);
+                    //调用直接导航
+                    if (!TextUtils.isEmpty(MapManager.getInstance().getSearchResult())) {
+                        JSONArray jsonArray = new JSONArray(MapManager.getInstance().getSearchResult());
+                        if (index >= 0 && index < jsonArray.length()) {
+                            JSONObject jsonObject = jsonArray.optJSONObject(index);
+                            String name = jsonObject.optString("name");
+                            double lat = jsonObject.optDouble("latitude");
+                            double lon = jsonObject.optDouble("longitude");
+                            double entry_latitude = jsonObject.optDouble("entry_latitude");
+                            double entry_longitude = jsonObject.optDouble("entry_longitude");
+//                            SitechDevLog.i("zyf", this + "==ampa navi ==" + name);
+                            MapUtil.sendAMapAddress(name, lat, lon, entry_latitude, entry_longitude);
+                        } else {
+                            VUI.getInstance().shutAndTTS("未找到指定位置");
+                        }
+                    } else {
+                        VUI.getInstance().shutAndTTS("请手动选择");
+                    }
+
+                } catch (Exception e) {
+
+                }
                 break;
             default:
                 break;

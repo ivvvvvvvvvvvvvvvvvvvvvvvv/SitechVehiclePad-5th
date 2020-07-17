@@ -407,6 +407,22 @@ public class MapUtil {
         SitechDevLog.i(AppConst.TAG, "发送广播给高德保存家和公司地址===========>已发送==" + mIntent.toString());
     }
 
+    public static void sendAMapAddress(String poi, double lat, double lon, double addrLat, double addrLon) {
+        SitechDevLog.i(AppConst.TAG, "发送广播给高德 ===========> ==");
+        Intent intent = new Intent();
+        intent.setAction("AUTONAVI_STANDARD_BROADCAST_RECV");
+        intent.putExtra("KEY_TYPE", 10038);
+        intent.putExtra("POINAME", poi);
+        intent.putExtra("LAT", lat);
+        intent.putExtra("LON", lon);
+        intent.putExtra("ENTRY_LAT", addrLat);
+        intent.putExtra("ENTRY_LON", addrLon);
+        intent.putExtra("DEV", 0);
+        intent.putExtra("STYLE", -1);
+        AppApplication.getApp().sendBroadcast(intent);
+        SitechDevLog.i(AppConst.TAG, "发送广播给高德 ==========>已发送==");
+    }
+
     /**
      * 发送给高德保存家和公司地址
      *
@@ -438,6 +454,15 @@ public class MapUtil {
      */
     public static boolean isSelectPoiScene() {
         return MapVariants.hasSelectListScene;// && MapVariants.mPoiList.isEmpty();
+    }
+
+    /**
+     * shezhi 是地图选择场景
+     *
+     * @return true=是Map-Poi的选择场景
+     */
+    public static void setSelectPoiScene(boolean isInSelect) {
+        MapVariants.hasSelectListScene = isInSelect;
     }
 
     public static void startPoiNaviByIndex(int poiIndex) {

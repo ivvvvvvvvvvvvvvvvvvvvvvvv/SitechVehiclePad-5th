@@ -729,7 +729,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener,
                 mIntent.setClass(this, PoiSearchActivity.class);
                 mIntent.putExtra(AppConst.POI_QUERY_KEYWORD, poiEvent.getEventValue());
                 ThreadUtils.runOnUIThread(() -> {
-                    startActivityForResult(mIntent, AppConst.REQUEST_RESULT_CODE);
+//                    startActivityForResult(mIntent, AppConst.REQUEST_RESULT_CODE);
                 });
                 break;
             case PoiEvent.EVENT_QUERY_NEARBY_POI_KEYWORD:
@@ -739,7 +739,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener,
                 mIntent2.setClass(this, PoiSearchActivity.class);
                 mIntent2.putExtra(AppConst.POI_QUERY_KEYWORD, poiEvent.getEventValue());
                 ThreadUtils.runOnUIThread(() -> {
-                    startActivityForResult(mIntent2, AppConst.REQUEST_RESULT_CODE);
+//                    startActivityForResult(mIntent2, AppConst.REQUEST_RESULT_CODE);
                 });
                 break;
             default:

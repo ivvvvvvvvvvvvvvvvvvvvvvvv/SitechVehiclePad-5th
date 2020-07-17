@@ -372,6 +372,20 @@ public class MapManager implements IMap {
      * 比如：附近的银行、超市等
      */
     private void searchNearby(String keywords, double lat, double lon) {
+        setSearchResult("");
+        //获取透传数据
+        Intent intent2 = new Intent();
+        intent2.setAction(MapConstant.BROADCAST_ACTION_RECV);
+        intent2.putExtra(MapConstant.KEY_TYPE, MapConstant.KEY_TYPE_EXTRA_KEYWORDS_REQ);
+        intent2.putExtra("EXTRA_SEARCHTYPE", 0);
+        intent2.putExtra("EXTRA_KEYWORD", keywords);
+        intent2.putExtra("EXTRA_MYLOCLAT", lat);
+        intent2.putExtra("EXTRA_MYLOCLON", lon);
+        intent2.putExtra("EXTRA_DEV", 0);
+        intent2.putExtra("SOURCE_APP", PackageInfoUtils.getAppVersionName());
+        mContext.sendBroadcast(intent2);
+
+        //调取导航应用
         Intent intent = new Intent();
         intent.setAction(MapConstant.BROADCAST_ACTION_RECV);
         intent.putExtra(MapConstant.KEY_TYPE, MapConstant.KEY_TYPE_KEYWORDS_AROUND);
@@ -384,5 +398,13 @@ public class MapManager implements IMap {
 
     }
 
+    String searchResult ;
 
+    public void setSearchResult(String searchResult) {
+        this.searchResult = searchResult;
+    }
+
+    public String getSearchResult() {
+        return searchResult;
+    }
 }

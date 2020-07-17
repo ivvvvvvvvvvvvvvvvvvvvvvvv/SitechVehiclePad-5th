@@ -20,6 +20,17 @@ public interface AMapConstant {
      * 高德地图发送给第三方应用的控制广播。高德地图发出,第三方应用接收
      */
     String BROADCAST_FROM_AMAP = "AUTONAVI_STANDARD_BROADCAST_SEND";
+    /**
+     * KEY_TYPE int 必填
+     *      12201
+     * EXTRA_CHOICE int
+     *       0，1，2, 3 ...(POI结果选择,最多十项，索引从0开始）
+     * EXTRA_PAGE_TURNING int
+     *       0 : 上一页   1 : 下一页
+     * EXTRA_SCREEN_TURNING int
+     *      0 : 上翻屛  1 ： 下翻屛
+     */
+    String BROADCAST_FROM_AMAP_RECV = "AUTONAVI_STANDARD_BROADCAST_RECV";
 
     /**
      * 第三方系统通知Auto，auto接到通知后退出。
@@ -212,6 +223,11 @@ public interface AMapConstant {
      * </code>
      */
     int BROADCAST_AMAP_TYPE_GET_HOME_WORK_ADDRESS_RESULT = 10046;
+    /**
+     * 关键字搜索结果返回
+     */
+    int BROADCAST_AMAP_TYPE_SEARCH_INFO_RESULT = 10042;
+    int BROADCAST_AMAP_TYPE_SEARCH_RESULT = 12201;
 
     /**
      * 当导航发生状态变更时，将相应的状态通知给系统。
