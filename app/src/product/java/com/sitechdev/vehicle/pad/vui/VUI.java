@@ -586,7 +586,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                             JSONObject semantic = semantics.optJSONObject(0);
                             switch (semantic.optString("intent")) {
                                 case "LOCATE":
-//                        vuiAnr();
+                                    vuiAnr();
                                     return;
                                 case "QUERY":
                                     JSONArray slots = semantic.optJSONArray("slots");
@@ -603,10 +603,12 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                                             //导航回家
                                                             vuiWindow.hide();
                                                             EventBusUtils.postEvent(new MapEvent(MapEvent.EVENT_MAP_START_NAVI_HOME));
+                                                            shutAndTTS("");
                                                             return;
                                                         } else if (TextUtils.equals(value, "公司")) {
                                                             //导航回公司
                                                             vuiWindow.hide();
+                                                            shutAndTTS("");
                                                             EventBusUtils.postEvent(new MapEvent(MapEvent.EVENT_MAP_START_NAVI_COMPONY));
                                                             return;
                                                         } else {
@@ -624,9 +626,12 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                 case "OPEN_MAP":
                                     EventBusUtils.postEvent(new MapEvent(MapEvent.EVENT_OPEN_MAP));
                                     vuiWindow.hide();
+                                    shutAndTTS("");
                                     break;
                                 case "CLOSE_MAP":
+                                    EventBusUtils.postEvent(new MapEvent(MapEvent.EVENT_MAP_CLOSE_NAVI));
                                     vuiWindow.hide();
+                                    shutAndTTS("");
                                     break;
                                 default:
                                     break;
@@ -974,10 +979,33 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                     break;
                                 case "皮肤设置":
                                 case "主题设置":
-                                case "设置":
-                                    log("正在打开皮肤设置");
                                     EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_OPEN_SETTING_SKIN_PAGE));
                                     shutAndTTS("好的，已为您打开皮肤设置");
+                                    shut();
+                                    break;
+                                case "设置":
+                                    EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_OPEN_SETTING_SKIN_PAGE));
+                                    shutAndTTS("好的，已为您打开设置");
+                                    shut();
+                                    break;
+                                case "网络设置":
+                                    EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_OPEN_NET_SETTING_PAGE));
+                                    shutAndTTS("好的，已为您打开网络设置");
+                                    shut();
+                                    break;
+                                case "蓝牙设置":
+                                    EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_OPEN_BT_SETTING_PAGE));
+                                    shutAndTTS("好的，已为您打开蓝牙设置");
+                                    shut();
+                                    break;
+                                case "语音设置":
+                                    EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_OPEN_VOICE_SETTING_PAGE));
+                                    shutAndTTS("好的，已为您打开语音设置");
+                                    shut();
+                                    break;
+                                case "系统设置":
+                                    EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_OPEN_SYS_SETTING_PAGE));
+                                    shutAndTTS("好的，已为您打开系统设置");
                                     shut();
                                     break;
                                 case "控制面板":
@@ -1019,11 +1047,8 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                     break;
                                 case "本地音乐":
                                     if (null == AppVariants.currentActivity || !(AppVariants.currentActivity instanceof MusicMainActivity)) {
-                                        Intent goMusicMain = new Intent();
-                                        goMusicMain.setClass(context, MusicMainActivity.class);
-                                        goMusicMain.putExtra("index", 1);
-                                        context.startActivity(goMusicMain);
                                         shut();
+                                        RouterUtils.getInstance().getPostcard(RouterConstants.FRAGMENT_LOCAL_MUSIC).withInt("index", 1).navigation();
                                     } else {
                                         shutAndTTS("您当前已在本地音乐");
                                     }
@@ -1055,7 +1080,6 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                     KuwoManager.getInstance().startKuwoApp(true);
                                     shutAndTTS("");
                                     break;
-                                case "导航":
                                 case "LED表情管理":
                                 case "表情管理":
                                 case "视频":

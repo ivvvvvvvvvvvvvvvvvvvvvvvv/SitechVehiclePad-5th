@@ -85,6 +85,18 @@ public class AppManager {
             case AppEvent.EVENT_APP_OPEN_TAXI_PAGE:
                 RouterUtils.getInstance().navigation(RouterConstants.SUB_APP_TAXI);
                 break;
+            case AppEvent.EVENT_APP_OPEN_NET_SETTING_PAGE://网络设置
+                RouterUtils.getInstance().navigation(RouterConstants.SETTING_NET_PAGE);
+                break;
+            case AppEvent.EVENT_APP_OPEN_BT_SETTING_PAGE://蓝牙设置
+                RouterUtils.getInstance().navigation(RouterConstants.SETTING_BT_PAGE);
+                break;
+            case AppEvent.EVENT_APP_OPEN_VOICE_SETTING_PAGE://语音设置
+                RouterUtils.getInstance().navigation(RouterConstants.SETTING_TEDDY_PAGE);
+                break;
+            case AppEvent.EVENT_APP_OPEN_SYS_SETTING_PAGE://系统设置
+                RouterUtils.getInstance().navigation(RouterConstants.SETTING_SYSTEM_PAGE);
+                break;
             default:
                 break;
         }

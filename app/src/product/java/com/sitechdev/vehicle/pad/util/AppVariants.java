@@ -12,7 +12,7 @@ import android.app.Activity;
  * 备注：
  */
 public class AppVariants {
-
+    //切到后台为空
     public static Activity currentActivity = null;
 
     public static volatile boolean initSuccess = false;

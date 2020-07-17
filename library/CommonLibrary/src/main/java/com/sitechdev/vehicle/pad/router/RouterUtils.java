@@ -12,6 +12,7 @@ import com.alibaba.android.arouter.facade.Postcard;
 import com.alibaba.android.arouter.facade.template.IProvider;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.AppUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.StringUtils;
 
@@ -72,6 +73,11 @@ public class RouterUtils {
         ARouter.init(app);
     }
 
+    private boolean isAppForeground(){
+        return AppUtils.isAppForeground();
+    }
+
+
     /**
      * 应用内简单的跳转
      *
@@ -111,7 +117,7 @@ public class RouterUtils {
         }
         ARouter.getInstance()
                 .build(path)
-                .withFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                .withFlags(isAppForeground() ? Intent.FLAG_ACTIVITY_CLEAR_TOP : Intent.FLAG_ACTIVITY_NEW_TASK)
                 .navigation(ActivityUtils.getTopActivity());
     }
 
@@ -215,6 +221,9 @@ public class RouterUtils {
             return null;
         }
         Postcard postcard = ARouter.getInstance().build(path);
+        if (!isAppForeground()) {
+            postcard.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        }
         return postcard;
     }
 

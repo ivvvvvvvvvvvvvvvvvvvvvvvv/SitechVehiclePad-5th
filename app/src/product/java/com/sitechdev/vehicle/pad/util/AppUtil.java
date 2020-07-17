@@ -110,6 +110,15 @@ public class AppUtil {
     }
 
     /**
+     * 是否在后台
+     *
+     * @return
+     */
+    public static boolean isAppBackground() {
+        return AppVariants.currentActivity == null;
+    }
+
+    /**
      * 跳往登录页面
      */
     public static void startReLoginView() {

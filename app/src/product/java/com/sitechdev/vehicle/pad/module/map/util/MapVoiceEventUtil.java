@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 
 import com.amap.api.maps.model.LatLng;
+import com.blankj.utilcode.util.ActivityUtils;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.ThreadUtils;
@@ -99,17 +100,14 @@ public class MapVoiceEventUtil {
         switch (event.getEventKey()) {
             //打开地图
             case MapEvent.EVENT_OPEN_MAP:
+            case MapEvent.EVENT_MAP_START_NAVI:
                 if (MapUtil.isMapActivityFront() || MapUtil.isPoiActivityFront()) {
                     //是POI页面或地图页面，不做处理，交由相应页面的事件响应处理
                     SitechDevLog.i(AppConst.TAG, this + " == " + event.toString() + " ==不做处理，交由POI页面的事件响应处理 ");
                     return;
                 }
-                MapManager.getInstance().startMap();
-                break;
-            case MapEvent.EVENT_MAP_START_NAVI:
-                LatLng mLatlng = (LatLng) event.getEventValue();
                 ThreadUtils.runOnUIThread(() -> {
-                    MapUtil.showNaviSelectClientDialog(AppVariants.currentActivity, mLatlng, "test");
+                    MapManager.getInstance().startMap();
                 });
                 break;
             //设置为公司
@@ -139,14 +137,14 @@ public class MapVoiceEventUtil {
                 //导航回家
                 if (!LocationData.getInstance().isHasHomeAddress()) {
                     ThreadUtils.runOnUIThread(() -> {
-                        CommonToast.makeText(AppApplication.getContext(), "您还未设置家庭地址");
+                        VUI.getInstance().shutAndTTS("您还未设置家庭地址");
                         //家庭地址--地图选择
                         MapUtil.sendAMapAddressView(0);
                     });
                     return;
                 }
                 ThreadUtils.runOnUIThread(() -> {
-                    MapUtil.showNaviSelectClientDialog(AppVariants.currentActivity,
+                    MapUtil.showNaviSelectClientDialog(ActivityUtils.getTopActivity(),
                             new LatLng(LocationData.getInstance().getHomeLatitude(),
                                     LocationData.getInstance().getHomeLongitude()),
                             LocationData.getInstance().getHomeAddressName());
@@ -156,14 +154,14 @@ public class MapVoiceEventUtil {
                 //导航回公司
                 if (!LocationData.getInstance().isHasWorkAddress()) {
                     ThreadUtils.runOnUIThread(() -> {
-                        CommonToast.makeText(AppApplication.getContext(), "您还未设置公司地址");
+                        VUI.getInstance().shutAndTTS("您还未设置公司地址");
                         //家庭地址--地图选择
                         MapUtil.sendAMapAddressView(1);
                     });
                     return;
                 }
                 ThreadUtils.runOnUIThread(() -> {
-                    MapUtil.showNaviSelectClientDialog(AppVariants.currentActivity,
+                    MapUtil.showNaviSelectClientDialog(ActivityUtils.getTopActivity(),
                             new LatLng(LocationData.getInstance().getWorkLatitude(),
                                     LocationData.getInstance().getWorkLongitude()),
                             LocationData.getInstance().getWorkAddressName());
