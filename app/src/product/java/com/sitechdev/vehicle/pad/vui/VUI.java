@@ -646,8 +646,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                                             EventBusUtils.postEvent(new MapEvent(MapEvent.EVENT_MAP_START_NAVI_COMPONY));
                                                             return;
                                                         } else {
-//                                                            vuiWindow.hide();
-                                                            EventBusUtils.postEvent(new PoiEvent(PoiEvent.EVENT_QUERY_POI_KEYWORD, value));
+                                                            MapManager.getInstance().searchNearby(value);
                                                             shutAndTTS("");
                                                             return;
                                                         }

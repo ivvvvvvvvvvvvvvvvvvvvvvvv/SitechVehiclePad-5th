@@ -14,6 +14,7 @@ import com.sitechdev.vehicle.pad.module.map.constant.AMapConstant;
 import com.sitechdev.vehicle.pad.module.map.util.LocationData;
 import com.sitechdev.vehicle.pad.module.map.util.MapUtil;
 import com.sitechdev.vehicle.pad.module.map.util.MapVariants;
+import com.sitechdev.vehicle.pad.vui.VUI;
 
 /**
  * 项目名称：SitechVehiclePad
@@ -216,6 +217,8 @@ public class MapReceiver extends BroadcastReceiver {
                 if (result == 0) {
                     String json = intent.getStringExtra("EXTRA_RESULT");
                     MapManager.getInstance().setSearchResult(json);
+
+                    VUI.getInstance().shutAndTTS(false, "请对我说第几个");
 //                    SitechDevLog.i("zyf", "接收到广播===> ="+json);
                 }
 

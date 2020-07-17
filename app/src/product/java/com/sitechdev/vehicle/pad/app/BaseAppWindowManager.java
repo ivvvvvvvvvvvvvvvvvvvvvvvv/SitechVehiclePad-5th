@@ -6,8 +6,6 @@ import android.content.IntentFilter;
 
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.pad.event.WindowEvent;
-import com.sitechdev.vehicle.pad.manager.CommonTipWindowManager;
-import com.sitechdev.vehicle.pad.module.phone.PhoneCallWindow;
 import com.sitechdev.vehicle.pad.receiver.OrientationReceiver;
 import com.sitechdev.vehicle.pad.window.manager.AppSignalWindowManager;
 import com.sitechdev.vehicle.pad.window.manager.MainControlPanelWindowManager;
@@ -109,9 +107,11 @@ public class BaseAppWindowManager {
             case WindowEvent.EVENT_WINDOW_APP_BACKGROUD:
                 //隐藏必须的所有窗口--APP切换到后台
                 AppSignalWindowManager.getInstance().hide();
-                TeddyWindowManager.getInstance().hide();
                 MainMenuWindowManager.getInstance().hide();
 //                MainControlPanelWindowManager.getInstance().hide();
+                if (!TeddyWindowManager.getInstance().isTeddyWorking()) {
+                    TeddyWindowManager.getInstance().hide();
+                }
                 break;
             //输入法弹出时
             case WindowEvent.EVENT_WINDOW_INPUT_SHOW_STATE:
