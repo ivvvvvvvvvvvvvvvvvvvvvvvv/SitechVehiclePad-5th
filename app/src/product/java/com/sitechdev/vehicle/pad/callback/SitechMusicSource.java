@@ -46,7 +46,11 @@ public class SitechMusicSource {
         /**
          * 随机播放
          */
-        MODEL_RANDOM_PLAY;
+        MODEL_RANDOM_PLAY,
+        /**
+         * 列表循环
+         */
+        MODEL_LOOP_PLAY;
     }
 
     /**

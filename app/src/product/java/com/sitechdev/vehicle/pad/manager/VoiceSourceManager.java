@@ -12,6 +12,7 @@ import com.my.hw.SettingConfig;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.app.AppApplication;
+import com.sitechdev.vehicle.pad.callback.SitechMusicSource;
 import com.sitechdev.vehicle.pad.event.MusicControlEvent;
 import com.sitechdev.vehicle.pad.event.TeddyEvent;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
@@ -945,7 +946,7 @@ public class VoiceSourceManager {
                 break;
             case MusicControlEvent.EVENT_CONTROL_MUSIC_CHANGE_MODE:
                 //更改播放模式--参数
-//                changeAnother(SCREEN);
+
                 break;
             case MusicControlEvent.EVENT_CONTROL_MUSIC_PLAY_PAUSE:
                 //暂停播放
@@ -990,5 +991,83 @@ public class VoiceSourceManager {
             default:
                 return false;
         }
+    }
+
+    /**
+     * 更改播放顺序
+     */
+    public void changePlayMode(SitechMusicSource.MusicPlayModels playModels) {
+        switch (musicSource) {
+            case LOCAL_MUSIC:
+//                        MusicManager.getInstance().changeMode(new MusicManager.CallBack<String>() {
+//                            @Override
+//                            public void onCallBack(int code, String s) {
+//
+//                            }
+//                        });
+                break;
+            case KUWO_MUSIC:
+                KuwoManager.getInstance().onMusicChangePlayModel(playModels);
+                break;
+            default:
+                break;
+        }
+//        switch (playModels) {
+//            case MODEL_LOOP_PLAY:
+//                switch (musicSource) {
+//                    case LOCAL_MUSIC:
+////                        MusicManager.getInstance().changeMode(new MusicManager.CallBack<String>() {
+////                            @Override
+////                            public void onCallBack(int code, String s) {
+////
+////                            }
+////                        });
+//                        break;
+//                    case KUWO_MUSIC:
+//                        KuwoManager.getInstance().onMusicChangePlayModel(playModels);
+//                        break;
+//                    default:
+//                        break;
+//                }
+//                break;
+//            case MODEL_RANDOM_PLAY:
+//                switch (musicSource) {
+//                    case LOCAL_MUSIC:
+//                        MusicManager.getInstance().isLocalPlaying();
+//                        break;
+//                    case KUWO_MUSIC:
+//                        KuwoManager.getInstance().isMusicPlaying();
+//                        break;
+//                    default:
+//                        break;
+//                }
+//                break;
+//            case MODEL_ALL_PLAY:
+//                switch (musicSource) {
+//                    case LOCAL_MUSIC:
+//                        MusicManager.getInstance().isLocalPlaying();
+//                        break;
+//                    case KUWO_MUSIC:
+//                        KuwoManager.getInstance().isMusicPlaying();
+//                        break;
+//                    default:
+//                        break;
+//                }
+//                break;
+//            case MODEL_SINGLE_PLAY:
+//                switch (musicSource) {
+//                    case LOCAL_MUSIC:
+//                        MusicManager.getInstance().isLocalPlaying();
+//                        break;
+//                    case KUWO_MUSIC:
+//                        KuwoManager.getInstance().isMusicPlaying();
+//                        break;
+//                    default:
+//                        break;
+//                }
+//                break;
+//            default:
+//                break;
+//        }
     }
 }

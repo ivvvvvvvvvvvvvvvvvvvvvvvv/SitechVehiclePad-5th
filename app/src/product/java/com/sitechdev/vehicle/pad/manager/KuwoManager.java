@@ -535,15 +535,19 @@ public class KuwoManager extends BaseMusicManager {
      */
     public void onMusicChangePlayModel(SitechMusicSource.MusicPlayModels playModel) {
         switch (playModel) {
-            default:
             case MODEL_ALL_PLAY:
-                playControl(KuwoEvent.PlayControl.PLAY_MODE_ALL_CIRCLE);
+                playControl(KuwoEvent.PlayControl.PLAY_MODE_ALL_ORDER);
                 break;
             case MODEL_SINGLE_PLAY:
                 playControl(KuwoEvent.PlayControl.PLAY_MODE_SINGLE);
                 break;
             case MODEL_RANDOM_PLAY:
                 playControl(KuwoEvent.PlayControl.PLAY_MODE_RANDOM);
+                break;
+            case MODEL_LOOP_PLAY:
+                playControl(KuwoEvent.PlayControl.PLAY_MODE_ALL_CIRCLE);
+                break;
+            default:
                 break;
         }
     }

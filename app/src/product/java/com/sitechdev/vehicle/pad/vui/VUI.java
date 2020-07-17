@@ -27,6 +27,7 @@ import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.app.BaseAppWindowManager;
 import com.sitechdev.vehicle.pad.callback.BaseBribery;
+import com.sitechdev.vehicle.pad.callback.SitechMusicSource;
 import com.sitechdev.vehicle.pad.event.MapEvent;
 import com.sitechdev.vehicle.pad.event.PoiEvent;
 import com.sitechdev.vehicle.pad.event.TeddyEvent;
@@ -1739,6 +1740,26 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                         AudioUtil.onKeyUpVolume(AudioManager.STREAM_MUSIC);
                         shutAndTTS("已为您增加音量");
                         return;
+                    case "cycle":
+                        //单曲循环
+                        VoiceSourceManager.getInstance().changePlayMode(SitechMusicSource.MusicPlayModels.MODEL_SINGLE_PLAY);
+                        shutAndTTS("已为您单曲循环");
+                        break;
+                    case "order":
+                        //顺序播放
+                        VoiceSourceManager.getInstance().changePlayMode(SitechMusicSource.MusicPlayModels.MODEL_ALL_PLAY);
+                        shutAndTTS("已为您顺序播放");
+                        break;
+                    case "random":
+                        //随机播放
+                        VoiceSourceManager.getInstance().changePlayMode(SitechMusicSource.MusicPlayModels.MODEL_RANDOM_PLAY);
+                        shutAndTTS("已为您随机播放");
+                        break;
+                    case "loop":
+                        //列表循环
+                        VoiceSourceManager.getInstance().changePlayMode(SitechMusicSource.MusicPlayModels.MODEL_LOOP_PLAY);
+                        shutAndTTS("已为您列表循环");
+                        break;
                     default:
                         shutdown = true;
                         vuiAnr();
