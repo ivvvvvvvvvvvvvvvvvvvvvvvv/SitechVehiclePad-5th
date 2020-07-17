@@ -16,6 +16,7 @@ import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.event.VoiceEvent;
+import com.sitechdev.vehicle.pad.module.setting.teddy.TeddyConfig;
 import com.sitechdev.vehicle.pad.util.AppUtil;
 import com.sitechdev.vehicle.pad.view.SkinTextView;
 import com.sitechdev.vehicle.pad.view.VolumeView2;
@@ -40,7 +41,7 @@ public class FloatTeddyView extends RelativeLayout implements View.OnClickListen
     private static final int FAST_CLICK_DELAY_TIME = 1000;  // 快速点击间隔
 
     //Teddy展示区域
-    private RelativeLayout mTeddyContentView = null;
+    private RelativeLayout mTeddyContentView = null, mTeddyMvwContentView = null;
 
     //默认的Teddy展示样式
     private RelativeLayout mTeddyDefaultContentView = null;
@@ -51,7 +52,7 @@ public class FloatTeddyView extends RelativeLayout implements View.OnClickListen
 
     private ViewStub mTeddySrContentViewStup = null, mTeddyTtsContentViewStup = null;
 
-    private SkinTextView mSrTextView = null, mTtsTextView = null;
+    private SkinTextView mSrTextView = null, mTtsTextView = null, mNoMvwTextView = null, mTip1TextView = null, mTip2TextView = null;
     private VolumeView2 mSrVolumeView = null;
 
     public FloatTeddyView(Context context) {
@@ -102,7 +103,7 @@ public class FloatTeddyView extends RelativeLayout implements View.OnClickListen
         switch (v.getId()) {
             case R.id.id_btn_teddy:
                 SitechDevLog.i(VoiceConstants.TEDDY_TAG, this.getClass().getSimpleName() + "=====>手动点击Teddy启动图标===");
-                if (VUI.getInstance().isTeddyWorking() || (!mTeddyDefaultContentView.isShown())) {
+                if (isTeddyWorking()) {
                     SitechDevLog.i(VoiceConstants.TEDDY_TAG, this.getClass().getSimpleName() + "=====>Teddy正在工作中===发出SR_OVER事件");
                     EventBusUtils.postEvent(new VoiceEvent(VoiceEvent.EVENT_VOICE_SR_OVER));
                 } else {
@@ -291,7 +292,7 @@ public class FloatTeddyView extends RelativeLayout implements View.OnClickListen
     /**
      * 默认的View
      */
-    private void resetTeddyViewDefault() {
+    public void resetTeddyViewDefault() {
         //默认状态
         if (mTeddyDefaultContentView.getVisibility() != View.VISIBLE) {
             mTeddyDefaultContentView.setVisibility(View.VISIBLE);
@@ -307,5 +308,31 @@ public class FloatTeddyView extends RelativeLayout implements View.OnClickListen
             initTtsContentView();
         }
         mTeddyTtsContentView.setVisibility(View.GONE);
+
+        if (mNoMvwTextView == null) {
+            mNoMvwTextView = findViewById(R.id.id_Teddy_Tip_no_mvw);
+        }
+        if (mTeddyMvwContentView == null) {
+            mTeddyMvwContentView = findViewById(R.id.id_mvw_teddy_tip);
+        }
+
+        if (TeddyConfig.getAutoMVWStatus()) {
+            //允许语音唤醒
+            mTeddyMvwContentView.setVisibility(View.VISIBLE);
+            mNoMvwTextView.setVisibility(View.GONE);
+        } else {
+            //不允许语音唤醒
+            mTeddyMvwContentView.setVisibility(View.GONE);
+            mNoMvwTextView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    /**
+     * 是否正在Teddy工作中
+     *
+     * @return true=teddy正在识别
+     */
+    public boolean isTeddyWorking() {
+        return VUI.getInstance().isTeddyWorking() || (!mTeddyDefaultContentView.isShown());
     }
 }

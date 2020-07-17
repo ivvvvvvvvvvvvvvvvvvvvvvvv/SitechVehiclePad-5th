@@ -12,13 +12,14 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bg_btn_teddy_ask_land"
         android:ellipsize="end"
-        android:gravity="left"
+        android:gravity="center_horizontal"
         android:maxLines="2"
         android:paddingLeft="30pt"
         android:paddingTop="20pt"
         android:paddingRight="30pt"
         android:paddingBottom="20pt"
         android:textColor="#499AC8"
+        android:maxWidth="700pt"
         android:textSize="30pt"
         tools:text="好的" />
 

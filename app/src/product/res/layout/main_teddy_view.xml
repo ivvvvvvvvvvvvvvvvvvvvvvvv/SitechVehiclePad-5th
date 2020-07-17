@@ -28,62 +28,82 @@
             android:layout_height="wrap_content"
             android:visibility="visible">
 
-            <TextView
-                android:id="@+id/id_btn_teddy_try_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="30pt"
-                android:text="试试说："
-                android:textColor="#499AC8"
-                android:textSize="24pt" />
+            <RelativeLayout
+                android:id="@+id/id_mvw_teddy_tip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/id_btn_teddy_try_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="30pt"
+                    android:text="试试说："
+                    android:textColor="#499AC8"
+                    android:textSize="24pt" />
+
+                <com.sitechdev.vehicle.pad.view.SkinTextView
+                    android:id="@+id/id_btn_teddy_demo1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/id_btn_teddy_try_text"
+                    android:background="@drawable/bg_btn_teddy_ask"
+                    android:gravity="center"
+                    android:paddingLeft="40pt"
+                    android:paddingTop="20pt"
+                    android:paddingRight="40pt"
+                    android:paddingBottom="20pt"
+                    android:text="导航回家"
+                    android:textColor="#499AC8"
+                    android:textSize="30pt" />
+
+                <com.sitechdev.vehicle.pad.view.SkinTextView
+                    android:id="@+id/id_btn_teddy_demo2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/id_btn_teddy_try_text"
+                    android:layout_marginLeft="25pt"
+                    android:layout_toRightOf="@id/id_btn_teddy_demo1"
+                    android:background="@drawable/bg_btn_teddy_ask"
+                    android:gravity="center"
+                    android:paddingLeft="40pt"
+                    android:paddingTop="20pt"
+                    android:paddingRight="40pt"
+                    android:paddingBottom="20pt"
+                    android:text="播放音乐"
+                    android:textColor="#499AC8"
+                    android:textSize="30pt" />
+
+                <com.sitechdev.vehicle.pad.view.SkinTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/id_btn_teddy_try_text"
+                    android:layout_marginLeft="27pt"
+                    android:layout_toRightOf="@id/id_btn_teddy_demo2"
+                    android:background="@drawable/bg_btn_teddy_ask"
+                    android:gravity="center"
+                    android:paddingLeft="40pt"
+                    android:paddingTop="20pt"
+                    android:paddingRight="40pt"
+                    android:paddingBottom="20pt"
+                    android:text="今天天气怎么样"
+                    android:textColor="#499AC8"
+                    android:textSize="30pt" />
+            </RelativeLayout>
 
             <com.sitechdev.vehicle.pad.view.SkinTextView
-                android:id="@+id/id_btn_teddy_demo1"
+                android:id="@+id/id_Teddy_Tip_no_mvw"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/id_btn_teddy_try_text"
-                android:background="@drawable/bg_btn_teddy_ask"
+                android:layout_height="92pt"
+                android:layout_marginLeft="15pt"
+                android:background="@drawable/bg_btn_teddy_ask_land"
                 android:gravity="center"
-                android:paddingLeft="40pt"
-                android:paddingTop="20pt"
-                android:paddingRight="40pt"
-                android:paddingBottom="20pt"
-                android:text="导航回家"
+                android:paddingLeft="20pt"
+                android:paddingRight="20pt"
+                android:text="当前Teddy不支持语音唤醒"
                 android:textColor="#499AC8"
-                android:textSize="30pt" />
-
-            <com.sitechdev.vehicle.pad.view.SkinTextView
-                android:id="@+id/id_btn_teddy_demo2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/id_btn_teddy_try_text"
-                android:layout_marginLeft="25pt"
-                android:layout_toRightOf="@id/id_btn_teddy_demo1"
-                android:background="@drawable/bg_btn_teddy_ask"
-                android:gravity="center"
-                android:paddingLeft="40pt"
-                android:paddingTop="20pt"
-                android:paddingRight="40pt"
-                android:paddingBottom="20pt"
-                android:text="播放音乐"
-                android:textColor="#499AC8"
-                android:textSize="30pt" />
-
-            <com.sitechdev.vehicle.pad.view.SkinTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/id_btn_teddy_try_text"
-                android:layout_marginLeft="27pt"
-                android:layout_toRightOf="@id/id_btn_teddy_demo2"
-                android:background="@drawable/bg_btn_teddy_ask"
-                android:gravity="center"
-                android:paddingLeft="40pt"
-                android:paddingTop="20pt"
-                android:paddingRight="40pt"
-                android:paddingBottom="20pt"
-                android:text="今天天气怎么样"
-                android:textColor="#499AC8"
-                android:textSize="30pt" />
+                android:textSize="32pt"
+                android:visibility="gone" />
         </RelativeLayout>
 
         <!-- 识别的view 识别语句的应答-->

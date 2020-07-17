@@ -27,27 +27,47 @@
             android:layout_height="wrap_content"
             android:visibility="visible">
 
-            <com.sitechdev.vehicle.pad.view.SkinTextView
-                android:id="@+id/id_Teddy_Tip_1"
-                android:layout_width="311pt"
-                android:layout_height="92pt"
-                android:background="@drawable/bg_btn_teddy_ask_land"
-                android:gravity="center"
-                android:text="今天天气怎么样"
-                android:textColor="#499AC8"
-                android:textSize="32pt" />
+            <RelativeLayout
+                android:id="@+id/id_mvw_teddy_tip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.sitechdev.vehicle.pad.view.SkinTextView
+                    android:id="@+id/id_Teddy_Tip_1"
+                    android:layout_width="311pt"
+                    android:layout_height="92pt"
+                    android:background="@drawable/bg_btn_teddy_ask_land"
+                    android:gravity="center"
+                    android:text="今天天气怎么样"
+                    android:textColor="#499AC8"
+                    android:textSize="32pt" />
+
+                <com.sitechdev.vehicle.pad.view.SkinTextView
+                    android:id="@+id/id_Teddy_Tip_2"
+                    android:layout_width="311pt"
+                    android:layout_height="92pt"
+                    android:layout_marginLeft="15pt"
+                    android:layout_toRightOf="@id/id_Teddy_Tip_1"
+                    android:background="@drawable/bg_btn_teddy_ask_land"
+                    android:gravity="center"
+                    android:text="导航回家"
+                    android:textColor="#499AC8"
+                    android:textSize="32pt" />
+            </RelativeLayout>
 
             <com.sitechdev.vehicle.pad.view.SkinTextView
-                android:id="@+id/id_Teddy_Tip_2"
-                android:layout_width="311pt"
+                android:id="@+id/id_Teddy_Tip_no_mvw"
+                android:layout_width="wrap_content"
                 android:layout_height="92pt"
                 android:layout_marginLeft="15pt"
-                android:layout_toRightOf="@id/id_Teddy_Tip_1"
                 android:background="@drawable/bg_btn_teddy_ask_land"
                 android:gravity="center"
-                android:text="导航回家"
+                android:paddingLeft="20pt"
+                android:paddingRight="20pt"
+                android:text="当前Teddy不支持语音唤醒"
                 android:textColor="#499AC8"
-                android:textSize="32pt" />
+                android:textSize="32pt"
+                android:visibility="gone" />
         </RelativeLayout>
 
         <!-- 识别的view 识别语句的应答-->
@@ -56,7 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inflatedId="@+id/teddy_sr_view"
-            android:layout="@layout/main_teddy_sr_view"/>
+            android:layout="@layout/main_teddy_sr_view" />
         <!--        <RelativeLayout-->
         <!--            android:id="@+id/id_teddy_sr_content"-->
         <!--            android:layout_width="match_parent"-->
@@ -117,9 +137,9 @@
             android:id="@+id/id_teddy_tts_content_vt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:inflatedId="@+id/teddy_tts_view"
-            android:layout="@layout/main_teddy_tts_view"
-            android:layout_alignParentRight="true" />
+            android:layout="@layout/main_teddy_tts_view" />
     </RelativeLayout>
 
 </RelativeLayout>
