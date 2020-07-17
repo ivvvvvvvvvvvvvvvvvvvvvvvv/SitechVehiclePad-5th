@@ -981,32 +981,26 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                 case "主题设置":
                                     EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_OPEN_SETTING_SKIN_PAGE));
                                     shutAndTTS("好的，已为您打开皮肤设置");
-                                    shut();
                                     break;
                                 case "设置":
-                                    EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_OPEN_SETTING_SKIN_PAGE));
+                                    EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_OPEN_SETTING_PAGE));
                                     shutAndTTS("好的，已为您打开设置");
-                                    shut();
                                     break;
                                 case "网络设置":
                                     EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_OPEN_NET_SETTING_PAGE));
                                     shutAndTTS("好的，已为您打开网络设置");
-                                    shut();
                                     break;
                                 case "蓝牙设置":
                                     EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_OPEN_BT_SETTING_PAGE));
                                     shutAndTTS("好的，已为您打开蓝牙设置");
-                                    shut();
                                     break;
                                 case "语音设置":
                                     EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_OPEN_VOICE_SETTING_PAGE));
                                     shutAndTTS("好的，已为您打开语音设置");
-                                    shut();
                                     break;
                                 case "系统设置":
                                     EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_OPEN_SYS_SETTING_PAGE));
                                     shutAndTTS("好的，已为您打开系统设置");
-                                    shut();
                                     break;
                                 case "控制面板":
                                 case "控制中心":
@@ -1019,18 +1013,15 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                     log("正在打开车辆状态");
                                     EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_OPEN_CAR_STATUS_PAGE));
                                     shutAndTTS("好的，已为您打开车辆状态");
-                                    shut();
                                     break;
                                 case "个人中心":
                                     if (LoginUtils.isLogin()) {
                                         log("正在打开个人中心");
                                         EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_OPEN_MEMBER_INFO_PAGE));
                                         shutAndTTS("好的，已为您打开个人中心");
-                                        shut();
                                     } else {
                                         PersonLoginWindow.getInstance().showWnd(() -> EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_OPEN_MEMBER_INFO_PAGE)));
                                         shutAndTTS("我还没有权限打开个人中心，请您登录授权。");
-                                        shut();
                                     }
                                     break;
                                 case "我的积分":
@@ -1038,11 +1029,9 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                         log("正在打开我的积分");
                                         EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_MY_POINT_PAGE));
                                         shutAndTTS("好的，已为您打开我的积分");
-                                        shut();
                                     } else {
                                         PersonLoginWindow.getInstance().showWnd(() -> EventBusUtils.postEvent(new AppEvent(AppEvent.EVENT_APP_MY_POINT_PAGE)));
                                         shutAndTTS("我还没有权限打开我的积分，请您登录授权。");
-                                        shut();
                                     }
                                     break;
                                 case "本地音乐":
@@ -1060,18 +1049,15 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                     break;
                                 case "天气":
                                     shutAndTTS("好的，正在为您打开天气");
-                                    shut();
                                     RouterUtils.getInstance().navigation(RouterConstants.SUB_APP_WEATHER);
                                     break;
                                 case "听伴":
                                     shutAndTTS("好的，正在为您打开听伴");
-                                    shut();
                                     RouterUtils.getInstance().navigation(RouterConstants.MUSIC_PLAY_ONLINE_MAIN);
                                     break;
                                 case "全部应用":
                                 case "应用列表":
                                     shutAndTTS("好的，正在为您打开全部应用");
-                                    shut();
                                     RouterUtils.getInstance().navigation(RouterConstants.SETTING_APP_LIST);
                                     break;
                                 case "网络音乐":

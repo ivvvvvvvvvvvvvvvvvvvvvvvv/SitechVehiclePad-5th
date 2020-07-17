@@ -10,13 +10,11 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.sitechdev.vehicle.lib.util.AppUtils;
 import com.sitechdev.vehicle.lib.util.PackageInfoUtils;
 import com.sitechdev.vehicle.lib.util.SerialUtils;
-import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.bean.PoiBean;
 import com.sitechdev.vehicle.pad.module.map.newmap.IMap;
 import com.sitechdev.vehicle.pad.module.map.newmap.MapConstant;
 import com.sitechdev.vehicle.pad.module.map.util.LocationData;
-import com.sitechdev.vehicle.pad.module.setting.teddy.TeddyConstants;
 
 /**
  * @author 邵志
@@ -104,32 +102,10 @@ public class MapManager implements IMap {
             ToastUtils.showLong("正在升级高德地图，请稍后");
             return;
         }
-        //酷我界面退出到后台
-        if (AppUtils.isRunningForeground(AppApplication.getContext(), TeddyConstants.THIRDAPP_PACKAGENAME_KUWO)) {
-//            todo
-//            TeddyUtil.startMainHome();
-        }
-
-//            todo
-//        EventBusUtils.postEvent(MapEvent(MapEvent.MAP_EVENT_HIDE_WINDOW));
-
-        boolean isForeground = AppUtils.isRunningForeground(mContext, AUTO_MAP_PKG_NAME);
-
-        if (isForeground) {
-            SitechDevLog.d(TAG, "map is foreground and return!");
-//            todo
-//            EventBusUtils.postEvent(TeddyEvent(TeddyEvent.EB_TEDDY_SCENE_EVENT_CHANGE, TeddyEvent.TEDDY_SCENE_GAO_DE));
-            return;
-        }
-        SitechDevLog.d(TAG, "map is background and start!");
-
         Intent launchIntent = new Intent();
         launchIntent.setComponent(new ComponentName(AUTO_MAP_PKG_NAME, MAP_PKG_MAIN_ACTIVITY));
         launchIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         mContext.startActivity(launchIntent);
-        //进度高德地图改变场景
-//            todo
-//        EventBusUtils.postEvent(TeddyEvent(TeddyEvent.EB_TEDDY_SCENE_EVENT_CHANGE, TeddyEvent.TEDDY_SCENE_GAO_DE))
     }
 
     /**

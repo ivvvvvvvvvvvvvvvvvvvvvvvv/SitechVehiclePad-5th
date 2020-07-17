@@ -97,6 +97,9 @@ public class AppManager {
             case AppEvent.EVENT_APP_OPEN_SYS_SETTING_PAGE://系统设置
                 RouterUtils.getInstance().navigation(RouterConstants.SETTING_SYSTEM_PAGE);
                 break;
+            case AppEvent.EVENT_APP_OPEN_SETTING_PAGE:// 设置
+                RouterUtils.getInstance().navigation(RouterConstants.SETTING_HOME_PAGE);
+                break;
             default:
                 break;
         }
