@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/id_loading_img"
-        android:layout_width="400px"
-        android:layout_height="400px" />
+        android:layout_width="300px"
+        android:layout_height="300px" />
 
     <TextView
         android:id="@+id/id_loading_text"

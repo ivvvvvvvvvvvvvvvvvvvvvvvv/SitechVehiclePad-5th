@@ -7,14 +7,14 @@
     android:clipChildren="false"
     android:clipToPadding="false"
     android:paddingLeft="52pt"
-    android:paddingTop="130pt"
+    android:paddingTop="150pt"
     android:paddingRight="52pt">
 
     <!--左侧信息界面-->
     <LinearLayout
         android:id="@+id/id_main_left_content"
         android:layout_width="639pt"
-        android:layout_height="771pt"
+        android:layout_height="791pt"
         android:layout_alignParentStart="true"
         android:background="@drawable/bg_main_info_land"
         android:orientation="vertical">
@@ -271,6 +271,8 @@
         <View
             android:layout_width="1pt"
             android:layout_height="match_parent"
+            android:layout_marginTop="30pt"
+            android:layout_marginBottom="30pt"
             android:background="@color/color_main_car_info_split_line" />
 
         <LinearLayout
@@ -332,7 +334,7 @@
     <RelativeLayout
         android:id="@+id/id_main_right_middle_content"
         android:layout_width="1155pt"
-        android:layout_height="443pt"
+        android:layout_height="463pt"
         android:layout_below="@id/id_main_right_top_right_content"
         android:layout_marginLeft="22pt"
         android:layout_marginTop="19pt"
@@ -341,7 +343,7 @@
         <LinearLayout
             android:id="@+id/ll_music"
             android:layout_width="392pt"
-            android:layout_height="443pt"
+            android:layout_height="463pt"
             android:layout_alignParentStart="true"
             android:background="@drawable/main_info_right_middle_bg"
             android:gravity="center"
@@ -414,7 +416,7 @@
         <LinearLayout
             android:id="@+id/ll_news"
             android:layout_width="370pt"
-            android:layout_height="216pt"
+            android:layout_height="226pt"
             android:layout_marginLeft="12pt"
             android:layout_toRightOf="@id/ll_music"
             android:background="@drawable/main_info_right_middle_bg"
@@ -436,7 +438,7 @@
         <LinearLayout
             android:id="@+id/ll_book"
             android:layout_width="370pt"
-            android:layout_height="216pt"
+            android:layout_height="226pt"
             android:layout_marginLeft="12pt"
             android:layout_toRightOf="@id/ll_news"
             android:background="@drawable/main_info_right_middle_bg"
@@ -458,7 +460,7 @@
         <LinearLayout
             android:id="@+id/ll_car"
             android:layout_width="370pt"
-            android:layout_height="215pt"
+            android:layout_height="226pt"
             android:layout_below="@id/ll_news"
             android:layout_marginLeft="12pt"
             android:layout_marginTop="11pt"
@@ -482,7 +484,7 @@
         <LinearLayout
             android:id="@+id/ll_life"
             android:layout_width="370pt"
-            android:layout_height="215pt"
+            android:layout_height="226pt"
             android:layout_below="@id/ll_book"
             android:layout_marginLeft="11pt"
             android:layout_marginTop="11pt"

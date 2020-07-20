@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/id_main_menu_view"
     android:layout_width="1062pt"
-    android:layout_height="160pt"
-    android:layout_marginBottom="5pt"
+    android:layout_height="210pt"
+    android:paddingBottom="25pt"
     android:paddingLeft="61pt"
     android:paddingRight="61pt">
 
@@ -12,14 +12,12 @@
         android:layout_width="100pt"
         android:layout_height="160pt"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
         android:src="@drawable/ico_btn_home" />
 
     <ImageView
         android:id="@+id/id_btn_location"
         android:layout_width="100pt"
         android:layout_height="160pt"
-        android:layout_alignParentBottom="true"
         android:layout_marginLeft="110pt"
         android:layout_toRightOf="@id/id_btn_home"
         android:src="@drawable/ico_btn_navi" />
@@ -28,7 +26,6 @@
         android:id="@+id/id_btn_music"
         android:layout_width="100pt"
         android:layout_height="160pt"
-        android:layout_alignParentBottom="true"
         android:layout_marginLeft="110pt"
         android:layout_toRightOf="@id/id_btn_location"
         android:src="@drawable/ico_btn_music" />
@@ -37,7 +34,6 @@
         android:id="@+id/id_btn_driver"
         android:layout_width="100pt"
         android:layout_height="160pt"
-        android:layout_alignParentBottom="true"
         android:layout_marginLeft="110pt"
         android:layout_toRightOf="@id/id_btn_music"
         android:src="@drawable/ico_btn_driver" />
@@ -46,7 +42,6 @@
         android:id="@+id/id_btn_apps"
         android:layout_width="100pt"
         android:layout_height="160pt"
-        android:layout_alignParentBottom="true"
         android:layout_marginLeft="110pt"
         android:layout_toRightOf="@id/id_btn_driver"
         android:src="@drawable/ico_btn_apps" />

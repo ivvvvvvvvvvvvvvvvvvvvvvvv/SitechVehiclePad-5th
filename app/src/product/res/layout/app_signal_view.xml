@@ -6,53 +6,53 @@
     android:layout_gravity="center_vertical"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:paddingTop="10pt"
-    android:paddingBottom="10pt">
+    android:paddingTop="20pt"
+    android:paddingBottom="20pt">
 
     <ImageView
         android:id="@+id/iv_wifi_icon"
-        android:layout_width="32pt"
-        android:layout_height="22pt"
+        android:layout_width="40pt"
+        android:layout_height="40pt"
         android:layout_marginRight="20pt"
         android:src="@drawable/wifi_icon"
         android:visibility="gone" />
 
     <ImageView
         android:id="@+id/iv_bluetooth_icon"
-        android:layout_width="23pt"
-        android:layout_height="25pt"
+        android:layout_width="40pt"
+        android:layout_height="40pt"
         android:layout_marginRight="20pt"
         android:src="@drawable/bluetooth_icon"
         android:visibility="gone" />
 
     <ImageView
         android:id="@+id/iv_usb_icon"
-        android:layout_width="32pt"
-        android:layout_height="30pt"
+        android:layout_width="40pt"
+        android:layout_height="40pt"
         android:layout_marginRight="20pt"
         android:src="@drawable/usb_icon"
         android:visibility="gone" />
 
     <ImageView
         android:id="@+id/iv_top_voice"
-        android:layout_width="24pt"
-        android:layout_height="24pt"
+        android:layout_width="40pt"
+        android:layout_height="40pt"
         android:layout_marginRight="20pt"
         android:src="@drawable/ic_top_voice"
         android:visibility="gone" />
 
     <ImageView
         android:id="@+id/iv_hot_icon"
-        android:layout_width="31pt"
-        android:layout_height="22pt"
+        android:layout_width="40pt"
+        android:layout_height="40pt"
         android:layout_marginRight="20pt"
         android:src="@drawable/rigth_top_hot_icon"
         android:visibility="gone" />
 
     <ImageView
         android:id="@+id/iv_tbox_icon"
-        android:layout_width="32pt"
-        android:layout_height="30pt"
+        android:layout_width="40pt"
+        android:layout_height="40pt"
         android:layout_marginRight="20pt"
         android:src="@drawable/tbox_zero"
         android:visibility="gone" />
@@ -65,5 +65,5 @@
         android:format12Hour="hh:mm"
         android:format24Hour="HH:mm"
         android:textColor="@color/white"
-        android:textSize="24pt" />
+        android:textSize="30pt" />
 </LinearLayout>
