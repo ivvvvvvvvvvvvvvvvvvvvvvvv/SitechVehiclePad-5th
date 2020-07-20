@@ -215,4 +215,8 @@
 
     <integer name="video_list_left_space">88</integer>
     <integer name="video_list_top_space">73</integer>
+
+    <!--    横屏时控制面板的宽度-->
+    <integer name="control_panel_view_h_width">460</integer>
+    <dimen name="control_panel_view_h_width">460pt</dimen>
 </resources>

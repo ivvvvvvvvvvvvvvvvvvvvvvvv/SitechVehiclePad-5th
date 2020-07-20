@@ -17,6 +17,14 @@ import com.sitechdev.vehicle.pad.app.AppApplication;
  */
 public class ScreenLightControlManager {
     private final static String TAG = "ScreenLightManager";
+    /**
+     * 亮度最小值
+     */
+    private static final int MIN_SCREEN_LIGHT_VALUE = 25;
+    /**
+     * 亮度最大值
+     */
+    private static final int MAX_SCREEN_LIGHT_VALUE = 255;
 
     private ScreenLightControlManager() {
     }
@@ -59,12 +67,18 @@ public class ScreenLightControlManager {
     /**
      * 设置亮度值
      *
-     * @param brightness
+     * @param brightness 范围：【minScreenLightValue -- maxScreenLightValue】
      */
-    public void setScreenLightValue(@IntRange(from = 25, to = 255) final int brightness) {
-        SitechDevLog.i(TAG, "setLightValue===" + brightness);
+    public void setScreenLightValue(int brightness) {
         try {
 //            BrightnessUtils.setWindowBrightness(ActivityUtils.getTopActivity().getWindow(), brightness);
+            if (brightness < MIN_SCREEN_LIGHT_VALUE) {
+                brightness = MIN_SCREEN_LIGHT_VALUE;
+            }
+            if (brightness > MAX_SCREEN_LIGHT_VALUE) {
+                brightness = MAX_SCREEN_LIGHT_VALUE;
+            }
+            SitechDevLog.i(TAG, "setLightValue===" + brightness);
             BrightnessUtils.setBrightness(brightness);
         } catch (Exception e) {
             SitechDevLog.exception(e);
@@ -72,28 +86,28 @@ public class ScreenLightControlManager {
     }
 
     public void setScreenLightMax() {
-        setScreenLightValue(255);
+        setScreenLightValue(MAX_SCREEN_LIGHT_VALUE);
     }
 
     public void setScreenLightMin() {
-        setScreenLightValue(25);
+        setScreenLightValue(MIN_SCREEN_LIGHT_VALUE);
     }
 
     public boolean setScreenLightTurningup() {
-        if (getScreenLightValue() == 255) {
+        if (getScreenLightValue() == MAX_SCREEN_LIGHT_VALUE) {
             return false;
         }
-        int result = getScreenLightValue() + (int) Math.floor(255 * 0.1f);
-        setScreenLightValue(result > 255 ? 255 : result);
+        int result = getScreenLightValue() + (int) Math.floor(MAX_SCREEN_LIGHT_VALUE * 0.1f);
+        setScreenLightValue(result);
         return true;
     }
 
     public boolean setScreenLightTurningdown() {
-        if (getScreenLightValue() <= 25) {
+        if (getScreenLightValue() <= MIN_SCREEN_LIGHT_VALUE) {
             return false;
         }
-        int result = getScreenLightValue() - (int) Math.floor(255 * 0.1f);
-        setScreenLightValue(result < 25 ? 25 : result);
+        int result = getScreenLightValue() - (int) Math.floor(MIN_SCREEN_LIGHT_VALUE * 0.1f);
+        setScreenLightValue(result);
         return true;
     }
 

@@ -905,16 +905,16 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                         if ("brightness_plus".equalsIgnoreCase(sitechaction)) {
                             boolean result = ScreenLightControlManager.getInstance().setScreenLightTurningup();
                             if (result) {
-                                shutAndTTS("当前亮度已经是最高");
-                            } else {
                                 shutAndTTS("已为您增加亮度");
+                            } else {
+                                shutAndTTS("当前亮度已经是最高");
                             }
                         } else if ("brightness_minus".equalsIgnoreCase(sitechaction)) {
                             boolean result = ScreenLightControlManager.getInstance().setScreenLightTurningdown();
                             if (result) {
-                                shutAndTTS("当前亮度已经是最低");
-                            } else {
                                 shutAndTTS("已为您减小亮度");
+                            } else {
+                                shutAndTTS("当前亮度已经是最低");
                             }
                         } else if ("brightness_min".equalsIgnoreCase(sitechaction)) {
                             ScreenLightControlManager.getInstance().setScreenLightMin();

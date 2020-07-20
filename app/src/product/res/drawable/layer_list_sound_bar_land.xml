@@ -5,10 +5,10 @@
         <clip>
             <shape>
                 <solid android:color="#0A1728" />
-                <corners android:radius="24pt" />
+                <corners android:radius="30pt" />
                 <size
-                    android:width="150pt"
-                    android:height="517pt" />
+                    android:width="118pt"
+                    android:height="630pt" />
             </shape>
         </clip>
     </item>
@@ -19,10 +19,10 @@
                     android:angle="45"
                     android:endColor="#BED2FE"
                     android:startColor="#DEE7FA" />
-                <corners android:radius="16px" />
+                <corners android:radius="30pt" />
                 <size
-                    android:width="150pt"
-                    android:height="517pt" />
+                    android:width="118pt"
+                    android:height="630pt" />
             </shape>
         </clip>
     </item>

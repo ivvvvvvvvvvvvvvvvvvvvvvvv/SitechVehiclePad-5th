@@ -7,25 +7,25 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/id_main_popup_view_content"
-    android:layout_width="515pt"
+    android:layout_width="@dimen/control_panel_view_h_width"
     android:layout_height="match_parent"
-    android:layout_margin="12pt"
-    android:background="@drawable/bg_control_panel"
-    android:paddingLeft="40pt"
-    android:paddingTop="40pt"
-    android:paddingBottom="40pt">
+    android:layout_marginLeft="30pt"
+    android:layout_marginTop="30pt"
+    android:layout_marginBottom="30pt"
+    android:background="@drawable/bg_control_panel">
 
     <LinearLayout
         android:id="@+id/id_top_content"
-        android:layout_width="wrap_content"
+        android:layout_width="30pt"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
         android:gravity="center"
-        android:paddingRight="30pt">
+        android:paddingLeft="15pt"
+        android:visibility="visible">
 
         <ImageView
             android:id="@+id/id_top_image"
-            android:layout_width="10pt"
+            android:layout_width="15pt"
             android:layout_height="240pt"
             android:gravity="center_vertical"
             android:src="@drawable/main_control_top_control" />
@@ -33,71 +33,78 @@
 
     <RelativeLayout
         android:id="@+id/id_first_content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginRight="20pt"
+        android:layout_width="347pt"
+        android:layout_height="347pt"
+        android:layout_margin="15pt"
         android:layout_toLeftOf="@id/id_top_content"
         android:background="@drawable/control_panel_switch_bg"
-        android:padding="45pt">
+        android:padding="30pt">
 
         <ImageView
             android:id="@+id/id_wifi_Btn"
-            android:layout_width="134pt"
-            android:layout_height="134pt"
+            android:layout_width="127pt"
+            android:layout_height="127pt"
             android:layout_alignParentLeft="true"
             android:clickable="true"
+            android:scaleType="centerInside"
             android:src="@drawable/selector_control_wifi" />
 
         <ImageView
             android:id="@+id/id_mobile_net_Btn"
-            android:layout_width="134pt"
-            android:layout_height="134pt"
-            android:layout_marginLeft="32pt"
+            android:layout_width="127pt"
+            android:layout_height="127pt"
+            android:layout_marginLeft="33pt"
             android:layout_toRightOf="@id/id_wifi_Btn"
             android:clickable="true"
+            android:scaleType="centerInside"
             android:src="@drawable/selector_control_mobile_net" />
 
         <ImageView
             android:id="@+id/id_teddy_Btn"
-            android:layout_width="134pt"
-            android:layout_height="134pt"
+            android:layout_width="127pt"
+            android:layout_height="127pt"
             android:layout_below="@id/id_wifi_Btn"
-            android:layout_marginTop="28pt"
+            android:layout_marginTop="30pt"
             android:clickable="true"
+            android:scaleType="centerInside"
             android:src="@drawable/selector_control_teddy" />
 
         <ImageView
             android:id="@+id/id_bluetooth_Btn"
-            android:layout_width="134pt"
-            android:layout_height="134pt"
+            android:layout_width="127pt"
+            android:layout_height="127pt"
             android:layout_below="@id/id_mobile_net_Btn"
-            android:layout_marginLeft="32pt"
-            android:layout_marginTop="28pt"
+            android:layout_marginLeft="33pt"
+            android:layout_marginTop="30pt"
             android:layout_toRightOf="@id/id_teddy_Btn"
             android:clickable="true"
+            android:scaleType="centerInside"
             android:src="@drawable/selector_control_bluetooth" />
 
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/id_second_content"
-        android:layout_width="wrap_content"
-        android:layout_height="517pt"
-        android:layout_centerHorizontal="true"
+        android:layout_width="347pt"
+        android:layout_height="match_parent"
         android:layout_below="@id/id_first_content"
-        android:layout_marginTop="34pt"
-        android:layout_marginRight="20pt">
+        android:layout_marginLeft="15pt"
+        android:layout_marginTop="15pt"
+        android:layout_marginRight="15pt"
+        android:layout_marginBottom="30pt"
+        android:layout_toLeftOf="@id/id_top_content"
+        android:background="@drawable/control_panel_switch_bg"
+        android:padding="30pt">
 
         <FrameLayout
             android:id="@+id/id_screen_light_change_content"
-            android:layout_width="165pt"
+            android:layout_width="128pt"
             android:layout_height="match_parent">
 
             <com.sitechdev.vehicle.pad.view.VerticalSeekBarForSkin
                 android:id="@+id/id_control_light_seek_bar"
-                android:layout_width="match_parent"
-                android:layout_height="517pt"
+                android:layout_width="128pt"
+                android:layout_height="match_parent"
                 android:background="@drawable/bg_popup_btn_view"
                 android:progressDrawable="@drawable/layer_list_sound_bar_land" />
 
@@ -105,31 +112,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|top"
-                android:layout_marginTop="40pt"
+                android:layout_marginTop="30pt"
                 android:text="亮度"
                 android:textColor="#80566A93"
                 android:textSize="28pt" />
 
             <ImageView
-                android:layout_width="65pt"
-                android:layout_height="65pt"
+                android:layout_width="57pt"
+                android:layout_height="57pt"
                 android:layout_gravity="center_horizontal|bottom"
-                android:layout_marginBottom="40pt"
+                android:layout_marginBottom="27pt"
                 android:src="@drawable/ico_control_light" />
 
         </FrameLayout>
 
         <FrameLayout
             android:id="@+id/id_volume_change_content"
-            android:layout_width="165pt"
+            android:layout_width="128pt"
             android:layout_height="match_parent"
-            android:layout_marginLeft="60pt"
+            android:layout_marginLeft="30pt"
             android:layout_toRightOf="@id/id_screen_light_change_content">
 
             <com.sitechdev.vehicle.pad.view.VerticalSeekBarForSkin
                 android:id="@+id/id_control_volume_seek_bar"
-                android:layout_width="match_parent"
-                android:layout_height="517pt"
+                android:layout_width="128pt"
+                android:layout_height="match_parent"
                 android:background="@drawable/bg_popup_btn_view"
                 android:progressDrawable="@drawable/layer_list_sound_bar_land" />
 
@@ -137,16 +144,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|top"
-                android:layout_marginTop="40pt"
+                android:layout_marginTop="30pt"
                 android:text="音量"
                 android:textColor="#80566A93"
                 android:textSize="28pt" />
 
             <ImageView
-                android:layout_width="65pt"
-                android:layout_height="65pt"
+                android:layout_width="57pt"
+                android:layout_height="57pt"
                 android:layout_gravity="center_horizontal|bottom"
-                android:layout_marginBottom="40pt"
+                android:layout_marginBottom="27pt"
                 android:src="@drawable/ico_control_volume" />
 
         </FrameLayout>
@@ -154,182 +161,182 @@
     </RelativeLayout>
 
 
-<!--    <LinearLayout-->
-<!--        android:id="@+id/id_led_view_content"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="156pt"-->
-<!--        android:layout_below="@id/id_top_content"-->
-<!--        android:layout_marginLeft="80pt"-->
-<!--        android:layout_marginTop="10pt"-->
-<!--        android:layout_toRightOf="@id/id_second_content"-->
-<!--        android:background="@drawable/bg_popup_btn_view"-->
-<!--        android:gravity="center_vertical"-->
-<!--        android:orientation="horizontal"-->
-<!--        android:paddingLeft="40pt"-->
-<!--        android:paddingRight="40pt"-->
-<!--        android:visibility="gone" />-->
+    <!--    <LinearLayout-->
+    <!--        android:id="@+id/id_led_view_content"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="156pt"-->
+    <!--        android:layout_below="@id/id_top_content"-->
+    <!--        android:layout_marginLeft="80pt"-->
+    <!--        android:layout_marginTop="10pt"-->
+    <!--        android:layout_toRightOf="@id/id_second_content"-->
+    <!--        android:background="@drawable/bg_popup_btn_view"-->
+    <!--        android:gravity="center_vertical"-->
+    <!--        android:orientation="horizontal"-->
+    <!--        android:paddingLeft="40pt"-->
+    <!--        android:paddingRight="40pt"-->
+    <!--        android:visibility="gone" />-->
 
-<!--    <LinearLayout-->
-<!--        android:id="@+id/id_forth_content"-->
-<!--        android:layout_width="327pt"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@id/id_led_view_content"-->
-<!--        android:layout_marginLeft="80pt"-->
-<!--        android:layout_marginTop="20pt"-->
-<!--        android:layout_toRightOf="@id/id_second_content"-->
-<!--        android:orientation="vertical"-->
-<!--        android:visibility="gone">-->
+    <!--    <LinearLayout-->
+    <!--        android:id="@+id/id_forth_content"-->
+    <!--        android:layout_width="327pt"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_below="@id/id_led_view_content"-->
+    <!--        android:layout_marginLeft="80pt"-->
+    <!--        android:layout_marginTop="20pt"-->
+    <!--        android:layout_toRightOf="@id/id_second_content"-->
+    <!--        android:orientation="vertical"-->
+    <!--        android:visibility="gone">-->
 
-<!--        <ImageView-->
-<!--            android:id="@+id/id_eco_content"-->
-<!--            android:layout_width="327pt"-->
-<!--            android:layout_height="100pt"-->
-<!--            android:background="@drawable/selector_control_eco" />-->
+    <!--        <ImageView-->
+    <!--            android:id="@+id/id_eco_content"-->
+    <!--            android:layout_width="327pt"-->
+    <!--            android:layout_height="100pt"-->
+    <!--            android:background="@drawable/selector_control_eco" />-->
 
-<!--        <ImageView-->
-<!--            android:id="@+id/id_screen_ori_content"-->
-<!--            android:layout_width="327pt"-->
-<!--            android:layout_height="100pt"-->
-<!--            android:layout_marginTop="20pt"-->
-<!--            android:background="@drawable/selector_control_screen_ori" />-->
-<!--    </LinearLayout>-->
+    <!--        <ImageView-->
+    <!--            android:id="@+id/id_screen_ori_content"-->
+    <!--            android:layout_width="327pt"-->
+    <!--            android:layout_height="100pt"-->
+    <!--            android:layout_marginTop="20pt"-->
+    <!--            android:background="@drawable/selector_control_screen_ori" />-->
+    <!--    </LinearLayout>-->
 
-<!--    <LinearLayout-->
-<!--        android:id="@+id/id_fifth_content"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@id/id_led_view_content"-->
-<!--        android:layout_marginLeft="60pt"-->
-<!--        android:layout_marginTop="20pt"-->
-<!--        android:layout_toRightOf="@id/id_forth_content"-->
-<!--        android:orientation="horizontal"-->
-<!--        android:visibility="gone">-->
+    <!--    <LinearLayout-->
+    <!--        android:id="@+id/id_fifth_content"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_below="@id/id_led_view_content"-->
+    <!--        android:layout_marginLeft="60pt"-->
+    <!--        android:layout_marginTop="20pt"-->
+    <!--        android:layout_toRightOf="@id/id_forth_content"-->
+    <!--        android:orientation="horizontal"-->
+    <!--        android:visibility="gone">-->
 
-<!--        <ImageView-->
-<!--            android:id="@+id/id_car_speed_img"-->
-<!--            android:layout_width="65pt"-->
-<!--            android:layout_height="65pt"-->
-<!--            android:layout_gravity="center_vertical"-->
-<!--            android:src="@drawable/ico_control_car_speed" />-->
+    <!--        <ImageView-->
+    <!--            android:id="@+id/id_car_speed_img"-->
+    <!--            android:layout_width="65pt"-->
+    <!--            android:layout_height="65pt"-->
+    <!--            android:layout_gravity="center_vertical"-->
+    <!--            android:src="@drawable/ico_control_car_speed" />-->
 
-<!--        <TextView-->
-<!--            android:id="@+id/id_car_speed_title"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="center_vertical"-->
-<!--            android:layout_marginLeft="20pt"-->
-<!--            android:text="车速限制"-->
-<!--            android:textColor="#FDFDFD"-->
-<!--            android:textSize="32pt" />-->
+    <!--        <TextView-->
+    <!--            android:id="@+id/id_car_speed_title"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_gravity="center_vertical"-->
+    <!--            android:layout_marginLeft="20pt"-->
+    <!--            android:text="车速限制"-->
+    <!--            android:textColor="#FDFDFD"-->
+    <!--            android:textSize="32pt" />-->
 
-<!--        <RadioGroup-->
-<!--            android:id="@+id/id_car_speed_switch_group"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="100pt"-->
-<!--            android:layout_marginLeft="40pt"-->
-<!--            android:background="@drawable/bg_popup_btn_view"-->
-<!--            android:orientation="horizontal">-->
+    <!--        <RadioGroup-->
+    <!--            android:id="@+id/id_car_speed_switch_group"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="100pt"-->
+    <!--            android:layout_marginLeft="40pt"-->
+    <!--            android:background="@drawable/bg_popup_btn_view"-->
+    <!--            android:orientation="horizontal">-->
 
-<!--            <RadioButton-->
-<!--                android:id="@+id/id_car_speed_off"-->
-<!--                style="@style/car_radio_radiobutton"-->
-<!--                android:layout_width="197pt"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:layout_weight="1"-->
-<!--                android:checked="true"-->
-<!--                android:text="关"-->
-<!--                android:textColor="@drawable/selector_car_control_textcolor_selected"-->
-<!--                android:textSize="32pt" />-->
+    <!--            <RadioButton-->
+    <!--                android:id="@+id/id_car_speed_off"-->
+    <!--                style="@style/car_radio_radiobutton"-->
+    <!--                android:layout_width="197pt"-->
+    <!--                android:layout_height="match_parent"-->
+    <!--                android:layout_weight="1"-->
+    <!--                android:checked="true"-->
+    <!--                android:text="关"-->
+    <!--                android:textColor="@drawable/selector_car_control_textcolor_selected"-->
+    <!--                android:textSize="32pt" />-->
 
-<!--            <RadioButton-->
-<!--                android:id="@+id/id_car_speed_middle"-->
-<!--                style="@style/car_radio_radiobutton"-->
-<!--                android:layout_width="197pt"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:layout_weight="1"-->
-<!--                android:text="60km/h"-->
-<!--                android:textColor="@drawable/selector_car_control_textcolor_selected"-->
-<!--                android:textSize="32pt" />-->
+    <!--            <RadioButton-->
+    <!--                android:id="@+id/id_car_speed_middle"-->
+    <!--                style="@style/car_radio_radiobutton"-->
+    <!--                android:layout_width="197pt"-->
+    <!--                android:layout_height="match_parent"-->
+    <!--                android:layout_weight="1"-->
+    <!--                android:text="60km/h"-->
+    <!--                android:textColor="@drawable/selector_car_control_textcolor_selected"-->
+    <!--                android:textSize="32pt" />-->
 
-<!--            <RadioButton-->
-<!--                android:id="@+id/id_car_speed_max"-->
-<!--                style="@style/car_radio_radiobutton"-->
-<!--                android:layout_width="197pt"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:layout_weight="1"-->
-<!--                android:text="80km/h"-->
-<!--                android:textColor="@drawable/selector_car_control_textcolor_selected"-->
-<!--                android:textSize="32pt" />-->
-<!--        </RadioGroup>-->
-<!--    </LinearLayout>-->
+    <!--            <RadioButton-->
+    <!--                android:id="@+id/id_car_speed_max"-->
+    <!--                style="@style/car_radio_radiobutton"-->
+    <!--                android:layout_width="197pt"-->
+    <!--                android:layout_height="match_parent"-->
+    <!--                android:layout_weight="1"-->
+    <!--                android:text="80km/h"-->
+    <!--                android:textColor="@drawable/selector_car_control_textcolor_selected"-->
+    <!--                android:textSize="32pt" />-->
+    <!--        </RadioGroup>-->
+    <!--    </LinearLayout>-->
 
-<!--    <LinearLayout-->
-<!--        android:id="@+id/id_six_content"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@id/id_fifth_content"-->
-<!--        android:layout_marginLeft="60pt"-->
-<!--        android:layout_marginTop="20pt"-->
-<!--        android:layout_toRightOf="@id/id_forth_content"-->
-<!--        android:orientation="horizontal"-->
-<!--        android:visibility="gone">-->
+    <!--    <LinearLayout-->
+    <!--        android:id="@+id/id_six_content"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_below="@id/id_fifth_content"-->
+    <!--        android:layout_marginLeft="60pt"-->
+    <!--        android:layout_marginTop="20pt"-->
+    <!--        android:layout_toRightOf="@id/id_forth_content"-->
+    <!--        android:orientation="horizontal"-->
+    <!--        android:visibility="gone">-->
 
-<!--        <ImageView-->
-<!--            android:id="@+id/id_car_power_recycle_img"-->
-<!--            android:layout_width="65pt"-->
-<!--            android:layout_height="65pt"-->
-<!--            android:layout_gravity="center_vertical"-->
-<!--            android:src="@drawable/ico_control_car_power_recycle" />-->
+    <!--        <ImageView-->
+    <!--            android:id="@+id/id_car_power_recycle_img"-->
+    <!--            android:layout_width="65pt"-->
+    <!--            android:layout_height="65pt"-->
+    <!--            android:layout_gravity="center_vertical"-->
+    <!--            android:src="@drawable/ico_control_car_power_recycle" />-->
 
-<!--        <TextView-->
-<!--            android:id="@+id/id_car_power_recycle_title"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="center_vertical"-->
-<!--            android:layout_marginLeft="20pt"-->
-<!--            android:text="动能回收"-->
-<!--            android:textColor="#FDFDFD"-->
-<!--            android:textSize="32pt" />-->
+    <!--        <TextView-->
+    <!--            android:id="@+id/id_car_power_recycle_title"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_gravity="center_vertical"-->
+    <!--            android:layout_marginLeft="20pt"-->
+    <!--            android:text="动能回收"-->
+    <!--            android:textColor="#FDFDFD"-->
+    <!--            android:textSize="32pt" />-->
 
-<!--        <RadioGroup-->
-<!--            android:id="@+id/id_car_power_recycle_group"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="100pt"-->
-<!--            android:layout_marginLeft="40pt"-->
-<!--            android:background="@drawable/bg_popup_btn_view"-->
-<!--            android:orientation="horizontal">-->
+    <!--        <RadioGroup-->
+    <!--            android:id="@+id/id_car_power_recycle_group"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="100pt"-->
+    <!--            android:layout_marginLeft="40pt"-->
+    <!--            android:background="@drawable/bg_popup_btn_view"-->
+    <!--            android:orientation="horizontal">-->
 
-<!--            <RadioButton-->
-<!--                android:id="@+id/id_car_recycle_off"-->
-<!--                style="@style/car_radio_radiobutton"-->
-<!--                android:layout_width="197pt"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:layout_weight="1"-->
-<!--                android:checked="true"-->
-<!--                android:text="关"-->
-<!--                android:textColor="@drawable/selector_car_control_textcolor_selected"-->
-<!--                android:textSize="32pt" />-->
+    <!--            <RadioButton-->
+    <!--                android:id="@+id/id_car_recycle_off"-->
+    <!--                style="@style/car_radio_radiobutton"-->
+    <!--                android:layout_width="197pt"-->
+    <!--                android:layout_height="match_parent"-->
+    <!--                android:layout_weight="1"-->
+    <!--                android:checked="true"-->
+    <!--                android:text="关"-->
+    <!--                android:textColor="@drawable/selector_car_control_textcolor_selected"-->
+    <!--                android:textSize="32pt" />-->
 
-<!--            <RadioButton-->
-<!--                android:id="@+id/id_car_recycle_middle"-->
-<!--                style="@style/car_radio_radiobutton"-->
-<!--                android:layout_width="197pt"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:layout_weight="1"-->
-<!--                android:text="中"-->
-<!--                android:textColor="@drawable/selector_car_control_textcolor_selected"-->
-<!--                android:textSize="32pt" />-->
+    <!--            <RadioButton-->
+    <!--                android:id="@+id/id_car_recycle_middle"-->
+    <!--                style="@style/car_radio_radiobutton"-->
+    <!--                android:layout_width="197pt"-->
+    <!--                android:layout_height="match_parent"-->
+    <!--                android:layout_weight="1"-->
+    <!--                android:text="中"-->
+    <!--                android:textColor="@drawable/selector_car_control_textcolor_selected"-->
+    <!--                android:textSize="32pt" />-->
 
-<!--            <RadioButton-->
-<!--                android:id="@+id/id_car_recycle_max"-->
-<!--                style="@style/car_radio_radiobutton"-->
-<!--                android:layout_width="197pt"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:layout_weight="1"-->
-<!--                android:text="强"-->
-<!--                android:textColor="@drawable/selector_car_control_textcolor_selected"-->
-<!--                android:textSize="32pt" />-->
-<!--        </RadioGroup>-->
-<!--    </LinearLayout>-->
+    <!--            <RadioButton-->
+    <!--                android:id="@+id/id_car_recycle_max"-->
+    <!--                style="@style/car_radio_radiobutton"-->
+    <!--                android:layout_width="197pt"-->
+    <!--                android:layout_height="match_parent"-->
+    <!--                android:layout_weight="1"-->
+    <!--                android:text="强"-->
+    <!--                android:textColor="@drawable/selector_car_control_textcolor_selected"-->
+    <!--                android:textSize="32pt" />-->
+    <!--        </RadioGroup>-->
+    <!--    </LinearLayout>-->
 
 </RelativeLayout><!--</RelativeLayout>-->

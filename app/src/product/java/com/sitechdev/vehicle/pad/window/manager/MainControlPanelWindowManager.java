@@ -12,6 +12,7 @@ import com.blankj.utilcode.util.ScreenUtils;
 import com.sitechdev.vehicle.lib.event.EventBusUtils;
 import com.sitechdev.vehicle.lib.util.SitechDevLog;
 import com.sitechdev.vehicle.lib.util.ThreadUtils;
+import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
 import com.sitechdev.vehicle.pad.app.BaseAppWindowManager;
 import com.sitechdev.vehicle.pad.app.BaseWindow;
@@ -86,9 +87,9 @@ public class MainControlPanelWindowManager {
             displayWidth = BaseWindow.getInstance().getDisplayWidth();
             if (ScreenUtils.isLandscape()) {
                 //横屏
-                maxWindowLength = AdaptScreenUtils.pt2Px(515);
-                params.width = AdaptScreenUtils.pt2Px(515);
-                minWindowLength = AdaptScreenUtils.pt2Px(50);
+                maxWindowLength = AdaptScreenUtils.pt2Px(AppApplication.getApp().getResources().getInteger(R.integer.control_panel_view_h_width));
+                params.width = AdaptScreenUtils.pt2Px(AppApplication.getApp().getResources().getInteger(R.integer.control_panel_view_h_width));
+                minWindowLength = AdaptScreenUtils.pt2Px(30);
                 startWindowX = minWindowLength - params.width;
                 startWindowY = 0;
             } else {
@@ -121,6 +122,7 @@ public class MainControlPanelWindowManager {
                     ", params.y=" + params.y +
                     ", displayHeight=" + displayHeight +
                     ", displayWidth=" + displayWidth);
+            ;
         }
     }
 
