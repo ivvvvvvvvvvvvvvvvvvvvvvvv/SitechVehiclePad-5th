@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:horizontalSpacing="36pt"
+    android:horizontalSpacing="25pt"
     android:listSelector="@android:color/transparent"
     android:numColumns="6"
-    android:paddingLeft="27pt"
-    android:paddingRight="27pt"
-    android:verticalSpacing="50pt" />
+    android:paddingLeft="50pt"
+    android:paddingRight="50pt"
+    android:verticalSpacing="70pt" />

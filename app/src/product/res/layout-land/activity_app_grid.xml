@@ -8,8 +8,8 @@
         android:id="@+id/id_all_apps_vp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="140pt"
-        android:layout_marginBottom="200pt" />
+        android:layout_marginTop="190pt"
+        android:layout_marginBottom="150pt" />
 
     <LinearLayout
         android:id="@+id/id_main_tag"
