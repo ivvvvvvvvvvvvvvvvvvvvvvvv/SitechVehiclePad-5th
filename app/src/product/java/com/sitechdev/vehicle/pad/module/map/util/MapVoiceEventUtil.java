@@ -186,7 +186,6 @@ public class MapVoiceEventUtil {
                 }
                 MapUtil.closeNavi();
                 MapUtil.hideNaviClient();
-                ThreadUtils.runOnUIThread(() -> VUI.getInstance().shutAndTTS("已为您关闭导航"));
                 break;
             case MapEvent.EVENT_MAP_START_NAVI_HOME:
                 //导航回家

@@ -658,14 +658,10 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                     }
                                     break;
                                 case "OPEN_MAP":
-                                    EventBusUtils.postEvent(new MapEvent(MapEvent.EVENT_OPEN_MAP));
-                                    vuiWindow.hide();
-                                    shutAndTTS("");
+                                    openNavi();
                                     break;
                                 case "CLOSE_MAP":
-                                    EventBusUtils.postEvent(new MapEvent(MapEvent.EVENT_MAP_CLOSE_NAVI));
-                                    vuiWindow.hide();
-                                    shutAndTTS("");
+                                    closeNavi();
                                     break;
                                 default:
                                     break;
@@ -736,13 +732,11 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                         return;
                                     //开始导航
                                     case VoiceConstants.VOICE_CUSTOM_INTENT_START_NAVI:
-                                        EventBusUtils.postEvent(new MapEvent(MapEvent.EVENT_MAP_NAVI_SET_HOME_ADDR));
-                                        shutAndTTS("");
+                                        openNavi();
                                         return;
                                     //关闭导航
                                     case VoiceConstants.VOICE_CUSTOM_INTENT_CLOSE_NAVI:
-                                        EventBusUtils.postEvent(new MapEvent(MapEvent.EVENT_MAP_CLOSE_NAVI));
-                                        shutAndTTS("");
+                                        closeNavi();
                                         return;
                                     default:
                                         vuiAnr();
@@ -888,6 +882,16 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                 vuiAnr();
             }
         }
+    }
+
+    private void closeNavi() {
+        EventBusUtils.postEvent(new MapEvent(MapEvent.EVENT_MAP_CLOSE_NAVI));
+        shutAndTTS("正在为您关闭导航");
+    }
+
+    private void openNavi() {
+        EventBusUtils.postEvent(new MapEvent(MapEvent.EVENT_MAP_START_NAVI));
+        shutAndTTS("正在为您启动导航");
     }
 
     private void doBrightnessAction(JSONObject semantic) {
