@@ -80,9 +80,6 @@ public class KuwoManager extends BaseMusicManager {
      * 注册酷我服务
      */
     public void registerKuwoService() {
-        //注册
-        registerPlayingManager(VoiceSourceManager.KUWO_MUSIC);
-
         if (mKwapi != null) {
             mKwapi.bindAutoSdkService(BaseApp.getApp().getApplicationContext());
         }
@@ -408,6 +405,7 @@ public class KuwoManager extends BaseMusicManager {
                             setKuwoLoading(true);
                             break;
                         case PLAYING:
+                            registerPlayingManager(VoiceSourceManager.KUWO_MUSIC);//设置MusicSource
                         case STOP:
                         case PAUSE:
                             setKuwoLoading(false);

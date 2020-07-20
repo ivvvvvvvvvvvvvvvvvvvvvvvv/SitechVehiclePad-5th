@@ -1,7 +1,11 @@
 package com.sitechdev.vehicle.pad.module.music;
 
 import com.sitechdev.vehicle.pad.module.music.service.MusicInfo;
-import com.sitechdev.vehicle.pad.vui.VUIUtils;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 
 public class MusicConfig {
     private static MusicConfig INSTANCE;
@@ -55,7 +59,7 @@ public class MusicConfig {
     private MusicModeType modeType;
     private MusicInfo currentMusicInfo;
     private int progress;
-    private boolean isUdiskMounted = VUIUtils.isUdiskExist();
+    private boolean isUdiskMounted = isUdiskExist();
 
     public boolean isUdiskMounted() {
         return isUdiskMounted;
@@ -90,5 +94,39 @@ public class MusicConfig {
         MusicManager.getInstance().changeMode((code, s) -> {
             //TODO 回调
         }, modeType.value);
+    }
+
+    public static boolean isUdiskExist() {
+
+        String path = "/proc/mounts";
+
+        boolean ret = false;
+        try {
+            String encoding = "GBK";
+            File file = new File(path);
+            if ((file.isFile()) && (file.exists())) {
+                InputStreamReader read = new InputStreamReader(
+                        new FileInputStream(file), encoding);
+                BufferedReader bufferedReader = new BufferedReader(read);
+                String lineTxt = null;
+                while (((lineTxt = bufferedReader.readLine()) != null) && (!ret)) {
+                    String[] a = lineTxt.split(" ");//将读出来的一行字符串用 空格 来分割成字符串数组并存储进数组a里面
+                    String str = a[0];//取出位置0处的字符串
+
+                    if ((str.contains("/dev/block/vold")) &&
+                            ((a[1].toLowerCase().contains("udisk")) || (a[1].toLowerCase().contains("usbdisk")))) {
+                        ret = true;
+                    }
+                }
+
+                read.close();
+            } else {
+// Log.d("StorageDeviceManager", "can't find file: " + path);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return ret;
     }
 }

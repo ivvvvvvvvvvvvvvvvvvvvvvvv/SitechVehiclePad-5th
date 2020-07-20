@@ -17,6 +17,7 @@ import com.sitechdev.vehicle.pad.event.MusicControlEvent;
 import com.sitechdev.vehicle.pad.event.TeddyEvent;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.module.music.BtMusicManager;
+import com.sitechdev.vehicle.pad.module.music.MusicConfig;
 import com.sitechdev.vehicle.pad.module.music.MusicMainActivity;
 import com.sitechdev.vehicle.pad.module.music.MusicManager;
 import com.sitechdev.vehicle.pad.module.music.service.MusicInfo;
@@ -871,7 +872,7 @@ public class VoiceSourceManager {
                 break;
             default:
                 //考拉情况 或者未开始播放情况    启用播放音频逻辑（ 本地 蓝牙 酷我顺序）
-                if (VUIUtils.isUdiskExist()) {
+                if (MusicConfig.getInstance().isUdiskMounted()) {
                     RouterUtils.getInstance().navigation(RouterConstants.FRAGMENT_LOCAL_MUSIC);
                 } else if (SettingConfig.getInstance().isBtConnected()) {
                     RouterUtils.getInstance().getPostcard(RouterConstants.FRAGMENT_LOCAL_MUSIC)

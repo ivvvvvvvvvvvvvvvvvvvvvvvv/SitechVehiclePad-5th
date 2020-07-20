@@ -41,6 +41,7 @@ import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.model.phone.Contact;
 import com.sitechdev.vehicle.pad.module.login.util.LoginUtils;
 import com.sitechdev.vehicle.pad.module.main.MainActivity;
+import com.sitechdev.vehicle.pad.module.music.MusicConfig;
 import com.sitechdev.vehicle.pad.module.music.MusicMainActivity;
 import com.sitechdev.vehicle.pad.module.music.MusicManager;
 import com.sitechdev.vehicle.pad.module.phone.BtGlobalRef;
@@ -1043,15 +1044,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                 case "首页":
                                 case "主页":
                                     if (null == AppVariants.currentActivity || !(AppVariants.currentActivity instanceof MainActivity)) {
-                                        if (BaseAppWindowManager.isBackground(AppApplication.getContext())) {
-                                            //应用正在后台
-                                            Intent goMain = new Intent();
-                                            goMain.setClass(context, MainActivity.class);
-                                            goMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                            context.startActivity(goMain);
-                                        } else {
-                                            RouterUtils.getInstance().navigationHomePage(RouterConstants.HOME_MAIN);
-                                        }
+                                        RouterUtils.getInstance().navigationHomePage(RouterConstants.HOME_MAIN);
                                         shut();
                                     } else {
                                         shutAndTTS("您当前已在首页");
@@ -1890,31 +1883,37 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                         //随机播放一首歌   本地 蓝牙 酷我 情况 播放下一首
                         if (VoiceSourceManager.getInstance().getMusicSource() != VoiceSourceManager.KAOLA) {
                             if (VoiceSourceManager.getInstance().getMusicSource() == VoiceSourceManager.LOCAL_MUSIC) {
-                                if (VUIUtils.isUdiskExist()) {
+                                if (MusicConfig.getInstance().isUdiskMounted()) {
+                                    SitechDevLog.e("zyf","LOCAL_MUSIC next ");
                                     VoiceSourceManager.getInstance().next(VoiceSourceManager.VOICE);
                                     shutAndTTS("");
                                     return;
                                 }
                             } else if (VoiceSourceManager.getInstance().getMusicSource() == VoiceSourceManager.BT_MUSIC) {
                                 if (SettingConfig.getInstance().isBtConnected()) {
+                                    SitechDevLog.e("zyf","BT_MUSIC next ");
                                     VoiceSourceManager.getInstance().next(VoiceSourceManager.VOICE);
                                     shutAndTTS("");
                                     return;
                                 }
                             } else if (VoiceSourceManager.getInstance().getMusicSource() == VoiceSourceManager.KUWO_MUSIC) {
+                                SitechDevLog.e("zyf","KUWO_MUSIC next ");
                                 VoiceSourceManager.getInstance().next(VoiceSourceManager.VOICE);
                                 shutAndTTS("");
                                 return;
                             }
                         }
                         //考拉情况 或者未开始播放情况    启用播放音频逻辑（ 本地 蓝牙 酷我顺序）
-                        if (VUIUtils.isUdiskExist()) {
+                        if (MusicConfig.getInstance().isUdiskMounted()) {
+                            SitechDevLog.e("zyf","FRAGMENT_LOCAL_MUSIC open ");
                             RouterUtils.getInstance().navigation(RouterConstants.FRAGMENT_LOCAL_MUSIC);
                         } else if (SettingConfig.getInstance().isBtConnected()) {
+                            SitechDevLog.e("zyf","FRAGMENT_LOCAL_MUSIC bt open ");
                             RouterUtils.getInstance().getPostcard(RouterConstants.FRAGMENT_LOCAL_MUSIC)
                                     .withInt("index", 1)
                                     .navigation();
                         } else {
+                            SitechDevLog.e("zyf","kuwo open ");
                             VUIUtils.openThirdAppByMusic("", "");
                         }
                         shutAndTTS("");
@@ -2061,7 +2060,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                         //随机播放一首歌   本地 蓝牙 酷我 情况 播放下一首
                         if (VoiceSourceManager.getInstance().getMusicSource() != VoiceSourceManager.KAOLA) {
                             if (VoiceSourceManager.getInstance().getMusicSource() == VoiceSourceManager.LOCAL_MUSIC) {
-                                if (VUIUtils.isUdiskExist()) {
+                                if (MusicConfig.getInstance().isUdiskMounted()) {
                                     VoiceSourceManager.getInstance().next(VoiceSourceManager.VOICE);
                                     shutAndTTS("");
                                     return;
@@ -2079,7 +2078,7 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                             }
                         }
                         //考拉情况 或者未开始播放情况    启用播放音频逻辑（ 本地 蓝牙 酷我顺序）
-                        if (VUIUtils.isUdiskExist()) {
+                        if (MusicConfig.getInstance().isUdiskMounted()) {
                             RouterUtils.getInstance().navigation(RouterConstants.FRAGMENT_LOCAL_MUSIC);
                         } else if (SettingConfig.getInstance().isBtConnected()) {
                             RouterUtils.getInstance().getPostcard(RouterConstants.FRAGMENT_LOCAL_MUSIC)
