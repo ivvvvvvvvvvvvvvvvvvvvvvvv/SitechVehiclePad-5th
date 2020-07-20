@@ -45,7 +45,7 @@ public class RouterInterceptor implements IInterceptor {
             JSONObject pathObject = getPathJsonObject(jumpNewPath);
             String level = pathObject.optString("level");
 
-            //包含“isFinish”标记
+            //包含“isFinish”标记。isFinish为false时，无需finish last page
             boolean isFinish = true;
             Bundle bundle = postcard.getExtras();
             if (bundle != null && bundle.containsKey("isFinish")) {

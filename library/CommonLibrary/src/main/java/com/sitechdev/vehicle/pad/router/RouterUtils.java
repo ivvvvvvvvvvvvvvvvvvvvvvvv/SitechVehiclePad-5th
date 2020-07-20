@@ -41,14 +41,24 @@ public class RouterUtils {
         return Holder.INSTANCE;
     }
 
+    /**
+     * 增加白名单Activity。白名单的Activity将不会被拦截
+     *
+     * @param outClassName outClassName
+     */
     public void addOutClassName(String... outClassName) {
         if (outClassName != null && outClassName.length > 0) {
             for (int i = 0; i < outClassName.length; i++) {
-                classOutArray.add(outClassName[i]);
+                if (!classOutArray.contains(outClassName[i])) {
+                    classOutArray.add(outClassName[i]);
+                }
             }
         }
     }
 
+    /**
+     * 清除白名单Activity
+     */
     public void clearOutClassList() {
         if (classOutArray != null) {
             classOutArray.clear();
@@ -62,7 +72,7 @@ public class RouterUtils {
      * @param printLogs true=打印log，开启debug模式。false反之
      * @param app       当前application对象
      */
-    public void init(boolean printLogs, Application app) {
+    public RouterUtils init(boolean printLogs, Application app) {
         // 这两行必须写在init之前，否则这些配置在init过程中将无效
         if (printLogs) {
             // 打印日志
@@ -71,9 +81,15 @@ public class RouterUtils {
             ARouter.openDebug();
         }
         ARouter.init(app);
+        return this;
     }
 
-    private boolean isAppForeground(){
+    /**
+     * 判断应用是否正在前台
+     *
+     * @return true=应用是否正在前台
+     */
+    private boolean isAppForeground() {
         return AppUtils.isAppForeground();
     }
 

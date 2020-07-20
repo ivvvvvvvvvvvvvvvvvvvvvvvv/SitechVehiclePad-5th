@@ -114,8 +114,10 @@ public class AppApplication extends BaseApp {
             //腾讯相关组件
             initTencentUtil();
             //路由组件
-            RouterUtils.getInstance().init(BuildConfig.DEBUG, this);
-            RouterUtils.getInstance().addOutClassName(MainActivity.class.getSimpleName(), KaolaAudioActivity.class.getSimpleName(), MusicMainActivity.class.getSimpleName());
+            RouterUtils.getInstance().init(BuildConfig.DEBUG, this)
+                    .addOutClassName(MainActivity.class.getSimpleName(),
+                            KaolaAudioActivity.class.getSimpleName(),
+                            MusicMainActivity.class.getSimpleName());
             //
             VolumeControlManager.getInstance().init();
             //网络
