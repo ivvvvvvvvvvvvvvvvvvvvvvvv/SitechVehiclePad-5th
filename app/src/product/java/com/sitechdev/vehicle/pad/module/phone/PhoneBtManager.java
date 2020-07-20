@@ -124,9 +124,6 @@ public class PhoneBtManager {
                         EventBusUtils.postEvent(new BTEvent(BTEvent.PHONE_CALL_STATE,
                                 info));
                         reqNewCalllog();
-                        if(null != mHandler){
-                            mHandler.removeMessages(MyBtHandler.MSG_START_DIAL);
-                        }
                     }
                     break;
                     case ATBluetooth.RETURN_HFP_INFO: {//连接状态
