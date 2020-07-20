@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextClock;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -203,7 +204,7 @@ public class MainActivity extends BaseActivity
         mKmView = (TextView) findViewById(R.id.tv_km);
         mRechargeCountView = (TextView) findViewById(R.id.tv_recharge);
 
-        ReflectTextClock tcTime = (ReflectTextClock) findViewById(R.id.btn_hp_time);
+        TextClock tcTime = (TextClock) findViewById(R.id.btn_hp_time);
         tcTime.setTypeface(FontUtil.getInstance().getMainFont());
         tvTemperature.setTypeface(FontUtil.getInstance().getMainFont());
         FeedBackUtils.deleteVoiceCache();

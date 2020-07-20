@@ -11,6 +11,7 @@
         android:layout_height="300pt"
         android:layout_alignParentRight="true"
         android:scaleType="centerCrop"
+        android:layout_marginBottom="20pt"
         android:src="@drawable/iv_teddy" />
 
     <RelativeLayout
