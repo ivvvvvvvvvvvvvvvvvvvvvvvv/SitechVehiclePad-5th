@@ -36,6 +36,7 @@ import com.sitechdev.vehicle.pad.event.WindowEvent;
 import com.sitechdev.vehicle.pad.kaola.KaolaPlayManager;
 import com.sitechdev.vehicle.pad.manager.KuwoManager;
 import com.sitechdev.vehicle.pad.manager.MapManager;
+import com.sitechdev.vehicle.pad.manager.ScreenLightControlManager;
 import com.sitechdev.vehicle.pad.manager.VoiceSourceManager;
 import com.sitechdev.vehicle.pad.model.phone.Contact;
 import com.sitechdev.vehicle.pad.module.login.util.LoginUtils;
@@ -857,6 +858,8 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                                                 || "{sitechaction}".equalsIgnoreCase(template)
                                                 || "{sitechaction}{page}".equals(template)) {
                                             doSitechactionWithAppName(semantic);
+                                        } else if ("{brightness}".equals(template)) {
+                                            doBrightnessAction(semantic);
                                         } else {
                                             vuiAnr();
                                         }
@@ -884,6 +887,46 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                 log("rc = " + rc);
                 vuiAnr();
             }
+        }
+    }
+
+    private void doBrightnessAction(JSONObject semantic) {
+        JSONArray slots = semantic.optJSONArray("slots");
+        String sitechaction = "";
+        if (null != slots) {
+            for (int i = 0; i < slots.length(); i++) {
+                JSONObject slot = slots.optJSONObject(i);
+                if (null != slot) {
+                    if (TextUtils.equals(slot.optString("name"), "brightness")) {
+                        sitechaction = slot.optString("normValue");
+                        if ("brightness_plus".equalsIgnoreCase(sitechaction)) {
+                            boolean result = ScreenLightControlManager.getInstance().setScreenLightTurningup();
+                            if (result) {
+                                shutAndTTS("当前亮度已经是最高");
+                            } else {
+                                shutAndTTS("已为您增加亮度");
+                            }
+                        } else if ("brightness_minus".equalsIgnoreCase(sitechaction)) {
+                            boolean result = ScreenLightControlManager.getInstance().setScreenLightTurningdown();
+                            if (result) {
+                                shutAndTTS("当前亮度已经是最低");
+                            } else {
+                                shutAndTTS("已为您减小亮度");
+                            }
+                        } else if ("brightness_min".equalsIgnoreCase(sitechaction)) {
+                            ScreenLightControlManager.getInstance().setScreenLightMin();
+                            shutAndTTS("已为您设置亮度最小");
+                        } else if ("brightness_max".equalsIgnoreCase(sitechaction)) {
+                            ScreenLightControlManager.getInstance().setScreenLightMax();
+                            shutAndTTS("已为您设置亮度最大");
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+        if (TextUtils.isEmpty(sitechaction)) {
+            vuiAnr();
         }
     }
 
@@ -1730,6 +1773,10 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                         VoiceSourceManager.getInstance().pause(VoiceSourceManager.VOICE);
                         EventBusUtils.postEvent(new TeddyEvent(TeddyEvent.EVENT_TEDDY_AUDIO_STOP));
                         break;
+                    case "volume_max":
+                        //声音最大
+                        AudioUtil.maxVolume();
+                        shutAndTTS("已为音量设置最大");
                     case "volume_min":
                         //声音减小
                         AudioUtil.onKeyMuteVolume(AudioManager.STREAM_MUSIC);

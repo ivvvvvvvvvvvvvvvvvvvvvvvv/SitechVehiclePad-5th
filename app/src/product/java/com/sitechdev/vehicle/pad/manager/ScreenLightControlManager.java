@@ -61,7 +61,7 @@ public class ScreenLightControlManager {
      *
      * @param brightness
      */
-    public void setScreenLightValue(@IntRange(from = 0, to = 255) final int brightness) {
+    public void setScreenLightValue(@IntRange(from = 25, to = 255) final int brightness) {
         SitechDevLog.i(TAG, "setLightValue===" + brightness);
         try {
 //            BrightnessUtils.setWindowBrightness(ActivityUtils.getTopActivity().getWindow(), brightness);
@@ -69,6 +69,32 @@ public class ScreenLightControlManager {
         } catch (Exception e) {
             SitechDevLog.exception(e);
         }
+    }
+
+    public void setScreenLightMax() {
+        setScreenLightValue(255);
+    }
+
+    public void setScreenLightMin() {
+        setScreenLightValue(25);
+    }
+
+    public boolean setScreenLightTurningup() {
+        if (getScreenLightValue() == 255) {
+            return false;
+        }
+        int result = getScreenLightValue() + (int) Math.floor(255 * 0.1f);
+        setScreenLightValue(result > 255 ? 255 : result);
+        return true;
+    }
+
+    public boolean setScreenLightTurningdown() {
+        if (getScreenLightValue() <= 25) {
+            return false;
+        }
+        int result = getScreenLightValue() - (int) Math.floor(255 * 0.1f);
+        setScreenLightValue(result < 25 ? 25 : result);
+        return true;
     }
 
     /**

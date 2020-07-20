@@ -31,6 +31,15 @@ public class AudioUtil {
     }
 
     /**
+     * 最大音量
+     */
+    public static void maxVolume() {
+        VolumeControlManager.getInstance().setCurrentVolume(100);
+    }
+
+
+
+    /**
      * 降低音量
      */
     public static void onKeyDownVolume(int streamType) {
