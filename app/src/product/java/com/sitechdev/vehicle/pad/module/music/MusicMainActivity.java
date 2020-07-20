@@ -45,7 +45,7 @@ public class MusicMainActivity extends BaseActivity {
             ThreadUtils.runOnUIThreadDelay(new Runnable() {
                 @Override
                 public void run() {
-                    EventBusUtils.postEvent(new MusicControlEvent(MusicControlEvent.EVENT_CONTROL_MUSIC_PLAY_IF_ON_TOP,index));
+                    EventBusUtils.postStickyEvent(new MusicControlEvent(MusicControlEvent.EVENT_CONTROL_MUSIC_PLAY_IF_ON_TOP,index));
                 }
             }, 500);//页面加载完成发送事件
         }
@@ -76,7 +76,7 @@ public class MusicMainActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int i) {
-                EventBusUtils.postEvent(new MusicControlEvent(MusicControlEvent.EVENT_CONTROL_MUSIC_PLAY_IF_ON_TOP,i));
+                EventBusUtils.postStickyEvent(new MusicControlEvent(MusicControlEvent.EVENT_CONTROL_MUSIC_PLAY_IF_ON_TOP,i));
             }
 
             @Override
@@ -99,7 +99,11 @@ public class MusicMainActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        vPager.setCurrentItem(VoiceSourceManager.getInstance().getMusicSource() == VoiceSourceManager.BT_MUSIC ? 1 : 0);
+        int i = VoiceSourceManager.getInstance().getMusicSource() == VoiceSourceManager.BT_MUSIC ? 1 : 0;
+        vPager.setCurrentItem(i);
+        EventBusUtils.postStickyEvent(new MusicControlEvent(MusicControlEvent.EVENT_CONTROL_MUSIC_PLAY_IF_ON_TOP,i));
+
+
     }
 
     @Override

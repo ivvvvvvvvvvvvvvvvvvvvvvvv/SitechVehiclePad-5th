@@ -213,7 +213,7 @@ public class LocalMusicFragment extends BaseFragment implements
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
     public void onEvent(Object o) {
         if (o instanceof MusicControlEvent) {
             MusicControlEvent event = (MusicControlEvent) o;
