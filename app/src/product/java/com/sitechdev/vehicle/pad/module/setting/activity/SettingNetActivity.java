@@ -191,6 +191,12 @@ public class SettingNetActivity extends BaseActivity implements View.OnClickList
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mReceiver);
+    }
+
+    @Override
     public void onSwithChecked(int viewId, boolean isChecked) {
         if (viewId == R.id.setting_net_gprs_swith) {
             NetworkUtils.setMobileDataEnabled(isChecked);
