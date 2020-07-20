@@ -222,7 +222,7 @@ public class ContactFragment extends MvpFragment<ContactPresenter> implements Vi
         mEmptyView.setVisibility(View.VISIBLE);
         mEmptyLayout.setVisibility(View.VISIBLE);
         if(isFail){
-            hintTxt.setText("手机通讯录未授权,请授权后重新操作");
+            hintTxt.setText("手机通讯录未授权，请重新连接蓝牙设备并允许同步通讯录");
         } else {
             hintTxt.setText("暂无通讯录!");
         }
