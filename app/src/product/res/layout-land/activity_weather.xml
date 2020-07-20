@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="30pt"
+    android:paddingTop="40pt"
     android:orientation="vertical"
     android:background="@drawable/main_bg_land">
 
@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="20pt"
-        android:layout_marginTop="10pt"
+        android:layout_marginTop="30pt"
         android:paddingRight="50pt">
 
         <RelativeLayout
@@ -54,7 +54,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_marginStart="60pt"
-            android:layout_marginTop="30pt"
+            android:layout_marginTop="40pt"
             android:layout_marginBottom="30pt">
 
             <LinearLayout
@@ -246,7 +246,7 @@
             <RelativeLayout
                 android:id="@+id/weather_right_info_cold"
                 android:layout_width="369pt"
-                android:layout_height="205pt"
+                android:layout_height="225pt"
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="18pt"
                 android:background="@drawable/weather_info_bg"
@@ -289,7 +289,7 @@
             <RelativeLayout
                 android:id="@+id/weather_right_info_sport"
                 android:layout_width="369pt"
-                android:layout_height="205pt"
+                android:layout_height="225pt"
                 android:layout_toLeftOf="@id/weather_right_info_UR"
                 android:background="@drawable/weather_info_bg"
                 android:gravity="center">
@@ -331,7 +331,7 @@
             <RelativeLayout
                 android:id="@+id/weather_right_info_UR"
                 android:layout_width="369pt"
-                android:layout_height="205pt"
+                android:layout_height="225pt"
                 android:layout_marginLeft="18pt"
                 android:layout_toLeftOf="@id/weather_right_info_cold"
                 android:background="@drawable/weather_info_bg"
@@ -375,7 +375,7 @@
             <RelativeLayout
                 android:id="@+id/weather_right_info_wash_car"
                 android:layout_width="369pt"
-                android:layout_height="205pt"
+                android:layout_height="225pt"
                 android:layout_below="@id/weather_right_info_sport"
                 android:layout_marginTop="18pt"
                 android:layout_toLeftOf="@id/weather_right_info_clothes"
@@ -420,7 +420,7 @@
             <RelativeLayout
                 android:id="@+id/weather_right_info_clothes"
                 android:layout_width="369pt"
-                android:layout_height="205pt"
+                android:layout_height="225pt"
                 android:layout_below="@id/weather_right_info_UR"
                 android:layout_marginLeft="18pt"
                 android:layout_marginTop="18pt"
@@ -467,7 +467,7 @@
             <RelativeLayout
                 android:id="@+id/weather_right_info_aw"
                 android:layout_width="369pt"
-                android:layout_height="205pt"
+                android:layout_height="225pt"
                 android:layout_below="@id/weather_right_info_cold"
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="18pt"

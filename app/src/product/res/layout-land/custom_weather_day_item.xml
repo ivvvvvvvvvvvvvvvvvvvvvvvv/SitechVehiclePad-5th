@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/id_weather_tomorrow_content"
     android:layout_width="590pt"
-    android:layout_height="130pt"
+    android:layout_height="150pt"
     android:background="@drawable/weather_info_day_bg"
     android:gravity="center_horizontal"
     android:paddingLeft="20pt"
