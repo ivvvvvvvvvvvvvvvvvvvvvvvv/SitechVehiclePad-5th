@@ -4,6 +4,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.provider.Settings;
+import android.text.TextUtils;
 import android.view.Gravity;
 
 import com.blankj.utilcode.util.ToastUtils;
@@ -15,6 +16,9 @@ import com.sitechdev.vehicle.pad.bean.PoiBean;
 import com.sitechdev.vehicle.pad.module.map.newmap.IMap;
 import com.sitechdev.vehicle.pad.module.map.newmap.MapConstant;
 import com.sitechdev.vehicle.pad.module.map.util.LocationData;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 /**
  * @author 邵志
@@ -398,13 +402,26 @@ public class MapManager implements IMap {
 
     }
 
-    String searchResult ;
+    JSONArray searchResult ;
 
-    public void setSearchResult(String searchResult) {
-        this.searchResult = searchResult;
+    public int setSearchResult(String getData) {
+        if (TextUtils.isEmpty(getData)) {
+            searchResult = null;
+            return -1;
+        }
+        try {
+            JSONArray jsonArray = new JSONArray(getData);
+            this.searchResult = jsonArray;
+            if (jsonArray != null && jsonArray.length() > 0) {
+                return jsonArray.length();
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
-    public String getSearchResult() {
+    public JSONArray getSearchResult() {
         return searchResult;
     }
 }

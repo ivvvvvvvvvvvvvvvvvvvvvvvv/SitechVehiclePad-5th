@@ -112,6 +112,10 @@ public class MapVoiceEventUtil {
                 break;
             case PoiEvent.EVENT_QUERY_POI_INDEX:
                 try {
+                    if (MapManager.getInstance().getSearchResult() == null) {
+                        VUI.getInstance().shutAndTTS("请手动做选择");
+                        return;
+                    }
                     int index = Integer.parseInt(poiEvent.getEventValue()) - 1;//语音来源index=1 实际选中index-1
                     //应用内选中
                     Intent intent = new Intent();
@@ -121,26 +125,22 @@ public class MapVoiceEventUtil {
                     intent.putExtra("EXTRA_PLAN_ROUTE", true);
 //                    AppApplication.getApp().sendBroadcast(intent);
                     //调用直接导航
-                    if (!TextUtils.isEmpty(MapManager.getInstance().getSearchResult())) {
-                        JSONArray jsonArray = new JSONArray(MapManager.getInstance().getSearchResult());
-                        if (index >= 0 && index < jsonArray.length()) {
-                            JSONObject jsonObject = jsonArray.optJSONObject(index);
-                            String name = jsonObject.optString("name");
-                            double lat = jsonObject.optDouble("latitude");
-                            double lon = jsonObject.optDouble("longitude");
-                            double entry_latitude = jsonObject.optDouble("entry_latitude");
-                            double entry_longitude = jsonObject.optDouble("entry_longitude");
+                    JSONArray jsonArray = MapManager.getInstance().getSearchResult();
+                    if (index >= 0 && index < jsonArray.length()) {
+                        JSONObject jsonObject = jsonArray.optJSONObject(index);
+                        String name = jsonObject.optString("name");
+                        double lat = jsonObject.optDouble("latitude");
+                        double lon = jsonObject.optDouble("longitude");
+                        double entry_latitude = jsonObject.optDouble("entry_latitude");
+                        double entry_longitude = jsonObject.optDouble("entry_longitude");
 //                            SitechDevLog.i("zyf", this + "==ampa navi ==" + name);
-                            MapUtil.sendAMapAddress(name, lat, lon, entry_latitude, entry_longitude);
-                        } else {
-                            VUI.getInstance().shutAndTTS("未找到指定位置");
-                        }
+                        MapUtil.sendAMapAddress(name, lat, lon, entry_latitude, entry_longitude);
                     } else {
-                        VUI.getInstance().shutAndTTS("请手动选择");
+                        VUI.getInstance().shutAndTTS("未找到指定位置");
                     }
-
+                    MapManager.getInstance().setSearchResult("");
                 } catch (Exception e) {
-
+                    MapManager.getInstance().setSearchResult("");
                 }
                 break;
             default:

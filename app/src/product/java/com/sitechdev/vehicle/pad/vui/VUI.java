@@ -1,7 +1,6 @@
 package com.sitechdev.vehicle.pad.vui;
 
 import android.content.Context;
-import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -25,7 +24,6 @@ import com.sitechdev.vehicle.lib.util.StringUtils;
 import com.sitechdev.vehicle.lib.util.ThreadUtils;
 import com.sitechdev.vehicle.pad.R;
 import com.sitechdev.vehicle.pad.app.AppApplication;
-import com.sitechdev.vehicle.pad.app.BaseAppWindowManager;
 import com.sitechdev.vehicle.pad.callback.BaseBribery;
 import com.sitechdev.vehicle.pad.callback.SitechMusicSource;
 import com.sitechdev.vehicle.pad.event.MapEvent;
@@ -1905,15 +1903,12 @@ public class VUI implements VUIWindow.OnWindowHideListener {
                         }
                         //考拉情况 或者未开始播放情况    启用播放音频逻辑（ 本地 蓝牙 酷我顺序）
                         if (MusicConfig.getInstance().isUdiskMounted()) {
-                            SitechDevLog.e("zyf","FRAGMENT_LOCAL_MUSIC open ");
                             RouterUtils.getInstance().navigation(RouterConstants.FRAGMENT_LOCAL_MUSIC);
                         } else if (SettingConfig.getInstance().isBtConnected()) {
-                            SitechDevLog.e("zyf","FRAGMENT_LOCAL_MUSIC bt open ");
                             RouterUtils.getInstance().getPostcard(RouterConstants.FRAGMENT_LOCAL_MUSIC)
                                     .withInt("index", 1)
                                     .navigation();
                         } else {
-                            SitechDevLog.e("zyf","kuwo open ");
                             VUIUtils.openThirdAppByMusic("", "");
                         }
                         shutAndTTS("");

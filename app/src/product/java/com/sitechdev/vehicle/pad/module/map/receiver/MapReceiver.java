@@ -217,9 +217,9 @@ public class MapReceiver extends BroadcastReceiver {
                 int result = intent.getIntExtra("SEARCH_RESULT_CODE", -1);
                 if (result == 0) {
                     String json = intent.getStringExtra("EXTRA_RESULT");
-                    MapManager.getInstance().setSearchResult(json);
+                    int size = MapManager.getInstance().setSearchResult(json);
                     TeddyWindowManager.getInstance().show();
-                    VUI.getInstance().shutAndTTS(false, "请对我说第几个");
+                    VUI.getInstance().shutAndTTS(false, "为您找到" + size + "个结果，请对我说第几个");
 //                    SitechDevLog.i("zyf", "接收到广播===> ="+json);
                 }
 
