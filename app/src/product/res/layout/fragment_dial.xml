@@ -5,6 +5,7 @@
 
     <RelativeLayout
         android:id="@+id/phone_dial_edit_layout"
+        android:layout_marginTop="20pt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
