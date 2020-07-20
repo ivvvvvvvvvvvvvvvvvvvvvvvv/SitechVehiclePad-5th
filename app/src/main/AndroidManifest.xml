@@ -42,7 +42,7 @@
             android:resizeableActivity="true"
             android:resumeWhilePausing="true"
             android:stateNotNeeded="true"
-            android:theme="@style/NoTitleAppTheme">
+            android:theme="@style/NoTitleAppTranslucentBgTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
