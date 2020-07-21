@@ -48,9 +48,18 @@ public class KaolaAiListSpaceItemDecoration extends RecyclerView.ItemDecoration 
                     outRect.bottom = 0;
                     outRect.top = 0;
                 } else {
-                    outRect.left = view.getContext().getResources().getInteger(R.integer.kaola_ai_list_land_item_space_left);
+                    if (position == 0) {
+                        outRect.left = view.getContext().getResources().getInteger(R.integer.kaola_ai_list_land_space_left);
+                    } else {
+                        outRect.left = view.getContext().getResources().getInteger(R.integer.kaola_ai_list_land_item_space_left);
+                    }
                     outRect.bottom = view.getContext().getResources().getInteger(R.integer.kaola_ai_list_land_item_space_top);
                     outRect.top = view.getContext().getResources().getInteger(R.integer.kaola_ai_list_land_item_space_top);
+                    if (position >= mLists.size() - 1) {
+                        outRect.right = outRect.left = view.getContext().getResources().getInteger(R.integer.kaola_ai_list_land_space_left);
+                    } else {
+                        outRect.right = 0;
+                    }
                 }
             } else {
                 int position = parent.getChildLayoutPosition(view);

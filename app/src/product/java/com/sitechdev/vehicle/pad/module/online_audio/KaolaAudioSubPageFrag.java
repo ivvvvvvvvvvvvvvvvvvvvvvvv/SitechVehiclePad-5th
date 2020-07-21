@@ -205,64 +205,6 @@ public class KaolaAudioSubPageFrag extends BaseFragment {
         }
     }
 
-    private List<Indexable> initMock(){
-        List<Indexable> list = new ArrayList<>();
-        Indexable indexable = new Indexable() {
-            @Override
-            public String getIndex() {
-                return "推荐";
-            }
-        };
-        list.add(indexable);
-        list.add(indexable);
-        list.add(indexable);
-        Indexable indexable1 = new Indexable() {
-            @Override
-            public String getIndex() {
-                return "新特速报";
-            }
-        };
-        list.add(indexable1);
-        list.add(indexable1);
-        list.add(indexable1);
-        list.add(indexable1);
-        list.add(indexable1);
-        Indexable indexable2 = new Indexable() {
-            @Override
-            public String getIndex() {
-                return "少儿读物";
-            }
-        };
-        list.add(indexable2);
-        list.add(indexable2);
-        list.add(indexable2);
-        list.add(indexable2);
-        list.add(indexable2);
-        Indexable indexable3 = new Indexable() {
-            @Override
-            public String getIndex() {
-                return "车嗨娱乐";
-            }
-        };
-        list.add(indexable3);
-        list.add(indexable3);
-        list.add(indexable3);
-        list.add(indexable3);
-        list.add(indexable3);
-        Indexable indexable4 = new Indexable() {
-            @Override
-            public String getIndex() {
-                return "生活一点通";
-            }
-        };
-        list.add(indexable4);
-        list.add(indexable4);
-        list.add(indexable4);
-        list.add(indexable4);
-        list.add(indexable4);
-        return list;
-    }
-
     private void playColumSource(List<Column> data, int parentIndex, int childIndex) {
         if (parentIndex >= 0) {
             childIndex = childIndex >= 0 ? childIndex : 0;

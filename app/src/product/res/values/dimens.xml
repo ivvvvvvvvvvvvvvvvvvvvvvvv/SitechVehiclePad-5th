@@ -93,10 +93,11 @@
     <dimen name="phone_content_padding_left_right">28pt</dimen>
 
     <dimen name="pt_30">30pt</dimen>
-    <dimen name="mutil_title_toolbar_margin_top">97pt</dimen>
+    <dimen name="mutil_title_toolbar_margin_top">87pt</dimen>
     <dimen name="kaola_content_viewpager_heght_land">640pt</dimen>
     <dimen name="kaola_playerholder_height_land">140pt</dimen>
     <dimen name="kaola_playerholder_margin_top_land">10pt</dimen>
+    <dimen name="kaola_playerholder_margin_bottom_land">60pt</dimen>
     <dimen name="kaola_playerholder_margin_left_land">60pt</dimen>
     <dimen name="kaola_playerholder_margin_right_land">60pt</dimen>
     <dimen name="kaola_margin_bottom_land">194pt</dimen>
@@ -137,7 +138,7 @@
     <dimen name="kaola_indicator_corner">50pt</dimen>
     <dimen name="kaola_ai_indicator_minw">1100pt</dimen>
     <dimen name="kaola_ai_indicator_paddingleft">40pt</dimen>
-    <dimen name="kaola_ai_indicator_space_top">50pt</dimen>
+    <dimen name="kaola_ai_indicator_space_top">47pt</dimen>
     <dimen name="kaola_ai_recommend_img_w">362pt</dimen>
     <dimen name="kaola_ai_recommend_img_w_protrait">301pt</dimen>
     <dimen name="kaola_ai_recommend_tag_textsize">24pt</dimen>
@@ -153,9 +154,10 @@
     <dimen name="kaola_ai_item_common_title_margin">10pt</dimen>
     <dimen name="kaola_ai_item_common_title_textsize">32pt</dimen>
 
-    <integer name="kaola_ai_list_land_item_space_left">38</integer>
+    <integer name="kaola_ai_list_land_item_space_left">30</integer>
+    <integer name="kaola_ai_list_land_space_left">38</integer>
     <integer name="kaola_ai_list_land_item_space_top">8</integer>
-    <dimen name="kaola_ai_indicator_space_bottom">40pt</dimen>
+    <dimen name="kaola_ai_indicator_space_bottom">35pt</dimen>
     <dimen name="kaola_search_edit_textsize">32pt</dimen>
     <dimen name="kaola_playpage_bottom_space">196pt</dimen>
     <dimen name="common_title_h">138pt</dimen>
