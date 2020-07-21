@@ -574,6 +574,6 @@
             android:gravity="center_horizontal"
             android:text="网络不稳定，请稍后重试"
             android:textColor="@color/white"
-            android:textSize="28sp" />
+            android:textSize="28pt" />
     </LinearLayout>
 </LinearLayout>

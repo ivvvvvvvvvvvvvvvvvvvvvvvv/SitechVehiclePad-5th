@@ -27,7 +27,7 @@
         android:layout_marginTop="10pt"
         android:text="@string/app_name"
         android:textColor="@color/white"
-        android:textSize="38pt"
+        android:textSize="40pt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/iv_sub_back"
         app:layout_constraintTop_toTopOf="parent" />
