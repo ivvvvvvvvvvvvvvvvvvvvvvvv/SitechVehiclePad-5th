@@ -21,7 +21,7 @@
         <SeekBar
             android:id="@+id/custom_play_seekbar_seecbar"
             android:layout_width="0pt"
-            android:layout_height="wrap_content"
+            android:layout_height="80pt"
             android:layout_weight="1"
             android:maxHeight="4pt"
             android:minHeight="4pt"
@@ -44,7 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/custom_play_seekbar_layout"
-        android:layout_marginTop="20pt"
+        android:layout_marginTop="@dimen/custom_play_controll_margin_top"
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:orientation="horizontal">
@@ -75,7 +75,7 @@
         android:layout_width="@dimen/custom_play_controll_button_size"
         android:layout_height="@dimen/custom_play_controll_button_size"
         android:layout_below="@id/custom_play_seekbar_layout"
-        android:layout_marginTop="20pt"
+        android:layout_marginTop="@dimen/custom_play_controll_margin_top"
         android:layout_marginLeft="@dimen/custom_play_controll_mode_paddingleft"
         android:src="@drawable/music_usb_mode_loop" />
 </RelativeLayout>

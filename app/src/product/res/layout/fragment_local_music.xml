@@ -3,18 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="300pt"
+    android:paddingBottom="400pt"
+    android:weightSum="1280"
     android:orientation="vertical">
 
     <include
         layout="@layout/layout_music_play"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_weight="720"
+        android:layout_height="0dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_marginTop="20pt"
-        android:layout_height="wrap_content"
+        android:layout_height="0pt"
+        android:layout_weight="560"
         android:orientation="vertical">
 
         <LinearLayout
@@ -53,8 +56,8 @@
             android:background="@drawable/shape_wifi_list"
             android:visibility="gone"
             android:orientation="vertical"
-            android:paddingBottom="58pt"
-            android:paddingTop="58pt">
+            android:paddingBottom="40pt"
+            android:paddingTop="40pt">
 
             <TextView
                 android:id="@+id/music_usb_play_list_title"
@@ -77,9 +80,7 @@
                     android:id="@+id/local_music_list"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layerType="software"
-                    android:paddingLeft="81pt"
-                    android:paddingRight="81pt" />
+                    android:layerType="software"/>
             </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
         </LinearLayout>
     </LinearLayout>

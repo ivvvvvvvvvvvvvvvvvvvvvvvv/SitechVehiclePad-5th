@@ -34,7 +34,7 @@
         android:layout_height="@dimen/music_usb_play_icon_size"
         android:layout_below="@id/music_usb_play_singer"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20pt"
+        android:layout_marginTop="@dimen/music_usb_play_icon_marintop"
         android:src="@drawable/img_song_card" />
 
     <com.sitechdev.vehicle.pad.view.CustomPlaySeekBar
@@ -42,6 +42,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/music_usb_play_icon"
-        android:layout_marginTop="20pt" />
+        android:layout_marginTop="30pt" />
 
 </RelativeLayout>
