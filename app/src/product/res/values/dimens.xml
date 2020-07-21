@@ -93,13 +93,13 @@
     <dimen name="phone_content_padding_left_right">28pt</dimen>
 
     <dimen name="pt_30">30pt</dimen>
-    <dimen name="mutil_title_toolbar_margin_top">45pt</dimen>
+    <dimen name="mutil_title_toolbar_margin_top">97pt</dimen>
     <dimen name="kaola_content_viewpager_heght_land">640pt</dimen>
     <dimen name="kaola_playerholder_height_land">140pt</dimen>
     <dimen name="kaola_playerholder_margin_top_land">10pt</dimen>
     <dimen name="kaola_playerholder_margin_left_land">60pt</dimen>
     <dimen name="kaola_playerholder_margin_right_land">60pt</dimen>
-    <dimen name="kaola_margin_bottom_land">260pt</dimen>
+    <dimen name="kaola_margin_bottom_land">194pt</dimen>
     <dimen name="toolbar_tablayout_height">74pt</dimen>
     <dimen name="toolbar_tablayout_margin_left">25pt</dimen>
     <dimen name="toolbar_tablayout_tab_padding_start">15pt</dimen>
@@ -157,7 +157,7 @@
     <integer name="kaola_ai_list_land_item_space_top">8</integer>
     <dimen name="kaola_ai_indicator_space_bottom">40pt</dimen>
     <dimen name="kaola_search_edit_textsize">32pt</dimen>
-    <dimen name="kaola_playpage_bottom_space">300pt</dimen>
+    <dimen name="kaola_playpage_bottom_space">196pt</dimen>
     <dimen name="common_title_h">138pt</dimen>
     <dimen name="kaola_playpage_list_w">1094pt</dimen>
     <dimen name="kaola_playpage_list_margintop">35pt</dimen>

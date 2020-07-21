@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_kaola_play"
+    android:paddingTop="40pt"
     android:paddingBottom="@dimen/kaola_playpage_bottom_space"
     tools:ignore="PxUsage">
 
@@ -49,8 +50,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar_sub"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="@dimen/kaola_playpage_playinfo_margintop"
         android:layout_marginStart="@dimen/kaola_playpage_playinfo_marginstart"
+        android:layout_marginTop="@dimen/kaola_playpage_playinfo_margintop"
         android:layout_marginEnd="@dimen/kaola_playpage_playinfo_marginend"
         android:layout_toStartOf="@+id/list_frame" />
 
@@ -59,7 +60,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="@dimen/kaola_playpage_playprogress_marginleft"
-        android:layout_marginTop="@dimen/kaola_playpage_playprogress_marginleft"
-        android:layout_marginRight="@dimen/kaola_playpage_playprogress_marginleft" />
+        android:layout_margin ="@dimen/kaola_playpage_playprogress_marginleft" />
 </RelativeLayout>
