@@ -26,7 +26,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:tabIndicatorColor="@color/white"
         app:tabIndicatorHeight="3px"
-        app:tabMode="fixed"
+        app:tabMode="scrollable"
         app:tabPaddingStart="@dimen/toolbar_tablayout_tab_padding_start"
         app:tabPaddingEnd="@dimen/toolbar_tablayout_tab_padding_end"
         app:tabSelectedTextColor="@color/white"
