@@ -32,6 +32,12 @@
 
     </FrameLayout>
 
+    <Space
+        android:visibility="gone"
+        android:id="@+id/top_space"
+        android:layout_width="1pt"
+        android:layout_height="10pt" />
+
     <com.sitechdev.vehicle.pad.view.RecycviewInViewPager
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"

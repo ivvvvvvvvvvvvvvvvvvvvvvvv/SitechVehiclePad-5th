@@ -92,6 +92,7 @@ public class KaolaAudioSubPageFrag extends BaseFragment {
         indecator = mContentView.findViewById(R.id.indicator);
         if (!isLandscape()) {
             mContentView.findViewById(R.id.indicator_frame).setVisibility(View.GONE);
+            mContentView.findViewById(R.id.top_space).setVisibility(View.VISIBLE);
         }
         recyclerView = mContentView.findViewById(R.id.recyclerView);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 6);
