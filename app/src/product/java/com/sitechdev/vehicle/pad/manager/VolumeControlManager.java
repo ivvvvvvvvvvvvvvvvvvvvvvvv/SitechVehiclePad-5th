@@ -158,7 +158,7 @@ public class VolumeControlManager {
         //query at least 20 ms later after volume set
         sendToCarService(MCU_SET_VOLUME, currentVolume);
         //发出 SysEvent.EB_SYS_VOLUME_CHANGE_STATE 通知事件
-        EventBusUtils.postEvent(new SysEvent(SysEvent.EB_SYS_VOLUME_CHANGE_STATE, currentVolume));
+        EventBusUtils.postEvent(new SysEvent(SysEvent.EB_SYS_VOLUME_CHANGE_STATE, currentVolumeValue));
     }
 
     /**
@@ -168,6 +168,8 @@ public class VolumeControlManager {
      */
     public void setMuteVolume(boolean enable) {
         sendToCarService(MCU_SET_VOLUME, enable ? 0 : currentVolumeValue);
+        //发出 SysEvent.EB_SYS_VOLUME_CHANGE_STATE 通知事件
+        EventBusUtils.postEvent(new SysEvent(SysEvent.EB_SYS_VOLUME_CHANGE_STATE, enable ? 0 : currentVolumeValue));
     }
 
 

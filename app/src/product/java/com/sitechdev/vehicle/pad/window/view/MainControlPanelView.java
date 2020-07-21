@@ -306,7 +306,7 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
                                 isMove = true;
                             }
                             SitechDevLog.i(TAG, "ACTION_MOVE (x - preX)==" + (x - preX) + "，点击坐标 (y - preY)==" + (y - preY));
-                            manager.moveH(x - preX, y - preY);
+                            manager.moveView(x - preX, y - preY);
                         }
                         preX = x;
                         preY = y;
@@ -314,7 +314,7 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
                     case MotionEvent.ACTION_UP:
                         SitechDevLog.i(TAG, "ACTION_UP ========产生了抬起UP事件=======isPullDownView=" + isPullDownView + "  , isMove==" + isMove);
                         if (isPullDownView && isMove) {
-                            manager.resetView(lastX, (int) event.getRawX());
+                            manager.resetView(lastX, (int) event.getRawX(), lastY, (int) event.getRawY());
                             isPullDownView = false;
                             isMove = false;
                             SitechDevLog.i(TAG, "ACTION_UP ========产生了抬起UP事件=======isPullDownView return true=");
@@ -342,12 +342,11 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
     private void initSeekBarListener() {
         if (ScreenUtils.isLandscape()) {
             //横屏的view
-
             volumeVerticalSeekBar.setOnSeekBarChangeVertical(new VerticalSeekBarForSkin.onSeekBarChangeVertical() {
                 @Override
-                public void onStopTouchView(VerticalSeekBarForSkin mSeekbar) {
-                    SitechDevLog.i(TAG, "volumeVerticalSeekBar onStopTouchView==========================================" + mSeekbar.getProgress());
-                    setVolumeValue(mSeekbar.getProgress());
+                public void onStopTouchView(VerticalSeekBarForSkin seekBar) {
+                    SitechDevLog.i(TAG, "volumeVerticalSeekBar onStopTouchView==========================================" + seekBar.getProgress() + "++++mSeekbar==");
+//                    setVolumeValue(seekBar.getProgress());
                     //计时开始通知
                     if (manager != null) {
                         manager.sendMessageNotice();
@@ -357,7 +356,7 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
                 @Override
                 public void onProgressChanged(VerticalSeekBarForSkin seekBar, int progress) {
                     SitechDevLog.i(TAG, "volumeVerticalSeekBar onProgressChanged==========================================" + progress);
-
+                    setVolumeValue(progress);
                 }
 
                 @Override
@@ -370,7 +369,7 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
                 @Override
                 public void onStopTouchView(VerticalSeekBarForSkin mSeekbar) {
                     SitechDevLog.i(TAG, "lightVerticalSeekBar onStopTouchView==========================================" + mSeekbar.getProgress());
-                    setLightValue(mSeekbar.getProgress());
+//                    setLightValue(mSeekbar.getProgress());
                     //计时开始通知
                     if (manager != null) {
                         manager.sendMessageNotice();
@@ -380,7 +379,7 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
                 @Override
                 public void onProgressChanged(VerticalSeekBarForSkin seekBar, int progress) {
                     SitechDevLog.i(TAG, "lightVerticalSeekBar onProgressChanged==========================================" + progress);
-
+                    setLightValue(progress);
                 }
 
                 @Override

@@ -4,25 +4,26 @@
     <item android:id="@android:id/background">
         <clip>
             <shape>
-                <solid android:color="#0A1728" />
-                <corners android:radius="24px" />
+                <solid android:color="#6E000000" />
+                <corners android:radius="30pt" />
                 <size
-                    android:width="500px"
-                    android:height="134px" />
+                    android:width="500pt"
+                    android:height="134pt" />
             </shape>
         </clip>
     </item>
     <item android:id="@android:id/progress">
         <clip>
             <shape>
-                <gradient
-                    android:angle="90"
-                    android:endColor="#BED2FE"
-                    android:startColor="#DEE7FA" />
-                <corners android:radius="16px" />
+<!--                <gradient-->
+<!--                    android:angle="90"-->
+<!--                    android:endColor="#BED2FE"-->
+<!--                    android:startColor="#DEE7FA" />-->
+                <solid android:color="#E4E4E4" />
+                <corners android:radius="30pt" />
                 <size
-                    android:width="500px"
-                    android:height="134px" />
+                    android:width="500pt"
+                    android:height="134pt" />
             </shape>
         </clip>
     </item>
