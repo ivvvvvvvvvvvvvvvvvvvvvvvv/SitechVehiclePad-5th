@@ -9,8 +9,8 @@
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/item_locl_music_index"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="34pt"
+        android:layout_height="34pt"
         android:layout_marginLeft="81pt"
         android:layout_centerVertical="true"
         android:gravity="center"
