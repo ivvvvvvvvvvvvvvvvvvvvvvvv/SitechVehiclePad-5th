@@ -5,6 +5,7 @@
     android:layout_width="590pt"
     android:layout_height="150pt"
     android:background="@drawable/weather_info_day_bg"
+    android:layout_weight="2"
     android:gravity="center_horizontal"
     android:paddingLeft="20pt"
     android:paddingRight="20pt">
