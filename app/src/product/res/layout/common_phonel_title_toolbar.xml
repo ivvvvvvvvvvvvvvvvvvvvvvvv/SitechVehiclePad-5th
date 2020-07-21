@@ -16,6 +16,7 @@
     <!--标题-->
     <com.sitechdev.vehicle.pad.view.TabLayout
         android:id="@+id/tv_sub_title_tab"
+        style="@style/RadioButtonStyle"
         android:clipChildren="false"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/toolbar_tablayout_height"
@@ -26,22 +27,12 @@
         app:tabIndicatorColor="@color/white"
         app:tabIndicatorHeight="3px"
         app:tabMode="fixed"
-        app:tabPaddingStart="@dimen/toolbar_tablayout_tab_padding_start"
-        app:tabPaddingEnd="@dimen/toolbar_tablayout_tab_padding_end"
+        app:tabMinWidth="150pt"
+        app:tabPaddingStart="50pt"
+        app:tabPaddingEnd="50pt"
         app:tabSelectedTextColor="@color/white"
         app:tabTextAppearance="@style/TabLayoutTextStyle"
         app:tabTextColor="@color/colo_80ffffff">
-
-        <android.support.design.widget.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="25px"
-            android:text="通讯录" />
-
-        <android.support.design.widget.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="最近通话" />
 
     </com.sitechdev.vehicle.pad.view.TabLayout>
 
@@ -53,6 +44,6 @@
         android:background="#FF6E6E80"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_phone_sub_back" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_sub_title_tab" />
 
 </android.support.constraint.ConstraintLayout>

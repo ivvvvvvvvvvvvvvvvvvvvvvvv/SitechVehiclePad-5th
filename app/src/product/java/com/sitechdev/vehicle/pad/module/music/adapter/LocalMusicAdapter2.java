@@ -81,10 +81,12 @@ public class LocalMusicAdapter2 extends
             } else {
                 holder.getIndex().setImageResource(R.drawable.list_icon_playing1);
             }
+            holder.itemView.setBackgroundResource(R.drawable.bg_playlist_item);
         } else {
             holder.getIndex().setImageResource(R.drawable.list_icon_play);
             holder.getName().setTextColor(noramlColor);
             holder.getArt().setTextColor(noramlColor);
+            holder.itemView.setBackground(null);
         }
         holder.getName().setText(musicInfo.musicName);
         holder.getArt().setText(musicInfo.artist);

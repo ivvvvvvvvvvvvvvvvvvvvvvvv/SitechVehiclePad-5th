@@ -11,6 +11,7 @@
         android:id="@+id/item_locl_music_index"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="81pt"
         android:layout_centerVertical="true"
         android:gravity="center"
         android:scaleType="fitXY"
@@ -37,6 +38,7 @@
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:layout_marginStart="20pt"
+        android:layout_marginEnd="81pt"
         android:alpha="0.5"
         android:textSize="30pt" />
 </RelativeLayout>
