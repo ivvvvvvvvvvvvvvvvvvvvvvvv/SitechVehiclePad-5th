@@ -35,6 +35,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -783,67 +784,22 @@ public class VoiceSourceManager {
     }
 
     private <T> void addListener(T t, List<WeakReference<T>> list) {
-        int len = list.size();
-        boolean[] removes = null;
-        boolean canAdd = true;
-        for (int i = 0; i < len; i++) {
-            WeakReference<T> ref =
-                    list.get(i);
-            if (null == ref || null == ref.get()) {
-                if (null == removes) {
-                    removes = new boolean[len];
-                }
-                removes[i] = true;
-                continue;
-            }
-            T curr = ref.get();
-            if (curr == t) {
-                canAdd = false;
-                break;
+        Iterator<WeakReference<T>> iterator = list.iterator();
+        while (iterator.hasNext()) {
+            WeakReference<T> tWeakReference = iterator.next();
+            if (null == tWeakReference || null == tWeakReference.get()) {
+                iterator.remove();
             }
         }
-        if (null != removes) {
-            for (int i = 0; i < len; i++) {
-                if (removes[i]) {
-                    list.remove(i);
-                }
-            }
-        }
-        if (canAdd) {
-            list.add(new WeakReference<>(t));
-        }
+        list.add(new WeakReference<>(t));
     }
 
     private <T> void removeListener(T t, List<WeakReference<T>> list) {
-        int len = list.size();
-        if (len == 0) {
-            return;
-        }
-        boolean[] removes = null;
-        for (int i = 0; i < len; i++) {
-            WeakReference<T> ref =
-                    list.get(i);
-            if (null == ref || null == ref.get()) {
-                if (null == removes) {
-                    removes = new boolean[len];
-                }
-                removes[i] = true;
-                continue;
-            }
-            T curr = ref.get();
-            if (curr == t) {
-                if (null == removes) {
-                    removes = new boolean[len];
-                }
-                removes[i] = true;
-                break;
-            }
-        }
-        if (null != removes) {
-            for (int i = 0; i < len; i++) {
-                if (removes[i]) {
-                    list.remove(i);
-                }
+        Iterator<WeakReference<T>> iterator = list.iterator();
+        while (iterator.hasNext()) {
+            WeakReference<T> tWeakReference = iterator.next();
+            if (null == tWeakReference || null == tWeakReference.get() || tWeakReference.get() == t) {
+                iterator.remove();
             }
         }
     }
