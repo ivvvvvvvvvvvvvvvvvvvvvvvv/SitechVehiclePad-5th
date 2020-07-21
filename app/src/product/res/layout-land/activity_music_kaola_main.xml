@@ -32,7 +32,7 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/tip_img"
             android:paddingTop="@dimen/kaola_playpage_list_paddingtop"
-            android:paddingBottom="@dimen/kaola_playpage_list_paddingbottom">
+            android:paddingBottom="@dimen/kaola_playpage_list_paddingtop">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/music_kaola_list"

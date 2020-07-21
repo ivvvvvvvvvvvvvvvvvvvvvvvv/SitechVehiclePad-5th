@@ -5,12 +5,11 @@
     <dimen name="kaola_category_topfame_title_size">36pt</dimen>
     <dimen name="kaola_indicatior_content_title_size">32pt</dimen>
     <dimen name="category_item_size">251pt</dimen>
-    <dimen name="category_item_title_margin_top">30pt</dimen>
+    <dimen name="category_item_title_margin_top">15pt</dimen>
     <dimen name="category_item_title_text_size">32pt</dimen>
     <dimen name="category_item_sub_title_text_size">28pt</dimen>
     <integer name="category_left_space">40</integer>
     <integer name="category_top_space">15</integer>
-    <integer name="category_bottom_space">15</integer>
     <dimen name="dp_144">144dp</dimen>
     <dimen name="dp_48">48dp</dimen>
     <dimen name="dp_151">151dp</dimen>
@@ -108,7 +107,7 @@
     <dimen name="kaola_title_indicator_w">6pt</dimen>
     <dimen name="kaola_title_indicator_h">41pt</dimen>
     <dimen name="kaola_category_topfame_margin_left">60pt</dimen>
-    <dimen name="kaola_category_topfame_margin_top">40pt</dimen>
+    <dimen name="kaola_category_topfame_margin_top">45pt</dimen>
     <dimen name="kaola_category_topfame_margin_right">60pt</dimen>
     <dimen name="kaola_category_topfame_margin_bottom">40pt</dimen>
     <dimen name="kaola_category_listindecator_frame_padding_left">20pt</dimen>
@@ -138,7 +137,8 @@
     <dimen name="kaola_indicator_corner">50pt</dimen>
     <dimen name="kaola_ai_indicator_minw">1100pt</dimen>
     <dimen name="kaola_ai_indicator_paddingleft">40pt</dimen>
-    <dimen name="kaola_ai_indicator_space_top">47pt</dimen>
+    <dimen name="kaola_ai_indicator_space_top">45pt</dimen>
+    <dimen name="kaola_ai_indicator_space_bottom">40pt</dimen>
     <dimen name="kaola_ai_recommend_img_w">362pt</dimen>
     <dimen name="kaola_ai_recommend_img_w_protrait">301pt</dimen>
     <dimen name="kaola_ai_recommend_tag_textsize">24pt</dimen>
@@ -157,7 +157,6 @@
     <integer name="kaola_ai_list_land_item_space_left">30</integer>
     <integer name="kaola_ai_list_land_space_left">38</integer>
     <integer name="kaola_ai_list_land_item_space_top">8</integer>
-    <dimen name="kaola_ai_indicator_space_bottom">35pt</dimen>
     <dimen name="kaola_search_edit_textsize">32pt</dimen>
     <dimen name="kaola_playpage_bottom_space">196pt</dimen>
     <dimen name="common_title_h">138pt</dimen>
