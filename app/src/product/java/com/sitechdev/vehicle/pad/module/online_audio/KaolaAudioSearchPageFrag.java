@@ -84,6 +84,10 @@ public class KaolaAudioSearchPageFrag extends BaseFragment {
     public void onEvent(KaolaEvent event) {
         if (event.getEvent().equals(KaolaEvent.EB_KAOLA_RESTORE_SEARCH_STATUS)) {
             reStoreState((Bundle) event.getObj());
+        } else if (event.getEvent().equals(KaolaEvent.EB_KAOLA_REFRESH_SEARCH_VIEW)) {
+            if (adapter != null) {
+                adapter.notifyDataSetChanged();
+            }
         }
     }
 

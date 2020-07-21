@@ -31,6 +31,7 @@
         android:layout_marginRight="@dimen/kaola_playerholder_margin_right_land" />
 
     <Space
+        android:id="@+id/bottom_space"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/kaola_margin_bottom_land" />
 </LinearLayout>

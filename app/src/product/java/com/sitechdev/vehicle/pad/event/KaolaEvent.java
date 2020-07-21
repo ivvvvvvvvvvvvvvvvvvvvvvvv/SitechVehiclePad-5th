@@ -31,4 +31,5 @@ public class KaolaEvent extends BaseEvent<String> {
 
 
     public static final String EB_KAOLA_RESTORE_SEARCH_STATUS = "EB_Kaola_restore_Search_status";
+    public static final String EB_KAOLA_REFRESH_SEARCH_VIEW = "EB_KAOLA_REFRESH_SEARCH_VIEW";
 }

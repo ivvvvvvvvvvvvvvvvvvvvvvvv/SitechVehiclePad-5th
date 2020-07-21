@@ -5,12 +5,14 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -259,14 +261,25 @@ public class KaolaAudioActivity extends BaseActivity implements
             TabLayout.Tab tab = tabLayout.getTabAt(i);
             tab.setCustomView(getTabView(i));
         }
+
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                View bottom = findViewById(R.id.bottom_space);
                 for (int i = 0; i < tabLayout.getTabCount(); i++) {
                     if (tabLayout.getTabAt(i) == tab && i == 3) {
                         findViewById(R.id.player_holder).setVisibility(View.GONE);
+                        ViewGroup.LayoutParams layoutParams = bottom.getLayoutParams();
+                        layoutParams.height = (int) getResources().getDimension(R.dimen.kaola_margin_bottom_land_space_after_hide_playholder);
+                        if (isLandscape()) {
+                            bottom.setLayoutParams(layoutParams);
+                            EventBusUtils.postEvent(new KaolaEvent(KaolaEvent.EB_KAOLA_REFRESH_SEARCH_VIEW));
+                        }
                     } else {
                         findViewById(R.id.player_holder).setVisibility(View.VISIBLE);
+                        ViewGroup.LayoutParams layoutParams = bottom.getLayoutParams();
+                        layoutParams.height = (int) getResources().getDimension(isLandscape() ? R.dimen.kaola_margin_bottom_land : R.dimen.kaola_margin_bottom_land);
+                        bottom.setLayoutParams(layoutParams);
                     }
                 }
                 View text = tab.getCustomView().findViewById(android.R.id.text1);
