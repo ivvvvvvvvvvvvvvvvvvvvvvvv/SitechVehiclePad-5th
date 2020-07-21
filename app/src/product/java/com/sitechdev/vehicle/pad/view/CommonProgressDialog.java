@@ -55,7 +55,8 @@ public class CommonProgressDialog {
             if (progressDialogSoftReference != null && progressDialogSoftReference.get() != null) {
                 mProgressDialog = progressDialogSoftReference.get();
             }
-        } else {
+        }
+        if (mProgressDialog == null) {
             //未包含在Map中
             mProgressDialog = new SitechProgressDialog(context);
             mProgressDialog.setOnCancelDialogListener(new BaseBribery() {
