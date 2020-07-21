@@ -25,7 +25,6 @@
             android:id="@+id/phone_content_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#0f0"
             android:layout_marginTop="10pt"
             android:orientation="vertical"
             android:paddingLeft="@dimen/phone_content_padding_left_right"
