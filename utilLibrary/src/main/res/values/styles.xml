@@ -13,7 +13,7 @@
 
     <!--返回键样式-->
     <style name="SubBackStyle">
-        <item name="android:layout_marginLeft">@dimen/margin_back_left</item>
+        <item name="android:layout_marginLeft">30pt</item>
         <item name="android:clickable">true</item>
         <item name="android:layout_width">80pt</item>
         <item name="android:layout_height">80pt</item>

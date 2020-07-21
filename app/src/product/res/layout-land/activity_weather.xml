@@ -8,15 +8,15 @@
     android:orientation="vertical"
     android:paddingTop="40pt">
 
-        <include layout="@layout/common_title_toolbar" />
+    <include layout="@layout/common_title_toolbar" />
 
     <RelativeLayout
         android:id="@+id/id_weather_all_data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="60pt"
-        android:layout_marginRight="60pt"
-        android:layout_marginTop="30pt">
+        android:layout_marginTop="30pt"
+        android:layout_marginRight="60pt">
 
         <RelativeLayout
             android:id="@+id/id_rl_update_time"
