@@ -112,7 +112,7 @@ public class TeddyWindowManager {
             } else {
                 params.gravity = Gravity.TOP | Gravity.LEFT;
                 params.x = 60;
-                params.y = displayHeight - floatView.mHeight - 120;
+                params.y = displayHeight - floatView.mHeight - 100;
             }
             SitechDevLog.i(TAG, "-------------params.width()>" + params.width);
             SitechDevLog.i(TAG, "-------------params.height()>" + params.height);
