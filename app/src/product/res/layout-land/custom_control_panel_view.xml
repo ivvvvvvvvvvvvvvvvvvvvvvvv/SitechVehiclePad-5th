@@ -27,7 +27,8 @@
             android:layout_width="15pt"
             android:layout_height="240pt"
             android:gravity="center_vertical"
-            android:src="@drawable/main_control_top_control" />
+            android:background="@color/transparent"
+            android:src="@drawable/selector_control_panel_switch" />
     </LinearLayout>
 
     <RelativeLayout

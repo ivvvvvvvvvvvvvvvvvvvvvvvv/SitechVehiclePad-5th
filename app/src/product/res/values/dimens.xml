@@ -230,4 +230,7 @@
     <!--    横屏时控制面板的宽度-->
     <integer name="control_panel_view_h_width">470</integer>
     <dimen name="control_panel_view_h_width">470pt</dimen>
+    <!--    竖屏时控制面板的高度-->
+    <integer name="control_panel_view_v_height">520</integer>
+    <dimen name="control_panel_view_v_height">520pt</dimen>
 </resources>

@@ -7,9 +7,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/id_main_popup_view_content"
     android:layout_width="match_parent"
-    android:layout_height="500pt"
+    android:layout_height="@dimen/control_panel_view_v_height"
     android:layout_margin="13pt"
-    android:background="@drawable/bg_control_panel_v"
+    android:background="@drawable/bg_control_panel"
     android:paddingLeft="40pt"
     android:paddingTop="40pt"
     android:paddingRight="40pt">
@@ -27,7 +27,7 @@
             android:layout_width="240pt"
             android:layout_height="15pt"
             android:gravity="center_vertical"
-            android:src="@drawable/main_control_top_control" />
+            android:src="@drawable/selector_control_panel_switch" />
     </LinearLayout>
 
 
@@ -85,9 +85,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="48pt"
-        android:layout_marginRight="40pt"
-        android:layout_toRightOf="@id/id_first_content">
+        android:layout_marginLeft="20pt"
+        android:layout_toRightOf="@id/id_first_content"
+        android:background="@drawable/control_panel_switch_bg"
+        android:padding="45pt">
 
         <FrameLayout
             android:id="@+id/id_screen_light_change_content"
@@ -130,7 +131,7 @@
             android:layout_width="match_parent"
             android:layout_height="134pt"
             android:layout_below="@id/id_screen_light_change_content"
-            android:layout_marginTop="54pt">
+            android:layout_marginTop="28pt">
 
             <SeekBar
                 android:id="@+id/id_control_volume_seek_bar"

@@ -128,15 +128,16 @@ public class MainControlPanelWindowManager {
             displayHeight = BaseWindow.getInstance().getDisplayHeight();
             displayWidth = BaseWindow.getInstance().getDisplayWidth();
             params.gravity = Gravity.TOP | Gravity.LEFT;
-            minWindowLength = AdaptScreenUtils.pt2Px(30);
             if (ScreenUtils.isLandscape()) {
                 //横屏
                 params.width = AdaptScreenUtils.pt2Px(AppApplication.getApp().getResources().getInteger(R.integer.control_panel_view_h_width));
+                minWindowLength = AdaptScreenUtils.pt2Px(30);
                 startWindowX = minWindowLength - params.width;
                 startWindowY = 0;
             } else {
                 //竖屏
-                params.height = AdaptScreenUtils.pt2Px(500);
+                params.height = AdaptScreenUtils.pt2Px(AppApplication.getApp().getResources().getInteger(R.integer.control_panel_view_v_height));
+                minWindowLength = AdaptScreenUtils.pt2Px(50);
                 /**
                  * 依靠左边栏，右滑出现。
                  params.gravity = Gravity.TOP | Gravity.LEFT;
