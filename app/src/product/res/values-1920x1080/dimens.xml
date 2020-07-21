@@ -203,4 +203,11 @@
     <!--    横屏时控制面板的宽度-->
     <integer name="control_panel_view_h_width">470</integer>
     <dimen name="control_panel_view_h_width">470pt</dimen>
+
+    <integer name="kaola_ai_list_item_space_left_span3_1">45</integer>
+    <integer name="kaola_ai_list_item_space_left_span3_2">45</integer>
+    <integer name="kaola_ai_list_item_space_left_span2_1">37</integer>
+    <integer name="kaola_ai_list_item_space_left_span2_2">40</integer>
+    <integer name="kaola_ai_list_item_space_left_span2_3">45</integer>
+    <integer name="kaola_ai_list_item_space_top">20</integer>
 </resources>

@@ -161,6 +161,12 @@
     <integer name="kaola_ai_list_land_item_space_left">30</integer>
     <integer name="kaola_ai_list_land_space_left">38</integer>
     <integer name="kaola_ai_list_land_item_space_top">8</integer>
+    <integer name="kaola_ai_list_item_space_left_span3_1">34</integer>
+    <integer name="kaola_ai_list_item_space_left_span3_2">16</integer>
+    <integer name="kaola_ai_list_item_space_left_span2_3">10</integer>
+    <integer name="kaola_ai_list_item_space_left_span2_2">20</integer>
+    <integer name="kaola_ai_list_item_space_left_span2_1">31</integer>
+    <integer name="kaola_ai_list_item_space_top">15</integer>
     <dimen name="kaola_search_edit_textsize">32pt</dimen>
     <dimen name="kaola_playpage_bottom_space">196pt</dimen>
     <dimen name="common_title_h">138pt</dimen>

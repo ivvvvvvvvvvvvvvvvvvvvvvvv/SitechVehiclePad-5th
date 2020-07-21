@@ -63,26 +63,71 @@ public class KaolaAiListSpaceItemDecoration extends RecyclerView.ItemDecoration 
                 }
             } else {
                 int position = parent.getChildLayoutPosition(view);
-//                Log.e("zyf","mLists.get(position).column = "+mLists.get(position).tag);
+                int top = view.getContext().getResources().getInteger(R.integer.kaola_ai_list_item_space_top);
+                outRect.bottom = top;
+                outRect.top = top;
                 int lookupsize = ((GridLayoutManager) parent.getLayoutManager()).getSpanSizeLookup().getSpanSize(position);
                 if (lookupsize == 2) {
-                    if (position % 3 == 2) {
-                        outRect.left = 37;
+                    if (position % 3 == 0) {
+                        if (mLists.get(position).column != null) {
+                            Log.e("zyf", "3_3   " + mLists.get(position).column.getTitle());
+                        }
+                        int left = view.getContext().getResources().getInteger(R.integer.kaola_ai_list_item_space_left_span2_1);
+                        outRect.left = left;
                     } else if (position % 3 == 1) {
-                        outRect.left = 40;
-                    } else if (position % 3 == 0) {
-                        outRect.left = 45;
+                        if (mLists.get(position).column != null) {
+                            Log.e("zyf", "3_2   " + mLists.get(position).column.getTitle());
+                        }
+                        int left = view.getContext().getResources().getInteger(R.integer.kaola_ai_list_item_space_left_span2_2);
+                        outRect.left = left;
+                    } else if (position % 3 == 2) {
+                        if (mLists.get(position).column != null) {
+                            Log.e("zyf", "3_1   " + mLists.get(position).column.getTitle());
+                        }
+                        int left = view.getContext().getResources().getInteger(R.integer.kaola_ai_list_item_space_left_span2_3);
+                        outRect.left = left;
                     }
-                }
-                if (lookupsize == 3) {
-                    if (position % 2 == 1) {
-                        outRect.left = 45;
+                } else if (lookupsize == 3) {
+                    int left = view.getContext().getResources().getInteger(R.integer.kaola_ai_list_item_space_left_span3_1);
+                    int left2 = view.getContext().getResources().getInteger(R.integer.kaola_ai_list_item_space_left_span3_2);
+//                    if (position == 0 || mLists.get(position - 1).column == null) {
+//                        outRect.left = left;
+//                    } else {
+//                        outRect.left = left2;
+//                    }
+
+                    //逆序遍历到 group title index
+                    int newPos = -1;
+                    for (int i = position; i > 0; i--) {
+                        if (mLists.get(i).column == null) {
+                            newPos = i;
+                            break;
+                        }
+
+                    }
+                    List<KaolaDataWarpper> newList = mLists.subList(newPos+1, mLists.size());
+                    //获得一个新的前面不包含 group title 数据的集合
+                    //更新posotion
+                    int newDataPos = -1;
+                    for (int i = 0; i < newList.size(); i++) {
+                        if (mLists.get(position).column.getCode().equals(newList.get(i).column.getCode())) {
+                            newDataPos = i;
+                            break;
+                        }
+                    }
+                    if (newDataPos % 2 == 1) {
+                        if (newList.get(newDataPos).column != null) {
+                            Log.e("zyf", "2_1   " + newList.get(newDataPos).column.getTitle());
+                        }
+                        outRect.left = left2;
                     } else {
-                        outRect.left = 45;
+                        if (newList.get(newDataPos).column != null) {
+                            Log.e("zyf", "2_2   " + newList.get(newDataPos).column.getTitle());
+                        }
+                        outRect.left = left;
                     }
                 }
-                outRect.bottom = 20;
-                outRect.top = 20;
+
             }
         }
 

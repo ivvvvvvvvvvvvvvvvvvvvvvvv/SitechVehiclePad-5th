@@ -9,6 +9,7 @@
     <com.gcssloop.widget.RCImageView
         app:round_corner="6pt"
         android:id="@+id/image"
+        android:scaleType="centerCrop"
         android:layout_width="@dimen/category_item_size"
         android:layout_height="@dimen/category_item_size"
         tools:background="@color/colorPrimary_red_tip" />

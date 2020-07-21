@@ -98,7 +98,7 @@ public class KaolaAudioBroadcastPageFrag extends BaseFragment {
                 @Override
                 public void onSuccess(List<Category> categories) {
                     mCategories.clear();
-                    List<Indexable> indexs = KaolaBroadcastUtil.getIndexableData(categories, isLandscape() ? 4 : 3);
+                    List<Indexable> indexs = KaolaBroadcastUtil.getIndexableData(categories, isLandscape() ? 4 : 2);
                     mCategories = KaolaBroadcastUtil.getList(categories);
                     indecator.setupWithData(indexs, new ListIndicatorRecycview.OnItemClickListener() {
                         @Override

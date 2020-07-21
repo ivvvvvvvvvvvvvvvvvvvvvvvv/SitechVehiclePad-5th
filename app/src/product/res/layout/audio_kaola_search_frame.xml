@@ -5,6 +5,7 @@
     android:id="@+id/fth"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="@dimen/kaola_playpage_bottom_space"
     android:background="@color/transparent"
     android:orientation="vertical">
 
@@ -134,7 +135,7 @@
 
     <com.sitechdev.vehicle.pad.view.RecycviewInViewPager
         android:id="@+id/recyclerView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
 </LinearLayout>

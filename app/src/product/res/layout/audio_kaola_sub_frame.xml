@@ -9,6 +9,7 @@
     android:orientation="vertical">
 
     <FrameLayout
+        android:id="@+id/indicator_frame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -33,7 +34,7 @@
 
     <com.sitechdev.vehicle.pad.view.RecycviewInViewPager
         android:id="@+id/recyclerView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
 </LinearLayout>
