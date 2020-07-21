@@ -348,6 +348,10 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
                 public void onStopTouchView(VerticalSeekBarForSkin mSeekbar) {
                     SitechDevLog.i(TAG, "volumeVerticalSeekBar onStopTouchView==========================================" + mSeekbar.getProgress());
                     setVolumeValue(mSeekbar.getProgress());
+                    //计时开始通知
+                    if (manager != null) {
+                        manager.sendMessageNotice();
+                    }
                 }
 
                 @Override
@@ -367,6 +371,10 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
                 public void onStopTouchView(VerticalSeekBarForSkin mSeekbar) {
                     SitechDevLog.i(TAG, "lightVerticalSeekBar onStopTouchView==========================================" + mSeekbar.getProgress());
                     setLightValue(mSeekbar.getProgress());
+                    //计时开始通知
+                    if (manager != null) {
+                        manager.sendMessageNotice();
+                    }
                 }
 
                 @Override
@@ -401,6 +409,10 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar) {
                     SitechDevLog.i(TAG, "volumeSeekBar onStopTrackingTouch==========================================" + seekBar.getProgress());
+                    //计时开始通知
+                    if (manager != null) {
+                        manager.sendMessageNotice();
+                    }
 
                 }
             });
@@ -428,6 +440,10 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar) {
                     SitechDevLog.i(TAG, "lightSeekBar onStopTrackingTouch==========================================" + seekBar.getProgress());
+                    //计时开始通知
+                    if (manager != null) {
+                        manager.sendMessageNotice();
+                    }
 
                 }
             });
@@ -555,6 +571,10 @@ public class MainControlPanelView extends RelativeLayout implements View.OnClick
 //                break;
             default:
                 break;
+        }
+        //计时开始通知
+        if (manager != null) {
+            manager.sendMessageNotice();
         }
     }
 

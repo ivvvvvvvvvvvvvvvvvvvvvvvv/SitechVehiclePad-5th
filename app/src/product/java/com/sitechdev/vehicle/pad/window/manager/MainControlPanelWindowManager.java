@@ -2,6 +2,8 @@ package com.sitechdev.vehicle.pad.window.manager;
 
 import android.graphics.PixelFormat;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
 import android.view.Gravity;
 import android.view.WindowManager;
 
@@ -45,6 +47,47 @@ public class MainControlPanelWindowManager {
     private static int minWindowLength = 0, maxWindowLength = 0, minHeight = 0, startWindowY = 0, startWindowX = 0;
 
     private boolean isHiddenView = false;
+
+    /**
+     * show view事件
+     */
+    private static final int PANEL_VIEW_SHOW = 10;
+    /**
+     * hide view事件
+     */
+    private static final int PANEL_VIEW_HIDE = 20;
+    /**
+     * show view 的超时时间。单位毫秒
+     */
+    private static final int MAX_TIME_OUT = 5000;
+
+
+    private Handler mControlPanelHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case PANEL_VIEW_SHOW:
+                    //移除所有的hide事件
+                    removeMessages(PANEL_VIEW_HIDE);
+                    //重新发出所有的hide事件,{@link MAX_TIME_OUT}秒后执行
+                    SitechDevLog.i(TAG, "sendEmptyMessageDelayed====>PANEL_VIEW_HIDE");
+                    mControlPanelHandler.sendEmptyMessageDelayed(PANEL_VIEW_HIDE, MAX_TIME_OUT);
+                    break;
+                case PANEL_VIEW_HIDE:
+                    //移除所有的show事件
+                    removeMessages(PANEL_VIEW_SHOW);
+                    ThreadUtils.runOnUIThread(() -> {
+                        mustHiddenView();
+                    });
+                    //移除发出所有的hide事件
+                    removeMessages(PANEL_VIEW_HIDE);
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
 
     /**
      * @return
@@ -342,6 +385,9 @@ public class MainControlPanelWindowManager {
         mainControlPanelView.resetViewAlpha(255);
         mainControlPanelView.setFullScreen(true);
         updateWindow();
+
+        //计时开始通知
+        sendMessageNotice();
     }
 
     /**
@@ -448,6 +494,14 @@ public class MainControlPanelWindowManager {
                 mustHiddenView();
             }
         }
+    }
+
+    /**
+     * 发送事件通知，viewshow，执行超时后hide
+     */
+    public void sendMessageNotice() {
+        SitechDevLog.i(TAG, "sendMessageNotice====>PANEL_VIEW_SHOW");
+        mControlPanelHandler.sendEmptyMessage(PANEL_VIEW_SHOW);
     }
 
 }
