@@ -132,7 +132,7 @@ public class MusicKaolaBroadcastActivity extends BaseActivity implements
         showProgressDialog();
 
         initData(getIntent());
-
+        GlideApp.with(this).load(R.drawable.kaola_hint).into((ImageView) findViewById(R.id.right_icon));
     }
 
     private void initData(Intent intent) {

@@ -139,6 +139,8 @@ public class MusicKaolaActivity extends BaseActivity implements
         initData(getIntent());
 
         PlayerListManager.getInstance().registerPlayerListChangedListener(mPlayerListChangedListener);
+
+        GlideApp.with(this).load(R.drawable.kaola_hint).into((ImageView) findViewById(R.id.right_icon));
     }
 
     private void initData(Intent intent) {
