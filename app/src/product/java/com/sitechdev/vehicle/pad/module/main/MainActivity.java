@@ -3,7 +3,6 @@ package com.sitechdev.vehicle.pad.module.main;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
@@ -74,7 +73,6 @@ import com.sitechdev.vehicle.pad.util.AppVariants;
 import com.sitechdev.vehicle.pad.util.CommonUtil;
 import com.sitechdev.vehicle.pad.util.FontUtil;
 import com.sitechdev.vehicle.pad.view.MusicImageView;
-import com.sitechdev.vehicle.pad.view.ReflectTextClock;
 import com.sitechdev.vehicle.pad.view.ScrollTextView;
 import com.sitechdev.vehicle.pad.vui.VoiceConstants;
 import com.sitechdev.vehicle.pad.window.manager.AppSignalWindowManager;
@@ -244,8 +242,8 @@ public class MainActivity extends BaseActivity
         btn_car_fun.setTypeface(FontUtil.getInstance().getMainFont_Min_i());
         btn_life_all.setTypeface(FontUtil.getInstance().getMainFont_Min_i());
 
-        mPowerPercentView.setText(setBottomAlignment("70", "%"));
-        mKmView.setText(setBottomAlignment("238", "KM"));
+        mPowerPercentView.setText(setBottomAlignment("100", "%"));
+        mKmView.setText(setBottomAlignment("256", "KM"));
         mRechargeCountView.setText(setBottomAlignment("48", "次"));
         registerDeviceReceiver();
 
