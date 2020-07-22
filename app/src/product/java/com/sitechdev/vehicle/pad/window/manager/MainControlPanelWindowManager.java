@@ -166,7 +166,7 @@ public class MainControlPanelWindowManager {
             params.x = startWindowX;
             params.y = startWindowY;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                params.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+                params.type = WindowManager.LayoutParams.FIRST_SYSTEM_WINDOW + 20;
             } else {
                 params.type = WindowManager.LayoutParams.TYPE_PHONE;
             }
