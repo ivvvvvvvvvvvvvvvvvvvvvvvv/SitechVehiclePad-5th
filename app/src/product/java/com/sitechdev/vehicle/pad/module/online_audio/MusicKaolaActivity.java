@@ -141,6 +141,18 @@ public class MusicKaolaActivity extends BaseActivity implements
         PlayerListManager.getInstance().registerPlayerListChangedListener(mPlayerListChangedListener);
 
         GlideApp.with(this).load(R.drawable.kaola_hint).into((ImageView) findViewById(R.id.right_icon));
+
+        initPlayStick();
+    }
+
+    private void initPlayStick(){
+        View playstick = findViewById(R.id.ui_play_bar);
+        FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) playstick.getLayoutParams();
+        if (isLandscape()) {
+            layoutParams.setMarginEnd((int) getResources().getDimension(R.dimen.kaola_playpage_playinfo_play_stick_marginend));
+        } else {
+            layoutParams.setMarginEnd((int) getResources().getDimension(R.dimen.kaola_playpage_playinfo_play_stick_marginend));
+        }
     }
 
     private void initData(Intent intent) {

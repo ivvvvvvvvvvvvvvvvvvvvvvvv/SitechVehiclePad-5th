@@ -26,7 +26,7 @@
         layout="@layout/kaola_player_holder_bottom_portrait"
         android:layout_width="match_parent"
         android:layout_height="140pt"
-        android:layout_marginTop="10pt"
+        android:layout_marginTop="30pt"
         android:layout_marginLeft="45pt"
         android:layout_marginRight="45pt" />
 

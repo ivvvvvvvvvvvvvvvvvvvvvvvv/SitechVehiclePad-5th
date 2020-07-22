@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_kaola_play"
-    android:paddingBottom="300pt"
+    android:paddingBottom="@dimen/kaola_playpage_bottom_space"
     tools:ignore="PxUsage">
 
     <include
@@ -50,7 +50,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginStart="60pt"
         android:layout_marginTop="60pt"
-        android:layout_marginBottom="300pt"
+        android:layout_marginBottom="@dimen/kaola_playpage_bottom_space"
         android:layout_marginEnd="60pt"
         android:background="@drawable/bg_playlist">
 
@@ -60,7 +60,7 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/tip_img"
             android:paddingTop="30pt"
-            android:paddingBottom="48pt">
+            android:paddingBottom="25pt">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/music_kaola_list"

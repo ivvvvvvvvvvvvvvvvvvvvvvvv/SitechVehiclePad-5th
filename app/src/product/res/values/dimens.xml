@@ -188,7 +188,8 @@
     <dimen name="kaola_playpage_playinfo_cover_tag_w">120pt</dimen>
     <dimen name="kaola_playpage_playinfo_cover_tag_h">46pt</dimen>
     <dimen name="kaola_playpage_playinfo_cover_tag_marginleft">80pt</dimen>
-    <dimen name="kaola_playpage_playinfo_play_stick_marginend">100pt</dimen>
+    <dimen name="kaola_playpage_playinfo_play_stick_marginend_land">100pt</dimen>
+    <dimen name="kaola_playpage_playinfo_play_stick_marginend">300pt</dimen>
     <dimen name="kaola_playpage_title_marginleft">100pt</dimen>
     <dimen name="kaola_playpage_title_margintop">10pt</dimen>
     <dimen name="kaola_playpage_title_marginright">100pt</dimen>
@@ -218,7 +219,7 @@
     <integer name="kaola_all_category_dialog_h_land">485</integer>
 
     <integer name="kaola_all_category_dialog_w">697</integer>
-    <integer name="kaola_all_category_dialog_h">824</integer>
+    <integer name="kaola_all_category_dialog_h">770</integer>
     <integer name="kaola_all_category_dialog_item_space">29</integer>
 
     <integer name="video_list_land_left_space">60</integer>
