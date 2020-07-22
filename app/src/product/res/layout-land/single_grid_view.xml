@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/menu_icon"
-        android:layout_width="140pt"
-        android:layout_height="140pt"
+        android:layout_width="180pt"
+        android:layout_height="180pt"
         android:layout_centerHorizontal="true"
         android:padding="5pt"/>
 

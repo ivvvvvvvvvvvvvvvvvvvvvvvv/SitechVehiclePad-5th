@@ -7,14 +7,14 @@
     android:clipChildren="false"
     android:clipToPadding="false"
     android:paddingLeft="33pt"
-    android:paddingTop="93pt"
+    android:paddingTop="113pt"
     android:paddingRight="32pt">
 
     <!-- 一、头像、天气信息界面 -->
     <LinearLayout
         android:id="@+id/id_main_first_content"
         android:layout_width="match_parent"
-        android:layout_height="470pt"
+        android:layout_height="450pt"
         android:background="@drawable/bg_main_info"
         android:orientation="horizontal"
         android:paddingLeft="47pt"
@@ -231,7 +231,7 @@
     <LinearLayout
         android:id="@+id/id_main_right_top_left_content"
         android:layout_width="565pt"
-        android:layout_height="121pt"
+        android:layout_height="101pt"
         android:layout_below="@id/id_main_first_content"
         android:layout_marginTop="24pt"
         android:background="@drawable/shape_main_map_item_bg"
@@ -307,7 +307,7 @@
     <LinearLayout
         android:id="@+id/id_main_second_right_content"
         android:layout_width="442pt"
-        android:layout_height="121pt"
+        android:layout_height="101pt"
         android:layout_below="@id/id_main_first_content"
         android:layout_marginLeft="16pt"
         android:layout_marginTop="24pt"
@@ -343,7 +343,7 @@
         <LinearLayout
             android:id="@+id/ll_music"
             android:layout_width="369pt"
-            android:layout_height="470pt"
+            android:layout_height="450pt"
             android:layout_alignParentStart="true"
             android:background="@drawable/main_info_right_middle_bg"
             android:gravity="center"
@@ -417,7 +417,7 @@
         <LinearLayout
             android:id="@+id/ll_news"
             android:layout_width="310pt"
-            android:layout_height="228pt"
+            android:layout_height="218pt"
             android:layout_marginLeft="16pt"
             android:layout_toRightOf="@id/ll_music"
             android:background="@drawable/main_info_right_middle_bg"
@@ -441,7 +441,7 @@
         <LinearLayout
             android:id="@+id/ll_book"
             android:layout_width="310pt"
-            android:layout_height="228pt"
+            android:layout_height="218pt"
             android:layout_marginLeft="11pt"
             android:layout_toRightOf="@id/ll_news"
             android:background="@drawable/main_info_right_middle_bg"
@@ -465,7 +465,7 @@
         <LinearLayout
             android:id="@+id/ll_car"
             android:layout_width="310pt"
-            android:layout_height="228pt"
+            android:layout_height="218pt"
             android:layout_below="@id/ll_news"
             android:layout_marginLeft="16pt"
             android:layout_marginTop="14pt"
@@ -491,7 +491,7 @@
         <LinearLayout
             android:id="@+id/ll_life"
             android:layout_width="310pt"
-            android:layout_height="228pt"
+            android:layout_height="218pt"
             android:layout_below="@id/ll_book"
             android:layout_marginLeft="11pt"
             android:layout_marginTop="14pt"
