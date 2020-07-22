@@ -388,8 +388,11 @@ public class KuwoManager extends BaseMusicManager {
                     if (!isServerConnected) {
                         return;
                     }
-                    SitechDevLog.e("music", "---------registerPlayerStatusListener---------music-" + music.name);
-                    SitechDevLog.e("music", "---------registerPlayerStatusListener---------playerStatus-" + playerStatus);
+                    if (music == null) {
+                        return;
+                    }
+//                    SitechDevLog.e("music", "---------registerPlayerStatusListener---------music-" + music.name);
+//                    SitechDevLog.e("music", "---------registerPlayerStatusListener---------playerStatus-" + playerStatus);
 
                     switch (playerStatus) {
                         case INIT:
